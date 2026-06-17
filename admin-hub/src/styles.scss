@@ -1,0 +1,21 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --color-bg:          #f8fafc;
+  --color-surface:     #ffffff;
+  --color-primary:     #3b82f6;
+  --color-text:        #0f172a;
+  --color-text-muted:  #64748b;
+  --color-border:      #e2e8f0;
+  --sidebar-width:     240px;
+  --header-height:     64px;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 14px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}

@@ -1,0 +1,29 @@
+<div [class]="hostClasses">
+
+  <!-- ── Stat / metric layout (when [data] is provided) ── -->
+  <ng-container *ngIf="data; else slotLayout">
+    <div class="pui-card__header">
+      <span *ngIf="data.icon" class="pui-card__icon" aria-hidden="true">{{ data.icon }}</span>
+      <span class="pui-card__title">{{ data.title }}</span>
+    </div>
+
+    <div class="pui-card__value">{{ data.value }}</div>
+
+    <div class="pui-card__footer">
+      <span *ngIf="data.subtitle" class="pui-card__subtitle">{{ data.subtitle }}</span>
+      <span *ngIf="data.trend" [class]="'pui-card__trend ' + trendClass">
+        {{ trendIcon }} {{ data.trendValue }}
+      </span>
+    </div>
+  </ng-container>
+
+  <!-- ── Slot layout (consumers project their own content) ── -->
+  <ng-template #slotLayout>
+    <ng-content select="[card-header]"></ng-content>
+    <div class="pui-card__body">
+      <ng-content></ng-content>
+    </div>
+    <ng-content select="[card-footer]"></ng-content>
+  </ng-template>
+
+</div>

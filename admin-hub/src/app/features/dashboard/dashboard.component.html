@@ -1,0 +1,46 @@
+<div class="dashboard">
+
+  <div class="dashboard__toolbar">
+    <div>
+      <h1 class="dashboard__title">Dashboard</h1>
+      <p class="dashboard__subtitle">Welcome back, Admin. Here's what's happening.</p>
+    </div>
+    <div class="dashboard__actions">
+      <!-- pui-button from platform-ui npm package -->
+      <pui-button variant="secondary" size="sm" (buttonClick)="onRefresh()">🔄 Refresh</pui-button>
+      <pui-button variant="primary"   size="sm" (buttonClick)="onExport()">⬇ Export</pui-button>
+    </div>
+  </div>
+
+  <!-- pui-card stat layout — data binding drives the entire card -->
+  <div class="dashboard__stats">
+    <pui-card *ngFor="let stat of stats" [data]="stat" [clickable]="true" />
+  </div>
+
+  <!-- pui-card slot layout — project custom content inside -->
+  <pui-card>
+    <div card-header class="section-header">
+      <h2 class="section-header__title">Recent Activity</h2>
+      <pui-button variant="ghost" size="sm">View all</pui-button>
+    </div>
+
+    <ul class="activity-list">
+      <li class="activity-list__item">
+        <span class="dot dot--blue"></span>
+        <span>User <strong>jane.com</strong> promoted to Admin</span>
+        <span class="activity-list__time">2 min ago</span>
+      </li>
+      <li class="activity-list__item">
+        <span class="dot dot--green"></span>
+        <span>New user <strong>john.com</strong> registered</span>
+        <span class="activity-list__time">14 min ago</span>
+      </li>
+      <li class="activity-list__item">
+        <span class="dot dot--yellow"></span>
+        <span>System config updated by <strong>admin</strong></span>
+        <span class="activity-list__time">1 hr ago</span>
+      </li>
+    </ul>
+  </pui-card>
+
+</div>

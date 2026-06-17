@@ -1,0 +1,21 @@
+<aside class="sidebar">
+  <div class="sidebar__brand">
+    <span class="sidebar__logo">🛡️</span>
+    <span class="sidebar__name">Admin Hub</span>
+  </div>
+
+  <nav class="sidebar__nav">
+    <a *ngFor="let item of navItems"
+       [routerLink]="item.route"
+       routerLinkActive="sidebar__link--active"
+       class="sidebar__link">
+      <span class="sidebar__icon">{{ item.icon }}</span>
+      <span>{{ item.label }}</span>
+    </a>
+  </nav>
+
+  <div class="sidebar__footer">
+    <!-- version comes from the installed npm package -->
+    <span>platform-ui v1.0.0</span>
+  </div>
+</aside>

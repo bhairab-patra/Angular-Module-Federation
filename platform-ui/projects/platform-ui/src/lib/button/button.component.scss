@@ -1,0 +1,79 @@
+:host {
+  display: inline-block;
+}
+
+.pui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease, transform 0.1s ease;
+  white-space: nowrap;
+  outline: none;
+  box-sizing: border-box;
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(1px);
+  }
+
+  // ── Sizes ──────────────────────────────────
+  &--sm  { padding: 6px 12px;  font-size: 12px; line-height: 1.5; }
+  &--md  { padding: 10px 20px; font-size: 14px; line-height: 1.5; }
+  &--lg  { padding: 14px 28px; font-size: 16px; line-height: 1.5; }
+
+  &--full { width: 100%; }
+
+  // ── Variants ───────────────────────────────
+  &--primary {
+    background: #3b82f6;
+    color: #fff;
+    &:hover:not(:disabled) { background: #2563eb; }
+  }
+
+  &--secondary {
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    &:hover:not(:disabled) { background: #e2e8f0; }
+  }
+
+  &--danger {
+    background: #ef4444;
+    color: #fff;
+    &:hover:not(:disabled) { background: #dc2626; }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: #3b82f6;
+    border: 1px solid #3b82f6;
+    &:hover:not(:disabled) { background: #eff6ff; }
+  }
+
+  // ── States ─────────────────────────────────
+  &:disabled   { opacity: 0.5; cursor: not-allowed; }
+  &--loading   { cursor: wait; }
+
+  &__spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: pui-spin 0.7s linear infinite;
+    flex-shrink: 0;
+  }
+}
+
+@keyframes pui-spin {
+  to { transform: rotate(360deg); }
+}

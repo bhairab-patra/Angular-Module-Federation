@@ -1,0 +1,41 @@
+{
+  "name": "platform-ui",
+  "version": "1.0.0",
+  "description": "Shared Angular UI component library — ButtonComponent & CardComponent",
+  "keywords": ["angular", "library", "ui", "components"],
+  "license": "MIT",
+  "scripts": {
+    "build:local":   "ng build platform-ui --configuration development",
+    "build:publish": "ng build platform-ui --configuration production",
+    "build":         "npm run build:local",
+    "build:watch":   "ng build platform-ui --configuration development --watch",
+    "pack:local":    "npm run build:local && cd dist/platform-ui && npm pack",
+    "test": "ng test platform-ui",
+    "lint": "ng lint platform-ui",
+    "publish:lib": "npm run build:publish && npm publish dist/platform-ui --access public"
+  },
+  "peerDependencies": {
+    "@angular/common": "^17.3.0",
+    "@angular/core": "^17.3.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^17.3.0",
+    "@angular/cli": "^17.3.0",
+    "@angular/common": "^17.3.0",
+    "@angular/compiler": "^17.3.0",
+    "@angular/compiler-cli": "^17.3.0",
+    "@angular/core": "^17.3.0",
+    "@angular/platform-browser": "^17.3.0",
+    "@types/jasmine": "~5.1.0",
+    "jasmine-core": "~5.1.0",
+    "karma": "~6.4.0",
+    "karma-chrome-launcher": "~3.2.0",
+    "karma-coverage": "~2.2.0",
+    "karma-jasmine": "~5.1.0",
+    "karma-jasmine-html-reporter": "~2.1.0",
+    "ng-packagr": "^17.3.0",
+    "tslib": "^2.3.0",
+    "typescript": "~5.4.2",
+    "zone.js": "~0.14.3"
+  }
+}

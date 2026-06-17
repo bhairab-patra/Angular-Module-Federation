@@ -1,0 +1,49 @@
+<div class="expenses">
+
+  <div class="expenses__toolbar">
+    <div>
+      <h1 class="expenses__title">Expenses</h1>
+      <p class="expenses__subtitle">Review and approve submitted claims.</p>
+    </div>
+  </div>
+
+  <!-- pui-card wrapping the table — slot layout -->
+  <pui-card>
+    <div card-header class="table-meta">{{ expenses.length }} claims</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Submitted By</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of expenses">
+          <td class="table__strong">{{ e.description }}</td>
+          <td><span class="badge badge--category">{{ e.category }}</span></td>
+          <td class="table__muted">{{ e.submittedBy }}</td>
+          <td class="table__muted">{{ e.date | date:'mediumDate' }}</td>
+          <td class="table__amount">${{ e.amount | number:'1.2-2' }}</td>
+          <td><span [class]="'badge badge--' + e.status">{{ e.status }}</span></td>
+          <td>
+            <ng-container *ngIf="e.status === 'pending'; else dash">
+              <div class="action-group">
+                <!-- pui-button from platform-ui npm package -->
+                <pui-button variant="primary" size="sm" (buttonClick)="onApprove(e)">Approve</pui-button>
+                <pui-button variant="danger"  size="sm" (buttonClick)="onReject(e)">Reject</pui-button>
+              </div>
+            </ng-container>
+            <ng-template #dash><span class="table__muted">—</span></ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </pui-card>
+
+</div>

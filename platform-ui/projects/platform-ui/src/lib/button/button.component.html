@@ -1,0 +1,11 @@
+<button
+  [class]="hostClasses"
+  [type]="type"
+  [disabled]="disabled || loading"
+  (click)="onClick($event)"
+  [attr.aria-busy]="loading"
+  [attr.aria-disabled]="disabled"
+>
+  <span *ngIf="loading" class="pui-btn__spinner" aria-hidden="true"></span>
+  <ng-content></ng-content>
+</button>

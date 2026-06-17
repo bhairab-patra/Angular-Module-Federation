@@ -1,0 +1,40 @@
+<div class="overview">
+
+  <div class="overview__toolbar">
+    <div>
+      <h1 class="overview__title">Overview</h1>
+      <p class="overview__subtitle">Your spending summary for this period.</p>
+    </div>
+    <!-- pui-button from platform-ui npm package -->
+    <pui-button variant="primary" size="sm" (buttonClick)="onAddExpense()">+ Add Expense</pui-button>
+  </div>
+
+  <!-- pui-card stat layout — data binding drives the entire card -->
+  <div class="overview__stats">
+    <pui-card *ngFor="let stat of stats" [data]="stat" [clickable]="true" />
+  </div>
+
+  <!-- pui-card slot layout — project budget breakdown content inside -->
+  <pui-card>
+    <div card-header class="section-header">
+      <h2 class="section-header__title">Budget Breakdown</h2>
+      <pui-button variant="ghost" size="sm">Details</pui-button>
+    </div>
+
+    <div class="budget-list">
+      <div *ngFor="let b of budgets" class="budget-item">
+        <div class="budget-item__meta">
+          <span class="budget-item__label">{{ b.label }}</span>
+          <span class="budget-item__values">${{ b.spent | number }} / ${{ b.total | number }}</span>
+        </div>
+        <div class="budget-item__bar">
+          <div class="budget-item__fill"
+               [style.width.%]="(b.spent / b.total) * 100"
+               [style.background]="b.color">
+          </div>
+        </div>
+      </div>
+    </div>
+  </pui-card>
+
+</div>
