@@ -1,6 +1,9 @@
 {
   "name": "platform-ui",
   "version": "1.0.0",
+  "publishConfig": {
+    "registry": "https://gitlab.com/api/v4/projects/36405964/packages/npm/"
+  },
   "peerDependencies": {
     "@angular/common": "^17.3.0",
     "@angular/core": "^17.3.0"
