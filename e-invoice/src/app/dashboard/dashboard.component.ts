@@ -5,20 +5,18 @@ import { NgFor } from '@angular/common';
 @Component({
   selector: 'inv-dashboard',
   standalone: true,
-  imports: [ButtonComponent, CardComponent, NgFor],
+  imports: [NgFor],
   template: `
     <div class="page">
       <header class="page__header">
         <div>
-          <h1 class="page__title">🧾 E-Invoice Dashboard</h1>
+          <h1 class="page__title">E-Invoice Dashboard</h1>
           <p class="page__subtitle">Manage and track all your digital invoices</p>
         </div>
-        <pui-button variant="primary">+ New Invoice</pui-button>
+       
       </header>
 
-      <div class="stats">
-        <pui-card *ngFor="let s of stats" [data]="s" [elevated]="true"></pui-card>
-      </div>
+ 
 
       <div class="table-card">
         <h2 class="table-card__title">Recent Invoices</h2>
@@ -29,7 +27,7 @@ import { NgFor } from '@angular/common';
               <th>Client</th>
               <th>Amount</th>
               <th>Date</th>
-              <th>Status</th>
+             
             </tr>
           </thead>
           <tbody>
@@ -38,7 +36,7 @@ import { NgFor } from '@angular/common';
               <td>{{ inv.client }}</td>
               <td>{{ inv.amount }}</td>
               <td>{{ inv.date }}</td>
-              <td><span class="badge" [class]="'badge--' + inv.status">{{ inv.status }}</span></td>
+              
             </tr>
           </tbody>
         </table>

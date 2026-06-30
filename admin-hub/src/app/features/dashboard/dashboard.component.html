@@ -5,42 +5,18 @@
       <h1 class="dashboard__title">Dashboard</h1>
       <p class="dashboard__subtitle">Welcome back, Admin. Here's what's happening.</p>
     </div>
-    <div class="dashboard__actions">
-      <!-- pui-button from platform-ui npm package -->
-      <pui-button variant="secondary" size="sm" (buttonClick)="onRefresh()">🔄 Refresh</pui-button>
-      <pui-button variant="primary"   size="sm" (buttonClick)="onExport()">⬇ Export</pui-button>
-    </div>
   </div>
 
-  <!-- pui-card stat layout — data binding drives the entire card -->
-  <div class="dashboard__stats">
-    <pui-card *ngFor="let stat of stats" [data]="stat" [clickable]="true" />
-  </div>
-
-  <!-- pui-card slot layout — project custom content inside -->
   <pui-card>
     <div card-header class="section-header">
-      <h2 class="section-header__title">Recent Activity</h2>
-      <pui-button variant="ghost" size="sm">View all</pui-button>
+      <h2 class="section-header__title">Product Tools Activity</h2>
     </div>
 
-    <ul class="activity-list">
-      <li class="activity-list__item">
-        <span class="dot dot--blue"></span>
-        <span>User <strong>jane.com</strong> promoted to Admin</span>
-        <span class="activity-list__time">2 min ago</span>
-      </li>
-      <li class="activity-list__item">
-        <span class="dot dot--green"></span>
-        <span>New user <strong>john.com</strong> registered</span>
-        <span class="activity-list__time">14 min ago</span>
-      </li>
-      <li class="activity-list__item">
-        <span class="dot dot--yellow"></span>
-        <span>System config updated by <strong>admin</strong></span>
-        <span class="activity-list__time">1 hr ago</span>
-      </li>
-    </ul>
+    <div class="tool-buttons">
+      <pui-button variant="ghost" size="sm" (click)="goToExperienceHub()">EXP_HUB</pui-button>
+      <pui-button variant="ghost" size="sm" (click)="goToEInvoice()">E-INVOICE</pui-button>
+       <!-- <pui-button variant="ghost" size="sm" (click)="tMgm()">Tenant Management</pui-button> -->
+    </div>
   </pui-card>
 
 </div>

@@ -5,14 +5,49 @@
   "projects": {
     "admin-hub": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": { "style": "scss" }
-      },
+      "schematics": { "@schematics/angular:component": { "style": "scss" } },
       "root": "",
       "sourceRoot": "src",
       "prefix": "admin",
       "architect": {
         "build": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "admin-hub:_build",
+            "dev": false
+          },
+          "configurations": {
+            "production":  { "target": "admin-hub:_build:production" },
+            "development": { "target": "admin-hub:_build:development" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "admin-hub:_serve",
+            "dev": true,
+            "port": 4200,
+            "open": false
+          },
+          "configurations": {
+            "development": { "target": "admin-hub:_serve:development" }
+          },
+          "defaultConfiguration": "development"
+        },
+        "_serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "admin-hub:_build",
+            "port": 4200
+          },
+          "configurations": {
+            "production":  { "buildTarget": "admin-hub:_build:production" },
+            "development": { "buildTarget": "admin-hub:_build:development" }
+          },
+          "defaultConfiguration": "development"
+        },
+        "_build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/admin-hub",
@@ -20,39 +55,29 @@
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "assets": [
+              "src/favicon.ico",
+              "src/assets",
+              {
+                "glob": "es-module-shims.js",
+                "input": "node_modules/es-module-shims/dist/",
+                "output": "/"
+              }
+            ],
+            "styles": ["src/styles.scss"]
           },
           "configurations": {
-            "production": {
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
+            "production":  { "outputHashing": "all" },
+            "development": { "optimization": false, "sourceMap": true }
           },
           "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production":  { "buildTarget": "admin-hub:build:production" },
-            "development": { "buildTarget": "admin-hub:build:development" }
-          },
-          "defaultConfiguration": "development",
-          "options": { "port": 4200 }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "styles": ["src/styles.scss"]
           }
         }
       }

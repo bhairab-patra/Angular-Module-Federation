@@ -5,14 +5,49 @@
   "projects": {
     "expense-hub": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": { "style": "scss" }
-      },
+      "schematics": { "@schematics/angular:component": { "style": "scss" } },
       "root": "",
       "sourceRoot": "src",
       "prefix": "exp",
       "architect": {
         "build": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "expense-hub:_build",
+            "dev": false
+          },
+          "configurations": {
+            "production":  { "target": "expense-hub:_build:production" },
+            "development": { "target": "expense-hub:_build:development" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "expense-hub:_serve",
+            "dev": true,
+            "port": 4201,
+            "open": false
+          },
+          "configurations": {
+            "development": { "target": "expense-hub:_serve:development" }
+          },
+          "defaultConfiguration": "development"
+        },
+        "_serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "expense-hub:_build",
+            "port": 4201
+          },
+          "configurations": {
+            "production":  { "buildTarget": "expense-hub:_build:production" },
+            "development": { "buildTarget": "expense-hub:_build:development" }
+          },
+          "defaultConfiguration": "development"
+        },
+        "_build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/expense-hub",
@@ -20,24 +55,21 @@
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico"],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "assets": [
+              "src/favicon.ico",
+              {
+                "glob": "es-module-shims.js",
+                "input": "node_modules/es-module-shims/dist/",
+                "output": "/"
+              }
+            ],
+            "styles": ["src/styles.scss"]
           },
           "configurations": {
             "production":  { "outputHashing": "all" },
             "development": { "optimization": false, "sourceMap": true }
           },
           "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production":  { "buildTarget": "expense-hub:build:production" },
-            "development": { "buildTarget": "expense-hub:build:development" }
-          },
-          "defaultConfiguration": "development",
-          "options": { "port": 4201 }
         }
       }
     }

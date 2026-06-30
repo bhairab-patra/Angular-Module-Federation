@@ -17,6 +17,12 @@
   }
 }
 
+.tool-buttons {
+  display: flex;
+  gap: 12px;
+  padding-top: 8px;
+}
+
 .section-header {
   display: flex;
   align-items: center;

@@ -10,6 +10,43 @@
       "prefix": "inv",
       "architect": {
         "build": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "e-invoice:_build",
+            "dev": false
+          },
+          "configurations": {
+            "production":  { "target": "e-invoice:_build:production" },
+            "development": { "target": "e-invoice:_build:development" }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-architects/native-federation:build",
+          "options": {
+            "target": "e-invoice:_serve",
+            "dev": true,
+            "port": 4202,
+            "open": false
+          },
+          "configurations": {
+            "development": { "target": "e-invoice:_serve:development" }
+          },
+          "defaultConfiguration": "development"
+        },
+        "_serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "e-invoice:_build",
+            "port": 4202
+          },
+          "configurations": {
+            "production":  { "buildTarget": "e-invoice:_build:production" },
+            "development": { "buildTarget": "e-invoice:_build:development" }
+          },
+          "defaultConfiguration": "development"
+        },
+        "_build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/e-invoice",
@@ -17,23 +54,20 @@
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "assets": [
+              {
+                "glob": "es-module-shims.js",
+                "input": "node_modules/es-module-shims/dist/",
+                "output": "/"
+              }
+            ],
+            "styles": ["src/styles.scss"]
           },
           "configurations": {
             "production":  { "outputHashing": "all" },
             "development": { "optimization": false, "sourceMap": true }
           },
           "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production":  { "buildTarget": "e-invoice:build:production" },
-            "development": { "buildTarget": "e-invoice:build:development" }
-          },
-          "defaultConfiguration": "development",
-          "options": { "port": 4202 }
         }
       }
     }

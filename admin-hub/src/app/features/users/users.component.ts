@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { NgFor, NgIf, DatePipe } from '@angular/common';
-
-// ↓ imported from the published npm package "platform-ui"
+import { NgFor, DatePipe } from '@angular/common';
 import { ButtonComponent, CardComponent } from 'platform-ui';
 
 export interface User {
@@ -16,7 +14,7 @@ export interface User {
 @Component({
   selector: 'admin-users',
   standalone: true,
-  imports: [NgFor, NgIf, DatePipe, CardComponent, ButtonComponent],
+  imports: [NgFor, DatePipe, CardComponent, ButtonComponent],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })

@@ -11,37 +11,20 @@
 
   <!-- pui-card wrapping the table — slot layout -->
   <pui-card>
-    <div card-header class="table-meta">{{ users.length }} members</div>
-
     <table class="table">
-      <thead>
-        <tr>
-          <th>Name</th><th>Role</th><th>Status</th><th>Joined</th><th>Actions</th>
-        </tr>
-      </thead>
+  
       <tbody>
         <tr *ngFor="let user of users">
           <td>
             <div class="user-cell">
-              <div class="user-cell__avatar">{{ user.name[0] }}</div>
               <div>
                 <div class="user-cell__name">{{ user.name }}</div>
-                <div class="user-cell__email">{{ user.email }}</div>
               </div>
             </div>
           </td>
           <td><span class="badge badge--role">{{ user.role }}</span></td>
           <td><span [class]="'badge badge--' + user.status">{{ user.status }}</span></td>
           <td class="table__muted">{{ user.joined | date:'mediumDate' }}</td>
-          <td>
-            <!-- pui-button from platform-ui npm package -->
-            <pui-button
-              variant="danger" size="sm"
-              [disabled]="user.status === 'inactive'"
-              (buttonClick)="onDeactivate(user)">
-              Deactivate
-            </pui-button>
-          </td>
         </tr>
       </tbody>
     </table>

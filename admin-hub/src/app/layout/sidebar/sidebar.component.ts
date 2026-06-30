@@ -11,7 +11,9 @@ import { NgFor } from '@angular/common';
 })
 export class SidebarComponent {
   navItems = [
-    { label: 'Dashboard', route: '/dashboard', icon: '📊' },
-    { label: 'Users',     route: '/users',     icon: '👥' },
+    { label: 'Dashboard',    route: '/dashboard' },
+    { label: 'Users',        route: '/users'  },
+    { label: 'Experience',   route: '/experience'},
+    { label: 'E-Invoice',    route: '/e-invoice' }
   ];
 }
