@@ -1,0 +1,8 @@
+{
+  "label": "E-Invoice",
+  "icon": "🧾",
+  "baseRoute": "/e-invoice",
+  "children": [
+    { "label": "Dashboard", "route": "/e-invoice" }
+  ]
+}

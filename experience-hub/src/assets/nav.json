@@ -1,0 +1,9 @@
+{
+  "label": "Experience Hub",
+  "icon": "🌐",
+  "baseRoute": "/experience",
+  "children": [
+    { "label": "Overview", "route": "/experience" },
+    { "label": "Expenses", "route": "/experience/list" }
+  ]
+}

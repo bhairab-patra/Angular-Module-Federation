@@ -1,0 +1,5 @@
+[
+  { "name": "experience-hub", "url": "http://localhost:4201" },
+  { "name": "e-invoice",      "url": "http://localhost:4202" },
+  { "name": "tntmg-hub",      "url": "http://localhost:8766" }
+]

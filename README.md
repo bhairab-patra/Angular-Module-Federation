@@ -6,7 +6,7 @@ Three completely separate projects. Each lives in its own repo, runs on its own 
 ANGULR_ARCH/
 ├── platform-ui/    ← Repo 1 · Angular library  → published to npm
 ├── admin-hub/      ← Repo 2 · Angular app       → installs platform-ui from npm
-└── expense-hub/    ← Repo 3 · Angular app       → installs platform-ui from npm
+└── experience-hub/    ← Repo 3 · Angular app       → installs platform-ui from npm
 ```
 
 ---
@@ -26,7 +26,7 @@ Use `file:` path install + full Ivy compilation.
           │  file:../platform-ui/dist/platform-ui
           │  (npm deduplicates @angular/core — one instance only)
           ▼
-  admin-hub / expense-hub
+  admin-hub / experience-hub
   npm install   →   node_modules/platform-ui/ (symlink to dist/)
 ```
 
@@ -49,7 +49,7 @@ delete `tsconfig.json` `paths` entry, then `npm install`.
    "platform-ui@1.0.0"
        │              │
        ▼              ▼
-  admin-hub      expense-hub
+  admin-hub      experience-hub
   package.json   package.json
   "platform-ui": "^1.0.0"
 ```
@@ -106,8 +106,8 @@ cd ../admin-hub
 npm install                  # installs platform-ui from file:../platform-ui/dist/platform-ui
 npm start                    # http://localhost:4200
 
-# ── 3. Start expense-hub (separate terminal) ─────────────────────────
-cd ../expense-hub
+# ── 3. Start experience-hub (separate terminal) ─────────────────────────
+cd ../experience-hub
 npm install                  # installs platform-ui from file:../platform-ui/dist/platform-ui
 npm start                    # http://localhost:4201
 ```
@@ -134,19 +134,19 @@ npm run build   # production build → dist/admin-hub/
 
 ---
 
-## Repo 3 — expense-hub
+## Repo 3 — experience-hub
 
 Standalone Angular app. Dark green sidebar. Port **4201**.
 
 **Pages**
 - `/overview`  — 4 stat cards + budget progress bars
-- `/expenses`  — claims table with approve / reject actions
+- `/experiences`  — claims table with approve / reject actions
 
 ```bash
-cd expense-hub
+cd experience-hub
 npm install     # installs platform-ui@^1.0.0 from npm
 npm start       # http://localhost:4201
-npm run build   # production build → dist/expense-hub/
+npm run build   # production build → dist/experience-hub/
 ```
 
 ---

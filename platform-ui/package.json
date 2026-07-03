@@ -1,5 +1,5 @@
 {
-  "name": "platform-ui",
+  "name": "@solifi/platform-ui",
   "version": "1.0.0",
   "description": "Shared Angular UI component library — ButtonComponent & CardComponent",
   "keywords": ["angular", "library", "ui", "components"],
@@ -12,7 +12,7 @@
     "pack:local":    "npm run build:local && cd dist/platform-ui && npm pack",
     "test": "ng test platform-ui",
     "lint": "ng lint platform-ui",
-    "publish:lib": "npm run build:publish && npm publish dist/platform-ui --access public"
+    "publish:lib": "npm run build:publish && npm publish ./dist/platform-ui --access public --registry https://registry.npmjs.org"
   },
   "peerDependencies": {
     "@angular/common": "^19.0.0",

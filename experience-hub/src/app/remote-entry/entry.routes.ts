@@ -13,4 +13,9 @@ export const EXPERIENCE_ROUTES: Routes = [
     loadComponent: () =>
       import('../features/expenses/expenses.component').then(m => m.ExpensesComponent),
   },
+    {
+    path: 'list',
+    loadComponent: () =>
+      import('../features/expenses/expenses.component').then(m => m.ExpensesComponent),
+  },
 ];

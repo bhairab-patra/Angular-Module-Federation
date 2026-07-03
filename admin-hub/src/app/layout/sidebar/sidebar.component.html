@@ -5,17 +5,43 @@
   </div>
 
   <nav class="sidebar__nav">
-    <a *ngFor="let item of navItems"
-       [routerLink]="item.route"
-       routerLinkActive="sidebar__link--active"
-       class="sidebar__link">
-    
-      <span>{{ item.label }}</span>
-    </a>
+    <ng-container *ngFor="let item of navConfig.navItems()">
+
+      <!-- Simple link (no children) -->
+      <ng-container *ngIf="!item.children || item.children.length === 0">
+        <a [routerLink]="item.route"
+           routerLinkActive="sidebar__link--active"
+           [routerLinkActiveOptions]="{ exact: true }"
+           class="sidebar__link">
+          <span class="sidebar__icon">{{ item.icon }}</span>
+          <span>{{ item.label }}</span>
+        </a>
+      </ng-container>
+
+      <!-- Collapsible group (has children) -->
+      <ng-container *ngIf="item.children && item.children.length > 0">
+        <button class="sidebar__group-btn" (click)="toggle(item.label)">
+          <span class="sidebar__icon">{{ item.icon }}</span>
+          <span class="sidebar__group-label">{{ item.label }}</span>
+          <span class="sidebar__chevron" [class.sidebar__chevron--open]="isOpen(item.label)">›</span>
+        </button>
+
+        <div class="sidebar__children" *ngIf="isOpen(item.label)">
+          <a *ngFor="let child of item.children"
+             [routerLink]="child.route"
+             routerLinkActive="sidebar__child--active"
+             [routerLinkActiveOptions]="{ exact: true }"
+             class="sidebar__child">
+            <span class="sidebar__child-dot">•</span>
+            {{ child.label }}
+          </a>
+        </div>
+      </ng-container>
+
+    </ng-container>
   </nav>
 
   <div class="sidebar__footer">
-    <!-- version comes from the installed npm package -->
     <span>platform-ui v1.0.0</span>
   </div>
 </aside>
