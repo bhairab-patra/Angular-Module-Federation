@@ -17,7 +17,7 @@ export interface Expense {
 @Component({
   selector: 'exp-expenses',
   standalone: true,
-  imports: [NgFor, NgIf, DatePipe, DecimalPipe, CardComponent, ButtonComponent],
+  imports: [NgFor, DatePipe, DecimalPipe, CardComponent],
   templateUrl: './expenses.component.html',
   styleUrls: ['./expenses.component.scss'],
 })
