@@ -1,0 +1,10 @@
+{
+  "label": "User Management",
+  "icon": "👤",
+  "baseRoute": "/user-management",
+  "children": [
+    { "label": "Users",       "route": "/user-management" },
+    { "label": "Roles",       "route": "/user-management/roles" },
+    { "label": "Permissions", "route": "/user-management/permissions" }
+  ]
+}

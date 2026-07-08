@@ -1,0 +1,41 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 15px;
+  color: #111827;
+  background: #fff;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ── Code blocks ───────────────────────────────── */
+pre {
+  background: #0f172a;
+  color: #e2e8f0;
+  border-radius: 10px;
+  padding: 20px 24px;
+  overflow-x: auto;
+  font-size: 13.5px;
+  line-height: 1.75;
+  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  tab-size: 2;
+}
+code { font-family: 'Fira Code','Cascadia Code','Consolas', monospace; }
+p code, li code, td code {
+  background: #f3f4f6;
+  color: #1f2937;
+  padding: 1px 7px;
+  border-radius: 5px;
+  font-size: 13px;
+  border: 1px solid #e5e7eb;
+}
+
+/* ── Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }

@@ -28,5 +28,32 @@ export const routes: Routes = [
       loadRemoteModule('e-invoice', './Routes').then(m => m.EINVOICE_ROUTES),
   },
  
+  {
+    path: 'user-management',
+    children: [
+      {
+        path: '',
+        data: { reactPath: '/user-management' },
+        loadComponent: () =>
+          import('./features/user-management/user-management-wrapper.component')
+            .then(m => m.UserManagementWrapperComponent),
+      },
+      {
+        path: 'roles',
+        data: { reactPath: '/roles-management' },
+        loadComponent: () =>
+          import('./features/user-management/user-management-wrapper.component')
+            .then(m => m.UserManagementWrapperComponent),
+      },
+      {
+        path: 'permissions',
+        data: { reactPath: '/permissions-management' },
+        loadComponent: () =>
+          import('./features/user-management/user-management-wrapper.component')
+            .then(m => m.UserManagementWrapperComponent),
+      },
+    ],
+  },
+
   { path: '**', redirectTo: 'dashboard' },
 ];

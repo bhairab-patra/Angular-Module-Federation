@@ -2,17 +2,24 @@
   "name": "@solifi/platform-ui",
   "version": "1.0.0",
   "description": "Shared Angular UI component library — ButtonComponent & CardComponent",
-  "keywords": ["angular", "library", "ui", "components"],
+  "keywords": [
+    "angular",
+    "library",
+    "ui",
+    "components"
+  ],
   "license": "MIT",
   "scripts": {
-    "build:local":   "ng build platform-ui --configuration development",
+    "build:local": "ng build platform-ui --configuration development",
     "build:publish": "ng build platform-ui --configuration production",
-    "build":         "npm run build:local",
-    "build:watch":   "ng build platform-ui --configuration development --watch",
-    "pack:local":    "npm run build:local && cd dist/platform-ui && npm pack",
+    "build": "npm run build:local",
+    "build:watch": "ng build platform-ui --configuration development --watch",
+    "pack:local": "npm run build:local && cd dist/platform-ui && npm pack",
     "test": "ng test platform-ui",
     "lint": "ng lint platform-ui",
-    "publish:lib": "npm run build:publish && npm publish ./dist/platform-ui --access public --registry https://registry.npmjs.org"
+    "publish:lib": "npm run build:publish && npm publish ./dist/platform-ui --access public --registry https://registry.npmjs.org",
+    "docs": "ng serve docs --port 4210 --open",
+    "docs:build": "ng build docs"
   },
   "peerDependencies": {
     "@angular/common": "^19.0.0",
@@ -20,12 +27,14 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.0.0",
+    "@angular/animations": "^19.2.25",
     "@angular/cli": "^19.0.0",
     "@angular/common": "^19.0.0",
     "@angular/compiler": "^19.0.0",
     "@angular/compiler-cli": "^19.0.0",
     "@angular/core": "^19.0.0",
     "@angular/platform-browser": "^19.0.0",
+    "@angular/router": "^19.2.25",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",

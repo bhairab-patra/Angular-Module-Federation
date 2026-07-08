@@ -1,10 +1,11 @@
-/*
- * Public API surface of platform-ui.
- * Everything exported here is available to any app that installs this package.
- */
-
 export * from './lib/platform-ui.module';
 export * from './lib/button/button.component';
 export * from './lib/card/card.component';
+export * from './lib/badge/badge.component';
+export * from './lib/modal/modal.component';
+export * from './lib/header/header.component';
 export * from './lib/models/button.model';
 export * from './lib/models/card.model';
+export * from './lib/models/badge.model';
+export * from './lib/models/modal.model';
+export * from './lib/models/header.model';

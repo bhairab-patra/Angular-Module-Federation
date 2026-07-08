@@ -15,12 +15,8 @@
             "project": "projects/platform-ui/ng-package.json"
           },
           "configurations": {
-            "production": {
-              "tsConfig": "projects/platform-ui/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/platform-ui/tsconfig.lib.json"
-            }
+            "production":  { "tsConfig": "projects/platform-ui/tsconfig.lib.prod.json" },
+            "development": { "tsConfig": "projects/platform-ui/tsconfig.lib.json" }
           },
           "defaultConfiguration": "production"
         },
@@ -30,6 +26,52 @@
             "tsConfig": "projects/platform-ui/tsconfig.spec.json",
             "polyfills": ["zone.js", "zone.js/testing"]
           }
+        }
+      }
+    },
+    "docs": {
+      "projectType": "application",
+      "root": "projects/docs",
+      "sourceRoot": "projects/docs/src",
+      "prefix": "docs",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/docs",
+            "index": "projects/docs/src/index.html",
+            "main": "projects/docs/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/docs/tsconfig.app.json",
+            "assets": ["projects/docs/src/favicon.ico"],
+            "styles": ["projects/docs/src/styles.css"]
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                { "type": "initial", "maximumWarning": "2mb", "maximumError": "5mb" },
+                { "type": "anyComponentStyle", "maximumWarning": "4kb", "maximumError": "8kb" }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production":  { "buildTarget": "docs:build:production" },
+            "development": { "buildTarget": "docs:build:development" }
+          },
+          "defaultConfiguration": "development"
         }
       }
     }

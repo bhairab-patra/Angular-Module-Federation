@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "platform-ui-docs",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "docs"],
+      "port": 4210
+    }
+  ]
+}

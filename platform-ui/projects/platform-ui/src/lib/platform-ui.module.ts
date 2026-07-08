@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
-import { ButtonComponent } from './button/button.component';
-import { CardComponent } from './card/card.component';
+import { ButtonComponent }  from './button/button.component';
+import { CardComponent }    from './card/card.component';
+import { BadgeComponent }   from './badge/badge.component';
+import { ModalComponent }   from './modal/modal.component';
+import { HeaderComponent }  from './header/header.component';
 
-/**
- * Convenience NgModule — import PlatformUiModule in any NgModule-based app.
- * Standalone apps can also import ButtonComponent / CardComponent directly.
- */
 @NgModule({
-  imports: [ButtonComponent, CardComponent],
-  exports: [ButtonComponent, CardComponent],
+  imports: [ButtonComponent, CardComponent, BadgeComponent, ModalComponent, HeaderComponent],
+  exports: [ButtonComponent, CardComponent, BadgeComponent, ModalComponent, HeaderComponent],
 })
 export class PlatformUiModule {}

@@ -5,7 +5,9 @@ module.exports = withNativeFederation({
 
   remotes: {
     'experience-hub': 'http://localhost:4201/remoteEntry.json',
-    'e-invoice':   'http://localhost:4202/remoteEntry.json'
+    'e-invoice':      'http://localhost:4202/remoteEntry.json',
+    'tntmg-hub':      'http://localhost:8766/remoteEntry.json',
+    'user-management':'http://localhost:4203/remoteEntry.json',
   },
 
   shared: {
