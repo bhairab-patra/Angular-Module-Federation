@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'docs-getting-started',
   standalone: true,
-  imports: [NgFor, NgIf, RouterLink],
+  imports: [NgFor, RouterLink],
   template: `
   <div class="gs-wrap">
 

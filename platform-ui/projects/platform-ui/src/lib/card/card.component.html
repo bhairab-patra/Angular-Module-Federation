@@ -1,14 +1,12 @@
-<div [class]="hostClasses">
+<div [class]="hostClasses" (click)="onClick($event)">
 
   <!-- ── Stat / metric layout (when [data] is provided) ── -->
   <ng-container *ngIf="data; else slotLayout">
     <div class="pui-card__header">
-      <span *ngIf="data.icon" class="pui-card__icon" aria-hidden="true">{{ data.icon }}</span>
       <span class="pui-card__title">{{ data.title }}</span>
+      <span *ngIf="data.icon" class="pui-card__icon-badge" aria-hidden="true">{{ data.icon }}</span>
     </div>
-
     <div class="pui-card__value">{{ data.value }}</div>
-
     <div class="pui-card__footer">
       <span *ngIf="data.subtitle" class="pui-card__subtitle">{{ data.subtitle }}</span>
       <span *ngIf="data.trend" [class]="'pui-card__trend ' + trendClass">
@@ -17,7 +15,7 @@
     </div>
   </ng-container>
 
-  <!-- ── Slot layout (consumers project their own content) ── -->
+  <!-- ── Slot layout ── -->
   <ng-template #slotLayout>
     <ng-content select="[card-header]"></ng-content>
     <div class="pui-card__body">

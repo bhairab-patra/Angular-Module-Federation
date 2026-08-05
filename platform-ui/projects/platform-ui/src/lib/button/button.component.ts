@@ -17,8 +17,20 @@ export class ButtonComponent {
   @Input() loading = false;
   @Input() fullWidth = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
+  /** Dynamic label — use instead of ng-content for programmatic control */
+  @Input() label?: string;
+  /** Upload progress value 0–100 (used with variant="upload-progress") */
+  @Input() progress = 0;
+  /** Docs-only: force a visual state for demo purposes */
+  @Input() forceState?: 'hover' | 'focus';
 
   @Output() buttonClick = new EventEmitter<MouseEvent>();
+  @Output() buttonFocus = new EventEmitter<FocusEvent>();
+  @Output() buttonBlur = new EventEmitter<FocusEvent>();
+  @Output() buttonHover = new EventEmitter<MouseEvent>();
+  @Output() buttonLeave = new EventEmitter<MouseEvent>();
+
+  get isUploadProgress(): boolean { return this.variant === 'upload-progress'; }
 
   get hostClasses(): string {
     return [
@@ -26,13 +38,14 @@ export class ButtonComponent {
       `pui-btn--${this.variant}`,
       `pui-btn--${this.size}`,
       this.fullWidth ? 'pui-btn--full' : '',
-      this.loading   ? 'pui-btn--loading' : '',
+      this.loading ? 'pui-btn--loading' : '',
+      this.forceState ? `pui-btn--state-${this.forceState}` : '',
     ].filter(Boolean).join(' ');
   }
 
-  onClick(event: MouseEvent): void {
-    if (!this.disabled && !this.loading) {
-      this.buttonClick.emit(event);
-    }
-  }
+  onClick(e: MouseEvent): void { if (!this.disabled && !this.loading) this.buttonClick.emit(e); }
+  onFocus(e: FocusEvent): void { this.buttonFocus.emit(e); }
+  onBlur(e: FocusEvent): void { this.buttonBlur.emit(e); }
+  onHover(e: MouseEvent): void { this.buttonHover.emit(e); }
+  onLeave(e: MouseEvent): void { this.buttonLeave.emit(e); }
 }

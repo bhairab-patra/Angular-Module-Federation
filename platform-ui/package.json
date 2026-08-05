@@ -33,6 +33,7 @@
     "@angular/compiler": "^19.0.0",
     "@angular/compiler-cli": "^19.0.0",
     "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.2.25",
     "@angular/platform-browser": "^19.0.0",
     "@angular/router": "^19.2.25",
     "@types/jasmine": "~5.1.0",

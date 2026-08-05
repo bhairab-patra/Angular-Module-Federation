@@ -3,9 +3,27 @@
   [type]="type"
   [disabled]="disabled || loading"
   (click)="onClick($event)"
+  (focus)="onFocus($event)"
+  (blur)="onBlur($event)"
+  (mouseenter)="onHover($event)"
+  (mouseleave)="onLeave($event)"
   [attr.aria-busy]="loading"
   [attr.aria-disabled]="disabled"
 >
   <span *ngIf="loading" class="pui-btn__spinner" aria-hidden="true"></span>
-  <ng-content></ng-content>
+
+  <!-- Upload Progress layout -->
+  <ng-container *ngIf="isUploadProgress; else normalLayout">
+    <span class="pui-btn__up-label">{{ label }}</span>
+    <span class="pui-btn__up-track">
+      <span class="pui-btn__up-fill" [style.width.%]="progress"></span>
+    </span>
+    <span class="pui-btn__up-pct">{{ progress }}%</span>
+  </ng-container>
+
+  <!-- Normal layout: prefer label input, fall back to ng-content -->
+  <ng-template #normalLayout>
+    <ng-container *ngIf="label !== undefined; else projected">{{ label }}</ng-container>
+    <ng-template #projected><ng-content></ng-content></ng-template>
+  </ng-template>
 </button>

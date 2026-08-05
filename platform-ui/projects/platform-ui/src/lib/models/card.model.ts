@@ -6,3 +6,6 @@ export interface CardData {
   trend?: 'up' | 'down' | 'neutral';
   trendValue?: string;
 }
+
+export type CardVariant = 'default' | 'outlined' | 'flat' | 'teal' | 'dark';
+export type CardSize    = 'sm' | 'md' | 'lg';
