@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
-  ChangeDetectionStrategy, ChangeDetectorRef
+  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import { NgFor, NgIf, NgClass, NgStyle } from '@angular/common';
 import { PuiSearchComponent } from '../search/search.component';
@@ -16,6 +16,7 @@ const DEFAULT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none
   selector: 'pui-sidebar',
   standalone: true,
   imports: [NgFor, NgIf, NgClass, NgStyle, PuiSearchComponent, HeaderComponent],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
   <div class="pui-shell">
@@ -439,32 +440,87 @@ const DEFAULT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none
 export class PuiSidebarComponent implements OnChanges {
 
   // ── Sidebar rail ───────────────────────────────────────
-  @Input() groups: SidebarGroup[] = [];
-  @Input() activeId = '';
-  @Input() collapsed = false;
-  @Input() config: SidebarConfig = {};
-  @Input() theme: SidebarTheme = {};
+  @Input() activeId  = '';
   @Input() brandName = '';
-  @Input() logo = '';
-  @Input() showSidebar = true;
+  @Input() logo      = '';
+
+  @Input() set groups(v: SidebarGroup[] | string) {
+    this._groups = typeof v === 'string' ? (this._parseJson<SidebarGroup[]>(v) ?? []) : (v || []);
+  }
+  get groups(): SidebarGroup[] { return this._groups; }
+  private _groups: SidebarGroup[] = [];
+
+  @Input() set config(v: SidebarConfig | string) {
+    this._config = typeof v === 'string' ? (this._parseJson<SidebarConfig>(v) ?? {}) : (v || {});
+  }
+  get config(): SidebarConfig { return this._config; }
+  private _config: SidebarConfig = {};
+
+  @Input() set theme(v: SidebarTheme | string) {
+    this._theme = typeof v === 'string' ? (this._parseJson<SidebarTheme>(v) ?? {}) : (v || {});
+  }
+  get theme(): SidebarTheme { return this._theme; }
+  private _theme: SidebarTheme = {};
+
+  @Input() set collapsed(v: boolean | string) {
+    this._collapsed = v === true || v === 'true' || (v as any) === '';
+  }
+  get collapsed() { return this._collapsed; }
+  private _collapsed = false;
+
+  @Input() set showSidebar(v: boolean | string) {
+    this._showSidebar = v !== false && v !== 'false';
+  }
+  get showSidebar() { return this._showSidebar; }
+  private _showSidebar = true;
 
   // ── Header integration ─────────────────────────────────
-  @Input() showHeader = false;
-  @Input() headerAppTitle = 'My App';
+  @Input() headerAppTitle    = 'My App';
   @Input() headerAppSubtitle = '';
-  @Input() headerLogoText = '';
-  @Input() headerBgColor = '#12C6A8';
-  @Input() headerTextColor = '#ffffff';
-  @Input() headerNavLinks: NavLink[] = [];
-  @Input() headerUserName = '';
-  @Input() headerUserEmail = '';
-  @Input() headerGreeting = 'Hi';
+  @Input() headerLogoText    = '';
+  @Input() headerBgColor     = '#12C6A8';
+  @Input() headerTextColor   = '#ffffff';
+  @Input() headerUserName    = '';
+  @Input() headerUserEmail   = '';
+  @Input() headerGreeting    = 'Hi';
   @Input() headerUserSubtext = 'Welcome back!';
-  @Input() headerAvatarUrl = '';
+  @Input() headerAvatarUrl   = '';
   @Input() headerAvatarColor = '#0d6e5f';
-  @Input() headerBadge: HeaderBadge | null = null;
-  @Input() headerShowHelp = false;
-  @Input() headerMenuItems: UserMenuItem[] = [];
+
+  @Input() set showHeader(v: boolean | string) {
+    this._showHeader = v === true || v === 'true' || (v as any) === '';
+  }
+  get showHeader() { return this._showHeader; }
+  private _showHeader = false;
+
+  @Input() set headerShowHelp(v: boolean | string) {
+    this._headerShowHelp = v === true || v === 'true' || (v as any) === '';
+  }
+  get headerShowHelp() { return this._headerShowHelp; }
+  private _headerShowHelp = false;
+
+  @Input() set headerBadge(v: HeaderBadge | string | null) {
+    this._headerBadge = typeof v === 'string' ? this._parseJson<HeaderBadge>(v) : v;
+  }
+  get headerBadge(): HeaderBadge | null { return this._headerBadge; }
+  private _headerBadge: HeaderBadge | null = null;
+
+  @Input() set headerNavLinks(v: NavLink[] | string) {
+    this._headerNavLinks = typeof v === 'string' ? (this._parseJson<NavLink[]>(v) ?? []) : (v || []);
+  }
+  get headerNavLinks(): NavLink[] { return this._headerNavLinks; }
+  private _headerNavLinks: NavLink[] = [];
+
+  @Input() set headerMenuItems(v: UserMenuItem[] | string) {
+    this._headerMenuItems = typeof v === 'string' ? (this._parseJson<UserMenuItem[]>(v) ?? []) : (v || []);
+  }
+  get headerMenuItems(): UserMenuItem[] { return this._headerMenuItems; }
+  private _headerMenuItems: UserMenuItem[] = [];
+
+  private _parseJson<T>(s: string): T | null {
+    if (!s) return null;
+    try { return JSON.parse(s) as T; } catch { return null; }
+  }
 
   @Output() collapsedChange  = new EventEmitter<boolean>();
   @Output() itemSelect       = new EventEmitter<SidebarNavItem>();

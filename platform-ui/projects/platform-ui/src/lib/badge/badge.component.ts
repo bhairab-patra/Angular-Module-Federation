@@ -1,9 +1,10 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { BadgeVariant, BadgeSize } from '../models/badge.model';
 
 @Component({
   selector: 'pui-badge',
   standalone: true,
+  encapsulation: ViewEncapsulation.ShadowDom,
   template: `<span [class]="hostClasses"><ng-content></ng-content></span>`,
   styles: [`
     .pui-badge {

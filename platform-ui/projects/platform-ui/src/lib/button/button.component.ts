@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonVariant, ButtonSize } from '../models/button.model';
 
@@ -8,6 +8,7 @@ import { ButtonVariant, ButtonSize } from '../models/button.model';
   imports: [CommonModule],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ButtonComponent {

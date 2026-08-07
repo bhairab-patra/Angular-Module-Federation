@@ -126,11 +126,20 @@ export class PuiSwitchComponent implements ControlValueAccessor {
   @Input() labelOn  = '';
   @Input() labelOff = '';
   @Input() size: FormSize = 'md';
-  @Input() disabled = false;
-  @Input() required = false;
   @Input() error    = '';
   @Input() hint     = '';
-  @Input() checked  = false;
+
+  @Input() set checked(v: boolean | string) { this._checked = v === true || v === 'true' || (v as any) === ''; }
+  get checked() { return this._checked; }
+  private _checked = false;
+
+  @Input() set disabled(v: boolean | string) { this._disabled = v === true || v === 'true' || (v as any) === ''; }
+  get disabled() { return this._disabled; }
+  private _disabled = false;
+
+  @Input() set required(v: boolean | string) { this._required = v === true || v === 'true' || (v as any) === ''; }
+  get required() { return this._required; }
+  private _required = false;
 
   @Output() checkedChange = new EventEmitter<boolean>();
   @Output() changed       = new EventEmitter<boolean>();

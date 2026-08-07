@@ -1,208 +1,228 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PuiSwitchComponent } from '@solifi/platform-ui';
 import { DocPageComponent, ApiRow } from '../shared/doc-page.component';
+import { CodeBlockComponent } from '../shared/code-block.component';
 
 @Component({
   selector: 'docs-switch-page',
   standalone: true,
-  imports: [NgFor, FormsModule, PuiSwitchComponent, DocPageComponent],
+  imports: [NgFor, NgIf, FormsModule, PuiSwitchComponent, DocPageComponent, CodeBlockComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <docs-page
-      title="Switch"
-      description="A toggle switch for binary on/off settings. Supports three sizes, dynamic labels that change per state, error state, and full form integration via ControlValueAccessor."
-      [code]="importCode"
-      [api]="api">
+<docs-page
+  title="Switch"
+  description="A toggle switch for binary on/off settings. Three sizes, dynamic labels per state, error state, and full form integration. Works in Angular, React, and plain HTML."
+  [hasFramework]="true"
+  [api]="api">
 
-      <ng-container demo>
+  <ng-container demo>
 
-        <!-- Basic -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Basic</h3>
-          <div class="demo-col">
-            <pui-switch label="Enable notifications" [(ngModel)]="v1"/>
-            <pui-switch label="Dark mode"            [(ngModel)]="v2"/>
-            <pui-switch label="Pre-enabled"          [checked]="true"/>
-          </div>
-          <p class="demo-desc">Notifications: <strong>{{ v1 ? 'On' : 'Off' }}</strong></p>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codeBasic, 'basic')">{{ copied['basic'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeBasic }}</code></pre>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Basic</h3>
+      <div class="demo-col">
+        <pui-switch label="Enable notifications" [(ngModel)]="v1"/>
+        <pui-switch label="Dark mode"            [(ngModel)]="v2"/>
+        <pui-switch label="Pre-enabled"          [checked]="preChecked"/>
+      </div>
+      <p class="demo-desc">Notifications: <strong>{{ v1 ? 'On' : 'Off' }}</strong></p>
+    </div>
 
-        <!-- Sizes -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Sizes</h3>
-          <div class="demo-col">
-            <pui-switch size="sm" label="Small (sm)"  [(ngModel)]="vsm"/>
-            <pui-switch size="md" label="Medium (md)" [(ngModel)]="vmd"/>
-            <pui-switch size="lg" label="Large (lg)"  [(ngModel)]="vlg"/>
-          </div>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codeSizes, 'sizes')">{{ copied['sizes'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeSizes }}</code></pre>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Sizes</h3>
+      <div class="demo-col">
+        <pui-switch label="Small"  size="sm" [(ngModel)]="vSm"/>
+        <pui-switch label="Medium" size="md" [(ngModel)]="vMd"/>
+        <pui-switch label="Large"  size="lg" [(ngModel)]="vLg"/>
+      </div>
+    </div>
 
-        <!-- Dynamic labels -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Dynamic On/Off Labels</h3>
-          <p class="demo-desc">Use <code>labelOn</code> and <code>labelOff</code> to show different text for each state.</p>
-          <div class="demo-col">
-            <pui-switch labelOn="Active"      labelOff="Inactive"      [(ngModel)]="vDyn1"/>
-            <pui-switch labelOn="Public"      labelOff="Private"       [(ngModel)]="vDyn2"/>
-            <pui-switch labelOn="Subscribed"  labelOff="Unsubscribed"  [(ngModel)]="vDyn3"/>
-          </div>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codeDyn, 'dyn')">{{ copied['dyn'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeDyn }}</code></pre>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Dynamic Labels</h3>
+      <div class="demo-col">
+        <pui-switch labelOn="Enabled"  labelOff="Disabled" [(ngModel)]="vDyn1"/>
+        <pui-switch labelOn="Active"   labelOff="Inactive" [(ngModel)]="vDyn2"/>
+        <pui-switch labelOn="Online"   labelOff="Offline"  [(ngModel)]="vDyn3"/>
+      </div>
+    </div>
 
-        <!-- States -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">All States</h3>
-          <div class="demo-col">
-            <pui-switch label="Default off"/>
-            <pui-switch label="Default on"   [checked]="true"/>
-            <pui-switch label="Disabled off" [disabled]="true"/>
-            <pui-switch label="Disabled on"  [disabled]="true" [checked]="true"/>
-            <pui-switch label="Required *"   [required]="true"/>
-            <pui-switch label="Error state"  error="This setting is required."/>
-            <pui-switch label="With hint"    hint="You can change this anytime."/>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">States</h3>
+      <div class="demo-col">
+        <pui-switch label="Disabled (off)" [disabled]="disabledFlag"/>
+        <pui-switch label="Disabled (on)"  [disabled]="disabledFlag" [checked]="preChecked"/>
+        <pui-switch label="Error state"    error="This setting is required" [(ngModel)]="vErr"/>
+        <pui-switch label="With hint"      hint="Restart required to apply" [(ngModel)]="vHint"/>
+      </div>
+    </div>
 
-        <!-- Settings panel -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Settings Panel</h3>
-          <div class="settings-card">
-            <div class="settings-head">Notification Preferences</div>
-            <div class="settings-row" *ngFor="let s of settings">
-              <div>
-                <div class="s-label">{{ s.label }}</div>
-                <div class="s-desc">{{ s.desc }}</div>
-              </div>
-              <pui-switch [(ngModel)]="s.value"/>
-            </div>
-          </div>
-        </div>
+  </ng-container>
 
-      </ng-container>
-    </docs-page>
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead"><code>pui-switch</code> is a Web Component — works in Angular, React, and plain HTML with no extra config. Boolean inputs (<code>checked</code>, <code>disabled</code>, <code>required</code>) accept <code>true</code>/<code>false</code> JS properties or the string <code>"true"</code> as an HTML attribute. String inputs (<code>label</code>, <code>labelOn</code>, <code>labelOff</code>) work as plain attributes.</p>
+
+    <div class="fw-tabs">
+      <button class="fw-tab" [class.fw-tab--active]="fw==='angular'" (click)="fw='angular'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.31H4.936L12 3.405z" fill="#c3002f"/></svg>
+        Angular
+      </button>
+      <button class="fw-tab" [class.fw-tab--active]="fw==='react'" (click)="fw='react'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
+        React
+      </button>
+      <button class="fw-tab" [class.fw-tab--active]="fw==='html'" (click)="fw='html'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
+        Plain HTML
+      </button>
+    </div>
+
+    <div *ngIf="fw==='angular'" class="fw-panel">
+      <div class="fw-note fw-note--angular">Use <code>[(ngModel)]</code> for two-way binding. All inputs bind natively via property binding — no wrappers needed.</div>
+      <app-code lang="html"       id="ang-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <app-code lang="typescript" id="ang-ts"   [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    </div>
+
+    <div *ngIf="fw==='react'" class="fw-panel">
+      <div class="fw-note fw-note--react">Use a ref to set boolean JS properties. Listen to <code>checkedChange</code> CustomEvent for state changes.</div>
+      <app-code lang="tsx" id="react-code" [text]="reactCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    </div>
+
+    <div *ngIf="fw==='html'" class="fw-panel">
+      <div class="fw-note fw-note--html">Set boolean attributes as strings or assign JS properties directly after the element is defined.</div>
+      <app-code lang="html" id="html-code" [text]="htmlCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    </div>
+
+    <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+            <td><code class="tag-name">{{ r.name }}</code></td>
+            <td><code class="tag-ng">{{ r.angular }}</code></td>
+            <td><code class="tag-html">{{ r.attr }}</code></td>
+            <td><code class="tag-js">{{ r.js }}</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+</docs-page>
   `,
-  styles: [`
-    .demo-section { width: 100%; margin-bottom: 36px; }
-    .demo-section:last-child { margin-bottom: 0; }
-    .demo-section__title {
-      font-size: 15px; font-weight: 600; color: #374151;
-      margin: 0 0 14px; padding-bottom: 8px;
-      border-bottom: 1px solid #f0f1f3;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-    .demo-desc { font-size: 13px; color: #6b7280; margin: 0 0 12px; }
-    .demo-desc code { background: #f3f4f6; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
-    .demo-col { display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
-
-    .settings-card {
-      background: #fff; border: 1.5px solid #e5e7eb; border-radius: 14px; padding: 20px 24px;
-      max-width: 520px;
-    }
-    .settings-head { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 16px; }
-    .settings-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 0; border-bottom: 1px solid #f0f0f0;
-    }
-    .settings-row:last-child { border-bottom: none; padding-bottom: 0; }
-    .s-label { font-size: 14px; font-weight: 500; color: #374151; }
-    .s-desc  { font-size: 12px; color: #9ca3af; margin-top: 2px; }
-
-    .code-wrap    { border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; }
-    .code-header  {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 20px; background: #1e293b; border-bottom: 1px solid #334155;
-    }
-    .code-lang {
-      font-size: 11px; color: #64748b; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .07em;
-    }
-    .copy-btn {
-      padding: 3px 12px; border-radius: 5px;
-      border: 1px solid #334155; background: #0f172a;
-      color: #94a3b8; font-size: 12px; cursor: pointer; font-family: inherit;
-    }
-    .copy-btn:hover { color: #e2e8f0; border-color: #475569; }
-    pre { background: #1e1e2e; color: #cdd6f4; padding: 18px 20px; margin: 0;
-          font-size: 13px; overflow-x: auto; border-radius: 0; border: none; }
-    pre code { font-family: 'JetBrains Mono', 'Fira Code', monospace; white-space: pre; }
-  `],
 })
 export class SwitchPageComponent {
-  v1 = true; v2 = false;
-  vsm = false; vmd = true; vlg = false;
+  private cdr = inject(ChangeDetectorRef);
+
+  v1 = true; v2 = false; vSm = false; vMd = true; vLg = false;
   vDyn1 = true; vDyn2 = false; vDyn3 = true;
-  copied: Record<string, boolean> = {};
+  vErr = false; vHint = true;
+  preChecked = true; disabledFlag = true;
+  fw = 'angular';
+  copied = '';
 
-  settings = [
-    { label: 'Email notifications', desc: 'Receive updates via email',      value: true  },
-    { label: 'Push notifications',  desc: 'Receive push alerts on mobile',  value: false },
-    { label: 'Weekly digest',       desc: 'Summary email every Monday',     value: true  },
-    { label: 'Product updates',     desc: 'New features and announcements', value: false },
-  ];
-
-  copyCode(code: string, key: string): void {
-    navigator.clipboard.writeText(code).then(() => {
-      this.copied[key] = true;
-      setTimeout(() => { this.copied[key] = false; }, 2000);
+  copy(id: string, text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      this.copied = id;
+      this.cdr.markForCheck();
+      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
     });
   }
 
-  importCode = `import { PuiSwitchComponent } from '@solifi/platform-ui';
+  xfwRows = [
+    { name: 'label',         angular: 'label="str"',                     attr: 'label="str"',            js: 'el.label = "..."' },
+    { name: 'labelOn',       angular: 'labelOn="On"',                    attr: 'label-on="On"',           js: 'el.labelOn = "On"' },
+    { name: 'labelOff',      angular: 'labelOff="Off"',                  attr: 'label-off="Off"',         js: 'el.labelOff = "Off"' },
+    { name: 'size',          angular: 'size="sm|md|lg"',                 attr: 'size="sm|md|lg"',         js: 'el.size = "md"' },
+    { name: 'checked',       angular: '[checked]="bool" or [(ngModel)]', attr: 'checked="true"',          js: 'el.checked = true' },
+    { name: 'disabled',      angular: '[disabled]="bool"',               attr: '— use JS property',       js: 'el.disabled = true' },
+    { name: 'required',      angular: '[required]="bool"',               attr: 'required="true"',         js: 'el.required = true' },
+    { name: 'error',         angular: '[error]="str"',                   attr: 'error="msg"',             js: 'el.error = "msg"' },
+    { name: 'hint',          angular: '[hint]="str"',                    attr: 'hint="str"',              js: 'el.hint = "..."' },
+    { name: 'checkedChange', angular: '(checkedChange)="fn($event)"',    attr: '— use addEventListener',  js: 'el.addEventListener("checkedChange", fn)' },
+  ];
 
-// In your standalone component:
-imports: [PuiSwitchComponent, FormsModule]
+  angHtml = `<pui-switch label="Enable notifications" [(ngModel)]="notifications"/>
 
-// Template:
-<pui-switch label="Enable notifications" [(ngModel)]="enabled"/>
-
-// Dynamic labels:
+<!-- Dynamic labels -->
 <pui-switch labelOn="Active" labelOff="Inactive" [(ngModel)]="isActive"/>
 
-// Event-based:
-<pui-switch label="Dark mode" (changed)="onToggle($event)"/>`;
+<!-- Sizes -->
+<pui-switch label="Small" size="sm" [(ngModel)]="sm"/>
+<pui-switch label="Large" size="lg" [(ngModel)]="lg"/>
 
-  codeBasic = `<pui-switch label="Enable notifications" [(ngModel)]="enabled"/>
-<pui-switch label="Dark mode"            [(ngModel)]="darkMode"/>`;
+<!-- States -->
+<pui-switch label="Disabled" [disabled]="true" [checked]="true"/>
+<pui-switch label="Error"    [error]="'This setting is required'" [(ngModel)]="err"/>`;
 
-  codeSizes = `<pui-switch size="sm" label="Small"/>
-<pui-switch size="md" label="Medium"/>
-<pui-switch size="lg" label="Large"/>`;
+  angTs = `import { PuiSwitchComponent } from '@bhairab-patra/platform-ui';
 
-  codeDyn = `<pui-switch labelOn="Active"     labelOff="Inactive"     [(ngModel)]="isActive"/>
-<pui-switch labelOn="Public"     labelOff="Private"      [(ngModel)]="isPublic"/>
-<pui-switch labelOn="Subscribed" labelOff="Unsubscribed" [(ngModel)]="isSub"/>`;
+@Component({ imports: [PuiSwitchComponent, FormsModule] })
+export class MyComponent {
+  notifications = true;
+  isActive = false;
+  sm = false; lg = true; err = false;
+}`;
+
+  reactCode = `import { useEffect, useRef, useState } from 'react';
+
+export function SettingsToggle() {
+  const [enabled, setEnabled] = useState(false);
+  const swRef = useRef<any>(null);
+
+  useEffect(() => {
+    const el = swRef.current;
+    if (!el) return;
+    const handler = (e: CustomEvent) => setEnabled(e.detail);
+    el.addEventListener('checkedChange', handler);
+    return () => el.removeEventListener('checkedChange', handler);
+  }, []);
+
+  return (
+    <>
+      <pui-switch
+        ref={swRef}
+        label="Enable notifications"
+        label-on="Enabled"
+        label-off="Disabled"
+      />
+      <p>Status: {enabled ? 'ON' : 'OFF'}</p>
+    </>
+  );
+}`;
+
+  htmlCode = `<script src="/assets/pui-elements.js"></script>
+
+<pui-switch id="notifSwitch"
+  label="Notifications"
+  label-on="Enabled"
+  label-off="Disabled">
+</pui-switch>
+
+<pui-switch label="Dark mode"  checked="true"></pui-switch>
+<pui-switch label="Disabled"   disabled="true" checked="true"></pui-switch>
+
+<script>
+  const sw = document.getElementById('notifSwitch');
+  sw.checked = true;          // JS property
+  sw.addEventListener('checkedChange', e => console.log('Value:', e.detail));
+</script>`;
 
   api: ApiRow[] = [
-    { input: 'label',    type: 'string',   default: "''",    description: 'Label shown regardless of state' },
-    { input: 'labelOn',  type: 'string',   default: "''",    description: 'Label shown when checked (overrides label)' },
-    { input: 'labelOff', type: 'string',   default: "''",    description: 'Label shown when unchecked (overrides label)' },
-    { input: 'size',     type: 'FormSize', default: "'md'",  description: 'sm | md | lg' },
-    { input: 'checked',  type: 'boolean',  default: 'false', description: 'Toggle state (two-way via ngModel)' },
-    { input: 'disabled', type: 'boolean',  default: 'false', description: 'Disables interaction' },
-    { input: 'required', type: 'boolean',  default: 'false', description: 'Shows asterisk on label' },
-    { input: 'error',    type: 'string',   default: "''",    description: 'Error message; activates red track state' },
-    { input: 'hint',     type: 'string',   default: "''",    description: 'Helper text shown below' },
+    { input: 'label',          type: 'string',               default: "''",    description: 'Label text shown next to the switch' },
+    { input: 'labelOn',        type: 'string',               default: "''",    description: 'Label when switch is ON (overrides label)' },
+    { input: 'labelOff',       type: 'string',               default: "''",    description: 'Label when switch is OFF (overrides label)' },
+    { input: 'size',           type: "'sm'|'md'|'lg'",      default: "'md'",  description: 'Visual size variant' },
+    { input: 'checked',        type: 'boolean',              default: 'false', description: 'Whether the switch is on' },
+    { input: 'disabled',       type: 'boolean',              default: 'false', description: 'Disables interaction' },
+    { input: 'required',       type: 'boolean',              default: 'false', description: 'Shows required asterisk' },
+    { input: 'error',          type: 'string',               default: "''",    description: 'Error message shown below the switch' },
+    { input: 'hint',           type: 'string',               default: "''",    description: 'Helper text shown below the switch' },
+    { input: 'checkedChange',  type: 'EventEmitter<boolean>', default: '—',   description: 'Emits the new checked state on toggle' },
+    { input: 'changed',        type: 'EventEmitter<boolean>', default: '—',   description: 'Alias output for change events' },
   ];
 }

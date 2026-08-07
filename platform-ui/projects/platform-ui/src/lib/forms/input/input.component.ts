@@ -197,17 +197,37 @@ export class PuiInputComponent implements ControlValueAccessor {
   @Input() placeholder  = '';
   @Input() type: InputType = 'text';
   @Input() size: FormSize  = 'md';
-  @Input() disabled     = false;
-  @Input() readonly     = false;
-  @Input() required     = false;
   @Input() error        = '';
   @Input() hint         = '';
   @Input() prefixIcon   = '';
   @Input() suffixIcon   = '';
-  @Input() maxLength: number | null = null;
-  @Input() showCount    = false;
-  @Input() clearable    = false;
   @Input() autocomplete = 'off';
+
+  @Input() set disabled(v: boolean | string) { this._disabled = v === true || v === 'true' || (v as any) === ''; }
+  get disabled() { return this._disabled; }
+  private _disabled = false;
+
+  @Input() set readonly(v: boolean | string) { this._readonly = v === true || v === 'true' || (v as any) === ''; }
+  get readonly() { return this._readonly; }
+  private _readonly = false;
+
+  @Input() set required(v: boolean | string) { this._required = v === true || v === 'true' || (v as any) === ''; }
+  get required() { return this._required; }
+  private _required = false;
+
+  @Input() set showCount(v: boolean | string) { this._showCount = v === true || v === 'true' || (v as any) === ''; }
+  get showCount() { return this._showCount; }
+  private _showCount = false;
+
+  @Input() set clearable(v: boolean | string) { this._clearable = v === true || v === 'true' || (v as any) === ''; }
+  get clearable() { return this._clearable; }
+  private _clearable = false;
+
+  @Input() set maxLength(v: number | string | null) {
+    this._maxLength = v === null || v === '' ? null : Number(v);
+  }
+  get maxLength() { return this._maxLength; }
+  private _maxLength: number | null = null;
 
   @Output() valueChange = new EventEmitter<string>();
   @Output() inputChange = new EventEmitter<string>();

@@ -222,16 +222,47 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
   @Input() placeholder  = 'Search…';
   @Input() size: SearchSize = 'md';
   @Input() value        = '';
-  @Input() suggestions: SearchSuggestion[] = [];
   @Input() debounce     = 300;
   @Input() minChars     = 1;
-  @Input() clearable    = true;
-  @Input() disabled     = false;
-  @Input() loading      = false;
   @Input() shortcut     = '';
   @Input() emptyText    = 'No results found';
-  @Input() recentSearches: string[] = [];
   @Input() maxRecent    = 5;
+
+  @Input() set suggestions(v: SearchSuggestion[] | string) {
+    this._suggestions = typeof v === 'string' ? (this._parseJson<SearchSuggestion[]>(v) ?? []) : (v || []);
+  }
+  get suggestions(): SearchSuggestion[] { return this._suggestions; }
+  private _suggestions: SearchSuggestion[] = [];
+
+  @Input() set recentSearches(v: string[] | string) {
+    this._recentSearches = typeof v === 'string' ? (this._parseJson<string[]>(v) ?? []) : (v || []);
+  }
+  get recentSearches(): string[] { return this._recentSearches; }
+  private _recentSearches: string[] = [];
+
+  @Input() set clearable(v: boolean | string) {
+    this._clearable = v === true || v === 'true' || (v as any) === '';
+  }
+  get clearable() { return this._clearable; }
+  private _clearable = true;
+
+  @Input() set disabled(v: boolean | string) {
+    this._disabled = v === true || v === 'true' || (v as any) === '';
+  }
+  get disabled() { return this._disabled; }
+  private _disabled = false;
+
+  @Input() set loading(v: boolean | string) {
+    this._loading = v === true || v === 'true' || (v as any) === '';
+    this.cdr.markForCheck();
+  }
+  get loading() { return this._loading; }
+  private _loading = false;
+
+  private _parseJson<T>(s: string): T | null {
+    if (!s) return null;
+    try { return JSON.parse(s) as T; } catch { return null; }
+  }
 
   @Output() searchChange        = new EventEmitter<string>();
   @Output() valueChange         = new EventEmitter<string>();

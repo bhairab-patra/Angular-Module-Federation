@@ -3,7 +3,8 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@solifi/platform-ui": ["projects/platform-ui/src/public-api"]
+      "@solifi/platform-ui":       ["projects/platform-ui/src/public-api"],
+      "@bhairab-patra/platform-ui": ["projects/platform-ui/src/public-api"]
     },
     "forceConsistentCasingInFileNames": true,
     "strict": true,

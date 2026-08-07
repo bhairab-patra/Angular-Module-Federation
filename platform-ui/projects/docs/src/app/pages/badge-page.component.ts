@@ -1,40 +1,227 @@
-import { Component } from '@angular/core';
-import { BadgeComponent } from '@solifi/platform-ui';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../shared/doc-page.component';
+import { BadgeComponent } from '@solifi/platform-ui';
 
 @Component({
-  selector: 'docs-badge-page',
+  selector: 'app-badge-page',
   standalone: true,
-  imports: [DocPageComponent, BadgeComponent],
+  imports: [NgFor, NgIf, DocPageComponent, BadgeComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <docs-page
-      title="Badge"
-      description="Small label for status, counts, or categories."
-      [code]="code"
-      [api]="api">
+<docs-page
+  title="Badge"
+  description="A compact inline label for status, categories, and counts — six colour variants, two sizes, and zero configuration."
+  [hasFramework]="true"
+  [api]="api">
 
-      <ng-container demo>
+  <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+  <ng-container demo>
+
+    <!-- 1. Variants -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Colour Variants</h3>
+      <p class="demo-section__desc">Six semantic variants map to common status meanings. All use a tinted background with a matching border and text colour.</p>
+      <div class="demo-row">
         <pui-badge variant="default">Default</pui-badge>
         <pui-badge variant="primary">Primary</pui-badge>
-        <pui-badge variant="success">Active</pui-badge>
-        <pui-badge variant="warning">Pending</pui-badge>
-        <pui-badge variant="danger">Error</pui-badge>
+        <pui-badge variant="success">Success</pui-badge>
+        <pui-badge variant="warning">Warning</pui-badge>
+        <pui-badge variant="danger">Danger</pui-badge>
         <pui-badge variant="info">Info</pui-badge>
-        <pui-badge variant="success" size="sm">Small</pui-badge>
-      </ng-container>
-    </docs-page>
+      </div>
+    </div>
+
+    <!-- 2. Sizes -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Sizes</h3>
+      <p class="demo-section__desc"><code>md</code> is the default for standalone labels. Use <code>sm</code> inside dense table cells or alongside body text.</p>
+      <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start">
+        <div>
+          <p class="demo-label">md (default)</p>
+          <div class="demo-row">
+            <pui-badge variant="success" size="md">Active</pui-badge>
+            <pui-badge variant="warning" size="md">Pending</pui-badge>
+            <pui-badge variant="danger"  size="md">Error</pui-badge>
+            <pui-badge variant="info"    size="md">Info</pui-badge>
+          </div>
+        </div>
+        <div>
+          <p class="demo-label">sm</p>
+          <div class="demo-row">
+            <pui-badge variant="success" size="sm">Active</pui-badge>
+            <pui-badge variant="warning" size="sm">Pending</pui-badge>
+            <pui-badge variant="danger"  size="sm">Error</pui-badge>
+            <pui-badge variant="info"    size="sm">Info</pui-badge>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. Inline usage -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Inline Usage</h3>
+      <p class="demo-section__desc">Badges are <code>inline-flex</code> elements — they sit naturally next to text, inside table cells, or alongside item names.</p>
+      <div class="demo-list">
+        <div class="demo-list-row" *ngFor="let d of inlineDemo">
+          <span class="demo-list-name">{{ d.name }}</span>
+          <pui-badge [variant]="$any(d.variant)" size="sm">{{ d.label }}</pui-badge>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. All variants reference table -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Full Palette</h3>
+      <p class="demo-section__desc">Quick visual overview of every variant at both sizes.</p>
+      <table class="demo-table">
+        <thead><tr><th>Variant</th><th>md</th><th>sm</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let v of variants">
+            <td class="demo-table__name">{{ v.id }}</td>
+            <td><pui-badge [variant]="$any(v.id)" size="md">{{ v.label }}</pui-badge></td>
+            <td><pui-badge [variant]="$any(v.id)" size="sm">{{ v.label }}</pui-badge></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead"><code>pui-badge</code> uses <code>ng-content</code> — put the label text between the tags. The <code>variant</code> and <code>size</code> attributes behave identically in all frameworks.</p>
+
+    <div class="fw-tabs">
+      <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.310H4.936L12 3.405z" fill="#c3002f"/></svg>
+        Angular
+      </button>
+      <button class="fw-tab" [class.fw-tab--active]="fwTab==='react'" (click)="fwTab='react';cdr.markForCheck()">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
+        React
+      </button>
+      <button class="fw-tab" [class.fw-tab--active]="fwTab==='html'" (click)="fwTab='html';cdr.markForCheck()">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
+        HTML
+      </button>
+    </div>
+
+    <div *ngIf="fwTab==='angular'" class="fw-panel">
+      <div class="fw-note--angular">Import <code>BadgeComponent</code> into your component's <code>imports</code> array.</div>
+      <pre><code>import &#123; BadgeComponent &#125; from '&#64;solifi/platform-ui';
+
+&#64;Component(&#123;
+  imports: [BadgeComponent],
+  template: &#96;
+    &lt;pui-badge variant="success"&gt;Active&lt;/pui-badge&gt;
+    &lt;pui-badge variant="warning" size="sm"&gt;Pending&lt;/pui-badge&gt;
+    &lt;pui-badge variant="danger"&gt;Error&lt;/pui-badge&gt;
+    &lt;pui-badge [variant]="statusVariant"&gt;Dynamic&lt;/pui-badge&gt;
+  &#96;
+&#125;)
+export class MyComponent &#123;
+  statusVariant = 'info';
+&#125;</code></pre>
+    </div>
+
+    <div *ngIf="fwTab==='react'" class="fw-panel">
+      <div class="fw-note--react">No ref or event wiring needed — just render the element with attributes.</div>
+      <pre><code>import '&#64;solifi/platform-ui';
+
+function StatusBadge(&#123; status &#125;) &#123;
+  const variantMap = &#123;
+    active:   'success',
+    pending:  'warning',
+    error:    'danger',
+    info:     'info',
+  &#125;;
+  return (
+    &lt;pui-badge variant=&#123;variantMap[status] ?? 'default'&#125; size="sm"&gt;
+      &#123;status&#125;
+    &lt;/pui-badge&gt;
+  );
+&#125;</code></pre>
+    </div>
+
+    <div *ngIf="fwTab==='html'" class="fw-panel">
+      <div class="fw-note--html">All props are plain HTML attributes. The label is the element's text content.</div>
+      <pre><code>&lt;pui-badge variant="success"&gt;Active&lt;/pui-badge&gt;
+&lt;pui-badge variant="warning" size="sm"&gt;Pending&lt;/pui-badge&gt;
+&lt;pui-badge variant="danger"&gt;Error&lt;/pui-badge&gt;
+&lt;pui-badge variant="info"&gt;Informational&lt;/pui-badge&gt;
+&lt;pui-badge variant="primary"&gt;New&lt;/pui-badge&gt;
+&lt;pui-badge variant="default"&gt;Draft&lt;/pui-badge&gt;</code></pre>
+    </div>
+
+    <h4 class="fw-ref-title">Badge Quick Reference</h4>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows">
+            <td><span class="tag-name">{{ r.name }}</span></td>
+            <td><span class="tag-ng">{{ r.angular }}</span></td>
+            <td><span class="tag-html">{{ r.attr }}</span></td>
+            <td><span class="tag-js">{{ r.js }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+</docs-page>
   `,
+  styles: [`
+    .demo-section { margin-bottom: 40px; }
+    .demo-section__title { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+    .demo-section__desc  { font-size: 13px; color: #6b7280; margin-bottom: 14px; }
+    .demo-section__desc code { background:#f3f4f6;padding:1px 5px;border-radius:4px;font-size:12px; }
+    .demo-row  { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .demo-label { font-size:11px;font-weight:700;color:#9ca3af;text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px; }
+    .demo-list { border:1px solid #e5e7eb;border-radius:10px;overflow:hidden;max-width:420px; }
+    .demo-list-row { display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #f3f4f6; }
+    .demo-list-row:last-child { border-bottom:none; }
+    .demo-list-name { font-size:13.5px;color:#111827; }
+    .demo-table { border-collapse:collapse;font-size:13px; }
+    .demo-table th { text-align:left;padding:8px 16px;background:#f9fafb;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;border-bottom:1px solid #e5e7eb; }
+    .demo-table td { padding:10px 16px;border-bottom:1px solid #f3f4f6;vertical-align:middle; }
+    .demo-table tr:last-child td { border-bottom:none; }
+    .demo-table__name { color:#374151;font-weight:500;font-size:12px;font-family:monospace; }
+    .fw-ref-title { margin:24px 0 10px;font-size:13px;font-weight:700;color:#374151; }
+  `],
 })
 export class BadgePageComponent {
-  code = `import { BadgeComponent } from '@solifi/platform-ui';
+  cdr = inject(ChangeDetectorRef);
+  fwTab = 'angular';
 
-<pui-badge variant="success">Active</pui-badge>
-<pui-badge variant="danger">Error</pui-badge>
-<pui-badge variant="warning">Pending</pui-badge>
-<pui-badge variant="info" size="sm">Info</pui-badge>`;
+  variants = [
+    { id: 'default', label: 'Default' },
+    { id: 'primary', label: 'Primary' },
+    { id: 'success', label: 'Success' },
+    { id: 'warning', label: 'Warning' },
+    { id: 'danger',  label: 'Danger'  },
+    { id: 'info',    label: 'Info'    },
+  ];
+
+  inlineDemo = [
+    { name: 'Deployment #47', variant: 'success', label: 'Passed'      },
+    { name: 'Deployment #46', variant: 'danger',  label: 'Failed'      },
+    { name: 'Deployment #45', variant: 'warning', label: 'In Progress' },
+    { name: 'Deployment #44', variant: 'info',    label: 'Queued'      },
+    { name: 'Deployment #43', variant: 'default', label: 'Draft'       },
+  ];
+
+  xfwRows = [
+    { name: 'variant', angular: '[variant]="\'success\'"', attr: 'variant="success"', js: 'el.variant = "success"' },
+    { name: 'size',    angular: 'size="sm"',               attr: 'size="sm"',         js: 'el.size = "sm"'         },
+  ];
 
   api: ApiRow[] = [
-    { input: 'variant', type: `'default'|'primary'|'success'|'warning'|'danger'|'info'`, default: `'default'`, description: 'Color variant' },
-    { input: 'size',    type: `'sm' | 'md'`,                                              default: `'md'`,      description: 'Badge size' },
+    { input: 'variant', type: `'default'|'primary'|'success'|'warning'|'danger'|'info'`, default: `'default'`, description: 'Colour variant. Semantically: success=active/passed, warning=pending, danger=error/failed, info=informational.' },
+    { input: 'size',    type: `'sm'|'md'`, default: `'md'`, description: 'Badge size. sm fits inside table cells or inline with body text; md is suitable for standalone status labels.' },
   ];
 }

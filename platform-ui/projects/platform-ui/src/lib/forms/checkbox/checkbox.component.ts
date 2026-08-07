@@ -105,13 +105,25 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
   `],
 })
 export class PuiCheckboxComponent implements ControlValueAccessor {
-  @Input() label         = '';
-  @Input() checked       = false;
-  @Input() indeterminate = false;
-  @Input() disabled      = false;
-  @Input() required      = false;
-  @Input() error         = '';
-  @Input() hint          = '';
+  @Input() label = '';
+  @Input() error = '';
+  @Input() hint  = '';
+
+  @Input() set checked(v: boolean | string) { this._checked = v === true || v === 'true' || (v as any) === ''; }
+  get checked() { return this._checked; }
+  private _checked = false;
+
+  @Input() set indeterminate(v: boolean | string) { this._indeterminate = v === true || v === 'true' || (v as any) === ''; }
+  get indeterminate() { return this._indeterminate; }
+  private _indeterminate = false;
+
+  @Input() set disabled(v: boolean | string) { this._disabled = v === true || v === 'true' || (v as any) === ''; }
+  get disabled() { return this._disabled; }
+  private _disabled = false;
+
+  @Input() set required(v: boolean | string) { this._required = v === true || v === 'true' || (v as any) === ''; }
+  get required() { return this._required; }
+  private _required = false;
 
   @Output() checkedChange = new EventEmitter<boolean>();
   @Output() changed       = new EventEmitter<boolean>();
@@ -121,18 +133,18 @@ export class PuiCheckboxComponent implements ControlValueAccessor {
 
   constructor(private cdr: ChangeDetectorRef) {}
 
-  writeValue(val: any): void { this.checked = !!val; this.cdr.markForCheck(); }
+  writeValue(val: any): void { this._checked = !!val; this.cdr.markForCheck(); }
   registerOnChange(fn: any): void  { this.onChangeFn = fn; }
   registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
-  setDisabledState(d: boolean): void { this.disabled = d; this.cdr.markForCheck(); }
+  setDisabledState(d: boolean): void { this._disabled = d; this.cdr.markForCheck(); }
 
   toggle(e: Event): void {
-    if (this.disabled) return;
-    this.checked = (e.target as HTMLInputElement).checked;
-    this.onChangeFn(this.checked);
+    if (this._disabled) return;
+    this._checked = (e.target as HTMLInputElement).checked;
+    this.onChangeFn(this._checked);
     this.onTouchedFn();
-    this.checkedChange.emit(this.checked);
-    this.changed.emit(this.checked);
+    this.checkedChange.emit(this._checked);
+    this.changed.emit(this._checked);
     this.cdr.markForCheck();
   }
 }

@@ -29,6 +29,44 @@
         }
       }
     },
+    "elements": {
+      "projectType": "application",
+      "root": "projects/elements",
+      "sourceRoot": "projects/elements/src",
+      "prefix": "pui",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/elements",
+            "index": "projects/elements/src/index.html",
+            "main": "projects/elements/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/elements/tsconfig.app.json",
+            "aot": true,
+            "outputHashing": "none",
+            "namedChunks": false,
+            "styles": ["projects/elements/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "sourceMap": false,
+              "extractLicenses": true,
+              "budgets": [
+                { "type": "initial", "maximumWarning": "5mb", "maximumError": "10mb" }
+              ]
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    },
     "docs": {
       "projectType": "application",
       "root": "projects/docs",
@@ -43,7 +81,10 @@
             "main": "projects/docs/src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "projects/docs/tsconfig.app.json",
-            "assets": ["projects/docs/src/favicon.ico"],
+            "assets": [
+              "projects/docs/src/favicon.ico",
+              { "glob": "**/*", "input": "projects/docs/src/assets", "output": "/assets" }
+            ],
             "styles": ["projects/docs/src/styles.css"]
           },
           "configurations": {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardData, CardVariant, CardSize } from '../models/card.model';
 
@@ -8,6 +8,7 @@ import { CardData, CardVariant, CardSize } from '../models/card.model';
   imports: [CommonModule],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent {

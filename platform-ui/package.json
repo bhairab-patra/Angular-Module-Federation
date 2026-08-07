@@ -1,6 +1,6 @@
 {
-  "name": "@solifi/platform-ui",
-  "version": "1.0.0",
+  "name": "@bhairab-patra/platform-ui",
+  "version": "1.1.0",
   "description": "Shared Angular UI component library — ButtonComponent & CardComponent",
   "keywords": [
     "angular",
@@ -18,8 +18,12 @@
     "test": "ng test platform-ui",
     "lint": "ng lint platform-ui",
     "publish:lib": "npm run build:publish && npm publish ./dist/platform-ui --access public --registry https://registry.npmjs.org",
+    "build:elements": "ng build elements --configuration production && node scripts/concat-elements.js",
+    "build:elements:dev": "ng build elements --configuration development && node scripts/concat-elements.js",
+    "build:full": "npm run build:publish && npm run build:elements && node scripts/copy-elements-to-dist.js",
     "docs": "ng serve docs --port 4210 --open",
-    "docs:build": "ng build docs"
+    "docs:build": "ng build docs",
+    "serve:demo": "npx http-server . -p 4300 --cors -o demo/index.html"
   },
   "peerDependencies": {
     "@angular/common": "^19.0.0",
@@ -33,6 +37,7 @@
     "@angular/compiler": "^19.0.0",
     "@angular/compiler-cli": "^19.0.0",
     "@angular/core": "^19.0.0",
+    "@angular/elements": "^19.2.25",
     "@angular/forms": "^19.2.25",
     "@angular/platform-browser": "^19.0.0",
     "@angular/router": "^19.2.25",

@@ -123,12 +123,27 @@ import { FormSize, SelectOption } from '../../models/form.model';
 export class PuiSelectComponent implements ControlValueAccessor {
   @Input() label       = '';
   @Input() placeholder = 'Select an option';
-  @Input() options: SelectOption[] = [];
   @Input() size: FormSize = 'md';
-  @Input() disabled    = false;
-  @Input() required    = false;
   @Input() error       = '';
   @Input() hint        = '';
+
+  @Input() set options(v: SelectOption[] | string) {
+    this._options = typeof v === 'string' ? (this._parseJson<SelectOption[]>(v) ?? []) : (v || []);
+  }
+  get options(): SelectOption[] { return this._options; }
+  private _options: SelectOption[] = [];
+
+  @Input() set disabled(v: boolean | string) { this._disabled = v === true || v === 'true' || (v as any) === ''; }
+  get disabled() { return this._disabled; }
+  private _disabled = false;
+
+  @Input() set required(v: boolean | string) { this._required = v === true || v === 'true' || (v as any) === ''; }
+  get required() { return this._required; }
+  private _required = false;
+
+  private _parseJson<T>(s: string): T | null {
+    try { return JSON.parse(s) as T; } catch { return null; }
+  }
 
   @Output() valueChange = new EventEmitter<any>();
   @Output() selectionChange = new EventEmitter<any>();

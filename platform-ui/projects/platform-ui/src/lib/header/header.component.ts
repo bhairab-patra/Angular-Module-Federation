@@ -1,7 +1,7 @@
 import {
   Component, Input, Output, EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef,
-  HostListener, ElementRef
+  HostListener, ElementRef, ViewEncapsulation
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
@@ -10,12 +10,14 @@ import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
   selector: 'pui-header',
   standalone: true,
   imports: [NgFor, NgIf],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <header class="pui-header" [style.background]="bgColor" [style.color]="textColor">
 
       <!-- ── Brand ── -->
       <div class="pui-header__brand">
+        <img *ngIf="logoUrl" [src]="logoUrl" class="pui-header__logo-img" alt="logo">
         <ng-content select="[logo]"></ng-content>
         <div *ngIf="!hasLogoSlot" class="pui-header__brand-text">
           <span *ngIf="logoText" class="pui-header__logo-text">{{ logoText }}</span>
@@ -140,6 +142,9 @@ import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
     }
     .pui-header__brand-text {
       display: flex; align-items: center; gap: 10px;
+    }
+    .pui-header__logo-img {
+      height: 36px; width: auto; object-fit: contain; flex-shrink: 0; border-radius: 4px;
     }
     .pui-header__logo-text {
       font-size: 15px; font-weight: 800; letter-spacing: .02em;
@@ -285,56 +290,82 @@ import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
   `],
 })
 export class HeaderComponent {
-  /** Main app/product name */
-  @Input() appTitle = 'My App';
-  /** Sub-label below the title (e.g. "PLATFORM MANAGEMENT") */
+  // ── Simple string inputs (work as HTML attributes everywhere) ──────────
+  @Input() appTitle    = 'My App';
   @Input() appSubtitle = '';
-  /** Short text or emoji shown before the title (no slot used) */
-  @Input() logoText = '';
-  /** Header background colour */
-  @Input() bgColor = '#12C6A8';
-  /** Header text/icon colour */
-  @Input() textColor = '#ffffff';
-  /** Navigation links array */
-  @Input() navLinks: NavLink[] = [];
-  /** Full display name of the signed-in user */
-  @Input() userName = '';
-  /** Email shown in the dropdown */
-  @Input() userEmail = '';
-  /** Greeting prefix, e.g. "Hi" — leave blank to show first name only */
-  @Input() greeting = 'Hi';
-  /** Secondary text below the name in the user area */
+  @Input() logoText    = '';
+  @Input() logoUrl     = '';
+  @Input() bgColor     = '#12C6A8';
+  @Input() textColor   = '#ffffff';
+  @Input() userName    = '';
+  @Input() userEmail   = '';
+  @Input() greeting    = 'Hi';
   @Input() userSubtext = 'Welcome back!';
-  /** Avatar image URL — falls back to initials */
-  @Input() avatarUrl = '';
-  /** Avatar background colour */
-  @Input() avatarColor = '#0d6e5f';
-  /** Avatar text colour */
-  @Input() avatarTextColor = '#ffffff';
-  /** Environment / context badge (e.g. { text: 'UAT', color: '#f59e0b' }) */
-  @Input() badge: HeaderBadge | null = null;
-  /** Show the help (?) icon button */
-  @Input() showHelp = false;
-  /** Whether a custom logo was projected into [logo] slot */
+  @Input() avatarUrl   = '';
+  @Input() avatarColor      = '#0d6e5f';
+  @Input() avatarTextColor  = '#ffffff';
   @Input() hasLogoSlot = false;
-  /** Menu items shown in the user dropdown */
-  @Input() menuItems: UserMenuItem[] = [
-    {
-      label: 'Sign out',
-      action: 'signout',
-      danger: true,
-      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>`,
-    },
-  ];
+
+  // ── Boolean input — accepts true/false OR the strings "true"/"false" ──
+  // React: show-help="true"  Angular: [showHelp]="true"  JS: el.showHelp = true
+  @Input() set showHelp(v: boolean | string) {
+    this._showHelp = v === true || v === 'true' || (v as any) === '';
+    this.cdr.markForCheck();
+  }
+  get showHelp() { return this._showHelp; }
+  private _showHelp = false;
+
+  // ── Object input — accepts JSON string OR plain object ────────────────
+  // React: badge='{"text":"UAT","color":"#f59e0b"}'
+  // Angular: [badge]="{ text: 'UAT', color: '#f59e0b' }"
+  // JS: el.badge = { text: 'UAT', color: '#f59e0b' }
+  @Input() set badge(v: HeaderBadge | string | null) {
+    this._badge = typeof v === 'string' ? this._parseJson<HeaderBadge>(v) : v;
+    this.cdr.markForCheck();
+  }
+  get badge(): HeaderBadge | null { return this._badge; }
+  private _badge: HeaderBadge | null = null;
+
+  // ── Array input — accepts JSON string OR plain array ──────────────────
+  // React: nav-links='[{"label":"Home","href":"/"}]'
+  // Angular: [navLinks]="links"   JS: el.navLinks = [...]
+  @Input() set navLinks(v: NavLink[] | string) {
+    this._navLinks = typeof v === 'string' ? (this._parseJson<NavLink[]>(v) ?? []) : (v ?? []);
+    this.cdr.markForCheck();
+  }
+  get navLinks(): NavLink[] { return this._navLinks; }
+  private _navLinks: NavLink[] = [];
+
+  // ── Array input — accepts JSON string OR plain array ──────────────────
+  @Input() set menuItems(v: UserMenuItem[] | string) {
+    this._menuItems = typeof v === 'string'
+      ? (this._parseJson<UserMenuItem[]>(v) ?? this._defaultMenuItems())
+      : (v ?? this._defaultMenuItems());
+    this.cdr.markForCheck();
+  }
+  get menuItems(): UserMenuItem[] { return this._menuItems; }
+  private _menuItems: UserMenuItem[] = this._defaultMenuItems();
 
   /** Emitted when a menu item is clicked — payload is item.action */
   @Output() menuAction = new EventEmitter<string>();
   /** Emitted when the help button is clicked */
-  @Output() helpClick = new EventEmitter<void>();
+  @Output() helpClick  = new EventEmitter<void>();
 
   menuOpen = false;
 
   constructor(private cdr: ChangeDetectorRef, private el: ElementRef) {}
+
+  private _parseJson<T>(s: string): T | null {
+    if (!s) return null;
+    try { return JSON.parse(s) as T; } catch { return null; }
+  }
+
+  private _defaultMenuItems(): UserMenuItem[] {
+    return [{
+      label: 'Sign out', action: 'signout', danger: true,
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>`,
+    }];
+  }
 
   get initials(): string {
     return this.userName.split(' ').map(w => w[0]).filter(Boolean).slice(0, 2).join('').toUpperCase();

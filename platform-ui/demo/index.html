@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform UI — Plain HTML Demo</title>
+
+  <!--
+    ✅  Load Platform UI once — pointing to the local build output.
+        Run:  npm run build:full
+        Then: npm run serve:demo
+        Open: http://localhost:4300
+  -->
+  <link rel="stylesheet" href="/dist/platform-ui/elements/styles.css">
+  <script src="/dist/platform-ui/elements/pui-elements.js" defer></script>
+
+  <style>
+    html, body { height: 100%; margin: 0; font-family: 'Poppins', system-ui, sans-serif; }
+
+    .content { padding: 32px; background: #f9fafb; min-height: 100%; box-sizing: border-box; }
+    .page-title { font-size: 22px; font-weight: 700; color: #111827; margin: 0 0 6px; }
+    .page-sub   { font-size: 14px; color: #6b7280; margin: 0 0 28px; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
+
+    .actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+    .status-bar {
+      margin-top: 24px; padding: 14px 18px; border-radius: 10px;
+      background: #fff; border: 1px solid #e5e7eb; font-size: 13.5px; color: #374151;
+    }
+    .status-bar strong { color: #12C6A8; }
+  </style>
+</head>
+<body>
+
+  <pui-app-shell
+    id="shell"
+    app-title="Admin Portal"
+    app-subtitle="v2.0"
+    header-bg-color="#12C6A8"
+    header-user-name="Jane Doe"
+    header-user-email="jane@company.com"
+    style="height: 100vh; display: block;">
+
+    <!-- ✅ Default slot — your page content goes here -->
+    <div class="content">
+
+      <h2 class="page-title">Dashboard</h2>
+      <p class="page-sub">Plain HTML consuming @solifi/platform-ui web components</p>
+
+      <!-- Stat cards -->
+      <div class="cards">
+        <pui-card id="card1"></pui-card>
+        <pui-card id="card2"></pui-card>
+        <pui-card id="card3"></pui-card>
+        <pui-card id="card4"></pui-card>
+      </div>
+
+      <!-- Actions row -->
+      <div class="actions">
+        <pui-button id="saveBtn" variant="primary">Save Changes</pui-button>
+        <pui-button id="cancelBtn" variant="secondary">Cancel</pui-button>
+        <pui-badge variant="success">Live</pui-badge>
+        <pui-badge id="envBadge" variant="warning">Loading…</pui-badge>
+      </div>
+
+      <!-- Status bar -->
+      <div class="status-bar">
+        Active page: <strong id="activePage">dashboard</strong> &nbsp;|&nbsp;
+        Last action: <strong id="lastAction">—</strong>
+      </div>
+
+    </div>
+
+  </pui-app-shell>
+<pui-card>
+  <div card-header>Header content</div>
+  Body content goes here — no attribute needed.
+  <div card-footer>Footer content</div>
+</pui-card>
+
+   <pui-button
+      variant="primary"
+      [label]="actionLabel"
+      (buttonClick)="onSave($event)"
+      (buttonFocus)="onFocus($event)"
+      (buttonBlur)="onBlur($event)"
+      (buttonHover)="onHover($event)"
+      (buttonLeave)="onLeave($event)">
+    </pui-button>
+
+  <script>
+    /* ── 1. Set up pui-app-shell once its custom element is registered ── */
+    customElements.whenDefined('pui-app-shell').then(() => {
+
+      const shell = document.getElementById('shell');
+
+      /* Navigation groups (object input — must be set as a JS property) */
+      shell.groups = [
+        {
+          id: 'grp-overview',
+          label: 'Overview',
+          items: [
+            { id: 'dashboard', label: 'Dashboard' },
+            { id: 'analytics', label: 'Analytics', badge: 'New', badgeVariant: 'success' },
+          ],
+        },
+        {
+          id: 'grp-manage',
+          label: 'Management',
+          items: [
+            {
+              id: 'users', label: 'Users', badge: 12,
+              children: [
+                { id: 'users-list',   label: 'All Users' },
+                { id: 'users-roles',  label: 'Roles' },
+                { id: 'users-invite', label: 'Invite' },
+              ],
+            },
+            { id: 'products', label: 'Products' },
+            { id: 'orders',   label: 'Orders', badge: 3, badgeVariant: 'warning' },
+          ],
+        },
+        {
+          id: 'grp-settings',
+          label: 'Settings',
+          items: [
+            { id: 'settings', label: 'General' },
+            { id: 'billing',  label: 'Billing'  },
+          ],
+        },
+      ];
+
+      /* User menu items */
+      shell.headerMenuItems = [
+        { label: 'My Profile', action: 'profile' },
+        { label: 'Settings',   action: 'settings' },
+        { label: 'Sign Out',   action: 'logout', danger: true },
+      ];
+
+      /* Environment badge */
+      shell.headerBadge = { text: 'DEV', color: '#f59e0b', textColor: '#fff' };
+
+      /* Listen: sidebar nav click */
+      shell.addEventListener('itemSelect', (e) => {
+        document.getElementById('activePage').textContent = e.detail.id;
+        document.getElementById('lastAction').textContent = 'Navigated → ' + e.detail.label;
+      });
+
+      /* Listen: user menu action */
+      shell.addEventListener('headerMenuAction', (e) => {
+        document.getElementById('lastAction').textContent = 'Menu → ' + e.detail;
+        if (e.detail === 'logout') alert('Signing out…');
+      });
+
+    });
+
+    /* ── 2. Set stat card data ── */
+    customElements.whenDefined('pui-card').then(() => {
+      document.getElementById('card1').data = {
+        title: 'Users', value: '1,284', trend: 'up', trendValue: '+8%', subtitle: 'this month'
+      };
+      document.getElementById('card2').data = {
+        title: 'Revenue', value: '$48.2k', trend: 'up', trendValue: '+12%', subtitle: 'vs last month'
+      };
+      document.getElementById('card3').data = {
+        title: 'Uptime', value: '99.9%', trend: 'up', trendValue: '+0.2%', subtitle: 'last 30 days'
+      };
+      document.getElementById('card4').data = {
+        title: 'Open Tickets', value: '342', trend: 'down', trendValue: '-5%', subtitle: 'vs last week'
+      };
+    });
+
+    /* ── 3. Button events ── */
+    customElements.whenDefined('pui-button').then(() => {
+      document.getElementById('saveBtn').addEventListener('buttonClick', () => {
+        document.getElementById('lastAction').textContent = 'Saved ✓';
+        document.getElementById('envBadge').setAttribute('variant', 'success');
+        document.getElementById('envBadge').textContent = 'Saved';
+      });
+
+      document.getElementById('cancelBtn').addEventListener('buttonClick', () => {
+        document.getElementById('lastAction').textContent = 'Cancelled';
+      });
+    });
+  </script>
+
+</body>
+</html>

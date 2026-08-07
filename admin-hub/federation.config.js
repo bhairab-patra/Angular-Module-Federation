@@ -14,5 +14,5 @@ module.exports = withNativeFederation({
     ...shareAll({ singleton: true, strictVersion: true, requiredVersion: 'auto' }),
   },
 
-  skip: ['rxjs/ajax', 'rxjs/fetch', 'rxjs/testing', 'rxjs/webSocket'],
+  skip: ['rxjs/ajax', 'rxjs/fetch', 'rxjs/testing', 'rxjs/webSocket', '@bhairab-patra/platform-ui'],
 });

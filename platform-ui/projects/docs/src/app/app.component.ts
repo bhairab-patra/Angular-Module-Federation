@@ -1,11 +1,11 @@
-import { Component, HostListener, ElementRef } from '@angular/core';
+﻿import { Component, HostListener, ElementRef } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet, Router, NavigationEnd } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { filter } from 'rxjs/operators';
 import { PuiToastContainerComponent } from '@solifi/platform-ui';
 
-interface NavItem  { label: string; route: string; }
+interface NavItem  { label: string; route?: string; children?: NavItem[]; expanded?: boolean; }
 interface NavSection { heading: string; icon: SafeHtml; items: NavItem[]; collapsed: boolean; }
 interface SearchItem { label: string; route: string; category: string; keywords: string[]; }
 
@@ -14,14 +14,11 @@ interface SearchItem { label: string; route: string; category: string; keywords:
   standalone: true,
   imports: [RouterOutlet, RouterLink, RouterLinkActive, NgFor, NgIf, PuiToastContainerComponent],
   template: `
-    <!-- ══ TOP BAR ══ -->
+    <!-- â•â• TOP BAR â•â• -->
     <header class="topbar">
       <div class="topbar-left">
         <a class="brand" href="/">
-          <svg class="brand-icon" width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <rect width="28" height="28" rx="8" fill="#12C6A8"/>
-            <path d="M7 14h14M14 7l7 7-7 7" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <img class="brand-icon" src="assets/logo.png" width="32" height="32" alt="Platform UI logo">
           <span class="brand-name">Platform<strong>UI</strong></span>
         </a>
       </div>
@@ -33,7 +30,7 @@ interface SearchItem { label: string; route: string; category: string; keywords:
           <input
             class="search-input"
             type="text"
-            placeholder="Search components…"
+            placeholder="Search componentsâ€¦"
             [value]="searchQuery"
             (input)="onSearch($any($event.target).value)"
             (keydown.escape)="clearSearch()"
@@ -41,7 +38,7 @@ interface SearchItem { label: string; route: string; category: string; keywords:
             (keydown.arrowup)="moveFocus(-1)"
             (keydown.enter)="selectFocused()"
             autocomplete="off">
-          <button *ngIf="searchQuery" class="search-clear" (click)="clearSearch()">✕</button>
+          <button *ngIf="searchQuery" class="search-clear" (click)="clearSearch()">âœ•</button>
           <ul class="search-dropdown" *ngIf="suggestions.length > 0">
             <li *ngFor="let s of suggestions; let i = index"
                 class="search-item"
@@ -62,7 +59,7 @@ interface SearchItem { label: string; route: string; category: string; keywords:
       </div>
     </header>
 
-    <!-- ══ BODY ══ -->
+    <!-- â•â• BODY â•â• -->
     <div class="shell">
 
       <!-- Left sidebar -->
@@ -71,7 +68,7 @@ interface SearchItem { label: string; route: string; category: string; keywords:
 
           <!-- Version badge -->
           <div class="sidebar-version">
-            <span class="version-badge">v1.0.0</span>
+            <span class="version-badge">v1.3.0</span>
             <span class="version-label">Stable</span>
           </div>
 
@@ -80,7 +77,6 @@ interface SearchItem { label: string; route: string; category: string; keywords:
 
             <!-- Section header (clickable to collapse) -->
             <button class="nav-section__header" (click)="toggleSection(s)">
-              <span class="nav-section__icon" [innerHTML]="s.icon"></span>
               <span class="nav-section__heading">{{ s.heading }}</span>
               <svg class="nav-section__chevron" [class.nav-section__chevron--open]="!s.collapsed"
                    width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -91,14 +87,40 @@ interface SearchItem { label: string; route: string; category: string; keywords:
 
             <!-- Collapsible items -->
             <div class="nav-section__items" [class.nav-section__items--open]="!s.collapsed">
-              <a *ngFor="let item of s.items"
-                 [routerLink]="item.route"
-                 routerLinkActive="nav-link--active"
-                 [routerLinkActiveOptions]="item.route === '/' ? {exact: true} : {exact: false}"
-                 class="nav-link">
-                <span class="nav-link__dot"></span>
-                {{ item.label }}
-              </a>
+              <ng-container *ngFor="let item of s.items">
+
+                <!-- Flat link -->
+                <a *ngIf="!item.children"
+                   [routerLink]="item.route"
+                   routerLinkActive="nav-link--active"
+                   [routerLinkActiveOptions]="item.route === '/' ? {exact: true} : {exact: false}"
+                   class="nav-link">
+
+                  {{ item.label }}
+                </a>
+
+                <!-- Expandable parent -->
+                <div *ngIf="item.children" class="nav-parent-wrap">
+                  <button class="nav-link nav-link--parent" (click)="toggleNavItem(item)">
+                    {{ item.label }}
+                    <svg class="nav-parent__chevron" [class.nav-parent__chevron--open]="item.expanded"
+                         width="12" height="12" viewBox="0 0 16 16" fill="none">
+                      <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                  <div class="nav-children" [class.nav-children--open]="item.expanded">
+                    <a *ngFor="let child of item.children"
+                       [routerLink]="child.route"
+                       routerLinkActive="nav-link--active"
+                       class="nav-link nav-link--child">
+    
+                      {{ child.label }}
+                    </a>
+                  </div>
+                </div>
+
+              </ng-container>
             </div>
 
           </div>
@@ -122,7 +144,7 @@ interface SearchItem { label: string; route: string; category: string; keywords:
     <pui-toast-container></pui-toast-container>
   `,
   styles: [`
-    /* ── Top bar ─────────────────────────────── */
+    /* â”€â”€ Top bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .topbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       height: 58px;
@@ -154,7 +176,7 @@ interface SearchItem { label: string; route: string; category: string; keywords:
     }
     .gh-btn:hover { background: #f3f4f6; color: #111827; border-color: #d1d5db; }
 
-    /* ── Search ─────────────────────────────── */
+    /* â”€â”€ Search â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .topbar-center { flex: 1; display: flex; justify-content: center; padding: 0 24px; }
 
     .search-wrap {
@@ -203,7 +225,7 @@ interface SearchItem { label: string; route: string; category: string; keywords:
     }
     .search-item__label { font-size: 13px; color: #111827; font-weight: 500; }
 
-    /* ── Global ─────────────────────────────── */
+    /* â”€â”€ Global â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     :host { font-family: 'Poppins', system-ui, sans-serif; }
 
     .shell {
@@ -211,7 +233,7 @@ interface SearchItem { label: string; route: string; category: string; keywords:
       font-family: 'Poppins', system-ui, sans-serif;
     }
 
-    /* ── Sidebar ────────────────────────────── */
+    /* â”€â”€ Sidebar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .sidebar {
       position: fixed; top: 58px; bottom: 0; left: 0;
       width: 260px; overflow-y: auto;
@@ -265,7 +287,7 @@ interface SearchItem { label: string; route: string; category: string; keywords:
     }
     .nav-section__chevron--open { transform: rotate(0deg); }
 
-    /* Items panel — CSS-only height animation */
+    /* Items panel â€” CSS-only height animation */
     .nav-section__items {
       overflow: hidden;
       max-height: 0;
@@ -303,6 +325,38 @@ interface SearchItem { label: string; route: string; category: string; keywords:
     }
     .nav-link--active .nav-link__dot { background: #12C6A8 !important; transform: scale(1.3); }
 
+    /* Expandable parent nav item */
+    .nav-link--parent {
+      width: 100%; text-align: left; background: none; border: none;
+      cursor: pointer; font-family: 'Poppins', system-ui, sans-serif;
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 16px 7px 42px;
+      font-size: 13px; color: #4b5563;
+      border-left: 2px solid transparent;
+      transition: color .12s, background .12s;
+    }
+    .nav-link--parent:hover { color: #111827; background: #f0f1f3; }
+
+    .nav-link__dot--arrow { background: #d1d5db; }
+
+    .nav-parent__chevron {
+      margin-left: auto; color: #9ca3af; flex-shrink: 0;
+      transition: transform .22s cubic-bezier(.4,0,.2,1);
+      transform: rotate(-90deg);
+    }
+    .nav-parent__chevron--open { transform: rotate(0deg); }
+
+    .nav-children {
+      overflow: hidden; max-height: 0; opacity: 0;
+      transition: max-height .28s cubic-bezier(.4,0,.2,1), opacity .22s ease;
+    }
+    .nav-children--open { max-height: 300px; opacity: 1; }
+
+    .nav-link--child {
+      padding-left: 58px;
+      font-size: 12.5px;
+    }
+
     /* Sidebar footer */
     .sidebar-footer {
       padding: 12px 16px;
@@ -310,7 +364,7 @@ interface SearchItem { label: string; route: string; category: string; keywords:
     }
     .sidebar-footer__text { font-size: 11px; color: #c4c9d4; }
 
-    /* ── Main ───────────────────────────────── */
+    /* â”€â”€ Main â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .docs-main {
       flex: 1; margin-left: 260px; min-width: 0; background: #fff;
     }
@@ -345,6 +399,17 @@ export class AppComponent {
     { label: 'Advanced Filters',route: '/filters',         category: 'Component',       keywords: ['filter', 'panel', 'checkbox', 'range', 'date', 'select', 'advanced'] },
     { label: 'Toast',           route: '/toast',           category: 'Component',       keywords: ['notification', 'alert', 'snackbar', 'success', 'error', 'warning', 'info'] },
     { label: 'Sidebar',         route: '/sidebar',         category: 'Component',       keywords: ['sidebar', 'navigation', 'nav', 'menu', 'shell', 'layout', 'drawer', 'collapse'] },
+    { label: 'Table',       route: '/table',      category: 'Component', keywords: ['table', 'grid', 'data', 'sort', 'search', 'pagination', 'paginate', 'rows', 'columns', 'filter', 'selectable', 'sticky', 'scroll'] },
+    { label: 'Tabs',        route: '/tabs',       category: 'Component', keywords: ['tabs', 'tab', 'panel', 'navigation', 'line', 'pill', 'card', 'switch', 'active'] },
+    { label: 'Date Picker',    route: '/datepicker',    category: 'Component', keywords: ['date', 'datepicker', 'calendar', 'picker', 'range', 'input', 'schedule', 'time'] },
+    { label: 'Multi Select',   route: '/multi-select',  category: 'Form',      keywords: ['multiselect', 'multi', 'select', 'dropdown', 'chips', 'tags', 'checkbox', 'multiple', 'search'] },
+    { label: 'Password Input', route: '/password-input',category: 'Form',      keywords: ['password', 'input', 'strength', 'show', 'hide', 'reveal', 'toggle', 'copy', 'secure', 'validation'] },
+    { label: 'Combobox',       route: '/combobox',      category: 'Form',      keywords: ['combobox', 'autocomplete', 'typeahead', 'search', 'filter', 'dropdown', 'select', 'freetext'] },
+    { label: 'Skeleton Loader',route: '/skeleton',      category: 'Component', keywords: ['skeleton', 'loader', 'loading', 'placeholder', 'shimmer', 'pulse', 'ghost', 'spinner'] },
+    { label: 'Chip',           route: '/chip',          category: 'Component', keywords: ['chip', 'tag', 'filter', 'removable', 'selectable', 'pill', 'toggle', 'input'] },
+    { label: 'Tag',            route: '/tag',           category: 'Component', keywords: ['tag', 'label', 'badge', 'status', 'category', 'pill', 'uppercase'] },
+    { label: 'List',           route: '/list',          category: 'Component', keywords: ['list', 'items', 'selectable', 'bordered', 'striped', 'flush', 'menu', 'navigation'] },
+    { label: 'Data Grid',      route: '/datagrid',      category: 'Component', keywords: ['datagrid', 'grid', 'table', 'data', 'sort', 'pagination', 'selectable', 'rows', 'columns', 'badge'] },
   ];
 
   searchQuery   = '';
@@ -355,6 +420,21 @@ export class AppComponent {
     s.collapsed = !s.collapsed;
   }
 
+  toggleNavItem(item: NavItem): void {
+    item.expanded = !item.expanded;
+  }
+
+  private expandParentForRoute(url: string): void {
+    for (const section of this.sections) {
+      for (const item of section.items) {
+        if (item.children) {
+          const active = item.children.some(c => url.startsWith(c.route ?? ''));
+          if (active) item.expanded = true;
+        }
+      }
+    }
+  }
+
   constructor(private router: Router, private el: ElementRef, private san: DomSanitizer) {
     const s = (svg: string) => this.san.bypassSecurityTrustHtml(svg);
     this.sections = [
@@ -363,8 +443,16 @@ export class AppComponent {
         collapsed: false,
         icon: s(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h12M2 8h8M2 13h5"/></svg>`),
         items: [
-          { label: 'Introduction',    route: '/'                },
-          { label: 'Getting Started', route: '/getting-started' },
+          // { label: 'Introduction', route: '/' },
+          {
+            label: 'Getting Started',
+            expanded: false,
+            children: [
+              { label: 'Angular',    route: '/getting-started/angular' },
+              { label: 'React',      route: '/getting-started/react'   },
+              { label: 'Plain HTML', route: '/getting-started/html'    },
+            ],
+          },
         ],
       },
       {
@@ -380,14 +468,22 @@ export class AppComponent {
         collapsed: false,
         icon: s(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="1.5" width="5" height="5" rx="1"/><rect x="9.5" y="1.5" width="5" height="5" rx="1"/><rect x="1.5" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/></svg>`),
         items: [
-          { label: 'Badge',       route: '/badge'       },
-          { label: 'Breadcrumb',  route: '/breadcrumb'  },
-          { label: 'Button',      route: '/button'      },
-          { label: 'Card',        route: '/card'        },
-          { label: 'Icon',        route: '/icon'        },
-          { label: 'Modal',       route: '/modal'       },
-          { label: 'Spinner',     route: '/spinner'     },
-          { label: 'Tooltip',     route: '/tooltip'     },
+          { label: 'Badge',           route: '/badge'       },
+          { label: 'Breadcrumb',      route: '/breadcrumb'  },
+          { label: 'Button',          route: '/button'      },
+          { label: 'Card',            route: '/card'        },
+          { label: 'Chip',            route: '/chip'        },
+          { label: 'Data Grid',       route: '/datagrid'    },
+          { label: 'Date Picker',     route: '/datepicker'  },
+          { label: 'Icon',            route: '/icon'        },
+          { label: 'List',            route: '/list'        },
+          { label: 'Modal',           route: '/modal'       },
+          { label: 'Skeleton Loader', route: '/skeleton'    },
+          { label: 'Spinner',         route: '/spinner'     },
+          { label: 'Table',           route: '/table'       },
+          { label: 'Tabs',            route: '/tabs'        },
+          { label: 'Tag',             route: '/tag'         },
+          { label: 'Tooltip',         route: '/tooltip'     },
         ],
       },
       {
@@ -395,12 +491,15 @@ export class AppComponent {
         collapsed: false,
         icon: s(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="3" width="13" height="3" rx="1"/><rect x="1.5" y="10" width="13" height="3" rx="1"/><path d="M5 6.5v3"/></svg>`),
         items: [
-          { label: 'Checkbox', route: '/checkbox' },
-          { label: 'Input',    route: '/input'    },
-          { label: 'Radio',    route: '/radio'    },
-          { label: 'Select',   route: '/select'   },
-          { label: 'Switch',   route: '/switch'   },
-          { label: 'Textarea', route: '/textarea' },
+          { label: 'Checkbox',       route: '/checkbox'       },
+          { label: 'Combobox',       route: '/combobox'       },
+          { label: 'Input',          route: '/input'          },
+          { label: 'Multi Select',   route: '/multi-select'   },
+          { label: 'Password Input', route: '/password-input' },
+          { label: 'Radio',          route: '/radio'          },
+          { label: 'Select',         route: '/select'         },
+          { label: 'Switch',         route: '/switch'         },
+          { label: 'Textarea',       route: '/textarea'       },
         ],
       },
       {
@@ -422,8 +521,10 @@ export class AppComponent {
       filter(e => e instanceof NavigationEnd)
     ).subscribe((e: any) => {
       this.isHome = e.urlAfterRedirects === '/';
+      this.expandParentForRoute(e.urlAfterRedirects);
       this.clearSearch();
     });
+    this.expandParentForRoute(this.router.url);
   }
 
   onSearch(q: string): void {
@@ -464,3 +565,4 @@ export class AppComponent {
     if (!this.el.nativeElement.contains(e.target)) this.clearSearch();
   }
 }
+

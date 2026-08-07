@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ModalSize } from '../models/modal.model';
 
@@ -6,6 +6,7 @@ import { ModalSize } from '../models/modal.model';
   selector: 'pui-modal',
   standalone: true,
   imports: [NgIf],
+  encapsulation: ViewEncapsulation.ShadowDom,
   template: `
     <div *ngIf="open" class="pui-modal-backdrop" (click)="onBackdropClick($event)">
       <div class="pui-modal pui-modal--{{size}}" role="dialog" [attr.aria-label]="title">

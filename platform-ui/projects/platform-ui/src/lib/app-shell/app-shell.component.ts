@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef
+  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
 } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
@@ -12,6 +12,7 @@ import { SidebarGroup, SidebarNavItem, SidebarConfig, SidebarTheme } from '../mo
   selector: 'pui-app-shell',
   standalone: true,
   imports: [NgIf, HeaderComponent, PuiSidebarComponent],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
 <div class="pas">

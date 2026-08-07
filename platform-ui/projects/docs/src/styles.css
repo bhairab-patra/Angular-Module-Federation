@@ -17,15 +17,15 @@ a { color: inherit; text-decoration: none; }
 pre {
   background: #0f172a;
   color: #e2e8f0;
-  border-radius: 10px;
+   
   padding: 20px 24px;
   overflow-x: auto;
   font-size: 13.5px;
   line-height: 1.75;
-  font-family: 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+   
   tab-size: 2;
 }
-code { font-family: 'Fira Code','Cascadia Code','Consolas', monospace; }
+ 
 p code, li code, td code {
   background: #f3f4f6;
   color: #1f2937;
@@ -39,3 +39,37 @@ p code, li code, td code {
 ::-webkit-scrollbar       { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
+
+/* ── Doc-page demo section ─────────────────────── */
+.demo-section { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-bottom: 24px; }
+.demo-section:last-child { margin-bottom: 0; }
+.demo-section__title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: #9ca3af; }
+.demo-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
+.demo-col { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.demo-desc { font-size: 13px; color: #6b7280; margin: 0; }
+
+/* ── Framework Usage section (shared across all doc pages) ── */
+.fw-title { font-size: 22px; font-weight: 700; color: #111827; margin: 0 0 8px; }
+.fw-lead { font-size: 14px; color: #6b7280; line-height: 1.7; margin: 0 0 24px; }
+.fw-lead code { background: #f3f4f6; padding: 1px 5px; border-radius: 4px; font-size: 13px; color: #1f2937; }
+.fw-tabs { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+.fw-tab { display: flex; align-items: center; gap: 7px; padding: 8px 18px; border-radius: 10px; border: 1.5px solid #e5e7eb; background: #fff; font-size: 13px; font-weight: 500; color: #374151; cursor: pointer; font-family: inherit; transition: all .14s; }
+.fw-tab:hover { border-color: #12C6A8; color: #0d9e87; }
+.fw-tab--active { border-color: #12C6A8; background: #f0fdfb; color: #0d9e87; font-weight: 600; }
+.fw-panel { display: flex; flex-direction: column; gap: 14px; }
+.fw-note { padding: 12px 16px; border-radius: 8px; font-size: 13px; line-height: 1.65; border-left: 4px solid #e5e7eb; background: #f9fafb; color: #374151; }
+.fw-note code { font-size: 12px; background: rgba(0,0,0,.06); padding: 1px 4px; border-radius: 3px; }
+.fw-note--angular { border-color: #c3002f; background: #fff5f5; color: #7f1d1d; }
+.fw-note--react   { border-color: #38bdf8; background: #f0f9ff; color: #0c4a6e; }
+.fw-note--html    { border-color: #e34c26; background: #fff8f5; color: #7c2d12; }
+.fw-ref-title, .xfw-title { font-size: 16px; font-weight: 700; color: #111827; margin: 32px 0 12px; }
+.xfw-wrap, .xfw-table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e5e7eb; }
+.xfw-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.xfw-table th { background: #f9fafb; padding: 10px 14px; text-align: left; font-size: 11px; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid #e5e7eb; }
+.xfw-table td { padding: 9px 14px; color: #374151; border-bottom: 1px solid #f3f4f6; }
+.xfw-odd td { background: #f9fafb; }
+.xfw-table tr:last-child td { border-bottom: none; }
+.xfw-table .tag-name { color: #7c3aed; background: #f5f3ff; padding: 1px 6px; border-radius: 4px; font-size: 12px; white-space: nowrap; }
+.xfw-table .tag-ng   { color: #991b1b; background: #fff5f5; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+.xfw-table .tag-html { color: #92400e; background: #fffbeb; padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+.xfw-table .tag-js   { color: #065f46; background: #f0fdf9; padding: 1px 6px; border-radius: 4px; font-size: 12px; }

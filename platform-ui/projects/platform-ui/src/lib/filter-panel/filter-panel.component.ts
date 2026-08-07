@@ -336,11 +336,36 @@ import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
   `],
 })
 export class PuiFilterPanelComponent implements OnChanges {
-  @Input() title      = 'Filters';
-  @Input() filters: FilterDef[] = [];
-  @Input() values: FilterValues = {};
-  @Input() showActions = true;
-  @Input() inline      = false;
+  @Input() title = 'Filters';
+
+  @Input() set filters(v: FilterDef[] | string) {
+    this._filters = typeof v === 'string' ? (this._parseJson<FilterDef[]>(v) ?? []) : (v || []);
+  }
+  get filters(): FilterDef[] { return this._filters; }
+  private _filters: FilterDef[] = [];
+
+  @Input() set values(v: FilterValues | string) {
+    this._values = typeof v === 'string' ? (this._parseJson<FilterValues>(v) ?? {}) : (v || {});
+  }
+  get values(): FilterValues { return this._values; }
+  private _values: FilterValues = {};
+
+  @Input() set showActions(v: boolean | string) {
+    this._showActions = v !== false && v !== 'false';
+  }
+  get showActions() { return this._showActions; }
+  private _showActions = true;
+
+  @Input() set inline(v: boolean | string) {
+    this._inline = v === true || v === 'true' || (v as any) === '';
+  }
+  get inline() { return this._inline; }
+  private _inline = false;
+
+  private _parseJson<T>(s: string): T | null {
+    if (!s) return null;
+    try { return JSON.parse(s) as T; } catch { return null; }
+  }
 
   @Output() valuesChange = new EventEmitter<FilterValues>();
   @Output() applied      = new EventEmitter<FilterValues>();

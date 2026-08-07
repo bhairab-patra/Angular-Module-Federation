@@ -2,406 +2,229 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf, JsonPipe } from '@angular/common';
 import { PuiFilterPanelComponent, FilterDef, FilterValues } from '@solifi/platform-ui';
 import { DocPageComponent, ApiRow } from '../shared/doc-page.component';
+import { CodeBlockComponent } from '../shared/code-block.component';
+
+type FwTab = 'angular' | 'react' | 'html';
+
+const LOAN_FILTERS: FilterDef[] = [
+  {
+    id: 'status', label: 'Loan Status', type: 'checkbox',
+    options: [
+      { label: 'Active',      value: 'active',      count: 142 },
+      { label: 'Pending',     value: 'pending',     count: 38  },
+      { label: 'Closed',      value: 'closed',      count: 215 },
+      { label: 'Defaulted',   value: 'defaulted',   count: 12  },
+    ],
+  },
+  {
+    id: 'type', label: 'Loan Type', type: 'radio',
+    options: [
+      { label: 'All types',   value: ''          },
+      { label: 'Personal',    value: 'personal'  },
+      { label: 'Business',    value: 'business'  },
+      { label: 'Mortgage',    value: 'mortgage'  },
+    ],
+  },
+  {
+    id: 'amount', label: 'Loan Amount', type: 'range',
+    min: 0, max: 500000, step: 5000,
+  },
+  {
+    id: 'region', label: 'Region', type: 'select',
+    placeholder: 'Any region',
+    options: [
+      { label: 'North America', value: 'na'  },
+      { label: 'Europe',        value: 'eu'  },
+      { label: 'Asia Pacific',  value: 'apac'},
+    ],
+  },
+  {
+    id: 'created', label: 'Created Date', type: 'date-range',
+  },
+];
 
 @Component({
   selector: 'docs-filter-page',
   standalone: true,
-  imports: [NgFor, NgIf, JsonPipe, PuiFilterPanelComponent, DocPageComponent],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgFor, NgIf, JsonPipe, PuiFilterPanelComponent, DocPageComponent, CodeBlockComponent],
+  changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <docs-page
       title="Advanced Filters"
-      description="A composable filter panel supporting checkbox groups, radio buttons, select dropdowns, dual-thumb range sliders, text inputs, and date-range pickers. Filters show as removable chips and can be applied as a batch or respond instantly in inline mode."
-      [code]="importCode"
+      description="Composable filter panel with checkbox groups, radio buttons, select dropdowns, dual-thumb range sliders, text inputs, and date-range pickers. Active filters display as removable chips. Works in Angular, React, and plain HTML."
+      [hasFramework]="true"
       [api]="api">
 
+      <!-- ══ DEMO ═════════════════════════════════════════════ -->
       <ng-container demo>
 
-        <!-- ── Sidebar Panel ──────────────────────────────── -->
-        <div class="ds">
-          <div class="ds__head">
-            <h3 class="ds__title">Sidebar Filter Panel</h3>
-            <p class="ds__desc">
-              The default mode: all changes stage locally and emit via <code class="ic">(applied)</code>
-              only when the user clicks <strong>Apply</strong>.
-              Active selections appear as removable chips at the top.
-            </p>
+        <div class="demo-label"><span>Sidebar Filter Panel (batch apply)</span></div>
+        <div class="demo-split">
+          <div class="panel-col">
+            <pui-filter-panel
+              title="Loan Filters"
+              [filters]="filters"
+              [values]="values"
+              (valuesChange)="values = $event"
+              (applied)="applied = $event"
+              (cleared)="values = {}; applied = {}">
+            </pui-filter-panel>
           </div>
-
-          <div class="ds__preview">
-            <div class="preview-split">
-              <!-- Panel -->
-              <div class="preview-split__panel">
-                <pui-filter-panel
-                  title="Filters"
-                  [filters]="sidebarFilters"
-                  [values]="sidebarValues"
-                  (valuesChange)="sidebarValues = $event"
-                  (applied)="appliedValues = $event"
-                  (cleared)="sidebarValues = {}; appliedValues = {}">
-                </pui-filter-panel>
-              </div>
-              <!-- Result -->
-              <div class="preview-split__result">
-                <div class="result-label">Applied values</div>
-                <pre class="result-pre">{{ appliedValues | json }}</pre>
-                <p class="result-hint" *ngIf="!hasApplied">
-                  Click <strong>Apply</strong> in the panel to see values here.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copy(codeSidebar, 'sidebar')">{{ copied['sidebar'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeSidebar }}</code></pre>
+          <div class="result-col">
+            <div class="result-label">Applied filters</div>
+            <pre class="result-pre">{{ applied | json }}</pre>
+            <p class="result-hint" *ngIf="!hasApplied">Click <strong>Apply filters</strong> to see the values here.</p>
           </div>
         </div>
 
-        <!-- ── Inline / Immediate ─────────────────────────── -->
-        <div class="ds">
-          <div class="ds__head">
-            <h3 class="ds__title">Inline / Immediate Mode</h3>
-            <p class="ds__desc">
-              Set <code class="ic">[showActions]="false"</code> and <code class="ic">[inline]="true"</code>
-              to emit on every change — no Apply button needed.
-              Ideal for toolbars, filter bars, and sidebars that refresh results live.
-            </p>
+        <div class="demo-label"><span>Inline Mode (auto-apply on change)</span></div>
+        <div class="demo-split">
+          <div class="panel-col">
+            <pui-filter-panel
+              title="Quick Filters"
+              [inline]="true"
+              [showActions]="false"
+              [filters]="inlineFilters"
+              [values]="inlineValues"
+              (valuesChange)="inlineValues = $event"
+              (applied)="inlineApplied = $event">
+            </pui-filter-panel>
           </div>
-
-          <div class="ds__preview">
-            <div class="preview-frame">
-              <pui-filter-panel
-                title="Quick Filters"
-                [filters]="inlineFilters"
-                [values]="inlineValues"
-                [showActions]="false"
-                [inline]="true"
-                (valuesChange)="inlineValues = $event">
-              </pui-filter-panel>
-              <div class="live-result" *ngIf="inlineValues['status']?.length || inlineValues['priority']">
-                <span class="live-result__label">Live values:</span>
-                <span class="live-chip" *ngFor="let s of inlineValues['status']">{{ s }}</span>
-                <span class="live-chip live-chip--purple" *ngIf="inlineValues['priority'] && inlineValues['priority'] !== 'all'">
-                  {{ inlineValues['priority'] }}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copy(codeInline, 'inline')">{{ copied['inline'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeInline }}</code></pre>
-          </div>
-        </div>
-
-        <!-- ── Range & Date ───────────────────────────────── -->
-        <div class="ds">
-          <div class="ds__head">
-            <h3 class="ds__title">Range, Date & Text Filters</h3>
-            <p class="ds__desc">
-              Use <code class="ic">type: 'range'</code> for a dual-thumb slider with configurable
-              <code class="ic">min</code>, <code class="ic">max</code>, and <code class="ic">step</code>.
-              <code class="ic">type: 'date-range'</code> provides start/end date inputs.
-              <code class="ic">type: 'text'</code> gives a free-text search field.
-            </p>
-          </div>
-
-          <div class="ds__preview">
-            <div class="preview-split">
-              <div class="preview-split__panel">
-                <pui-filter-panel
-                  title="Advanced"
-                  [filters]="rangeFilters"
-                  [values]="rangeValues"
-                  (valuesChange)="rangeValues = $event">
-                </pui-filter-panel>
-              </div>
-              <div class="preview-split__result">
-                <div class="result-label">Current values</div>
-                <pre class="result-pre">{{ rangeValues | json }}</pre>
-              </div>
-            </div>
-          </div>
-
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copy(codeRange, 'range')">{{ copied['range'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeRange }}</code></pre>
-          </div>
-        </div>
-
-        <!-- ── Filter Types Reference ─────────────────────── -->
-        <div class="ds">
-          <div class="ds__head">
-            <h3 class="ds__title">Filter Types Reference</h3>
-            <p class="ds__desc">All six <code class="ic">FilterDef</code> types at a glance.</p>
-          </div>
-          <div class="type-grid">
-            <div class="type-card" *ngFor="let t of filterTypes">
-              <span class="type-card__badge">{{ t.type }}</span>
-              <div class="type-card__name">{{ t.name }}</div>
-              <div class="type-card__desc">{{ t.desc }}</div>
-            </div>
+          <div class="result-col">
+            <div class="result-label">Live values</div>
+            <pre class="result-pre">{{ inlineValues | json }}</pre>
           </div>
         </div>
 
       </ng-container>
+
+      <!-- ══ FRAMEWORK USAGE ══════════════════════════════════ -->
+      <ng-container framework>
+
+        <h2 class="fw-title">Framework Usage</h2>
+        <p class="fw-lead">
+          <code>pui-filter-panel</code> is a Web Component. The <code>filters</code> definition array and
+          <code>values</code> object are complex structures — pass them as JS properties or as a JSON string attribute.
+          The component emits <code>valuesChange</code>, <code>applied</code>, <code>reset</code>, and <code>cleared</code> CustomEvents.
+        </p>
+
+        <div class="fw-tabs">
+          <button class="fw-tab" [class.fw-tab--active]="fw==='angular'" (click)="fw='angular'">
+            <svg width="15" height="15" viewBox="0 0 24 24"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.31H4.936L12 3.405z" fill="#c3002f"/></svg>
+            Angular
+          </button>
+          <button class="fw-tab" [class.fw-tab--active]="fw==='react'" (click)="fw='react'">
+            <svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
+            React
+          </button>
+          <button class="fw-tab" [class.fw-tab--active]="fw==='html'" (click)="fw='html'">
+            <svg width="15" height="15" viewBox="0 0 24 24"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
+            Plain HTML
+          </button>
+        </div>
+
+        <div *ngIf="fw==='angular'" class="fw-panel">
+          <div class="fw-note fw-note--angular">Bind <code>[filters]</code> and <code>[(values)]</code> directly — full two-way binding supported.</div>
+          <app-code lang="html"       id="fp-ng-tpl" [text]="angularTpl" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <app-code lang="typescript" id="fp-ng-ts"  [text]="angularTs"  [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </div>
+
+        <div *ngIf="fw==='react'" class="fw-panel">
+          <div class="fw-note fw-note--react">Set <code>filters</code> and <code>values</code> as JS properties via <code>ref</code>. Listen to <code>valuesChange</code> and <code>applied</code> events.</div>
+          <app-code lang="tsx" id="fp-react" [text]="reactCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </div>
+
+        <div *ngIf="fw==='html'" class="fw-panel">
+          <div class="fw-note fw-note--html">Load bundle, set <code>filters</code> via JS property after <code>whenDefined</code>, listen to CustomEvents.</div>
+          <app-code lang="html" id="fp-html" [text]="htmlCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </div>
+
+        <h3 class="fw-ref-title">Input Quick Reference</h3>
+        <div class="xfw-wrap">
+          <table class="xfw-table">
+            <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property / event</th></tr></thead>
+            <tbody>
+              <tr *ngFor="let r of xfwRows; let odd=odd" [class.xfw-odd]="odd">
+                <td><code class="tag-name">{{ r.name }}</code></td>
+                <td><code class="tag-ng">{{ r.angular }}</code></td>
+                <td><code class="tag-html">{{ r.attr }}</code></td>
+                <td><code class="tag-js">{{ r.js }}</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </ng-container>
+
     </docs-page>
   `,
   styles: [`
-    /* ── Demo section block ─────────────────────────────── */
-    .ds {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      padding: 32px 0;
-      border-bottom: 1px solid #e5e7eb;
-    }
-    .ds:last-child  { border-bottom: none; padding-bottom: 0; }
-    .ds:first-child { padding-top: 0; }
+    .demo-label { width:100%; padding-top:14px; margin-top:2px; border-top:1px solid #e5e7eb; }
+    .demo-label span { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:#9ca3af; }
+    .demo-split { display:grid; grid-template-columns:320px 1fr; gap:20px; width:100%; align-items:start; }
+    .panel-col { min-width:0; }
+    .result-col { background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:16px; min-height:200px; }
+    .result-label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#9ca3af; margin-bottom:10px; }
+    .result-pre { margin:0; font-size:12px; color:#374151; background:transparent; border:none; white-space:pre-wrap; word-break:break-all; font-family:'Fira Code',monospace; }
+    .result-hint { font-size:13px; color:#9ca3af; margin:12px 0 0; }
+    .result-hint strong { color:#374151; }
 
-    .ds__head { display: flex; flex-direction: column; gap: 6px; }
-    .ds__title {
-      font-size: 16px; font-weight: 700; color: #111827; margin: 0;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-    .ds__desc {
-      font-size: 13.5px; color: #6b7280; margin: 0; line-height: 1.7;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-
-    /* ── Inline code ────────────────────────────────────── */
-    .ic {
-      background: #f3f4f6; color: #1f2937;
-      padding: 1px 6px; border-radius: 4px;
-      font-size: 12.5px; border: 1px solid #e5e7eb;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    }
-
-    /* ── Preview frame ──────────────────────────────────── */
-    .preview-frame {
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    /* ── Split layout: panel + result ───────────────────── */
-    .preview-split {
-      display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 20px;
-      align-items: flex-start;
-      background: #fff;
-      border: 1px solid #e5e7eb;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .preview-split__panel {
-      border-right: 1px solid #e5e7eb;
-      background: #fafafa;
-    }
-    .preview-split__result {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    /* ── Result display ─────────────────────────────────── */
-    .result-label {
-      font-size: 11px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: .07em; color: #9ca3af;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-    .result-pre {
-      font-size: 12px; line-height: 1.7;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 14px 16px;
-      margin: 0;
-      color: #374151;
-      min-height: 80px;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-      overflow: auto;
-    }
-    .result-hint {
-      font-size: 12.5px; color: #9ca3af; margin: 0;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-
-    /* ── Live result chips ──────────────────────────────── */
-    .live-result {
-      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
-      padding: 10px 12px;
-      background: #f9fafb; border-radius: 8px;
-      border: 1px solid #e5e7eb;
-    }
-    .live-result__label {
-      font-size: 12px; color: #9ca3af;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-    .live-chip {
-      font-size: 12px; font-weight: 600;
-      padding: 2px 10px; border-radius: 20px;
-      background: #dcfce7; color: #16a34a;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-    .live-chip--purple { background: #f5f3ff; color: #7c3aed; }
-
-    /* ── Filter type reference grid ─────────────────────── */
-    .type-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-    .type-card {
-      border: 1.5px solid #e5e7eb;
-      border-radius: 10px;
-      padding: 16px 18px;
-      background: #fafafa;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .type-card__badge {
-      font-size: 11px; font-weight: 700;
-      background: #f5f3ff; color: #7c3aed;
-      padding: 2px 8px; border-radius: 4px;
-      align-self: flex-start;
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
-    }
-    .type-card__name {
-      font-size: 13.5px; font-weight: 600; color: #111827;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-    .type-card__desc {
-      font-size: 12.5px; color: #6b7280; line-height: 1.5;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-
-    /* ── Code block ─────────────────────────────────────── */
-    .code-wrap   { border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; }
-    .code-header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 20px;
-      background: #1e293b; border-bottom: 1px solid #334155;
-    }
-    .code-lang {
-      font-size: 11px; color: #64748b;
-      font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
-    }
-    .copy-btn {
-      padding: 3px 12px; border-radius: 5px;
-      border: 1px solid #334155; background: #0f172a;
-      color: #94a3b8; font-size: 12px; cursor: pointer;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-    .copy-btn:hover { color: #e2e8f0; border-color: #475569; }
-    pre { border-radius: 0; border: none; margin: 0; }
+    .fw-title { font-size:22px; font-weight:700; color:#111827; margin:0 0 8px; }
+    .fw-lead { font-size:14px; color:#6b7280; line-height:1.7; margin:0 0 22px; }
+    .fw-lead code { background:#f3f4f6; padding:1px 5px; border-radius:4px; font-size:13px; color:#1f2937; }
+    .fw-tabs { display:flex; gap:8px; margin-bottom:16px; flex-wrap:wrap; }
+    .fw-tab { display:flex; align-items:center; gap:7px; padding:8px 18px; border-radius:10px; border:1.5px solid #e5e7eb; background:#fff; font-size:13px; font-weight:500; color:#374151; cursor:pointer; font-family:inherit; transition:all .14s; }
+    .fw-tab:hover { border-color:#12C6A8; color:#0d9e87; }
+    .fw-tab--active { border-color:#12C6A8; background:#f0fdfb; color:#0d9e87; font-weight:600; }
+    .fw-panel { display:flex; flex-direction:column; gap:14px; }
+    .fw-note { padding:12px 16px; border-radius:8px; font-size:13px; line-height:1.65; border-left:4px solid #e5e7eb; background:#f9fafb; color:#374151; }
+    .fw-note code { font-size:12px; background:rgba(0,0,0,.06); padding:1px 4px; border-radius:3px; }
+    .fw-note--angular { border-color:#c3002f; background:#fff5f5; color:#7f1d1d; }
+    .fw-note--react   { border-color:#38bdf8; background:#f0f9ff; color:#0c4a6e; }
+    .fw-note--html    { border-color:#e34c26; background:#fff8f5; color:#7c2d12; }
+    .fw-ref-title { font-size:16px; font-weight:700; color:#111827; margin:32px 0 12px; }
+    .xfw-wrap { overflow-x:auto; border-radius:10px; border:1px solid #e5e7eb; }
+    .xfw-table { width:100%; border-collapse:collapse; font-size:13px; }
+    .xfw-table th { background:#f9fafb; padding:10px 14px; text-align:left; font-size:11px; font-weight:700; color:#6b7280; text-transform:uppercase; letter-spacing:.06em; border-bottom:1px solid #e5e7eb; }
+    .xfw-table td { padding:9px 14px; color:#374151; border-bottom:1px solid #f3f4f6; }
+    .xfw-table tr:last-child td { border-bottom:none; }
+    .xfw-odd td { background:#f9fafb; }
+    .tag-name { color:#7c3aed; background:#f5f3ff; padding:1px 6px; border-radius:4px; font-size:12px; }
+    .tag-ng   { color:#991b1b; background:#fff5f5; padding:1px 6px; border-radius:4px; font-size:12px; }
+    .tag-html { color:#92400e; background:#fffbeb; padding:1px 6px; border-radius:4px; font-size:12px; }
+    .tag-js   { color:#065f46; background:#f0fdf9; padding:1px 6px; border-radius:4px; font-size:12px; }
   `],
 })
 export class FilterPageComponent {
-  copied: Record<string, boolean> = {};
-  sidebarValues: FilterValues = {};
-  appliedValues: FilterValues = {};
-  inlineValues:  FilterValues = {};
-  rangeValues:   FilterValues = {};
+  fw: FwTab = 'angular';
+  copied    = '';
 
-  get hasApplied(): boolean {
-    return Object.keys(this.appliedValues).length > 0;
-  }
-
-  filterTypes = [
-    { type: 'checkbox',   name: 'Checkbox Group',   desc: 'Multi-select from a list of options. Returns an array of selected values.' },
-    { type: 'radio',      name: 'Radio Group',       desc: 'Single selection from a list. Returns a single value string.' },
-    { type: 'select',     name: 'Select Dropdown',   desc: 'Native dropdown for long option lists. Returns a single value string.' },
-    { type: 'range',      name: 'Range Slider',      desc: 'Dual-thumb slider for numeric min/max. Returns { min, max } object.' },
-    { type: 'date-range', name: 'Date Range',        desc: 'Start and end date inputs. Returns { start, end } date strings.' },
-    { type: 'text',       name: 'Text Input',        desc: 'Free-text keyword search. Returns a string value.' },
-  ];
-
-  sidebarFilters: FilterDef[] = [
-    {
-      id: 'category', label: 'Category', type: 'checkbox',
-      options: [
-        { value: 'forms',      label: 'Forms'      },
-        { value: 'components', label: 'Components' },
-        { value: 'utilities',  label: 'Utilities'  },
-        { value: 'layout',     label: 'Layout'     },
-      ],
-    },
-    {
-      id: 'status', label: 'Status', type: 'radio',
-      options: [
-        { value: 'all',    label: 'All'    },
-        { value: 'stable', label: 'Stable' },
-        { value: 'beta',   label: 'Beta'   },
-        { value: 'new',    label: 'New'    },
-      ],
-    },
-    {
-      id: 'sort', label: 'Sort By', type: 'select',
-      options: [
-        { value: 'name',    label: 'Name A–Z'     },
-        { value: 'newest',  label: 'Newest First' },
-        { value: 'popular', label: 'Most Popular' },
-      ],
-    },
-  ];
+  filters        = LOAN_FILTERS;
+  values: FilterValues = {};
+  applied: FilterValues = {};
 
   inlineFilters: FilterDef[] = [
-    {
-      id: 'status', label: 'Status', type: 'checkbox',
+    { id: 'status', label: 'Status', type: 'radio',
       options: [
-        { value: 'active',   label: 'Active'   },
-        { value: 'inactive', label: 'Inactive' },
-        { value: 'pending',  label: 'Pending'  },
-        { value: 'archived', label: 'Archived' },
-      ],
-    },
-    {
-      id: 'priority', label: 'Priority', type: 'radio',
-      options: [
-        { value: 'all',    label: 'All'    },
-        { value: 'high',   label: 'High'   },
-        { value: 'medium', label: 'Medium' },
-        { value: 'low',    label: 'Low'    },
-      ],
-    },
+        { label: 'All',     value: ''         },
+        { label: 'Active',  value: 'active'   },
+        { label: 'Pending', value: 'pending'  },
+        { label: 'Closed',  value: 'closed'   },
+      ] },
+    { id: 'search', label: 'Keyword', type: 'text', placeholder: 'Filter by name…' },
   ];
+  inlineValues: FilterValues = {};
+  inlineApplied: FilterValues = {};
 
-  rangeFilters: FilterDef[] = [
-    { id: 'price',   label: 'Price Range ($)',  type: 'range',      min: 0, max: 1000, step: 10 },
-    { id: 'created', label: 'Created Date',     type: 'date-range' },
-    { id: 'keyword', label: 'Keyword',          type: 'text',       placeholder: 'Type to filter…' },
-  ];
+  get hasApplied(): boolean { return Object.keys(this.applied).length > 0; }
 
-  importCode = `import { PuiFilterPanelComponent } from '@solifi/platform-ui';
-import type { FilterDef, FilterValues } from '@solifi/platform-ui';
+  doCopy(text: string, id: string) {
+    navigator.clipboard.writeText(text).then(() => { this.copied = id; setTimeout(() => this.copied = '', 2000); });
+  }
 
-@Component({
-  imports: [PuiFilterPanelComponent],
-})`;
-
-  codeSidebar = `<!-- HTML -->
-<pui-filter-panel
-  title="Filters"
-  [filters]="filters"
+  angularTpl = `<pui-filter-panel
+  title="Loan Filters"
+  [filters]="loanFilters"
   [values]="filterValues"
   (valuesChange)="filterValues = $event"
   (applied)="onApply($event)"
@@ -409,90 +232,142 @@ import type { FilterDef, FilterValues } from '@solifi/platform-ui';
   (cleared)="filterValues = {}">
 </pui-filter-panel>
 
-// TypeScript
-import { FilterDef, FilterValues } from '@solifi/platform-ui';
-
-filters: FilterDef[] = [
-  {
-    id: 'category', label: 'Category', type: 'checkbox',
-    options: [
-      { value: 'forms',      label: 'Forms'      },
-      { value: 'components', label: 'Components' },
-    ],
-  },
-  {
-    id: 'status', label: 'Status', type: 'radio',
-    options: [
-      { value: 'all',    label: 'All'    },
-      { value: 'stable', label: 'Stable' },
-      { value: 'beta',   label: 'Beta'   },
-    ],
-  },
-  {
-    id: 'sort', label: 'Sort By', type: 'select',
-    options: [
-      { value: 'name',   label: 'Name A–Z'     },
-      { value: 'newest', label: 'Newest First' },
-    ],
-  },
-];
-
-filterValues: FilterValues = {};
-
-onApply(values: FilterValues): void {
-  // Send to API or filter local data
-  console.log('Applied:', values);
-}`;
-
-  codeInline = `<!-- No Apply button — fires on every change -->
+<!-- Inline mode — no Apply button, updates fire immediately -->
 <pui-filter-panel
   title="Quick Filters"
-  [filters]="filters"
-  [values]="filterValues"
-  [showActions]="false"
   [inline]="true"
-  (valuesChange)="filterValues = $event">
+  [showActions]="false"
+  [filters]="quickFilters"
+  [values]="quickValues"
+  (valuesChange)="onQuickChange($event)">
 </pui-filter-panel>`;
 
-  codeRange = `// TypeScript
-filters: FilterDef[] = [
-  {
-    id: 'price',
-    label: 'Price Range ($)',
-    type: 'range',
-    min: 0, max: 1000, step: 10,
-    // value shape: { min: number, max: number }
-  },
-  {
-    id: 'created',
-    label: 'Created Date',
-    type: 'date-range',
-    // value shape: { start: string, end: string }
-  },
-  {
-    id: 'keyword',
-    label: 'Keyword',
-    type: 'text',
-    placeholder: 'Type to filter…',
-    // value shape: string
-  },
-];`;
+  angularTs = `import { PuiFilterPanelComponent, FilterDef, FilterValues } from '@bhairab-patra/platform-ui';
 
-  api: ApiRow[] = [
-    { input: 'title',          type: 'string',      default: "'Filters'", description: 'Heading shown at the top of the panel.' },
-    { input: 'filters',        type: 'FilterDef[]', default: '[]',        description: 'Array of filter definitions (see type reference above).' },
-    { input: 'values',         type: 'FilterValues',default: '{}',        description: 'Current values object, keyed by filter id.' },
-    { input: 'showActions',    type: 'boolean',     default: 'true',      description: 'Show Apply / Reset buttons at the bottom.' },
-    { input: 'inline',         type: 'boolean',     default: 'false',     description: 'Removes card shadow for embedding in toolbars.' },
-    { input: '(valuesChange)', type: 'FilterValues',default: '—',         description: 'Emits on every user interaction.' },
-    { input: '(applied)',      type: 'FilterValues',default: '—',         description: 'Emits when Apply button is clicked.' },
-    { input: '(reset)',        type: 'void',        default: '—',         description: 'Emits when Reset clears all values.' },
-    { input: '(cleared)',      type: 'void',        default: '—',         description: 'Emits when Clear All chips link is clicked.' },
+@Component({ standalone: true, imports: [PuiFilterPanelComponent] })
+export class MyComponent {
+  filterValues: FilterValues = {};
+
+  loanFilters: FilterDef[] = [
+    {
+      id: 'status', label: 'Loan Status', type: 'checkbox',
+      options: [
+        { label: 'Active',  value: 'active',  count: 142 },
+        { label: 'Pending', value: 'pending', count: 38  },
+        { label: 'Closed',  value: 'closed',  count: 215 },
+      ],
+    },
+    {
+      id: 'amount', label: 'Loan Amount', type: 'range',
+      min: 0, max: 500000, step: 5000,
+    },
+    {
+      id: 'created', label: 'Created Date', type: 'date-range',
+    },
   ];
 
-  copy(code: string, key: string): void {
-    navigator.clipboard?.writeText(code);
-    this.copied[key] = true;
-    setTimeout(() => this.copied[key] = false, 2000);
-  }
+  onApply(values: FilterValues) { this.loadData(values); }
+  onReset()                      { this.filterValues = {}; this.loadData({}); }
+}`;
+
+  reactCode = `import { useRef, useEffect, useState } from 'react';
+// main.tsx: import '@bhairab-patra/platform-ui/elements';
+
+const FILTERS = [
+  {
+    id: 'status', label: 'Status', type: 'checkbox',
+    options: [
+      { label: 'Active',  value: 'active'  },
+      { label: 'Pending', value: 'pending' },
+      { label: 'Closed',  value: 'closed'  },
+    ],
+  },
+  { id: 'amount', label: 'Amount', type: 'range', min: 0, max: 500000, step: 5000 },
+];
+
+export function FilterSidebar({ onApply }) {
+  const ref = useRef(null);
+  const [vals, setVals] = useState({});
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    // Complex arrays/objects → JS properties
+    el.filters = FILTERS;
+    el.values  = vals;
+
+    const onValChange = (e) => setVals(e.detail);
+    const onApplied   = (e) => onApply(e.detail);
+    el.addEventListener('valuesChange', onValChange);
+    el.addEventListener('applied',      onApplied);
+    return () => {
+      el.removeEventListener('valuesChange', onValChange);
+      el.removeEventListener('applied',      onApplied);
+    };
+  }, []);
+
+  // Sync values back whenever local state changes
+  useEffect(() => {
+    if (ref.current) ref.current.values = vals;
+  }, [vals]);
+
+  return (
+    <pui-filter-panel
+      ref={ref}
+      title="Filters"
+      show-actions="true"
+    />
+  );
+}`;
+
+  htmlCode = `<script src="node_modules/@bhairab-patra/platform-ui/elements/pui-elements.js" defer></script>
+
+<pui-filter-panel id="fp" title="Filters"></pui-filter-panel>
+
+<script>
+  customElements.whenDefined('pui-filter-panel').then(() => {
+    const el = document.getElementById('fp');
+
+    el.filters = [
+      {
+        id: 'status', label: 'Status', type: 'checkbox',
+        options: [
+          { label: 'Active',  value: 'active'  },
+          { label: 'Pending', value: 'pending' },
+          { label: 'Closed',  value: 'closed'  },
+        ],
+      },
+      { id: 'amount', label: 'Amount', type: 'range', min: 0, max: 100000, step: 1000 },
+    ];
+
+    el.addEventListener('valuesChange', (e) => console.log('live:', e.detail));
+    el.addEventListener('applied',      (e) => fetchData(e.detail));
+    el.addEventListener('reset',        ()  => fetchData({}));
+  });
+</script>`;
+
+  xfwRows = [
+    { name: 'title',        angular: 'title="Filters"',              attr: 'title="Filters"',          js: 'el.title = "Filters"' },
+    { name: 'filters',      angular: '[filters]="defs"',             attr: '— use JS property',         js: 'el.filters = [...]' },
+    { name: 'values',       angular: '[values]="vals"',              attr: '— use JS property',         js: 'el.values = {...}' },
+    { name: 'showActions',  angular: '[showActions]="true"',         attr: 'show-actions="true"',       js: 'el.showActions = true' },
+    { name: 'inline',       angular: '[inline]="false"',             attr: 'inline="false"',            js: 'el.inline = false' },
+    { name: 'valuesChange', angular: '(valuesChange)="fn($event)"',  attr: '— addEventListener',        js: 'el.addEventListener("valuesChange", fn)' },
+    { name: 'applied',      angular: '(applied)="fn($event)"',       attr: '— addEventListener',        js: 'el.addEventListener("applied", fn)' },
+    { name: 'reset',        angular: '(reset)="fn()"',               attr: '— addEventListener',        js: 'el.addEventListener("reset", fn)' },
+    { name: 'cleared',      angular: '(cleared)="fn()"',             attr: '— addEventListener',        js: 'el.addEventListener("cleared", fn)' },
+  ];
+
+  api: ApiRow[] = [
+    { input: 'title',        type: 'string',                   default: "'Filters'", description: 'Panel header title.' },
+    { input: 'filters',      type: 'FilterDef[]|string',       default: '[]',        description: 'Filter definition array — drives the panel structure.' },
+    { input: 'values',       type: 'FilterValues|string',      default: '{}',        description: 'Current filter values object. Use [(values)] for two-way.' },
+    { input: 'showActions',  type: 'boolean|string',           default: 'true',      description: 'Show Reset / Apply buttons at the bottom.' },
+    { input: 'inline',       type: 'boolean|string',           default: 'false',     description: 'Inline mode — no border/radius, fires applied immediately.' },
+    { input: 'valuesChange', type: 'EventEmitter<FilterValues>', default: '—',       description: 'Fires on every internal change.' },
+    { input: 'applied',      type: 'EventEmitter<FilterValues>', default: '—',       description: 'Fires when Apply is clicked (or on every change in inline mode).' },
+    { input: 'reset',        type: 'EventEmitter<void>',       default: '—',         description: 'Fires when Reset is clicked.' },
+    { input: 'cleared',      type: 'EventEmitter<void>',       default: '—',         description: 'Fires when Clear all chips is clicked.' },
+  ];
 }

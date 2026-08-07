@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
@@ -8,6 +8,7 @@ export type TooltipVariant  = 'dark' | 'light' | 'teal';
   selector: 'pui-tooltip',
   standalone: true,
   imports: [CommonModule],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span class="pui-tt-host" [class]="hostClass">

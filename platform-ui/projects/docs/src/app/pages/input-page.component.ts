@@ -1,227 +1,238 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PuiInputComponent } from '@solifi/platform-ui';
 import { DocPageComponent, ApiRow } from '../shared/doc-page.component';
+import { CodeBlockComponent } from '../shared/code-block.component';
 
 @Component({
   selector: 'docs-input-page',
   standalone: true,
-  imports: [FormsModule, PuiInputComponent, DocPageComponent],
+  imports: [NgFor, NgIf, FormsModule, PuiInputComponent, DocPageComponent, CodeBlockComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <docs-page
-      title="Input"
-      description="A single-line text field with full state management — focus, hover, error, disabled, readonly. Implements ControlValueAccessor for seamless integration with both template-driven and reactive forms."
-      [code]="importCode"
-      [api]="api">
+<docs-page
+  title="Input"
+  description="A single-line text field with focus, hover, error, disabled, and readonly states. Works seamlessly in Angular forms, React, and plain HTML as a Web Component."
+  [hasFramework]="true"
+  [api]="api">
 
-      <ng-container demo>
+  <ng-container demo>
 
-        <!-- Basic -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Basic</h3>
-          <div class="demo-row">
-            <pui-input label="Full name" placeholder="John Doe" [(ngModel)]="v1"/>
-            <pui-input label="Email" type="email" placeholder="you@company.com" [(ngModel)]="v2"/>
-          </div>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codeBasic, 'basic')">{{ copied['basic'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeBasic }}</code></pre>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Basic</h3>
+      <div class="demo-row">
+        <pui-input label="Full name"  placeholder="John Doe"        [(ngModel)]="v1" style="flex:1"/>
+        <pui-input label="Email"      placeholder="you@company.com" type="email" [(ngModel)]="v2" style="flex:1"/>
+      </div>
+      <p class="demo-desc">Name: <strong>{{ v1 || '—' }}</strong></p>
+    </div>
 
-        <!-- Sizes -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Sizes</h3>
-          <div class="demo-col" style="max-width:360px">
-            <pui-input label="Small (sm)" size="sm" placeholder="Small input"/>
-            <pui-input label="Medium (md)" size="md" placeholder="Medium input"/>
-            <pui-input label="Large (lg)" size="lg" placeholder="Large input"/>
-          </div>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codeSizes, 'sizes')">{{ copied['sizes'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeSizes }}</code></pre>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Sizes</h3>
+      <div class="demo-col">
+        <pui-input label="Small"  size="sm" placeholder="Small input"/>
+        <pui-input label="Medium" size="md" placeholder="Medium input (default)"/>
+        <pui-input label="Large"  size="lg" placeholder="Large input"/>
+      </div>
+    </div>
 
-        <!-- States -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">States</h3>
-          <div class="demo-row">
-            <pui-input label="Default" placeholder="Type here…"/>
-            <pui-input label="Disabled" placeholder="Not editable" [disabled]="true" [ngModel]="'Disabled value'"/>
-            <pui-input label="Readonly" [readonly]="true" [ngModel]="'Read-only value'"/>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Password & Clearable</h3>
+      <div class="demo-row">
+        <pui-input label="Password" type="password" placeholder="Enter password" [(ngModel)]="vPass" style="flex:1"/>
+        <pui-input label="Search"   [clearable]="clearable" placeholder="Type to search…" [(ngModel)]="vSearch" style="flex:1"/>
+      </div>
+    </div>
 
-        <!-- Error -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Validation &amp; Error</h3>
-          <div class="demo-row">
-            <pui-input label="With hint" placeholder="Enter username" hint="3–20 characters, no spaces."/>
-            <pui-input label="With error" placeholder="Email address"
-                       [ngModel]="'bad-email'" error="Please enter a valid email address." [required]="true"/>
-          </div>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codeError, 'error')">{{ copied['error'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeError }}</code></pre>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Character Count</h3>
+      <pui-input label="Bio" placeholder="Tell us about yourself" [(ngModel)]="vBio"
+                 [maxLength]="maxLen" [showCount]="showCount" style="width:100%"/>
+    </div>
 
-        <!-- Password -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Password Toggle</h3>
-          <div class="demo-row" style="max-width:360px">
-            <pui-input label="Password" type="password" placeholder="Enter password" [(ngModel)]="vPass"
-                       hint="Min 8 characters."/>
-          </div>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codePass, 'pass')">{{ copied['pass'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codePass }}</code></pre>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Validation States</h3>
+      <div class="demo-row">
+        <pui-input label="Disabled"  [disabled]="disabledFlag" placeholder="Cannot edit" style="flex:1"/>
+        <pui-input label="Read-only" [readonly]="readonlyFlag" placeholder="Read-only value" style="flex:1"/>
+      </div>
+      <div class="demo-row" style="margin-top:12px">
+        <pui-input label="Error" error="Email is not valid" placeholder="bad@" style="flex:1"/>
+        <pui-input label="With hint" hint="We'll never share your email" placeholder="Email" style="flex:1"/>
+      </div>
+    </div>
 
-        <!-- Icons -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Prefix &amp; Suffix Icons</h3>
-          <div class="demo-row">
-            <pui-input label="Search" [prefixIcon]="searchIcon" placeholder="Search…" [(ngModel)]="vSearch"/>
-            <pui-input label="Website" [prefixIcon]="globeIcon" placeholder="https://…" type="url"/>
-            <pui-input label="Price" [suffixIcon]="usdIcon" placeholder="0.00" type="number"/>
-          </div>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codeIcons, 'icons')">{{ copied['icons'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeIcons }}</code></pre>
-          </div>
-        </div>
+  </ng-container>
 
-        <!-- Clearable / Count -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Clearable &amp; Character Count</h3>
-          <div class="demo-row">
-            <pui-input label="Clearable" placeholder="Type then clear…" [clearable]="true" [(ngModel)]="vClear"/>
-            <pui-input label="With count" placeholder="Max 50 chars" [maxLength]="50" [showCount]="true" [(ngModel)]="vCount"/>
-          </div>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codeClear, 'clear')">{{ copied['clear'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeClear }}</code></pre>
-          </div>
-        </div>
+  <ng-container framework>
 
-      </ng-container>
-    </docs-page>
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead"><code>pui-input</code> is a Web Component — works in Angular, React, and plain HTML with no extra config. String inputs work as HTML attributes. Booleans (<code>disabled</code>, <code>readonly</code>, <code>clearable</code>, <code>showCount</code>) accept <code>"true"</code> strings or JS properties. <code>maxLength</code> accepts a number or numeric string.</p>
+
+    <div class="fw-tabs">
+      <button class="fw-tab" [class.fw-tab--active]="fw==='angular'" (click)="fw='angular'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.31H4.936L12 3.405z" fill="#c3002f"/></svg>
+        Angular
+      </button>
+      <button class="fw-tab" [class.fw-tab--active]="fw==='react'" (click)="fw='react'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
+        React
+      </button>
+      <button class="fw-tab" [class.fw-tab--active]="fw==='html'" (click)="fw='html'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
+        Plain HTML
+      </button>
+    </div>
+
+    <div *ngIf="fw==='angular'" class="fw-panel">
+      <div class="fw-note fw-note--angular">Use <code>[(ngModel)]</code> or <code>[formControl]</code>. All inputs bind natively via property binding — no wrappers needed.</div>
+      <app-code lang="html"       id="ang-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <app-code lang="typescript" id="ang-ts"   [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    </div>
+
+    <div *ngIf="fw==='react'" class="fw-panel">
+      <div class="fw-note fw-note--react">Use a <code>ref</code> to set JS properties. Listen to <code>valueChange</code> CustomEvent for value updates.</div>
+      <app-code lang="tsx" id="react-code" [text]="reactCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    </div>
+
+    <div *ngIf="fw==='html'" class="fw-panel">
+      <div class="fw-note fw-note--html">String attributes work directly. Use JS to set boolean/numeric properties after the element is defined.</div>
+      <app-code lang="html" id="html-code" [text]="htmlCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    </div>
+
+    <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+            <td><code class="tag-name">{{ r.name }}</code></td>
+            <td><code class="tag-ng">{{ r.angular }}</code></td>
+            <td><code class="tag-html">{{ r.attr }}</code></td>
+            <td><code class="tag-js">{{ r.js }}</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+</docs-page>
   `,
-  styles: [`
-    .demo-section { width: 100%; margin-bottom: 36px; }
-    .demo-section:last-child { margin-bottom: 0; }
-    .demo-section__title {
-      font-size: 15px; font-weight: 600; color: #374151;
-      margin: 0 0 14px; padding-bottom: 8px;
-      border-bottom: 1px solid #f0f1f3;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-    .demo-row { display: flex; flex-wrap: wrap; gap: 20px; margin-bottom: 16px; }
-    .demo-row > * { flex: 1; min-width: 200px; }
-    .demo-col { display: flex; flex-direction: column; gap: 14px; margin-bottom: 16px; }
-
-    /* Code block — matches docs-page standard */
-    .code-wrap    { border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; }
-    .code-header  {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 20px; background: #1e293b; border-bottom: 1px solid #334155;
-    }
-    .code-lang {
-      font-size: 11px; color: #64748b; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .07em;
-    }
-    .copy-btn {
-      padding: 3px 12px; border-radius: 5px;
-      border: 1px solid #334155; background: #0f172a;
-      color: #94a3b8; font-size: 12px; cursor: pointer; font-family: inherit;
-    }
-    .copy-btn:hover { color: #e2e8f0; border-color: #475569; }
-    pre { background: #1e1e2e; color: #cdd6f4; padding: 18px 20px; margin: 0;
-          font-size: 13px; overflow-x: auto; border-radius: 0; border: none; }
-    pre code { font-family: 'JetBrains Mono', 'Fira Code', monospace; white-space: pre; }
-  `],
 })
 export class InputPageComponent {
-  v1 = ''; v2 = ''; vPass = ''; vSearch = ''; vClear = ''; vCount = '';
-  copied: Record<string, boolean> = {};
+  private cdr = inject(ChangeDetectorRef);
 
-  searchIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`;
-  globeIcon  = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>`;
-  usdIcon    = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6"/></svg>`;
+  v1 = ''; v2 = ''; vPass = ''; vSearch = ''; vBio = '';
+  clearable = true; disabledFlag = true; readonlyFlag = true;
+  showCount = true; maxLen = 100;
+  fw = 'angular';
+  copied = '';
 
-  importCode = `import { PuiInputComponent } from '@solifi/platform-ui';
-
-// In your standalone component:
-imports: [PuiInputComponent, FormsModule]
-
-// Template:
-<pui-input label="Full name" placeholder="John Doe" [(ngModel)]="name"/>
-
-// With reactive forms:
-<pui-input label="Email" [formControl]="emailCtrl" error="Invalid email"/>`;
-
-  codeBasic = `<pui-input label="Full name" placeholder="John Doe" [(ngModel)]="name"/>
-<pui-input label="Email" type="email" placeholder="you@company.com" [(ngModel)]="email"/>`;
-
-  codeSizes = `<pui-input size="sm" label="Small"  placeholder="Small input"/>
-<pui-input size="md" label="Medium" placeholder="Medium input"/>
-<pui-input size="lg" label="Large"  placeholder="Large input"/>`;
-
-  codeError = `<pui-input label="Username" hint="3–20 characters, no spaces."/>
-<pui-input label="Email" error="Please enter a valid email address." [required]="true"/>`;
-
-  codePass = `<pui-input label="Password" type="password" [(ngModel)]="pass" hint="Min 8 characters."/>`;
-
-  codeIcons = `<pui-input label="Search" [prefixIcon]="searchSvgString" [(ngModel)]="q"/>
-<pui-input label="Price"  [suffixIcon]="usdSvgString"    type="number"/>`;
-
-  codeClear = `<pui-input label="Clearable" [clearable]="true" [(ngModel)]="val"/>
-<pui-input label="With count" [maxLength]="50" [showCount]="true" [(ngModel)]="val"/>`;
-
-  copyCode(code: string, key: string): void {
-    navigator.clipboard.writeText(code).then(() => {
-      this.copied[key] = true;
-      setTimeout(() => { this.copied[key] = false; }, 2000);
+  copy(id: string, text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      this.copied = id;
+      this.cdr.markForCheck();
+      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
     });
   }
 
+  xfwRows = [
+    { name: 'label',       angular: 'label="str"',                       attr: 'label="str"',           js: 'el.label = "..."' },
+    { name: 'placeholder', angular: 'placeholder="str"',                 attr: 'placeholder="str"',     js: 'el.placeholder = "..."' },
+    { name: 'type',        angular: 'type="text|email|password"',        attr: 'type="email"',          js: 'el.type = "email"' },
+    { name: 'size',        angular: 'size="sm|md|lg"',                   attr: 'size="sm|md|lg"',       js: 'el.size = "md"' },
+    { name: 'disabled',    angular: '[disabled]="bool"',                 attr: '— use JS property',     js: 'el.disabled = true' },
+    { name: 'readonly',    angular: '[readonly]="bool"',                 attr: '— use JS property',     js: 'el.readonly = true' },
+    { name: 'clearable',   angular: '[clearable]="bool"',                attr: '— use JS property',     js: 'el.clearable = true' },
+    { name: 'maxLength',   angular: '[maxLength]="100"',                 attr: 'max-length="100"',      js: 'el.maxLength = 100' },
+    { name: 'showCount',   angular: '[showCount]="bool"',                attr: '— use JS property',     js: 'el.showCount = true' },
+    { name: 'error',       angular: '[error]="errMsg"',                  attr: 'error="msg"',           js: 'el.error = "msg"' },
+    { name: 'hint',        angular: '[hint]="str"',                      attr: 'hint="str"',            js: 'el.hint = "..."' },
+    { name: 'valueChange', angular: '(valueChange)="fn($event)"',        attr: '— use addEventListener', js: 'el.addEventListener("valueChange", fn)' },
+  ];
+
+  angHtml = `<pui-input label="Full name" placeholder="John Doe" [(ngModel)]="name"/>
+
+<pui-input label="Password" type="password" [(ngModel)]="pass"/>
+
+<pui-input label="Bio" [(ngModel)]="bio"
+  [maxLength]="200" [showCount]="true" [clearable]="true"
+  hint="Max 200 characters"/>
+
+<pui-input label="Email" [(ngModel)]="email" [error]="emailError" [required]="true"/>
+<pui-input label="Read-only" [readonly]="true" placeholder="Fixed value"/>
+<pui-input label="Disabled"  [disabled]="true"/>`;
+
+  angTs = `import { PuiInputComponent } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [PuiInputComponent, FormsModule],
+})
+export class MyComponent {
+  name = ''; pass = ''; bio = ''; email = ''; emailError = '';
+
+  validate() {
+    this.emailError = this.email.includes('@') ? '' : 'Invalid email address';
+  }
+}`;
+
+  reactCode = `import { useEffect, useRef, useState } from 'react';
+
+export function MyForm() {
+  const [name, setName] = useState('');
+  const inputRef = useRef<any>(null);
+
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.clearable = true;
+    el.maxLength  = 100;
+    const handler = (e: CustomEvent) => setName(e.detail);
+    el.addEventListener('valueChange', handler);
+    return () => el.removeEventListener('valueChange', handler);
+  }, []);
+
+  return (
+    <>
+      <pui-input ref={inputRef} label="Full name" placeholder="John Doe"/>
+      <pui-input label="Email"  type="email" placeholder="you@company.com"/>
+    </>
+  );
+}`;
+
+  htmlCode = `<script src="/assets/pui-elements.js"></script>
+
+<pui-input id="nameInput" label="Full name" placeholder="John Doe"></pui-input>
+<pui-input label="Email" type="email" error="Invalid email"></pui-input>
+
+<script>
+  const el = document.getElementById('nameInput');
+  el.clearable = true;
+  el.maxLength  = 100;
+  el.showCount  = true;
+
+  el.addEventListener('valueChange', e => console.log('Value:', e.detail));
+</script>`;
+
   api: ApiRow[] = [
-    { input: 'label',        type: 'string',      default: "''",     description: 'Field label above the input' },
-    { input: 'placeholder',  type: 'string',      default: "''",     description: 'Placeholder text' },
-    { input: 'type',         type: 'InputType',   default: "'text'", description: 'text | email | password | number | tel | url | search' },
-    { input: 'size',         type: 'FormSize',    default: "'md'",   description: 'sm | md | lg' },
-    { input: 'disabled',     type: 'boolean',     default: 'false',  description: 'Disables the field' },
-    { input: 'readonly',     type: 'boolean',     default: 'false',  description: 'Makes the field read-only' },
-    { input: 'required',     type: 'boolean',     default: 'false',  description: 'Shows asterisk on label' },
-    { input: 'error',        type: 'string',      default: "''",     description: 'Error message; activates error state' },
-    { input: 'hint',         type: 'string',      default: "''",     description: 'Helper text shown below input' },
-    { input: 'prefixIcon',   type: 'string',      default: "''",     description: 'SVG HTML string for left icon' },
-    { input: 'suffixIcon',   type: 'string',      default: "''",     description: 'SVG HTML string for right icon' },
-    { input: 'maxLength',    type: 'number|null', default: 'null',   description: 'Max character count' },
-    { input: 'showCount',    type: 'boolean',     default: 'false',  description: 'Show character counter (needs maxLength)' },
-    { input: 'clearable',    type: 'boolean',     default: 'false',  description: 'Show clear × button when value present' },
-    { input: 'autocomplete', type: 'string',      default: "'off'",  description: 'HTML autocomplete attribute' },
+    { input: 'label',       type: 'string',           default: "''",    description: 'Label shown above the input' },
+    { input: 'placeholder', type: 'string',           default: "''",    description: 'Placeholder text' },
+    { input: 'type',        type: 'InputType',        default: "'text'", description: "text | email | password | number | tel | url" },
+    { input: 'size',        type: "'sm'|'md'|'lg'",  default: "'md'",  description: 'Visual size variant' },
+    { input: 'disabled',    type: 'boolean',          default: 'false', description: 'Disables the field' },
+    { input: 'readonly',    type: 'boolean',          default: 'false', description: 'Makes the field read-only' },
+    { input: 'required',    type: 'boolean',          default: 'false', description: 'Shows required asterisk' },
+    { input: 'error',       type: 'string',           default: "''",    description: 'Error message; applies error styling' },
+    { input: 'hint',        type: 'string',           default: "''",    description: 'Helper text below the field' },
+    { input: 'prefixIcon',  type: 'string (HTML)',    default: "''",    description: 'SVG/HTML injected as leading icon' },
+    { input: 'suffixIcon',  type: 'string (HTML)',    default: "''",    description: 'SVG/HTML injected as trailing icon' },
+    { input: 'maxLength',   type: 'number | null',    default: 'null',  description: 'Max character count' },
+    { input: 'showCount',   type: 'boolean',          default: 'false', description: 'Shows character count badge' },
+    { input: 'clearable',   type: 'boolean',          default: 'false', description: 'Shows × button to clear the value' },
+    { input: 'autocomplete',type: 'string',           default: "'off'", description: 'Native autocomplete attribute' },
+    { input: 'valueChange', type: 'EventEmitter<string>', default: '—', description: 'Emits current value on every keystroke' },
+    { input: 'blurred',     type: 'EventEmitter<void>',  default: '—', description: 'Emits when the field loses focus' },
   ];
 }

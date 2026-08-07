@@ -24,7 +24,7 @@ export interface ApiRow {
       <p  class="page-lead">{{ description }}</p>
       <hr class="page-hr">
 
-      <!-- Demo -->
+      <!-- 1. Demo -->
       <section id="demo" class="doc-section">
         <h2 class="section-title">Demo</h2>
         <p  class="section-desc">Interact with the component live below.</p>
@@ -33,8 +33,13 @@ export interface ApiRow {
         </div>
       </section>
 
-      <!-- Usage -->
-      <section id="usage" class="doc-section">
+      <!-- 2. Framework Usage (optional slot — shown when consumer provides [framework] content) -->
+      <section id="framework" class="doc-section">
+        <ng-content select="[framework]"></ng-content>
+      </section>
+
+      <!-- 3. Usage / code (only shown when code input is provided) -->
+      <section *ngIf="code" id="usage" class="doc-section">
         <h2 class="section-title">Usage</h2>
         <p  class="section-desc">
           Import directly or via <code class="inline-code">PlatformUiModule</code>.
@@ -48,7 +53,7 @@ export interface ApiRow {
         </div>
       </section>
 
-      <!-- API -->
+      <!-- 4. Component API -->
       <section *ngIf="api.length" id="api" class="doc-section">
         <h2 class="section-title">Component API</h2>
         <p  class="section-desc">
@@ -80,7 +85,11 @@ export interface ApiRow {
       <nav class="otp-nav">
         <a class="otp-link" [class.otp-link-active]="active==='demo'"
            (click)="scrollTo('demo')">Demo</a>
-        <a class="otp-link" [class.otp-link-active]="active==='usage'"
+        <a *ngIf="hasFramework"
+           class="otp-link" [class.otp-link-active]="active==='framework'"
+           (click)="scrollTo('framework')">Framework Usage</a>
+        <a *ngIf="code"
+           class="otp-link" [class.otp-link-active]="active==='usage'"
            (click)="scrollTo('usage')">Usage</a>
         <a *ngIf="api.length"
            class="otp-link" [class.otp-link-active]="active==='api'"
@@ -117,16 +126,11 @@ export interface ApiRow {
       font-size: 16px; color: #6b7280;
       line-height: 1.75; max-width: 600px;
     }
-    .page-hr {
-      border: none; border-top: 1px solid #f3f4f6; margin: 36px 0;
-    }
+    .page-hr { border: none; border-top: 1px solid #f3f4f6; margin: 36px 0; }
 
     /* ── Sections ───────────────────────────── */
     .doc-section   { margin-bottom: 56px; scroll-margin-top: 80px; }
-    .section-title {
-      font-size: 22px; font-weight: 700;
-      color: #111827; margin-bottom: 6px;
-    }
+    .section-title { font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 6px; }
     .section-desc  { font-size: 14px; color: #6b7280; margin-bottom: 22px; }
     .inline-code {
       background: #f3f4f6; color: #1f2937;
@@ -136,20 +140,16 @@ export interface ApiRow {
 
     /* ── Demo box ───────────────────────────── */
     .demo-box {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 40px 32px;
-      display: flex; flex-wrap: wrap;
+      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 12px;
+      padding: 40px 32px; display: flex; flex-wrap: wrap;
       align-items: flex-start; gap: 12px;
     }
 
     /* ── Code block ─────────────────────────── */
-    .code-wrap    { border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; }
-    .code-header  {
+    .code-wrap   { border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; }
+    .code-header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 20px;
-      background: #1e293b; border-bottom: 1px solid #334155;
+      padding: 10px 20px; background: #1e293b; border-bottom: 1px solid #334155;
     }
     .code-lang {
       font-size: 11px; color: #64748b;
@@ -164,13 +164,8 @@ export interface ApiRow {
     pre { border-radius: 0; border: none; }
 
     /* ── API table ──────────────────────────── */
-    .table-wrap {
-      overflow-x: auto; border-radius: 10px;
-      border: 1px solid #e5e7eb;
-    }
-    .api-table {
-      width: 100%; border-collapse: collapse; font-size: 13.5px;
-    }
+    .table-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid #e5e7eb; }
+    .api-table  { width: 100%; border-collapse: collapse; font-size: 13.5px; }
     .api-table th {
       text-align: left; padding: 11px 16px;
       background: #f9fafb; color: #6b7280;
@@ -178,34 +173,26 @@ export interface ApiRow {
       text-transform: uppercase; letter-spacing: .06em;
       border-bottom: 1px solid #e5e7eb;
     }
-    .api-table td        { padding: 12px 16px; border-bottom: 1px solid #f3f4f6; vertical-align: top; }
-    .row-odd td          { background: #fafafa; }
+    .api-table td { padding: 12px 16px; border-bottom: 1px solid #f3f4f6; vertical-align: top; }
+    .row-odd td  { background: #fafafa; }
     .api-table tr:last-child td { border-bottom: none; }
     .td-desc { color: #374151; }
 
     .tag-prop {
-      display: inline-block;
-      background: #eff6ff; color: #2563eb;
-      padding: 2px 8px; border-radius: 5px;
-      font-size: 12.5px; white-space: nowrap;
+      display: inline-block; background: #eff6ff; color: #2563eb;
+      padding: 2px 8px; border-radius: 5px; font-size: 12.5px; white-space: nowrap;
     }
     .tag-type {
-      display: inline-block;
-      background: #f5f3ff; color: #7c3aed;
+      display: inline-block; background: #f5f3ff; color: #7c3aed;
       padding: 2px 8px; border-radius: 5px; font-size: 12.5px;
     }
     .tag-def {
-      display: inline-block;
-      background: #ecfdf5; color: #059669;
+      display: inline-block; background: #ecfdf5; color: #059669;
       padding: 2px 8px; border-radius: 5px; font-size: 12.5px;
     }
 
     /* ── On this page ───────────────────────── */
-    .otp {
-      width: 196px; flex-shrink: 0;
-      position: sticky; top: 90px;
-      align-self: flex-start;
-    }
+    .otp { width: 196px; flex-shrink: 0; position: sticky; top: 90px; align-self: flex-start; }
     .otp-label {
       font-size: 11px; font-weight: 700; text-transform: uppercase;
       letter-spacing: .09em; color: #9ca3af; margin-bottom: 12px;
@@ -213,55 +200,40 @@ export interface ApiRow {
     .otp-nav { display: flex; flex-direction: column; gap: 2px; }
     .otp-link {
       font-size: 13.5px; color: #6b7280;
-      padding: 4px 0 4px 12px;
-      border-left: 2px solid transparent;
-      text-decoration: none;
-      cursor: pointer;
+      padding: 4px 0 4px 12px; border-left: 2px solid transparent;
+      text-decoration: none; cursor: pointer;
       transition: color .12s, border-color .12s;
-      display: block;
-      user-select: none;
+      display: block; user-select: none;
     }
     .otp-link:hover { color: #111827; }
-
-    /* Active — double class = higher specificity than base .otp-link */
-    .otp-link.otp-link-active {
-      color: #0fa78d;
-      border-left-color: #12C6A8;
-      font-weight: 500;
-    }
+    .otp-link.otp-link-active { color: #0fa78d; border-left-color: #12C6A8; font-weight: 500; }
     .otp-link.otp-link-active:hover { color: #0fa78d; }
   `],
 })
 export class DocPageComponent implements OnInit {
-  @Input() title = '';
+  @Input() title       = '';
   @Input() description = '';
-  @Input() code = '';
+  @Input() code        = '';
   @Input() api: ApiRow[] = [];
+  @Input() hasFramework  = false;
 
   copied = false;
   active  = 'demo';
 
   ngOnInit(): void { this.active = 'demo'; }
 
-  /** Smooth-scroll to a section and update the active OTP link. */
   scrollTo(id: string): void {
     this.active = id;
     const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  /** Update active OTP link as user scrolls naturally. */
   @HostListener('window:scroll')
   onScroll(): void {
-    const sections = ['demo', 'usage', 'api'];
-    for (const id of [...sections].reverse()) {
+    const ids = ['api', ...(this.code ? ['usage'] : []), ...(this.hasFramework ? ['framework'] : []), 'demo'];
+    for (const id of ids) {
       const el = document.getElementById(id);
-      if (el && el.getBoundingClientRect().top <= 120) {
-        this.active = id;
-        return;
-      }
+      if (el && el.getBoundingClientRect().top <= 120) { this.active = id; return; }
     }
     this.active = 'demo';
   }

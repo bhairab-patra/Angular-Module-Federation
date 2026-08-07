@@ -1,192 +1,210 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PuiCheckboxComponent } from '@solifi/platform-ui';
 import { DocPageComponent, ApiRow } from '../shared/doc-page.component';
-
+import { CodeBlockComponent } from '../shared/code-block.component';
 
 @Component({
   selector: 'docs-checkbox-page',
   standalone: true,
-  imports: [NgFor, FormsModule, PuiCheckboxComponent, DocPageComponent],
+  imports: [NgFor, NgIf, FormsModule, PuiCheckboxComponent, DocPageComponent, CodeBlockComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <docs-page
-      title="Checkbox"
-      description="A styled checkbox with checked, indeterminate, error, and disabled states. Implements ControlValueAccessor — use with [(ngModel)] or formControl."
-      [code]="importCode"
-      [api]="api">
+<docs-page
+  title="Checkbox"
+  description="A styled checkbox with checked, indeterminate, error, and disabled states. Works with Angular forms, React refs, and plain HTML via Web Component."
+  [hasFramework]="true"
+  [api]="api">
 
-      <ng-container demo>
+  <ng-container demo>
 
-        <!-- Basic -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Basic</h3>
-          <div class="demo-col">
-            <pui-checkbox label="Accept terms and conditions" [(ngModel)]="v1"/>
-            <pui-checkbox label="Subscribe to newsletter"    [(ngModel)]="v2"/>
-            <pui-checkbox label="Pre-checked"                [checked]="true"/>
-          </div>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codeBasic, 'basic')">{{ copied['basic'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeBasic }}</code></pre>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Basic</h3>
+      <div class="demo-col">
+        <pui-checkbox label="Accept terms and conditions" [(ngModel)]="v1"/>
+        <pui-checkbox label="Subscribe to newsletter"    [(ngModel)]="v2"/>
+        <pui-checkbox label="Pre-checked"               [checked]="preChecked"/>
+      </div>
+      <p class="demo-desc">Terms: <strong>{{ v1 ? 'Accepted' : 'Not accepted' }}</strong></p>
+    </div>
 
-        <!-- Indeterminate -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Indeterminate State</h3>
-          <p class="demo-desc">Use <code>[indeterminate]="true"</code> to show the dash (–) state for a "select all" parent checkbox.</p>
-          <div class="demo-col">
-            <pui-checkbox label="Select all (parent)" [indeterminate]="true"/>
-            <div style="padding-left:28px;display:flex;flex-direction:column;gap:10px">
-              <pui-checkbox label="Item A" [(ngModel)]="ia"/>
-              <pui-checkbox label="Item B" [(ngModel)]="ib"/>
-              <pui-checkbox label="Item C" [(ngModel)]="ic"/>
-            </div>
-          </div>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codeIndet, 'indet')">{{ copied['indet'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeIndet }}</code></pre>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Indeterminate</h3>
+      <div class="demo-col">
+        <pui-checkbox label="Select all" [indeterminate]="indeterminate"/>
+        <pui-checkbox label="Option A"   [checked]="preChecked"/>
+        <pui-checkbox label="Option B"/>
+      </div>
+    </div>
 
-        <!-- States -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">All States</h3>
-          <div class="demo-col">
-            <pui-checkbox label="Default unchecked"/>
-            <pui-checkbox label="Checked"               [checked]="true"/>
-            <pui-checkbox label="Disabled unchecked"    [disabled]="true"/>
-            <pui-checkbox label="Disabled checked"      [checked]="true" [disabled]="true"/>
-            <pui-checkbox label="Error state"           error="You must accept the terms."/>
-            <pui-checkbox label="With hint"             hint="You can change this later."/>
-            <pui-checkbox label="Required field"        [required]="true"/>
-          </div>
-        </div>
+    <div class="demo-section">
+      <h3 class="demo-section__title">States</h3>
+      <div class="demo-col">
+        <pui-checkbox label="Disabled (unchecked)" [disabled]="disabledFlag"/>
+        <pui-checkbox label="Disabled (checked)"   [disabled]="disabledFlag" [checked]="preChecked"/>
+        <pui-checkbox label="Error state" error="You must accept the terms" [(ngModel)]="vErr"/>
+        <pui-checkbox label="With hint"  hint="We'll never spam you" [(ngModel)]="vHint"/>
+        <pui-checkbox label="Required"   [required]="requiredFlag"/>
+      </div>
+    </div>
 
-        <!-- Group -->
-        <div class="demo-section">
-          <h3 class="demo-section__title">Checkbox Group</h3>
-          <p class="demo-desc">Selected: <strong>{{ selectedFeatures.join(', ') || 'none' }}</strong></p>
-          <div class="demo-col">
-            <pui-checkbox *ngFor="let f of features"
-                          [label]="f.label"
-                          [checked]="isSelected(f.value)"
-                          (changed)="toggleFeature(f.value, $event)"/>
-          </div>
-          <div class="code-wrap">
-            <div class="code-header">
-              <span class="code-lang">TypeScript / HTML</span>
-              <button class="copy-btn" (click)="copyCode(codeGroup, 'group')">{{ copied['group'] ? '✓ Copied!' : 'Copy' }}</button>
-            </div>
-            <pre><code>{{ codeGroup }}</code></pre>
-          </div>
-        </div>
+  </ng-container>
 
-      </ng-container>
-    </docs-page>
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead"><code>pui-checkbox</code> is a Web Component — works in Angular, React, and plain HTML with no extra config. Boolean inputs (<code>checked</code>, <code>disabled</code>, <code>indeterminate</code>, <code>required</code>) accept <code>true</code>/<code>false</code> JS properties or the string <code>"true"</code> as an HTML attribute.</p>
+
+    <div class="fw-tabs">
+      <button class="fw-tab" [class.fw-tab--active]="fw==='angular'" (click)="fw='angular'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.31H4.936L12 3.405z" fill="#c3002f"/></svg>
+        Angular
+      </button>
+      <button class="fw-tab" [class.fw-tab--active]="fw==='react'" (click)="fw='react'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
+        React
+      </button>
+      <button class="fw-tab" [class.fw-tab--active]="fw==='html'" (click)="fw='html'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
+        Plain HTML
+      </button>
+    </div>
+
+    <div *ngIf="fw==='angular'" class="fw-panel">
+      <div class="fw-note fw-note--angular">All Angular template bindings work directly — <code>[(ngModel)]</code>, <code>[formControl]</code>, <code>[checked]</code>, <code>(checkedChange)</code>.</div>
+      <app-code lang="html"       id="ang-html"   [text]="angHtml"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <app-code lang="typescript" id="ang-ts"     [text]="angTs"     [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    </div>
+
+    <div *ngIf="fw==='react'" class="fw-panel">
+      <div class="fw-note fw-note--react">Use a <code>ref</code> to set <code>.checked</code> as a JS property. Listen to the <code>checkedChange</code> CustomEvent.</div>
+      <app-code lang="tsx" id="react-code" [text]="reactCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    </div>
+
+    <div *ngIf="fw==='html'" class="fw-panel">
+      <div class="fw-note fw-note--html">Set boolean attributes as strings or use JS to assign properties directly on the element.</div>
+      <app-code lang="html" id="html-code" [text]="htmlCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    </div>
+
+    <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+            <td><code class="tag-name">{{ r.name }}</code></td>
+            <td><code class="tag-ng">{{ r.angular }}</code></td>
+            <td><code class="tag-html">{{ r.attr }}</code></td>
+            <td><code class="tag-js">{{ r.js }}</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+</docs-page>
   `,
-  styles: [`
-    .demo-section { width: 100%; margin-bottom: 36px; }
-    .demo-section:last-child { margin-bottom: 0; }
-    .demo-section__title {
-      font-size: 15px; font-weight: 600; color: #374151;
-      margin: 0 0 14px; padding-bottom: 8px;
-      border-bottom: 1px solid #f0f1f3;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-    .demo-desc { font-size: 13px; color: #6b7280; margin: 0 0 12px; line-height: 1.6; }
-    .demo-desc code { background: #f3f4f6; padding: 1px 5px; border-radius: 4px; font-size: 12px; }
-    .demo-col { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
-
-    .code-wrap    { border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; }
-    .code-header  {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 10px 20px; background: #1e293b; border-bottom: 1px solid #334155;
-    }
-    .code-lang {
-      font-size: 11px; color: #64748b; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .07em;
-    }
-    .copy-btn {
-      padding: 3px 12px; border-radius: 5px;
-      border: 1px solid #334155; background: #0f172a;
-      color: #94a3b8; font-size: 12px; cursor: pointer; font-family: inherit;
-    }
-    .copy-btn:hover { color: #e2e8f0; border-color: #475569; }
-    pre { background: #1e1e2e; color: #cdd6f4; padding: 18px 20px; margin: 0;
-          font-size: 13px; overflow-x: auto; border-radius: 0; border: none; }
-    pre code { font-family: 'JetBrains Mono', 'Fira Code', monospace; white-space: pre; }
-  `],
 })
 export class CheckboxPageComponent {
-  v1 = false; v2 = true;
-  ia = true; ib = false; ic = false;
-  selectedFeatures: string[] = ['dark-mode'];
-  copied: Record<string, boolean> = {};
+  private cdr = inject(ChangeDetectorRef);
 
-  features = [
-    { label: 'Dark mode', value: 'dark-mode' },
-    { label: 'Email digest', value: 'email' },
-    { label: 'Push notifications', value: 'push' },
-    { label: 'Two-factor auth', value: '2fa' },
-  ];
+  v1 = false; v2 = true; vErr = false; vHint = false;
+  preChecked = true; indeterminate = true; disabledFlag = true; requiredFlag = true;
+  fw = 'angular';
+  copied = '';
 
-  isSelected(v: string): boolean { return this.selectedFeatures.includes(v); }
-
-  toggleFeature(v: string, checked: boolean): void {
-    this.selectedFeatures = checked
-      ? [...this.selectedFeatures, v]
-      : this.selectedFeatures.filter(x => x !== v);
-  }
-
-  copyCode(code: string, key: string): void {
-    navigator.clipboard.writeText(code).then(() => {
-      this.copied[key] = true;
-      setTimeout(() => { this.copied[key] = false; }, 2000);
+  copy(id: string, text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      this.copied = id;
+      this.cdr.markForCheck();
+      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
     });
   }
 
-  importCode = `import { PuiCheckboxComponent } from '@solifi/platform-ui';
+  xfwRows = [
+    { name: 'label',         angular: 'label="str"',                       attr: 'label="str"',           js: 'el.label = "..."' },
+    { name: 'checked',       angular: '[checked]="bool" or [(ngModel)]',   attr: 'checked="true"',        js: 'el.checked = true' },
+    { name: 'indeterminate', angular: '[indeterminate]="bool"',            attr: 'indeterminate="true"',  js: 'el.indeterminate = true' },
+    { name: 'disabled',      angular: '[disabled]="bool"',                 attr: 'disabled="true"',       js: 'el.disabled = true' },
+    { name: 'required',      angular: '[required]="bool"',                 attr: 'required="true"',       js: 'el.required = true' },
+    { name: 'error',         angular: '[error]="str"',                     attr: 'error="msg"',           js: 'el.error = "msg"' },
+    { name: 'hint',          angular: '[hint]="str"',                      attr: 'hint="str"',            js: 'el.hint = "..."' },
+    { name: 'checkedChange', angular: '(checkedChange)="fn($event)"',      attr: '— use addEventListener', js: 'el.addEventListener("checkedChange", fn)' },
+  ];
 
-// In your standalone component:
-imports: [PuiCheckboxComponent, FormsModule]
+  angHtml = `<pui-checkbox
+  label="Accept terms"
+  [(ngModel)]="accepted"
+  (checkedChange)="onCheck($event)"/>
 
-// Template — two-way binding:
-<pui-checkbox label="Accept terms" [(ngModel)]="accepted"/>
+<pui-checkbox label="Select all" [indeterminate]="partial" [checked]="allSelected"/>
+<pui-checkbox label="Disabled"   [disabled]="true" [checked]="true"/>
+<pui-checkbox label="Required"   [required]="true" [error]="formError" hint="Hint text"/>`;
 
-// Template — event-based:
-<pui-checkbox label="Opt in" (changed)="onToggle($event)"/>`;
+  angTs = `import { PuiCheckboxComponent } from '@bhairab-patra/platform-ui';
 
-  codeBasic = `<pui-checkbox label="Accept terms and conditions" [(ngModel)]="accepted"/>
-<pui-checkbox label="Subscribe to newsletter"    [(ngModel)]="subscribe"/>`;
+@Component({
+  imports: [PuiCheckboxComponent, FormsModule],
+})
+export class MyComponent {
+  accepted    = false;
+  partial     = true;
+  allSelected = false;
+  formError   = '';
 
-  codeIndet = `<!-- Parent -->
-<pui-checkbox label="Select all" [indeterminate]="someSelected && !allSelected"
-              [checked]="allSelected" (changed)="toggleAll($event)"/>
-<!-- Children -->
-<pui-checkbox *ngFor="let item of items"
-              [label]="item.label" [(ngModel)]="item.selected"/>`;
+  onCheck(val: boolean) {
+    this.formError = val ? '' : 'You must accept the terms.';
+  }
+}`;
 
-  codeGroup = `<pui-checkbox *ngFor="let f of features"
-              [label]="f.label"
-              [checked]="isSelected(f.value)"
-              (changed)="toggleFeature(f.value, $event)"/>`;
+  reactCode = `import { useEffect, useRef } from 'react';
+
+export function MyForm() {
+  const cbRef = useRef<any>(null);
+
+  useEffect(() => {
+    const el = cbRef.current;
+    if (!el) return;
+    const handler = (e: CustomEvent) => console.log('checked:', e.detail);
+    el.addEventListener('checkedChange', handler);
+    return () => el.removeEventListener('checkedChange', handler);
+  }, []);
+
+  return (
+    <pui-checkbox
+      ref={cbRef}
+      label="Accept terms and conditions"
+      required="true"
+    />
+  );
+}`;
+
+  htmlCode = `<script src="/assets/pui-elements.js"></script>
+
+<pui-checkbox label="Accept terms"></pui-checkbox>
+<pui-checkbox label="Pre-checked"   checked="true"></pui-checkbox>
+<pui-checkbox label="Indeterminate" indeterminate="true"></pui-checkbox>
+<pui-checkbox label="Disabled"      disabled="true"></pui-checkbox>
+
+<script>
+  const cb = document.querySelector('pui-checkbox');
+  cb.checked = true;                              // JS property
+  cb.addEventListener('checkedChange', e => {
+    console.log('New value:', e.detail);
+  });
+</script>`;
 
   api: ApiRow[] = [
-    { input: 'label', type: 'string', default: "''", description: 'Checkbox label text' },
-    { input: 'checked', type: 'boolean', default: 'false', description: 'Checked state (two-way via ngModel)' },
-    { input: 'indeterminate', type: 'boolean', default: 'false', description: 'Shows dash (–) icon; overrides unchecked state' },
-    { input: 'disabled', type: 'boolean', default: 'false', description: 'Disables interaction' },
-    { input: 'required', type: 'boolean', default: 'false', description: 'Shows asterisk on label' },
-    { input: 'error', type: 'string', default: "''", description: 'Error message; activates error state' },
-    { input: 'hint', type: 'string', default: "''", description: 'Helper text shown below' },
+    { input: 'label',         type: 'string',  default: "''",     description: 'Label text shown next to the checkbox' },
+    { input: 'checked',       type: 'boolean', default: 'false',  description: 'Whether the checkbox is checked' },
+    { input: 'indeterminate', type: 'boolean', default: 'false',  description: 'Indeterminate (partial-select) state' },
+    { input: 'disabled',      type: 'boolean', default: 'false',  description: 'Disables interaction' },
+    { input: 'required',      type: 'boolean', default: 'false',  description: 'Shows required asterisk' },
+    { input: 'error',         type: 'string',  default: "''",     description: 'Error message; hides hint when set' },
+    { input: 'hint',          type: 'string',  default: "''",     description: 'Helper text shown below the checkbox' },
+    { input: 'checkedChange', type: 'EventEmitter<boolean>', default: '—', description: 'Emits the new checked value on change' },
+    { input: 'changed',       type: 'EventEmitter<boolean>', default: '—', description: 'Alias output for change events' },
   ];
 }

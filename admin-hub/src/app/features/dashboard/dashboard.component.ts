@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { ButtonComponent, CardComponent, CardData } from 'platform-ui';
+import { CardComponent, CardData } from 'platform-ui';
+import { ButtonComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
   selector: 'admin-dashboard',

@@ -2,7 +2,10 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   { path: '', loadComponent: () => import('./pages/home.component').then(m => m.HomeComponent) },
-  { path: 'getting-started', loadComponent: () => import('./pages/getting-started.component').then(m => m.GettingStartedComponent) },
+  { path: 'getting-started', redirectTo: 'getting-started/angular', pathMatch: 'full' },
+  { path: 'getting-started/angular', loadComponent: () => import('./pages/getting-started.component').then(m => m.GettingStartedComponent) },
+  { path: 'getting-started/react',   loadComponent: () => import('./pages/getting-started.component').then(m => m.GettingStartedComponent) },
+  { path: 'getting-started/html',    loadComponent: () => import('./pages/getting-started.component').then(m => m.GettingStartedComponent) },
   { path: 'button',  loadComponent: () => import('./pages/button-page.component').then(m => m.ButtonPageComponent) },
   { path: 'card',    loadComponent: () => import('./pages/card-page.component').then(m => m.CardPageComponent) },
   { path: 'badge',   loadComponent: () => import('./pages/badge-page.component').then(m => m.BadgePageComponent) },
@@ -24,4 +27,15 @@ export const routes: Routes = [
   { path: 'toast',    loadComponent: () => import('./pages/toast-page.component').then(m => m.ToastPageComponent) },
   { path: 'sidebar',   loadComponent: () => import('./pages/sidebar-page.component').then(m => m.SidebarPageComponent) },
   { path: 'app-shell', loadComponent: () => import('./pages/app-shell-page.component').then(m => m.AppShellPageComponent) },
+  { path: 'table',      loadComponent: () => import('./pages/table-page.component').then(m => m.TablePageComponent) },
+  { path: 'tabs',       loadComponent: () => import('./pages/tabs-page.component').then(m => m.TabsPageComponent) },
+  { path: 'datepicker',    loadComponent: () => import('./pages/datepicker-page.component').then(m => m.DatepickerPageComponent) },
+  { path: 'multi-select', loadComponent: () => import('./pages/multiselect-page.component').then(m => m.MultiSelectPageComponent) },
+  { path: 'password-input', loadComponent: () => import('./pages/password-page.component').then(m => m.PasswordPageComponent) },
+  { path: 'combobox',     loadComponent: () => import('./pages/combobox-page.component').then(m => m.ComboboxPageComponent) },
+  { path: 'skeleton',     loadComponent: () => import('./pages/skeleton-page.component').then(m => m.SkeletonPageComponent) },
+  { path: 'chip',         loadComponent: () => import('./pages/chip-page.component').then(m => m.ChipPageComponent) },
+  { path: 'tag',          loadComponent: () => import('./pages/tag-page.component').then(m => m.TagPageComponent) },
+  { path: 'list',         loadComponent: () => import('./pages/list-page.component').then(m => m.ListPageComponent) },
+  { path: 'datagrid',     loadComponent: () => import('./pages/datagrid-page.component').then(m => m.DataGridPageComponent) },
 ];
