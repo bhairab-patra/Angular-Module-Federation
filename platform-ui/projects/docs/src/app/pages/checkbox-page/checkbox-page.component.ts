@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PuiCheckboxComponent } from '@solifi/platform-ui';
+import { PuiCheckboxComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -39,14 +39,14 @@ export class CheckboxPageComponent {
     { name: 'checkedChange', angular: '(checkedChange)="fn($event)"',      attr: '— use addEventListener', js: 'el.addEventListener("checkedChange", fn)' },
   ];
 
-  angHtml = `<pui-checkbox
+  angHtml = `<pui-lib-checkbox
   label="Accept terms"
   [(ngModel)]="accepted"
   (checkedChange)="onCheck($event)"/>
 
-<pui-checkbox label="Select all" [indeterminate]="partial" [checked]="allSelected"/>
-<pui-checkbox label="Disabled"   [disabled]="true" [checked]="true"/>
-<pui-checkbox label="Required"   [required]="true" [error]="formError" hint="Hint text"/>`;
+<pui-lib-checkbox label="Select all" [indeterminate]="partial" [checked]="allSelected"/>
+<pui-lib-checkbox label="Disabled"   [disabled]="true" [checked]="true"/>
+<pui-lib-checkbox label="Required"   [required]="true" [error]="formError" hint="Hint text"/>`;
 
   angTs = `import { PuiCheckboxComponent } from '@bhairab-patra/platform-ui';
 
@@ -78,7 +78,7 @@ export function MyForm() {
   }, []);
 
   return (
-    <pui-checkbox
+    <pui-lib-checkbox
       ref={cbRef}
       label="Accept terms and conditions"
       required="true"
@@ -88,13 +88,13 @@ export function MyForm() {
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 
-<pui-checkbox label="Accept terms"></pui-checkbox>
-<pui-checkbox label="Pre-checked"   checked="true"></pui-checkbox>
-<pui-checkbox label="Indeterminate" indeterminate="true"></pui-checkbox>
-<pui-checkbox label="Disabled"      disabled="true"></pui-checkbox>
+<pui-lib-checkbox label="Accept terms"></pui-lib-checkbox>
+<pui-lib-checkbox label="Pre-checked"   checked="true"></pui-lib-checkbox>
+<pui-lib-checkbox label="Indeterminate" indeterminate="true"></pui-lib-checkbox>
+<pui-lib-checkbox label="Disabled"      disabled="true"></pui-lib-checkbox>
 
 <script>
-  const cb = document.querySelector('pui-checkbox');
+  const cb = document.querySelector('pui-lib-checkbox');
   cb.checked = true;                              // JS property
   cb.addEventListener('checkedChange', e => {
     console.log('New value:', e.detail);

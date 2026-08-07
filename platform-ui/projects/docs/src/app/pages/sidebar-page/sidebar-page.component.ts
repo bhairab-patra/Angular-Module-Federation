@@ -3,7 +3,7 @@ import { NgFor, NgIf } from '@angular/common';
 import {
   PuiSidebarComponent, SidebarGroup, SidebarNavItem,
   SidebarTheme, SIDEBAR_THEMES
-} from '@solifi/platform-ui';
+} from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -81,7 +81,7 @@ export class SidebarPageComponent {
     { lbl: 'Users',    val: '8,921', color: '#f59e0b' },
   ];
 
-  angularTpl = `<pui-sidebar
+  angularTpl = `<pui-lib-sidebar
   brandName="Platform UI"
   [groups]="navGroups"
   [activeId]="activeId"
@@ -102,7 +102,7 @@ export class SidebarPageComponent {
   <!-- Router outlet / page content goes here -->
   <router-outlet></router-outlet>
 
-</pui-sidebar>`;
+</pui-lib-sidebar>`;
 
   angularTs = `import {
   PuiSidebarComponent, SidebarGroup, SidebarNavItem,
@@ -178,7 +178,7 @@ export function AppShell({ children }) {
   }, []);
 
   return (
-    <pui-sidebar
+    <pui-lib-sidebar
       ref={ref}
       brand-name="Platform UI"
       active-id={activeId}
@@ -189,17 +189,17 @@ export function AppShell({ children }) {
       style={{ height: '100vh', display: 'block' }}
     >
       {children}
-    </pui-sidebar>
+    </pui-lib-sidebar>
   );
 }`;
 
   htmlCode = `<script src="node_modules/@bhairab-patra/platform-ui/elements/pui-elements.js" defer></script>
 
 <style>
-  pui-sidebar { display: block; height: 100vh; }
+  pui-lib-sidebar { display: block; height: 100vh; }
 </style>
 
-<pui-sidebar
+<pui-lib-sidebar
   id="sb"
   brand-name="Platform UI"
   show-header="true"
@@ -207,10 +207,10 @@ export function AppShell({ children }) {
   header-bg-color="#0f172a"
   header-user-name="Bhairab Patra">
   <div id="page-content">Page content here</div>
-</pui-sidebar>
+</pui-lib-sidebar>
 
 <script>
-  customElements.whenDefined('pui-sidebar').then(() => {
+  customElements.whenDefined('pui-lib-sidebar').then(() => {
     const el = document.getElementById('sb');
 
     el.groups = [
@@ -260,7 +260,7 @@ export function AppShell({ children }) {
     { input: 'showSidebar',       type: 'boolean|string',         default: 'true',      description: 'Hide the sidebar entirely (e.g. mobile).' },
     { input: 'config',            type: 'SidebarConfig|string',   default: '{}',        description: '{ width, collapsedWidth, showSearch, collapsible, maxLabelLen }' },
     { input: 'theme',             type: 'SidebarTheme|string',    default: 'dark',      description: 'Color token object. Use SIDEBAR_THEMES presets.' },
-    { input: 'showHeader',        type: 'boolean|string',         default: 'false',     description: 'Render pui-header above the sidebar shell.' },
+    { input: 'showHeader',        type: 'boolean|string',         default: 'false',     description: 'Render pui-lib-header above the sidebar shell.' },
     { input: 'headerAppTitle',    type: 'string',                 default: "'My App'",  description: 'Header product name.' },
     { input: 'headerBgColor',     type: 'string',                 default: "'#12C6A8'", description: 'Header background colour.' },
     { input: 'headerBadge',       type: 'HeaderBadge|string',     default: 'null',      description: 'Header env badge â€” JSON string or object.' },

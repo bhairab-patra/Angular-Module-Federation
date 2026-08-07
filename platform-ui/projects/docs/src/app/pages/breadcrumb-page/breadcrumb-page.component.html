@@ -56,7 +56,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-breadcrumb</code> accepts an <code>items</code> array via Angular property binding or as a JS property after element upgrade. All separator values are plain HTML attribute strings.</p>
+    <p class="fw-lead"><code>pui-lib-breadcrumb</code> accepts an <code>items</code> array via Angular property binding or as a JS property after element upgrade. All separator values are plain HTML attribute strings.</p>
 
     <div class="fw-tabs">
       <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
@@ -75,16 +75,16 @@
 
     <div *ngIf="fwTab==='angular'" class="fw-panel">
       <div class="fw-note--angular">Import <code>BreadcrumbComponent</code> and bind the <code>items</code> array directly.</div>
-      <pre><code>import &#123; BreadcrumbComponent, BreadcrumbItem &#125; from '&#64;solifi/platform-ui';
+      <pre><code>import &#123; BreadcrumbComponent, BreadcrumbItem &#125; from '&#64;bhairab-patra/platform-ui';
 
 &#64;Component(&#123;
   imports: [BreadcrumbComponent],
   template: &#96;
-    &lt;pui-breadcrumb
+    &lt;pui-lib-breadcrumb
       [items]="crumbs"
       separator="chevron"
       ariaLabel="Page navigation"&gt;
-    &lt;/pui-breadcrumb&gt;
+    &lt;/pui-lib-breadcrumb&gt;
   &#96;
 &#125;)
 export class MyComponent &#123;
@@ -99,7 +99,7 @@ export class MyComponent &#123;
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">Set the <code>items</code> array via a ref — it is an object array and cannot be passed as an HTML attribute.</div>
       <pre><code>import &#123; useRef, useEffect &#125; from 'react';
-import '&#64;solifi/platform-ui';
+import '&#64;bhairab-patra/platform-ui';
 
 function Nav() &#123;
   const ref = useRef(null);
@@ -114,16 +114,16 @@ function Nav() &#123;
     &#125;
   &#125;, []);
 
-  return &lt;pui-breadcrumb ref=&#123;ref&#125; separator="chevron" /&gt;;
+  return &lt;pui-lib-breadcrumb ref=&#123;ref&#125; separator="chevron" /&gt;;
 &#125;</code></pre>
     </div>
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">Assign <code>items</code> as a JS property — it cannot be serialised as an HTML attribute.</div>
-      <pre><code>&lt;pui-breadcrumb id="bc" separator="slash"&gt;&lt;/pui-breadcrumb&gt;
+      <pre><code>&lt;pui-lib-breadcrumb id="bc" separator="slash"&gt;&lt;/pui-lib-breadcrumb&gt;
 
 &lt;script&gt;
-customElements.whenDefined('pui-breadcrumb').then(() =&gt; &#123;
+customElements.whenDefined('pui-lib-breadcrumb').then(() =&gt; &#123;
   document.getElementById('bc').items = [
     &#123; label: 'Home',     route: '/'         &#125;,
     &#123; label: 'Products', route: '/products' &#125;,
@@ -134,7 +134,7 @@ customElements.whenDefined('pui-breadcrumb').then(() =&gt; &#123;
 
 &lt;!-- CSS variable theming --&gt;
 &lt;style&gt;
-  pui-breadcrumb &#123;
+  pui-lib-breadcrumb &#123;
     --pui-bc-link-color:   #0fa78d;
     --pui-bc-active-color: #111827;
     --pui-bc-sep-color:    #d1d5db;

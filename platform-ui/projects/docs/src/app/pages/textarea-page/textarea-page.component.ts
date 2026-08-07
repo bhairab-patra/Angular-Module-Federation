@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PuiTextareaComponent } from '@solifi/platform-ui';
+import { PuiTextareaComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -45,7 +45,7 @@ export class TextareaPageComponent {
     { name: 'valueChange', angular: '(valueChange)="fn($event)"',   attr: '— use addEventListener', js: 'el.addEventListener("valueChange", fn)' },
   ];
 
-  angHtml = `<pui-textarea
+  angHtml = `<pui-lib-textarea
   label="Description"
   placeholder="Tell us about yourself…"
   [(ngModel)]="bio"
@@ -54,9 +54,9 @@ export class TextareaPageComponent {
   [showCount]="true"
   hint="Shown on your public profile"/>
 
-<pui-textarea label="No resize" resize="none" [(ngModel)]="notes"/>
-<pui-textarea label="Error"     [error]="bioError" [(ngModel)]="bio"/>
-<pui-textarea label="Disabled"  [disabled]="true"/>`;
+<pui-lib-textarea label="No resize" resize="none" [(ngModel)]="notes"/>
+<pui-lib-textarea label="Error"     [error]="bioError" [(ngModel)]="bio"/>
+<pui-lib-textarea label="Disabled"  [disabled]="true"/>`;
 
   angTs = `import { PuiTextareaComponent } from '@bhairab-patra/platform-ui';
 
@@ -89,7 +89,7 @@ export function BioEditor() {
 
   return (
     <>
-      <pui-textarea ref={taRef} label="Bio" placeholder="Tell us about yourself…"/>
+      <pui-lib-textarea ref={taRef} label="Bio" placeholder="Tell us about yourself…"/>
       <p>{bio.length} / 200</p>
     </>
   );
@@ -98,17 +98,17 @@ export function BioEditor() {
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 
 <!-- Numeric/string attributes auto-coerced -->
-<pui-textarea
+<pui-lib-textarea
   id="bioField"
   label="Bio"
   placeholder="Tell us about yourself…"
   rows="5"
   max-length="200"
   hint="Shown on your public profile">
-</pui-textarea>
+</pui-lib-textarea>
 
-<pui-textarea label="Fixed size" resize="none" rows="3"></pui-textarea>
-<pui-textarea label="Disabled"   disabled="true"></pui-textarea>
+<pui-lib-textarea label="Fixed size" resize="none" rows="3"></pui-lib-textarea>
+<pui-lib-textarea label="Disabled"   disabled="true"></pui-lib-textarea>
 
 <script>
   const el = document.getElementById('bioField');

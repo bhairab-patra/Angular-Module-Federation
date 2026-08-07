@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { PuiDataGridComponent, DataGridColumn } from '@solifi/platform-ui';
+import { PuiDataGridComponent, DataGridColumn } from '@bhairab-patra/platform-ui';
 
 interface Employee { id: number; name: string; role: string; department: string; status: string; salary: number; joined: string; }
 

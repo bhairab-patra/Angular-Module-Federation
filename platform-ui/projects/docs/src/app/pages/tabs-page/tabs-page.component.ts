@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { PuiTabsComponent, TabItem } from '@solifi/platform-ui';
+import { PuiTabsComponent, TabItem } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -82,7 +82,7 @@ export class TabsPageComponent {
   ];
 
   /* ── Code snippets ──────────────────────────────── */
-  angHtml = `<pui-tabs
+  angHtml = `<pui-lib-tabs
   variant="pill"
   [tabs]="tabs"
   [activeTab]="active"
@@ -93,7 +93,7 @@ export class TabsPageComponent {
   <div *ngIf="active === 'analytics'">Analytics content…</div>
   <div *ngIf="active === 'settings'">Settings content…</div>
 
-</pui-tabs>`;
+</pui-lib-tabs>`;
 
   angTs = `import { PuiTabsComponent, TabItem } from '@bhairab-patra/platform-ui';
 
@@ -132,24 +132,24 @@ export function MyTabs() {
   }, []);
 
   return (
-    <pui-tabs ref={ref}>
+    <pui-lib-tabs ref={ref}>
       {active === 'overview'  && <div>Overview panel</div>}
       {active === 'analytics' && <div>Analytics panel</div>}
       {active === 'settings'  && <div>Settings panel</div>}
-    </pui-tabs>
+    </pui-lib-tabs>
   );
 }`;
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 
-<pui-tabs id="myTabs" variant="pill"></pui-tabs>
+<pui-lib-tabs id="myTabs" variant="pill"></pui-lib-tabs>
 
 <div id="panel-overview">Overview content…</div>
 <div id="panel-analytics" style="display:none">Analytics content…</div>
 <div id="panel-settings"  style="display:none">Settings content…</div>
 
 <script>
-  customElements.whenDefined('pui-tabs').then(() => {
+  customElements.whenDefined('pui-lib-tabs').then(() => {
     const el = document.getElementById('myTabs');
 
     el.tabs = [

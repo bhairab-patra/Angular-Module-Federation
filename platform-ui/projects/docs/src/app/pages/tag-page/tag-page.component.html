@@ -79,7 +79,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-tag</code> is a purely presentational Web Component — no events, no JS required. Pass <code>variant</code> and <code>size</code> as plain HTML attributes and put your label text as the slot content.</p>
+    <p class="fw-lead"><code>pui-lib-tag</code> is a purely presentational Web Component — no events, no JS required. Pass <code>variant</code> and <code>size</code> as plain HTML attributes and put your label text as the slot content.</p>
 
     <div class="fw-tabs">
       <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
@@ -98,16 +98,16 @@
 
     <div *ngIf="fwTab==='angular'" class="fw-panel">
       <div class="fw-note--angular">Import <code>PuiTagComponent</code> — no additional setup required. Bind <code>variant</code> dynamically for data-driven status columns.</div>
-      <pre><code>import &#123; PuiTagComponent &#125; from '&#64;solifi/platform-ui';
+      <pre><code>import &#123; PuiTagComponent &#125; from '&#64;bhairab-patra/platform-ui';
 
 &#64;Component(&#123;
   imports: [PuiTagComponent],
   template: &#96;
-    &lt;pui-tag variant="success"&gt;Delivered&lt;/pui-tag&gt;
-    &lt;pui-tag variant="warning"&gt;In Transit&lt;/pui-tag&gt;
-    &lt;pui-tag variant="danger"&gt;Cancelled&lt;/pui-tag&gt;
-    &lt;pui-tag variant="info"&gt;Processing&lt;/pui-tag&gt;
-    &lt;pui-tag variant="default"&gt;Pending&lt;/pui-tag&gt;
+    &lt;pui-lib-tag variant="success"&gt;Delivered&lt;/pui-lib-tag&gt;
+    &lt;pui-lib-tag variant="warning"&gt;In Transit&lt;/pui-lib-tag&gt;
+    &lt;pui-lib-tag variant="danger"&gt;Cancelled&lt;/pui-lib-tag&gt;
+    &lt;pui-lib-tag variant="info"&gt;Processing&lt;/pui-lib-tag&gt;
+    &lt;pui-lib-tag variant="default"&gt;Pending&lt;/pui-lib-tag&gt;
   &#96;
 &#125;)
 export class MyComponent &#123;&#125;</code></pre>
@@ -115,7 +115,7 @@ export class MyComponent &#123;&#125;</code></pre>
 
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">No ref or event wiring needed — just render the element with props.</div>
-      <pre><code>import '&#64;solifi/platform-ui';
+      <pre><code>import '&#64;bhairab-patra/platform-ui';
 
 const STATUS_VARIANT = &#123;
   delivered: 'success', cancelled: 'danger',
@@ -124,20 +124,20 @@ const STATUS_VARIANT = &#123;
 
 function StatusTag(&#123; status &#125;) &#123;
   return (
-    &lt;pui-tag variant=&#123;STATUS_VARIANT[status] ?? 'default'&#125;&gt;
+    &lt;pui-lib-tag variant=&#123;STATUS_VARIANT[status] ?? 'default'&#125;&gt;
       &#123;status&#125;
-    &lt;/pui-tag&gt;
+    &lt;/pui-lib-tag&gt;
   );
 &#125;</code></pre>
     </div>
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">Pure HTML — no JavaScript needed at all.</div>
-      <pre><code>&lt;pui-tag variant="success"&gt;Delivered&lt;/pui-tag&gt;
-&lt;pui-tag variant="warning"&gt;In Transit&lt;/pui-tag&gt;
-&lt;pui-tag variant="danger"&gt;Cancelled&lt;/pui-tag&gt;
-&lt;pui-tag variant="info"&gt;Processing&lt;/pui-tag&gt;
-&lt;pui-tag variant="purple" size="sm"&gt;Beta&lt;/pui-tag&gt;</code></pre>
+      <pre><code>&lt;pui-lib-tag variant="success"&gt;Delivered&lt;/pui-lib-tag&gt;
+&lt;pui-lib-tag variant="warning"&gt;In Transit&lt;/pui-lib-tag&gt;
+&lt;pui-lib-tag variant="danger"&gt;Cancelled&lt;/pui-lib-tag&gt;
+&lt;pui-lib-tag variant="info"&gt;Processing&lt;/pui-lib-tag&gt;
+&lt;pui-lib-tag variant="purple" size="sm"&gt;Beta&lt;/pui-lib-tag&gt;</code></pre>
     </div>
 
     <h4 class="fw-ref-title">Tag Quick Reference</h4>

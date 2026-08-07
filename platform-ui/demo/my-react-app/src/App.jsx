@@ -26,7 +26,7 @@ function App() {
     };
   }, []);
 
-  
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -34,48 +34,57 @@ function App() {
     // Arrays → JS property (or use JSON string attribute below)
     el.suggestions = [
       { label: 'Button', value: 'button', category: 'Forms' },
-      { label: 'Modal',  value: 'modal',  category: 'Components' },
+      { label: 'Modal', value: 'modal', category: 'Components' },
     ];
     el.recentSearches = ['Button', 'Modal'];
 
     const onSearch = (e) => console.log('search:', e.detail);
     const onSelect = (e) => console.log('selected:', e.detail);
-    el.addEventListener('searchChange',       onSearch);
+    el.addEventListener('searchChange', onSearch);
     el.addEventListener('suggestionSelected', onSelect);
     return () => {
-      el.removeEventListener('searchChange',       onSearch);
+      el.removeEventListener('searchChange', onSearch);
       el.removeEventListener('suggestionSelected', onSelect);
     };
   }, []);
 
-  return (
-    <Fragment>
-      <pui-lib-header
-        ref={ref}
-        app-title="Admin Portal"
-        app-subtitle="PLATFORM MANAGEMENT"
-        bg-color="#12C6A8"
-        logo-url="/assets/hero.png"
-        badge=''
-        show-help="true"
-        user-name="Bhairab Patra"
-        user-email="bpatra@solifi.com"
-        greeting="Hi"
-        user-subtext="Welcome back!">
-      </pui-lib-header>
+   const variantMap = {
+    active:   'success',
+    pending:  'warning',
+    error:    'danger',
+    info:     'info',
+  };
+    return (
+      <Fragment>
+        <pui-lib-header
+          ref={ref}
+          app-title="Admin Portal"
+          app-subtitle="PLATFORM MANAGEMENT"
+          bg-color="#12C6A8"
+          logo-url="/assets/hero.png"
+          badge=''
+          show-help="true"
+          user-name="Bhairab Patra"
+          user-email="bpatra@solifi.com"
+          greeting="Hi"
+          user-subtext="Welcome back!">
+        </pui-lib-header>
 
-      <pui-lib-button variant="primary" size="sm">Click</pui-lib-button>
-   <pui-lib-search
-      ref={ref}
-      placeholder="Search…"
-      shortcut="⌘K"
-      debounce="300"
-      min-chars="1"
-      clearable="true"
-    />
-      
-   </Fragment >
-  );
-}
+        <pui-lib-button variant="primary" size="sm">Click</pui-lib-button>
+        <pui-lib-search
+          ref={ref}
+          placeholder="Search…"
+          shortcut="⌘K"
+          debounce="300"
+          min-chars="1"
+          clearable="true"
+        />
+        <pui-lib-badge   variant="primary" size="md">
+          info
+        </pui-lib-badge>
 
-export default App
+      </Fragment >
+    );
+  }
+
+  export default App

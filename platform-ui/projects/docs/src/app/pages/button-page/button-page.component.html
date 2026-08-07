@@ -152,7 +152,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-button</code> supports static text via <code>ng-content</code> or a dynamic <code>[label]</code> input. All click, focus, hover, and blur events are emitted as typed Angular <code>EventEmitter</code>s or DOM custom events.</p>
+    <p class="fw-lead"><code>pui-lib-button</code> supports static text via <code>ng-content</code> or a dynamic <code>[label]</code> input. All click, focus, hover, and blur events are emitted as typed Angular <code>EventEmitter</code>s or DOM custom events.</p>
 
     <div class="fw-tabs">
       <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
@@ -171,19 +171,19 @@
 
     <div *ngIf="fwTab==='angular'" class="fw-panel">
       <div class="fw-note--angular">Import <code>ButtonComponent</code> (and optionally <code>FileUploadButtonComponent</code>) into your component's <code>imports</code> array.</div>
-      <pre><code>import &#123; ButtonComponent, FileUploadButtonComponent &#125; from '&#64;solifi/platform-ui';
+      <pre><code>import &#123; ButtonComponent, FileUploadButtonComponent &#125; from '&#64;bhairab-patra/platform-ui';
 
 &#64;Component(&#123;
   imports: [ButtonComponent, FileUploadButtonComponent],
   template: &#96;
     &lt;!-- Static label via ng-content --&gt;
-    &lt;pui-button variant="primary" (buttonClick)="onSave($event)"&gt;Save&lt;/pui-button&gt;
+    &lt;pui-lib-button variant="primary" (buttonClick)="onSave($event)"&gt;Save&lt;/pui-lib-button&gt;
 
     &lt;!-- Dynamic label input --&gt;
-    &lt;pui-button [variant]="btnVariant" [label]="btnLabel" [disabled]="isBusy"&gt;&lt;/pui-button&gt;
+    &lt;pui-lib-button [variant]="btnVariant" [label]="btnLabel" [disabled]="isBusy"&gt;&lt;/pui-lib-button&gt;
 
     &lt;!-- Upload progress --&gt;
-    &lt;pui-button variant="upload-progress" [label]="'Uploading…'" [progress]="pct" [fullWidth]="true"&gt;&lt;/pui-button&gt;
+    &lt;pui-lib-button variant="upload-progress" [label]="'Uploading…'" [progress]="pct" [fullWidth]="true"&gt;&lt;/pui-lib-button&gt;
 
     &lt;!-- File picker --&gt;
     &lt;pui-file-button label="Attach File" accept=".pdf,.png" (fileSelected)="onFile($event)"&gt;&lt;/pui-file-button&gt;
@@ -202,23 +202,23 @@ export class MyComponent &#123;
 
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">Listen to DOM custom events via <code>onButtonclick</code> (camelCase). Pass booleans as string attributes or via a ref for JS property access.</div>
-      <pre><code>import '&#64;solifi/platform-ui';
+      <pre><code>import '&#64;bhairab-patra/platform-ui';
 
 function Actions(&#123; onSave, isSaving &#125;) &#123;
   return (
     &lt;&gt;
-      &lt;pui-button
+      &lt;pui-lib-button
         variant="primary"
         onButtonclick=&#123;onSave&#125;
         disabled=&#123;isSaving ? '' : undefined&#125;&gt;
         Save
-      &lt;/pui-button&gt;
+      &lt;/pui-lib-button&gt;
 
-      &lt;pui-button
+      &lt;pui-lib-button
         variant="secondary"
         onButtonclick=&#123;() =&gt; history.back()&#125;&gt;
         Cancel
-      &lt;/pui-button&gt;
+      &lt;/pui-lib-button&gt;
     &lt;/&gt;
   );
 &#125;</code></pre>
@@ -226,10 +226,10 @@ function Actions(&#123; onSave, isSaving &#125;) &#123;
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">Boolean props (<code>disabled</code>, <code>loading</code>, <code>full-width</code>) only need to be present as attributes. Listen to events with <code>addEventListener</code>.</div>
-      <pre><code>&lt;pui-button id="btn-save" variant="primary"&gt;Save Changes&lt;/pui-button&gt;
-&lt;pui-button variant="secondary"&gt;Cancel&lt;/pui-button&gt;
-&lt;pui-button variant="destructive" disabled&gt;Delete&lt;/pui-button&gt;
-&lt;pui-button variant="primary" full-width&gt;Full Width&lt;/pui-button&gt;
+      <pre><code>&lt;pui-lib-button id="btn-save" variant="primary"&gt;Save Changes&lt;/pui-lib-button&gt;
+&lt;pui-lib-button variant="secondary"&gt;Cancel&lt;/pui-lib-button&gt;
+&lt;pui-lib-button variant="destructive" disabled&gt;Delete&lt;/pui-lib-button&gt;
+&lt;pui-lib-button variant="primary" full-width&gt;Full Width&lt;/pui-lib-button&gt;
 
 &lt;script&gt;
   document.getElementById('btn-save')

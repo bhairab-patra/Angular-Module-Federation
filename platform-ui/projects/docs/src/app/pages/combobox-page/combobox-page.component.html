@@ -113,7 +113,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-combobox</code> is a standalone Web Component with smart JSON-parse setters — pass arrays from Angular with <code>[options]</code> bindings, from React via ref, and from HTML via JS property assignment.</p>
+    <p class="fw-lead"><code>pui-lib-combobox</code> is a standalone Web Component with smart JSON-parse setters — pass arrays from Angular with <code>[options]</code> bindings, from React via ref, and from HTML via JS property assignment.</p>
 
     <div class="fw-tabs">
       <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular'; cdr.markForCheck()">
@@ -132,18 +132,18 @@
 
     <div *ngIf="fwTab==='angular'" class="fw-panel">
       <div class="fw-note--angular">Import <code>PuiComboboxComponent</code> into your component's <code>imports</code> array.</div>
-      <pre><code>import &#123; PuiComboboxComponent, ComboboxOption &#125; from '&#64;solifi/platform-ui';
+      <pre><code>import &#123; PuiComboboxComponent, ComboboxOption &#125; from '&#64;bhairab-patra/platform-ui';
 
 &#64;Component(&#123;
   imports: [PuiComboboxComponent],
   template: &#96;
-    &lt;pui-combobox
+    &lt;pui-lib-combobox
       [options]="options"
       [value]="selected"
       placeholder="Search…"
       [allowFreeText]="true"
       (valueChange)="selected = $event"&gt;
-    &lt;/pui-combobox&gt;
+    &lt;/pui-lib-combobox&gt;
   &#96;
 &#125;)
 export class MyComponent &#123;
@@ -158,7 +158,7 @@ export class MyComponent &#123;
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">Assign the <code>options</code> array via a <code>ref</code> in <code>useEffect</code> — HTML attributes only accept strings.</div>
       <pre><code>import &#123; useRef, useEffect, useState &#125; from 'react';
-import '&#64;solifi/platform-ui';
+import '&#64;bhairab-patra/platform-ui';
 
 function MyComponent() &#123;
   const ref = useRef(null);
@@ -174,7 +174,7 @@ function MyComponent() &#123;
   &#125;, []);
 
   return (
-    &lt;pui-combobox
+    &lt;pui-lib-combobox
       ref=&#123;ref&#125;
       placeholder="Select framework…"
       onValueChange=&#123;e =&gt; setValue(e.detail)&#125;
@@ -185,10 +185,10 @@ function MyComponent() &#123;
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">Set <code>el.options</code> as a JS property after <code>customElements.whenDefined</code>.</div>
-      <pre><code>&lt;pui-combobox id="cb" placeholder="Select…" allow-free-text clearable&gt;&lt;/pui-combobox&gt;
+      <pre><code>&lt;pui-lib-combobox id="cb" placeholder="Select…" allow-free-text clearable&gt;&lt;/pui-lib-combobox&gt;
 
 &lt;script&gt;
-customElements.whenDefined('pui-combobox').then(() =&gt; &#123;
+customElements.whenDefined('pui-lib-combobox').then(() =&gt; &#123;
   const el = document.getElementById('cb');
   el.options = [
     &#123; value: 'ng', label: 'Angular', group: 'Frontend' &#125;,

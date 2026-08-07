@@ -70,7 +70,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-datagrid</code> is a full-featured Angular component. Pass <code>columns</code> and <code>rows</code> as typed arrays. For React and HTML, set both as JS properties via a ref after element upgrade.</p>
+    <p class="fw-lead"><code>pui-lib-datagrid</code> is a full-featured Angular component. Pass <code>columns</code> and <code>rows</code> as typed arrays. For React and HTML, set both as JS properties via a ref after element upgrade.</p>
 
     <div class="fw-tabs">
       <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
@@ -89,12 +89,12 @@
 
     <div *ngIf="fwTab==='angular'" class="fw-panel">
       <div class="fw-note--angular">Import <code>PuiDataGridComponent</code> and define typed <code>DataGridColumn</code> arrays.</div>
-      <pre><code>import &#123; PuiDataGridComponent, DataGridColumn &#125; from '&#64;solifi/platform-ui';
+      <pre><code>import &#123; PuiDataGridComponent, DataGridColumn &#125; from '&#64;bhairab-patra/platform-ui';
 
 &#64;Component(&#123;
   imports: [PuiDataGridComponent],
   template: &#96;
-    &lt;pui-datagrid
+    &lt;pui-lib-datagrid
       [columns]="columns"
       [rows]="rows"
       rowKey="id"
@@ -103,7 +103,7 @@
       [pageSize]="10"
       (selectionChange)="onSelect($event)"
       (sortChange)="onSort($event)"&gt;
-    &lt;/pui-datagrid&gt;
+    &lt;/pui-lib-datagrid&gt;
   &#96;
 &#125;)
 export class MyComponent &#123;
@@ -128,7 +128,7 @@ export class MyComponent &#123;
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">Set <code>columns</code> and <code>rows</code> via a ref — both are object arrays and cannot be passed as HTML attributes.</div>
       <pre><code>import &#123; useRef, useEffect &#125; from 'react';
-import '&#64;solifi/platform-ui';
+import '&#64;bhairab-patra/platform-ui';
 
 function EmployeeGrid() &#123;
   const ref = useRef(null);
@@ -145,16 +145,16 @@ function EmployeeGrid() &#123;
     ];
   &#125;, []);
 
-  return &lt;pui-datagrid ref=&#123;ref&#125; selectable paginate page-size="10" /&gt;;
+  return &lt;pui-lib-datagrid ref=&#123;ref&#125; selectable paginate page-size="10" /&gt;;
 &#125;</code></pre>
     </div>
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">Set <code>columns</code> and <code>rows</code> as JS properties — they cannot be serialised as HTML attributes.</div>
-      <pre><code>&lt;pui-datagrid id="grid" selectable paginate page-size="10"&gt;&lt;/pui-datagrid&gt;
+      <pre><code>&lt;pui-lib-datagrid id="grid" selectable paginate page-size="10"&gt;&lt;/pui-lib-datagrid&gt;
 
 &lt;script&gt;
-customElements.whenDefined('pui-datagrid').then(() =&gt; &#123;
+customElements.whenDefined('pui-lib-datagrid').then(() =&gt; &#123;
   const el = document.getElementById('grid');
   el.columns = [
     &#123; field: 'name',   header: 'Name',   sortable: true &#125;,

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { ModalComponent, ButtonComponent, CardComponent, IconComponent } from '@solifi/platform-ui';
+import { ModalComponent, ButtonComponent, CardComponent, IconComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 
 @Component({

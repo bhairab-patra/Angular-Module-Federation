@@ -94,30 +94,30 @@
 
     <div *ngIf="fwTab==='angular'" class="fw-panel">
       <div class="fw-note--angular">Import <code>ModalComponent</code> and bind <code>[open]</code> to a boolean. Close by setting it to <code>false</code> in the <code>(closed)</code> handler.</div>
-      <pre><code>import &#123; ModalComponent, ButtonComponent &#125; from '&#64;solifi/platform-ui';
+      <pre><code>import &#123; ModalComponent, ButtonComponent &#125; from '&#64;bhairab-patra/platform-ui';
 
 &#64;Component(&#123;
   imports: [ModalComponent, ButtonComponent],
   template: &#96;
-    &lt;pui-button variant="primary" (buttonClick)="isOpen=true"&gt;Open Modal&lt;/pui-button&gt;
+    &lt;pui-lib-button variant="primary" (buttonClick)="isOpen=true"&gt;Open Modal&lt;/pui-lib-button&gt;
 
-    &lt;pui-modal [open]="isOpen" title="Dialog" size="md" (closed)="isOpen=false"&gt;
+    &lt;pui-lib-modal [open]="isOpen" title="Dialog" size="md" (closed)="isOpen=false"&gt;
       &lt;p&gt;Body content projected via ng-content.&lt;/p&gt;
 
       &lt;div footer&gt;
-        &lt;pui-button variant="secondary" (buttonClick)="isOpen=false"&gt;Cancel&lt;/pui-button&gt;
-        &lt;pui-button variant="primary"   (buttonClick)="confirm()"&gt;Confirm&lt;/pui-button&gt;
+        &lt;pui-lib-button variant="secondary" (buttonClick)="isOpen=false"&gt;Cancel&lt;/pui-lib-button&gt;
+        &lt;pui-lib-button variant="primary"   (buttonClick)="confirm()"&gt;Confirm&lt;/pui-lib-button&gt;
       &lt;/div&gt;
-    &lt;/pui-modal&gt;
+    &lt;/pui-lib-modal&gt;
 
     &lt;!-- Destructive pattern --&gt;
-    &lt;pui-modal [open]="deleteOpen" title="Delete Item" size="sm" (closed)="deleteOpen=false"&gt;
+    &lt;pui-lib-modal [open]="deleteOpen" title="Delete Item" size="sm" (closed)="deleteOpen=false"&gt;
       &lt;p&gt;This cannot be undone.&lt;/p&gt;
       &lt;div footer&gt;
-        &lt;pui-button variant="secondary"   (buttonClick)="deleteOpen=false"&gt;Cancel&lt;/pui-button&gt;
-        &lt;pui-button variant="destructive" (buttonClick)="onDelete()"&gt;Yes, Delete&lt;/pui-button&gt;
+        &lt;pui-lib-button variant="secondary"   (buttonClick)="deleteOpen=false"&gt;Cancel&lt;/pui-lib-button&gt;
+        &lt;pui-lib-button variant="destructive" (buttonClick)="onDelete()"&gt;Yes, Delete&lt;/pui-lib-button&gt;
       &lt;/div&gt;
-    &lt;/pui-modal&gt;
+    &lt;/pui-lib-modal&gt;
   &#96;
 &#125;)
 export class MyComponent &#123;
@@ -131,7 +131,7 @@ export class MyComponent &#123;
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">Set <code>open</code> and listen to <code>closed</code> custom event via <code>addEventListener</code> in a <code>useEffect</code>.</div>
       <pre><code>import &#123; useRef, useEffect, useState &#125; from 'react';
-import '&#64;solifi/platform-ui';
+import '&#64;bhairab-patra/platform-ui';
 
 function Page() &#123;
   const [open, setOpen] = useState(false);
@@ -147,15 +147,15 @@ function Page() &#123;
 
   return (
     &lt;&gt;
-      &lt;pui-button variant="primary" onButtonclick=&#123;() =&gt; setOpen(true)&#125;&gt;Open&lt;/pui-button&gt;
+      &lt;pui-lib-button variant="primary" onButtonclick=&#123;() =&gt; setOpen(true)&#125;&gt;Open&lt;/pui-lib-button&gt;
 
-      &lt;pui-modal ref=&#123;modalRef&#125; open=&#123;open ? '' : undefined&#125; title="Dialog" size="md"&gt;
+      &lt;pui-lib-modal ref=&#123;modalRef&#125; open=&#123;open ? '' : undefined&#125; title="Dialog" size="md"&gt;
         &lt;p&gt;Body content.&lt;/p&gt;
         &lt;div slot="footer"&gt;
-          &lt;pui-button variant="secondary" onButtonclick=&#123;() =&gt; setOpen(false)&#125;&gt;Cancel&lt;/pui-button&gt;
-          &lt;pui-button variant="primary"&gt;Confirm&lt;/pui-button&gt;
+          &lt;pui-lib-button variant="secondary" onButtonclick=&#123;() =&gt; setOpen(false)&#125;&gt;Cancel&lt;/pui-lib-button&gt;
+          &lt;pui-lib-button variant="primary"&gt;Confirm&lt;/pui-lib-button&gt;
         &lt;/div&gt;
-      &lt;/pui-modal&gt;
+      &lt;/pui-lib-modal&gt;
     &lt;/&gt;
   );
 &#125;</code></pre>
@@ -163,18 +163,18 @@ function Page() &#123;
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">Set the <code>open</code> attribute/property to show the dialog. Listen to the <code>closed</code> custom event to sync your state.</div>
-      <pre><code>&lt;pui-button id="btn-open" variant="primary"&gt;Open Modal&lt;/pui-button&gt;
+      <pre><code>&lt;pui-lib-button id="btn-open" variant="primary"&gt;Open Modal&lt;/pui-lib-button&gt;
 
-&lt;pui-modal id="my-modal" title="Confirm" size="md"&gt;
+&lt;pui-lib-modal id="my-modal" title="Confirm" size="md"&gt;
   &lt;p&gt;Are you sure you want to proceed?&lt;/p&gt;
   &lt;div footer style="display:flex;gap:8px;justify-content:flex-end"&gt;
-    &lt;pui-button id="btn-cancel" variant="secondary"&gt;Cancel&lt;/pui-button&gt;
-    &lt;pui-button id="btn-confirm" variant="primary"&gt;Confirm&lt;/pui-button&gt;
+    &lt;pui-lib-button id="btn-cancel" variant="secondary"&gt;Cancel&lt;/pui-lib-button&gt;
+    &lt;pui-lib-button id="btn-confirm" variant="primary"&gt;Confirm&lt;/pui-lib-button&gt;
   &lt;/div&gt;
-&lt;/pui-modal&gt;
+&lt;/pui-lib-modal&gt;
 
 &lt;!-- Sizes: sm=360px · md=520px (default) · lg=720px --&gt;
-&lt;pui-modal size="lg" title="Large Dialog"&gt;...&lt;/pui-modal&gt;
+&lt;pui-lib-modal size="lg" title="Large Dialog"&gt;...&lt;/pui-lib-modal&gt;
 
 &lt;script&gt;
   const modal = document.getElementById('my-modal');

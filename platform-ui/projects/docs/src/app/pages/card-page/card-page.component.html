@@ -137,7 +137,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-card</code> is a flexible surface — project any content via <code>ng-content</code> or use named slots (<code>card-header</code>, <code>card-footer</code>). Pass a <code>[data]</code> object for the automatic stat/metric layout.</p>
+    <p class="fw-lead"><code>pui-lib-card</code> is a flexible surface — project any content via <code>ng-content</code> or use named slots (<code>card-header</code>, <code>card-footer</code>). Pass a <code>[data]</code> object for the automatic stat/metric layout.</p>
 
     <div class="fw-tabs">
       <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
@@ -156,25 +156,25 @@
 
     <div *ngIf="fwTab==='angular'" class="fw-panel">
       <div class="fw-note--angular">Import <code>CardComponent</code>. Use named attribute selectors for header/footer slots, or pass <code>[data]</code> for the automatic metric layout.</div>
-      <pre><code>import &#123; CardComponent &#125; from '&#64;solifi/platform-ui';
+      <pre><code>import &#123; CardComponent &#125; from '&#64;bhairab-patra/platform-ui';
 
 &#64;Component(&#123;
   imports: [CardComponent],
   template: &#96;
     &lt;!-- Slot projection --&gt;
-    &lt;pui-card variant="default"&gt;
+    &lt;pui-lib-card variant="default"&gt;
       &lt;div card-header&gt;Header&lt;/div&gt;
       Body content here.
       &lt;div card-footer&gt;Footer&lt;/div&gt;
-    &lt;/pui-card&gt;
+    &lt;/pui-lib-card&gt;
 
     &lt;!-- Stat / metric card --&gt;
-    &lt;pui-card [data]="metric"&gt;&lt;/pui-card&gt;
+    &lt;pui-lib-card [data]="metric"&gt;&lt;/pui-lib-card&gt;
 
     &lt;!-- Clickable --&gt;
-    &lt;pui-card [clickable]="true" (cardClick)="onCardClick($event)"&gt;
+    &lt;pui-lib-card [clickable]="true" (cardClick)="onCardClick($event)"&gt;
       Click me — hover for lift effect.
-    &lt;/pui-card&gt;
+    &lt;/pui-lib-card&gt;
   &#96;
 &#125;)
 export class MyComponent &#123;
@@ -186,7 +186,7 @@ export class MyComponent &#123;
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">Set object props (<code>data</code>) via a ref. Boolean and string props work as attributes.</div>
       <pre><code>import &#123; useRef, useEffect &#125; from 'react';
-import '&#64;solifi/platform-ui';
+import '&#64;bhairab-patra/platform-ui';
 
 function MetricCard() &#123;
   const ref = useRef(null);
@@ -200,27 +200,27 @@ function MetricCard() &#123;
     &#125;
   &#125;, []);
 
-  return &lt;pui-card ref=&#123;ref&#125; variant="default" /&gt;;
+  return &lt;pui-lib-card ref=&#123;ref&#125; variant="default" /&gt;;
 &#125;
 
 function SimpleCard() &#123;
   return (
-    &lt;pui-card
+    &lt;pui-lib-card
       variant="outlined"
       size="sm"
       clickable
       onCardclick=&#123;() =&gt; console.log('clicked')&#125;&gt;
       Card body content
-    &lt;/pui-card&gt;
+    &lt;/pui-lib-card&gt;
   );
 &#125;</code></pre>
     </div>
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">Boolean inputs (<code>clickable</code>, <code>full-width</code>, <code>accent</code>) only need to be present. Set <code>data</code> via JS property.</div>
-      <pre><code>&lt;pui-card variant="outlined" id="my-card"&gt;Content&lt;/pui-card&gt;
-&lt;pui-card variant="teal" accent clickable&gt;Accent + clickable&lt;/pui-card&gt;
-&lt;pui-card full-width variant="flat"&gt;Full width card&lt;/pui-card&gt;
+      <pre><code>&lt;pui-lib-card variant="outlined" id="my-card"&gt;Content&lt;/pui-lib-card&gt;
+&lt;pui-lib-card variant="teal" accent clickable&gt;Accent + clickable&lt;/pui-lib-card&gt;
+&lt;pui-lib-card full-width variant="flat"&gt;Full width card&lt;/pui-lib-card&gt;
 
 &lt;script&gt;
   document.getElementById('my-card').data = &#123;

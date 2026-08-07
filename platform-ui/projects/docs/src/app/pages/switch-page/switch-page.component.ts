@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PuiSwitchComponent } from '@solifi/platform-ui';
+import { PuiSwitchComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -43,18 +43,18 @@ export class SwitchPageComponent {
     { name: 'checkedChange', angular: '(checkedChange)="fn($event)"',    attr: '— use addEventListener',  js: 'el.addEventListener("checkedChange", fn)' },
   ];
 
-  angHtml = `<pui-switch label="Enable notifications" [(ngModel)]="notifications"/>
+  angHtml = `<pui-lib-switch label="Enable notifications" [(ngModel)]="notifications"/>
 
 <!-- Dynamic labels -->
-<pui-switch labelOn="Active" labelOff="Inactive" [(ngModel)]="isActive"/>
+<pui-lib-switch labelOn="Active" labelOff="Inactive" [(ngModel)]="isActive"/>
 
 <!-- Sizes -->
-<pui-switch label="Small" size="sm" [(ngModel)]="sm"/>
-<pui-switch label="Large" size="lg" [(ngModel)]="lg"/>
+<pui-lib-switch label="Small" size="sm" [(ngModel)]="sm"/>
+<pui-lib-switch label="Large" size="lg" [(ngModel)]="lg"/>
 
 <!-- States -->
-<pui-switch label="Disabled" [disabled]="true" [checked]="true"/>
-<pui-switch label="Error"    [error]="'This setting is required'" [(ngModel)]="err"/>`;
+<pui-lib-switch label="Disabled" [disabled]="true" [checked]="true"/>
+<pui-lib-switch label="Error"    [error]="'This setting is required'" [(ngModel)]="err"/>`;
 
   angTs = `import { PuiSwitchComponent } from '@bhairab-patra/platform-ui';
 
@@ -81,7 +81,7 @@ export function SettingsToggle() {
 
   return (
     <>
-      <pui-switch
+      <pui-lib-switch
         ref={swRef}
         label="Enable notifications"
         label-on="Enabled"
@@ -94,14 +94,14 @@ export function SettingsToggle() {
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 
-<pui-switch id="notifSwitch"
+<pui-lib-switch id="notifSwitch"
   label="Notifications"
   label-on="Enabled"
   label-off="Disabled">
-</pui-switch>
+</pui-lib-switch>
 
-<pui-switch label="Dark mode"  checked="true"></pui-switch>
-<pui-switch label="Disabled"   disabled="true" checked="true"></pui-switch>
+<pui-lib-switch label="Dark mode"  checked="true"></pui-lib-switch>
+<pui-lib-switch label="Disabled"   disabled="true" checked="true"></pui-lib-switch>
 
 <script>
   const sw = document.getElementById('notifSwitch');

@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { ToastService } from '@solifi/platform-ui';
+import { ToastService } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -60,7 +60,7 @@ export class ToastPageComponent {
 
   angularTpl = `<!-- app.component.html — add once in root -->
 <router-outlet></router-outlet>
-<pui-toast-container></pui-toast-container>`;
+<pui-lib-toast-container></pui-lib-toast-container>`;
 
   angularTs = `import { PuiToastContainerComponent, ToastService } from '@bhairab-patra/platform-ui';
 
@@ -68,7 +68,7 @@ export class ToastPageComponent {
 @Component({
   standalone: true,
   imports: [RouterOutlet, PuiToastContainerComponent],
-  template: \`<router-outlet></router-outlet><pui-toast-container></pui-toast-container>\`,
+  template: \`<router-outlet></router-outlet><pui-lib-toast-container></pui-lib-toast-container>\`,
 })
 export class AppComponent {}
 
@@ -109,7 +109,7 @@ export function App() {
       <Router>...</Router>
 
       {/* Toast container — place once anywhere in the tree */}
-      <pui-toast-container />
+      <pui-lib-toast-container />
     </>
   );
 }
@@ -160,7 +160,7 @@ declare global {
 <body>
 
   <!-- Place the container once — it renders all toasts -->
-  <pui-toast-container></pui-toast-container>
+  <pui-lib-toast-container></pui-lib-toast-container>
 
   <!-- Your app content -->
   <button id="save-btn">Save</button>

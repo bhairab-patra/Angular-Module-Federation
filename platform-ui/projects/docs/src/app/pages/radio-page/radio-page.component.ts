@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PuiRadioGroupComponent } from '@solifi/platform-ui';
+import { PuiRadioGroupComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -53,17 +53,17 @@ export class RadioPageComponent {
     { name: 'valueChange', angular: '(valueChange)="fn($event)"',      attr: '— use addEventListener', js: 'el.addEventListener("valueChange", fn)' },
   ];
 
-  angHtml = `<pui-radio-group
+  angHtml = `<pui-lib-radio-group
   label="Subscription plan"
   [options]="plans"
   [(ngModel)]="selectedPlan"
   (valueChange)="onPlanChange($event)"/>
 
-<pui-radio-group label="Size" [options]="sizes" [(ngModel)]="size" direction="horizontal"/>
+<pui-lib-radio-group label="Size" [options]="sizes" [(ngModel)]="size" direction="horizontal"/>
 
-<pui-radio-group label="Region" [options]="regions"
+<pui-lib-radio-group label="Region" [options]="regions"
   [(ngModel)]="region" [error]="regionError" [required]="true"/>
-<pui-radio-group label="Locked" [options]="plans" [disabled]="true"/>`;
+<pui-lib-radio-group label="Locked" [options]="plans" [disabled]="true"/>`;
 
   angTs = `import { PuiRadioGroupComponent } from '@bhairab-patra/platform-ui';
 import { RadioOption } from '@bhairab-patra/platform-ui';
@@ -103,12 +103,12 @@ export function PlanPicker() {
     return () => el.removeEventListener('valueChange', handler);
   }, []);
 
-  return <pui-radio-group ref={radioRef} label="Subscription"/>;
+  return <pui-lib-radio-group ref={radioRef} label="Subscription"/>;
 }`;
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 
-<pui-radio-group id="planGroup" label="Subscription plan"></pui-radio-group>
+<pui-lib-radio-group id="planGroup" label="Subscription plan"></pui-lib-radio-group>
 
 <script>
   const el = document.getElementById('planGroup');

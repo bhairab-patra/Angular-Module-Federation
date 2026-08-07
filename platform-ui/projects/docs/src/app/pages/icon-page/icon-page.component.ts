@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IconComponent, IconSize, ICON_REGISTRY } from '@solifi/platform-ui';
+import { IconComponent, IconSize, ICON_REGISTRY } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { NgFor, NgIf } from '@angular/common';
 
@@ -38,33 +38,33 @@ export class IconPageComponent {
   }
 
   copyUsage(name: string): void {
-    const text = `<pui-icon name="${name}" size="${this.activeSize}"></pui-icon>`;
+    const text = `<pui-lib-icon name="${name}" size="${this.activeSize}"></pui-lib-icon>`;
     navigator.clipboard?.writeText(text);
     this.copied = name;
     setTimeout(() => this.copied = '', 1500);
   }
 
-  code = `import { IconComponent, registerIcon } from '@solifi/platform-ui';
+  code = `import { IconComponent, registerIcon } from '@bhairab-patra/platform-ui';
 
 // ── Basic usage ───────────────────────────────
-<pui-icon name="arrow-right" size="md"></pui-icon>
-<pui-icon name="check" size="sm"></pui-icon>
-<pui-icon name="user" size="lg"></pui-icon>
+<pui-lib-icon name="arrow-right" size="md"></pui-lib-icon>
+<pui-lib-icon name="check" size="sm"></pui-lib-icon>
+<pui-lib-icon name="user" size="lg"></pui-lib-icon>
 
 // ── With color ────────────────────────────────
-<pui-icon name="check-circle" size="md" color="#12C6A8"></pui-icon>
-<pui-icon name="warning"      size="md" color="#d97706"></pui-icon>
-<pui-icon name="close-circle" size="md" color="#dc2626"></pui-icon>
+<pui-lib-icon name="check-circle" size="md" color="#12C6A8"></pui-lib-icon>
+<pui-lib-icon name="warning"      size="md" color="#d97706"></pui-lib-icon>
+<pui-lib-icon name="close-circle" size="md" color="#dc2626"></pui-lib-icon>
 
 // ── Sizes: xs=12 sm=16 md=20 lg=24 xl=32 ─────
-<pui-icon name="bell" size="xs"></pui-icon>
-<pui-icon name="bell" size="sm"></pui-icon>
-<pui-icon name="bell" size="md"></pui-icon>
-<pui-icon name="bell" size="lg"></pui-icon>
-<pui-icon name="bell" size="xl"></pui-icon>
+<pui-lib-icon name="bell" size="xs"></pui-lib-icon>
+<pui-lib-icon name="bell" size="sm"></pui-lib-icon>
+<pui-lib-icon name="bell" size="md"></pui-lib-icon>
+<pui-lib-icon name="bell" size="lg"></pui-lib-icon>
+<pui-lib-icon name="bell" size="xl"></pui-lib-icon>
 
 // ── Register your own Figma SVG ───────────────
-import { registerIcon } from '@solifi/platform-ui';
+import { registerIcon } from '@bhairab-patra/platform-ui';
 
 registerIcon('my-logo', \`
   <svg viewBox="0 0 24 24" fill="none">
@@ -74,7 +74,7 @@ registerIcon('my-logo', \`
 \`);
 
 // Then use it like any built-in icon:
-<pui-icon name="my-logo" size="lg"></pui-icon>`;
+<pui-lib-icon name="my-logo" size="lg"></pui-lib-icon>`;
 
   api: ApiRow[] = [
     { input: 'name',  type: 'string',                              default: `''`,      description: 'Icon name from the registry (e.g. "arrow-right", "check")' },

@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PuiInputComponent } from '@solifi/platform-ui';
+import { PuiInputComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -44,17 +44,17 @@ export class InputPageComponent {
     { name: 'valueChange', angular: '(valueChange)="fn($event)"',        attr: '— use addEventListener', js: 'el.addEventListener("valueChange", fn)' },
   ];
 
-  angHtml = `<pui-input label="Full name" placeholder="John Doe" [(ngModel)]="name"/>
+  angHtml = `<pui-lib-input label="Full name" placeholder="John Doe" [(ngModel)]="name"/>
 
-<pui-input label="Password" type="password" [(ngModel)]="pass"/>
+<pui-lib-input label="Password" type="password" [(ngModel)]="pass"/>
 
-<pui-input label="Bio" [(ngModel)]="bio"
+<pui-lib-input label="Bio" [(ngModel)]="bio"
   [maxLength]="200" [showCount]="true" [clearable]="true"
   hint="Max 200 characters"/>
 
-<pui-input label="Email" [(ngModel)]="email" [error]="emailError" [required]="true"/>
-<pui-input label="Read-only" [readonly]="true" placeholder="Fixed value"/>
-<pui-input label="Disabled"  [disabled]="true"/>`;
+<pui-lib-input label="Email" [(ngModel)]="email" [error]="emailError" [required]="true"/>
+<pui-lib-input label="Read-only" [readonly]="true" placeholder="Fixed value"/>
+<pui-lib-input label="Disabled"  [disabled]="true"/>`;
 
   angTs = `import { PuiInputComponent } from '@bhairab-patra/platform-ui';
 
@@ -87,16 +87,16 @@ export function MyForm() {
 
   return (
     <>
-      <pui-input ref={inputRef} label="Full name" placeholder="John Doe"/>
-      <pui-input label="Email"  type="email" placeholder="you@company.com"/>
+      <pui-lib-input ref={inputRef} label="Full name" placeholder="John Doe"/>
+      <pui-lib-input label="Email"  type="email" placeholder="you@company.com"/>
     </>
   );
 }`;
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 
-<pui-input id="nameInput" label="Full name" placeholder="John Doe"></pui-input>
-<pui-input label="Email" type="email" error="Invalid email"></pui-input>
+<pui-lib-input id="nameInput" label="Full name" placeholder="John Doe"></pui-lib-input>
+<pui-lib-input label="Email" type="email" error="Invalid email"></pui-lib-input>
 
 <script>
   const el = document.getElementById('nameInput');

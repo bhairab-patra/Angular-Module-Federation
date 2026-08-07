@@ -76,7 +76,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-chip</code> is a standalone Web Component. Use <code>(clicked)</code> and <code>(removed)</code> for interaction in Angular; listen to <code>clicked</code> and <code>removed</code> custom events in React and HTML.</p>
+    <p class="fw-lead"><code>pui-lib-chip</code> is a standalone Web Component. Use <code>(clicked)</code> and <code>(removed)</code> for interaction in Angular; listen to <code>clicked</code> and <code>removed</code> custom events in React and HTML.</p>
 
     <div class="fw-tabs">
       <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
@@ -100,26 +100,26 @@
 
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">Listen to <code>clicked</code> and <code>removed</code> custom events via <code>addEventListener</code> in a <code>useEffect</code>.</div>
-      <pre><code>import '&#64;solifi/platform-ui';
+      <pre><code>import '&#64;bhairab-patra/platform-ui';
 
 function TagList(&#123; tags, onRemove &#125;) &#123;
   return tags.map(t =&gt; (
-    &lt;pui-chip
+    &lt;pui-lib-chip
       key=&#123;t&#125;
       variant="primary"
       removable
       onRemoved=&#123;() =&gt; onRemove(t)&#125;&gt;
       &#123;t&#125;
-    &lt;/pui-chip&gt;
+    &lt;/pui-lib-chip&gt;
   ));
 &#125;</code></pre>
     </div>
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">All props are kebab-case HTML attributes. Boolean props only need to be present.</div>
-      <pre><code>&lt;pui-chip variant="primary" removable id="c1"&gt;Angular&lt;/pui-chip&gt;
-&lt;pui-chip variant="success" selected&gt;TypeScript&lt;/pui-chip&gt;
-&lt;pui-chip variant="default" disabled&gt;Disabled&lt;/pui-chip&gt;
+      <pre><code>&lt;pui-lib-chip variant="primary" removable id="c1"&gt;Angular&lt;/pui-lib-chip&gt;
+&lt;pui-lib-chip variant="success" selected&gt;TypeScript&lt;/pui-lib-chip&gt;
+&lt;pui-lib-chip variant="default" disabled&gt;Disabled&lt;/pui-lib-chip&gt;
 
 &lt;script&gt;
 document.getElementById('c1').addEventListener('removed', () =&gt; &#123;

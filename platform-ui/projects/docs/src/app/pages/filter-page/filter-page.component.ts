@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf, JsonPipe } from '@angular/common';
-import { PuiFilterPanelComponent, FilterDef, FilterValues } from '@solifi/platform-ui';
+import { PuiFilterPanelComponent, FilterDef, FilterValues } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -78,7 +78,7 @@ export class FilterPageComponent {
     navigator.clipboard.writeText(text).then(() => { this.copied = id; setTimeout(() => this.copied = '', 2000); });
   }
 
-  angularTpl = `<pui-filter-panel
+  angularTpl = `<pui-lib-filter-panel
   title="Loan Filters"
   [filters]="loanFilters"
   [values]="filterValues"
@@ -86,17 +86,17 @@ export class FilterPageComponent {
   (applied)="onApply($event)"
   (reset)="onReset()"
   (cleared)="filterValues = {}">
-</pui-filter-panel>
+</pui-lib-filter-panel>
 
 <!-- Inline mode — no Apply button, updates fire immediately -->
-<pui-filter-panel
+<pui-lib-filter-panel
   title="Quick Filters"
   [inline]="true"
   [showActions]="false"
   [filters]="quickFilters"
   [values]="quickValues"
   (valuesChange)="onQuickChange($event)">
-</pui-filter-panel>`;
+</pui-lib-filter-panel>`;
 
   angularTs = `import { PuiFilterPanelComponent, FilterDef, FilterValues } from '@bhairab-patra/platform-ui';
 
@@ -169,7 +169,7 @@ export function FilterSidebar({ onApply }) {
   }, [vals]);
 
   return (
-    <pui-filter-panel
+    <pui-lib-filter-panel
       ref={ref}
       title="Filters"
       show-actions="true"
@@ -179,10 +179,10 @@ export function FilterSidebar({ onApply }) {
 
   htmlCode = `<script src="node_modules/@bhairab-patra/platform-ui/elements/pui-elements.js" defer></script>
 
-<pui-filter-panel id="fp" title="Filters"></pui-filter-panel>
+<pui-lib-filter-panel id="fp" title="Filters"></pui-lib-filter-panel>
 
 <script>
-  customElements.whenDefined('pui-filter-panel').then(() => {
+  customElements.whenDefined('pui-lib-filter-panel').then(() => {
     const el = document.getElementById('fp');
 
     el.filters = [

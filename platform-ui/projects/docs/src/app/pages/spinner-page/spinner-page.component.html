@@ -142,20 +142,20 @@
 
     <div *ngIf="fwTab==='angular'" class="fw-panel">
       <div class="fw-note--angular">Import <code>SpinnerComponent</code>. Use <code>*ngIf</code> on the overlay variant to gate it behind a loading flag.</div>
-      <pre><code>import &#123; SpinnerComponent &#125; from '&#64;solifi/platform-ui';
+      <pre><code>import &#123; SpinnerComponent &#125; from '&#64;bhairab-patra/platform-ui';
 
 &#64;Component(&#123;
   imports: [NgIf, SpinnerComponent],
   template: &#96;
     &lt;!-- Inline --&gt;
-    &lt;pui-spinner type="dash" size="md" color="#12C6A8"&gt;&lt;/pui-spinner&gt;
-    &lt;pui-spinner type="dots" size="md" color="#6366f1" label="Loading…"&gt;&lt;/pui-spinner&gt;
+    &lt;pui-lib-spinner type="dash" size="md" color="#12C6A8"&gt;&lt;/pui-lib-spinner&gt;
+    &lt;pui-lib-spinner type="dots" size="md" color="#6366f1" label="Loading…"&gt;&lt;/pui-lib-spinner&gt;
 
     &lt;!-- Custom size --&gt;
-    &lt;pui-spinner type="dash" [sizePx]="48" color="#12C6A8"&gt;&lt;/pui-spinner&gt;
+    &lt;pui-lib-spinner type="dash" [sizePx]="48" color="#12C6A8"&gt;&lt;/pui-lib-spinner&gt;
 
     &lt;!-- Full-screen overlay --&gt;
-    &lt;pui-spinner *ngIf="isLoading"
+    &lt;pui-lib-spinner *ngIf="isLoading"
       type="dash"
       size="xl"
       color="#12C6A8"
@@ -164,7 +164,7 @@
       [overlayOpacity]="0.75"
       [zIndex]="2000"
       label="Please wait…"&gt;
-    &lt;/pui-spinner&gt;
+    &lt;/pui-lib-spinner&gt;
   &#96;
 &#125;)
 export class MyComponent &#123;
@@ -178,12 +178,12 @@ export class MyComponent &#123;
 
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">All props are plain HTML attributes. Boolean props only need to be present (e.g. <code>overlay</code>).</div>
-      <pre><code>import '&#64;solifi/platform-ui';
+      <pre><code>import '&#64;bhairab-patra/platform-ui';
 
 function LoadingOverlay(&#123; isLoading &#125;) &#123;
   if (!isLoading) return null;
   return (
-    &lt;pui-spinner
+    &lt;pui-lib-spinner
       type="dash"
       size="xl"
       color="#12C6A8"
@@ -192,23 +192,23 @@ function LoadingOverlay(&#123; isLoading &#125;) &#123;
       overlay-opacity="0.75"
       z-index="2000"
       label="Loading…"&gt;
-    &lt;/pui-spinner&gt;
+    &lt;/pui-lib-spinner&gt;
   );
 &#125;
 
 function InlineSpinner() &#123;
-  return &lt;pui-spinner type="dots" size="md" color="#6366f1" label="Please wait"&gt;&lt;/pui-spinner&gt;;
+  return &lt;pui-lib-spinner type="dots" size="md" color="#6366f1" label="Please wait"&gt;&lt;/pui-lib-spinner&gt;;
 &#125;</code></pre>
     </div>
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">Use <code>display:none</code> / <code>display:block</code> or add/remove the element to toggle the overlay.</div>
       <pre><code>&lt;!-- Inline spinners --&gt;
-&lt;pui-spinner type="dash" size="md" color="#12C6A8"&gt;&lt;/pui-spinner&gt;
-&lt;pui-spinner type="dots" size="lg" color="#6366f1" label="Loading…"&gt;&lt;/pui-spinner&gt;
+&lt;pui-lib-spinner type="dash" size="md" color="#12C6A8"&gt;&lt;/pui-lib-spinner&gt;
+&lt;pui-lib-spinner type="dots" size="lg" color="#6366f1" label="Loading…"&gt;&lt;/pui-lib-spinner&gt;
 
 &lt;!-- Full-page overlay --&gt;
-&lt;pui-spinner
+&lt;pui-lib-spinner
   id="page-spinner"
   type="dash"
   size="xl"
@@ -219,7 +219,7 @@ function InlineSpinner() &#123;
   z-index="2000"
   label="Please wait…"
   style="display:none"&gt;
-&lt;/pui-spinner&gt;
+&lt;/pui-lib-spinner&gt;
 
 &lt;script&gt;
   const spinner = document.getElementById('page-spinner');

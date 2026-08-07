@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { PuiAppShellComponent } from '@solifi/platform-ui';
-import { SidebarGroup, SidebarTheme, SIDEBAR_THEMES } from '@solifi/platform-ui';
-import { UserMenuItem, HeaderBadge } from '@solifi/platform-ui';
+import { PuiAppShellComponent } from '@bhairab-patra/platform-ui';
+import { SidebarGroup, SidebarTheme, SIDEBAR_THEMES } from '@bhairab-patra/platform-ui';
+import { UserMenuItem, HeaderBadge } from '@bhairab-patra/platform-ui';
 
 @Component({
   selector: 'docs-app-shell-page',
@@ -79,12 +79,12 @@ export class AppShellPageComponent {
     this.lastAction = `Navigate: ${id}`;
   }
 
-  usageCode = `import { PuiAppShellComponent } from '@solifi/platform-ui';
+  usageCode = `import { PuiAppShellComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
   imports: [PuiAppShellComponent],
   template: \`
-    <pui-app-shell
+    <pui-lib-app-shell
       appTitle="Admin Portal"
       appSubtitle="v2.0"
       headerBgColor="#12C6A8"
@@ -99,12 +99,12 @@ export class AppShellPageComponent {
 
       <!-- Your app content goes here -->
       <router-outlet></router-outlet>
-    </pui-app-shell>
+    </pui-lib-app-shell>
   \`
 })
 export class AppComponent { ... }`;
 
-  themeCode = `import { SIDEBAR_THEMES } from '@solifi/platform-ui';
+  themeCode = `import { SIDEBAR_THEMES } from '@bhairab-patra/platform-ui';
 
 // Four built-in presets
 [theme]="SIDEBAR_THEMES['dark']"   // deep navy (default)

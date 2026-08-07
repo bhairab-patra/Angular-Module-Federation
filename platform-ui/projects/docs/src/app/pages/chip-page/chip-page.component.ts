@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { PuiChipComponent } from '@solifi/platform-ui';
+import { PuiChipComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
   selector: 'app-chip-page',
@@ -16,24 +16,24 @@ export class ChipPageComponent {
   fwTab = 'angular';
 
   readonly ngExample =
-`import { PuiChipComponent } from '@solifi/platform-ui';
+`import { PuiChipComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
   imports: [NgFor, PuiChipComponent],
   template: \`
-    <pui-chip *ngFor="let t of tags"
+    <pui-lib-chip *ngFor="let t of tags"
       variant="primary"
       [removable]="true"
       (removed)="remove(t)">
       {{ t }}
-    </pui-chip>
+    </pui-lib-chip>
 
-    <pui-chip *ngFor="let f of filters"
+    <pui-lib-chip *ngFor="let f of filters"
       variant="success"
       [selected]="f.active"
       (clicked)="f.active = !f.active">
       {{ f.label }}
-    </pui-chip>
+    </pui-lib-chip>
   \`
 })
 export class MyComponent {

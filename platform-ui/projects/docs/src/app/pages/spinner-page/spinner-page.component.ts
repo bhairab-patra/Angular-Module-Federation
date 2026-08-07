@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { SpinnerComponent, SpinnerType, SpinnerSize } from '@solifi/platform-ui';
+import { SpinnerComponent, SpinnerType, SpinnerSize } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 
 @Component({

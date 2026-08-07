@@ -82,7 +82,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-badge</code> uses <code>ng-content</code> — put the label text between the tags. The <code>variant</code> and <code>size</code> attributes behave identically in all frameworks.</p>
+    <p class="fw-lead"><code>pui-lib-badge</code> uses <code>ng-content</code> — put the label text between the tags. The <code>variant</code> and <code>size</code> attributes behave identically in all frameworks.</p>
 
     <div class="fw-tabs">
       <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
@@ -101,15 +101,15 @@
 
     <div *ngIf="fwTab==='angular'" class="fw-panel">
       <div class="fw-note--angular">Import <code>BadgeComponent</code> into your component's <code>imports</code> array.</div>
-      <pre><code>import &#123; BadgeComponent &#125; from '&#64;solifi/platform-ui';
+      <pre><code>import &#123; BadgeComponent &#125; from '&#64;bhairab-patra/platform-ui';
 
 &#64;Component(&#123;
   imports: [BadgeComponent],
   template: &#96;
-    &lt;pui-badge variant="success"&gt;Active&lt;/pui-badge&gt;
-    &lt;pui-badge variant="warning" size="sm"&gt;Pending&lt;/pui-badge&gt;
-    &lt;pui-badge variant="danger"&gt;Error&lt;/pui-badge&gt;
-    &lt;pui-badge [variant]="statusVariant"&gt;Dynamic&lt;/pui-badge&gt;
+    &lt;pui-lib-badge variant="success"&gt;Active&lt;/pui-lib-badge&gt;
+    &lt;pui-lib-badge variant="warning" size="sm"&gt;Pending&lt;/pui-lib-badge&gt;
+    &lt;pui-lib-badge variant="danger"&gt;Error&lt;/pui-lib-badge&gt;
+    &lt;pui-lib-badge [variant]="statusVariant"&gt;Dynamic&lt;/pui-lib-badge&gt;
   &#96;
 &#125;)
 export class MyComponent &#123;
@@ -119,7 +119,7 @@ export class MyComponent &#123;
 
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">No ref or event wiring needed — just render the element with attributes.</div>
-      <pre><code>import '&#64;solifi/platform-ui';
+      <pre><code>import '&#64;bhairab-patra/platform-ui';
 
 function StatusBadge(&#123; status &#125;) &#123;
   const variantMap = &#123;
@@ -129,21 +129,21 @@ function StatusBadge(&#123; status &#125;) &#123;
     info:     'info',
   &#125;;
   return (
-    &lt;pui-badge variant=&#123;variantMap[status] ?? 'default'&#125; size="sm"&gt;
+    &lt;pui-lib-badge variant=&#123;variantMap[status] ?? 'default'&#125; size="sm"&gt;
       &#123;status&#125;
-    &lt;/pui-badge&gt;
+    &lt;/pui-lib-badge&gt;
   );
 &#125;</code></pre>
     </div>
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">All props are plain HTML attributes. The label is the element's text content.</div>
-      <pre><code>&lt;pui-badge variant="success"&gt;Active&lt;/pui-badge&gt;
-&lt;pui-badge variant="warning" size="sm"&gt;Pending&lt;/pui-badge&gt;
-&lt;pui-badge variant="danger"&gt;Error&lt;/pui-badge&gt;
-&lt;pui-badge variant="info"&gt;Informational&lt;/pui-badge&gt;
-&lt;pui-badge variant="primary"&gt;New&lt;/pui-badge&gt;
-&lt;pui-badge variant="default"&gt;Draft&lt;/pui-badge&gt;</code></pre>
+      <pre><code>&lt;pui-lib-badge variant="success"&gt;Active&lt;/pui-lib-badge&gt;
+&lt;pui-lib-badge variant="warning" size="sm"&gt;Pending&lt;/pui-lib-badge&gt;
+&lt;pui-lib-badge variant="danger"&gt;Error&lt;/pui-lib-badge&gt;
+&lt;pui-lib-badge variant="info"&gt;Informational&lt;/pui-lib-badge&gt;
+&lt;pui-lib-badge variant="primary"&gt;New&lt;/pui-lib-badge&gt;
+&lt;pui-lib-badge variant="default"&gt;Draft&lt;/pui-lib-badge&gt;</code></pre>
     </div>
 
     <h4 class="fw-ref-title">Badge Quick Reference</h4>

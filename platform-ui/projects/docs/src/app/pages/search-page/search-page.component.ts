@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
-import { PuiSearchComponent, SearchSuggestion } from '@solifi/platform-ui';
+import { PuiSearchComponent, SearchSuggestion } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -38,7 +38,7 @@ export class SearchPageComponent {
     { label: 'Spinner',          value: 'spinner',  category: 'Components' },
   ];
 
-  angularTpl = `<pui-search
+  angularTpl = `<pui-lib-search
   placeholder="Search components…"
   size="md"
   shortcut="⌘K"
@@ -50,7 +50,7 @@ export class SearchPageComponent {
   (searchChange)="onSearch($event)"
   (suggestionSelected)="onSelect($event)"
   (submitted)="onSubmit($event)">
-</pui-search>`;
+</pui-lib-search>`;
 
   angularTs = `import { PuiSearchComponent, SearchSuggestion } from '@bhairab-patra/platform-ui';
 
@@ -96,7 +96,7 @@ export function AppSearch() {
   }, []);
 
   return (
-    <pui-search
+    <pui-lib-search
       ref={ref}
       placeholder="Search…"
       shortcut="⌘K"
@@ -109,16 +109,16 @@ export function AppSearch() {
 
   htmlCode = `<script src="node_modules/@bhairab-patra/platform-ui/elements/pui-elements.js" defer></script>
 
-<pui-search
+<pui-lib-search
   id="srch"
   placeholder="Search…"
   shortcut="⌘K"
   debounce="300"
   clearable="true">
-</pui-search>
+</pui-lib-search>
 
 <script>
-  customElements.whenDefined('pui-search').then(() => {
+  customElements.whenDefined('pui-lib-search').then(() => {
     const el = document.getElementById('srch');
 
     // Arrays as JS properties

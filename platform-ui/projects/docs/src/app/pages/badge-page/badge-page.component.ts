@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { BadgeComponent } from '@solifi/platform-ui';
+import { BadgeComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
   selector: 'app-badge-page',

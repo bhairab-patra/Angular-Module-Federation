@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { PuiDatepickerComponent, DateRange } from '@solifi/platform-ui';
+import { PuiDatepickerComponent, DateRange } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -59,20 +59,20 @@ export class DatepickerPageComponent {
 
   /* ── Code snippets ──────────────────────────────── */
   angHtml = `<!-- Single date -->
-<pui-datepicker
+<pui-lib-datepicker
   [value]="selectedDate"
   [min]="minDate"
   [max]="maxDate"
   placeholder="Select date…"
   (valueChange)="selectedDate = $event">
-</pui-datepicker>
+</pui-lib-datepicker>
 
 <!-- Range mode -->
-<pui-datepicker
+<pui-lib-datepicker
   mode="range"
   placeholder="Start date → End date"
   (rangeChange)="onRangeChange($event)">
-</pui-datepicker>`;
+</pui-lib-datepicker>`;
 
   angTs = `import { PuiDatepickerComponent, DateRange } from '@bhairab-patra/platform-ui';
 
@@ -124,7 +124,7 @@ export function BookingPicker() {
 
   return (
     <>
-      <pui-datepicker ref={ref} />
+      <pui-lib-datepicker ref={ref} />
       {date && <p>Check-in: {date.toLocaleDateString()}</p>}
     </>
   );
@@ -132,16 +132,16 @@ export function BookingPicker() {
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 
-<pui-datepicker
+<pui-lib-datepicker
   id="myPicker"
   placeholder="Select a date…"
   clearable="true">
-</pui-datepicker>
+</pui-lib-datepicker>
 
 <p id="output">No date selected</p>
 
 <script>
-  customElements.whenDefined('pui-datepicker').then(() => {
+  customElements.whenDefined('pui-lib-datepicker').then(() => {
     const el = document.getElementById('myPicker');
     const out = document.getElementById('output');
 

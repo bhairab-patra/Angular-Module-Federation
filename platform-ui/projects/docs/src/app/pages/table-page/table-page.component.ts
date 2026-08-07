@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { PuiTableComponent, TableColumn } from '@solifi/platform-ui';
+import { PuiTableComponent, TableColumn } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -169,7 +169,7 @@ export class TablePageComponent {
   ];
 
   /* ── Code snippets ──────────────────────────────── */
-  angHtml = `<pui-table
+  angHtml = `<pui-lib-table
   [columns]="columns"
   [data]="employees"
   [searchable]="true"
@@ -181,7 +181,7 @@ export class TablePageComponent {
   (sortChange)="onSort($event)"
   (rowClick)="onRowClick($event)"
   (selectionChange)="onSelectionChange($event)">
-</pui-table>`;
+</pui-lib-table>`;
 
   angTs = `import { PuiTableComponent, TableColumn } from '@bhairab-patra/platform-ui';
 
@@ -249,12 +249,12 @@ export function EmployeeTable() {
     return () => el.removeEventListener('rowClick', onRow);
   }, []);
 
-  return <pui-table ref={ref}/>;
+  return <pui-lib-table ref={ref}/>;
 }`;
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 
-<pui-table
+<pui-lib-table
   id="myTable"
   searchable="true"
   sortable="true"
@@ -262,10 +262,10 @@ export function EmployeeTable() {
   page-size="10"
   striped="true"
   selectable="true">
-</pui-table>
+</pui-lib-table>
 
 <script>
-  customElements.whenDefined('pui-table').then(() => {
+  customElements.whenDefined('pui-lib-table').then(() => {
     const el = document.getElementById('myTable');
 
     el.columns = [

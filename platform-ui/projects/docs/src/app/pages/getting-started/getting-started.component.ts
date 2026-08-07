@@ -100,7 +100,7 @@ type Framework = 'angular' | 'react' | 'html';
 
         <section id="ng-use" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">6</span> Full App Shell Example</h2>
-          <p class="gs-p">Drop <code>pui-app-shell</code> into your root component and get a complete layout — header, collapsible sidebar, and hamburger — in one tag:</p>
+          <p class="gs-p">Drop <code>pui-lib-app-shell</code> into your root component and get a complete layout — header, collapsible sidebar, and hamburger — in one tag:</p>
           <app-code lang="app.component.ts" [id]="'ng-shell'" [text]="code.ng.shell" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
@@ -688,7 +688,7 @@ import {
   standalone: true,
   imports: [PuiAppShellComponent, RouterOutlet],
   template: \`
-    <pui-app-shell
+    <pui-lib-app-shell
       appTitle="Admin Portal"
       appSubtitle="v2.0"
       headerBgColor="#12C6A8"
@@ -702,7 +702,7 @@ import {
 
       <router-outlet />
 
-    </pui-app-shell>
+    </pui-lib-app-shell>
   \`,
 })
 export class AppComponent {
@@ -774,26 +774,26 @@ type PuiProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      'pui-app-shell':      PuiProps;
-      'pui-header':         PuiProps;
-      'pui-sidebar':        PuiProps;
-      'pui-button':         PuiProps;
-      'pui-badge':          PuiProps;
-      'pui-card':           PuiProps;
-      'pui-modal':          PuiProps;
-      'pui-input':          PuiProps;
-      'pui-select':         PuiProps;
-      'pui-checkbox':       PuiProps;
-      'pui-radio':          PuiProps;
-      'pui-textarea':       PuiProps;
-      'pui-switch':         PuiProps;
-      'pui-spinner':        PuiProps;
-      'pui-breadcrumb':     PuiProps;
-      'pui-icon':           PuiProps;
-      'pui-tooltip':        PuiProps;
-      'pui-toast-container':PuiProps;
-      'pui-search':         PuiProps;
-      'pui-filter-panel':   PuiProps;
+      'pui-lib-app-shell':      PuiProps;
+      'pui-lib-header':         PuiProps;
+      'pui-lib-sidebar':        PuiProps;
+      'pui-lib-button':         PuiProps;
+      'pui-lib-badge':          PuiProps;
+      'pui-lib-card':           PuiProps;
+      'pui-lib-modal':          PuiProps;
+      'pui-lib-input':          PuiProps;
+      'pui-lib-select':         PuiProps;
+      'pui-lib-checkbox':       PuiProps;
+      'pui-lib-radio':          PuiProps;
+      'pui-lib-textarea':       PuiProps;
+      'pui-lib-switch':         PuiProps;
+      'pui-lib-spinner':        PuiProps;
+      'pui-lib-breadcrumb':     PuiProps;
+      'pui-lib-icon':           PuiProps;
+      'pui-lib-tooltip':        PuiProps;
+      'pui-lib-toast-container':PuiProps;
+      'pui-lib-search':         PuiProps;
+      'pui-lib-filter-panel':   PuiProps;
     }
   }
 }`,
@@ -844,7 +844,7 @@ export default function App() {
 
   return (
     <div style={{ height: '100vh' }}>
-      <pui-app-shell
+      <pui-lib-app-shell
         ref={shellRef}
         app-title="React App"
         app-subtitle="Powered by Platform UI"
@@ -857,11 +857,11 @@ export default function App() {
         <div style={{ padding: '32px' }}>
           <h1>Dashboard</h1>
           <p>Content rendered inside Platform UI shell from React.</p>
-          <pui-button variant="primary">Get Started</pui-button>
-          <pui-badge variant="success" style={{ marginLeft: '12px' }}>Live</pui-badge>
+          <pui-lib-button variant="primary">Get Started</pui-lib-button>
+          <pui-lib-badge variant="success" style={{ marginLeft: '12px' }}>Live</pui-lib-badge>
         </div>
 
-      </pui-app-shell>
+      </pui-lib-app-shell>
     </div>
   );
 }`,
@@ -893,13 +893,13 @@ export default function App() {
   }, []);
 
   return (
-    <pui-app-shell
+    <pui-lib-app-shell
       ref={shellRef}
       app-title="React App"
       active-id={activeId}
       style={{ height: '100vh', display: 'block' }}>
       <p style={{ padding: 32 }}>Active page: <strong>{activeId}</strong></p>
-    </pui-app-shell>
+    </pui-lib-app-shell>
   );
 }`,
     },
@@ -941,7 +941,7 @@ npm install @bhairab-patra/platform-ui`,
 </head>
 <body>
 
-  <pui-app-shell
+  <pui-lib-app-shell
     id="shell"
     app-title="Admin Portal"
     app-subtitle="v2.0"
@@ -955,22 +955,22 @@ npm install @bhairab-patra/platform-ui`,
       <p>Active page: <strong id="activePage">dashboard</strong></p>
 
       <div class="cards">
-        <pui-card id="card1"></pui-card>
-        <pui-card id="card2"></pui-card>
-        <pui-card id="card3"></pui-card>
+        <pui-lib-card id="card1"></pui-lib-card>
+        <pui-lib-card id="card2"></pui-lib-card>
+        <pui-lib-card id="card3"></pui-lib-card>
       </div>
 
       <div style="margin-top:24px;display:flex;align-items:center;gap:12px">
-        <pui-button id="saveBtn" variant="primary">Save Changes</pui-button>
-        <pui-badge variant="success">Live</pui-badge>
+        <pui-lib-button id="saveBtn" variant="primary">Save Changes</pui-lib-button>
+        <pui-lib-badge variant="success">Live</pui-lib-badge>
       </div>
     </div>
 
-  </pui-app-shell>
+  </pui-lib-app-shell>
 
   <script>
     /* ── App Shell: set object inputs after element is defined ── */
-    customElements.whenDefined('pui-app-shell').then(() => {
+    customElements.whenDefined('pui-lib-app-shell').then(() => {
       const shell = document.getElementById('shell');
 
       shell.groups = [
@@ -1008,14 +1008,14 @@ npm install @bhairab-patra/platform-ui`,
     });
 
     /* ── Stat cards ── */
-    customElements.whenDefined('pui-card').then(() => {
+    customElements.whenDefined('pui-lib-card').then(() => {
       document.getElementById('card1').data = { title: 'Users',   value: '1,284', trend: 'up',   trendValue: '+8%',  subtitle: 'this month'  };
       document.getElementById('card2').data = { title: 'Revenue', value: '$48.2k',trend: 'up',   trendValue: '+12%', subtitle: 'vs last month'};
       document.getElementById('card3').data = { title: 'Tickets', value: '342',   trend: 'down', trendValue: '-5%',  subtitle: 'vs last week' };
     });
 
     /* ── Button ── */
-    customElements.whenDefined('pui-button').then(() => {
+    customElements.whenDefined('pui-lib-button').then(() => {
       document.getElementById('saveBtn').addEventListener('buttonClick', () => {
         alert('Changes saved!');
       });

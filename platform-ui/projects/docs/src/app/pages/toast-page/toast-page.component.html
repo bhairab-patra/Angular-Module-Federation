@@ -1,7 +1,7 @@
 
     <docs-page
       title="Toast"
-      description="Lightweight notification service — 4 types, 6 positions, progress bar, hover-pause, action buttons, and configurable auto-dismiss. Add &lt;pui-toast-container&gt; once in your app root. In React and plain HTML use the global window.puiToast API exposed by the elements bundle."
+      description="Lightweight notification service — 4 types, 6 positions, progress bar, hover-pause, action buttons, and configurable auto-dismiss. Add &lt;pui-lib-toast-container&gt; once in your app root. In React and plain HTML use the global window.puiToast API exposed by the elements bundle."
       [hasFramework]="true"
       [api]="api">
 
@@ -85,7 +85,7 @@
         <p class="fw-lead">
           Toast is <strong>service-driven</strong>. In Angular inject <code>ToastService</code>.
           In React and plain HTML the elements bundle exposes <code>window.puiToast</code> — a global API
-          with the same methods. In all cases place <code>&lt;pui-toast-container&gt;</code> once in your app root.
+          with the same methods. In all cases place <code>&lt;pui-lib-toast-container&gt;</code> once in your app root.
         </p>
 
         <div class="fw-tabs">
@@ -105,7 +105,7 @@
 
         <div *ngIf="fw==='angular'" class="fw-panel">
           <div class="fw-note fw-note--angular">
-            1. Add <code>&lt;pui-toast-container&gt;</code> to your root template.
+            1. Add <code>&lt;pui-lib-toast-container&gt;</code> to your root template.
             2. Inject <code>ToastService</code> anywhere — it's <code>providedIn: 'root'</code>.
           </div>
           <app-code lang="html"       id="t-ng-tpl" [text]="angularTpl" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
@@ -114,7 +114,7 @@
 
         <div *ngIf="fw==='react'" class="fw-panel">
           <div class="fw-note fw-note--react">
-            Add <code>&lt;pui-toast-container /&gt;</code> once in your root <code>App.jsx</code>.
+            Add <code>&lt;pui-lib-toast-container /&gt;</code> once in your root <code>App.jsx</code>.
             Then call <code>window.puiToast.success()</code> from anywhere — no import needed.
           </div>
           <app-code lang="tsx" id="t-react" [text]="reactCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
@@ -122,7 +122,7 @@
 
         <div *ngIf="fw==='html'" class="fw-panel">
           <div class="fw-note fw-note--html">
-            Load the bundle. Add <code>&lt;pui-toast-container&gt;</code> to <code>&lt;body&gt;</code>.
+            Load the bundle. Add <code>&lt;pui-lib-toast-container&gt;</code> to <code>&lt;body&gt;</code>.
             Call <code>window.puiToast.*</code> from any script.
           </div>
           <app-code lang="html" id="t-html" [text]="htmlCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>

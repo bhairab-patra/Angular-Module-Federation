@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
-import { HeaderComponent } from '@solifi/platform-ui';
+import { HeaderComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
@@ -55,7 +55,7 @@ export class HeaderPageComponent {
   // ── Code snippets ──────────────────────────────────────────────────────
 
   angularTemplate = `<!-- Angular — use binding syntax as any Angular component -->
-<pui-header
+<pui-lib-header
   appTitle="Admin Portal"
   appSubtitle="PLATFORM MANAGEMENT"
   bgColor="#12C6A8"
@@ -69,7 +69,7 @@ export class HeaderPageComponent {
   [menuItems]="menuItems"
   (menuAction)="onMenuAction($event)"
   (helpClick)="onHelp()">
-</pui-header>`;
+</pui-lib-header>`;
 
   angularTs = `import { HeaderComponent } from '@bhairab-patra/platform-ui';
 
@@ -114,7 +114,7 @@ export function MyHeader() {
   }, []);
 
   return (
-    <pui-header
+    <pui-lib-header
       ref={ref}
       app-title="Admin Portal"
       app-subtitle="PLATFORM MANAGEMENT"
@@ -135,7 +135,7 @@ export function MyHeader() {
 <link rel="stylesheet" href="node_modules/@bhairab-patra/platform-ui/elements/styles.css">
 
 <!-- 2. Declare the element — strings/booleans as plain attributes -->
-<pui-header
+<pui-lib-header
   id="hdr"
   app-title="Admin Portal"
   app-subtitle="PLATFORM MANAGEMENT"
@@ -147,11 +147,11 @@ export function MyHeader() {
   user-email="bpatra@solifi.com"
   greeting="Hi"
   user-subtext="Welcome back!">
-</pui-header>
+</pui-lib-header>
 
 <!-- 3. Arrays and events via JavaScript -->
 <script>
-  customElements.whenDefined('pui-header').then(() => {
+  customElements.whenDefined('pui-lib-header').then(() => {
     const hdr = document.getElementById('hdr');
 
     hdr.menuItems = [

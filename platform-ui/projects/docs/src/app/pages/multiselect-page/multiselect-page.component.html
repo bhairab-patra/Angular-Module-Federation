@@ -128,7 +128,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-multiselect</code> is a standalone Web Component — the same element tag works in Angular, React, and plain HTML. The <code>options</code> and <code>value</code> inputs accept typed arrays (Angular binding) or JSON strings (HTML attribute).</p>
+    <p class="fw-lead"><code>pui-lib-multiselect</code> is a standalone Web Component — the same element tag works in Angular, React, and plain HTML. The <code>options</code> and <code>value</code> inputs accept typed arrays (Angular binding) or JSON strings (HTML attribute).</p>
 
     <div class="fw-tabs">
       <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular'; cdr.markForCheck()">
@@ -148,19 +148,19 @@
     <div *ngIf="fwTab==='angular'" class="fw-panel">
       <div class="fw-note--angular">Import <code>PuiMultiSelectComponent</code> into your component's <code>imports</code> array.</div>
       <pre><code>// component.ts
-import &#123; PuiMultiSelectComponent, MultiSelectOption &#125; from '&#64;solifi/platform-ui';
+import &#123; PuiMultiSelectComponent, MultiSelectOption &#125; from '&#64;bhairab-patra/platform-ui';
 
 &#64;Component(&#123;
   imports: [PuiMultiSelectComponent],
   template: &#96;
-    &lt;pui-multiselect
+    &lt;pui-lib-multiselect
       [options]="options"
       [value]="selected"
       placeholder="Select items…"
       [searchable]="true"
       [showSelectAll]="true"
       (valueChange)="selected = $event"&gt;
-    &lt;/pui-multiselect&gt;
+    &lt;/pui-lib-multiselect&gt;
   &#96;
 &#125;)
 export class MyComponent &#123;
@@ -175,7 +175,7 @@ export class MyComponent &#123;
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">Use a <code>ref</code> to pass arrays — HTML attributes accept JSON strings only.</div>
       <pre><code>import &#123; useRef, useEffect, useState &#125; from 'react';
-import '&#64;solifi/platform-ui';
+import '&#64;bhairab-patra/platform-ui';
 
 function MyComponent() &#123;
   const ref = useRef(null);
@@ -191,7 +191,7 @@ function MyComponent() &#123;
   &#125;, []);
 
   return (
-    &lt;pui-multiselect
+    &lt;pui-lib-multiselect
       ref=&#123;ref&#125;
       placeholder="Select items…"
       onValueChange=&#123;e =&gt; setSelected(e.detail)&#125;
@@ -202,10 +202,10 @@ function MyComponent() &#123;
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">Assign array properties via JS after <code>customElements.whenDefined</code>.</div>
-      <pre><code>&lt;pui-multiselect id="ms" placeholder="Select items…" searchable show-select-all&gt;&lt;/pui-multiselect&gt;
+      <pre><code>&lt;pui-lib-multiselect id="ms" placeholder="Select items…" searchable show-select-all&gt;&lt;/pui-lib-multiselect&gt;
 
 &lt;script&gt;
-customElements.whenDefined('pui-multiselect').then(() =&gt; &#123;
+customElements.whenDefined('pui-lib-multiselect').then(() =&gt; &#123;
   const el = document.getElementById('ms');
   el.options = [
     &#123; value: 'a', label: 'Alpha' &#125;,

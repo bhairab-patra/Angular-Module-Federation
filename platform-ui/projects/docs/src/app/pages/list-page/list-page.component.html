@@ -72,7 +72,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-list</code> accepts an <code>items</code> array via Angular property binding or a JSON string in HTML. Pass the array via a <code>ref</code> in React.</p>
+    <p class="fw-lead"><code>pui-lib-list</code> accepts an <code>items</code> array via Angular property binding or a JSON string in HTML. Pass the array via a <code>ref</code> in React.</p>
 
     <div class="fw-tabs">
       <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
@@ -91,18 +91,18 @@
 
     <div *ngIf="fwTab==='angular'" class="fw-panel">
       <div class="fw-note--angular">Import <code>PuiListComponent</code> and bind the <code>items</code> array directly.</div>
-      <pre><code>import &#123; PuiListComponent, ListItem &#125; from '&#64;solifi/platform-ui';
+      <pre><code>import &#123; PuiListComponent, ListItem &#125; from '&#64;bhairab-patra/platform-ui';
 
 &#64;Component(&#123;
   imports: [PuiListComponent],
   template: &#96;
-    &lt;pui-list
+    &lt;pui-lib-list
       [items]="items"
       variant="bordered"
       [selectable]="true"
       [selectedId]="selected"
       (itemSelect)="selected = $event.id"&gt;
-    &lt;/pui-list&gt;
+    &lt;/pui-lib-list&gt;
   &#96;
 &#125;)
 export class MyComponent &#123;
@@ -118,7 +118,7 @@ export class MyComponent &#123;
     <div *ngIf="fwTab==='react'" class="fw-panel">
       <div class="fw-note--react">Set the <code>items</code> array via a ref in <code>useEffect</code>.</div>
       <pre><code>import &#123; useRef, useEffect, useState &#125; from 'react';
-import '&#64;solifi/platform-ui';
+import '&#64;bhairab-patra/platform-ui';
 
 function MyList() &#123;
   const ref = useRef(null);
@@ -134,7 +134,7 @@ function MyList() &#123;
   &#125;, []);
 
   return (
-    &lt;pui-list ref=&#123;ref&#125; variant="bordered" selectable
+    &lt;pui-lib-list ref=&#123;ref&#125; variant="bordered" selectable
       onItemSelect=&#123;e =&gt; setSelected(e.detail.id)&#125; /&gt;
   );
 &#125;</code></pre>
@@ -142,10 +142,10 @@ function MyList() &#123;
 
     <div *ngIf="fwTab==='html'" class="fw-panel">
       <div class="fw-note--html">Assign <code>items</code> as a JS property after element upgrade.</div>
-      <pre><code>&lt;pui-list id="list" variant="bordered" selectable&gt;&lt;/pui-list&gt;
+      <pre><code>&lt;pui-lib-list id="list" variant="bordered" selectable&gt;&lt;/pui-lib-list&gt;
 
 &lt;script&gt;
-customElements.whenDefined('pui-list').then(() =&gt; &#123;
+customElements.whenDefined('pui-lib-list').then(() =&gt; &#123;
   const el = document.getElementById('list');
   el.items = [
     &#123; id: '1', label: 'Dashboard', badge: '3' &#125;,
