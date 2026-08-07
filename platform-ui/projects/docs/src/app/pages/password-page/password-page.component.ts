@@ -1,0 +1,56 @@
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
+import { PuiPasswordInputComponent } from '@solifi/platform-ui';
+
+@Component({
+  selector: 'app-password-page',
+  standalone: true,
+  imports: [NgFor, NgIf, DocPageComponent, PuiPasswordInputComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './password-page.component.html',
+  styleUrls: ['./password-page.component.scss'],
+})
+export class PasswordPageComponent {
+  cdr = inject(ChangeDetectorRef);
+  fwTab = 'angular';
+
+  basicPw    = '';
+  strengthPw = '';
+  rulesPw    = '';
+  strength   = '';
+
+  xfwRows = [
+    { name: 'value',          angular: '[value]="pw"',               attr: 'value="…"',         js: 'el.value = "…"'          },
+    { name: 'placeholder',    angular: 'placeholder="…"',            attr: 'placeholder="…"',   js: 'el.placeholder = "…"'    },
+    { name: 'showStrength',   angular: '[showStrength]="true"',      attr: 'show-strength',     js: 'el.showStrength = true'  },
+    { name: 'showRules',      angular: '[showRules]="true"',         attr: 'show-rules',        js: 'el.showRules = true'     },
+    { name: 'minLength',      angular: '[minLength]="10"',           attr: 'min-length="10"',   js: 'el.minLength = 10'       },
+    { name: 'requireUpper',   angular: '[requireUpper]="true"',      attr: 'require-upper',     js: 'el.requireUpper = true'  },
+    { name: 'requireNumber',  angular: '[requireNumber]="true"',     attr: 'require-number',    js: 'el.requireNumber = true' },
+    { name: 'requireSpecial', angular: '[requireSpecial]="true"',    attr: 'require-special',   js: 'el.requireSpecial = true'},
+    { name: 'copyable',       angular: '[copyable]="true"',          attr: 'copyable',          js: 'el.copyable = true'      },
+    { name: 'disabled',       angular: '[disabled]="true"',          attr: 'disabled',          js: 'el.disabled = true'      },
+    { name: 'error',          angular: 'error="msg"',                attr: 'error="msg"',       js: 'el.error = "msg"'        },
+    { name: 'valueChange',    angular: '(valueChange)="fn($event)"', attr: '—',                 js: 'el.addEventListener(…)'  },
+    { name: 'strengthChange', angular: '(strengthChange)="fn($event)"', attr: '—',              js: 'el.addEventListener(…)'  },
+  ];
+
+  api: ApiRow[] = [
+    { input: 'value',          type: 'string',  default: '""',               description: 'Current password value. Supports two-way binding via (valueChange).' },
+    { input: 'placeholder',    type: 'string',  default: '"Enter password"', description: 'Input placeholder text.' },
+    { input: 'showStrength',   type: 'boolean', default: 'false',            description: 'Displays a 4-segment strength bar and label below the input.' },
+    { input: 'showRules',      type: 'boolean', default: 'false',            description: 'Shows a live validation checklist when the input is focused.' },
+    { input: 'minLength',      type: 'number',  default: '8',                description: 'Minimum length rule shown in the checklist when showRules is true.' },
+    { input: 'requireUpper',   type: 'boolean', default: 'false',            description: 'Adds an uppercase letter rule to the checklist.' },
+    { input: 'requireNumber',  type: 'boolean', default: 'false',            description: 'Adds a number rule to the checklist.' },
+    { input: 'requireSpecial', type: 'boolean', default: 'false',            description: 'Adds a special character rule to the checklist.' },
+    { input: 'copyable',       type: 'boolean', default: 'false',            description: 'Shows a clipboard button. Icon turns green on successful copy.' },
+    { input: 'disabled',       type: 'boolean', default: 'false',            description: 'Disables the input.' },
+    { input: 'autocomplete',   type: 'string',  default: '"current-password"', description: 'HTML autocomplete attribute value.' },
+    { input: 'error',          type: 'string',  default: '""',               description: 'Error message shown below the input with a red border.' },
+    { input: 'hint',           type: 'string',  default: '""',               description: 'Helper text shown below the input (hidden when error is set).' },
+    { input: 'valueChange',    type: 'EventEmitter<string>', default: '—',   description: 'Emits the password string on every keystroke.' },
+    { input: 'strengthChange', type: 'EventEmitter',         default: '—',   description: 'Emits the strength level: weak, fair, strong, or very-strong.' },
+  ];
+}

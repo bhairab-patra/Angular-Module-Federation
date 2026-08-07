@@ -1,0 +1,51 @@
+
+    .section-divider {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      border-top: 1px solid var(--pui-neutral-100); padding-top: 16px; margin-top: 4px;
+    }
+    .section-tag {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--pui-neutral-400); white-space: nowrap;
+    }
+
+    /* Positions */
+    .position-grid {
+      display: grid; grid-template-columns: repeat(4, auto);
+      gap: 24px; justify-content: start; padding: 24px 0 8px;
+    }
+    .position-cell { display: flex; align-items: center; justify-content: center; padding: 16px 0; }
+
+    /* Variants */
+    .variant-row { display: flex; gap: 32px; padding: 24px 0 8px; }
+    .variant-cell { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+    .variant-label { font-size: 11px; font-weight: 600; color: var(--pui-neutral-400); text-transform: uppercase; letter-spacing: .06em; }
+
+    /* Trigger row */
+    .trigger-row { display: flex; gap: 12px; width: 100%; }
+    .trigger-inner { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    .trigger-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--pui-neutral-400); }
+    .icon-trigger {
+      width: 40px; height: 40px; border-radius: 10px; background: var(--pui-card-grad-start);
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+    }
+    .dotted-text {
+      font-size: 13px; color: var(--pui-neutral-700); border-bottom: 1px dashed var(--pui-neutral-400);
+      cursor: default; padding-bottom: 1px;
+    }
+
+    /* Showcase */
+    .showcase {
+      display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 16px 0;
+    }
+    .showcase-middle-row {
+      display: flex; align-items: center; gap: 48px; width: 100%; justify-content: center;
+    }
+    .showcase-center {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    .showcase-hint { font-size: 11px; color: var(--pui-neutral-400); }
+    .showcase-dot {
+      padding: 8px 20px; border-radius: 999px; font-size: 12px; font-weight: 700;
+      cursor: default; border: 1px solid var(--pui-neutral-200); background: var(--pui-neutral-50); color: var(--pui-neutral-700);
+    }
+  

@@ -50,7 +50,7 @@ function App() {
 
   return (
     <Fragment>
-      <pui-header
+      <pui-lib-header
         ref={ref}
         app-title="Admin Portal"
         app-subtitle="PLATFORM MANAGEMENT"
@@ -62,10 +62,10 @@ function App() {
         user-email="bpatra@solifi.com"
         greeting="Hi"
         user-subtext="Welcome back!">
-      </pui-header>
+      </pui-lib-header>
 
-      <pui-button variant="primary" size="sm">Click</pui-button>
-   <pui-search
+      <pui-lib-button variant="primary" size="sm">Click</pui-lib-button>
+   <pui-lib-search
       ref={ref}
       placeholder="Search…"
       shortcut="⌘K"

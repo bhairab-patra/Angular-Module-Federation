@@ -1,20 +1,13 @@
 /* Platform UI — Web Components global styles
-   Load this stylesheet once in the host page/app.
-   Shadow DOM components inherit font via CSS inheritance.
-   Non-shadow components (spinner, breadcrumb, etc.) use these globals. */
+   Load this stylesheet (dist/platform-ui/elements/styles.css) once in your host page.
+   Design tokens are defined in tokens.css and bundled here automatically.
+   CSS custom properties can be overridden in your own :root to theme the library. */
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 *, *::before, *::after { box-sizing: border-box; }
 
-:root {
-  --pui-font: 'Poppins', system-ui, -apple-system, sans-serif;
-  --pui-radius: 8px;
-  --pui-brand: #12C6A8;
-  --pui-brand-dark: #0d9e87;
-}
-
 body {
-  font-family: var(--pui-font);
+  font-family: var(--pui-font-family);
   margin: 0;
 }

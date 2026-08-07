@@ -1,0 +1,115 @@
+
+    :host { display: inline-block; }
+
+    .pui-tt-host {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Bubble ─────────────────────────────────── */
+    .pui-tt__bubble {
+      position: absolute;
+      white-space: nowrap;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      font-family: inherit;
+      line-height: 1.4;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s ease, transform 0.15s ease;
+      z-index: 9999;
+    }
+
+    /* Arrow shared */
+    .pui-tt__bubble::after {
+      content: '';
+      position: absolute;
+      border: 5px solid transparent;
+    }
+
+    /* ── Variants ────────────────────────────────── */
+    .pui-tt--dark .pui-tt__bubble {
+      background: var(--pui-slate-900);
+      color: var(--pui-slate-050);
+    }
+    .pui-tt--dark .pui-tt__bubble::after { border-color: transparent; }
+
+    .pui-tt--light .pui-tt__bubble {
+      background: var(--pui-white);
+      color: var(--pui-neutral-900);
+      border: 1px solid var(--pui-neutral-200);
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    }
+
+    .pui-tt--teal .pui-tt__bubble {
+      background: var(--pui-brand-deep);
+      color: var(--pui-white);
+    }
+
+    /* ── Positions ───────────────────────────────── */
+
+    /* TOP */
+    .pui-tt--top .pui-tt__bubble {
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(4px);
+    }
+    .pui-tt--top .pui-tt__bubble::after {
+      top: 100%; left: 50%; transform: translateX(-50%);
+      border-top-color: inherit;
+    }
+    .pui-tt--top.pui-tt--dark  .pui-tt__bubble::after { border-top-color: var(--pui-slate-900); }
+    .pui-tt--top.pui-tt--light .pui-tt__bubble::after { border-top-color: var(--pui-neutral-200); }
+    .pui-tt--top.pui-tt--teal  .pui-tt__bubble::after { border-top-color: var(--pui-brand-deep); }
+
+    /* BOTTOM */
+    .pui-tt--bottom .pui-tt__bubble {
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-4px);
+    }
+    .pui-tt--bottom .pui-tt__bubble::after {
+      bottom: 100%; left: 50%; transform: translateX(-50%);
+    }
+    .pui-tt--bottom.pui-tt--dark  .pui-tt__bubble::after { border-bottom-color: var(--pui-slate-900); }
+    .pui-tt--bottom.pui-tt--light .pui-tt__bubble::after { border-bottom-color: var(--pui-white); }
+    .pui-tt--bottom.pui-tt--teal  .pui-tt__bubble::after { border-bottom-color: var(--pui-brand-deep); }
+
+    /* LEFT */
+    .pui-tt--left .pui-tt__bubble {
+      right: calc(100% + 8px);
+      top: 50%;
+      transform: translateY(-50%) translateX(4px);
+    }
+    .pui-tt--left .pui-tt__bubble::after {
+      left: 100%; top: 50%; transform: translateY(-50%);
+    }
+    .pui-tt--left.pui-tt--dark  .pui-tt__bubble::after { border-left-color: var(--pui-slate-900); }
+    .pui-tt--left.pui-tt--light .pui-tt__bubble::after { border-left-color: var(--pui-neutral-200); }
+    .pui-tt--left.pui-tt--teal  .pui-tt__bubble::after { border-left-color: var(--pui-brand-deep); }
+
+    /* RIGHT */
+    .pui-tt--right .pui-tt__bubble {
+      left: calc(100% + 8px);
+      top: 50%;
+      transform: translateY(-50%) translateX(-4px);
+    }
+    .pui-tt--right .pui-tt__bubble::after {
+      right: 100%; top: 50%; transform: translateY(-50%);
+    }
+    .pui-tt--right.pui-tt--dark  .pui-tt__bubble::after { border-right-color: var(--pui-slate-900); }
+    .pui-tt--right.pui-tt--light .pui-tt__bubble::after { border-right-color: var(--pui-white); }
+    .pui-tt--right.pui-tt--teal  .pui-tt__bubble::after { border-right-color: var(--pui-brand-deep); }
+
+    /* ── Hover reveal ────────────────────────────── */
+    .pui-tt-host:hover .pui-tt__bubble { opacity: 1; }
+
+    .pui-tt--top:hover    .pui-tt__bubble { transform: translateX(-50%) translateY(0); }
+    .pui-tt--bottom:hover .pui-tt__bubble { transform: translateX(-50%) translateY(0); }
+    .pui-tt--left:hover   .pui-tt__bubble { transform: translateY(-50%) translateX(0); }
+    .pui-tt--right:hover  .pui-tt__bubble { transform: translateY(-50%) translateX(0); }
+  

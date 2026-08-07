@@ -1,0 +1,38 @@
+/*
+ * Platform UI -- Theme: OLD
+ * Classic navy/blue brand. Load this after tokens.css.
+ *
+ * To use: ng build docs --configuration=theme-old
+ * Update the hex values below to match your organisation's legacy brand.
+ */
+
+:root {
+
+  /* ========================================
+     BRAND / PRIMARY
+     ======================================== */
+  --pui-brand:           #0057B8;   /* primary button / active states   */
+  --pui-brand-hover:     #0046A0;   /* hover state                      */
+  --pui-brand-deep:      #003580;   /* pressed / dark text              */
+  --pui-brand-bg:        #f0f5ff;   /* light tint backgrounds           */
+  --pui-brand-light:     #c7d9f5;   /* subtle borders / chips           */
+  --pui-brand-muted:     #a0b8e0;   /* disabled tints                   */
+  --pui-brand-muted-bg:  #e8eef8;   /* hover on ghost/outline           */
+  --pui-brand-border:    #90aed8;   /* input focus border               */
+  --pui-brand-accent:    #0052B0;   /* sorted column, accent marks      */
+  --pui-brand-hover-2:   #004FA8;   /* secondary hover                  */
+  --pui-brand-pressed:   #003070;   /* active/pressed deep              */
+  --pui-brand-text-dark: #002F6C;   /* dark text on light brand bg      */
+
+  /* ========================================
+     CARD GRADIENT (brand-tinted)
+     ======================================== */
+  --pui-card-grad-start: #e6eeff;
+
+  /* ========================================
+     FOCUS RINGS
+     ======================================== */
+  --pui-focus-ring:       0 0 0 3px rgba(0, 87, 184, .18);
+  --pui-focus-ring-error: 0 0 0 3px rgba(239, 68, 68, .14);
+
+}

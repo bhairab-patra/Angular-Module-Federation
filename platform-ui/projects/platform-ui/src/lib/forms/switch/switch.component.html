@@ -1,0 +1,34 @@
+
+    <div class="pui-sw-host" [class.pui-sw-host--disabled]="disabled">
+
+      <label class="pui-sw" [class.pui-sw--on]="checked" [class.pui-sw--disabled]="disabled"
+             [class.pui-sw--sm]="size === 'sm'" [class.pui-sw--lg]="size === 'lg'"
+             [class.pui-sw--error]="error">
+
+        <input type="checkbox" class="pui-sw__native"
+               [checked]="checked" [disabled]="disabled"
+               (change)="toggle($event)"/>
+
+        <span class="pui-sw__track">
+          <span class="pui-sw__thumb"></span>
+        </span>
+
+        <span *ngIf="label || labelOn || labelOff" class="pui-sw__label">
+          <ng-container *ngIf="labelOn || labelOff; else plain">
+            {{ checked ? (labelOn || label) : (labelOff || label) }}
+          </ng-container>
+          <ng-template #plain>{{ label }}</ng-template>
+          <span *ngIf="required" class="pui-sw__req">*</span>
+        </span>
+      </label>
+
+      <span *ngIf="hint && !error" class="pui-field__hint">{{ hint }}</span>
+      <span *ngIf="error" class="pui-field__error">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="7" fill="#ef4444"/>
+          <path d="M8 5v3M8 10.5h.01" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        {{ error }}
+      </span>
+    </div>
+  

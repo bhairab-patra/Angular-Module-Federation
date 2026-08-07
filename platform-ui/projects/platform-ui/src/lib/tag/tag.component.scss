@@ -1,0 +1,21 @@
+
+    :host { display: inline-flex; }
+
+    .pui-tag {
+      display: inline-flex; align-items: center;
+      border-radius: 4px; font-weight: 600;
+      letter-spacing: .03em; white-space: nowrap;
+      text-transform: uppercase;
+    }
+    .pui-tag--sm { padding: 1px 6px;  font-size: 10px; }
+    .pui-tag--md { padding: 3px 9px;  font-size: 11px; }
+
+    .pui-tag--default { background: var(--pui-slate-100); color: var(--pui-indigo-mid); }
+    .pui-tag--primary { background: var(--pui-info-light); color: var(--pui-info); }
+    .pui-tag--success { background: var(--pui-success-bg); color: var(--pui-success-dark); }
+    .pui-tag--warning { background: var(--pui-warning-bg); color: var(--pui-warning-dark); }
+    .pui-tag--danger  { background: var(--pui-error-bg); color: var(--pui-error-dark); }
+    .pui-tag--info    { background: var(--pui-info-bg); color: var(--pui-info-dark); }
+    .pui-tag--purple  { background: var(--pui-purple-bg); color: var(--pui-purple); }
+    .pui-tag--pink    { background: var(--pui-pink-bg); color: var(--pui-pink); }
+  

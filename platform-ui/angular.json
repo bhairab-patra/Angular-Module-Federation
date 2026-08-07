@@ -15,8 +15,12 @@
             "project": "projects/platform-ui/ng-package.json"
           },
           "configurations": {
-            "production":  { "tsConfig": "projects/platform-ui/tsconfig.lib.prod.json" },
-            "development": { "tsConfig": "projects/platform-ui/tsconfig.lib.json" }
+            "production": {
+              "tsConfig": "projects/platform-ui/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/platform-ui/tsconfig.lib.json"
+            }
           },
           "defaultConfiguration": "production"
         },
@@ -24,7 +28,10 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/platform-ui/tsconfig.spec.json",
-            "polyfills": ["zone.js", "zone.js/testing"]
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
           }
         }
       }
@@ -41,12 +48,18 @@
             "outputPath": "dist/elements",
             "index": "projects/elements/src/index.html",
             "main": "projects/elements/src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/elements/tsconfig.app.json",
             "aot": true,
             "outputHashing": "none",
             "namedChunks": false,
-            "styles": ["projects/elements/src/styles.css"],
+            "styles": [
+              "projects/platform-ui/src/styles/tokens.css",
+              "projects/platform-ui/src/styles/themes/theme-new.css",
+              "projects/elements/src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -55,12 +68,30 @@
               "sourceMap": false,
               "extractLicenses": true,
               "budgets": [
-                { "type": "initial", "maximumWarning": "5mb", "maximumError": "10mb" }
+                {
+                  "type": "initial",
+                  "maximumWarning": "5mb",
+                  "maximumError": "10mb"
+                }
               ]
             },
             "development": {
               "optimization": false,
               "sourceMap": true
+            },
+            "theme-new": {
+              "styles": [
+                "projects/platform-ui/src/styles/tokens.css",
+                "projects/platform-ui/src/styles/themes/theme-new.css",
+                "projects/elements/src/styles.css"
+              ]
+            },
+            "theme-old": {
+              "styles": [
+                "projects/platform-ui/src/styles/tokens.css",
+                "projects/platform-ui/src/styles/themes/theme-old.css",
+                "projects/elements/src/styles.css"
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -79,19 +110,37 @@
             "outputPath": "dist/docs",
             "index": "projects/docs/src/index.html",
             "main": "projects/docs/src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "projects/docs/tsconfig.app.json",
             "assets": [
               "projects/docs/src/favicon.ico",
-              { "glob": "**/*", "input": "projects/docs/src/assets", "output": "/assets" }
+              {
+                "glob": "**/*",
+                "input": "projects/docs/src/assets",
+                "output": "/assets"
+              }
             ],
-            "styles": ["projects/docs/src/styles.css"]
+            "styles": [
+              "projects/platform-ui/src/styles/tokens.css",
+              "projects/platform-ui/src/styles/themes/theme-new.css",
+              "projects/docs/src/styles.css"
+            ]
           },
           "configurations": {
             "production": {
               "budgets": [
-                { "type": "initial", "maximumWarning": "2mb", "maximumError": "5mb" },
-                { "type": "anyComponentStyle", "maximumWarning": "4kb", "maximumError": "8kb" }
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kb",
+                  "maximumError": "8kb"
+                }
               ],
               "outputHashing": "all"
             },
@@ -102,6 +151,20 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "theme-new": {
+              "styles": [
+                "projects/platform-ui/src/styles/tokens.css",
+                "projects/platform-ui/src/styles/themes/theme-new.css",
+                "projects/docs/src/styles.css"
+              ]
+            },
+            "theme-old": {
+              "styles": [
+                "projects/platform-ui/src/styles/tokens.css",
+                "projects/platform-ui/src/styles/themes/theme-old.css",
+                "projects/docs/src/styles.css"
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -109,8 +172,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production":  { "buildTarget": "docs:build:production" },
-            "development": { "buildTarget": "docs:build:development" }
+            "production": {
+              "buildTarget": "docs:build:production"
+            },
+            "development": {
+              "buildTarget": "docs:build:development"
+            },
+            "theme-new": {
+              "buildTarget": "docs:build:theme-new"
+            },
+            "theme-old": {
+              "buildTarget": "docs:build:theme-old"
+            }
           },
           "defaultConfiguration": "development"
         }

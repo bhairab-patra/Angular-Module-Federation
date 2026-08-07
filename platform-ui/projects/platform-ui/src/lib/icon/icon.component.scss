@@ -1,0 +1,14 @@
+
+    :host { display: inline-flex; }
+    .pui-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .pui-icon ::ng-deep svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  

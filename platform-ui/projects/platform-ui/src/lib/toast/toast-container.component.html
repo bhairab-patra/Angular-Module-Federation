@@ -1,0 +1,44 @@
+
+    <ng-container *ngFor="let pos of positions">
+      <div class="pui-tc" [class]="'pui-tc--' + pos" *ngIf="byPosition(pos).length > 0">
+        <div *ngFor="let t of byPosition(pos); trackBy: trackById"
+             class="pui-toast"
+             [class]="'pui-toast--' + t.type"
+             [class.pui-toast--exit]="exiting.has(t.id)"
+             (mouseenter)="pauseTimer(t)"
+             (mouseleave)="resumeTimer(t)">
+
+          <!-- Left accent bar -->
+          <span class="pui-toast__bar"></span>
+
+          <!-- Icon -->
+          <span class="pui-toast__icon" [innerHTML]="icons[t.type]"></span>
+
+          <!-- Body -->
+          <div class="pui-toast__body">
+            <div *ngIf="t.title" class="pui-toast__title">{{ t.title }}</div>
+            <div class="pui-toast__msg">{{ t.message }}</div>
+            <button *ngIf="t.action" class="pui-toast__action" (click)="runAction(t)">
+              {{ t.action.label }}
+            </button>
+          </div>
+
+          <!-- Dismiss -->
+          <button *ngIf="t.dismissible" class="pui-toast__dismiss" (click)="dismiss(t.id)">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+              <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </button>
+
+          <!-- Progress bar -->
+          <div *ngIf="t.showProgress && t.duration > 0" class="pui-toast__progress">
+            <div class="pui-toast__progress-fill"
+                 [class.pui-toast__progress-fill--paused]="paused.has(t.id)"
+                 [style.animation-duration.ms]="t.duration"
+                 [style.animation-play-state]="paused.has(t.id) ? 'paused' : 'running'">
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  

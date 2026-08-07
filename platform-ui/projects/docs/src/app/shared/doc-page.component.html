@@ -1,0 +1,90 @@
+
+  <div class="page-wrap">
+
+    <!-- ── Main column ── -->
+    <article class="page-content">
+      <nav class="breadcrumb">
+        <span>Components</span>
+        <span class="breadcrumb-sep">/</span>
+        <span class="breadcrumb-current">{{ title }}</span>
+      </nav>
+
+      <h1 class="page-title">{{ title }}</h1>
+      <p  class="page-lead">{{ description }}</p>
+      <hr class="page-hr">
+
+      <!-- 1. Demo -->
+      <section id="demo" class="doc-section">
+        <h2 class="section-title">Demo</h2>
+        <p  class="section-desc">Interact with the component live below.</p>
+        <div class="demo-box">
+          <ng-content select="[demo]"></ng-content>
+        </div>
+      </section>
+
+      <!-- 2. Framework Usage (optional slot — shown when consumer provides [framework] content) -->
+      <section id="framework" class="doc-section">
+        <ng-content select="[framework]"></ng-content>
+      </section>
+
+      <!-- 3. Usage / code (only shown when code input is provided) -->
+      <section *ngIf="code" id="usage" class="doc-section">
+        <h2 class="section-title">Usage</h2>
+        <p  class="section-desc">
+          Import directly or via <code class="inline-code">PlatformUiModule</code>.
+        </p>
+        <div class="code-wrap">
+          <div class="code-header">
+            <span class="code-lang">TypeScript / HTML</span>
+            <button class="copy-btn" (click)="copy()">{{ copied ? '✓ Copied!' : 'Copy' }}</button>
+          </div>
+          <pre><code>{{ code }}</code></pre>
+        </div>
+      </section>
+
+      <!-- 4. Component API -->
+      <section *ngIf="api.length" id="api" class="doc-section">
+        <h2 class="section-title">Component API</h2>
+        <p  class="section-desc">
+          All <code class="inline-code">&#64;Input</code> properties and outputs.
+        </p>
+        <div class="table-wrap">
+          <table class="api-table">
+            <thead>
+              <tr>
+                <th>Property</th><th>Type</th><th>Default</th><th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of api; let odd = odd" [class.row-odd]="odd">
+                <td><code class="tag-prop">{{ row.input }}</code></td>
+                <td><code class="tag-type">{{ row.type }}</code></td>
+                <td><code class="tag-def">{{ row.default }}</code></td>
+                <td class="td-desc">{{ row.description }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </article>
+
+    <!-- ── Right panel ── -->
+    <aside class="otp">
+      <div class="otp-label">ON THIS PAGE</div>
+      <nav class="otp-nav">
+        <a class="otp-link" [class.otp-link-active]="active==='demo'"
+           (click)="scrollTo('demo')">Demo</a>
+        <a *ngIf="hasFramework"
+           class="otp-link" [class.otp-link-active]="active==='framework'"
+           (click)="scrollTo('framework')">Framework Usage</a>
+        <a *ngIf="code"
+           class="otp-link" [class.otp-link-active]="active==='usage'"
+           (click)="scrollTo('usage')">Usage</a>
+        <a *ngIf="api.length"
+           class="otp-link" [class.otp-link-active]="active==='api'"
+           (click)="scrollTo('api')">Component API</a>
+      </nav>
+    </aside>
+
+  </div>
+  

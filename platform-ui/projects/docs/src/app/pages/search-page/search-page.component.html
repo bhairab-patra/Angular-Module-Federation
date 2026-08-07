@@ -1,0 +1,126 @@
+
+    <docs-page
+      title="Search"
+      description="Smart search with real-time suggestions, keyboard navigation, category grouping, recent history, loading states, and debounced input. Works identically in Angular, React, and plain HTML."
+      [hasFramework]="true"
+      [api]="api">
+
+      <!-- ══ DEMO ═════════════════════════════════════════════ -->
+      <ng-container demo>
+
+        <div class="demo-label"><span>Basic Search</span></div>
+        <div class="demo-block">
+          <pui-lib-search
+            placeholder="Search anything…"
+            [debounce]="300"
+            (searchChange)="lastQuery = $event">
+          </pui-lib-search>
+          <p class="live-out" *ngIf="lastQuery">Debounced query: <strong>{{ lastQuery }}</strong></p>
+        </div>
+
+        <div class="demo-label"><span>With Suggestions & Categories</span></div>
+        <div class="demo-block">
+          <pui-lib-search
+            placeholder="Type to search components…"
+            [suggestions]="suggestions"
+            [minChars]="1"
+            (suggestionSelected)="selected = $event">
+          </pui-lib-search>
+          <p class="live-out" *ngIf="selected">
+            Selected: <strong>{{ selected.label }}</strong>
+            <span class="cat-badge">{{ selected.category }}</span>
+          </p>
+        </div>
+
+        <div class="demo-label"><span>Sizes — sm / md / lg</span></div>
+        <div class="demo-block demo-block--col">
+          <div class="size-row"><span class="sz">sm</span><pui-lib-search size="sm" placeholder="Small"></pui-lib-search></div>
+          <div class="size-row"><span class="sz">md</span><pui-lib-search size="md" placeholder="Medium (default)"></pui-lib-search></div>
+          <div class="size-row"><span class="sz">lg</span><pui-lib-search size="lg" placeholder="Large"></pui-lib-search></div>
+        </div>
+
+        <div class="demo-label"><span>States</span></div>
+        <div class="demo-block demo-block--grid2">
+          <div class="state-card">
+            <span class="state-tag state-tag--gray">Disabled</span>
+            <pui-lib-search placeholder="Not interactive" [disabled]="true"></pui-lib-search>
+          </div>
+          <div class="state-card">
+            <span class="state-tag state-tag--blue">Loading</span>
+            <pui-lib-search placeholder="Fetching results…" [loading]="true"></pui-lib-search>
+          </div>
+        </div>
+
+        <div class="demo-label"><span>Recent Searches + Keyboard Shortcut</span></div>
+        <div class="demo-block">
+          <pui-lib-search
+            placeholder="Click to see history…"
+            shortcut="⌘K"
+            [recentSearches]="recentSearches"
+            [maxRecent]="5">
+          </pui-lib-search>
+        </div>
+
+      </ng-container>
+
+      <!-- ══ FRAMEWORK USAGE ══════════════════════════════════ -->
+      <ng-container framework>
+
+        <h2 class="fw-title">Framework Usage</h2>
+        <p class="fw-lead">
+          <code>pui-search</code> is a Web Component — drop it in any framework.
+          Simple inputs (strings, numbers, booleans) work as HTML attributes.
+          Arrays (<code>suggestions</code>, <code>recentSearches</code>) work as a JSON string attribute
+          or as a JS property via <code>ref</code>.
+        </p>
+
+        <div class="fw-tabs">
+          <button class="fw-tab" [class.fw-tab--active]="fw==='angular'" (click)="fw='angular'">
+            <svg width="15" height="15" viewBox="0 0 24 24"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.31H4.936L12 3.405z" fill="#c3002f"/></svg>
+            Angular
+          </button>
+          <button class="fw-tab" [class.fw-tab--active]="fw==='react'" (click)="fw='react'">
+            <svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
+            React
+          </button>
+          <button class="fw-tab" [class.fw-tab--active]="fw==='html'" (click)="fw='html'">
+            <svg width="15" height="15" viewBox="0 0 24 24"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
+            Plain HTML
+          </button>
+        </div>
+
+        <div *ngIf="fw==='angular'" class="fw-panel">
+          <div class="fw-note fw-note--angular">Use Angular template binding — arrays bind directly with <code>[suggestions]</code>.</div>
+          <app-code lang="html"       id="s-ng-tpl" [text]="angularTpl" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <app-code lang="typescript" id="s-ng-ts"  [text]="angularTs"  [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </div>
+
+        <div *ngIf="fw==='react'" class="fw-panel">
+          <div class="fw-note fw-note--react">Pass arrays as a JSON string attribute or set them via <code>ref</code> in <code>useEffect</code>.</div>
+          <app-code lang="tsx" id="s-react" [text]="reactCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </div>
+
+        <div *ngIf="fw==='html'" class="fw-panel">
+          <div class="fw-note fw-note--html">Load the bundle once. Strings/booleans as attributes, arrays as JSON string or JS property.</div>
+          <app-code lang="html" id="s-html" [text]="htmlCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </div>
+
+        <h3 class="fw-ref-title">Input Quick Reference</h3>
+        <div class="xfw-wrap">
+          <table class="xfw-table">
+            <thead><tr><th>Input</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
+            <tbody>
+              <tr *ngFor="let r of xfwRows; let odd=odd" [class.xfw-odd]="odd">
+                <td><code class="tag-name">{{ r.name }}</code></td>
+                <td><code class="tag-ng">{{ r.angular }}</code></td>
+                <td><code class="tag-html">{{ r.attr }}</code></td>
+                <td><code class="tag-js">{{ r.js }}</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </ng-container>
+
+    </docs-page>
+  

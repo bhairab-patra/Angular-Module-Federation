@@ -1,0 +1,282 @@
+
+    <div class="tp-page">
+
+      <!-- ── Page header ── -->
+      <div class="tp-header">
+        <h1 class="tp-header__title">Typography</h1>
+        <p class="tp-header__desc">
+          Platform UI uses <strong>Poppins</strong> — a geometric sans-serif designed by Indian Type Foundry.
+          It ships with 9 weights and matching italics, giving applications a modern, professional look
+          across all screen sizes.
+        </p>
+      </div>
+
+      <!-- ════════════════════════════════════════ -->
+      <!-- 1 · Installation                        -->
+      <!-- ════════════════════════════════════════ -->
+      <section class="tp-section">
+        <h2 class="tp-section__title">
+          <span class="tp-section__num">01</span> Installation
+        </h2>
+
+        <!-- Option A — Google Fonts CDN -->
+        <div class="tp-card">
+          <div class="tp-card__header">
+            <span class="tp-badge tp-badge--green">Recommended</span>
+            <span class="tp-card__heading">Google Fonts CDN</span>
+          </div>
+          <p class="tp-card__desc">Add to <code>projects/docs/src/index.html</code> (or your app's root HTML):</p>
+          <div class="tp-code-block">
+            <div class="tp-code-block__bar">
+              <span>index.html</span>
+              <button class="tp-copy-btn" (click)="copy(cdnSnippet, $event)">Copy</button>
+            </div>
+            <pre class="tp-code-block__pre"><code>{{ cdnSnippet }}</code></pre>
+          </div>
+        </div>
+
+        <!-- Option B — NPM -->
+        <div class="tp-card" style="margin-top:16px">
+          <div class="tp-card__header">
+            <span class="tp-badge tp-badge--blue">Alternative</span>
+            <span class="tp-card__heading">NPM Package</span>
+          </div>
+          <p class="tp-card__desc">Install the font package and import in your global styles:</p>
+          <div class="tp-code-block">
+            <div class="tp-code-block__bar">
+              <span>Terminal</span>
+              <button class="tp-copy-btn" (click)="copy(npmInstall, $event)">Copy</button>
+            </div>
+            <pre class="tp-code-block__pre"><code>{{ npmInstall }}</code></pre>
+          </div>
+          <div class="tp-code-block" style="margin-top:10px">
+            <div class="tp-code-block__bar">
+              <span>styles.scss</span>
+              <button class="tp-copy-btn" (click)="copy(npmImport, $event)">Copy</button>
+            </div>
+            <pre class="tp-code-block__pre"><code>{{ npmImport }}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════ -->
+      <!-- 2 · Angular Configuration               -->
+      <!-- ════════════════════════════════════════ -->
+      <section class="tp-section">
+        <h2 class="tp-section__title">
+          <span class="tp-section__num">02</span> Angular Configuration
+        </h2>
+
+        <div class="tp-card">
+          <div class="tp-card__header">
+            <span class="tp-badge tp-badge--teal">styles.scss</span>
+            <span class="tp-card__heading">Global font-family</span>
+          </div>
+          <p class="tp-card__desc">Set Poppins as the base font in your root stylesheet:</p>
+          <div class="tp-code-block">
+            <div class="tp-code-block__bar"><span>styles.scss</span>
+              <button class="tp-copy-btn" (click)="copy(scssConfig, $event)">Copy</button>
+            </div>
+            <pre class="tp-code-block__pre"><code>{{ scssConfig }}</code></pre>
+          </div>
+        </div>
+
+        <div class="tp-card" style="margin-top:16px">
+          <div class="tp-card__header">
+            <span class="tp-badge tp-badge--teal">angular.json</span>
+            <span class="tp-card__heading">Reference in angular.json (NPM path only)</span>
+          </div>
+          <div class="tp-code-block">
+            <div class="tp-code-block__bar"><span>angular.json</span>
+              <button class="tp-copy-btn" (click)="copy(angularJson, $event)">Copy</button>
+            </div>
+            <pre class="tp-code-block__pre"><code>{{ angularJson }}</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════ -->
+      <!-- 3 · Type Scale                          -->
+      <!-- ════════════════════════════════════════ -->
+      <section class="tp-section">
+        <h2 class="tp-section__title">
+          <span class="tp-section__num">03</span> Type Scale
+        </h2>
+
+        <div class="tp-scale-table">
+          <div class="tp-scale-head">
+            <span>Token</span><span>Size</span><span>Weight</span><span>Line height</span><span>Preview</span>
+          </div>
+          <div *ngFor="let t of scale" class="tp-scale-row">
+            <code class="tp-scale-row__token">{{ t.token }}</code>
+            <span class="tp-scale-row__size">{{ t.size }}</span>
+            <span class="tp-scale-row__weight">{{ t.weight }}</span>
+            <span class="tp-scale-row__lh">{{ t.lh }}</span>
+            <span class="tp-scale-row__preview"
+                  [style.font-size]="t.size"
+                  [style.font-weight]="t.weight"
+                  [style.line-height]="t.lh">
+              {{ t.preview }}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════ -->
+      <!-- 4 · Font Weights                        -->
+      <!-- ════════════════════════════════════════ -->
+      <section class="tp-section">
+        <h2 class="tp-section__title">
+          <span class="tp-section__num">04</span> Font Weights
+        </h2>
+        <div class="tp-weights">
+          <div *ngFor="let w of weights" class="tp-weight-item">
+            <span class="tp-weight-item__name">{{ w.name }}</span>
+            <span class="tp-weight-item__num">{{ w.value }}</span>
+            <span class="tp-weight-item__sample" [style.font-weight]="w.value">
+              The quick brown fox
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════ -->
+      <!-- 5 · Headings                            -->
+      <!-- ════════════════════════════════════════ -->
+      <section class="tp-section">
+        <h2 class="tp-section__title">
+          <span class="tp-section__num">05</span> Headings
+        </h2>
+        <div class="tp-headings-demo">
+          <div class="tp-heading-row">
+            <code>H1</code>
+            <h1 class="tp-h1">Platform UI Design System</h1>
+          </div>
+          <div class="tp-heading-row">
+            <code>H2</code>
+            <h2 class="tp-h2">Component Documentation</h2>
+          </div>
+          <div class="tp-heading-row">
+            <code>H3</code>
+            <h3 class="tp-h3">Getting Started with Angular</h3>
+          </div>
+          <div class="tp-heading-row">
+            <code>H4</code>
+            <h4 class="tp-h4">Installation and Configuration</h4>
+          </div>
+          <div class="tp-heading-row">
+            <code>H5</code>
+            <h5 class="tp-h5">Typography Fundamentals</h5>
+          </div>
+          <div class="tp-heading-row">
+            <code>H6</code>
+            <h6 class="tp-h6">Section Label or Caption</h6>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════ -->
+      <!-- 6 · Paragraph & Body                    -->
+      <!-- ════════════════════════════════════════ -->
+      <section class="tp-section">
+        <h2 class="tp-section__title">
+          <span class="tp-section__num">06</span> Paragraph &amp; Body Text
+        </h2>
+        <div class="tp-body-demo">
+
+          <div class="tp-body-item">
+            <code class="tp-body-token">body-lg</code>
+            <p class="tp-body-lg">
+              Poppins is a geometric sans-serif typeface designed by Jonny Pinhorn and Ninad Kale,
+              commissioned by Indian Type Foundry. It supports over 100 languages and provides
+              excellent readability for both screen and print.
+            </p>
+          </div>
+
+          <div class="tp-body-item">
+            <code class="tp-body-token">body</code>
+            <p class="tp-body">
+              Platform UI uses Poppins as its primary typeface to deliver a consistent,
+              professional look across all components and applications. The font is loaded
+              via Google Fonts CDN for maximum performance.
+            </p>
+          </div>
+
+          <div class="tp-body-item">
+            <code class="tp-body-token">body-sm</code>
+            <p class="tp-body-sm">
+              Small body text is used for secondary content, helper text, captions,
+              and metadata fields. Keep line lengths between 45–75 characters for optimal readability.
+            </p>
+          </div>
+
+          <div class="tp-body-item">
+            <code class="tp-body-token">caption</code>
+            <p class="tp-caption">
+              Image captions, table footnotes, form helper messages, timestamps
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════ -->
+      <!-- 7 · Special Styles                      -->
+      <!-- ════════════════════════════════════════ -->
+      <section class="tp-section">
+        <h2 class="tp-section__title">
+          <span class="tp-section__num">07</span> Special Styles
+        </h2>
+        <div class="tp-special-grid">
+
+          <div class="tp-special-card">
+            <span class="tp-special-label">Label / Overline</span>
+            <span class="tp-overline">SECTION HEADING</span>
+          </div>
+
+          <div class="tp-special-card">
+            <span class="tp-special-label">Badge / Tag</span>
+            <span class="tp-badge-text">Active</span>
+          </div>
+
+          <div class="tp-special-card">
+            <span class="tp-special-label">Code / Mono</span>
+            <code class="tp-code-inline">import &#123; SpinnerComponent &#125;</code>
+          </div>
+
+          <div class="tp-special-card">
+            <span class="tp-special-label">Link</span>
+            <a class="tp-link" href="#">View documentation →</a>
+          </div>
+
+          <div class="tp-special-card">
+            <span class="tp-special-label">Muted / Secondary</span>
+            <span class="tp-muted">Last updated 3 minutes ago</span>
+          </div>
+
+          <div class="tp-special-card">
+            <span class="tp-special-label">Strong / Bold</span>
+            <strong class="tp-strong">Important information</strong>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ════════════════════════════════════════ -->
+      <!-- 8 · SCSS Tokens Reference               -->
+      <!-- ════════════════════════════════════════ -->
+      <section class="tp-section">
+        <h2 class="tp-section__title">
+          <span class="tp-section__num">08</span> SCSS Tokens &amp; Usage
+        </h2>
+        <div class="tp-code-block">
+          <div class="tp-code-block__bar">
+            <span>_typography.scss</span>
+            <button class="tp-copy-btn" (click)="copy(scssTokens, $event)">Copy</button>
+          </div>
+          <pre class="tp-code-block__pre"><code>{{ scssTokens }}</code></pre>
+        </div>
+      </section>
+
+    </div>
+  

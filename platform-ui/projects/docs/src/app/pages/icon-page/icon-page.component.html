@@ -1,0 +1,80 @@
+
+    <docs-page
+      title="Icon"
+      description="SVG icon system — use any icon by name and size. Add custom icons from Figma by registering them via registerIcon()."
+      [code]="code"
+      [api]="api">
+
+      <ng-container demo>
+
+        <!-- ── Search ── -->
+        <div class="icon-search-wrap">
+          <svg class="icon-search-ico" width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#9ca3af" stroke-width="2"/><path d="M21 21l-4.35-4.35" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/></svg>
+          <input
+            class="icon-search"
+            placeholder="Search icons…"
+            [value]="query"
+            (input)="query = $any($event.target).value">
+          <button *ngIf="query" class="icon-search-clear" (click)="query=''">✕</button>
+        </div>
+
+        <!-- ── Size tabs ── -->
+        <div class="size-tabs">
+          <button *ngFor="let s of sizes"
+                  class="size-tab"
+                  [class.size-tab--active]="activeSize === s"
+                  (click)="activeSize = s">
+            {{ s }}
+          </button>
+        </div>
+
+        <!-- ── Icon grid ── -->
+        <div class="icon-grid">
+          <ng-container *ngFor="let name of filteredIcons">
+            <div class="icon-cell"
+                 [class.icon-cell--copied]="copied === name"
+                 (click)="copyUsage(name)"
+                 title="Click to copy usage">
+              <pui-lib-icon [name]="name" [size]="activeSize"></pui-lib-icon>
+              <span class="icon-cell__name">{{ name }}</span>
+              <span *ngIf="copied === name" class="icon-cell__badge">Copied!</span>
+            </div>
+          </ng-container>
+          <div *ngIf="filteredIcons.length === 0" class="icon-empty">
+            No icons match "{{ query }}"
+          </div>
+        </div>
+
+        <!-- ── Size comparison table ── -->
+        <div class="section-divider"><span class="section-tag">Size Comparison</span></div>
+        <div class="size-table">
+          <div class="size-table__head">
+            <div class="size-table__cell size-table__label">Icon</div>
+            <div class="size-table__cell" *ngFor="let s of sizes">
+              <span class="size-badge">{{ s }}</span>
+              <span class="size-px">{{ sizePx[s] }}px</span>
+            </div>
+          </div>
+          <ng-container *ngFor="let name of previewIcons">
+            <div class="size-table__row">
+              <div class="size-table__cell size-table__label">{{ name }}</div>
+              <div class="size-table__cell" *ngFor="let s of sizes">
+                <pui-lib-icon [name]="name" [size]="s"></pui-lib-icon>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+        <!-- ── Color examples ── -->
+        <div class="section-divider"><span class="section-tag">Colors</span></div>
+        <div class="color-row">
+          <div class="color-swatch" *ngFor="let c of colorExamples">
+            <pui-lib-icon name="check-circle" size="lg" [color]="c.hex"></pui-lib-icon>
+            <span class="color-swatch__label">{{ c.label }}</span>
+            <span class="color-swatch__hex">{{ c.hex }}</span>
+          </div>
+        </div>
+
+      </ng-container>
+    </docs-page>
+  

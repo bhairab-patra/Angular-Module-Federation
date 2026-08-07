@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonVariant, ButtonSize } from '../models/button.model';
 
 @Component({
-  selector: 'pui-button',
+  selector: 'pui-lib-button',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './button.component.html',

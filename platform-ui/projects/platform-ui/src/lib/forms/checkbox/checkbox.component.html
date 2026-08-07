@@ -1,0 +1,42 @@
+
+    <label class="pui-cb" [class.pui-cb--disabled]="disabled" [class.pui-cb--error]="error">
+
+      <span class="pui-cb__box"
+            [class.pui-cb__box--checked]="checked"
+            [class.pui-cb__box--indeterminate]="indeterminate && !checked"
+            [class.pui-cb__box--disabled]="disabled"
+            [class.pui-cb__box--error]="error">
+        <input type="checkbox"
+               class="pui-cb__native"
+               [checked]="checked"
+               [disabled]="disabled"
+               [indeterminate]="indeterminate && !checked"
+               (change)="toggle($event)"/>
+        <!-- Check icon -->
+        <svg *ngIf="checked && !indeterminate" class="pui-cb__check"
+             width="10" height="10" viewBox="0 0 12 12" fill="none">
+          <path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <!-- Indeterminate -->
+        <svg *ngIf="indeterminate && !checked" class="pui-cb__check"
+             width="10" height="10" viewBox="0 0 12 12" fill="none">
+          <path d="M2.5 6h7" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </span>
+
+      <span *ngIf="label" class="pui-cb__label">
+        {{ label }}
+        <span *ngIf="required" class="pui-cb__req">*</span>
+      </span>
+    </label>
+
+    <span *ngIf="hint && !error" class="pui-field__hint">{{ hint }}</span>
+    <span *ngIf="error" class="pui-field__error">
+      <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="7" fill="#ef4444"/>
+        <path d="M8 5v3M8 10.5h.01" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      {{ error }}
+    </span>
+  

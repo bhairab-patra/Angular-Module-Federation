@@ -11,98 +11,12 @@ const SEPARATORS: Record<BreadcrumbSeparator, string> = {
 };
 
 @Component({
-  selector: 'pui-breadcrumb',
+  selector: 'pui-lib-breadcrumb',
   standalone: true,
   imports: [NgFor, NgIf, RouterLink],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <nav class="pui-bc" [attr.aria-label]="ariaLabel">
-      <ol class="pui-bc__list">
-        <li *ngFor="let item of items; let i = index; let last = last"
-            class="pui-bc__item">
-
-          <!-- ── Link (not last) ── -->
-          <a *ngIf="!last && item.route"
-             class="pui-bc__link"
-             [routerLink]="item.route">
-            <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
-            {{ item.label }}
-          </a>
-
-          <!-- ── Plain text link (no route) ── -->
-          <span *ngIf="!last && !item.route" class="pui-bc__link pui-bc__link--plain">
-            <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
-            {{ item.label }}
-          </span>
-
-          <!-- ── Active (last) item ── -->
-          <span *ngIf="last" class="pui-bc__current" [attr.aria-current]="'page'">
-            <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
-            {{ item.label }}
-          </span>
-
-          <!-- ── Separator (not after last) ── -->
-          <span *ngIf="!last"
-                class="pui-bc__sep"
-                [class.pui-bc__sep--svg]="separator === 'chevron' || separator === 'arrow'"
-                [innerHTML]="sep">
-          </span>
-
-        </li>
-      </ol>
-    </nav>
-  `,
-  styles: [`
-    :host { display: block; }
-
-    .pui-bc__list {
-      display: flex; align-items: center; flex-wrap: wrap;
-      list-style: none; margin: 0; padding: 0; gap: 0;
-      font-family: 'Poppins', system-ui, sans-serif;
-    }
-
-    .pui-bc__item {
-      display: flex; align-items: center; gap: 0;
-    }
-
-    .pui-bc__link {
-      display: inline-flex; align-items: center; gap: 5px;
-      text-decoration: none;
-      font-size: var(--pui-bc-size, 13px);
-      font-weight: 500;
-      color: var(--pui-bc-link-color, #6b7280);
-      border-radius: 4px;
-      padding: 1px 4px;
-      transition: color .15s, background .15s;
-    }
-    .pui-bc__link:hover {
-      color: var(--pui-bc-link-hover, #12C6A8);
-      background: rgba(18,198,168,.07);
-    }
-    .pui-bc__link--plain { cursor: default; }
-    .pui-bc__link--plain:hover { color: var(--pui-bc-link-color, #6b7280); background: none; }
-
-    .pui-bc__current {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: var(--pui-bc-size, 13px);
-      font-weight: 600;
-      color: var(--pui-bc-active-color, #111827);
-      padding: 1px 4px;
-    }
-
-    .pui-bc__sep {
-      display: inline-flex; align-items: center;
-      color: var(--pui-bc-sep-color, #d1d5db);
-      font-size: 13px; font-weight: 400;
-      margin: 0 4px; user-select: none;
-    }
-    .pui-bc__sep--svg svg { display: block; }
-
-    .pui-bc__icon {
-      display: inline-flex; align-items: center; width: 14px; height: 14px;
-    }
-    .pui-bc__icon svg { width: 14px; height: 14px; }
-  `],
+  templateUrl: './breadcrumb.component.html',
+  styleUrls: ['./breadcrumb.component.scss'],
 })
 export class BreadcrumbComponent {
   /** Array of breadcrumb items — last item is treated as the active page */

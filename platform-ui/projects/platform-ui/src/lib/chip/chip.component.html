@@ -1,0 +1,17 @@
+
+    <span [class]="hostClass" [class.pui-chip--selected]="selected" [class.pui-chip--disabled]="disabled"
+          (click)="!disabled && clicked.emit()">
+      <!-- leading icon slot -->
+      <span *ngIf="icon" class="pui-chip__icon" [innerHTML]="icon"></span>
+      <span class="pui-chip__label"><ng-content></ng-content></span>
+      <!-- removable × -->
+      <button *ngIf="removable && !disabled"
+              class="pui-chip__remove"
+              (click)="$event.stopPropagation(); removed.emit()"
+              aria-label="Remove">
+        <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+          <path d="M1 1l8 8M9 1l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </span>
+  

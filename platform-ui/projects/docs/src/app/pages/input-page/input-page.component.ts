@@ -1,0 +1,129 @@
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { PuiInputComponent } from '@solifi/platform-ui';
+import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
+import { CodeBlockComponent } from '../../shared/code-block.component';
+
+@Component({
+  selector: 'docs-input-page',
+  standalone: true,
+  imports: [NgFor, NgIf, FormsModule, PuiInputComponent, DocPageComponent, CodeBlockComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './input-page.component.html',
+})
+export class InputPageComponent {
+  private cdr = inject(ChangeDetectorRef);
+
+  v1 = ''; v2 = ''; vPass = ''; vSearch = ''; vBio = '';
+  clearable = true; disabledFlag = true; readonlyFlag = true;
+  showCount = true; maxLen = 100;
+  fw = 'angular';
+  copied = '';
+
+  copy(id: string, text: string) {
+    navigator.clipboard.writeText(text).then(() => {
+      this.copied = id;
+      this.cdr.markForCheck();
+      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
+    });
+  }
+
+  xfwRows = [
+    { name: 'label',       angular: 'label="str"',                       attr: 'label="str"',           js: 'el.label = "..."' },
+    { name: 'placeholder', angular: 'placeholder="str"',                 attr: 'placeholder="str"',     js: 'el.placeholder = "..."' },
+    { name: 'type',        angular: 'type="text|email|password"',        attr: 'type="email"',          js: 'el.type = "email"' },
+    { name: 'size',        angular: 'size="sm|md|lg"',                   attr: 'size="sm|md|lg"',       js: 'el.size = "md"' },
+    { name: 'disabled',    angular: '[disabled]="bool"',                 attr: '— use JS property',     js: 'el.disabled = true' },
+    { name: 'readonly',    angular: '[readonly]="bool"',                 attr: '— use JS property',     js: 'el.readonly = true' },
+    { name: 'clearable',   angular: '[clearable]="bool"',                attr: '— use JS property',     js: 'el.clearable = true' },
+    { name: 'maxLength',   angular: '[maxLength]="100"',                 attr: 'max-length="100"',      js: 'el.maxLength = 100' },
+    { name: 'showCount',   angular: '[showCount]="bool"',                attr: '— use JS property',     js: 'el.showCount = true' },
+    { name: 'error',       angular: '[error]="errMsg"',                  attr: 'error="msg"',           js: 'el.error = "msg"' },
+    { name: 'hint',        angular: '[hint]="str"',                      attr: 'hint="str"',            js: 'el.hint = "..."' },
+    { name: 'valueChange', angular: '(valueChange)="fn($event)"',        attr: '— use addEventListener', js: 'el.addEventListener("valueChange", fn)' },
+  ];
+
+  angHtml = `<pui-input label="Full name" placeholder="John Doe" [(ngModel)]="name"/>
+
+<pui-input label="Password" type="password" [(ngModel)]="pass"/>
+
+<pui-input label="Bio" [(ngModel)]="bio"
+  [maxLength]="200" [showCount]="true" [clearable]="true"
+  hint="Max 200 characters"/>
+
+<pui-input label="Email" [(ngModel)]="email" [error]="emailError" [required]="true"/>
+<pui-input label="Read-only" [readonly]="true" placeholder="Fixed value"/>
+<pui-input label="Disabled"  [disabled]="true"/>`;
+
+  angTs = `import { PuiInputComponent } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [PuiInputComponent, FormsModule],
+})
+export class MyComponent {
+  name = ''; pass = ''; bio = ''; email = ''; emailError = '';
+
+  validate() {
+    this.emailError = this.email.includes('@') ? '' : 'Invalid email address';
+  }
+}`;
+
+  reactCode = `import { useEffect, useRef, useState } from 'react';
+
+export function MyForm() {
+  const [name, setName] = useState('');
+  const inputRef = useRef<any>(null);
+
+  useEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.clearable = true;
+    el.maxLength  = 100;
+    const handler = (e: CustomEvent) => setName(e.detail);
+    el.addEventListener('valueChange', handler);
+    return () => el.removeEventListener('valueChange', handler);
+  }, []);
+
+  return (
+    <>
+      <pui-input ref={inputRef} label="Full name" placeholder="John Doe"/>
+      <pui-input label="Email"  type="email" placeholder="you@company.com"/>
+    </>
+  );
+}`;
+
+  htmlCode = `<script src="/assets/pui-elements.js"></script>
+
+<pui-input id="nameInput" label="Full name" placeholder="John Doe"></pui-input>
+<pui-input label="Email" type="email" error="Invalid email"></pui-input>
+
+<script>
+  const el = document.getElementById('nameInput');
+  el.clearable = true;
+  el.maxLength  = 100;
+  el.showCount  = true;
+
+  el.addEventListener('valueChange', e => console.log('Value:', e.detail));
+</script>`;
+
+  api: ApiRow[] = [
+    { input: 'label',       type: 'string',           default: "''",    description: 'Label shown above the input' },
+    { input: 'placeholder', type: 'string',           default: "''",    description: 'Placeholder text' },
+    { input: 'type',        type: 'InputType',        default: "'text'", description: "text | email | password | number | tel | url" },
+    { input: 'size',        type: "'sm'|'md'|'lg'",  default: "'md'",  description: 'Visual size variant' },
+    { input: 'disabled',    type: 'boolean',          default: 'false', description: 'Disables the field' },
+    { input: 'readonly',    type: 'boolean',          default: 'false', description: 'Makes the field read-only' },
+    { input: 'required',    type: 'boolean',          default: 'false', description: 'Shows required asterisk' },
+    { input: 'error',       type: 'string',           default: "''",    description: 'Error message; applies error styling' },
+    { input: 'hint',        type: 'string',           default: "''",    description: 'Helper text below the field' },
+    { input: 'prefixIcon',  type: 'string (HTML)',    default: "''",    description: 'SVG/HTML injected as leading icon' },
+    { input: 'suffixIcon',  type: 'string (HTML)',    default: "''",    description: 'SVG/HTML injected as trailing icon' },
+    { input: 'maxLength',   type: 'number | null',    default: 'null',  description: 'Max character count' },
+    { input: 'showCount',   type: 'boolean',          default: 'false', description: 'Shows character count badge' },
+    { input: 'clearable',   type: 'boolean',          default: 'false', description: 'Shows × button to clear the value' },
+    { input: 'autocomplete',type: 'string',           default: "'off'", description: 'Native autocomplete attribute' },
+    { input: 'valueChange', type: 'EventEmitter<string>', default: '—', description: 'Emits current value on every keystroke' },
+    { input: 'blurred',     type: 'EventEmitter<void>',  default: '—', description: 'Emits when the field loses focus' },
+  ];
+}

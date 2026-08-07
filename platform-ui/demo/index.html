@@ -34,7 +34,7 @@
 </head>
 <body>
 
-  <pui-app-shell
+  <pui-lib-app-shell
     id="shell"
     app-title="Admin Portal"
     app-subtitle="v2.0"
@@ -51,18 +51,18 @@
 
       <!-- Stat cards -->
       <div class="cards">
-        <pui-card id="card1"></pui-card>
-        <pui-card id="card2"></pui-card>
-        <pui-card id="card3"></pui-card>
-        <pui-card id="card4"></pui-card>
+        <pui-lib-card id="card1"></pui-lib-card>
+        <pui-lib-card id="card2"></pui-lib-card>
+        <pui-lib-card id="card3"></pui-lib-card>
+        <pui-lib-card id="card4"></pui-lib-card>
       </div>
 
       <!-- Actions row -->
       <div class="actions">
-        <pui-button id="saveBtn" variant="primary">Save Changes</pui-button>
-        <pui-button id="cancelBtn" variant="secondary">Cancel</pui-button>
-        <pui-badge variant="success">Live</pui-badge>
-        <pui-badge id="envBadge" variant="warning">Loading…</pui-badge>
+        <pui-lib-button id="saveBtn" variant="primary">Save Changes</pui-lib-button>
+        <pui-lib-button id="cancelBtn" variant="secondary">Cancel</pui-lib-button>
+        <pui-lib-badge variant="success">Live</pui-lib-badge>
+        <pui-lib-badge id="envBadge" variant="warning">Loading…</pui-lib-badge>
       </div>
 
       <!-- Status bar -->
@@ -73,14 +73,14 @@
 
     </div>
 
-  </pui-app-shell>
-<pui-card>
+  </pui-lib-app-shell>
+<pui-lib-card>
   <div card-header>Header content</div>
   Body content goes here — no attribute needed.
   <div card-footer>Footer content</div>
-</pui-card>
+</pui-lib-card>
 
-   <pui-button
+   <pui-lib-button
       variant="primary"
       [label]="actionLabel"
       (buttonClick)="onSave($event)"
@@ -88,11 +88,11 @@
       (buttonBlur)="onBlur($event)"
       (buttonHover)="onHover($event)"
       (buttonLeave)="onLeave($event)">
-    </pui-button>
+    </pui-lib-button>
 
   <script>
     /* ── 1. Set up pui-app-shell once its custom element is registered ── */
-    customElements.whenDefined('pui-app-shell').then(() => {
+    customElements.whenDefined('pui-lib-app-shell').then(() => {
 
       const shell = document.getElementById('shell');
 
@@ -157,7 +157,7 @@
     });
 
     /* ── 2. Set stat card data ── */
-    customElements.whenDefined('pui-card').then(() => {
+    customElements.whenDefined('pui-lib-card').then(() => {
       document.getElementById('card1').data = {
         title: 'Users', value: '1,284', trend: 'up', trendValue: '+8%', subtitle: 'this month'
       };
@@ -173,7 +173,7 @@
     });
 
     /* ── 3. Button events ── */
-    customElements.whenDefined('pui-button').then(() => {
+    customElements.whenDefined('pui-lib-button').then(() => {
       document.getElementById('saveBtn').addEventListener('buttonClick', () => {
         document.getElementById('lastAction').textContent = 'Saved ✓';
         document.getElementById('envBadge').setAttribute('variant', 'success');

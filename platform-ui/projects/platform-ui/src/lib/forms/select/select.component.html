@@ -1,0 +1,55 @@
+
+    <div class="pui-field" [class.pui-field--error]="error" [class.pui-field--disabled]="disabled">
+
+      <label *ngIf="label" class="pui-field__label">
+        {{ label }}<span *ngIf="required" class="pui-field__req">*</span>
+      </label>
+
+      <div class="pui-select-wrap"
+           [class.pui-select-wrap--sm]="size === 'sm'"
+           [class.pui-select-wrap--lg]="size === 'lg'"
+           [class.pui-select-wrap--error]="error"
+           [class.pui-select-wrap--disabled]="disabled">
+
+        <select class="pui-select"
+                [disabled]="disabled"
+                [value]="innerValue"
+                (change)="onChange2($any($event.target).value)"
+                (focus)="focused = true"
+                (blur)="onBlur()">
+          <option value="" disabled [selected]="!innerValue">{{ placeholder }}</option>
+          <option *ngFor="let opt of options"
+                  [value]="opt.value"
+                  [disabled]="opt.disabled || false"
+                  [selected]="innerValue === opt.value">
+            {{ opt.label }}
+          </option>
+        </select>
+
+        <!-- Chevron -->
+        <span class="pui-select-wrap__arrow">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+
+        <!-- Error icon -->
+        <span *ngIf="error" class="pui-select-wrap__err-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" fill="#ef4444"/>
+            <path d="M12 8v4M12 16h.01" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
+      </div>
+
+      <span *ngIf="hint && !error" class="pui-field__hint">{{ hint }}</span>
+      <span *ngIf="error" class="pui-field__error">
+        <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+          <circle cx="8" cy="8" r="7" fill="#ef4444"/>
+          <path d="M8 5v3M8 10.5h.01" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        {{ error }}
+      </span>
+    </div>
+  

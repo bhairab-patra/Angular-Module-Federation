@@ -1,0 +1,138 @@
+
+    <!-- â•â• TOP BAR â•â• -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <a class="brand" href="/">
+          <img class="brand-icon" src="assets/logo.png" width="32" height="32" alt="Platform UI logo">
+          <span class="brand-name">Platform<strong>UI</strong></span>
+        </a>
+      </div>
+      <div class="topbar-center">
+        <div class="search-wrap" [class.search-wrap--open]="suggestions.length > 0">
+          <span class="search-icon">
+            <svg width="15" height="15" viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="#9ca3af" stroke-width="2"/><path d="M14 14l3.5 3.5" stroke="#9ca3af" stroke-width="2" stroke-linecap="round"/></svg>
+          </span>
+          <input
+            class="search-input"
+            type="text"
+            placeholder="Search componentsâ€¦"
+            [value]="searchQuery"
+            (input)="onSearch($any($event.target).value)"
+            (keydown.escape)="clearSearch()"
+            (keydown.arrowdown)="moveFocus(1)"
+            (keydown.arrowup)="moveFocus(-1)"
+            (keydown.enter)="selectFocused()"
+            autocomplete="off">
+          <button *ngIf="searchQuery" class="search-clear" (click)="clearSearch()">âœ•</button>
+          <ul class="search-dropdown" *ngIf="suggestions.length > 0">
+            <li *ngFor="let s of suggestions; let i = index"
+                class="search-item"
+                [class.search-item--focused]="i === focusedIndex"
+                (mousedown)="navigate(s.route)"
+                (mouseenter)="focusedIndex = i">
+              <span class="search-item__cat">{{ s.category }}</span>
+              <span class="search-item__label">{{ s.label }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <a class="gh-btn" href="https://github.com" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <!-- â•â• BODY â•â• -->
+    <div class="shell">
+
+      <!-- Left sidebar -->
+      <aside class="sidebar" *ngIf="!isHome">
+        <nav class="sidebar-nav">
+
+          <!-- Version badge -->
+          <div class="sidebar-version">
+            <span class="version-badge">v1.3.0</span>
+            <span class="version-label">Stable</span>
+            <span class="version-dot"></span>
+          </div>
+
+          <!-- Sections -->
+          <div class="nav-section" *ngFor="let s of sections">
+
+            <!-- Section header (clickable to collapse) -->
+            <button class="nav-section__header" (click)="toggleSection(s)">
+              <span class="nav-section__heading">{{ s.heading }}</span>
+              <svg class="nav-section__chevron" [class.nav-section__chevron--open]="!s.collapsed"
+                   width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <!-- Collapsible items -->
+            <div class="nav-section__items" [class.nav-section__items--open]="!s.collapsed">
+              <ng-container *ngFor="let item of s.items">
+
+                <!-- Flat link -->
+                <a *ngIf="!item.children"
+                   [routerLink]="item.route"
+                   routerLinkActive="nav-link--active"
+                   [routerLinkActiveOptions]="item.route === '/' ? {exact: true} : {exact: false}"
+                   class="nav-link">
+                  <span *ngIf="item.icon" class="nav-link__icon" [innerHTML]="item.icon"></span>
+                  <span class="nav-link__label">{{ item.label }}</span>
+                  <svg class="nav-link__arrow" width="13" height="13" viewBox="0 0 16 16" fill="none">
+                    <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+
+                <!-- Expandable parent -->
+                <div *ngIf="item.children" class="nav-parent-wrap">
+                  <button class="nav-link nav-link--parent" (click)="toggleNavItem(item)">
+                    <span *ngIf="item.icon" class="nav-link__icon" [innerHTML]="item.icon"></span>
+                    <span class="nav-link__label">{{ item.label }}</span>
+                    <svg class="nav-parent__chevron" [class.nav-parent__chevron--open]="item.expanded"
+                         width="13" height="13" viewBox="0 0 16 16" fill="none">
+                      <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </button>
+                  <div class="nav-children" [class.nav-children--open]="item.expanded">
+                    <a *ngFor="let child of item.children"
+                       [routerLink]="child.route"
+                       routerLinkActive="nav-link--active"
+                       class="nav-link nav-link--child">
+                      <span *ngIf="child.icon" class="nav-link__icon" [innerHTML]="child.icon"></span>
+                      <span class="nav-link__label">{{ child.label }}</span>
+                      <svg class="nav-link__arrow" width="13" height="13" viewBox="0 0 16 16" fill="none">
+                        <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+
+              </ng-container>
+            </div>
+
+          </div>
+
+        </nav>
+
+        <!-- Sidebar footer -->
+        <div class="sidebar-footer">
+          <span class="sidebar-footer__text">Built with Platform UI</span>
+        </div>
+      </aside>
+
+      <!-- Page -->
+      <main class="docs-main" [class.docs-main--full]="isHome">
+        <router-outlet></router-outlet>
+      </main>
+
+    </div>
+
+    <!-- Global toast container -->
+    <pui-lib-toast-container></pui-lib-toast-container>
+  

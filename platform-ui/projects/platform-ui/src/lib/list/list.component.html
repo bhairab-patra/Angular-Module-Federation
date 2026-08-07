@@ -1,0 +1,32 @@
+
+    <ul [class]="hostClass" role="list">
+      <ng-container *ngFor="let item of items">
+
+        <li class="pui-list__item"
+            [class.pui-list__item--clickable]="selectable && !item.disabled"
+            [class.pui-list__item--selected]="selectedId === item.id"
+            [class.pui-list__item--disabled]="item.disabled"
+            [attr.aria-selected]="selectable ? selectedId === item.id : null"
+            (click)="!item.disabled && selectable && select(item)">
+
+          <!-- icon -->
+          <span *ngIf="item.icon" class="pui-list__icon" [innerHTML]="item.icon"></span>
+
+          <!-- text -->
+          <span class="pui-list__text">
+            <span class="pui-list__label">{{ item.label }}</span>
+            <span *ngIf="item.description" class="pui-list__desc">{{ item.description }}</span>
+          </span>
+
+          <!-- right side -->
+          <span class="pui-list__right">
+            <span *ngIf="item.meta"  class="pui-list__meta">{{ item.meta }}</span>
+            <span *ngIf="item.badge" class="pui-list__badge">{{ item.badge }}</span>
+          </span>
+        </li>
+
+        <li *ngIf="item.divider" class="pui-list__divider" role="separator"></li>
+
+      </ng-container>
+    </ul>
+  

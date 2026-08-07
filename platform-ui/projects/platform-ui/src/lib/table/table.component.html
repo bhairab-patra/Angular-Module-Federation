@@ -1,0 +1,193 @@
+
+<div class="pui-tbl-host">
+
+  <!-- ── Toolbar ─────────────────────────────────────── -->
+  <div class="pui-tbl-toolbar" *ngIf="_searchable || _selectable">
+    <div class="pui-tbl-toolbar__left">
+      <span *ngIf="_selectable && selectedRows.size > 0" class="pui-tbl-sel-info">
+        {{ selectedRows.size }} row{{ selectedRows.size === 1 ? '' : 's' }} selected
+      </span>
+    </div>
+    <div class="pui-tbl-toolbar__right">
+      <div class="pui-tbl-search" *ngIf="_searchable">
+        <svg class="pui-tbl-search__icon" viewBox="0 0 20 20" fill="none">
+          <circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M13.5 13.5L17 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        <input class="pui-tbl-search__input"
+               type="text"
+               placeholder="Search…"
+               [value]="searchTerm"
+               (input)="onSearch($any($event.target).value)">
+        <button *ngIf="searchTerm" class="pui-tbl-search__clear" (click)="onSearch('')">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Table wrapper (scroll container) ────────────── -->
+  <div class="pui-tbl-wrap"
+       [class.pui-tbl-wrap--scroll]="_stickyHeader"
+       [style.maxHeight]="_maxHeight ? _maxHeight + 'px' : null">
+
+    <!-- Loading skeleton overlay -->
+    <div class="pui-tbl-loading" *ngIf="_loading">
+      <div class="pui-tbl-skeleton" *ngFor="let r of skeletonRows">
+        <div class="pui-tbl-skeleton__cell" *ngFor="let c of _columns"
+             [style.width]="c.width || '100%'"></div>
+      </div>
+    </div>
+
+    <table class="pui-tbl">
+      <!-- Header -->
+      <thead class="pui-tbl-head" [class.pui-tbl-head--sticky]="_stickyHeader">
+        <tr>
+          <!-- Select-all checkbox -->
+          <th *ngIf="_selectable" class="pui-tbl-th pui-tbl-th--sel">
+            <label class="pui-tbl-cb">
+              <input type="checkbox"
+                     [checked]="allSelected"
+                     [indeterminate]="someSelected && !allSelected"
+                     (change)="toggleAll($any($event.target).checked)">
+              <span class="pui-tbl-cb__box"></span>
+            </label>
+          </th>
+          <!-- Column headers -->
+          <th *ngFor="let col of _columns"
+              class="pui-tbl-th"
+              [class.pui-tbl-th--sortable]="col.sortable"
+              [class.pui-tbl-th--sorted]="sort.key === col.key && sort.dir"
+              [class.pui-tbl-th--right]="col.align === 'right'"
+              [class.pui-tbl-th--center]="col.align === 'center'"
+              [style.width]="col.width"
+              [style.minWidth]="col.minWidth"
+              (click)="col.sortable && onSort(col.key)">
+            <span class="pui-tbl-th__label">{{ col.label }}</span>
+            <span *ngIf="col.sortable" class="pui-tbl-sort-icon">
+              <svg viewBox="0 0 12 16" fill="none" width="10" height="13">
+                <!-- Up arrow -->
+                <path d="M6 1.5L6 7M6 1.5L3.5 4M6 1.5L8.5 4"
+                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                      [class.pui-sort--active]="sort.key === col.key && sort.dir === 'asc'"
+                      [class.pui-sort--dim]="!(sort.key === col.key && sort.dir === 'asc')"/>
+                <!-- Down arrow -->
+                <path d="M6 14.5L6 9M6 14.5L3.5 12M6 14.5L8.5 12"
+                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                      [class.pui-sort--active]="sort.key === col.key && sort.dir === 'desc'"
+                      [class.pui-sort--dim]="!(sort.key === col.key && sort.dir === 'desc')"/>
+              </svg>
+            </span>
+          </th>
+        </tr>
+      </thead>
+
+      <!-- Body -->
+      <tbody class="pui-tbl-body">
+        <!-- Empty state -->
+        <tr *ngIf="!_loading && displayRows.length === 0">
+          <td [colSpan]="_selectable ? _columns.length + 1 : _columns.length" class="pui-tbl-empty">
+            <div class="pui-tbl-empty__inner">
+              <svg viewBox="0 0 48 48" fill="none" width="40" height="40">
+                <rect x="6" y="8" width="36" height="32" rx="3" stroke="#d1d5db" stroke-width="2"/>
+                <path d="M6 16h36" stroke="#d1d5db" stroke-width="2"/>
+                <path d="M14 24h4M22 24h12M14 32h8" stroke="#d1d5db" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+              <p>{{ searchTerm ? 'No results for "' + searchTerm + '"' : 'No data available' }}</p>
+            </div>
+          </td>
+        </tr>
+
+        <!-- Data rows -->
+        <tr *ngFor="let row of displayRows; let i = index"
+            class="pui-tbl-row"
+            [class.pui-tbl-row--striped]="_striped && i % 2 !== 0"
+            [class.pui-tbl-row--selected]="selectedRows.has(getRowId(row, i))"
+            [class.pui-tbl-row--clickable]="rowClickEnabled"
+            (click)="onRowClick(row, i)">
+
+          <!-- Row checkbox -->
+          <td *ngIf="_selectable" class="pui-tbl-td pui-tbl-td--sel"
+              (click)="$event.stopPropagation(); toggleRow(row, i)">
+            <label class="pui-tbl-cb">
+              <input type="checkbox" [checked]="selectedRows.has(getRowId(row, i))"
+                     (change)="toggleRow(row, i)">
+              <span class="pui-tbl-cb__box"></span>
+            </label>
+          </td>
+
+          <!-- Cells -->
+          <td *ngFor="let col of _columns"
+              class="pui-tbl-td"
+              [class.pui-tbl-td--right]="col.align === 'right'"
+              [class.pui-tbl-td--center]="col.align === 'center'">
+
+            <!-- Badge type -->
+            <ng-container *ngIf="col.type === 'badge'; else plain">
+              <ng-container *ngIf="col.badgeMap && col.badgeMap[row[col.key]]; let bm">
+                <span class="pui-tbl-badge"
+                      [style.backgroundColor]="bm.color + '1a'"
+                      [style.color]="bm.color"
+                      [style.borderColor]="bm.color + '40'">
+                  {{ bm.label ?? row[col.key] }}
+                </span>
+              </ng-container>
+              <ng-container *ngIf="!(col.badgeMap && col.badgeMap[row[col.key]])">
+                <span class="pui-tbl-badge pui-tbl-badge--default">{{ row[col.key] }}</span>
+              </ng-container>
+            </ng-container>
+
+            <!-- Currency type -->
+            <ng-template #plain>
+              <ng-container *ngIf="col.type === 'currency'; else number">
+                <span class="pui-tbl-cell--mono">{{ row[col.key] | number:'1.2-2' }}</span>
+              </ng-container>
+            </ng-template>
+            <ng-template #number>
+              <ng-container *ngIf="col.type === 'number'; else date">
+                <span class="pui-tbl-cell--mono">{{ row[col.key] | number }}</span>
+              </ng-container>
+            </ng-template>
+            <ng-template #date>
+              <ng-container *ngIf="col.type === 'date'; else text">
+                {{ row[col.key] | date:'mediumDate' }}
+              </ng-container>
+            </ng-template>
+            <ng-template #text>{{ row[col.key] ?? '—' }}</ng-template>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── Pagination ───────────────────────────────────── -->
+  <div class="pui-tbl-pager" *ngIf="_paginated && filteredRows.length > 0">
+    <span class="pui-tbl-pager__info">
+      {{ rangeStart }}–{{ rangeEnd }} of {{ filteredRows.length }} rows
+    </span>
+    <div class="pui-tbl-pager__controls">
+      <select class="pui-tbl-pager__size" [value]="_pageSize" (change)="onPageSizeChange($any($event.target).value)">
+        <option *ngFor="let s of pageSizeOptions" [value]="s">{{ s }} / page</option>
+      </select>
+      <button class="pui-tbl-pager__btn" [disabled]="page <= 1" (click)="goPage(1)" title="First">
+        <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M11 12L7 8l4-4M5 4v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="pui-tbl-pager__btn" [disabled]="page <= 1" (click)="goPage(page - 1)" title="Previous">
+        <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <span class="pui-tbl-pager__pages">
+        <button *ngFor="let p of pageNumbers"
+                class="pui-tbl-pager__page"
+                [class.pui-tbl-pager__page--active]="p === page"
+                (click)="goPage(p)">{{ p }}</button>
+      </span>
+      <button class="pui-tbl-pager__btn" [disabled]="page >= totalPages" (click)="goPage(page + 1)" title="Next">
+        <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="pui-tbl-pager__btn" [disabled]="page >= totalPages" (click)="goPage(totalPages)" title="Last">
+        <svg viewBox="0 0 16 16" fill="none" width="14" height="14"><path d="M5 12l4-4-4-4M11 4v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+  

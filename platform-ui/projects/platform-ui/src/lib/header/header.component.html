@@ -1,0 +1,111 @@
+
+    <header class="pui-header" [style.background]="bgColor" [style.color]="textColor">
+
+      <!-- ── Brand ── -->
+      <div class="pui-header__brand">
+        <img *ngIf="logoUrl" [src]="logoUrl" class="pui-header__logo-img" alt="logo">
+        <ng-content select="[logo]"></ng-content>
+        <div *ngIf="!hasLogoSlot" class="pui-header__brand-text">
+          <span *ngIf="logoText" class="pui-header__logo-text">{{ logoText }}</span>
+          <div class="pui-header__title-group">
+            <span class="pui-header__title">{{ appTitle }}</span>
+            <span *ngIf="appSubtitle" class="pui-header__subtitle">{{ appSubtitle }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Divider after brand ── -->
+      <div *ngIf="badge" class="pui-header__divider"></div>
+
+      <!-- ── Environment badge ── -->
+      <span *ngIf="badge" class="pui-header__badge"
+            [style.background]="badge.color"
+            [style.color]="badge.textColor || '#fff'">
+        {{ badge.text }}
+      </span>
+
+      <!-- ── Nav links ── -->
+      <nav *ngIf="navLinks.length" class="pui-header__nav">
+        <a *ngFor="let link of navLinks"
+           [href]="link.href"
+           class="pui-header__nav-link"
+           [class.pui-header__nav-link--active]="link.active">
+          {{ link.label }}
+        </a>
+      </nav>
+
+      <!-- ── Spacer ── -->
+      <div class="pui-header__spacer"></div>
+
+      <!-- ── Custom actions slot ── -->
+      <div class="pui-header__actions">
+        <ng-content select="[actions]"></ng-content>
+      </div>
+
+      <!-- ── Help icon ── -->
+      <button *ngIf="showHelp" class="pui-header__icon-btn" (click)="helpClick.emit()" title="Help">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/>
+        </svg>
+      </button>
+
+      <!-- ── Divider before user ── -->
+      <div *ngIf="userName" class="pui-header__divider"></div>
+
+      <!-- ── User area ── -->
+      <div *ngIf="userName" class="pui-header__user" (click)="toggleMenu($event)">
+        <div class="pui-header__user-info">
+          <span class="pui-header__greeting" *ngIf="greeting">{{ greeting }}, {{ firstName }}</span>
+          <span class="pui-header__greeting" *ngIf="!greeting">{{ firstName }}</span>
+          <span class="pui-header__user-sub">{{ userSubtext || 'Welcome back!' }}</span>
+        </div>
+
+        <div class="pui-header__avatar"
+             [style.background]="avatarColor"
+             [style.color]="avatarTextColor">
+          <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-header__avatar-img" alt="">
+          <span *ngIf="!avatarUrl">{{ initials }}</span>
+        </div>
+
+        <svg class="pui-header__caret" [class.pui-header__caret--open]="menuOpen"
+             width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+        <!-- ── Dropdown menu ── -->
+        <div class="pui-header__menu" [class.pui-header__menu--open]="menuOpen"
+             (click)="$event.stopPropagation()">
+
+          <!-- Menu header -->
+          <div class="pui-header__menu-header">
+            <div class="pui-header__menu-avatar"
+                 [style.background]="avatarColor"
+                 [style.color]="avatarTextColor">
+              <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-header__avatar-img" alt="">
+              <span *ngIf="!avatarUrl">{{ initials }}</span>
+            </div>
+            <div>
+              <div class="pui-header__menu-name">{{ userName }}</div>
+              <div class="pui-header__menu-email">{{ userEmail }}</div>
+            </div>
+          </div>
+
+          <div class="pui-header__menu-divider"></div>
+
+          <!-- Menu items -->
+          <ng-container *ngFor="let item of menuItems">
+            <button class="pui-header__menu-item"
+                    [class.pui-header__menu-item--danger]="item.danger"
+                    (click)="onMenuAction(item)">
+              <span *ngIf="item.icon" class="pui-header__menu-item-icon" [innerHTML]="item.icon"></span>
+              {{ item.label }}
+            </button>
+          </ng-container>
+        </div>
+      </div>
+
+    </header>
+  

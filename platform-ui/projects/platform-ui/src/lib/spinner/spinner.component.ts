@@ -7,105 +7,12 @@ const SIZE_MAP: Record<SpinnerSize, number> = {
 };
 
 @Component({
-  selector: 'pui-spinner',
+  selector: 'pui-lib-spinner',
   standalone: true,
   imports: [NgIf, NgFor],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <!-- Full-screen overlay -->
-    <div *ngIf="overlay"
-         class="pui-sp-overlay"
-         [style.background]="overlayColor"
-         [style.opacity]="overlayOpacity"
-         [style.z-index]="zIndex">
-    </div>
-
-    <!-- Spinner container -->
-    <div class="pui-sp-wrap"
-         [class.pui-sp-wrap--overlay]="overlay"
-         [style.z-index]="overlay ? zIndex + 1 : zIndex">
-
-      <div class="pui-sp-box">
-
-        <!-- ── DASH: radiating lines ── -->
-        <svg *ngIf="type === 'dash'"
-             class="pui-sp-dash"
-             [style.width.px]="px" [style.height.px]="px"
-             [style.animation-duration]="dur"
-             viewBox="0 0 40 40">
-          <!-- 12 lines at 30° intervals, fading in opacity -->
-          <line *ngFor="let l of dashLines; let i = index"
-                class="pui-sp-dash__line"
-                x1="20" [attr.y1]="dashY1" x2="20" [attr.y2]="dashY2"
-                [attr.stroke]="color"
-                stroke-width="3"
-                stroke-linecap="round"
-                [attr.opacity]="lineOpacity(i)"
-                [attr.transform]="'rotate(' + (i * 30) + ' 20 20)'"/>
-        </svg>
-
-        <!-- ── DOTS: orbiting dot ring ── -->
-        <svg *ngIf="type === 'dots'"
-             class="pui-sp-dots"
-             [style.width.px]="px" [style.height.px]="px"
-             [style.animation-duration]="dur"
-             viewBox="0 0 40 40">
-          <!-- 12 dots on a circle, one bright active dot -->
-          <circle *ngFor="let d of dotPositions; let i = index"
-                  [attr.cx]="d.cx" [attr.cy]="d.cy"
-                  [attr.r]="dotR"
-                  [attr.fill]="color"
-                  [attr.opacity]="dotOpacity(i)"/>
-        </svg>
-
-        <!-- Label -->
-        <span *ngIf="label" class="pui-sp-label" [style.color]="labelColor">{{ label }}</span>
-      </div>
-    </div>
-  `,
-  styles: [`
-    :host { display: inline-block; }
-
-    /* Overlay */
-    .pui-sp-overlay {
-      position: fixed; inset: 0; pointer-events: all;
-    }
-
-    /* Wrap */
-    .pui-sp-wrap {
-      display: inline-flex; align-items: center; justify-content: center;
-    }
-    .pui-sp-wrap--overlay {
-      position: fixed; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      pointer-events: none;
-    }
-
-    .pui-sp-box {
-      display: flex; flex-direction: column; align-items: center; gap: 12px;
-    }
-
-    /* Dash spinner */
-    .pui-sp-dash {
-      animation: pui-spin steps(12, end) infinite;
-    }
-
-    /* Dots spinner */
-    .pui-sp-dots {
-      animation: pui-spin steps(12, end) infinite;
-    }
-
-    @keyframes pui-spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* Label */
-    .pui-sp-label {
-      font-size: 13px; font-weight: 500;
-      font-family: 'Poppins', system-ui, sans-serif;
-      letter-spacing: .01em;
-    }
-  `],
+  templateUrl: './spinner.component.html',
+  styleUrls: ['./spinner.component.scss'],
 })
 export class SpinnerComponent {
   @Input() type: SpinnerType = 'dash';

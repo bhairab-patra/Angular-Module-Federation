@@ -59,27 +59,27 @@ import { PuiAppShellComponent } from '../../platform-ui/src/lib/app-shell/app-sh
     customElements.define(tag, NgElement);
   };
 
-  define(ButtonComponent,           'pui-button');
-  define(FileUploadButtonComponent, 'pui-file-upload');
-  define(CardComponent,             'pui-card');
-  define(BadgeComponent,            'pui-badge');
-  define(ModalComponent,            'pui-modal');
-  define(HeaderComponent,           'pui-header');
-  define(IconComponent,             'pui-icon');
-  define(TooltipComponent,          'pui-tooltip');
-  define(SpinnerComponent,          'pui-spinner');
-  define(BreadcrumbComponent,       'pui-breadcrumb');
-  define(PuiInputComponent,         'pui-input');
-  define(PuiSelectComponent,        'pui-select');
-  define(PuiCheckboxComponent,      'pui-checkbox');
-  define(PuiRadioGroupComponent,    'pui-radio');
-  define(PuiTextareaComponent,      'pui-textarea');
-  define(PuiSwitchComponent,        'pui-switch');
-  define(PuiSearchComponent,        'pui-search');
-  define(PuiFilterPanelComponent,   'pui-filter-panel');
-  define(PuiToastContainerComponent,'pui-toast-container');
-  define(PuiSidebarComponent,       'pui-sidebar');
-  define(PuiAppShellComponent,      'pui-app-shell');
+  define(ButtonComponent,           'pui-lib-button');
+  define(FileUploadButtonComponent, 'pui-lib-file-upload');
+  define(CardComponent,             'pui-lib-card');
+  define(BadgeComponent,            'pui-lib-badge');
+  define(ModalComponent,            'pui-lib-modal');
+  define(HeaderComponent,           'pui-lib-header');
+  define(IconComponent,             'pui-lib-icon');
+  define(TooltipComponent,          'pui-lib-tooltip');
+  define(SpinnerComponent,          'pui-lib-spinner');
+  define(BreadcrumbComponent,       'pui-lib-breadcrumb');
+  define(PuiInputComponent,         'pui-lib-input');
+  define(PuiSelectComponent,        'pui-lib-select');
+  define(PuiCheckboxComponent,      'pui-lib-checkbox');
+  define(PuiRadioGroupComponent,    'pui-lib-radio');
+  define(PuiTextareaComponent,      'pui-lib-textarea');
+  define(PuiSwitchComponent,        'pui-lib-switch');
+  define(PuiSearchComponent,        'pui-lib-search');
+  define(PuiFilterPanelComponent,   'pui-lib-filter-panel');
+  define(PuiToastContainerComponent,'pui-lib-toast-container');
+  define(PuiSidebarComponent,       'pui-lib-sidebar');
+  define(PuiAppShellComponent,      'pui-lib-app-shell');
 
   // Expose global toast API for React / plain HTML consumers
   const toast = app.injector.get(ToastService);

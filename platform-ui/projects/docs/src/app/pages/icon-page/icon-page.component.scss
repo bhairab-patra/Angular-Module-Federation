@@ -1,0 +1,89 @@
+
+    /* ── Search ── */
+    .icon-search-wrap {
+      position: relative; width: 100%; max-width: 380px; display: flex; align-items: center;
+    }
+    .icon-search-ico { position: absolute; left: 12px; pointer-events: none; }
+    .icon-search {
+      width: 100%; padding: 8px 36px 8px 38px;
+      border: 1px solid var(--pui-neutral-200); border-radius: 999px;
+      font-size: 13px; font-family: inherit; background: var(--pui-neutral-50);
+      outline: none;
+    }
+    .icon-search:focus { border-color: var(--pui-brand); box-shadow: 0 0 0 3px rgba(18,198,168,.15); background: var(--pui-white); }
+    .icon-search-clear {
+      position: absolute; right: 12px; background: none; border: none;
+      color: var(--pui-neutral-400); cursor: pointer; font-size: 12px;
+    }
+
+    /* ── Size tabs ── */
+    .size-tabs { display: flex; gap: 6px; }
+    .size-tab {
+      padding: 5px 16px; border-radius: 999px; border: 1px solid var(--pui-neutral-200);
+      font-size: 12px; font-weight: 600; font-family: inherit;
+      background: var(--pui-white); color: var(--pui-neutral-500); cursor: pointer; text-transform: uppercase; letter-spacing: .05em;
+    }
+    .size-tab--active { background: var(--pui-brand); color: var(--pui-white); border-color: var(--pui-brand); }
+
+    /* ── Icon grid ── */
+    .icon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+      gap: 8px; width: 100%;
+    }
+    .icon-cell {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      padding: 16px 8px 12px;
+      border: 1px solid var(--pui-neutral-100); border-radius: 10px;
+      background: var(--pui-neutral-150); cursor: pointer; position: relative;
+      transition: border-color .12s, background .12s;
+    }
+    .icon-cell:hover { border-color: var(--pui-brand); background: var(--pui-green-bg); }
+    .icon-cell--copied { border-color: var(--pui-brand); background: var(--pui-card-grad-start); }
+    .icon-cell__name {
+      font-size: 10px; color: var(--pui-neutral-500); text-align: center;
+      word-break: break-all; line-height: 1.3;
+    }
+    .icon-cell__badge {
+      position: absolute; top: 6px; right: 6px;
+      font-size: 9px; font-weight: 700; background: var(--pui-brand); color: var(--pui-white);
+      padding: 1px 6px; border-radius: 999px;
+    }
+    .icon-empty { grid-column: 1/-1; padding: 32px; text-align: center; color: var(--pui-neutral-400); font-size: 13px; }
+
+    /* ── Size table ── */
+    .section-divider {
+      display: flex; align-items: center; gap: 12px; width: 100%;
+      border-top: 1px solid var(--pui-neutral-100); padding-top: 16px; margin-top: 4px;
+    }
+    .section-tag {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--pui-neutral-400); white-space: nowrap;
+    }
+    .size-table { width: 100%; border: 1px solid var(--pui-neutral-200); border-radius: 10px; overflow: hidden; }
+    .size-table__head {
+      display: flex; background: var(--pui-neutral-50); border-bottom: 1px solid var(--pui-neutral-200); padding: 10px 0;
+    }
+    .size-table__row {
+      display: flex; align-items: center; border-bottom: 1px solid var(--pui-neutral-100); padding: 12px 0;
+    }
+    .size-table__row:last-child { border-bottom: none; }
+    .size-table__cell {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+    }
+    .size-table__label {
+      flex: 1.5; align-items: flex-start; padding-left: 20px;
+      font-size: 12px; color: var(--pui-neutral-700); font-weight: 500;
+    }
+    .size-badge {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--pui-neutral-700);
+    }
+    .size-px { font-size: 10px; color: var(--pui-neutral-400); }
+
+    /* ── Colors ── */
+    .color-row { display: flex; gap: 20px; flex-wrap: wrap; }
+    .color-swatch { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .color-swatch__label { font-size: 12px; font-weight: 600; color: var(--pui-neutral-700); }
+    .color-swatch__hex   { font-size: 11px; color: var(--pui-neutral-400); }
+  

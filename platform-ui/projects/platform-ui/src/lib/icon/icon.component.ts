@@ -14,25 +14,12 @@ const SIZE_MAP: Record<IconSize, number> = {
 };
 
 @Component({
-  selector: 'pui-icon',
+  selector: 'pui-lib-icon',
   standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<span class="pui-icon" [class]="hostClass" [style.width.px]="px" [style.height.px]="px" [innerHTML]="svg" aria-hidden="true"></span>`,
-  styles: [`
-    :host { display: inline-flex; }
-    .pui-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .pui-icon ::ng-deep svg {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-  `],
+  templateUrl: './icon.component.html',
+  styleUrls: ['./icon.component.scss'],
 })
 export class IconComponent implements OnChanges {
   /** Icon name from the registry (e.g. "arrow-right", "check", "user"). */

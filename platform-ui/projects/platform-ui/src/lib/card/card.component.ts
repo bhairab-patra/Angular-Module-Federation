@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CardData, CardVariant, CardSize } from '../models/card.model';
 
 @Component({
-  selector: 'pui-card',
+  selector: 'pui-lib-card',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './card.component.html',

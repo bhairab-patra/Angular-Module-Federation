@@ -1,0 +1,143 @@
+
+  <div class="page">
+
+    <div class="page-header">
+      <h1 class="page-title">App Shell</h1>
+      <p class="page-desc">
+        A turnkey application shell combining <code>pui-header</code> and a sidebar nav rail
+        into a single <code>&lt;pui-app-shell&gt;</code> component. Import it once and get a
+        complete layout with a hamburger toggle, collapsible sidebar, search, and projected
+        main content.
+      </p>
+    </div>
+
+    <!-- Live Demo -->
+    <section class="section">
+      <h2 class="section-title">Live Demo</h2>
+
+      <div class="controls">
+        <button class="ctrl-btn" [class.ctrl-btn--active]="!sidebarVisible" (click)="sidebarVisible = !sidebarVisible">
+          {{ sidebarVisible ? 'Hide' : 'Show' }} Sidebar
+        </button>
+        <button class="ctrl-btn" [class.ctrl-btn--active]="sidebarCollapsed" (click)="sidebarCollapsed = !sidebarCollapsed">
+          {{ sidebarCollapsed ? 'Expand' : 'Collapse' }} Rail
+        </button>
+        <button class="ctrl-btn" (click)="cycleTheme()">Theme: {{ activeThemeName }}</button>
+        <span class="ctrl-divider"></span>
+        <span class="ctrl-label">Last action: {{ lastAction || '—' }}</span>
+      </div>
+
+      <div class="shell-frame">
+        <pui-lib-app-shell
+          appTitle="Experience Hub Portal"
+          appSubtitle="Management Console"
+          brandName="Platform"
+          headerBgColor="#12C6A8"
+          headerUserName="Bhairab Patra"
+          headerUserEmail="bhairab@example.com"
+          headerGreeting="Hi"
+          [headerBadge]="demoHeaderBadge"
+          [headerMenuItems]="demoMenuItems"
+          [groups]="navGroups"
+          [activeId]="activeId"
+          [sidebarVisible]="sidebarVisible"
+          [sidebarCollapsed]="sidebarCollapsed"
+          [theme]="activeTheme"
+          (sidebarVisibleChange)="sidebarVisible = $event"
+          (sidebarCollapsedChange)="sidebarCollapsed = $event"
+          (itemSelect)="onItemSelect($event.id)"
+          (headerMenuAction)="lastAction = 'Menu: ' + $event">
+
+          <div class="demo-content">
+            <div class="demo-content__header">
+              <h3>Dashboard</h3>
+              <p>Active: <strong>{{ activeId || 'none' }}</strong></p>
+            </div>
+            <div class="demo-cards">
+              <div class="demo-card demo-card--blue"><span class="demo-card__val">1,284</span><span class="demo-card__lbl">Users</span></div>
+              <div class="demo-card demo-card--green"><span class="demo-card__val">$48.2k</span><span class="demo-card__lbl">Revenue</span></div>
+              <div class="demo-card demo-card--amber"><span class="demo-card__val">97.4%</span><span class="demo-card__lbl">Uptime</span></div>
+              <div class="demo-card demo-card--purple"><span class="demo-card__val">342</span><span class="demo-card__lbl">Tickets</span></div>
+            </div>
+          </div>
+
+        </pui-lib-app-shell>
+      </div>
+    </section>
+
+    <!-- Usage -->
+    <section class="section">
+      <h2 class="section-title">Usage</h2>
+      <pre class="code-block"><code>{{ usageCode }}</code></pre>
+    </section>
+
+    <!-- API Inputs -->
+    <section class="section">
+      <h2 class="section-title">API — Inputs</h2>
+      <div class="table-wrap">
+        <table class="api-table">
+          <thead><tr><th>Input</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>appTitle</td><td>string</td><td>'My App'</td><td>Application name shown in header brand area</td></tr>
+            <tr><td>appSubtitle</td><td>string</td><td>''</td><td>Small subtitle beneath the app title</td></tr>
+            <tr><td>logo</td><td>string (SVG/HTML)</td><td>''</td><td>Custom logo HTML; defaults to built-in arrow icon</td></tr>
+            <tr><td>brandName</td><td>string</td><td>''</td><td>Name shown at top of the sidebar rail (falls back to appTitle)</td></tr>
+            <tr><td>groups</td><td>SidebarGroup[]</td><td>[]</td><td>Navigation groups for the sidebar rail</td></tr>
+            <tr><td>activeId</td><td>string</td><td>''</td><td>ID of the currently active nav item</td></tr>
+            <tr><td>sidebarVisible</td><td>boolean</td><td>true</td><td>Show or hide the sidebar rail</td></tr>
+            <tr><td>sidebarCollapsed</td><td>boolean</td><td>false</td><td>Collapse rail to icon-only mode</td></tr>
+            <tr><td>config</td><td>SidebarConfig</td><td>&#123;&#125;</td><td>width, collapsedWidth, showSearch, collapsible, maxLabelLen</td></tr>
+            <tr><td>theme</td><td>SidebarTheme</td><td>&#123;&#125;</td><td>CSS-custom-property overrides for the rail color scheme</td></tr>
+            <tr><td>headerBgColor</td><td>string</td><td>'#12C6A8'</td><td>Header background colour</td></tr>
+            <tr><td>headerTextColor</td><td>string</td><td>'#ffffff'</td><td>Header text / icon colour</td></tr>
+            <tr><td>headerUserName</td><td>string</td><td>''</td><td>Displayed in the avatar / user menu</td></tr>
+            <tr><td>headerUserEmail</td><td>string</td><td>''</td><td>Email line in the user dropdown</td></tr>
+            <tr><td>headerGreeting</td><td>string</td><td>'Hi'</td><td>Greeting prefix shown in user dropdown (e.g. "Hi, Jane")</td></tr>
+            <tr><td>headerUserSubtext</td><td>string</td><td>'Welcome back!'</td><td>Subtext line in the user dropdown</td></tr>
+            <tr><td>headerAvatarUrl</td><td>string</td><td>''</td><td>URL for the user avatar image; falls back to initials</td></tr>
+            <tr><td>headerAvatarColor</td><td>string</td><td>'#0d6e5f'</td><td>Background colour of the initials avatar</td></tr>
+            <tr><td>headerAvatarTextColor</td><td>string</td><td>'#ffffff'</td><td>Text colour of the initials avatar</td></tr>
+            <tr><td>headerBadge</td><td>HeaderBadge | null</td><td>null</td><td>Environment badge (e.g. UAT, PROD)</td></tr>
+            <tr><td>headerMenuItems</td><td>UserMenuItem[]</td><td>[]</td><td>User-menu action items</td></tr>
+            <tr><td>headerShowHelp</td><td>boolean</td><td>false</td><td>Show the help icon button</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="section-title" style="margin-top:32px">API — Outputs</h2>
+      <div class="table-wrap">
+        <table class="api-table">
+          <thead><tr><th>Output</th><th>Payload</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>sidebarVisibleChange</td><td>boolean</td><td>Emits when hamburger button toggles visibility</td></tr>
+            <tr><td>sidebarCollapsedChange</td><td>boolean</td><td>Emits when the collapse toggle is clicked</td></tr>
+            <tr><td>itemSelect</td><td>SidebarNavItem</td><td>Emits when a leaf nav item is clicked</td></tr>
+            <tr><td>headerMenuAction</td><td>string</td><td>Emits the action string from user-menu items</td></tr>
+            <tr><td>headerHelpClick</td><td>void</td><td>Emits when the help button is clicked</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="section-title" style="margin-top:32px">Content Projection Slots</h2>
+      <div class="table-wrap">
+        <table class="api-table">
+          <thead><tr><th>Slot selector</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><em>(default)</em></td><td>Main content area, fills remaining space beside the sidebar</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Themes -->
+    <section class="section">
+      <h2 class="section-title">Built-in Themes</h2>
+      <p class="section-desc">
+        Pass a <code>SIDEBAR_THEMES</code> preset — or any <code>SidebarTheme</code> object — to
+        the <code>[theme]</code> input to instantly restyle the rail.
+      </p>
+      <pre class="code-block"><code>{{ themeCode }}</code></pre>
+    </section>
+
+  </div>
+  

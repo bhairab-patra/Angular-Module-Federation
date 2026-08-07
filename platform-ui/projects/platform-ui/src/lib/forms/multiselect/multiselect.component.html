@@ -1,0 +1,119 @@
+
+<div class="pui-ms-host"
+     [class.pui-ms--disabled]="_disabled"
+     [class.pui-ms--open]="open"
+     [class.pui-ms--error]="_error">
+
+  <!-- ── Trigger ─────────────────────────────── -->
+  <div class="pui-ms-trigger" (click)="!_disabled && toggle()">
+
+    <!-- Chips / placeholder -->
+    <div class="pui-ms-values">
+      <ng-container *ngIf="selected.length === 0">
+        <span class="pui-ms-placeholder">{{ _placeholder }}</span>
+      </ng-container>
+
+      <ng-container *ngIf="selected.length > 0 && selected.length <= _maxChips">
+        <span *ngFor="let v of selected" class="pui-ms-chip">
+          {{ labelOf(v) }}
+          <button class="pui-ms-chip-rm"
+                  (click)="$event.stopPropagation(); deselect(v)"
+                  [attr.aria-label]="'Remove ' + labelOf(v)">✕</button>
+        </span>
+      </ng-container>
+
+      <ng-container *ngIf="selected.length > _maxChips">
+        <span class="pui-ms-chip pui-ms-chip--count">
+          {{ selected.length }} selected
+          <button class="pui-ms-chip-rm"
+                  (click)="$event.stopPropagation(); clearAll()"
+                  aria-label="Clear all">✕</button>
+        </span>
+      </ng-container>
+    </div>
+
+    <span class="pui-ms-count" *ngIf="selected.length > 0 && selected.length <= _maxChips">
+      {{ selected.length }}/{{ _options.length }}
+    </span>
+
+    <svg class="pui-ms-chevron" [class.pui-ms-chevron--up]="open"
+         viewBox="0 0 16 16" fill="none" width="14" height="14">
+      <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <!-- ── Dropdown ─────────────────────────────── -->
+  <div *ngIf="open" class="pui-ms-dropdown" (click)="$event.stopPropagation()">
+
+    <!-- Search -->
+    <div class="pui-ms-search-wrap" *ngIf="_searchable">
+      <svg class="pui-ms-search-icon" viewBox="0 0 20 20" fill="none">
+        <circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M13.5 13.5L17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <input #searchInput
+             class="pui-ms-search"
+             type="text"
+             placeholder="Search…"
+             [value]="query"
+             (input)="query = $any($event.target).value; cdr.markForCheck()"
+             (click)="$event.stopPropagation()">
+      <button *ngIf="query" class="pui-ms-search-clear"
+              (click)="query=''; cdr.markForCheck()">✕</button>
+    </div>
+
+    <!-- Select all / Clear all -->
+    <div class="pui-ms-actions" *ngIf="_showSelectAll && filteredOptions.length > 0">
+      <button class="pui-ms-action-btn" (click)="selectAll()">Select all</button>
+      <span class="pui-ms-action-sep">·</span>
+      <button class="pui-ms-action-btn" (click)="clearAll()">Clear</button>
+    </div>
+
+    <!-- Options list -->
+    <div class="pui-ms-list" role="listbox" [attr.aria-multiselectable]="true">
+      <ng-container *ngIf="filteredOptions.length === 0">
+        <div class="pui-ms-empty">No options found</div>
+      </ng-container>
+
+      <ng-container *ngFor="let group of groupedOptions">
+
+        <!-- Group label -->
+        <div *ngIf="group.name" class="pui-ms-group-label">{{ group.name }}</div>
+
+        <button *ngFor="let opt of group.items"
+                class="pui-ms-option"
+                role="option"
+                [class.pui-ms-option--selected]="isSelected(opt.value)"
+                [class.pui-ms-option--disabled]="opt.disabled"
+                [disabled]="opt.disabled || null"
+                [attr.aria-selected]="isSelected(opt.value)"
+                (click)="toggle_option(opt)">
+
+          <!-- Checkbox -->
+          <span class="pui-ms-checkbox" [class.pui-ms-checkbox--checked]="isSelected(opt.value)">
+            <svg *ngIf="isSelected(opt.value)" viewBox="0 0 12 12" fill="none" width="10" height="10">
+              <path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+
+          <span class="pui-ms-option-label">{{ opt.label }}</span>
+        </button>
+
+      </ng-container>
+    </div>
+
+    <!-- Footer -->
+    <div class="pui-ms-footer" *ngIf="selected.length > 0">
+      <span class="pui-ms-footer-count">{{ selected.length }} selected</span>
+      <button class="pui-ms-apply-btn" (click)="apply()">Apply</button>
+    </div>
+  </div>
+
+  <!-- Error / hint -->
+  <div *ngIf="_error" class="pui-ms-error-msg">{{ _error }}</div>
+  <div *ngIf="_hint && !_error" class="pui-ms-hint">{{ _hint }}</div>
+
+</div>
+  

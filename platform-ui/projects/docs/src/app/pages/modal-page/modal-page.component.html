@@ -1,0 +1,291 @@
+
+<docs-page
+  title="Modal"
+  description="Dialog overlay for confirmations, alerts, forms, and focused tasks. Trigger any dialog from a card or button."
+  [hasFramework]="true"
+  [api]="api">
+
+  <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+  <ng-container demo>
+
+    <!-- 1. Dialog trigger cards -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Live Demos</h3>
+      <p class="demo-section__desc">Click any card to open the corresponding dialog. Each shows a different pattern: basic, destructive confirm, success receipt, and form.</p>
+      <div class="trigger-grid">
+
+        <pui-lib-card variant="flat" [clickable]="true" (cardClick)="basicOpen=true;cdr.markForCheck()" cardClass="trigger-card">
+          <div class="trigger-card__inner">
+            <div class="trigger-icon trigger-icon--blue">
+              <pui-lib-icon name="message" size="md" color="#fff"></pui-lib-icon>
+            </div>
+            <div class="trigger-info">
+              <div class="trigger-title">Basic Dialog</div>
+              <div class="trigger-desc">General-purpose modal with header, body and footer actions.</div>
+            </div>
+            <pui-lib-icon name="chevron-right" size="sm" color="#9ca3af"></pui-lib-icon>
+          </div>
+        </pui-lib-card>
+
+        <pui-lib-card variant="flat" [clickable]="true" (cardClick)="confirmOpen=true;cdr.markForCheck()" cardClass="trigger-card">
+          <div class="trigger-card__inner">
+            <div class="trigger-icon trigger-icon--red">
+              <pui-lib-icon name="trash" size="md" color="#fff"></pui-lib-icon>
+            </div>
+            <div class="trigger-info">
+              <div class="trigger-title">Confirm Delete</div>
+              <div class="trigger-desc">Destructive action confirmation with warning message.</div>
+            </div>
+            <pui-lib-icon name="chevron-right" size="sm" color="#9ca3af"></pui-lib-icon>
+          </div>
+        </pui-lib-card>
+
+        <pui-lib-card variant="flat" [clickable]="true" (cardClick)="successOpen=true;cdr.markForCheck()" cardClass="trigger-card">
+          <div class="trigger-card__inner">
+            <div class="trigger-icon trigger-icon--green">
+              <pui-lib-icon name="check-circle" size="md" color="#fff"></pui-lib-icon>
+            </div>
+            <div class="trigger-info">
+              <div class="trigger-title">Success Dialog</div>
+              <div class="trigger-desc">Confirm a successful action or completion state.</div>
+            </div>
+            <pui-lib-icon name="chevron-right" size="sm" color="#9ca3af"></pui-lib-icon>
+          </div>
+        </pui-lib-card>
+
+        <pui-lib-card variant="flat" [clickable]="true" (cardClick)="formOpen=true;cdr.markForCheck()" cardClass="trigger-card">
+          <div class="trigger-card__inner">
+            <div class="trigger-icon trigger-icon--teal">
+              <pui-lib-icon name="edit" size="md" color="#fff"></pui-lib-icon>
+            </div>
+            <div class="trigger-info">
+              <div class="trigger-title">Form Dialog</div>
+              <div class="trigger-desc">Large modal with card-based form fields inside.</div>
+            </div>
+            <pui-lib-icon name="chevron-right" size="sm" color="#9ca3af"></pui-lib-icon>
+          </div>
+        </pui-lib-card>
+
+      </div>
+    </div>
+
+  </ng-container>
+
+  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead">Control visibility with <code>[open]</code>. Project body content directly inside the element; use <code>footer</code> attribute for footer actions. Listen to <code>(closed)</code> to sync your state when the backdrop or ✕ is clicked.</p>
+
+    <div class="fw-tabs">
+      <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.310H4.936L12 3.405z" fill="#c3002f"/></svg>
+        Angular
+      </button>
+      <button class="fw-tab" [class.fw-tab--active]="fwTab==='react'" (click)="fwTab='react';cdr.markForCheck()">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
+        React
+      </button>
+      <button class="fw-tab" [class.fw-tab--active]="fwTab==='html'" (click)="fwTab='html';cdr.markForCheck()">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
+        HTML
+      </button>
+    </div>
+
+    <div *ngIf="fwTab==='angular'" class="fw-panel">
+      <div class="fw-note--angular">Import <code>ModalComponent</code> and bind <code>[open]</code> to a boolean. Close by setting it to <code>false</code> in the <code>(closed)</code> handler.</div>
+      <pre><code>import &#123; ModalComponent, ButtonComponent &#125; from '&#64;solifi/platform-ui';
+
+&#64;Component(&#123;
+  imports: [ModalComponent, ButtonComponent],
+  template: &#96;
+    &lt;pui-button variant="primary" (buttonClick)="isOpen=true"&gt;Open Modal&lt;/pui-button&gt;
+
+    &lt;pui-modal [open]="isOpen" title="Dialog" size="md" (closed)="isOpen=false"&gt;
+      &lt;p&gt;Body content projected via ng-content.&lt;/p&gt;
+
+      &lt;div footer&gt;
+        &lt;pui-button variant="secondary" (buttonClick)="isOpen=false"&gt;Cancel&lt;/pui-button&gt;
+        &lt;pui-button variant="primary"   (buttonClick)="confirm()"&gt;Confirm&lt;/pui-button&gt;
+      &lt;/div&gt;
+    &lt;/pui-modal&gt;
+
+    &lt;!-- Destructive pattern --&gt;
+    &lt;pui-modal [open]="deleteOpen" title="Delete Item" size="sm" (closed)="deleteOpen=false"&gt;
+      &lt;p&gt;This cannot be undone.&lt;/p&gt;
+      &lt;div footer&gt;
+        &lt;pui-button variant="secondary"   (buttonClick)="deleteOpen=false"&gt;Cancel&lt;/pui-button&gt;
+        &lt;pui-button variant="destructive" (buttonClick)="onDelete()"&gt;Yes, Delete&lt;/pui-button&gt;
+      &lt;/div&gt;
+    &lt;/pui-modal&gt;
+  &#96;
+&#125;)
+export class MyComponent &#123;
+  isOpen     = false;
+  deleteOpen = false;
+  confirm() &#123; /* ... */ this.isOpen = false; &#125;
+  onDelete() &#123; /* ... */ this.deleteOpen = false; &#125;
+&#125;</code></pre>
+    </div>
+
+    <div *ngIf="fwTab==='react'" class="fw-panel">
+      <div class="fw-note--react">Set <code>open</code> and listen to <code>closed</code> custom event via <code>addEventListener</code> in a <code>useEffect</code>.</div>
+      <pre><code>import &#123; useRef, useEffect, useState &#125; from 'react';
+import '&#64;solifi/platform-ui';
+
+function Page() &#123;
+  const [open, setOpen] = useState(false);
+  const modalRef = useRef(null);
+
+  useEffect(() =&gt; &#123;
+    const el = modalRef.current;
+    if (!el) return;
+    const close = () =&gt; setOpen(false);
+    el.addEventListener('closed', close);
+    return () =&gt; el.removeEventListener('closed', close);
+  &#125;, []);
+
+  return (
+    &lt;&gt;
+      &lt;pui-button variant="primary" onButtonclick=&#123;() =&gt; setOpen(true)&#125;&gt;Open&lt;/pui-button&gt;
+
+      &lt;pui-modal ref=&#123;modalRef&#125; open=&#123;open ? '' : undefined&#125; title="Dialog" size="md"&gt;
+        &lt;p&gt;Body content.&lt;/p&gt;
+        &lt;div slot="footer"&gt;
+          &lt;pui-button variant="secondary" onButtonclick=&#123;() =&gt; setOpen(false)&#125;&gt;Cancel&lt;/pui-button&gt;
+          &lt;pui-button variant="primary"&gt;Confirm&lt;/pui-button&gt;
+        &lt;/div&gt;
+      &lt;/pui-modal&gt;
+    &lt;/&gt;
+  );
+&#125;</code></pre>
+    </div>
+
+    <div *ngIf="fwTab==='html'" class="fw-panel">
+      <div class="fw-note--html">Set the <code>open</code> attribute/property to show the dialog. Listen to the <code>closed</code> custom event to sync your state.</div>
+      <pre><code>&lt;pui-button id="btn-open" variant="primary"&gt;Open Modal&lt;/pui-button&gt;
+
+&lt;pui-modal id="my-modal" title="Confirm" size="md"&gt;
+  &lt;p&gt;Are you sure you want to proceed?&lt;/p&gt;
+  &lt;div footer style="display:flex;gap:8px;justify-content:flex-end"&gt;
+    &lt;pui-button id="btn-cancel" variant="secondary"&gt;Cancel&lt;/pui-button&gt;
+    &lt;pui-button id="btn-confirm" variant="primary"&gt;Confirm&lt;/pui-button&gt;
+  &lt;/div&gt;
+&lt;/pui-modal&gt;
+
+&lt;!-- Sizes: sm=360px · md=520px (default) · lg=720px --&gt;
+&lt;pui-modal size="lg" title="Large Dialog"&gt;...&lt;/pui-modal&gt;
+
+&lt;script&gt;
+  const modal = document.getElementById('my-modal');
+  document.getElementById('btn-open').addEventListener('buttonClick', () =&gt; &#123; modal.open = true; &#125;);
+  document.getElementById('btn-cancel').addEventListener('buttonClick', () =&gt; &#123; modal.open = false; &#125;);
+  modal.addEventListener('closed', () =&gt; &#123; modal.open = false; &#125;);
+&lt;/script&gt;</code></pre>
+    </div>
+
+    <h4 class="fw-ref-title">Modal Quick Reference</h4>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows">
+            <td><span class="tag-name">{{ r.name }}</span></td>
+            <td><span class="tag-ng">{{ r.angular }}</span></td>
+            <td><span class="tag-html">{{ r.attr }}</span></td>
+            <td><span class="tag-js">{{ r.js }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+</docs-page>
+
+<!-- ══ Basic Modal ══ -->
+<pui-lib-modal [open]="basicOpen" title="Basic Dialog" size="md" (closed)="basicOpen=false;cdr.markForCheck()">
+  <div class="modal-body-content">
+    <p class="modal-text">Use <code>ng-content</code> to project any content into the modal body. This is a general-purpose dialog suitable for messages, notices, or lightweight interactions.</p>
+    <pui-lib-card variant="flat" size="sm" style="margin-top:12px">
+      <div class="info-row">
+        <pui-lib-icon name="info" size="sm" color="#0369a1"></pui-lib-icon>
+        <span style="font-size:13px;color:#374151">Click the backdrop or ✕ button to close this dialog.</span>
+      </div>
+    </pui-lib-card>
+  </div>
+  <div footer class="modal-footer">
+    <pui-lib-button variant="secondary" (buttonClick)="basicOpen=false;cdr.markForCheck()">Cancel</pui-lib-button>
+    <pui-lib-button variant="primary"   (buttonClick)="basicOpen=false;cdr.markForCheck()">Confirm</pui-lib-button>
+  </div>
+</pui-lib-modal>
+
+<!-- ══ Confirm Delete Modal ══ -->
+<pui-lib-modal [open]="confirmOpen" title="Delete Item" size="sm" (closed)="confirmOpen=false;cdr.markForCheck()">
+  <div class="modal-body-content">
+    <pui-lib-card variant="flat" size="sm" cardClass="danger-card">
+      <div class="danger-inner">
+        <div class="danger-icon"><pui-lib-icon name="warning" size="lg" color="#b91c1c"></pui-lib-icon></div>
+        <div>
+          <div class="danger-title">This action cannot be undone</div>
+          <div class="danger-desc">Deleting this item will permanently remove it and all associated data from our servers.</div>
+        </div>
+      </div>
+    </pui-lib-card>
+  </div>
+  <div footer class="modal-footer">
+    <pui-lib-button variant="secondary"   (buttonClick)="confirmOpen=false;cdr.markForCheck()">Cancel</pui-lib-button>
+    <pui-lib-button variant="destructive" (buttonClick)="confirmOpen=false;cdr.markForCheck()">Yes, Delete</pui-lib-button>
+  </div>
+</pui-lib-modal>
+
+<!-- ══ Success Modal ══ -->
+<pui-lib-modal [open]="successOpen" title="Payment Successful" size="sm" (closed)="successOpen=false;cdr.markForCheck()">
+  <div class="modal-body-content modal-body-content--center">
+    <div class="success-icon-wrap"><pui-lib-icon name="check-circle" size="xl" color="#15803d"></pui-lib-icon></div>
+    <div class="success-title">All done!</div>
+    <div class="success-desc">Your payment of <strong>$519.00</strong> has been processed successfully.</div>
+    <pui-lib-card variant="flat" size="sm" style="width:100%;margin-top:16px">
+      <div class="receipt-row"><span class="receipt-label">Transaction ID</span><span class="receipt-value">#TXN-20240610</span></div>
+      <div class="receipt-row"><span class="receipt-label">Date</span><span class="receipt-value">06/10/2024</span></div>
+      <div class="receipt-row"><span class="receipt-label">Status</span><span class="receipt-badge">Paid</span></div>
+    </pui-lib-card>
+  </div>
+  <div footer class="modal-footer modal-footer--center">
+    <pui-lib-button variant="primary" [fullWidth]="true" (buttonClick)="successOpen=false;cdr.markForCheck()">Done</pui-lib-button>
+  </div>
+</pui-lib-modal>
+
+<!-- ══ Form Modal ══ -->
+<pui-lib-modal [open]="formOpen" title="Edit Profile" size="lg" (closed)="formOpen=false;cdr.markForCheck()">
+  <div class="modal-body-content">
+    <div class="form-grid">
+      <pui-lib-card variant="flat" size="sm"><div class="form-field"><label class="form-label">First Name</label><input class="form-input" type="text" placeholder="John"></div></pui-lib-card>
+      <pui-lib-card variant="flat" size="sm"><div class="form-field"><label class="form-label">Last Name</label><input class="form-input" type="text" placeholder="Doe"></div></pui-lib-card>
+      <pui-lib-card variant="flat" size="sm" style="grid-column:1/-1">
+        <div class="form-field">
+          <label class="form-label">Email Address</label>
+          <div class="form-input-icon">
+            <pui-lib-icon name="mail" size="sm" color="#9ca3af"></pui-lib-icon>
+            <input class="form-input form-input--icon" type="email" placeholder="john.doe@example.com">
+          </div>
+        </div>
+      </pui-lib-card>
+      <pui-lib-card variant="flat" size="sm" style="grid-column:1/-1">
+        <div class="form-field">
+          <label class="form-label">Role</label>
+          <select class="form-input">
+            <option>Product Designer</option>
+            <option>Engineering Lead</option>
+            <option>Product Manager</option>
+          </select>
+        </div>
+      </pui-lib-card>
+    </div>
+  </div>
+  <div footer class="modal-footer">
+    <pui-lib-button variant="secondary" (buttonClick)="formOpen=false;cdr.markForCheck()">Cancel</pui-lib-button>
+    <pui-lib-button variant="primary"   (buttonClick)="formOpen=false;cdr.markForCheck()">Save Changes</pui-lib-button>
+  </div>
+</pui-lib-modal>
+  

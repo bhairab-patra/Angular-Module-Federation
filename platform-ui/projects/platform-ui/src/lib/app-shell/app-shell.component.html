@@ -1,0 +1,61 @@
+
+<div class="pas">
+
+  <pui-lib-header
+    [hasLogoSlot]="true"
+    [bgColor]="headerBgColor"
+    [textColor]="headerTextColor"
+    [userName]="headerUserName"
+    [userEmail]="headerUserEmail"
+    [greeting]="headerGreeting"
+    [userSubtext]="headerUserSubtext"
+    [avatarUrl]="headerAvatarUrl"
+    [avatarColor]="headerAvatarColor"
+    [avatarTextColor]="headerAvatarTextColor"
+    [badge]="headerBadge"
+    [showHelp]="headerShowHelp"
+    [menuItems]="headerMenuItems"
+    (menuAction)="headerMenuAction.emit($event)"
+    (helpClick)="headerHelpClick.emit()">
+
+    <div logo class="pas__brand">
+      <button
+        class="pas__hamburger"
+        [class.pas__hamburger--open]="sidebarVisible"
+        (click)="toggleSidebar()"
+        [title]="sidebarVisible ? 'Close sidebar' : 'Open sidebar'">
+        <span class="pas__bar pas__bar--top"></span>
+        <span class="pas__bar pas__bar--mid"></span>
+        <span class="pas__bar pas__bar--bot"></span>
+      </button>
+      <span *ngIf="logo" class="pas__logo" [innerHTML]="logo"></span>
+      <div class="pas__title-group">
+        <span class="pas__app-title">{{ appTitle }}</span>
+        <span *ngIf="appSubtitle" class="pas__app-subtitle">{{ appSubtitle }}</span>
+      </div>
+    </div>
+
+  </pui-lib-header>
+
+  <div class="pas__body">
+
+    <pui-lib-sidebar
+      [brandName]="brandName || appTitle"
+      [groups]="groups"
+      [activeId]="activeId"
+      [collapsed]="sidebarCollapsed"
+      [config]="config"
+      [theme]="theme"
+      [showSidebar]="sidebarVisible"
+      [showHeader]="false"
+      (collapsedChange)="onCollapsedChange($event)"
+      (itemSelect)="itemSelect.emit($event)">
+    </pui-lib-sidebar>
+
+    <main class="pas__content">
+      <ng-content></ng-content>
+    </main>
+
+  </div>
+</div>
+  

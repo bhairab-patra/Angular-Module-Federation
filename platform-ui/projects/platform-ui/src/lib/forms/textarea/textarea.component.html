@@ -1,0 +1,47 @@
+
+    <div class="pui-field" [class.pui-field--error]="error" [class.pui-field--disabled]="disabled">
+
+      <label *ngIf="label" class="pui-field__label">
+        {{ label }}<span *ngIf="required" class="pui-field__req">*</span>
+      </label>
+
+      <div class="pui-ta-wrap"
+           [class.pui-ta-wrap--sm]="size === 'sm'"
+           [class.pui-ta-wrap--lg]="size === 'lg'"
+           [class.pui-ta-wrap--focus]="isFocused"
+           [class.pui-ta-wrap--error]="error"
+           [class.pui-ta-wrap--disabled]="disabled"
+           [class.pui-ta-wrap--readonly]="readonly"
+           [class.pui-ta-wrap--resize-none]="resize === 'none'"
+           [class.pui-ta-wrap--resize-h]="resize === 'vertical'">
+
+        <textarea
+          class="pui-ta"
+          [placeholder]="placeholder"
+          [disabled]="disabled"
+          [readOnly]="readonly"
+          [rows]="rows"
+          [attr.maxlength]="maxLength || null"
+          [value]="innerValue"
+          (input)="onInput($any($event.target).value)"
+          (focus)="isFocused = true; cdr.markForCheck()"
+          (blur)="onBlur()">
+        </textarea>
+      </div>
+
+      <div class="pui-ta-footer">
+        <span *ngIf="hint && !error" class="pui-field__hint">{{ hint }}</span>
+        <span *ngIf="error" class="pui-field__error">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="7" fill="#ef4444"/>
+            <path d="M8 5v3M8 10.5h.01" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+          {{ error }}
+        </span>
+        <span *ngIf="!hint && !error" style="flex:1"></span>
+        <span *ngIf="showCount && maxLength" class="pui-ta-footer__count">
+          {{ (innerValue || '').length }}/{{ maxLength }}
+        </span>
+      </div>
+    </div>
+  

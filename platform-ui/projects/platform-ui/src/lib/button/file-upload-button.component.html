@@ -1,0 +1,22 @@
+
+    <div class="pui-file-btn">
+      <!-- Trigger button -->
+      <button class="pui-file-btn__trigger" [disabled]="disabled" (click)="openPicker()">
+        {{ label }}
+      </button>
+
+      <!-- File type hint -->
+      <span *ngIf="fileTypesLabel" class="pui-file-btn__hint">
+        File type: <strong>{{ fileTypesLabel }}</strong>
+      </span>
+
+      <!-- Display area / drop zone -->
+      <div class="pui-file-btn__area" [class.pui-file-btn__area--filled]="selectedName">
+        <span>{{ selectedName || placeholder }}</span>
+      </div>
+
+      <!-- Hidden native input -->
+      <input #fileInput type="file" [accept]="accept" [multiple]="multiple"
+             style="display:none" (change)="onFileChange($event)">
+    </div>
+  

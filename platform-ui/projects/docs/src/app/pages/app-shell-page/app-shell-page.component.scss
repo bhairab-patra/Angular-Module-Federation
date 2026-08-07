@@ -1,0 +1,241 @@
+.page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 28px 80px;
+    font-family: 'Poppins', system-ui, sans-serif;
+}
+
+.page-header {
+    margin-bottom: 40px;
+}
+
+.page-title {
+    font-size: 28px;
+   
+    margin: 0 0 10px;
+}
+
+.page-desc {
+    font-size: 15px;
+    color: var(--pui-toast-msg-color);
+    line-height: 1.7;
+    margin: 0;
+}
+
+.page-desc code {
+    background: var(--pui-neutral-100);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 13px;
+    color: var(--pui-sky);
+}
+
+.section {
+    margin-bottom: 48px;
+}
+
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--pui-neutral-900);
+    margin: 0 0 16px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--pui-neutral-100);
+}
+
+.section-desc {
+    font-size: 14px;
+    color: var(--pui-neutral-500);
+    line-height: 1.65;
+    margin: -8px 0 16px;
+}
+
+.section-desc code {
+    background: var(--pui-neutral-100);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-size: 13px;
+    color: var(--pui-sky);
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.ctrl-btn {
+    padding: 6px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--pui-neutral-200);
+    background: var(--pui-white);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--pui-neutral-700);
+    cursor: pointer;
+    font-family: inherit;
+    transition: background .13s, border-color .13s;
+}
+
+.ctrl-btn:hover {
+    background: var(--pui-neutral-50);
+    border-color: var(--pui-neutral-300);
+}
+
+.ctrl-btn--active {
+    background: var(--pui-brand);
+    border-color: var(--pui-brand);
+    color: var(--pui-white);
+}
+
+.ctrl-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--pui-neutral-200);
+    margin: 0 4px;
+}
+
+.ctrl-label {
+    font-size: 12.5px;
+    color: var(--pui-neutral-400);
+}
+
+.shell-frame {
+    height: 520px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--pui-neutral-200);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, .07);
+}
+
+.shell-frame pui-app-shell {
+    height: 100%;
+    display: block;
+}
+
+.demo-content {
+    padding: 28px 32px;
+    height: 100%;
+    box-sizing: border-box;
+    background: var(--pui-neutral-50);
+}
+
+.demo-content__header {
+    margin-bottom: 24px;
+}
+
+.demo-content__header h3 {
+    margin: 0 0 4px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--pui-neutral-900);
+}
+
+.demo-content__header p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--pui-neutral-500);
+}
+
+.demo-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+}
+
+.demo-card {
+    border-radius: 12px;
+    padding: 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.demo-card__val {
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.demo-card__lbl {
+    font-size: 12px;
+    font-weight: 500;
+    opacity: .75;
+}
+
+.demo-card--blue {
+    background: var(--pui-blue-bg);
+    color: var(--pui-info);
+}
+
+.demo-card--green {
+    background: var(--pui-green-bg);
+    color: #166534;
+}
+
+.demo-card--amber {
+    background: #fffbeb;
+    color: #92400e;
+}
+
+.demo-card--purple {
+    background: #faf5ff;
+    color: #7e22ce;
+}
+
+.code-block {
+    background: var(--pui-slate-900);
+    color: var(--pui-slate-200);
+    border-radius: 12px;
+    padding: 20px 22px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 12.5px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 0;
+    white-space: pre;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+.api-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+}
+
+.api-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--pui-neutral-500);
+    border-bottom: 2px solid var(--pui-neutral-200);
+    background: var(--pui-neutral-50);
+}
+
+.api-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--pui-neutral-100);
+    color: var(--pui-neutral-700);
+    vertical-align: top;
+}
+
+.api-table td:first-child {
+    font-family: monospace;
+    color: var(--pui-sky);
+ 
+}
+
+.api-table tr:last-child td {
+    border-bottom: none;
+}
+
+.api-table tr:hover td {
+    background: var(--pui-neutral-150);
+}

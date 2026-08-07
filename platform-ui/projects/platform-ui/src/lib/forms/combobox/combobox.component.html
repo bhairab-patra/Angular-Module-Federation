@@ -1,0 +1,104 @@
+
+<div class="pui-cb-host"
+     [class.pui-cb--disabled]="_disabled"
+     [class.pui-cb--open]="open"
+     [class.pui-cb--error]="_error">
+
+  <!-- ── Trigger input ──────────────────── -->
+  <div class="pui-cb-field">
+    <input
+      #cbInput
+      class="pui-cb-input"
+      type="text"
+      [value]="displayValue"
+      [disabled]="_disabled || null"
+      [placeholder]="_placeholder"
+      [readonly]="!_searchable || null"
+      (focus)="onFocus()"
+      (input)="onInputChange($any($event.target).value)"
+      (keydown)="onKey($event)"
+      (click)="!_disabled && !open && openDropdown()"
+      [attr.aria-expanded]="open"
+      [attr.aria-haspopup]="'listbox'"
+      role="combobox">
+
+    <!-- Clear button -->
+    <button *ngIf="_clearable && _value !== null && _value !== ''"
+            class="pui-cb-clear"
+            type="button"
+            title="Clear"
+            (click)="clear(); $event.stopPropagation()">
+      <svg viewBox="0 0 16 16" fill="none" width="12" height="12">
+        <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <!-- Chevron -->
+    <button class="pui-cb-chevron" type="button"
+            (click)="!_disabled && toggle()">
+      <svg [class.pui-cb-chevron--up]="open"
+           viewBox="0 0 16 16" fill="none" width="14" height="14">
+        <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- ── Dropdown ───────────────────────── -->
+  <div *ngIf="open" class="pui-cb-dropdown" role="listbox">
+
+    <!-- Free-text option when no match -->
+    <ng-container *ngIf="_allowFreeText && query && filteredOptions.length === 0">
+      <button class="pui-cb-option pui-cb-option--freetext"
+              role="option"
+              (click)="selectFreeText()">
+        <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
+          <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round"/>
+        </svg>
+        Use "{{ query }}"
+      </button>
+    </ng-container>
+
+    <!-- Empty state -->
+    <ng-container *ngIf="!_allowFreeText && filteredOptions.length === 0">
+      <div class="pui-cb-empty">No options found</div>
+    </ng-container>
+
+    <!-- Option groups -->
+    <ng-container *ngFor="let group of groupedOptions">
+      <div *ngIf="group.name" class="pui-cb-group-label">{{ group.name }}</div>
+
+      <button *ngFor="let opt of group.items; let i = index"
+              class="pui-cb-option"
+              role="option"
+              [class.pui-cb-option--active]="focusedIndex === globalIndex(group.name, i)"
+              [class.pui-cb-option--selected]="opt.value === _value"
+              [class.pui-cb-option--disabled]="opt.disabled"
+              [disabled]="opt.disabled || null"
+              [attr.aria-selected]="opt.value === _value"
+              (mouseenter)="focusedIndex = globalIndex(group.name, i)"
+              (click)="selectOption(opt)">
+
+        <span class="pui-cb-option-body">
+          <span class="pui-cb-option-label">{{ opt.label }}</span>
+          <span *ngIf="opt.description" class="pui-cb-option-desc">{{ opt.description }}</span>
+        </span>
+
+        <svg *ngIf="opt.value === _value" class="pui-cb-check"
+             viewBox="0 0 16 16" fill="none" width="14" height="14">
+          <path d="M3 8l4 4 6-6" stroke="#12C6A8" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </ng-container>
+
+  </div>
+
+  <!-- Error / hint -->
+  <div *ngIf="_error" class="pui-cb-error-msg">{{ _error }}</div>
+  <div *ngIf="_hint && !_error" class="pui-cb-hint">{{ _hint }}</div>
+
+</div>
+  
