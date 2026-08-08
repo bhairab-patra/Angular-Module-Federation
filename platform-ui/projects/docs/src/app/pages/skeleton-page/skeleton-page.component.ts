@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { PuiSkeletonComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
   selector: 'app-skeleton-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, PuiSkeletonComponent],
+  imports: [NgFor, NgIf, DocPageComponent, PuiSkeletonComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './skeleton-page.component.html',
   styleUrls: ['./skeleton-page.component.scss'],
@@ -14,6 +15,56 @@ import { PuiSkeletonComponent } from '@bhairab-patra/platform-ui';
 export class SkeletonPageComponent {
   cdr = inject(ChangeDetectorRef);
   fwTab = 'angular';
+
+  angularCode = `import { PuiSkeletonComponent } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [NgIf, PuiSkeletonComponent],
+  template: \`
+    <!-- show skeleton while loading, real content after -->
+    <ng-container *ngIf="loading; else content">
+      <pui-lib-skeleton variant="card" [rows]="3"></pui-lib-skeleton>
+    </ng-container>
+    <ng-template #content>
+      <user-card [user]="user"></user-card>
+    </ng-template>
+  \`
+})
+export class MyComponent {
+  loading = true;
+  user: User | null = null;
+
+  ngOnInit() {
+    this.userService.get(1).subscribe(u => {
+      this.user = u;
+      this.loading = false;
+    });
+  }
+}`;
+
+  reactCode = `import '@bhairab-patra/platform-ui';
+
+function UserCard({ loading, user }) {
+  if (loading) {
+    return <pui-lib-skeleton variant="card" rows="3" />;
+  }
+  return <div>{user.name}</div>;
+}`;
+
+  htmlCode = `<!-- text lines -->
+<pui-lib-skeleton variant="text" width="100%" height="14px" rows="3"></pui-lib-skeleton>
+
+<!-- circle avatar -->
+<pui-lib-skeleton variant="circle" width="48px"></pui-lib-skeleton>
+
+<!-- image placeholder -->
+<pui-lib-skeleton variant="rect" width="100%" height="200px"></pui-lib-skeleton>
+
+<!-- card preset -->
+<pui-lib-skeleton variant="card"></pui-lib-skeleton>
+
+<!-- static (no shimmer) -->
+<pui-lib-skeleton variant="text" animated="false"></pui-lib-skeleton>`;
 
   xfwRows = [
     { name: 'variant',  angular: 'variant="card"',       attr: 'variant="card"',    js: 'el.variant = "card"'    },

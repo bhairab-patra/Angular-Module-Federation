@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { CardComponent } from '@bhairab-patra/platform-ui';
+import { CardComponent, BadgeComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-card-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, CardComponent],
+  imports: [NgFor, NgIf, DocPageComponent, CardComponent, BadgeComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './card-page.component.html',
   styleUrls: ['./card-page.component.scss'],
@@ -14,6 +15,72 @@ import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 export class CardPageComponent {
   cdr = inject(ChangeDetectorRef);
   fwTab = 'angular';
+
+  angularCode = `import { CardComponent } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [CardComponent],
+  template: \`
+    <!-- Slot projection -->
+    <pui-lib-card variant="default">
+      <div card-header>Header</div>
+      Body content here.
+      <div card-footer>Footer</div>
+    </pui-lib-card>
+
+    <!-- Stat / metric card -->
+    <pui-lib-card [data]="metric"></pui-lib-card>
+
+    <!-- Clickable -->
+    <pui-lib-card [clickable]="true" (cardClick)="onCardClick($event)">
+      Click me — hover for lift effect.
+    </pui-lib-card>
+  \`
+})
+export class MyComponent {
+  metric = { title: 'Revenue', value: '$48,200', trend: 'up', trendValue: '+12%', subtitle: 'vs last month' };
+  onCardClick(e: MouseEvent) { /* ... */ }
+}`;
+
+  reactCode = `import { useRef, useEffect } from 'react';
+import '@bhairab-patra/platform-ui';
+
+function MetricCard() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.data = {
+        title: 'Revenue', value: '$48,200',
+        trend: 'up', trendValue: '+12%', subtitle: 'vs last month'
+      };
+    }
+  }, []);
+
+  return <pui-lib-card ref={ref} variant="default" />;
+}
+
+function SimpleCard() {
+  return (
+    <pui-lib-card
+      variant="outlined"
+      size="sm"
+      clickable
+      onCardclick={() => console.log('clicked')}>
+      Card body content
+    </pui-lib-card>
+  );
+}`;
+
+  htmlCode = `<pui-lib-card variant="outlined" id="my-card">Content</pui-lib-card>
+<pui-lib-card variant="teal" accent clickable>Accent + clickable</pui-lib-card>
+<pui-lib-card full-width variant="flat">Full width card</pui-lib-card>
+
+<script>
+  document.getElementById('my-card').data = {
+    title: 'Revenue', value: '$48,200', trend: 'up', trendValue: '+12%', subtitle: 'vs last month'
+  };
+</script>`;
 
   revenueCard = { title: 'Revenue',     value: '$48,200', trend: 'up'      as const, trendValue: '+12%',  subtitle: 'vs last month' };
   usersCard   = { title: 'Active Users', value: '4,821',  trend: 'down'    as const, trendValue: '-2.1%', subtitle: 'vs last month' };

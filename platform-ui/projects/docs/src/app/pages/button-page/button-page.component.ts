@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { ButtonComponent, FileUploadButtonComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
   selector: 'app-button-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, ButtonComponent, FileUploadButtonComponent],
+  imports: [NgFor, NgIf, DocPageComponent, ButtonComponent, FileUploadButtonComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './button-page.component.html',
   styleUrls: ['./button-page.component.scss'],
@@ -14,6 +15,66 @@ import { ButtonComponent, FileUploadButtonComponent } from '@bhairab-patra/platf
 export class ButtonPageComponent {
   cdr = inject(ChangeDetectorRef);
   fwTab = 'angular';
+
+  angularCode = `import { ButtonComponent, FileUploadButtonComponent } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [ButtonComponent, FileUploadButtonComponent],
+  template: \`
+    <!-- Static label via ng-content -->
+    <pui-lib-button variant="primary" (buttonClick)="onSave($event)">Save</pui-lib-button>
+
+    <!-- Dynamic label input -->
+    <pui-lib-button [variant]="btnVariant" [label]="btnLabel" [disabled]="isBusy"></pui-lib-button>
+
+    <!-- Upload progress -->
+    <pui-lib-button variant="upload-progress" [label]="'Uploading…'" [progress]="pct" [fullWidth]="true"></pui-lib-button>
+
+    <!-- File picker -->
+    <pui-file-button label="Attach File" accept=".pdf,.png" (fileSelected)="onFile($event)"></pui-file-button>
+  \`
+})
+export class MyComponent {
+  btnVariant = 'secondary';
+  btnLabel   = 'Cancel';
+  isBusy     = false;
+  pct        = 60;
+
+  onSave(e: MouseEvent)    { /* ... */ }
+  onFile(f: FileList)      { console.log(f[0].name); }
+}`;
+
+  reactCode = `import '@bhairab-patra/platform-ui';
+
+function ArticleFormFooter({ onCancel, onSaveDraft, onPublish }) {
+  return (
+    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', gap: '8px' }}>
+      <div>
+        <pui-lib-button variant="text" size="sm" onButtonclick={onCancel}>
+          Cancel
+        </pui-lib-button>
+      </div>
+      <div style={{ display: 'flex', gap: '8px' }}>
+        <pui-lib-button variant="secondary" size="sm" onButtonclick={onSaveDraft}>
+          Save Draft
+        </pui-lib-button>
+        <pui-lib-button variant="primary" size="sm" onButtonclick={onPublish}>
+          Publish
+        </pui-lib-button>
+      </div>
+    </div>
+  );
+}`;
+
+  htmlCode = `<pui-lib-button id="btn-save" variant="primary">Save Changes</pui-lib-button>
+<pui-lib-button variant="secondary">Cancel</pui-lib-button>
+<pui-lib-button variant="destructive" disabled>Delete</pui-lib-button>
+<pui-lib-button variant="primary" full-width>Full Width</pui-lib-button>
+
+<script>
+  document.getElementById('btn-save')
+    .addEventListener('buttonClick', e => console.log('clicked', e));
+</script>`;
 
   demoLabel    = 'Save Changes';
   demoVariant: any = 'primary';

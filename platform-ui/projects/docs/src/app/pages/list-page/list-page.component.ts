@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { PuiListComponent, ListItem } from '@bhairab-patra/platform-ui';
 
 @Component({
   selector: 'app-list-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, PuiListComponent],
+  imports: [NgFor, NgIf, DocPageComponent, PuiListComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './list-page.component.html',
   styleUrls: ['./list-page.component.scss'],
@@ -15,6 +16,65 @@ export class ListPageComponent {
   cdr = inject(ChangeDetectorRef);
   fwTab = 'angular';
   selectedMenu: string | number | null = 'dashboard';
+
+  angularCode = `import { PuiListComponent, ListItem } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [PuiListComponent],
+  template: \`
+    <pui-lib-list
+      [items]="items"
+      variant="bordered"
+      [selectable]="true"
+      [selectedId]="selected"
+      (itemSelect)="selected = $event.id">
+    </pui-lib-list>
+  \`
+})
+export class MyComponent {
+  selected: string | number | null = null;
+  items: ListItem[] = [
+    { id: '1', label: 'Dashboard', description: 'Overview metrics', badge: '3' },
+    { id: '2', label: 'Reports',   meta: 'Updated 2h ago' },
+    { id: '3', label: 'Settings',  disabled: true },
+  ];
+}`;
+
+  reactCode = `import { useRef, useEffect, useState } from 'react';
+import '@bhairab-patra/platform-ui';
+
+function MyList() {
+  const ref = useRef(null);
+  const [selected, setSelected] = useState(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.items = [
+        { id: '1', label: 'Dashboard', badge: '3' },
+        { id: '2', label: 'Reports',   meta: '2h ago' },
+      ];
+    }
+  }, []);
+
+  return (
+    <pui-lib-list ref={ref} variant="bordered" selectable
+      onItemSelect={e => setSelected(e.detail.id)} />
+  );
+}`;
+
+  htmlCode = `<pui-lib-list id="list" variant="bordered" selectable></pui-lib-list>
+
+<script>
+customElements.whenDefined('pui-lib-list').then(() => {
+  const el = document.getElementById('list');
+  el.items = [
+    { id: '1', label: 'Dashboard', badge: '3' },
+    { id: '2', label: 'Reports',   meta: '2h ago' },
+    { id: '3', label: 'Settings',  disabled: true },
+  ];
+  el.addEventListener('itemSelect', e => console.log(e.detail));
+});
+</script>`;
 
   teamItems: ListItem[] = [
     { id: 1, label: 'Alice Johnson',  description: 'Senior Engineer · Engineering',  meta: 'Online'  },

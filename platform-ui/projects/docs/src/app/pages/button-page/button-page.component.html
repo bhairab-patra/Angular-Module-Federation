@@ -154,88 +154,26 @@
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead"><code>pui-lib-button</code> supports static text via <code>ng-content</code> or a dynamic <code>[label]</code> input. All click, focus, hover, and blur events are emitted as typed Angular <code>EventEmitter</code>s or DOM custom events.</p>
 
-    <div class="fw-tabs">
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.310H4.936L12 3.405z" fill="#c3002f"/></svg>
-        Angular
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='react'" (click)="fwTab='react';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
-        React
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='html'" (click)="fwTab='html';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
-        HTML
-      </button>
-    </div>
-
-    <div *ngIf="fwTab==='angular'" class="fw-panel">
-      <div class="fw-note--angular">Import <code>ButtonComponent</code> (and optionally <code>FileUploadButtonComponent</code>) into your component's <code>imports</code> array.</div>
-      <pre><code>import &#123; ButtonComponent, FileUploadButtonComponent &#125; from '&#64;bhairab-patra/platform-ui';
-
-&#64;Component(&#123;
-  imports: [ButtonComponent, FileUploadButtonComponent],
-  template: &#96;
-    &lt;!-- Static label via ng-content --&gt;
-    &lt;pui-lib-button variant="primary" (buttonClick)="onSave($event)"&gt;Save&lt;/pui-lib-button&gt;
-
-    &lt;!-- Dynamic label input --&gt;
-    &lt;pui-lib-button [variant]="btnVariant" [label]="btnLabel" [disabled]="isBusy"&gt;&lt;/pui-lib-button&gt;
-
-    &lt;!-- Upload progress --&gt;
-    &lt;pui-lib-button variant="upload-progress" [label]="'Uploading…'" [progress]="pct" [fullWidth]="true"&gt;&lt;/pui-lib-button&gt;
-
-    &lt;!-- File picker --&gt;
-    &lt;pui-file-button label="Attach File" accept=".pdf,.png" (fileSelected)="onFile($event)"&gt;&lt;/pui-file-button&gt;
-  &#96;
-&#125;)
-export class MyComponent &#123;
-  btnVariant = 'secondary';
-  btnLabel   = 'Cancel';
-  isBusy     = false;
-  pct        = 60;
-
-  onSave(e: MouseEvent)    &#123; /* ... */ &#125;
-  onFile(f: FileList)      &#123; console.log(f[0].name); &#125;
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='react'" class="fw-panel">
-      <div class="fw-note--react">Listen to DOM custom events via <code>onButtonclick</code> (camelCase). Pass booleans as string attributes or via a ref for JS property access.</div>
-      <pre><code>import '&#64;bhairab-patra/platform-ui';
-
-function Actions(&#123; onSave, isSaving &#125;) &#123;
-  return (
-    &lt;&gt;
-      &lt;pui-lib-button
-        variant="primary"
-        onButtonclick=&#123;onSave&#125;
-        disabled=&#123;isSaving ? '' : undefined&#125;&gt;
-        Save
-      &lt;/pui-lib-button&gt;
-
-      &lt;pui-lib-button
-        variant="secondary"
-        onButtonclick=&#123;() =&gt; history.back()&#125;&gt;
-        Cancel
-      &lt;/pui-lib-button&gt;
-    &lt;/&gt;
-  );
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='html'" class="fw-panel">
-      <div class="fw-note--html">Boolean props (<code>disabled</code>, <code>loading</code>, <code>full-width</code>) only need to be present as attributes. Listen to events with <code>addEventListener</code>.</div>
-      <pre><code>&lt;pui-lib-button id="btn-save" variant="primary"&gt;Save Changes&lt;/pui-lib-button&gt;
-&lt;pui-lib-button variant="secondary"&gt;Cancel&lt;/pui-lib-button&gt;
-&lt;pui-lib-button variant="destructive" disabled&gt;Delete&lt;/pui-lib-button&gt;
-&lt;pui-lib-button variant="primary" full-width&gt;Full Width&lt;/pui-lib-button&gt;
-
-&lt;script&gt;
-  document.getElementById('btn-save')
-    .addEventListener('buttonClick', e =&gt; console.log('clicked', e));
-&lt;/script&gt;</code></pre>
-    </div>
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode">
+      <div preview class="demo-row">
+        <pui-lib-button variant="primary">Primary</pui-lib-button>
+        <pui-lib-button variant="secondary">Secondary</pui-lib-button>
+        <pui-lib-button variant="destructive">Destructive</pui-lib-button>
+        <pui-lib-button variant="primary" [disabled]="true">Disabled</pui-lib-button>
+      </div>
+      <div react-preview class="react-action-bar">
+        <div class="react-action-bar__left">
+          <pui-lib-button variant="text" size="sm">Cancel</pui-lib-button>
+        </div>
+        <div class="react-action-bar__right">
+          <pui-lib-button variant="secondary" size="sm">Save Draft</pui-lib-button>
+          <pui-lib-button variant="primary" size="sm">Publish</pui-lib-button>
+        </div>
+      </div>
+    </docs-framework-preview>
 
     <h4 class="fw-ref-title">Button Quick Reference</h4>
     <div class="xfw-wrap">

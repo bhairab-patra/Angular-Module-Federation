@@ -75,79 +75,30 @@
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead"><code>pui-lib-skeleton</code> is a self-contained Web Component. All props are plain attributes — no JS needed for basic usage. For dynamic loading states in Angular, toggle visibility with <code>*ngIf</code> or <code>[hidden]</code>.</p>
 
-    <div class="fw-tabs">
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.310H4.936L12 3.405z" fill="#c3002f"/></svg>
-        Angular
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='react'" (click)="fwTab='react';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
-        React
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='html'" (click)="fwTab='html';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
-        HTML
-      </button>
-    </div>
-
-    <div *ngIf="fwTab==='angular'" class="fw-panel">
-      <div class="fw-note--angular">Import <code>PuiSkeletonComponent</code> and toggle it while data is loading.</div>
-      <pre><code>import &#123; PuiSkeletonComponent &#125; from '&#64;bhairab-patra/platform-ui';
-
-&#64;Component(&#123;
-  imports: [NgIf, PuiSkeletonComponent],
-  template: &#96;
-    &lt;!-- show skeleton while loading, real content after --&gt;
-    &lt;ng-container *ngIf="loading; else content"&gt;
-      &lt;pui-lib-skeleton variant="card" [rows]="3"&gt;&lt;/pui-lib-skeleton&gt;
-    &lt;/ng-container&gt;
-    &lt;ng-template #content&gt;
-      &lt;user-card [user]="user"&gt;&lt;/user-card&gt;
-    &lt;/ng-template&gt;
-  &#96;
-&#125;)
-export class MyComponent &#123;
-  loading = true;
-  user: User | null = null;
-
-  ngOnInit() &#123;
-    this.userService.get(1).subscribe(u =&gt; &#123;
-      this.user = u;
-      this.loading = false;
-    &#125;);
-  &#125;
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='react'" class="fw-panel">
-      <div class="fw-note--react">Use the element directly — all props are standard HTML attributes.</div>
-      <pre><code>import '&#64;bhairab-patra/platform-ui';
-
-function UserCard(&#123; loading, user &#125;) &#123;
-  if (loading) &#123;
-    return &lt;pui-lib-skeleton variant="card" rows="3" /&gt;;
-  &#125;
-  return &lt;div&gt;&#123;user.name&#125;&lt;/div&gt;;
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='html'" class="fw-panel">
-      <div class="fw-note--html">All variants and options are available as kebab-case HTML attributes.</div>
-      <pre><code>&lt;!-- text lines --&gt;
-&lt;pui-lib-skeleton variant="text" width="100%" height="14px" rows="3"&gt;&lt;/pui-lib-skeleton&gt;
-
-&lt;!-- circle avatar --&gt;
-&lt;pui-lib-skeleton variant="circle" width="48px"&gt;&lt;/pui-lib-skeleton&gt;
-
-&lt;!-- image placeholder --&gt;
-&lt;pui-lib-skeleton variant="rect" width="100%" height="200px"&gt;&lt;/pui-lib-skeleton&gt;
-
-&lt;!-- card preset --&gt;
-&lt;pui-lib-skeleton variant="card"&gt;&lt;/pui-lib-skeleton&gt;
-
-&lt;!-- static (no shimmer) --&gt;
-&lt;pui-lib-skeleton variant="text" animated="false"&gt;&lt;/pui-lib-skeleton&gt;</code></pre>
-    </div>
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode">
+      <div preview class="demo-row">
+        <div style="display:flex;flex-direction:column;gap:8px;width:240px">
+          <pui-lib-skeleton variant="text" width="55%" height="20px"></pui-lib-skeleton>
+          <pui-lib-skeleton variant="text" width="100%" height="14px" [rows]="3"></pui-lib-skeleton>
+        </div>
+        <pui-lib-skeleton variant="card" style="width:200px"></pui-lib-skeleton>
+      </div>
+      <div react-preview class="react-loading-card">
+        <div class="react-loading-card__header">
+          <pui-lib-skeleton variant="circle" width="40px"></pui-lib-skeleton>
+          <div class="react-loading-card__header-text">
+            <pui-lib-skeleton variant="text" width="120px"></pui-lib-skeleton>
+            <pui-lib-skeleton variant="text" width="80px"></pui-lib-skeleton>
+          </div>
+        </div>
+        <pui-lib-skeleton variant="rect" width="100%" height="80px"></pui-lib-skeleton>
+        <pui-lib-skeleton variant="text" width="90%"></pui-lib-skeleton>
+        <pui-lib-skeleton variant="text" width="70%"></pui-lib-skeleton>
+      </div>
+    </docs-framework-preview>
 
     <h4 class="fw-ref-title">Skeleton Quick Reference</h4>
     <div class="xfw-wrap">

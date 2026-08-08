@@ -3,11 +3,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { PuiDatepickerComponent, DateRange } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-datepicker-page',
   standalone: true,
-  imports: [NgFor, NgIf, PuiDatepickerComponent, DocPageComponent, CodeBlockComponent],
+  imports: [NgFor, NgIf, PuiDatepickerComponent, DocPageComponent, CodeBlockComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './datepicker-page.component.html',
 })
@@ -58,6 +59,45 @@ export class DatepickerPageComponent {
   ];
 
   /* ── Code snippets ──────────────────────────────── */
+  angularCode = `<!-- Single date -->
+<pui-lib-datepicker
+  [value]="selectedDate"
+  [min]="minDate"
+  [max]="maxDate"
+  placeholder="Select date…"
+  (valueChange)="selectedDate = $event">
+</pui-lib-datepicker>
+
+<!-- Range mode -->
+<pui-lib-datepicker
+  mode="range"
+  placeholder="Start date → End date"
+  (rangeChange)="onRangeChange($event)">
+</pui-lib-datepicker>
+
+// TypeScript
+import { PuiDatepickerComponent, DateRange } from '@bhairab-patra/platform-ui';
+
+@Component({ imports: [PuiDatepickerComponent] })
+export class BookingComponent {
+  selectedDate: Date | null = null;
+  minDate = new Date();
+  maxDate = (() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 90);
+    return d;
+  })();
+
+  tripRange: DateRange = { start: null, end: null };
+
+  onRangeChange(r: DateRange) {
+    this.tripRange = r;
+    if (r.start && r.end) {
+      console.log('Trip:', r.start, '→', r.end);
+    }
+  }
+}`;
+
   angHtml = `<!-- Single date -->
 <pui-lib-datepicker
   [value]="selectedDate"

@@ -72,100 +72,21 @@
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead"><code>pui-lib-datagrid</code> is a full-featured Angular component. Pass <code>columns</code> and <code>rows</code> as typed arrays. For React and HTML, set both as JS properties via a ref after element upgrade.</p>
 
-    <div class="fw-tabs">
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.310H4.936L12 3.405z" fill="#c3002f"/></svg>
-        Angular
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='react'" (click)="fwTab='react';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
-        React
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='html'" (click)="fwTab='html';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
-        HTML
-      </button>
-    </div>
-
-    <div *ngIf="fwTab==='angular'" class="fw-panel">
-      <div class="fw-note--angular">Import <code>PuiDataGridComponent</code> and define typed <code>DataGridColumn</code> arrays.</div>
-      <pre><code>import &#123; PuiDataGridComponent, DataGridColumn &#125; from '&#64;bhairab-patra/platform-ui';
-
-&#64;Component(&#123;
-  imports: [PuiDataGridComponent],
-  template: &#96;
-    &lt;pui-lib-datagrid
-      [columns]="columns"
-      [rows]="rows"
-      rowKey="id"
-      [selectable]="true"
-      [paginate]="true"
-      [pageSize]="10"
-      (selectionChange)="onSelect($event)"
-      (sortChange)="onSort($event)"&gt;
-    &lt;/pui-lib-datagrid&gt;
-  &#96;
-&#125;)
-export class MyComponent &#123;
-  columns: DataGridColumn[] = [
-    &#123; field: 'name',   header: 'Name',   sortable: true &#125;,
-    &#123; field: 'status', header: 'Status', type: 'badge',
-      badgeMap: &#123;
-        active:   &#123; label: 'Active',   color: '#15803d' &#125;,
-        inactive: &#123; label: 'Inactive', color: '#b91c1c' &#125;,
-      &#125; &#125;,
-    &#123; field: 'salary', header: 'Salary', type: 'number', align: 'right' &#125;,
-  ];
-  rows = [
-    &#123; id: 1, name: 'Alice', status: 'active',   salary: 95000 &#125;,
-    &#123; id: 2, name: 'Bob',   status: 'inactive', salary: 82000 &#125;,
-  ];
-  onSelect(rows: any[]) &#123; console.log(rows); &#125;
-  onSort(sort: any)     &#123; console.log(sort); &#125;
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='react'" class="fw-panel">
-      <div class="fw-note--react">Set <code>columns</code> and <code>rows</code> via a ref — both are object arrays and cannot be passed as HTML attributes.</div>
-      <pre><code>import &#123; useRef, useEffect &#125; from 'react';
-import '&#64;bhairab-patra/platform-ui';
-
-function EmployeeGrid() &#123;
-  const ref = useRef(null);
-
-  useEffect(() =&gt; &#123;
-    if (!ref.current) return;
-    ref.current.columns = [
-      &#123; field: 'name',   header: 'Name',   sortable: true &#125;,
-      &#123; field: 'status', header: 'Status', type: 'badge',
-        badgeMap: &#123; active: &#123; label: 'Active', color: '#15803d' &#125; &#125; &#125;,
-    ];
-    ref.current.rows = [
-      &#123; id: 1, name: 'Alice', status: 'active' &#125;,
-    ];
-  &#125;, []);
-
-  return &lt;pui-lib-datagrid ref=&#123;ref&#125; selectable paginate page-size="10" /&gt;;
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='html'" class="fw-panel">
-      <div class="fw-note--html">Set <code>columns</code> and <code>rows</code> as JS properties — they cannot be serialised as HTML attributes.</div>
-      <pre><code>&lt;pui-lib-datagrid id="grid" selectable paginate page-size="10"&gt;&lt;/pui-lib-datagrid&gt;
-
-&lt;script&gt;
-customElements.whenDefined('pui-lib-datagrid').then(() =&gt; &#123;
-  const el = document.getElementById('grid');
-  el.columns = [
-    &#123; field: 'name',   header: 'Name',   sortable: true &#125;,
-    &#123; field: 'status', header: 'Status', type: 'badge',
-      badgeMap: &#123; active: &#123; label: 'Active', color: '#15803d' &#125; &#125; &#125;,
-  ];
-  el.rows = [&#123; id: 1, name: 'Alice', status: 'active' &#125;];
-  el.addEventListener('selectionChange', e =&gt; console.log(e.detail));
-&#125;);
-&lt;/script&gt;</code></pre>
-    </div>
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode">
+      <div preview>
+        <pui-lib-datagrid [columns]="basicCols" [rows]="basicRows"></pui-lib-datagrid>
+      </div>
+      <div react-preview class="react-dashboard-panel">
+        <div class="react-dashboard-panel__header">
+          <span class="react-dashboard-panel__title">Recent Orders</span>
+          <pui-lib-badge variant="info" size="sm">Live</pui-lib-badge>
+        </div>
+        <pui-lib-datagrid [columns]="basicCols" [rows]="basicRows"></pui-lib-datagrid>
+      </div>
+    </docs-framework-preview>
 
     <h4 class="fw-ref-title">Data Grid Quick Reference</h4>
     <div class="xfw-wrap">

@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { SpinnerComponent, SpinnerType, SpinnerSize } from '@bhairab-patra/platform-ui';
+import { SpinnerComponent, SpinnerType, SpinnerSize, ButtonComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-spinner-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, SpinnerComponent],
+  imports: [NgFor, NgIf, DocPageComponent, SpinnerComponent, ButtonComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './spinner-page.component.html',
   styleUrls: ['./spinner-page.component.scss'],
@@ -14,6 +15,85 @@ import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 export class SpinnerPageComponent {
   cdr = inject(ChangeDetectorRef);
   fwTab = 'angular';
+
+  angularCode = `import { SpinnerComponent } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [NgIf, SpinnerComponent],
+  template: \`
+    <!-- Inline -->
+    <pui-lib-spinner type="dash" size="md" color="#12C6A8"></pui-lib-spinner>
+    <pui-lib-spinner type="dots" size="md" color="#6366f1" label="Loading…"></pui-lib-spinner>
+
+    <!-- Custom size -->
+    <pui-lib-spinner type="dash" [sizePx]="48" color="#12C6A8"></pui-lib-spinner>
+
+    <!-- Full-screen overlay -->
+    <pui-lib-spinner *ngIf="isLoading"
+      type="dash"
+      size="xl"
+      color="#12C6A8"
+      [overlay]="true"
+      overlayColor="#ffffff"
+      [overlayOpacity]="0.75"
+      [zIndex]="2000"
+      label="Please wait…">
+    </pui-lib-spinner>
+  \`
+})
+export class MyComponent {
+  isLoading = false;
+  loadData() {
+    this.isLoading = true;
+    fetchData().then(() => this.isLoading = false);
+  }
+}`;
+
+  reactCode = `import '@bhairab-patra/platform-ui';
+
+function LoadingOverlay({ isLoading }) {
+  if (!isLoading) return null;
+  return (
+    <pui-lib-spinner
+      type="dash"
+      size="xl"
+      color="#12C6A8"
+      overlay
+      overlay-color="#ffffff"
+      overlay-opacity="0.75"
+      z-index="2000"
+      label="Loading…">
+    </pui-lib-spinner>
+  );
+}
+
+function InlineSpinner() {
+  return <pui-lib-spinner type="dots" size="md" color="#6366f1" label="Please wait"></pui-lib-spinner>;
+}`;
+
+  htmlCode = `<!-- Inline spinners -->
+<pui-lib-spinner type="dash" size="md" color="#12C6A8"></pui-lib-spinner>
+<pui-lib-spinner type="dots" size="lg" color="#6366f1" label="Loading…"></pui-lib-spinner>
+
+<!-- Full-page overlay -->
+<pui-lib-spinner
+  id="page-spinner"
+  type="dash"
+  size="xl"
+  color="#12C6A8"
+  overlay
+  overlay-color="#ffffff"
+  overlay-opacity="0.75"
+  z-index="2000"
+  label="Please wait…"
+  style="display:none">
+</pui-lib-spinner>
+
+<script>
+  const spinner = document.getElementById('page-spinner');
+  function showLoader()  { spinner.style.display = 'block'; }
+  function hideLoader()  { spinner.style.display = 'none';  }
+</script>`;
 
   overlayActive  = false;
   activeType: SpinnerType = 'dash';

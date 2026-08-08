@@ -96,6 +96,32 @@
     font-family: monospace;
 }
 
+.react-deploy-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 360px;
+  border: 1px solid var(--pui-neutral-200);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.react-deploy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--pui-neutral-100);
+}
+
+.react-deploy-row:last-child { border-bottom: none; }
+
+.react-deploy-name {
+  font-size: 13.5px;
+  color: var(--pui-neutral-800);
+}
+
 .fw-ref-title {
     margin: 24px 0 10px;
     font-size: 13px;

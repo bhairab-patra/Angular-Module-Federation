@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { PuiChipComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
   selector: 'app-chip-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, PuiChipComponent],
+  imports: [NgFor, NgIf, DocPageComponent, PuiChipComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './chip-page.component.html',
   styleUrls: ['./chip-page.component.scss'],
@@ -14,6 +15,59 @@ import { PuiChipComponent } from '@bhairab-patra/platform-ui';
 export class ChipPageComponent {
   cdr = inject(ChangeDetectorRef);
   fwTab = 'angular';
+
+  angularCode = `import { PuiChipComponent } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [NgFor, PuiChipComponent],
+  template: \`
+    <pui-lib-chip *ngFor="let t of tags"
+      variant="primary"
+      [removable]="true"
+      (removed)="remove(t)">
+      {{ t }}
+    </pui-lib-chip>
+
+    <pui-lib-chip *ngFor="let f of filters"
+      variant="success"
+      [selected]="f.active"
+      (clicked)="f.active = !f.active">
+      {{ f.label }}
+    </pui-lib-chip>
+  \`
+})
+export class MyComponent {
+  tags = ['Angular', 'TypeScript', 'RxJS'];
+  filters = [
+    { label: 'Active',   active: true  },
+    { label: 'Archived', active: false },
+  ];
+  remove(t: string) { this.tags = this.tags.filter(x => x !== t); }
+}`;
+
+  reactCode = `import '@bhairab-patra/platform-ui';
+
+function TagList({ tags, onRemove }) {
+  return tags.map(t => (
+    <pui-lib-chip
+      key={t}
+      variant="primary"
+      removable
+      onRemoved={() => onRemove(t)}>
+      {t}
+    </pui-lib-chip>
+  ));
+}`;
+
+  htmlCode = `<pui-lib-chip variant="primary" removable id="c1">Angular</pui-lib-chip>
+<pui-lib-chip variant="success" selected>TypeScript</pui-lib-chip>
+<pui-lib-chip variant="default" disabled>Disabled</pui-lib-chip>
+
+<script>
+document.getElementById('c1').addEventListener('removed', () => {
+  document.getElementById('c1').remove();
+});
+</script>`;
 
   readonly ngExample =
 `import { PuiChipComponent } from '@bhairab-patra/platform-ui';

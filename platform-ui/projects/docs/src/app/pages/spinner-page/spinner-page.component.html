@@ -125,108 +125,27 @@
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">Import <code>SpinnerComponent</code> and configure with attributes. For full-page loading states combine <code>[overlay]="true"</code> with <code>*ngIf="isLoading"</code>.</p>
 
-    <div class="fw-tabs">
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.310H4.936L12 3.405z" fill="#c3002f"/></svg>
-        Angular
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='react'" (click)="fwTab='react';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
-        React
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='html'" (click)="fwTab='html';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
-        HTML
-      </button>
-    </div>
-
-    <div *ngIf="fwTab==='angular'" class="fw-panel">
-      <div class="fw-note--angular">Import <code>SpinnerComponent</code>. Use <code>*ngIf</code> on the overlay variant to gate it behind a loading flag.</div>
-      <pre><code>import &#123; SpinnerComponent &#125; from '&#64;bhairab-patra/platform-ui';
-
-&#64;Component(&#123;
-  imports: [NgIf, SpinnerComponent],
-  template: &#96;
-    &lt;!-- Inline --&gt;
-    &lt;pui-lib-spinner type="dash" size="md" color="#12C6A8"&gt;&lt;/pui-lib-spinner&gt;
-    &lt;pui-lib-spinner type="dots" size="md" color="#6366f1" label="Loading…"&gt;&lt;/pui-lib-spinner&gt;
-
-    &lt;!-- Custom size --&gt;
-    &lt;pui-lib-spinner type="dash" [sizePx]="48" color="#12C6A8"&gt;&lt;/pui-lib-spinner&gt;
-
-    &lt;!-- Full-screen overlay --&gt;
-    &lt;pui-lib-spinner *ngIf="isLoading"
-      type="dash"
-      size="xl"
-      color="#12C6A8"
-      [overlay]="true"
-      overlayColor="#ffffff"
-      [overlayOpacity]="0.75"
-      [zIndex]="2000"
-      label="Please wait…"&gt;
-    &lt;/pui-lib-spinner&gt;
-  &#96;
-&#125;)
-export class MyComponent &#123;
-  isLoading = false;
-  loadData() &#123;
-    this.isLoading = true;
-    fetchData().then(() =&gt; this.isLoading = false);
-  &#125;
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='react'" class="fw-panel">
-      <div class="fw-note--react">All props are plain HTML attributes. Boolean props only need to be present (e.g. <code>overlay</code>).</div>
-      <pre><code>import '&#64;bhairab-patra/platform-ui';
-
-function LoadingOverlay(&#123; isLoading &#125;) &#123;
-  if (!isLoading) return null;
-  return (
-    &lt;pui-lib-spinner
-      type="dash"
-      size="xl"
-      color="#12C6A8"
-      overlay
-      overlay-color="#ffffff"
-      overlay-opacity="0.75"
-      z-index="2000"
-      label="Loading…"&gt;
-    &lt;/pui-lib-spinner&gt;
-  );
-&#125;
-
-function InlineSpinner() &#123;
-  return &lt;pui-lib-spinner type="dots" size="md" color="#6366f1" label="Please wait"&gt;&lt;/pui-lib-spinner&gt;;
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='html'" class="fw-panel">
-      <div class="fw-note--html">Use <code>display:none</code> / <code>display:block</code> or add/remove the element to toggle the overlay.</div>
-      <pre><code>&lt;!-- Inline spinners --&gt;
-&lt;pui-lib-spinner type="dash" size="md" color="#12C6A8"&gt;&lt;/pui-lib-spinner&gt;
-&lt;pui-lib-spinner type="dots" size="lg" color="#6366f1" label="Loading…"&gt;&lt;/pui-lib-spinner&gt;
-
-&lt;!-- Full-page overlay --&gt;
-&lt;pui-lib-spinner
-  id="page-spinner"
-  type="dash"
-  size="xl"
-  color="#12C6A8"
-  overlay
-  overlay-color="#ffffff"
-  overlay-opacity="0.75"
-  z-index="2000"
-  label="Please wait…"
-  style="display:none"&gt;
-&lt;/pui-lib-spinner&gt;
-
-&lt;script&gt;
-  const spinner = document.getElementById('page-spinner');
-  function showLoader()  &#123; spinner.style.display = 'block'; &#125;
-  function hideLoader()  &#123; spinner.style.display = 'none';  &#125;
-&lt;/script&gt;</code></pre>
-    </div>
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode">
+      <div preview class="demo-row">
+        <pui-lib-spinner type="dash" size="md" color="#12C6A8"></pui-lib-spinner>
+        <pui-lib-spinner type="dots" size="md" color="#12C6A8"></pui-lib-spinner>
+        <pui-lib-spinner type="dash" size="lg" color="#6366f1"></pui-lib-spinner>
+        <pui-lib-spinner type="dots" size="lg" color="#6366f1" label="Loading…"></pui-lib-spinner>
+      </div>
+      <div react-preview class="react-spinner-demo">
+        <pui-lib-button variant="primary" [disabled]="true">
+          <pui-lib-spinner size="sm" type="dash" color="#fff"></pui-lib-spinner>
+          Saving...
+        </pui-lib-button>
+        <div class="react-spinner-overlay">
+          <pui-lib-spinner size="lg" type="dots" color="#12C6A8"></pui-lib-spinner>
+          <span class="react-spinner-label">Loading data...</span>
+        </div>
+      </div>
+    </docs-framework-preview>
 
     <h4 class="fw-ref-title">Spinner Quick Reference</h4>
     <div class="xfw-wrap">

@@ -1,14 +1,15 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { PuiDataGridComponent, DataGridColumn } from '@bhairab-patra/platform-ui';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
+import { PuiDataGridComponent, DataGridColumn, BadgeComponent } from '@bhairab-patra/platform-ui';
 
 interface Employee { id: number; name: string; role: string; department: string; status: string; salary: number; joined: string; }
 
 @Component({
   selector: 'app-datagrid-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, PuiDataGridComponent],
+  imports: [NgFor, NgIf, DocPageComponent, PuiDataGridComponent, BadgeComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './datagrid-page.component.html',
   styleUrls: ['./datagrid-page.component.scss'],
@@ -17,6 +18,77 @@ export class DataGridPageComponent {
   cdr = inject(ChangeDetectorRef);
   fwTab = 'angular';
   selected: Employee[] = [];
+
+  angularCode = `import { PuiDataGridComponent, DataGridColumn } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [PuiDataGridComponent],
+  template: \`
+    <pui-lib-datagrid
+      [columns]="columns"
+      [rows]="rows"
+      rowKey="id"
+      [selectable]="true"
+      [paginate]="true"
+      [pageSize]="10"
+      (selectionChange)="onSelect($event)"
+      (sortChange)="onSort($event)">
+    </pui-lib-datagrid>
+  \`
+})
+export class MyComponent {
+  columns: DataGridColumn[] = [
+    { field: 'name',   header: 'Name',   sortable: true },
+    { field: 'status', header: 'Status', type: 'badge',
+      badgeMap: {
+        active:   { label: 'Active',   color: '#15803d' },
+        inactive: { label: 'Inactive', color: '#b91c1c' },
+      } },
+    { field: 'salary', header: 'Salary', type: 'number', align: 'right' },
+  ];
+  rows = [
+    { id: 1, name: 'Alice', status: 'active',   salary: 95000 },
+    { id: 2, name: 'Bob',   status: 'inactive', salary: 82000 },
+  ];
+  onSelect(rows: any[]) { console.log(rows); }
+  onSort(sort: any)     { console.log(sort); }
+}`;
+
+  reactCode = `import { useRef, useEffect } from 'react';
+import '@bhairab-patra/platform-ui';
+
+function EmployeeGrid() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    ref.current.columns = [
+      { field: 'name',   header: 'Name',   sortable: true },
+      { field: 'status', header: 'Status', type: 'badge',
+        badgeMap: { active: { label: 'Active', color: '#15803d' } } },
+    ];
+    ref.current.rows = [
+      { id: 1, name: 'Alice', status: 'active' },
+    ];
+  }, []);
+
+  return <pui-lib-datagrid ref={ref} selectable paginate page-size="10" />;
+}`;
+
+  htmlCode = `<pui-lib-datagrid id="grid" selectable paginate page-size="10"></pui-lib-datagrid>
+
+<script>
+customElements.whenDefined('pui-lib-datagrid').then(() => {
+  const el = document.getElementById('grid');
+  el.columns = [
+    { field: 'name',   header: 'Name',   sortable: true },
+    { field: 'status', header: 'Status', type: 'badge',
+      badgeMap: { active: { label: 'Active', color: '#15803d' } } },
+  ];
+  el.rows = [{ id: 1, name: 'Alice', status: 'active' }];
+  el.addEventListener('selectionChange', e => console.log(e.detail));
+});
+</script>`;
 
   selectedNames(): string { return this.selected.map((r: any) => r['name']).join(', '); }
 

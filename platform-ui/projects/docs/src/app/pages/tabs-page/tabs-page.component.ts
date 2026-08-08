@@ -3,11 +3,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { PuiTabsComponent, TabItem } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-tabs-page',
   standalone: true,
-  imports: [NgFor, NgIf, PuiTabsComponent, DocPageComponent, CodeBlockComponent],
+  imports: [NgFor, NgIf, PuiTabsComponent, DocPageComponent, CodeBlockComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './tabs-page.component.html',
   styleUrls: ['./tabs-page.component.scss'],
@@ -82,6 +83,33 @@ export class TabsPageComponent {
   ];
 
   /* ── Code snippets ──────────────────────────────── */
+  angularCode = `<pui-lib-tabs
+  variant="pill"
+  [tabs]="tabs"
+  [activeTab]="active"
+  (tabChange)="active = $event.id">
+
+  <!-- Panel content — controlled by active tab -->
+  <div *ngIf="active === 'overview'">Overview content…</div>
+  <div *ngIf="active === 'analytics'">Analytics content…</div>
+  <div *ngIf="active === 'settings'">Settings content…</div>
+
+</pui-lib-tabs>
+
+// TypeScript
+import { PuiTabsComponent, TabItem } from '@bhairab-patra/platform-ui';
+
+@Component({ imports: [PuiTabsComponent, NgIf] })
+export class MyComponent {
+  active = 'overview';
+
+  tabs: TabItem[] = [
+    { id: 'overview',  label: 'Overview'               },
+    { id: 'analytics', label: 'Analytics', badge: 5    },
+    { id: 'settings',  label: 'Settings',  disabled: false },
+  ];
+}`;
+
   angHtml = `<pui-lib-tabs
   variant="pill"
   [tabs]="tabs"

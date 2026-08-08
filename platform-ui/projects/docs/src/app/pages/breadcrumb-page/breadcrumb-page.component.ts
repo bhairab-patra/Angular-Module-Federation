@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { BreadcrumbComponent, BreadcrumbItem } from '@bhairab-patra/platform-ui';
 
 @Component({
   selector: 'app-breadcrumb-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, BreadcrumbComponent],
+  imports: [NgFor, NgIf, DocPageComponent, BreadcrumbComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './breadcrumb-page.component.html',
   styleUrls: ['./breadcrumb-page.component.scss'],
@@ -14,6 +15,75 @@ import { BreadcrumbComponent, BreadcrumbItem } from '@bhairab-patra/platform-ui'
 export class BreadcrumbPageComponent {
   cdr = inject(ChangeDetectorRef);
   fwTab = 'angular';
+
+  angularCode = `import { BreadcrumbComponent, BreadcrumbItem } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [BreadcrumbComponent],
+  template: \`
+    <pui-lib-breadcrumb
+      [items]="crumbs"
+      separator="chevron"
+      ariaLabel="Page navigation">
+    </pui-lib-breadcrumb>
+  \`
+})
+export class MyComponent {
+  crumbs: BreadcrumbItem[] = [
+    { label: 'Home',     route: '/'          },
+    { label: 'Products', route: '/products'  },
+    { label: 'Widget'                        },
+  ];
+}`;
+
+  reactCode = `import { useRef, useEffect } from 'react';
+import '@bhairab-patra/platform-ui';
+
+function ProductPageHeader() {
+  const bcRef = useRef(null);
+
+  useEffect(() => {
+    if (bcRef.current) {
+      bcRef.current.items = [
+        { label: 'Home',     href: '/'          },
+        { label: 'Products', href: '/products'  },
+        { label: 'Details'                      },
+      ];
+    }
+  }, []);
+
+  return (
+    <div className="page-header">
+      <nav className="page-header__nav">
+        <pui-lib-breadcrumb ref={bcRef} separator="chevron" />
+      </nav>
+      <h3 className="page-header__title">Product Details</h3>
+      <p className="page-header__sub">Manage and update product information</p>
+    </div>
+  );
+}`;
+
+  htmlCode = `<pui-lib-breadcrumb id="bc" separator="slash"></pui-lib-breadcrumb>
+
+<script>
+customElements.whenDefined('pui-lib-breadcrumb').then(() => {
+  document.getElementById('bc').items = [
+    { label: 'Home',     route: '/'         },
+    { label: 'Products', route: '/products' },
+    { label: 'Widget'                       },
+  ];
+});
+</script>
+
+<!-- CSS variable theming -->
+<style>
+  pui-lib-breadcrumb {
+    --pui-bc-link-color:   #0fa78d;
+    --pui-bc-active-color: #111827;
+    --pui-bc-sep-color:    #d1d5db;
+    --pui-bc-size:         13px;
+  }
+</style>`;
 
   basic: BreadcrumbItem[] = [
     { label: 'Home',     route: '/' },

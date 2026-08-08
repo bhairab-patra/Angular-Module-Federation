@@ -74,88 +74,18 @@
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead"><code>pui-lib-list</code> accepts an <code>items</code> array via Angular property binding or a JSON string in HTML. Pass the array via a <code>ref</code> in React.</p>
 
-    <div class="fw-tabs">
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.310H4.936L12 3.405z" fill="#c3002f"/></svg>
-        Angular
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='react'" (click)="fwTab='react';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
-        React
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='html'" (click)="fwTab='html';cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
-        HTML
-      </button>
-    </div>
-
-    <div *ngIf="fwTab==='angular'" class="fw-panel">
-      <div class="fw-note--angular">Import <code>PuiListComponent</code> and bind the <code>items</code> array directly.</div>
-      <pre><code>import &#123; PuiListComponent, ListItem &#125; from '&#64;bhairab-patra/platform-ui';
-
-&#64;Component(&#123;
-  imports: [PuiListComponent],
-  template: &#96;
-    &lt;pui-lib-list
-      [items]="items"
-      variant="bordered"
-      [selectable]="true"
-      [selectedId]="selected"
-      (itemSelect)="selected = $event.id"&gt;
-    &lt;/pui-lib-list&gt;
-  &#96;
-&#125;)
-export class MyComponent &#123;
-  selected: string | number | null = null;
-  items: ListItem[] = [
-    &#123; id: '1', label: 'Dashboard', description: 'Overview metrics', badge: '3' &#125;,
-    &#123; id: '2', label: 'Reports',   meta: 'Updated 2h ago' &#125;,
-    &#123; id: '3', label: 'Settings',  disabled: true &#125;,
-  ];
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='react'" class="fw-panel">
-      <div class="fw-note--react">Set the <code>items</code> array via a ref in <code>useEffect</code>.</div>
-      <pre><code>import &#123; useRef, useEffect, useState &#125; from 'react';
-import '&#64;bhairab-patra/platform-ui';
-
-function MyList() &#123;
-  const ref = useRef(null);
-  const [selected, setSelected] = useState(null);
-
-  useEffect(() =&gt; &#123;
-    if (ref.current) &#123;
-      ref.current.items = [
-        &#123; id: '1', label: 'Dashboard', badge: '3' &#125;,
-        &#123; id: '2', label: 'Reports',   meta: '2h ago' &#125;,
-      ];
-    &#125;
-  &#125;, []);
-
-  return (
-    &lt;pui-lib-list ref=&#123;ref&#125; variant="bordered" selectable
-      onItemSelect=&#123;e =&gt; setSelected(e.detail.id)&#125; /&gt;
-  );
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='html'" class="fw-panel">
-      <div class="fw-note--html">Assign <code>items</code> as a JS property after element upgrade.</div>
-      <pre><code>&lt;pui-lib-list id="list" variant="bordered" selectable&gt;&lt;/pui-lib-list&gt;
-
-&lt;script&gt;
-customElements.whenDefined('pui-lib-list').then(() =&gt; &#123;
-  const el = document.getElementById('list');
-  el.items = [
-    &#123; id: '1', label: 'Dashboard', badge: '3' &#125;,
-    &#123; id: '2', label: 'Reports',   meta: '2h ago' &#125;,
-    &#123; id: '3', label: 'Settings',  disabled: true &#125;,
-  ];
-  el.addEventListener('itemSelect', e =&gt; console.log(e.detail));
-&#125;);
-&lt;/script&gt;</code></pre>
-    </div>
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode">
+      <div preview style="max-width:320px">
+        <pui-lib-list [items]="menuItems" variant="bordered" [selectable]="true" [selectedId]="selectedMenu"></pui-lib-list>
+      </div>
+      <div react-preview class="react-sidebar-menu">
+        <div class="react-sidebar-menu__title">Navigation</div>
+        <pui-lib-list [items]="menuItems" variant="bordered" [selectable]="true" [selectedId]="selectedMenu"></pui-lib-list>
+      </div>
+    </docs-framework-preview>
 
     <h4 class="fw-ref-title">List Quick Reference</h4>
     <div class="xfw-wrap">

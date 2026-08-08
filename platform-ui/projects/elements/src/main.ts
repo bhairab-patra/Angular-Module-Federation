@@ -27,6 +27,17 @@ import { PuiFilterPanelComponent } from '../../platform-ui/src/lib/filter-panel/
 import { PuiToastContainerComponent } from '../../platform-ui/src/lib/toast/toast-container.component';
 import { PuiSidebarComponent } from '../../platform-ui/src/lib/sidebar/sidebar.component';
 import { PuiAppShellComponent } from '../../platform-ui/src/lib/app-shell/app-shell.component';
+import { PuiTableComponent } from '../../platform-ui/src/lib/table/table.component';
+import { PuiTabsComponent } from '../../platform-ui/src/lib/tabs/tabs.component';
+import { PuiChipComponent } from '../../platform-ui/src/lib/chip/chip.component';
+import { PuiTagComponent } from '../../platform-ui/src/lib/tag/tag.component';
+import { PuiSkeletonComponent } from '../../platform-ui/src/lib/skeleton/skeleton.component';
+import { PuiDataGridComponent } from '../../platform-ui/src/lib/datagrid/datagrid.component';
+import { PuiListComponent } from '../../platform-ui/src/lib/list/list.component';
+import { PuiDatepickerComponent } from '../../platform-ui/src/lib/datepicker/datepicker.component';
+import { PuiPasswordInputComponent } from '../../platform-ui/src/lib/forms/password/password-input.component';
+import { PuiComboboxComponent } from '../../platform-ui/src/lib/forms/combobox/combobox.component';
+import { PuiMultiSelectComponent } from '../../platform-ui/src/lib/forms/multiselect/multiselect.component';
 
 (async () => {
   const app = await createApplication({
@@ -49,7 +60,7 @@ import { PuiAppShellComponent } from '../../platform-ui/src/lib/app-shell/app-sh
     // Without this, OnPush components silently ignore externally-set attributes.
     const proto = NgElement.prototype as any;
     const original = proto.attributeChangedCallback;
-    proto.attributeChangedCallback = function(name: string, oldValue: string, newValue: string) {
+    proto.attributeChangedCallback = function (name: string, oldValue: string, newValue: string) {
       ngZone.run(() => {
         original.call(this, name, oldValue, newValue);
         appRef.tick();
@@ -59,36 +70,47 @@ import { PuiAppShellComponent } from '../../platform-ui/src/lib/app-shell/app-sh
     customElements.define(tag, NgElement);
   };
 
-  define(ButtonComponent,           'pui-lib-button');
-  define(FileUploadButtonComponent, 'pui-lib-file-upload');
-  define(CardComponent,             'pui-lib-card');
-  define(BadgeComponent,            'pui-lib-badge');
-  define(ModalComponent,            'pui-lib-modal');
-  define(HeaderComponent,           'pui-lib-header');
-  define(IconComponent,             'pui-lib-icon');
-  define(TooltipComponent,          'pui-lib-tooltip');
-  define(SpinnerComponent,          'pui-lib-spinner');
-  define(BreadcrumbComponent,       'pui-lib-breadcrumb');
-  define(PuiInputComponent,         'pui-lib-input');
-  define(PuiSelectComponent,        'pui-lib-select');
-  define(PuiCheckboxComponent,      'pui-lib-checkbox');
-  define(PuiRadioGroupComponent,    'pui-lib-radio');
-  define(PuiTextareaComponent,      'pui-lib-textarea');
-  define(PuiSwitchComponent,        'pui-lib-switch');
-  define(PuiSearchComponent,        'pui-lib-search');
-  define(PuiFilterPanelComponent,   'pui-lib-filter-panel');
-  define(PuiToastContainerComponent,'pui-lib-toast-container');
-  define(PuiSidebarComponent,       'pui-lib-sidebar');
-  define(PuiAppShellComponent,      'pui-lib-app-shell');
+  define(ButtonComponent, 'pui-lib-button');
+  define(FileUploadButtonComponent, 'pui-lib-file-button');
+  define(CardComponent, 'pui-lib-card');
+  define(BadgeComponent, 'pui-lib-badge');
+  define(ModalComponent, 'pui-lib-modal');
+  define(HeaderComponent, 'pui-lib-header');
+  define(IconComponent, 'pui-lib-icon');
+  define(TooltipComponent, 'pui-lib-tooltip');
+  define(SpinnerComponent, 'pui-lib-spinner');
+  define(BreadcrumbComponent, 'pui-lib-breadcrumb');
+  define(PuiInputComponent, 'pui-lib-input');
+  define(PuiSelectComponent, 'pui-lib-select');
+  define(PuiCheckboxComponent, 'pui-lib-checkbox');
+  define(PuiRadioGroupComponent, 'pui-lib-radio-group');
+  define(PuiTextareaComponent, 'pui-lib-textarea');
+  define(PuiSwitchComponent, 'pui-lib-switch');
+  define(PuiSearchComponent, 'pui-lib-search');
+  define(PuiFilterPanelComponent, 'pui-lib-filter-panel');
+  define(PuiToastContainerComponent, 'pui-lib-toast-container');
+  define(PuiSidebarComponent, 'pui-lib-sidebar');
+  define(PuiAppShellComponent, 'pui-lib-app-shell');
+  define(PuiTableComponent, 'pui-lib-table');
+  define(PuiTabsComponent, 'pui-lib-tabs');
+  define(PuiChipComponent, 'pui-lib-chip');
+  define(PuiTagComponent, 'pui-lib-tag');
+  define(PuiSkeletonComponent, 'pui-lib-skeleton');
+  define(PuiDataGridComponent, 'pui-lib-datagrid');
+  define(PuiListComponent, 'pui-lib-list');
+  define(PuiDatepickerComponent, 'pui-lib-datepicker');
+  define(PuiPasswordInputComponent, 'pui-lib-password-input');
+  define(PuiComboboxComponent, 'pui-lib-combobox');
+  define(PuiMultiSelectComponent, 'pui-lib-multiselect');
 
   // Expose global toast API for React / plain HTML consumers
   const toast = app.injector.get(ToastService);
   (window as any)['puiToast'] = {
     success: (msg: string, cfg?: any) => ngZone.run(() => toast.success(msg, cfg)),
-    error:   (msg: string, cfg?: any) => ngZone.run(() => toast.error(msg, cfg)),
+    error: (msg: string, cfg?: any) => ngZone.run(() => toast.error(msg, cfg)),
     warning: (msg: string, cfg?: any) => ngZone.run(() => toast.warning(msg, cfg)),
-    info:    (msg: string, cfg?: any) => ngZone.run(() => toast.info(msg, cfg)),
-    dismiss: (id: string)             => ngZone.run(() => toast.dismiss(id)),
-    dismissAll: ()                    => ngZone.run(() => toast.dismissAll()),
+    info: (msg: string, cfg?: any) => ngZone.run(() => toast.info(msg, cfg)),
+    dismiss: (id: string) => ngZone.run(() => toast.dismiss(id)),
+    dismissAll: () => ngZone.run(() => toast.dismissAll()),
   };
 })();
