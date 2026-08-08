@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { PuiPasswordInputComponent } from '@bhairab-patra/platform-ui';
+import { PuiPasswordInputComponent, PuiInputComponent } from '@bhairab-patra/platform-ui';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'app-password-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, PuiPasswordInputComponent],
+  imports: [NgFor, NgIf, DocPageComponent, PuiPasswordInputComponent, PuiInputComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './password-page.component.html',
   styleUrls: ['./password-page.component.scss'],
@@ -35,6 +36,69 @@ export class PasswordPageComponent {
     { name: 'valueChange',    angular: '(valueChange)="fn($event)"', attr: '—',                 js: 'el.addEventListener(…)'  },
     { name: 'strengthChange', angular: '(strengthChange)="fn($event)"', attr: '—',              js: 'el.addEventListener(…)'  },
   ];
+
+  angularCode = `import { PuiPasswordInputComponent } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [PuiPasswordInputComponent],
+  template: \`
+    <pui-lib-password-input
+      placeholder="Enter password"
+      [showStrength]="true"
+      [showRules]="true"
+      [minLength]="10"
+      [requireUpper]="true"
+      [requireNumber]="true"
+      (valueChange)="password = $event"
+      (strengthChange)="strength = $event">
+    </pui-lib-password-input>
+  \`
+})
+export class MyComponent {
+  password = '';
+  strength = '';
+}`;
+
+  reactCode = `import '@bhairab-patra/platform-ui';
+import { useState } from 'react';
+
+function SignupForm() {
+  const [password, setPassword] = useState('');
+  return (
+    <form>
+      <pui-lib-password-input
+        placeholder="Create a strong password"
+        show-strength
+        show-rules
+        min-length="10"
+        require-upper
+        require-number
+        onValueChange={e => setPassword(e.detail)}
+      />
+      <pui-lib-password-input
+        placeholder="Confirm password"
+      />
+    </form>
+  );
+}`;
+
+  htmlCode = `<pui-lib-password-input
+  id="pw"
+  placeholder="Enter password"
+  show-strength
+  show-rules
+  min-length="12"
+  require-upper
+  require-number
+  require-special
+  copyable>
+</pui-lib-password-input>
+
+<script>
+document.getElementById('pw').addEventListener('valueChange', e => {
+  console.log('password:', e.detail);
+});
+</script>`;
 
   api: ApiRow[] = [
     { input: 'value',          type: 'string',  default: '""',               description: 'Current password value. Supports two-way binding via (valueChange).' },

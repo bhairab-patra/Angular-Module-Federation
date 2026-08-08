@@ -2,9 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf, JsonPipe } from '@angular/common';
 import { PuiFilterPanelComponent, FilterDef, FilterValues } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
-
-type FwTab = 'angular' | 'react' | 'html';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 const LOAN_FILTERS: FilterDef[] = [
   {
@@ -46,14 +44,15 @@ const LOAN_FILTERS: FilterDef[] = [
 @Component({
   selector: 'docs-filter-page',
   standalone: true,
-  imports: [NgFor, NgIf, JsonPipe, PuiFilterPanelComponent, DocPageComponent, CodeBlockComponent],
+  imports: [NgFor, NgIf, JsonPipe, PuiFilterPanelComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './filter-page.component.html',
   styleUrls: ['./filter-page.component.scss'],
 })
 export class FilterPageComponent {
-  fw: FwTab = 'angular';
-  copied    = '';
+  copied = '';
+
+  get angularCode(): string { return `${this.angularTpl}\n\n// component.ts\n${this.angularTs}`; }
 
   filters        = LOAN_FILTERS;
   values: FilterValues = {};

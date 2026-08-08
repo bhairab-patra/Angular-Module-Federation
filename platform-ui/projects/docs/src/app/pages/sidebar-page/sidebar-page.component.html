@@ -1,4 +1,4 @@
-
+﻿
     <docs-page
       title="Sidebar"
       description="Full-featured navigation sidebar with collapsible groups, submenu expansion, live search, badge indicators, theme tokens, and optional header integration. Works identically in Angular, React, and plain HTML."
@@ -52,7 +52,7 @@
         </div>
 
         <p class="demo-hint">
-          Active item: <strong>{{ activeId || 'none' }}</strong> â€” try the search, collapse, and theme buttons.
+          Active item: <strong>{{ activeId || 'none' }}</strong> &mdash; try the search, collapse, and theme buttons.
         </p>
 
       </ng-container>
@@ -62,42 +62,14 @@
 
         <h2 class="fw-title">Framework Usage</h2>
         <p class="fw-lead">
-          <code>pui-lib-sidebar</code> is a Web Component. String inputs â†’ HTML attributes.
+          <code>pui-lib-sidebar</code> is a Web Component. String inputs &rarr; HTML attributes.
           Objects (<code>config</code>, <code>theme</code>) and arrays (<code>groups</code>, <code>headerMenuItems</code>)
-          â†’ JSON string attribute or JS property. The <code>groups</code> array is the core nav structure â€”
+          &rarr; JSON string attribute or JS property. The <code>groups</code> array is the core nav structure &mdash;
           always set it via a JS property or Angular binding.
         </p>
 
-        <div class="fw-tabs">
-          <button class="fw-tab" [class.fw-tab--active]="fw==='angular'" (click)="fw='angular'">
-            <svg width="15" height="15" viewBox="0 0 24 24"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.31H4.936L12 3.405z" fill="#c3002f"/></svg>
-            Angular
-          </button>
-          <button class="fw-tab" [class.fw-tab--active]="fw==='react'" (click)="fw='react'">
-            <svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
-            React
-          </button>
-          <button class="fw-tab" [class.fw-tab--active]="fw==='html'" (click)="fw='html'">
-            <svg width="15" height="15" viewBox="0 0 24 24"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
-            Plain HTML
-          </button>
-        </div>
-
-        <div *ngIf="fw==='angular'" class="fw-panel">
-          <div class="fw-note fw-note--angular">All Angular template bindings work directly â€” <code>[groups]</code>, <code>[theme]</code>, <code>(itemSelect)</code>.</div>
-          <app-code lang="html"       id="sb-ng-tpl" [text]="angularTpl" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-          <app-code lang="typescript" id="sb-ng-ts"  [text]="angularTs"  [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-        </div>
-
-        <div *ngIf="fw==='react'" class="fw-panel">
-          <div class="fw-note fw-note--react">Set <code>groups</code>, <code>theme</code>, <code>config</code> and <code>headerMenuItems</code> via <code>ref</code> in <code>useEffect</code>. Events via <code>addEventListener</code>.</div>
-          <app-code lang="tsx" id="sb-react" [text]="reactCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-        </div>
-
-        <div *ngIf="fw==='html'" class="fw-panel">
-          <div class="fw-note fw-note--html">Load the bundle. String inputs â†’ attributes. Arrays/objects â†’ JS properties via <code>whenDefined</code>.</div>
-          <app-code lang="html" id="sb-html" [text]="htmlCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-        </div>
+        <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
+        </docs-framework-preview>
 
         <h3 class="fw-ref-title">Input Quick Reference</h3>
         <div class="xfw-wrap">

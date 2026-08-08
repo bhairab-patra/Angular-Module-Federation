@@ -2,11 +2,12 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { PuiMultiSelectComponent, MultiSelectOption } from '@bhairab-patra/platform-ui';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'app-multiselect-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, PuiMultiSelectComponent],
+  imports: [NgFor, NgIf, DocPageComponent, PuiMultiSelectComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './multiselect-page.component.html',
   styleUrls: ['./multiselect-page.component.scss'],
@@ -70,6 +71,69 @@ export class MultiSelectPageComponent {
     { name: 'hint',          angular: 'hint="msg"',               attr: 'hint="msg"',         js: 'el.hint = "msg"'         },
     { name: 'valueChange',   angular: '(valueChange)="fn($event)"', attr: '—',               js: 'el.addEventListener(…)'  },
   ];
+
+  angularCode = `import { PuiMultiSelectComponent, MultiSelectOption } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [PuiMultiSelectComponent],
+  template: \`
+    <pui-lib-multiselect
+      [options]="options"
+      [value]="selected"
+      placeholder="Select items…"
+      [searchable]="true"
+      [showSelectAll]="true"
+      (valueChange)="selected = $event">
+    </pui-lib-multiselect>
+  \`
+})
+export class MyComponent {
+  options: MultiSelectOption[] = [
+    { value: 'a', label: 'Alpha' },
+    { value: 'b', label: 'Beta', group: 'Greek' },
+  ];
+  selected: (string | number)[] = [];
+}`;
+
+  reactCode = `import { useRef, useEffect, useState } from 'react';
+import '@bhairab-patra/platform-ui';
+
+function ProjectSetup() {
+  const ref = useRef(null);
+  const [stack, setStack] = useState([]);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.options = [
+        { value: 'angular',  label: 'Angular',    group: 'Frontend' },
+        { value: 'react',    label: 'React',      group: 'Frontend' },
+        { value: 'node',     label: 'Node.js',    group: 'Backend'  },
+        { value: 'postgres', label: 'PostgreSQL', group: 'Database' },
+      ];
+    }
+  }, []);
+
+  return (
+    <pui-lib-multiselect
+      ref={ref}
+      placeholder="Pick your stack…"
+      onValueChange={e => setStack(e.detail)}
+    />
+  );
+}`;
+
+  htmlCode = `<pui-lib-multiselect id="ms" placeholder="Select items…" searchable show-select-all></pui-lib-multiselect>
+
+<script>
+customElements.whenDefined('pui-lib-multiselect').then(() => {
+  const el = document.getElementById('ms');
+  el.options = [
+    { value: 'a', label: 'Alpha' },
+    { value: 'b', label: 'Beta' },
+  ];
+  el.addEventListener('valueChange', e => console.log(e.detail));
+});
+</script>`;
 
   api: ApiRow[] = [
     { input: 'options',       type: 'MultiSelectOption[]', default: '[]',              description: 'Array of option objects. Each has value, label, and optional group and disabled.' },

@@ -1,14 +1,14 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PuiTextareaComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-textarea-page',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, PuiTextareaComponent, DocPageComponent, CodeBlockComponent],
+  imports: [NgFor, FormsModule, PuiTextareaComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './textarea-page.component.html',
 })
@@ -94,6 +94,10 @@ export function BioEditor() {
     </>
   );
 }`;
+
+  get angularCode(): string {
+    return `${this.angHtml}\n\n// component.ts\n${this.angTs}`;
+  }
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 

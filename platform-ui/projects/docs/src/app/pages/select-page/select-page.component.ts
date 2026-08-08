@@ -3,12 +3,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PuiSelectComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-select-page',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, PuiSelectComponent, DocPageComponent, CodeBlockComponent],
+  imports: [NgFor, NgIf, FormsModule, PuiSelectComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './select-page.component.html',
 })
@@ -107,6 +107,10 @@ export function RolePicker() {
 
   return <pui-lib-select ref={selectRef} label="Role" placeholder="Select a role"/>;
 }`;
+
+  get angularCode(): string {
+    return `${this.angHtml}\n\n// component.ts\n${this.angTs}`;
+  }
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 

@@ -88,45 +88,53 @@
           with the same methods. In all cases place <code>&lt;pui-lib-toast-container&gt;</code> once in your app root.
         </p>
 
-        <div class="fw-tabs">
-          <button class="fw-tab" [class.fw-tab--active]="fw==='angular'" (click)="fw='angular'">
-            <svg width="15" height="15" viewBox="0 0 24 24"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.31H4.936L12 3.405z" fill="#c3002f"/></svg>
-            Angular
-          </button>
-          <button class="fw-tab" [class.fw-tab--active]="fw==='react'" (click)="fw='react'">
-            <svg width="15" height="15" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
-            React
-          </button>
-          <button class="fw-tab" [class.fw-tab--active]="fw==='html'" (click)="fw='html'">
-            <svg width="15" height="15" viewBox="0 0 24 24"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
-            Plain HTML
-          </button>
-        </div>
-
-        <div *ngIf="fw==='angular'" class="fw-panel">
-          <div class="fw-note fw-note--angular">
-            1. Add <code>&lt;pui-lib-toast-container&gt;</code> to your root template.
-            2. Inject <code>ToastService</code> anywhere — it's <code>providedIn: 'root'</code>.
+        <docs-framework-preview
+          [angularCode]="angularCode"
+          [reactCode]="reactCode"
+          [htmlCode]="htmlCode">
+          <div preview class="demo-col">
+            <p style="font-size:13px;color:var(--docs-fg-muted);margin:0 0 12px">Trigger toasts using <code>ToastService</code> in Angular:</p>
+            <div class="type-grid">
+              <button class="type-btn type-btn--success" (click)="showSuccess()">
+                <span class="type-dot type-dot--success"></span>
+                <span class="type-lbl">Success</span>
+              </button>
+              <button class="type-btn type-btn--error" (click)="showError()">
+                <span class="type-dot type-dot--error"></span>
+                <span class="type-lbl">Error</span>
+              </button>
+              <button class="type-btn type-btn--warning" (click)="showWarning()">
+                <span class="type-dot type-dot--warning"></span>
+                <span class="type-lbl">Warning</span>
+              </button>
+              <button class="type-btn type-btn--info" (click)="showInfo()">
+                <span class="type-dot type-dot--info"></span>
+                <span class="type-lbl">Info</span>
+              </button>
+            </div>
           </div>
-          <app-code lang="html"       id="t-ng-tpl" [text]="angularTpl" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-          <app-code lang="typescript" id="t-ng-ts"  [text]="angularTs"  [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-        </div>
-
-        <div *ngIf="fw==='react'" class="fw-panel">
-          <div class="fw-note fw-note--react">
-            Add <code>&lt;pui-lib-toast-container /&gt;</code> once in your root <code>App.jsx</code>.
-            Then call <code>window.puiToast.success()</code> from anywhere — no import needed.
+          <div react-preview class="demo-col">
+            <p style="font-size:13px;color:var(--docs-fg-muted);margin:0 0 12px">Same toasts via <code>window.puiToast</code> in React:</p>
+            <div class="type-grid">
+              <button class="type-btn type-btn--success" (click)="showSuccess()">
+                <span class="type-dot type-dot--success"></span>
+                <span class="type-lbl">Success</span>
+              </button>
+              <button class="type-btn type-btn--error" (click)="showError()">
+                <span class="type-dot type-dot--error"></span>
+                <span class="type-lbl">Error</span>
+              </button>
+              <button class="type-btn type-btn--warning" (click)="showWithAction()">
+                <span class="type-dot type-dot--warning"></span>
+                <span class="type-lbl">With Undo</span>
+              </button>
+              <button class="type-btn type-btn--info" (click)="showPersistent()">
+                <span class="type-dot type-dot--info"></span>
+                <span class="type-lbl">Persistent</span>
+              </button>
+            </div>
           </div>
-          <app-code lang="tsx" id="t-react" [text]="reactCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-        </div>
-
-        <div *ngIf="fw==='html'" class="fw-panel">
-          <div class="fw-note fw-note--html">
-            Load the bundle. Add <code>&lt;pui-lib-toast-container&gt;</code> to <code>&lt;body&gt;</code>.
-            Call <code>window.puiToast.*</code> from any script.
-          </div>
-          <app-code lang="html" id="t-html" [text]="htmlCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-        </div>
+        </docs-framework-preview>
 
         <h3 class="fw-ref-title">API Comparison — Angular service vs global API</h3>
         <div class="xfw-wrap">

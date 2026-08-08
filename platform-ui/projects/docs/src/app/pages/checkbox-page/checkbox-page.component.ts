@@ -3,12 +3,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PuiCheckboxComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-checkbox-page',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, PuiCheckboxComponent, DocPageComponent, CodeBlockComponent],
+  imports: [NgFor, NgIf, FormsModule, PuiCheckboxComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './checkbox-page.component.html',
 })
@@ -85,6 +85,10 @@ export function MyForm() {
     />
   );
 }`;
+
+  get angularCode(): string {
+    return `${this.angHtml}\n\n// component.ts\n${this.angTs}`;
+  }
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 

@@ -5,9 +5,7 @@ import {
   SidebarTheme, SIDEBAR_THEMES
 } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
-
-type FwTab = 'angular' | 'react' | 'html';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 const ICON = (path: string) =>
   `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;
@@ -48,14 +46,17 @@ const NAV_GROUPS: SidebarGroup[] = [
 @Component({
   selector: 'docs-sidebar-page',
   standalone: true,
-  imports: [NgFor, NgIf, PuiSidebarComponent, DocPageComponent, CodeBlockComponent],
+  imports: [NgFor, NgIf, PuiSidebarComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './sidebar-page.component.html',
   styleUrls: ['./sidebar-page.component.scss'],
 })
 export class SidebarPageComponent {
-  fw: FwTab = 'angular';
-  copied    = '';
+  copied = '';
+
+  readonly previewConfig = { collapsible: true, showSearch: true, width: 220 };
+
+  get angularCode(): string { return `${this.angularTpl}\n\n// component.ts\n${this.angularTs}`; }
   activeId  = 'dashboard';
   collapsed = false;
   SIDEBAR_THEMES = SIDEBAR_THEMES;

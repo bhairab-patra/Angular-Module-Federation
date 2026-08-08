@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { PuiTagComponent } from '@bhairab-patra/platform-ui';
@@ -7,7 +7,7 @@ import { PuiTagComponent } from '@bhairab-patra/platform-ui';
 @Component({
   selector: 'app-tag-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, PuiTagComponent, FrameworkPreviewComponent],
+  imports: [NgFor, DocPageComponent, PuiTagComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './tag-page.component.html',
   styleUrls: ['./tag-page.component.scss'],

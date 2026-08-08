@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { SpinnerComponent, SpinnerType, SpinnerSize, ButtonComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
@@ -7,7 +7,7 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
 @Component({
   selector: 'docs-spinner-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, SpinnerComponent, ButtonComponent, FrameworkPreviewComponent],
+  imports: [NgFor, DocPageComponent, SpinnerComponent, ButtonComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './spinner-page.component.html',
   styleUrls: ['./spinner-page.component.scss'],

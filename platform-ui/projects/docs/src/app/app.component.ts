@@ -54,6 +54,7 @@ export class AppComponent {
     { label: 'Chip',           route: '/chip',          category: 'Component', keywords: ['chip', 'tag', 'filter', 'removable', 'selectable', 'pill', 'toggle', 'input'] },
     { label: 'Tag',            route: '/tag',           category: 'Component', keywords: ['tag', 'label', 'badge', 'status', 'category', 'pill', 'uppercase'] },
     { label: 'List',           route: '/list',          category: 'Component', keywords: ['list', 'items', 'selectable', 'bordered', 'striped', 'flush', 'menu', 'navigation'] },
+    { label: 'Menu',           route: '/menu',          category: 'Component', keywords: ['menu', 'dropdown', 'submenu', 'context', 'actions', 'popover', 'trigger', 'select'] },
     { label: 'Data Grid',      route: '/datagrid',      category: 'Component', keywords: ['datagrid', 'grid', 'table', 'data', 'sort', 'pagination', 'selectable', 'rows', 'columns', 'badge'] },
   ];
 
@@ -129,6 +130,8 @@ export class AppComponent {
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l1.5 3.5 3.5.5-2.5 2.5.5 3.5L8 10.3l-3 1.7.5-3.5L3 6l3.5-.5z"/></svg>`) },
           { label: 'List',            route: '/list',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h8M5 8h8M5 12h8"/><circle cx="2.5" cy="4" r=".8" fill="currentColor" stroke="none"/><circle cx="2.5" cy="8" r=".8" fill="currentColor" stroke="none"/><circle cx="2.5" cy="12" r=".8" fill="currentColor" stroke="none"/></svg>`) },
+          { label: 'Menu',            route: '/menu',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="8" rx="1.5"/><path d="M5 7h6M5 9.5h4"/><path d="M11 8l2 0"/></svg>`) },
           { label: 'Modal',           route: '/modal',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l6-3 6 3-6 3z"/><path d="M2 8l6 3 6-3"/><path d="M2 11l6 3 6-3"/></svg>`) },
           { label: 'Skeleton Loader', route: '/skeleton',

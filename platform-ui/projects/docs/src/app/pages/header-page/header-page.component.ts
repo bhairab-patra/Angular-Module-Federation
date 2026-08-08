@@ -2,14 +2,12 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { HeaderComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
-
-type FwTab = 'angular' | 'react' | 'html';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-header-page',
   standalone: true,
-  imports: [DocPageComponent, HeaderComponent, NgIf, NgFor, CodeBlockComponent],
+  imports: [DocPageComponent, HeaderComponent, NgIf, NgFor, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './header-page.component.html',
   styleUrls: ['./header-page.component.scss'],
@@ -17,8 +15,9 @@ type FwTab = 'angular' | 'react' | 'html';
 export class HeaderPageComponent {
 
   lastAction = '';
-  fw: FwTab  = 'angular';
   copied     = '';
+
+  get angularCode(): string { return `${this.angularTemplate}\n\n// component.ts\n${this.angularTs}`; }
 
   doCopy(text: string, id: string) {
     navigator.clipboard.writeText(text).then(() => {

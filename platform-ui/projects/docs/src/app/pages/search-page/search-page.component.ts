@@ -2,22 +2,21 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { PuiSearchComponent, SearchSuggestion } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
-
-type FwTab = 'angular' | 'react' | 'html';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-search-page',
   standalone: true,
-  imports: [NgIf, NgFor, PuiSearchComponent, DocPageComponent, CodeBlockComponent],
+  imports: [NgIf, NgFor, PuiSearchComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './search-page.component.html',
   styleUrls: ['./search-page.component.scss'],
 })
 export class SearchPageComponent {
-  fw: FwTab = 'angular';
   copied    = '';
   lastQuery = '';
+
+  get angularCode(): string { return `${this.angularTpl}\n\n// component.ts\n${this.angularTs}`; }
   selected: SearchSuggestion | null = null;
 
   doCopy(text: string, id: string) {

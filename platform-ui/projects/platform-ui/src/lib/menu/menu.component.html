@@ -1,0 +1,81 @@
+<!-- Trigger button -->
+<button
+  class="pui-menu-trigger"
+  [class]="variantClass"
+  [disabled]="disabled"
+  [attr.aria-haspopup]="'menu'"
+  [attr.aria-expanded]="open"
+  (click)="toggle()">
+  <ng-content></ng-content>
+  <span *ngIf="trigger" class="pui-menu-trigger__label">{{ trigger }}</span>
+  <svg class="pui-menu-trigger__chevron" [class.pui-menu-trigger__chevron--open]="open"
+       width="14" height="14" viewBox="0 0 16 16" fill="none">
+    <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+          stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<!-- Dropdown panel -->
+<div *ngIf="open"
+     class="pui-menu-panel"
+     [class]="placementClass"
+     [style.max-height.px]="maxHeight"
+     role="menu">
+
+  <ng-container *ngFor="let item of items; trackBy: trackById">
+
+    <!-- Divider -->
+    <div *ngIf="item.dividerBefore" class="pui-menu-divider" role="separator"></div>
+
+    <!-- Item with submenu -->
+    <div *ngIf="item.children?.length; else flatItem"
+         class="pui-menu-item pui-menu-item--parent"
+         [class.pui-menu-item--disabled]="item.disabled"
+         [class.pui-menu-item--active]="hasActiveSubmenu(item)"
+         role="menuitem"
+         [attr.aria-haspopup]="'menu'"
+         [attr.aria-expanded]="hasActiveSubmenu(item)"
+         [attr.aria-disabled]="item.disabled || null"
+         (click)="select(item, $event)">
+
+      <span *ngIf="item.icon" class="pui-menu-item__icon" [innerHTML]="item.icon"></span>
+      <span class="pui-menu-item__label">{{ item.label }}</span>
+      <svg class="pui-menu-item__arrow" width="12" height="12" viewBox="0 0 16 16" fill="none">
+        <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+
+      <!-- Submenu panel -->
+      <div *ngIf="hasActiveSubmenu(item)" class="pui-submenu-panel" role="menu">
+        <ng-container *ngFor="let child of item.children; trackBy: trackById">
+          <div *ngIf="child.dividerBefore" class="pui-menu-divider" role="separator"></div>
+          <div class="pui-menu-item"
+               [class.pui-menu-item--disabled]="child.disabled"
+               [class.pui-menu-item--danger]="child.danger"
+               role="menuitem"
+               [attr.aria-disabled]="child.disabled || null"
+               (click)="select(child, $event)">
+            <span *ngIf="child.icon" class="pui-menu-item__icon" [innerHTML]="child.icon"></span>
+            <span class="pui-menu-item__label">{{ child.label }}</span>
+            <span *ngIf="child.shortcut" class="pui-menu-item__shortcut">{{ child.shortcut }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- Flat item -->
+    <ng-template #flatItem>
+      <div class="pui-menu-item"
+           [class.pui-menu-item--disabled]="item.disabled"
+           [class.pui-menu-item--danger]="item.danger"
+           role="menuitem"
+           [attr.aria-disabled]="item.disabled || null"
+           (click)="select(item, $event)">
+        <span *ngIf="item.icon" class="pui-menu-item__icon" [innerHTML]="item.icon"></span>
+        <span class="pui-menu-item__label">{{ item.label }}</span>
+        <span *ngIf="item.shortcut" class="pui-menu-item__shortcut">{{ item.shortcut }}</span>
+      </div>
+    </ng-template>
+
+  </ng-container>
+</div>

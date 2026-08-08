@@ -38,4 +38,5 @@ export const routes: Routes = [
   { path: 'tag',          loadComponent: () => import('./pages/tag-page/tag-page.component').then(m => m.TagPageComponent) },
   { path: 'list',         loadComponent: () => import('./pages/list-page/list-page.component').then(m => m.ListPageComponent) },
   { path: 'datagrid',     loadComponent: () => import('./pages/datagrid-page/datagrid-page.component').then(m => m.DataGridPageComponent) },
+  { path: 'menu',         loadComponent: () => import('./pages/menu-page/menu-page.component').then(m => m.MenuPageComponent) },
 ];

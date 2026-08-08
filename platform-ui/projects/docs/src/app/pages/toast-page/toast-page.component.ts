@@ -1,23 +1,22 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ToastService } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
-
-type FwTab = 'angular' | 'react' | 'html';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-toast-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, CodeBlockComponent],
+  imports: [NgFor, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './toast-page.component.html',
   styleUrls: ['./toast-page.component.scss'],
 })
 export class ToastPageComponent {
   private toastSvc = inject(ToastService);
-  fw: FwTab = 'angular';
-  copied    = '';
+  copied = '';
+
+  get angularCode(): string { return `${this.angularTpl}\n\n// component.ts\n${this.angularTs}`; }
 
   get toast() { return this.toastSvc; }
 

@@ -2,11 +2,12 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { PuiComboboxComponent, ComboboxOption } from '@bhairab-patra/platform-ui';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'app-combobox-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, PuiComboboxComponent],
+  imports: [NgFor, NgIf, DocPageComponent, PuiComboboxComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './combobox-page.component.html',
   styleUrls: ['./combobox-page.component.scss'],
@@ -75,6 +76,71 @@ export class ComboboxPageComponent {
     { name: 'error',         angular: 'error="msg"',               attr: 'error="msg"',    js: 'el.error = "msg"'        },
     { name: 'valueChange',   angular: '(valueChange)="fn($event)"',attr: '—',              js: 'el.addEventListener(…)'  },
   ];
+
+  angularCode = `import { PuiComboboxComponent, ComboboxOption } from '@bhairab-patra/platform-ui';
+
+@Component({
+  imports: [PuiComboboxComponent],
+  template: \`
+    <pui-lib-combobox
+      [options]="options"
+      [value]="selected"
+      placeholder="Search…"
+      [allowFreeText]="true"
+      (valueChange)="selected = $event">
+    </pui-lib-combobox>
+  \`
+})
+export class MyComponent {
+  options: ComboboxOption[] = [
+    { value: 'a', label: 'Alpha', description: 'First option' },
+    { value: 'b', label: 'Beta',  group: 'Greek' },
+  ];
+  selected: string | number | null = null;
+}`;
+
+  reactCode = `import { useRef, useEffect, useState } from 'react';
+import '@bhairab-patra/platform-ui';
+
+function TaskForm() {
+  const ref = useRef(null);
+  const [priority, setPriority] = useState(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.options = [
+        { value: 'critical', label: 'Critical', group: 'High'   },
+        { value: 'high',     label: 'High',     group: 'High'   },
+        { value: 'medium',   label: 'Medium',   group: 'Medium' },
+        { value: 'low',      label: 'Low',      group: 'Low'    },
+      ];
+    }
+  }, []);
+
+  return (
+    <form>
+      <pui-lib-combobox
+        ref={ref}
+        placeholder="Select priority…"
+        onValueChange={e => setPriority(e.detail)}
+      />
+    </form>
+  );
+}`;
+
+  htmlCode = `<pui-lib-combobox id="cb" placeholder="Select…" allow-free-text clearable></pui-lib-combobox>
+
+<script>
+customElements.whenDefined('pui-lib-combobox').then(() => {
+  const el = document.getElementById('cb');
+  el.options = [
+    { value: 'ng', label: 'Angular', group: 'Frontend' },
+    { value: 'rx', label: 'React',   group: 'Frontend' },
+    { value: 'nj', label: 'Node.js', group: 'Backend'  },
+  ];
+  el.addEventListener('valueChange', e => console.log(e.detail));
+});
+</script>`;
 
   api: ApiRow[] = [
     { input: 'options',       type: 'ComboboxOption[]',   default: '[]',   description: 'Option list. Each has value, label, and optional group, description, and disabled.' },

@@ -1,14 +1,14 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PuiSwitchComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-switch-page',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, PuiSwitchComponent, DocPageComponent, CodeBlockComponent],
+  imports: [NgFor, FormsModule, PuiSwitchComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './switch-page.component.html',
 })
@@ -91,6 +91,10 @@ export function SettingsToggle() {
     </>
   );
 }`;
+
+  get angularCode(): string {
+    return `${this.angHtml}\n\n// component.ts\n${this.angTs}`;
+  }
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 

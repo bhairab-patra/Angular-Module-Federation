@@ -2,12 +2,13 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { PuiAppShellComponent } from '@bhairab-patra/platform-ui';
 import { SidebarGroup, SidebarTheme, SIDEBAR_THEMES } from '@bhairab-patra/platform-ui';
 import { UserMenuItem, HeaderBadge } from '@bhairab-patra/platform-ui';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-app-shell-page',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [PuiAppShellComponent],
+  imports: [PuiAppShellComponent, FrameworkPreviewComponent],
   templateUrl: './app-shell-page.component.html',
   styleUrls: ['./app-shell-page.component.scss'],
 })
@@ -103,6 +104,54 @@ export class AppShellPageComponent {
   \`
 })
 export class AppComponent { ... }`;
+
+  reactCode = `import { useEffect, useRef, useState } from 'react';
+// pui-elements bundle loaded via <script> in index.html
+
+function App() {
+  const shellRef = useRef(null);
+  const [activeId, setActiveId] = useState('dashboard');
+
+  useEffect(() => {
+    const el = shellRef.current;
+    if (!el) return;
+    el.groups = navGroups;
+    el.headerMenuItems = menuItems;
+    const onNav = (e) => setActiveId(e.detail.id);
+    el.addEventListener('itemSelect', onNav);
+    return () => el.removeEventListener('itemSelect', onNav);
+  }, []);
+
+  return (
+    <pui-lib-app-shell
+      ref={shellRef}
+      app-title="My React App"
+      header-bg-color="#12C6A8"
+      header-user-name="Jane Doe"
+      active-id={activeId}>
+      <main>{/* page content */}</main>
+    </pui-lib-app-shell>
+  );
+}`;
+
+  htmlCode = `<!-- Load the elements bundle once -->
+<script src="pui-elements.js"></script>
+
+<!-- Place the shell in your body -->
+<pui-lib-app-shell
+  app-title="My App"
+  header-bg-color="#12C6A8"
+  header-user-name="Jane Doe">
+  <main id="content"><!-- page content --></main>
+</pui-lib-app-shell>
+
+<script>
+  customElements.whenDefined('pui-lib-app-shell').then(() => {
+    const shell = document.querySelector('pui-lib-app-shell');
+    shell.groups = navGroups;
+    shell.addEventListener('itemSelect', e => console.log(e.detail.id));
+  });
+</script>`;
 
   themeCode = `import { SIDEBAR_THEMES } from '@bhairab-patra/platform-ui';
 

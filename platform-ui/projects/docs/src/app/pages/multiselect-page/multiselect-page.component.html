@@ -130,91 +130,24 @@
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead"><code>pui-lib-multiselect</code> is a standalone Web Component — the same element tag works in Angular, React, and plain HTML. The <code>options</code> and <code>value</code> inputs accept typed arrays (Angular binding) or JSON strings (HTML attribute).</p>
 
-    <div class="fw-tabs">
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='angular'" (click)="fwTab='angular'; cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.310H4.936L12 3.405z" fill="#c3002f"/></svg>
-        Angular
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='react'" (click)="fwTab='react'; cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/></svg>
-        React
-      </button>
-      <button class="fw-tab" [class.fw-tab--active]="fwTab==='html'" (click)="fwTab='html'; cdr.markForCheck()">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/></svg>
-        HTML
-      </button>
-    </div>
-
-    <div *ngIf="fwTab==='angular'" class="fw-panel">
-      <div class="fw-note--angular">Import <code>PuiMultiSelectComponent</code> into your component's <code>imports</code> array.</div>
-      <pre><code>// component.ts
-import &#123; PuiMultiSelectComponent, MultiSelectOption &#125; from '&#64;bhairab-patra/platform-ui';
-
-&#64;Component(&#123;
-  imports: [PuiMultiSelectComponent],
-  template: &#96;
-    &lt;pui-lib-multiselect
-      [options]="options"
-      [value]="selected"
-      placeholder="Select items…"
-      [searchable]="true"
-      [showSelectAll]="true"
-      (valueChange)="selected = $event"&gt;
-    &lt;/pui-lib-multiselect&gt;
-  &#96;
-&#125;)
-export class MyComponent &#123;
-  options: MultiSelectOption[] = [
-    &#123; value: 'a', label: 'Alpha' &#125;,
-    &#123; value: 'b', label: 'Beta', group: 'Greek' &#125;,
-  ];
-  selected: (string | number)[] = [];
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='react'" class="fw-panel">
-      <div class="fw-note--react">Use a <code>ref</code> to pass arrays — HTML attributes accept JSON strings only.</div>
-      <pre><code>import &#123; useRef, useEffect, useState &#125; from 'react';
-import '&#64;bhairab-patra/platform-ui';
-
-function MyComponent() &#123;
-  const ref = useRef(null);
-  const [selected, setSelected] = useState([]);
-
-  useEffect(() =&gt; &#123;
-    if (ref.current) &#123;
-      ref.current.options = [
-        &#123; value: 'a', label: 'Alpha' &#125;,
-        &#123; value: 'b', label: 'Beta' &#125;,
-      ];
-    &#125;
-  &#125;, []);
-
-  return (
-    &lt;pui-lib-multiselect
-      ref=&#123;ref&#125;
-      placeholder="Select items…"
-      onValueChange=&#123;e =&gt; setSelected(e.detail)&#125;
-    /&gt;
-  );
-&#125;</code></pre>
-    </div>
-
-    <div *ngIf="fwTab==='html'" class="fw-panel">
-      <div class="fw-note--html">Assign array properties via JS after <code>customElements.whenDefined</code>.</div>
-      <pre><code>&lt;pui-lib-multiselect id="ms" placeholder="Select items…" searchable show-select-all&gt;&lt;/pui-lib-multiselect&gt;
-
-&lt;script&gt;
-customElements.whenDefined('pui-lib-multiselect').then(() =&gt; &#123;
-  const el = document.getElementById('ms');
-  el.options = [
-    &#123; value: 'a', label: 'Alpha' &#125;,
-    &#123; value: 'b', label: 'Beta' &#125;,
-  ];
-  el.addEventListener('valueChange', e =&gt; console.log(e.detail));
-&#125;);
-&lt;/script&gt;</code></pre>
-    </div>
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode">
+      <div preview class="demo-col" style="max-width:360px">
+        <label class="demo-label">Assign Team Members</label>
+        <pui-lib-multiselect [options]="teamOptions" [value]="teamSelected" placeholder="Search team members…" [searchable]="true" [showSelectAll]="true" (valueChange)="teamSelected = $event; cdr.markForCheck()"/>
+        <label class="demo-label" style="margin-top:12px">Tech Stack</label>
+        <pui-lib-multiselect [options]="techOptions" [value]="techSelected" placeholder="Pick your stack…" [showSelectAll]="true" (valueChange)="techSelected = $event; cdr.markForCheck()"/>
+      </div>
+      <div react-preview class="react-project-form">
+        <h4 class="react-form-title">New Project Setup</h4>
+        <label class="demo-label">Tech stack</label>
+        <pui-lib-multiselect [options]="techOptions" [value]="['angular','node']" placeholder="Select technologies…" [searchable]="true" [showSelectAll]="true"/>
+        <label class="demo-label" style="margin-top:12px">Team members</label>
+        <pui-lib-multiselect [options]="teamOptions" placeholder="Assign members…" [searchable]="true"/>
+      </div>
+    </docs-framework-preview>
 
     <h4 class="fw-ref-title">Multi Select Quick Reference</h4>
     <div class="xfw-wrap">

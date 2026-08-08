@@ -45,3 +45,5 @@ export * from './lib/chip/chip.component';
 export * from './lib/tag/tag.component';
 export * from './lib/list/list.component';
 export * from './lib/datagrid/datagrid.component';
+export * from './lib/models/menu.model';
+export * from './lib/menu/menu.component';

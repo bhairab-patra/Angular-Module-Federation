@@ -78,58 +78,38 @@
           string or a JS property; events are standard DOM CustomEvents.
         </p>
 
-        <!-- Tabs -->
-        <div class="fw-tabs">
-          <button class="fw-tab" [class.fw-tab--active]="fw==='angular'" (click)="fw='angular'">
-            <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0">
-              <path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.31H4.936L12 3.405z" fill="#c3002f"/>
-            </svg>
-            Angular
-          </button>
-          <button class="fw-tab" [class.fw-tab--active]="fw==='react'" (click)="fw='react'">
-            <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0">
-              <circle cx="12" cy="12" r="2.05" fill="#61dafb"/>
-              <ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/>
-              <ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/>
-              <ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/>
-            </svg>
-            React
-          </button>
-          <button class="fw-tab" [class.fw-tab--active]="fw==='html'" (click)="fw='html'">
-            <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0">
-              <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/>
-            </svg>
-            Plain HTML
-          </button>
-        </div>
-
-        <!-- Angular -->
-        <div *ngIf="fw==='angular'" class="fw-panel">
-          <div class="fw-note fw-note--angular">
-            Use Angular template binding — <code>[badge]</code>, <code>[showHelp]</code>,
-            <code>[menuItems]</code>, <code>(menuAction)</code> — exactly as any Angular component.
+        <docs-framework-preview
+          [angularCode]="angularCode"
+          [reactCode]="reactCode"
+          [htmlCode]="htmlCode">
+          <div preview class="demo-col">
+            <pui-lib-header
+              appTitle="Admin Portal"
+              appSubtitle="PLATFORM MANAGEMENT"
+              bgColor="#12C6A8"
+              [badge]="uatBadge"
+              [showHelp]="true"
+              greeting="Hi"
+              userName="Bhairab Patra"
+              userEmail="bpatra@solifi.com"
+              [menuItems]="menuItems"
+              (menuAction)="onAction($event)">
+            </pui-lib-header>
           </div>
-          <app-code lang="html"       [id]="'hdr-ng-tpl'" [text]="angularTemplate" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-          <app-code lang="typescript" [id]="'hdr-ng-ts'"  [text]="angularTs"       [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-        </div>
-
-        <!-- React -->
-        <div *ngIf="fw==='react'" class="fw-panel">
-          <div class="fw-note fw-note--react">
-            String inputs → kebab-case HTML attributes. Object/boolean inputs → JSON string attribute.
-            Arrays → JS property via <code>ref</code>. Events → <code>addEventListener</code>.
+          <div react-preview class="demo-col">
+            <pui-lib-header
+              appTitle="DataHub"
+              appSubtitle="ANALYTICS"
+              bgColor="#0f172a"
+              [navLinks]="navLinks"
+              userName="Jane Smith"
+              userEmail="jane@analytics.io"
+              greeting="Hello"
+              avatarColor="#6366f1"
+              [menuItems]="menuItems">
+            </pui-lib-header>
           </div>
-          <app-code lang="tsx" [id]="'hdr-react'" [text]="reactCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-        </div>
-
-        <!-- Plain HTML -->
-        <div *ngIf="fw==='html'" class="fw-panel">
-          <div class="fw-note fw-note--html">
-            Load <code>pui-elements.js</code> once. Use kebab-case for string/boolean attributes.
-            Set arrays via JS after <code>customElements.whenDefined</code>.
-          </div>
-          <app-code lang="html" [id]="'hdr-html'" [text]="htmlCode" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-        </div>
+        </docs-framework-preview>
 
         <!-- Cross-framework quick-ref -->
         <h3 class="fw-ref-title">Input / Event Quick Reference</h3>

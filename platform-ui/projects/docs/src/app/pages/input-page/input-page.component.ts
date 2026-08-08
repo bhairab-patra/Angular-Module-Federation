@@ -3,12 +3,12 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PuiInputComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-input-page',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, PuiInputComponent, DocPageComponent, CodeBlockComponent],
+  imports: [NgFor, NgIf, FormsModule, PuiInputComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './input-page.component.html',
 })
@@ -92,6 +92,10 @@ export function MyForm() {
     </>
   );
 }`;
+
+  get angularCode(): string {
+    return `${this.angHtml}\n\n// component.ts\n${this.angTs}`;
+  }
 
   htmlCode = `<script src="/assets/pui-elements.js"></script>
 
