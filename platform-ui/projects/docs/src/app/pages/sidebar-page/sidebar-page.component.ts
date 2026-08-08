@@ -1,5 +1,5 @@
 ﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import {
   PuiSidebarComponent, SidebarGroup, SidebarNavItem,
   SidebarTheme, SIDEBAR_THEMES
@@ -46,7 +46,7 @@ const NAV_GROUPS: SidebarGroup[] = [
 @Component({
   selector: 'docs-sidebar-page',
   standalone: true,
-  imports: [NgFor, NgIf, PuiSidebarComponent, DocPageComponent, FrameworkPreviewComponent],
+  imports: [NgFor, PuiSidebarComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './sidebar-page.component.html',
   styleUrls: ['./sidebar-page.component.scss'],

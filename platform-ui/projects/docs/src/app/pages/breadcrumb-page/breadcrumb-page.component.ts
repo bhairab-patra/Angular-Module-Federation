@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { BreadcrumbComponent, BreadcrumbItem } from '@bhairab-patra/platform-ui';
@@ -7,7 +7,7 @@ import { BreadcrumbComponent, BreadcrumbItem } from '@bhairab-patra/platform-ui'
 @Component({
   selector: 'app-breadcrumb-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, BreadcrumbComponent, FrameworkPreviewComponent],
+  imports: [NgFor, DocPageComponent, BreadcrumbComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './breadcrumb-page.component.html',
   styleUrls: ['./breadcrumb-page.component.scss'],

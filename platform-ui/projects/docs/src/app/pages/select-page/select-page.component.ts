@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PuiSelectComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
@@ -8,7 +8,7 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
 @Component({
   selector: 'docs-select-page',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, PuiSelectComponent, DocPageComponent, FrameworkPreviewComponent],
+  imports: [NgFor, FormsModule, PuiSelectComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './select-page.component.html',
 })

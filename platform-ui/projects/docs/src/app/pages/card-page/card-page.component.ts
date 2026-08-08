@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { CardComponent, BadgeComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
@@ -7,7 +7,7 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
 @Component({
   selector: 'docs-card-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, CardComponent, BadgeComponent, FrameworkPreviewComponent],
+  imports: [NgFor, DocPageComponent, CardComponent, BadgeComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './card-page.component.html',
   styleUrls: ['./card-page.component.scss'],

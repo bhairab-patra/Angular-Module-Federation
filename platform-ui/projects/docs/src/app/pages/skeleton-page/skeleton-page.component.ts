@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor} from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { PuiSkeletonComponent } from '@bhairab-patra/platform-ui';
@@ -7,7 +7,7 @@ import { PuiSkeletonComponent } from '@bhairab-patra/platform-ui';
 @Component({
   selector: 'app-skeleton-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, PuiSkeletonComponent, FrameworkPreviewComponent],
+  imports: [NgFor, DocPageComponent, PuiSkeletonComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './skeleton-page.component.html',
   styleUrls: ['./skeleton-page.component.scss'],
