@@ -1,8 +1,7 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef, inject,
-  HostListener, ElementRef
-} from '@angular/core';
+  HostListener, ElementRef, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export type DatePickerMode = 'single' | 'range';
@@ -17,6 +16,7 @@ const MONTHS = ['January','February','March','April','May','June',
   selector: 'pui-lib-datepicker',
   standalone: true,
   imports: [NgFor, NgIf],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss'],

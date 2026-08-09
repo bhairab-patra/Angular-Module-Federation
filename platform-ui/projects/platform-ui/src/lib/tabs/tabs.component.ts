@@ -1,7 +1,6 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, inject
-} from '@angular/core';
+  ChangeDetectionStrategy, ChangeDetectorRef, inject, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface TabItem {
@@ -20,6 +19,7 @@ export type TabsSize        = 'sm' | 'md' | 'lg';
   selector: 'pui-lib-tabs',
   standalone: true,
   imports: [NgFor, NgIf],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],

@@ -1,7 +1,6 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
-  ChangeDetectionStrategy, ChangeDetectorRef
-} from '@angular/core';
+  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NgIf, NgFor, KeyValuePipe } from '@angular/common';
 import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
 
@@ -9,6 +8,7 @@ import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
   selector: 'pui-lib-filter-panel',
   standalone: true,
   imports: [NgIf, NgFor],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './filter-panel.component.html',
   styleUrls: ['./filter-panel.component.scss'],

@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { ModalComponent, ButtonComponent, CardComponent, IconComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
@@ -7,7 +7,7 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
 @Component({
   selector: 'docs-modal-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, ModalComponent, ButtonComponent, CardComponent, IconComponent, FrameworkPreviewComponent],
+  imports: [NgFor, DocPageComponent, ModalComponent, ButtonComponent, CardComponent, IconComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './modal-page.component.html',
   styleUrls: ['./modal-page.component.scss'],

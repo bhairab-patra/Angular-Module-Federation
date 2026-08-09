@@ -1,7 +1,6 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ChangeDetectionStrategy, ChangeDetectorRef
-} from '@angular/core';
+  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormSize, RadioOption } from '../../models/form.model';
@@ -10,6 +9,7 @@ import { FormSize, RadioOption } from '../../models/form.model';
   selector: 'pui-lib-radio-group',
   standalone: true,
   imports: [NgIf, NgFor],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [{
     provide: NG_VALUE_ACCESSOR,

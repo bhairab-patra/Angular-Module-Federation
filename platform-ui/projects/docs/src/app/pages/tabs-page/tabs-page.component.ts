@@ -2,13 +2,12 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@
 import { NgFor, NgIf } from '@angular/common';
 import { PuiTabsComponent, TabItem } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-tabs-page',
   standalone: true,
-  imports: [NgFor, NgIf, PuiTabsComponent, DocPageComponent, CodeBlockComponent, FrameworkPreviewComponent],
+  imports: [NgFor, NgIf, PuiTabsComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './tabs-page.component.html',
   styleUrls: ['./tabs-page.component.scss'],

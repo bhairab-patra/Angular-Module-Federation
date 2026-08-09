@@ -22,6 +22,20 @@
     .brand-name { font-size: 15px; font-weight: 500; color: var(--pui-neutral-900); font-family: 'Poppins', system-ui, sans-serif; letter-spacing: -.01em; }
     .brand-name strong { font-weight: 700; color: var(--pui-brand); }
 
+    .topbar-right { display: flex; align-items: center; gap: 8px; }
+
+    .faq-btn {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; color: var(--pui-neutral-700); text-decoration: none;
+      padding: 6px 12px; border-radius: 8px; border: 1px solid transparent;
+      font-family: 'Poppins', system-ui, sans-serif; font-weight: 500;
+      transition: background .15s, color .15s;
+    }
+    .faq-btn:hover, .faq-btn--active {
+      background: var(--pui-neutral-100); color: var(--pui-brand);
+      border-color: var(--pui-neutral-200);
+    }
+
     .gh-btn {
       display: flex; align-items: center; gap: 6px;
       font-size: 13px; color: var(--pui-neutral-700); text-decoration: none;

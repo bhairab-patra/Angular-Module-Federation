@@ -1,7 +1,6 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, HostListener,
-  ChangeDetectionStrategy, ChangeDetectorRef, inject,
-} from '@angular/core';
+  ChangeDetectionStrategy, ChangeDetectorRef, inject, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
 
@@ -9,6 +8,7 @@ import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
   selector: 'pui-lib-menu',
   standalone: true,
   imports: [NgFor, NgIf],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],

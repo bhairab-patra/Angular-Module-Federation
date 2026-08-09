@@ -1,7 +1,6 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, NgZone,
-  ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, SimpleChanges, OnDestroy, inject
-} from '@angular/core';
+  ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, SimpleChanges, OnDestroy, inject, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 
 export interface TableColumn {
@@ -30,6 +29,7 @@ export interface SortState { key: string; dir: SortDir; }
   selector: 'pui-lib-table',
   standalone: true,
   imports: [NgFor, NgIf, DecimalPipe, DatePipe],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],

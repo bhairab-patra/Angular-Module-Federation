@@ -1,7 +1,6 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, OnInit, OnDestroy,
-  HostListener, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild
-} from '@angular/core';
+  HostListener, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -11,6 +10,7 @@ import { SearchSuggestion, SearchSize } from '../models/search.model';
   selector: 'pui-lib-search',
   standalone: true,
   imports: [NgIf, NgFor],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],

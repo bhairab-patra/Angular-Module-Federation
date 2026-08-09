@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { PuiRadioGroupComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
@@ -8,7 +8,7 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
 @Component({
   selector: 'docs-radio-page',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, PuiRadioGroupComponent, DocPageComponent, FrameworkPreviewComponent],
+  imports: [NgFor, FormsModule, PuiRadioGroupComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './radio-page.component.html',
 })

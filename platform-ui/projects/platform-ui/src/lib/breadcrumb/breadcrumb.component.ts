@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BreadcrumbItem, BreadcrumbSeparator } from '../models/breadcrumb.model';
@@ -14,6 +14,7 @@ const SEPARATORS: Record<BreadcrumbSeparator, string> = {
   selector: 'pui-lib-breadcrumb',
   standalone: true,
   imports: [NgFor, NgIf, RouterLink],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss'],

@@ -1,17 +1,127 @@
+<div class="lp-root">
+  <div class="lp-hero">
 
-    <div class="hero">
-      <div class="hero-body">
-        <div class="hero-badge">Angular 19 · Native Federation · Standalone</div>
-        <h1 class="hero-title">Platform<span class="hero-title-accent">UI</span></h1>
-        <p class="hero-sub">
-          A lightweight Angular component library designed for micro-frontend architectures.<br>
-          Drop-in buttons, cards, badges, modals, and headers — zero extra dependencies.
-        </p>
-        <div class="hero-actions">
-          <button class="btn-primary" (click)="goStart()">Get started</button>
-          <button class="btn-ghost" (click)="goComponents()">Browse components →</button>
-        </div>
-
+    <!-- Left: copy -->
+    <div class="lp-left">
+      <h1 class="lp-title">
+        Build faster with<br>
+        <span class="lp-title-accent">PlatformUI</span>
+      </h1>
+      <p class="lp-sub">
+        Platform UI gives your team a production-ready set of
+        components that look great out of the box and adapt to
+        any brand. Built on Web Components, it works seamlessly
+        in Angular, React, or plain HTML &mdash; with full
+        accessibility, Shadow DOM isolation, and a CSS token
+        system that makes theming effortless.
+      </p>
+      <div class="lp-actions">
+        <button class="lp-btn lp-btn--primary" (click)="goStart()">
+          Get started &nbsp;&rarr;
+        </button>
+        <button class="lp-btn lp-btn--ghost" (click)="goComponents()">
+          Browse components &nbsp;&rarr;
+        </button>
+      </div>
+      <div class="lp-pills">
+        <span class="lp-pill">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 5.5c0 4-5 8-5 8s-5-4-5-8a5 5 0 0110 0z"/><circle cx="8" cy="5.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+          Lightweight
+        </span>
+        <span class="lp-pill">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="5" r="2.5"/><path d="M3 14c0-2.8 2.2-5 5-5s5 2.2 5 5"/></svg>
+          Accessible
+        </span>
+        <span class="lp-pill">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 2"/></svg>
+          Customizable
+        </span>
       </div>
     </div>
-  
+
+    <!-- Right: UI mockup -->
+    <div class="lp-right">
+      <div class="lp-mockup">
+        <!-- Window chrome -->
+        <div class="lp-mockup__bar">
+          <span class="lp-dot lp-dot--red"></span>
+          <span class="lp-dot lp-dot--yellow"></span>
+          <span class="lp-dot lp-dot--green"></span>
+        </div>
+
+        <!-- Mockup content grid -->
+        <div class="lp-mockup__body">
+
+          <!-- Row 1: Buttons -->
+          <div class="lp-row">
+            <div class="lp-widget lp-widget--wide">
+              <div class="mock-label">Button</div>
+              <div class="mock-btns">
+                <span class="mock-btn mock-btn--primary">Primary button</span>
+                <span class="mock-btn mock-btn--outline">Secondary</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Card + Badge -->
+          <div class="lp-row lp-row--two">
+            <div class="lp-widget">
+              <div class="mock-label">Card</div>
+              <div class="mock-card-title">Card title</div>
+              <div class="mock-card-sub">This is a simple card component</div>
+              <div class="mock-card-link">Learn more &nbsp;&rarr;</div>
+            </div>
+            <div class="lp-widget">
+              <div class="mock-label">Badge</div>
+              <div class="mock-badge-wrap">
+                <span class="mock-badge mock-badge--success">Success</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3: Modal + Select -->
+          <div class="lp-row lp-row--two">
+            <div class="lp-widget lp-widget--modal">
+              <div class="mock-modal-header">
+                <span class="mock-modal-title">Modal</span>
+                <span class="mock-modal-x">&times;</span>
+              </div>
+              <div class="mock-modal-body">
+                <div class="mock-modal-h">Modal title</div>
+                <div class="mock-modal-d">This is a modal description.</div>
+              </div>
+              <div class="mock-modal-footer">
+                <span class="mock-btn mock-btn--cancel">Cancel</span>
+                <span class="mock-btn mock-btn--primary mock-btn--sm">Confirm</span>
+              </div>
+            </div>
+            <div class="lp-widget">
+              <div class="mock-label">Select</div>
+              <div class="mock-select">
+                Select option
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#6b7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- decorative circle -->
+      <div class="lp-deco"></div>
+
+      <!-- dotted grid backdrop -->
+      <div class="lp-dots" aria-hidden="true">
+        <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="dot-grid" x="0" y="0" width="18" height="18" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.6" fill="#12C6A8" opacity="0.35"/>
+            </pattern>
+          </defs>
+          <rect width="220" height="220" fill="url(#dot-grid)"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</div>

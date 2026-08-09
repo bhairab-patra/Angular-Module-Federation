@@ -2,13 +2,12 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@
 import { NgFor, NgIf } from '@angular/common';
 import { PuiDatepickerComponent, DateRange } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
-import { CodeBlockComponent } from '../../shared/code-block.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-datepicker-page',
   standalone: true,
-  imports: [NgFor, NgIf, PuiDatepickerComponent, DocPageComponent, CodeBlockComponent, FrameworkPreviewComponent],
+  imports: [NgFor, NgIf, PuiDatepickerComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './datepicker-page.component.html',
 })

@@ -1,7 +1,8 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef, inject
-} from '@angular/core';
+
+ , ViewEncapsulation } from '@angular/core';
 import { NgIf } from '@angular/common';
 
 export type PasswordStrength = 'weak' | 'fair' | 'strong' | 'very-strong';
@@ -10,6 +11,7 @@ export type PasswordStrength = 'weak' | 'fair' | 'strong' | 'very-strong';
   selector: 'pui-lib-password-input',
   standalone: true,
   imports: [NgIf],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './password-input.component.html',
   styleUrls: ['./password-input.component.scss'],

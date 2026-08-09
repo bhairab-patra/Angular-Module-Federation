@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { SpinnerType, SpinnerSize } from '../models/spinner.model';
 
@@ -10,6 +10,7 @@ const SIZE_MAP: Record<SpinnerSize, number> = {
   selector: 'pui-lib-spinner',
   standalone: true,
   imports: [NgIf, NgFor],
+  encapsulation: ViewEncapsulation.ShadowDom,
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.scss'],
