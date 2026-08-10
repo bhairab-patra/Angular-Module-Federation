@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   gap: 0;
+  position: relative;
   border: 1px solid var(--pui-neutral-200);
   border-radius: 12px;
   background: var(--pui-white);
@@ -159,6 +160,7 @@
   width: 100%;
   border-collapse: collapse;
   font-family: inherit;
+  table-layout: fixed;
 }
 
 /* Header */
@@ -538,21 +540,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 16px;
-  border-radius: 20px;
-  min-width: 60px;
-  background: var(--pui-brand-bg);
-  border: 1px solid var(--pui-brand);
+  padding: 4px 8px;
+  background: none;
+  border: none;
   cursor: pointer;
-  color: var(--pui-brand-hover);
-  transition: background .15s, box-shadow .15s, color .15s;
+  color: var(--pui-neutral-500);
+  border-radius: 6px;
+  transition: background .15s, color .15s;
 }
 
 .pui-tbl-action-btn:hover,
 .pui-tbl-action-btn--open {
-  background: var(--pui-brand);
-  color: var(--pui-white);
-  box-shadow: 0 2px 8px rgba(18, 198, 168, .3);
+  background: var(--pui-neutral-100);
+  color: var(--pui-neutral-900);
 }
 
 .pui-tbl-dots {
@@ -563,7 +563,7 @@
 }
 
 .pui-tbl-action-menu {
-  position: fixed;
+  position: absolute;
   z-index: 9999;
   min-width: 200px;
   background: var(--pui-white);

@@ -44,8 +44,6 @@
                 <span class="pui-tbl-cb__box"></span>
               </label>
             </th>
-            <!-- Actions column header -->
-            <th *ngIf="_actions.length > 0" class="pui-tbl-th pui-tbl-th--actions">Actions</th>
             <!-- Column headers -->
             <th *ngFor="let col of _columns" class="pui-tbl-th" [class.pui-tbl-th--sortable]="col.sortable"
               [class.pui-tbl-th--sorted]="sort.key === col.key && sort.dir"
@@ -54,12 +52,10 @@
               <span class="pui-tbl-th__label">{{ col.label }}</span>
               <span *ngIf="col.sortable" class="pui-tbl-sort-icon">
                 <svg viewBox="0 0 12 16" fill="none" width="10" height="13">
-                  <!-- Up arrow -->
                   <path d="M6 1.5L6 7M6 1.5L3.5 4M6 1.5L8.5 4" stroke="currentColor" stroke-width="1.5"
                     stroke-linecap="round" stroke-linejoin="round"
                     [class.pui-sort--active]="sort.key === col.key && sort.dir === 'asc'"
                     [class.pui-sort--dim]="!(sort.key === col.key && sort.dir === 'asc')" />
-                  <!-- Down arrow -->
                   <path d="M6 14.5L6 9M6 14.5L3.5 12M6 14.5L8.5 12" stroke="currentColor" stroke-width="1.5"
                     stroke-linecap="round" stroke-linejoin="round"
                     [class.pui-sort--active]="sort.key === col.key && sort.dir === 'desc'"
@@ -67,6 +63,8 @@
                 </svg>
               </span>
             </th>
+            <!-- Actions column header — last, aligned with ••• cells in tbody -->
+            <th *ngIf="_actions.length > 0" class="pui-tbl-th pui-tbl-th--actions">Actions</th>
           </tr>
         </thead>
 
@@ -74,7 +72,7 @@
         <tbody class="pui-tbl-body">
           <!-- Empty state -->
           <tr *ngIf="!_loading && displayRows.length === 0">
-            <td [colSpan]="_selectable ? _columns.length + 1 : _columns.length" class="pui-tbl-empty">
+            <td [colSpan]="_columns.length + (_selectable ? 1 : 0) + (_actions.length > 0 ? 1 : 0)" class="pui-tbl-empty">
               <div class="pui-tbl-empty__inner">
                 <svg viewBox="0 0 48 48" fill="none" width="40" height="40">
                   <rect x="6" y="8" width="36" height="32" rx="3" stroke="#d1d5db" stroke-width="2" />
@@ -147,27 +145,31 @@
 
             </td>
 
-            <!-- Action menu cell -->
+            <!-- Action menu cell — only the trigger button lives here -->
             <td *ngIf="_actions.length > 0" class="pui-tbl-td pui-tbl-td--actions">
               <div class="pui-tbl-action-wrap">
                 <button class="pui-tbl-action-btn" [class.pui-tbl-action-btn--open]="openActionRow === i"
                   (click)="toggleActionMenu(i, $event)" title="Actions">
                   <span class="pui-tbl-dots">•••</span>
                 </button>
-                <div class="pui-tbl-action-menu" *ngIf="openActionRow === i" [style.top.px]="actionMenuPos.top"
-                  [style.left.px]="actionMenuPos.left">
-                  <button *ngFor="let act of _actions" class="pui-tbl-action-item"
-                    [disabled]="act.disabled ? act.disabled(row) : false" (click)="onActionClick(act, row, $event)">
-                    <span *ngIf="act.icon" class="pui-tbl-action-icon" [innerHTML]="act.icon"></span>
-                    {{ act.label }}
-                  </button>
-                </div>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div><!-- /pui-tbl-scroll -->
+  </div>
+
+  <!-- ── Action menu portal — outside scroll container, position: absolute relative to host -->
+  <div *ngIf="openActionRow !== null && openActionRowData" class="pui-tbl-action-menu"
+       [style.top.px]="actionMenuPos.top"
+       [style.left.px]="actionMenuPos.left">
+    <button *ngFor="let act of _actions" class="pui-tbl-action-item"
+      [disabled]="act.disabled ? act.disabled(openActionRowData) : false"
+      (click)="onActionClick(act, openActionRowData, $event)">
+      <span *ngIf="act.icon" class="pui-tbl-action-icon" [innerHTML]="act.icon"></span>
+      {{ act.label }}
+    </button>
   </div>
 
   <!-- ── Pagination ───────────────────────────────────── -->

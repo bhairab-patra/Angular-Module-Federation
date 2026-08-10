@@ -23,13 +23,8 @@ const SIZE_MAP: Record<IconSize, number> = {
   styleUrls: ['./icon.component.scss'],
 })
 export class IconComponent implements OnChanges {
-  /** Icon name from the registry (e.g. "arrow-right", "check", "user"). */
   @Input() name = '';
-
-  /** Size variant. */
   @Input() size: IconSize = 'md';
-
-  /** CSS color — defaults to currentColor (inherits from parent). */
   @Input() color = 'currentColor';
 
   svg: SafeHtml = '';

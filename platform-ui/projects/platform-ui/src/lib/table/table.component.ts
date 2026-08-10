@@ -1,5 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter, NgZone,
+  Component, Input, Output, EventEmitter, NgZone, ElementRef, AfterViewInit,
   ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, SimpleChanges, OnDestroy, inject, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 
@@ -34,9 +34,10 @@ export interface SortState { key: string; dir: SortDir; }
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class PuiTableComponent implements OnChanges, OnDestroy {
+export class PuiTableComponent implements OnChanges, AfterViewInit, OnDestroy {
   private cdr = inject(ChangeDetectorRef);
   private zone = inject(NgZone);
+  private el  = inject(ElementRef);
 
   /* -- Column / data ------------------- */
   _columns: TableColumn[] = [];
@@ -97,6 +98,7 @@ export class PuiTableComponent implements OnChanges, OnDestroy {
   /* -- State ---------------------------- */
   sort: SortState = { key: '', dir: '' };
   openActionRow: number | null = null;
+  openActionRowData: any = null;
   actionMenuPos = { top: 0, left: 0 };
   private _closeMenuListener: (() => void) | null = null;
   searchTerm = '';
@@ -167,6 +169,11 @@ export class PuiTableComponent implements OnChanges, OnDestroy {
 
   ngOnChanges(_: SimpleChanges) { this.cdr.markForCheck(); }
 
+  ngAfterViewInit(): void {
+    this.rowClickEnabled = this.rowClick.observed;
+    this.cdr.markForCheck();
+  }
+
   /* -- Handlers ------------------------- */
   onSort(key: string): void {
     if (this.sort.key === key) {
@@ -234,14 +241,22 @@ export class PuiTableComponent implements OnChanges, OnDestroy {
       return;
     }
     const btn = event.currentTarget as HTMLElement;
-    const rect = btn.getBoundingClientRect();
+    const btnRect  = btn.getBoundingClientRect();
+    const hostRect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
     const menuW = 200;
     const menuH = 160;
-    const spaceBelow = window.innerHeight - rect.bottom;
-    const top = spaceBelow >= menuH + 8 ? rect.bottom + 4 : rect.top - menuH - 4;
-    const left = Math.min(rect.left, window.innerWidth - menuW - 8);
-    this.actionMenuPos = { top, left: Math.max(0, left) };
-    this.openActionRow = rowIndex;
+    const spaceBelow = window.innerHeight - btnRect.bottom;
+    const topRel  = spaceBelow >= menuH + 8
+      ? btnRect.bottom - hostRect.top + 4
+      : btnRect.top - hostRect.top - menuH - 4;
+    // right-align menu to the button's right edge, clamp within host
+    const leftRel = Math.min(
+      btnRect.right - menuW - hostRect.left,
+      hostRect.width - menuW - 4
+    );
+    this.actionMenuPos    = { top: Math.max(0, topRel), left: Math.max(0, leftRel) };
+    this.openActionRow     = rowIndex;
+    this.openActionRowData = this.displayRows[rowIndex];
     this.cdr.markForCheck();
     // Defer so this click doesn't immediately trigger the close listener.
     // Run the listener outside Angular zone, then re-enter to trigger CD.
@@ -256,7 +271,8 @@ export class PuiTableComponent implements OnChanges, OnDestroy {
   }
 
   private _closeMenu(): void {
-    this.openActionRow = null;
+    this.openActionRow     = null;
+    this.openActionRowData = null;
     this.cdr.detectChanges();
     this._detachCloseListener();
   }
