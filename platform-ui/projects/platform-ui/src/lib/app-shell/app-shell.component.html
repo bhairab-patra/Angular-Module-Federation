@@ -1,8 +1,10 @@
-
 <div class="pas">
 
+  <!-- Header -->
   <pui-lib-header
-    [hasLogoSlot]="true"
+    [appTitle]="appTitle"
+    [appSubtitle]="appSubtitle"
+    [logoUrl]="logoUrl"
     [bgColor]="headerBgColor"
     [textColor]="headerTextColor"
     [userName]="headerUserName"
@@ -15,28 +17,14 @@
     [badge]="headerBadge"
     [showHelp]="headerShowHelp"
     [menuItems]="headerMenuItems"
+    [showHamburger]="true"
+    [hamburgerOpen]="sidebarVisible"
+    (hamburgerToggle)="toggleSidebar()"
     (menuAction)="headerMenuAction.emit($event)"
     (helpClick)="headerHelpClick.emit()">
-
-    <div logo class="pas__brand">
-      <button
-        class="pas__hamburger"
-        [class.pas__hamburger--open]="sidebarVisible"
-        (click)="toggleSidebar()"
-        [title]="sidebarVisible ? 'Close sidebar' : 'Open sidebar'">
-        <span class="pas__bar pas__bar--top"></span>
-        <span class="pas__bar pas__bar--mid"></span>
-        <span class="pas__bar pas__bar--bot"></span>
-      </button>
-      <span *ngIf="logo" class="pas__logo" [innerHTML]="logo"></span>
-      <div class="pas__title-group">
-        <span class="pas__app-title">{{ appTitle }}</span>
-        <span *ngIf="appSubtitle" class="pas__app-subtitle">{{ appSubtitle }}</span>
-      </div>
-    </div>
-
   </pui-lib-header>
 
+  <!-- Body: sidebar + content -->
   <div class="pas__body">
 
     <pui-lib-sidebar
@@ -44,10 +32,15 @@
       [groups]="groups"
       [activeId]="activeId"
       [collapsed]="sidebarCollapsed"
+      [showSidebar]="sidebarVisible"
       [config]="config"
       [theme]="theme"
-      [showSidebar]="sidebarVisible"
-      [showHeader]="false"
+      [bgColor]="sidebarBgColor"
+      [textColor]="sidebarTextColor"
+      [activeColor]="sidebarActiveColor"
+      [hoverColor]="sidebarHoverColor"
+      [borderColor]="sidebarBorderColor"
+      [width]="sidebarWidth"
       (collapsedChange)="onCollapsedChange($event)"
       (itemSelect)="itemSelect.emit($event)">
     </pui-lib-sidebar>
@@ -58,4 +51,3 @@
 
   </div>
 </div>
-  

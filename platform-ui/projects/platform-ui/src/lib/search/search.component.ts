@@ -1,4 +1,4 @@
-﻿import {
+import {
   Component, Input, Output, EventEmitter, OnInit, OnDestroy,
   HostListener, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
@@ -18,7 +18,7 @@ import { SearchSuggestion, SearchSize } from '../models/search.model';
 export class PuiSearchComponent implements OnInit, OnDestroy {
   @ViewChild('inputEl') inputEl!: ElementRef<HTMLInputElement>;
 
-  @Input() placeholder  = 'Search…';
+  @Input() placeholder  = 'Search�';
   @Input() size: SearchSize = 'md';
   @Input() value        = '';
   @Input() debounce     = 300;

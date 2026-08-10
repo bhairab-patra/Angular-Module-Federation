@@ -20,7 +20,8 @@
     "publish:lib": "npm run build:publish && npm publish ./dist/platform-ui --access public --registry https://registry.npmjs.org",
     "build:elements": "ng build elements --configuration production && node scripts/concat-elements.js",
     "build:elements:dev": "ng build elements --configuration development && node scripts/concat-elements.js",
-    "build:full": "npm run build:publish && npm run build:elements && node scripts/copy-elements-to-dist.js",
+    "copy:react": "node scripts/copy-elements-to-react.js",
+    "build:full": "npm run build:publish && npm run build:elements && node scripts/copy-elements-to-dist.js && npm run copy:react",
     "docs": "ng serve docs --port 4210 --open",
     "docs:build": "ng build docs",
     "serve:demo": "npx http-server . -p 4300 --cors -o demo/index.html"

@@ -1,4 +1,4 @@
-﻿import {
+import {
   Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
   ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NgIf, NgFor, KeyValuePipe } from '@angular/common';
@@ -64,7 +64,7 @@ export class PuiFilterPanelComponent implements OnChanges {
     }
   }
 
-  // ── Read helpers ──────────────────────────────────────
+  // -- Read helpers --------------------------------------
 
   isChecked(id: string, val: any): boolean {
     return Array.isArray(this.values[id]) && this.values[id].includes(val);
@@ -116,14 +116,14 @@ export class PuiFilterPanelComponent implements OnChanges {
     return span ? ((this.getRangeMax(f) - this.getRangeMin(f)) / span) * 100 : 0;
   }
 
-  // ── Toggle ────────────────────────────────────────────
+  // -- Toggle --------------------------------------------
 
   toggleGroup(id: string): void {
     this.collapsed[id] = !this.collapsed[id];
     this.cdr.markForCheck();
   }
 
-  // ── Change handlers ──────────────────────────────────
+  // -- Change handlers ----------------------------------
 
   private emit(vals: FilterValues): void {
     this.values = { ...vals };

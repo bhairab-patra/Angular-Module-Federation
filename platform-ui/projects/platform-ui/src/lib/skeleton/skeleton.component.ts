@@ -1,4 +1,4 @@
-﻿import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf, NgStyle } from '@angular/common';
 
 export type SkeletonVariant = 'text' | 'circle' | 'rect' | 'card';

@@ -1,5 +1,5 @@
-﻿import {
-  Component, Input, Output, EventEmitter, HostListener,
+import {
+  Component, Input, Output, EventEmitter, HostListener, HostBinding,
   ChangeDetectionStrategy, ChangeDetectorRef, inject, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
@@ -15,6 +15,9 @@ import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
 })
 export class MenuComponent {
   private cdr = inject(ChangeDetectorRef);
+
+  @HostBinding('style.position') readonly _pos  = 'relative';
+  @HostBinding('style.display')  readonly _disp = 'inline-block';
 
   /** Menu items (supports nested children for submenus) */
   @Input() items: MenuItem[] = [];

@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@bhairab-patra/platform-ui": "file:../../dist/platform-ui",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

@@ -1,17 +1,5 @@
 
-    :host { display: block; height: 100%; }
-
-    /* ── Shell wrapper ───────────────────────────────────── */
-    .pui-shell {
-      display: flex; flex-direction: column;
-      height: 100%; overflow: hidden;
-    }
-    .pui-shell__body {
-      display: flex; flex: 1; overflow: hidden;
-    }
-    .pui-shell__content {
-      flex: 1; overflow: auto; min-width: 0;
-    }
+    :host, pui-lib-sidebar { display: block; height: 100%; }
 
     /* ── Sidebar rail ────────────────────────────────────── */
     .pui-sb {

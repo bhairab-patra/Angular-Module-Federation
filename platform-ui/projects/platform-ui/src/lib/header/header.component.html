@@ -3,11 +3,21 @@
 
       <!-- ── Brand ── -->
       <div class="pui-header__brand">
+        <!-- Hamburger toggle (used by app-shell) -->
+        <button *ngIf="showHamburger"
+          class="pui-header__hamburger"
+          [class.pui-header__hamburger--open]="hamburgerOpen"
+          (click)="hamburgerToggle.emit()"
+          [title]="hamburgerOpen ? 'Close sidebar' : 'Open sidebar'">
+          <span class="pui-header__bar pui-header__bar--top"></span>
+          <span class="pui-header__bar pui-header__bar--mid"></span>
+          <span class="pui-header__bar pui-header__bar--bot"></span>
+        </button>
         <img *ngIf="logoUrl" [src]="logoUrl" class="pui-header__logo-img" alt="logo">
         <ng-content select="[logo]"></ng-content>
-        <div *ngIf="!hasLogoSlot" class="pui-header__brand-text">
+        <div class="pui-header__brand-text">
           <span *ngIf="logoText" class="pui-header__logo-text">{{ logoText }}</span>
-          <div class="pui-header__title-group">
+          <div *ngIf="appTitle" class="pui-header__title-group">
             <span class="pui-header__title">{{ appTitle }}</span>
             <span *ngIf="appSubtitle" class="pui-header__subtitle">{{ appSubtitle }}</span>
           </div>

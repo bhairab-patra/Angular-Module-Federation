@@ -32,6 +32,22 @@ export class HeaderComponent {
   @Input() avatarTextColor  = '#ffffff';
   @Input() hasLogoSlot = false;
 
+  @Input() set showHamburger(v: boolean | string) {
+    this._showHamburger = v === true || v === 'true' || (v as any) === '';
+    this.cdr.markForCheck();
+  }
+  get showHamburger() { return this._showHamburger; }
+  private _showHamburger = false;
+
+  @Input() set hamburgerOpen(v: boolean | string) {
+    this._hamburgerOpen = v === true || v === 'true' || (v as any) === '';
+    this.cdr.markForCheck();
+  }
+  get hamburgerOpen() { return this._hamburgerOpen; }
+  private _hamburgerOpen = false;
+
+  @Output() hamburgerToggle = new EventEmitter<void>();
+
   // ── Boolean input — accepts true/false OR the strings "true"/"false" ──
   // React: show-help="true"  Angular: [showHelp]="true"  JS: el.showHelp = true
   @Input() set showHelp(v: boolean | string) {

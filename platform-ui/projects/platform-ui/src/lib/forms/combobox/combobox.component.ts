@@ -1,4 +1,4 @@
-﻿import {
+import {
   Component, Input, Output, EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef, inject,
   HostListener, ElementRef, ViewEncapsulation } from '@angular/core';
@@ -25,14 +25,14 @@ export class PuiComboboxComponent {
   cdr = inject(ChangeDetectorRef);
   private el = inject(ElementRef);
 
-  /* ── State ──────────────────────────────── */
+  /* -- State -------------------------------- */
   open         = false;
   query        = '';
   focusedIndex = -1;
 
   _options:      ComboboxOption[] = [];
   _value:        string | number | null = null;
-  _placeholder   = 'Select or search…';
+  _placeholder   = 'Select or search�';
   _searchable    = true;
   _clearable     = true;
   _allowFreeText = false;
@@ -40,7 +40,7 @@ export class PuiComboboxComponent {
   _error         = '';
   _hint          = '';
 
-  /* ── Inputs ─────────────────────────────── */
+  /* -- Inputs ------------------------------- */
   @Input() set options(v: ComboboxOption[] | string) {
     this._options = typeof v === 'string' ? (this._parse<ComboboxOption[]>(v) ?? []) : (v || []);
     this.cdr.markForCheck();
@@ -58,11 +58,11 @@ export class PuiComboboxComponent {
   @Input() set error(v: string)                  { this._error = v; }
   @Input() set hint(v: string)                   { this._hint  = v; }
 
-  /* ── Outputs ────────────────────────────── */
+  /* -- Outputs ------------------------------ */
   @Output() valueChange = new EventEmitter<string | number | null>();
   @Output() change      = new EventEmitter<string | number | null>();
 
-  /* ── Click outside ──────────────────────── */
+  /* -- Click outside ------------------------ */
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
     if (!this.el.nativeElement.contains(e.target as Node)) {
@@ -70,7 +70,7 @@ export class PuiComboboxComponent {
     }
   }
 
-  /* ── Computed ───────────────────────────── */
+  /* -- Computed ----------------------------- */
   get displayValue(): string {
     if (this.open && this._searchable) return this.query;
     return this.labelFor(this._value) ?? this.query;
@@ -110,7 +110,7 @@ export class PuiComboboxComponent {
     return this._options.find(o => o.value === v)?.label ?? null;
   }
 
-  /* ── Handlers ───────────────────────────── */
+  /* -- Handlers ----------------------------- */
   onFocus() {
     if (!this._disabled) this.openDropdown();
   }

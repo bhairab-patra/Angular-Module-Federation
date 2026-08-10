@@ -363,6 +363,100 @@ npm install @solifi/platform-ui@1.4.0`,
       ],
     },
     {
+      title: 'Local Development & Testing',
+      icon: '🔧',
+      open: false,
+      items: [
+        {
+          q: 'How do I run the library locally and see my changes in the React demo app?',
+          a: 'Two steps total. First, install the React demo app dependencies once (you never need to do this again). Second, every time you change the library, run build:full from the platform-ui root — it rebuilds everything and copies the output into the demo app automatically. Then hard-refresh the browser.',
+          code: `# ── ONE-TIME SETUP (do this once only) ──────────────────
+cd demo/my-react-app
+npm install        # installs React, Vite etc into the demo app's node_modules
+
+# Start the React dev server (keep this running)
+npm run dev        # → http://localhost:5173
+
+
+# ── EVERY TIME YOU CHANGE THE LIBRARY ────────────────────
+# (open a second terminal, stay in platform-ui root)
+npm run build:full
+# Then hard-refresh the browser: Ctrl + Shift + R`,
+          lang: 'bash',
+        },
+        {
+          q: 'What does build:full do exactly?',
+          a: 'It runs four steps automatically in order. You never need to copy files manually.',
+          code: `npm run build:full
+# Step 1 — builds the Angular component library  → dist/platform-ui/
+# Step 2 — builds the Angular Elements bundle     → dist/elements/pui-elements.js
+# Step 3 — copies the bundle into dist/platform-ui/elements/
+# Step 4 — copies pui-elements.js, tokens.css, and theme-new.css
+#           into demo/my-react-app/public/
+#           so Vite serves them as /pui-elements.js, /tokens.css, /themes/theme-new.css`,
+          lang: 'bash',
+        },
+        {
+          q: 'Why do the CSS and the elements bundle load from public/ instead of being imported in JS?',
+          a: 'The Angular Elements bundle (pui-elements.js) is built by Webpack in a chunked format that cannot be imported as an ES module — it must be a plain <script> tag. The CSS tokens are plain files that are not part of the npm package output, so they are served as static assets instead. Both are declared in index.html so they load before React starts.',
+          code: `<!-- demo/my-react-app/index.html -->
+<link rel="stylesheet" href="/tokens.css" />
+<link rel="stylesheet" href="/themes/theme-new.css" />
+<script src="/pui-elements.js"></script>   <!-- must be before the React module -->
+<script type="module" src="/src/main.jsx"></script>`,
+          lang: 'html',
+        },
+        {
+          q: 'How do I set up an Angular consumer app to use the local dist build?',
+          a: 'Add a paths mapping in tsconfig.json so the TypeScript compiler and Angular CLI resolve the package name to your local dist folder instead of node_modules.',
+          code: `// tsconfig.json  (in your Angular consumer app)
+{
+  "compilerOptions": {
+    "paths": {
+      "@bhairab-patra/platform-ui": ["../../dist/platform-ui"],
+      "@bhairab-patra/platform-ui/*": ["../../dist/platform-ui/*"]
+    }
+  }
+}
+
+// Also tell Angular CLI — angular.json → your-app → architect → build → options:
+"preserveSymlinks": true`,
+          lang: 'json',
+        },
+        {
+          q: 'Do I need to restart the React dev server after rebuilding the library?',
+          a: 'No. Keep npm run dev running. After npm run build:full finishes, do a hard refresh in the browser (Ctrl+Shift+R). The dev server stays running — only a browser refresh is needed.',
+        },
+        {
+          q: 'How do I see library changes dynamically without running build:full every time?',
+          a: 'Run the library in watch mode in one terminal and the React dev server in another. Angular rebuilds the library automatically on every file save. You only need to hard-refresh the browser — no build:full, no npm install, no server restart.',
+          code: `# Terminal 1 — library watch mode (from platform-ui root)
+# Automatically rebuilds dist/platform-ui whenever you save a library file
+npm run build:watch
+
+# Terminal 2 — React dev server (from demo/my-react-app)
+npm run dev
+
+# Workflow:
+# 1. Edit any component file in projects/platform-ui/src/lib/
+# 2. Wait ~3-5 seconds for Angular to rebuild (watch terminal shows "Build complete")
+# 3. Hard-refresh browser: Ctrl + Shift + R
+# → Your change is live in the React app`,
+          lang: 'bash',
+        },
+        {
+          q: 'What is the difference between build:watch and build:full in the dev workflow?',
+          a: 'build:watch rebuilds only the Angular component library and is fast (~3-5 seconds). It does not rebuild the Elements bundle (pui-elements.js). Use it for everyday component changes. build:full rebuilds everything including the Elements bundle and re-copies all files to public/ — use it only when you register a new component in the elements bundle or change CSS tokens.',
+          code: `# Use build:watch for → component TS, HTML, SCSS changes
+npm run build:watch   # fast, ~3-5 sec, auto on every save
+
+# Use build:full for → new component added, tokens.css changed
+npm run build:full    # slow, ~30-60 sec, run manually`,
+          lang: 'bash',
+        },
+      ],
+    },
+    {
       title: 'Troubleshooting',
       icon: '🛠️',
       open: false,

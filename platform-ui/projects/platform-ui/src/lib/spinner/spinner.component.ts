@@ -1,4 +1,4 @@
-﻿import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { SpinnerType, SpinnerSize } from '../models/spinner.model';
 
@@ -34,7 +34,7 @@ export class SpinnerComponent {
   get px(): number { return this.sizePx ?? SIZE_MAP[this.size]; }
   get dur(): string { return `${this.speed}ms`; }
 
-  /* Dash line positions — inner 11, outer 18 (of 20 radius viewBox) */
+  /* Dash line positions � inner 11, outer 18 (of 20 radius viewBox) */
   get dashY1(): number { return 6; }
   get dashY2(): number { return 12; }
 

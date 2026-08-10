@@ -63,6 +63,31 @@ export class MenuPageComponent {
     { id: 'd', label: 'Remove',   danger: true, dividerBefore: true },
   ];
 
+  /* ── Framework preview items ─────────────────────────── */
+  fwAngularItems: MenuItem[] = [
+    { id: 'edit',   label: 'Edit',      shortcut: '⌘E', icon: ICON('<path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/>') },
+    { id: 'dup',    label: 'Duplicate', shortcut: '⌘D', icon: ICON('<rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>') },
+    {
+      id: 'export', label: 'Export', icon: ICON('<path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>'),
+      children: [
+        { id: 'csv',  label: 'CSV',   shortcut: '⌘⇧C' },
+        { id: 'xlsx', label: 'Excel', shortcut: '⌘⇧E' },
+        { id: 'pdf',  label: 'PDF',   shortcut: '⌘⇧P' },
+      ],
+    },
+    { id: 'delete', label: 'Delete', danger: true, dividerBefore: true, icon: ICON('<polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>') },
+  ];
+
+  fwReactItems: MenuItem[] = [
+    { id: 'profile',  label: 'My Profile',     icon: ICON('<circle cx="12" cy="8" r="5"/><path d="M3 21a9 9 0 0 1 18 0"/>') },
+    { id: 'settings', label: 'Account Settings', icon: ICON('<circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3"/>') },
+    { id: 'billing',  label: 'Billing',         icon: ICON('<rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>'), shortcut: '⌘B' },
+    { id: 'logout',   label: 'Sign Out',         danger: true, dividerBefore: true, icon: ICON('<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>') },
+  ];
+
+  fwLastAction = '';
+  onFwSelect(item: MenuItem): void { this.fwLastAction = item.label; this.cdr.markForCheck(); }
+
   /* ── Framework code ──────────────────────────────────── */
   angularCode = `import { MenuComponent, MenuItem } from '@bhairab-patra/platform-ui';
 

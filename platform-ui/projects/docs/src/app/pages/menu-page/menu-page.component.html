@@ -88,6 +88,45 @@
       </p>
 
       <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
+
+        <!-- Angular preview: document toolbar with Edit / Export submenu / Delete -->
+        <div preview style="display:flex;flex-direction:column;gap:16px;align-items:flex-start">
+          <p style="margin:0;font-size:13px;color:#64748b">
+            Document actions — bound via <code>[items]</code> and <code>(menuSelect)</code>
+          </p>
+          <div style="display:flex;align-items:center;gap:12px">
+            <pui-lib-menu
+              trigger="Document Actions"
+              variant="outline"
+              placement="bottom-start"
+              [items]="fwAngularItems"
+              (menuSelect)="onFwSelect($event)">
+            </pui-lib-menu>
+            <span *ngIf="fwLastAction" style="font-size:13px;color:#0d6e5f;font-weight:500">
+              ✓ {{ fwLastAction }}
+            </span>
+          </div>
+        </div>
+
+        <!-- React preview: user account menu with profile / settings / sign-out -->
+        <div react-preview style="display:flex;flex-direction:column;gap:16px;align-items:flex-start">
+          <p style="margin:0;font-size:13px;color:#64748b">
+            User account menu — items set via <code>el.items = [...]</code> in <code>useEffect</code>
+          </p>
+          <div style="display:flex;align-items:center;gap:12px">
+            <pui-lib-menu
+              trigger="My Account"
+              variant="primary"
+              placement="bottom-end"
+              [items]="fwReactItems"
+              (menuSelect)="onFwSelect($event)">
+            </pui-lib-menu>
+            <span *ngIf="fwLastAction" style="font-size:13px;color:#0d6e5f;font-weight:500">
+              ✓ {{ fwLastAction }}
+            </span>
+          </div>
+        </div>
+
       </docs-framework-preview>
 
       <h3 class="fw-ref-title">Input Quick Reference</h3>

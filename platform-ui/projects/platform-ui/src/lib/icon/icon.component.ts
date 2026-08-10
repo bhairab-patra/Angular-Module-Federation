@@ -1,4 +1,4 @@
-﻿import { Component, Input, OnChanges, ChangeDetectionStrategy, SecurityContext, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, ChangeDetectionStrategy, SecurityContext, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ICON_REGISTRY } from './icon-registry';
@@ -29,7 +29,7 @@ export class IconComponent implements OnChanges {
   /** Size variant. */
   @Input() size: IconSize = 'md';
 
-  /** CSS color — defaults to currentColor (inherits from parent). */
+  /** CSS color � defaults to currentColor (inherits from parent). */
   @Input() color = 'currentColor';
 
   svg: SafeHtml = '';

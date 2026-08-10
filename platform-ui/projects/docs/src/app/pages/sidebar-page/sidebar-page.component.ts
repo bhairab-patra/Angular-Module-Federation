@@ -1,4 +1,4 @@
-﻿import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor } from '@angular/common';
 import {
   PuiSidebarComponent, SidebarGroup, SidebarNavItem,
@@ -54,9 +54,6 @@ const NAV_GROUPS: SidebarGroup[] = [
 export class SidebarPageComponent {
   copied = '';
 
-  readonly previewConfig = { collapsible: true, showSearch: true, width: 220 };
-
-  get angularCode(): string { return `${this.angularTpl}\n\n// component.ts\n${this.angularTs}`; }
   activeId  = 'dashboard';
   collapsed = false;
   SIDEBAR_THEMES = SIDEBAR_THEMES;
@@ -71,40 +68,27 @@ export class SidebarPageComponent {
     navigator.clipboard.writeText(text).then(() => { this.copied = id; setTimeout(() => this.copied = '', 2000); });
   }
 
-  menuItems = [
-    { label: 'Profile',  action: 'profile' },
-    { label: 'Sign out', action: 'signout', danger: true },
-  ];
-
   cards = [
     { lbl: 'Revenue',  val: '$142K', color: '#12C6A8' },
     { lbl: 'Orders',   val: '1,284', color: '#6366f1' },
     { lbl: 'Users',    val: '8,921', color: '#f59e0b' },
   ];
 
+  // ── Angular template snippet ────────────────────────────────
   angularTpl = `<pui-lib-sidebar
   brandName="Platform UI"
   [groups]="navGroups"
   [activeId]="activeId"
   [collapsed]="collapsed"
+  bgColor="#0f172a"
+  textColor="#94a3b8"
+  activeColor="#12C6A8"
   [config]="{ collapsible: true, showSearch: true, width: 256 }"
-  [theme]="darkTheme"
-  [showHeader]="true"
-  headerAppTitle="Admin Portal"
-  headerBgColor="#0f172a"
-  headerUserName="Bhairab Patra"
-  headerUserEmail="bpatra@example.com"
-  [headerBadge]="{ text: 'UAT', color: '#f59e0b' }"
-  [headerMenuItems]="menuItems"
   (collapsedChange)="collapsed = $event"
-  (itemSelect)="onNav($event)"
-  (headerMenuAction)="onAction($event)">
-
-  <!-- Router outlet / page content goes here -->
-  <router-outlet></router-outlet>
-
+  (itemSelect)="onNav($event)">
 </pui-lib-sidebar>`;
 
+  // ── Angular TS snippet ──────────────────────────────────────
   angularTs = `import {
   PuiSidebarComponent, SidebarGroup, SidebarNavItem,
   SIDEBAR_THEMES
@@ -114,7 +98,6 @@ export class SidebarPageComponent {
 export class ShellComponent {
   activeId  = 'dashboard';
   collapsed = false;
-  darkTheme = SIDEBAR_THEMES.dark;
 
   navGroups: SidebarGroup[] = [
     {
@@ -126,19 +109,17 @@ export class ShellComponent {
     },
   ];
 
-  menuItems = [
-    { label: 'Profile',  action: 'profile' },
-    { label: 'Sign out', action: 'signout', danger: true },
-  ];
-
   onNav(item: SidebarNavItem) {
     this.activeId = item.id;
     this.router.navigate([item.route]);
   }
 }`;
 
+  // combined for the preview component (template + ts)
+  angularCode = this.angularTpl + '\n\n' + this.angularTs;
+
   reactCode = `import { useRef, useEffect, useState } from 'react';
-// main.tsx: import '@bhairab-patra/platform-ui/elements';
+// main.tsx: load pui-elements bundle before rendering
 
 const NAV_GROUPS = [
   {
@@ -150,7 +131,7 @@ const NAV_GROUPS = [
   },
 ];
 
-export function AppShell({ children }) {
+export function AppSidebar({ children }) {
   const ref = useRef(null);
   const [activeId, setActiveId] = useState('dashboard');
 
@@ -158,24 +139,13 @@ export function AppShell({ children }) {
     const el = ref.current;
     if (!el) return;
 
-    // Objects and arrays â†’ JS properties
-    el.groups      = NAV_GROUPS;
-    el.theme       = { bg: '#0f172a', textColor: '#94a3b8', activeBorder: '#12C6A8' };
-    el.config      = { collapsible: true, showSearch: true, width: 256 };
-    el.headerMenuItems = [
-      { label: 'Profile',  action: 'profile' },
-      { label: 'Sign out', action: 'signout', danger: true },
-    ];
-    el.headerBadge = { text: 'UAT', color: '#f59e0b' };
+    // Arrays and objects must be set as JS properties
+    el.groups = NAV_GROUPS;
+    el.config  = { collapsible: true, showSearch: true, width: 256 };
 
-    const onNav    = (e) => setActiveId(e.detail.id);
-    const onAction = (e) => console.log('menu action:', e.detail);
-    el.addEventListener('itemSelect',       onNav);
-    el.addEventListener('headerMenuAction', onAction);
-    return () => {
-      el.removeEventListener('itemSelect',       onNav);
-      el.removeEventListener('headerMenuAction', onAction);
-    };
+    const onNav = (e) => setActiveId(e.detail.id);
+    el.addEventListener('itemSelect', onNav);
+    return () => el.removeEventListener('itemSelect', onNav);
   }, []);
 
   return (
@@ -183,14 +153,11 @@ export function AppShell({ children }) {
       ref={ref}
       brand-name="Platform UI"
       active-id={activeId}
-      show-header="true"
-      header-app-title="Admin Portal"
-      header-bg-color="#0f172a"
-      header-user-name="Bhairab Patra"
+      bg-color="#0f172a"
+      text-color="#94a3b8"
+      active-color="#12C6A8"
       style={{ height: '100vh', display: 'block' }}
-    >
-      {children}
-    </pui-lib-sidebar>
+    />
   );
 }`;
 
@@ -203,11 +170,9 @@ export function AppShell({ children }) {
 <pui-lib-sidebar
   id="sb"
   brand-name="Platform UI"
-  show-header="true"
-  header-app-title="Admin Portal"
-  header-bg-color="#0f172a"
-  header-user-name="Bhairab Patra">
-  <div id="page-content">Page content here</div>
+  bg-color="#0f172a"
+  text-color="#94a3b8"
+  active-color="#12C6A8">
 </pui-lib-sidebar>
 
 <script>
@@ -224,55 +189,47 @@ export function AppShell({ children }) {
       },
     ];
 
-    el.theme  = { bg: '#0f172a', textColor: '#94a3b8', activeBorder: '#12C6A8' };
     el.config = { collapsible: true, showSearch: true, width: 256 };
 
-    el.headerMenuItems = [
-      { label: 'Sign out', action: 'signout', danger: true }
-    ];
-
     el.addEventListener('itemSelect', (e) => {
-      document.getElementById('page-content').textContent = 'Page: ' + e.detail.label;
+      console.log('navigating to', e.detail.route);
     });
   });
 </script>`;
 
   xfwRows = [
-    { name: 'groups',           angular: '[groups]="navGroups"',          attr: 'â€” use JS property',          js: 'el.groups = [...]' },
-    { name: 'activeId',         angular: '[activeId]="id"',               attr: 'active-id="dashboard"',      js: 'el.activeId = "dashboard"' },
-    { name: 'brandName',        angular: 'brandName="Platform"',          attr: 'brand-name="Platform"',      js: 'el.brandName = "Platform"' },
-    { name: 'collapsed',        angular: '[collapsed]="false"',           attr: 'collapsed="false"',          js: 'el.collapsed = false' },
-    { name: 'config',           angular: '[config]="cfg"',                attr: 'â€” use JS property',          js: 'el.config = {...}' },
-    { name: 'theme',            angular: '[theme]="darkTheme"',           attr: 'â€” use JS property',          js: 'el.theme = {...}' },
-    { name: 'showHeader',       angular: '[showHeader]="true"',           attr: 'show-header="true"',         js: 'el.showHeader = true' },
-    { name: 'headerBadge',      angular: '[headerBadge]="badge"',         attr: 'header-badge=\'{"text":â€¦}\'',js: 'el.headerBadge = {...}' },
-    { name: 'headerMenuItems',  angular: '[headerMenuItems]="items"',     attr: 'â€” use JS property',          js: 'el.headerMenuItems = [...]' },
-    { name: 'itemSelect',       angular: '(itemSelect)="fn($event)"',     attr: 'â€” addEventListener',         js: 'el.addEventListener("itemSelect", fn)' },
-    { name: 'collapsedChange',  angular: '(collapsedChange)="fn($event)"',attr: 'â€” addEventListener',         js: 'el.addEventListener("collapsedChange", fn)' },
-    { name: 'headerMenuAction', angular: '(headerMenuAction)="fn($event)"',attr: 'â€” addEventListener',        js: 'el.addEventListener("headerMenuAction", fn)' },
+    { name: 'groups',          angular: '[groups]="navGroups"',           attr: '— use JS property',       js: 'el.groups = [...]' },
+    { name: 'activeId',        angular: '[activeId]="id"',                attr: 'active-id="dashboard"',   js: 'el.activeId = "dashboard"' },
+    { name: 'brandName',       angular: 'brandName="Platform"',           attr: 'brand-name="Platform"',   js: 'el.brandName = "Platform"' },
+    { name: 'bgColor',         angular: 'bgColor="#0f172a"',              attr: 'bg-color="#0f172a"',       js: 'el.bgColor = "#0f172a"' },
+    { name: 'textColor',       angular: 'textColor="#94a3b8"',            attr: 'text-color="#94a3b8"',     js: 'el.textColor = "#94a3b8"' },
+    { name: 'activeColor',     angular: 'activeColor="#12C6A8"',          attr: 'active-color="#12C6A8"',   js: 'el.activeColor = "#12C6A8"' },
+    { name: 'hoverColor',      angular: 'hoverColor="#1e293b"',           attr: 'hover-color="#1e293b"',    js: 'el.hoverColor = "#1e293b"' },
+    { name: 'borderColor',     angular: 'borderColor="#334155"',          attr: 'border-color="#334155"',   js: 'el.borderColor = "#334155"' },
+    { name: 'width',           angular: '[width]="280"',                  attr: 'width="280"',              js: 'el.width = 280' },
+    { name: 'collapsed',       angular: '[collapsed]="false"',            attr: 'collapsed="false"',        js: 'el.collapsed = false' },
+    { name: 'config',          angular: '[config]="cfg"',                 attr: '— use JS property',        js: 'el.config = {...}' },
+    { name: 'theme',           angular: '[theme]="darkTheme"',            attr: '— use JS property',        js: 'el.theme = {...}' },
+    { name: 'itemSelect',      angular: '(itemSelect)="fn($event)"',      attr: '— addEventListener',       js: 'el.addEventListener("itemSelect", fn)' },
+    { name: 'collapsedChange', angular: '(collapsedChange)="fn($event)"', attr: '— addEventListener',       js: 'el.addEventListener("collapsedChange", fn)' },
   ];
 
   api: ApiRow[] = [
-    { input: 'groups',            type: 'SidebarGroup[]|string',  default: '[]',       description: 'Nav group tree â€” the core structure.' },
-    { input: 'activeId',          type: 'string',                 default: "''",        description: 'Currently active nav item ID.' },
-    { input: 'brandName',         type: 'string',                 default: "''",        description: 'Brand / product name in the sidebar header.' },
-    { input: 'logo',              type: 'string (SVG/HTML)',       default: 'default',  description: 'Logo HTML string shown left of brandName.' },
-    { input: 'collapsed',         type: 'boolean|string',         default: 'false',     description: 'Collapse the sidebar to icon-only rail.' },
-    { input: 'showSidebar',       type: 'boolean|string',         default: 'true',      description: 'Hide the sidebar entirely (e.g. mobile).' },
-    { input: 'config',            type: 'SidebarConfig|string',   default: '{}',        description: '{ width, collapsedWidth, showSearch, collapsible, maxLabelLen }' },
-    { input: 'theme',             type: 'SidebarTheme|string',    default: 'dark',      description: 'Color token object. Use SIDEBAR_THEMES presets.' },
-    { input: 'showHeader',        type: 'boolean|string',         default: 'false',     description: 'Render pui-lib-header above the sidebar shell.' },
-    { input: 'headerAppTitle',    type: 'string',                 default: "'My App'",  description: 'Header product name.' },
-    { input: 'headerBgColor',     type: 'string',                 default: "'#12C6A8'", description: 'Header background colour.' },
-    { input: 'headerBadge',       type: 'HeaderBadge|string',     default: 'null',      description: 'Header env badge â€” JSON string or object.' },
-    { input: 'headerShowHelp',    type: 'boolean|string',         default: 'false',     description: 'Show help (?) in header.' },
-    { input: 'headerMenuItems',   type: 'UserMenuItem[]|string',  default: '[]',        description: 'User menu items in the header dropdown.' },
-    { input: 'headerNavLinks',    type: 'NavLink[]|string',       default: '[]',        description: 'Horizontal nav links in the header.' },
-    { input: 'headerUserName',    type: 'string',                 default: "''",        description: 'User display name in the header avatar.' },
-    { input: 'headerUserEmail',   type: 'string',                 default: "''",        description: 'User email in the header dropdown.' },
-    { input: 'collapsedChange',   type: 'EventEmitter<boolean>',  default: 'â€”',         description: 'Fires when sidebar collapse state changes.' },
-    { input: 'itemSelect',        type: 'EventEmitter<SidebarNavItem>', default: 'â€”',   description: 'Fires when a non-parent nav item is clicked.' },
-    { input: 'headerMenuAction',  type: 'EventEmitter<string>',   default: 'â€”',         description: 'Fires when a header menu item is selected.' },
-    { input: 'headerHelpClick',   type: 'EventEmitter<void>',     default: 'â€”',         description: 'Fires when the header help button is clicked.' },
+    { input: 'groups',         type: 'SidebarGroup[]|string',  default: '[]',        description: 'Nav group tree — the core structure. Always set as JS property or Angular binding.' },
+    { input: 'activeId',       type: 'string',                 default: "''",         description: 'Currently active nav item ID.' },
+    { input: 'brandName',      type: 'string',                 default: "''",         description: 'Brand / product name shown in the sidebar header bar.' },
+    { input: 'logo',           type: 'string (SVG/HTML)',       default: 'default',   description: 'Logo HTML shown left of brandName. Defaults to PUI logo.' },
+    { input: 'collapsed',      type: 'boolean|string',         default: 'false',      description: 'Collapse sidebar to icon-only rail.' },
+    { input: 'showSidebar',    type: 'boolean|string',         default: 'true',       description: 'Hide the sidebar entirely (e.g. on mobile).' },
+    { input: 'bgColor',        type: 'string',                 default: '#0f172a',    description: 'Sidebar background color. Quick override — no theme object needed.' },
+    { input: 'textColor',      type: 'string',                 default: '#94a3b8',    description: 'Nav item text color.' },
+    { input: 'activeColor',    type: 'string',                 default: '#12C6A8',    description: 'Active item accent color used for text, border, and tinted background.' },
+    { input: 'hoverColor',     type: 'string',                 default: 'auto',       description: 'Hover background color override.' },
+    { input: 'borderColor',    type: 'string',                 default: 'auto',       description: 'Right border and divider color override.' },
+    { input: 'width',          type: 'number',                 default: '0',          description: 'Sidebar width in px. Overrides config.width when non-zero.' },
+    { input: 'config',         type: 'SidebarConfig|string',   default: '{}',         description: '{ width, collapsedWidth, showSearch, collapsible, maxLabelLen }' },
+    { input: 'theme',          type: 'SidebarTheme|string',    default: 'dark',       description: 'Full color token object. Takes precedence over individual color inputs. Use SIDEBAR_THEMES presets.' },
+    { input: 'collapsedChange',type: 'EventEmitter<boolean>',  default: '—',          description: 'Fires when sidebar collapse state changes.' },
+    { input: 'itemSelect',     type: 'EventEmitter<SidebarNavItem>', default: '—',    description: 'Fires when a nav item (non-parent) is clicked.' },
   ];
 }

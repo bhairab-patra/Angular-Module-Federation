@@ -50,22 +50,41 @@ import { PuiMultiSelectComponent } from '../../platform-ui/src/lib/forms/multise
   const ngZone = app.injector.get(NgZone);
   const appRef = app.injector.get(ApplicationRef);
 
+  // Tags that are Angular-component children inside pui-lib-app-shell.
+  // When the browser sees these inside an app-shell, Angular already manages
+  // them — skip the standalone Angular Elements bootstrap to avoid duplicate instances.
+  const SHELL_MANAGED = new Set(['pui-lib-header', 'pui-lib-sidebar']);
+
   const define = (component: any, tag: string) => {
     if (customElements.get(tag)) return;
 
     const NgElement = createCustomElement(component, { injector: app.injector });
-
-    // Patch attributeChangedCallback on the prototype so HTML attribute changes
-    // from any framework (React, plain HTML, Vue) trigger Angular change detection.
-    // Without this, OnPush components silently ignore externally-set attributes.
     const proto = NgElement.prototype as any;
-    const original = proto.attributeChangedCallback;
+
+    // Patch attributeChangedCallback so attribute changes from React / plain HTML
+    // trigger Angular change detection on OnPush components.
+    const origAttr = proto.attributeChangedCallback;
     proto.attributeChangedCallback = function (name: string, oldValue: string, newValue: string) {
       ngZone.run(() => {
-        original.call(this, name, oldValue, newValue);
+        origAttr.call(this, name, oldValue, newValue);
         appRef.tick();
       });
     };
+
+    // For components that are also Angular children of pui-lib-app-shell,
+    // skip standalone bootstrap when the element is inside an app-shell —
+    // Angular already owns that instance and a second bootstrap causes duplicates.
+    if (SHELL_MANAGED.has(tag)) {
+      const origConn = proto.connectedCallback;
+      proto.connectedCallback = function () {
+        // closest() cannot pierce shadow DOM boundaries, so use getRootNode() instead.
+        // If this element lives inside pui-lib-app-shell's shadow root, Angular already
+        // manages it — skip the standalone Angular Elements bootstrap.
+        const root = this.getRootNode();
+        if (root instanceof ShadowRoot && root.host?.tagName?.toLowerCase() === 'pui-lib-app-shell') return;
+        origConn.call(this);
+      };
+    }
 
     customElements.define(tag, NgElement);
   };

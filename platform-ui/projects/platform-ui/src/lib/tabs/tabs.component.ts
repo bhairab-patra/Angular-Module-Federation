@@ -1,4 +1,4 @@
-﻿import {
+import {
   Component, Input, Output, EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef, inject, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
@@ -27,14 +27,14 @@ export type TabsSize        = 'sm' | 'md' | 'lg';
 export class PuiTabsComponent {
   private cdr = inject(ChangeDetectorRef);
 
-  /* ── Internal state ─────────────────── */
+  /* -- Internal state ------------------- */
   _tabs: TabItem[]          = [];
   _active                   = '';
   _variant: TabsVariant     = 'line';
   _orientation: TabsOrientation = 'horizontal';
   _size: TabsSize           = 'md';
 
-  /* ── Inputs ─────────────────────────── */
+  /* -- Inputs --------------------------- */
   @Input() set tabs(v: TabItem[] | string) {
     this._tabs = typeof v === 'string' ? (this._parse<TabItem[]>(v) ?? []) : (v || []);
     if (this._tabs.length && !this._tabs.find(t => t.id === this._active)) {
@@ -63,10 +63,10 @@ export class PuiTabsComponent {
     this._size = (['sm','md','lg'].includes(v as TabsSize) ? v as TabsSize : 'md');
   }
 
-  /* ── Output ─────────────────────────── */
+  /* -- Output --------------------------- */
   @Output() tabChange = new EventEmitter<TabItem>();
 
-  /* ── Actions ────────────────────────── */
+  /* -- Actions -------------------------- */
   select(tab: TabItem) {
     if (tab.disabled || tab.id === this._active) return;
     this._active = tab.id;

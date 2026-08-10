@@ -1,4 +1,4 @@
-﻿import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { BreadcrumbItem, BreadcrumbSeparator } from '../models/breadcrumb.model';
@@ -6,8 +6,8 @@ import { BreadcrumbItem, BreadcrumbSeparator } from '../models/breadcrumb.model'
 const SEPARATORS: Record<BreadcrumbSeparator, string> = {
   chevron: `<svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   slash:   '/',
-  dot:     '·',
-  arrow:   '→',
+  dot:     '�',
+  arrow:   '?',
 };
 
 @Component({
@@ -20,7 +20,7 @@ const SEPARATORS: Record<BreadcrumbSeparator, string> = {
   styleUrls: ['./breadcrumb.component.scss'],
 })
 export class BreadcrumbComponent {
-  /** Array of breadcrumb items — last item is treated as the active page */
+  /** Array of breadcrumb items � last item is treated as the active page */
   @Input() items: BreadcrumbItem[] = [];
 
   /** Separator style between items */

@@ -1,4 +1,4 @@
-﻿import {
+import {
   Component, Input, Output, EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef, inject,
   HostListener, ElementRef, ViewEncapsulation } from '@angular/core';
@@ -25,7 +25,7 @@ export class PuiDatepickerComponent {
   private cdr = inject(ChangeDetectorRef);
   private el  = inject(ElementRef);
 
-  /* ── Internal state ─────────────────── */
+  /* -- Internal state ------------------- */
   open      = false;
   viewMode: 'days' | 'months' = 'days';
   viewYear  = new Date().getFullYear();
@@ -39,13 +39,13 @@ export class PuiDatepickerComponent {
   _max:         Date | null = null;
   _disabled     = false;
   _clearable    = true;
-  _placeholder  = 'Select date…';
+  _placeholder  = 'Select date�';
   _format       = 'MMM d, yyyy';
 
   readonly dayNames   = DAYS;
   readonly monthNames = MONTHS;
 
-  /* ── Inputs ─────────────────────────── */
+  /* -- Inputs --------------------------- */
   @Input() set value(v: Date | string | null) {
     if (!v) { this._value = null; return; }
     const d = v instanceof Date ? v : new Date(v as string);
@@ -67,12 +67,12 @@ export class PuiDatepickerComponent {
   @Input() set placeholder(v: string)             { this._placeholder = v; }
   @Input() set format(v: string)                  { this._format = v; }
 
-  /* ── Outputs ────────────────────────── */
+  /* -- Outputs -------------------------- */
   @Output() valueChange  = new EventEmitter<Date | null>();
   @Output() rangeChange  = new EventEmitter<DateRange>();
   @Output() change       = new EventEmitter<Date | DateRange | null>();
 
-  /* ── Click outside ──────────────────── */
+  /* -- Click outside -------------------- */
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
     if (!this.el.nativeElement.contains(e.target as Node)) {
@@ -81,7 +81,7 @@ export class PuiDatepickerComponent {
     }
   }
 
-  /* ── Computed ───────────────────────── */
+  /* -- Computed ------------------------- */
   get monthName() { return MONTHS[this.viewMonth]; }
 
   get displayValue(): string {
@@ -89,7 +89,7 @@ export class PuiDatepickerComponent {
       const { start, end } = this._range;
       if (!start) return '';
       return end
-        ? `${this._fmt(start)} — ${this._fmt(end)}`
+        ? `${this._fmt(start)} � ${this._fmt(end)}`
         : this._fmt(start);
     }
     return this._value ? this._fmt(this._value) : '';
@@ -117,7 +117,7 @@ export class PuiDatepickerComponent {
     return cells;
   }
 
-  /* ── Actions ────────────────────────── */
+  /* -- Actions -------------------------- */
   toggle() { this.open = !this.open; this.cdr.markForCheck(); }
 
   prevMonth() {
@@ -187,7 +187,7 @@ export class PuiDatepickerComponent {
     this.cdr.markForCheck();
   }
 
-  /* ── Range helpers ──────────────────── */
+  /* -- Range helpers -------------------- */
   isSelected(d: Date): boolean {
     return this._mode === 'single' && !!this._value && this._sameDay(d, this._value);
   }
@@ -210,7 +210,7 @@ export class PuiDatepickerComponent {
     return d > lo && d < hi;
   }
 
-  /* ── Utilities ──────────────────────── */
+  /* -- Utilities ------------------------ */
   private _sameDay(a: Date, b: Date) {
     return a.getFullYear() === b.getFullYear() &&
            a.getMonth()    === b.getMonth()    &&

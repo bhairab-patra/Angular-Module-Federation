@@ -1,4 +1,4 @@
-﻿import {
+import {
   Component, Input, Output, EventEmitter, NgZone,
   ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, SimpleChanges, OnDestroy, inject, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
@@ -38,7 +38,7 @@ export class PuiTableComponent implements OnChanges, OnDestroy {
   private cdr = inject(ChangeDetectorRef);
   private zone = inject(NgZone);
 
-  /* ── Column / data ─────────────────── */
+  /* -- Column / data ------------------- */
   _columns: TableColumn[] = [];
   _data: any[] = [];
 
@@ -54,7 +54,7 @@ export class PuiTableComponent implements OnChanges, OnDestroy {
   }
   get data() { return this._data; }
 
-  /* ── Boolean feature flags ──────────── */
+  /* -- Boolean feature flags ------------ */
   _sortable = false;
   _searchable = false;
   _paginated = false;
@@ -71,14 +71,14 @@ export class PuiTableComponent implements OnChanges, OnDestroy {
   @Input() set selectable(v: boolean | string) { this._selectable = this._bool(v); }
   @Input() set loading(v: boolean | string) { this._loading = this._bool(v); }
 
-  /* ── Numeric ────────────────────────── */
+  /* -- Numeric -------------------------- */
   _pageSize = 10;
   _maxHeight = 0;
 
   @Input() set pageSize(v: number | string) { this._pageSize = Number(v) || 10; this.page = 1; }
   @Input() set maxHeight(v: number | string) { this._maxHeight = Number(v) || 0; }
 
-  /* ── Actions ───────────────────────── */
+  /* -- Actions ------------------------- */
   _actions: TableAction[] = [];
 
   @Input() set actions(v: TableAction[] | string) {
@@ -86,7 +86,7 @@ export class PuiTableComponent implements OnChanges, OnDestroy {
   }
   get actions() { return this._actions; }
 
-  /* ── Outputs ────────────────────────── */
+  /* -- Outputs -------------------------- */
   @Output() sortChange = new EventEmitter<SortState>();
   @Output() pageChange = new EventEmitter<number>();
   @Output() searchChange = new EventEmitter<string>();
@@ -94,7 +94,7 @@ export class PuiTableComponent implements OnChanges, OnDestroy {
   @Output() selectionChange = new EventEmitter<any[]>();
   @Output() actionClick = new EventEmitter<{ action: TableAction; row: any }>();
 
-  /* ── State ──────────────────────────── */
+  /* -- State ---------------------------- */
   sort: SortState = { key: '', dir: '' };
   openActionRow: number | null = null;
   actionMenuPos = { top: 0, left: 0 };
@@ -106,7 +106,7 @@ export class PuiTableComponent implements OnChanges, OnDestroy {
   skeletonRows = Array(5).fill(null);
   rowClickEnabled = false;
 
-  /* ── Derived ────────────────────────── */
+  /* -- Derived -------------------------- */
   get filteredRows(): any[] {
     let rows = [...this._data];
     if (this.searchTerm) {
@@ -167,7 +167,7 @@ export class PuiTableComponent implements OnChanges, OnDestroy {
 
   ngOnChanges(_: SimpleChanges) { this.cdr.markForCheck(); }
 
-  /* ── Handlers ───────────────────────── */
+  /* -- Handlers ------------------------- */
   onSort(key: string): void {
     if (this.sort.key === key) {
       this.sort = { key, dir: this.sort.dir === 'asc' ? 'desc' : this.sort.dir === 'desc' ? '' : 'asc' };

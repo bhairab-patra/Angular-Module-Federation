@@ -3,7 +3,8 @@
       title="Tooltip"
       description="Contextual label shown on hover. Wrap any element with pui-lib-tooltip and set text, position, and variant."
       [code]="code"
-      [api]="api">
+      [api]="api"
+      [hasFramework]="true">
 
       <ng-container demo>
 
@@ -129,5 +130,127 @@
         </pui-lib-card>
 
       </ng-container>
+
+  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead">
+      <code>pui-lib-tooltip</code> wraps any element — pass your trigger as slotted content between the tags.
+      All three attributes (<code>text</code>, <code>position</code>, <code>variant</code>) behave identically in every framework.
+    </p>
+
+    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
+
+      <!-- Angular preview: toolbar with contextual action tooltips -->
+      <div preview style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:8px 0">
+        <pui-lib-tooltip text="Save changes (Ctrl+S)" position="top" variant="dark">
+          <pui-lib-button variant="primary">Save</pui-lib-button>
+        </pui-lib-tooltip>
+        <pui-lib-tooltip text="Preview in a new tab" position="top" variant="dark">
+          <pui-lib-button variant="secondary">Preview</pui-lib-button>
+        </pui-lib-tooltip>
+        <pui-lib-tooltip text="Admin rights required" position="top" variant="dark">
+          <pui-lib-button variant="primary" [disabled]="true">Publish</pui-lib-button>
+        </pui-lib-tooltip>
+        <pui-lib-tooltip text="Unsaved changes" position="right" variant="teal">
+          <pui-lib-badge variant="warning">Draft</pui-lib-badge>
+        </pui-lib-tooltip>
+      </div>
+
+      <!-- React preview: data table with copy-email and status tooltips -->
+      <div react-preview style="width:100%">
+        <table style="border-collapse:collapse;width:100%;font-size:13px">
+          <thead>
+            <tr style="background:#f1f5f9">
+              <th style="padding:8px 12px;text-align:left;font-weight:600;color:#475569">Name</th>
+              <th style="padding:8px 12px;text-align:left;font-weight:600;color:#475569">Email</th>
+              <th style="padding:8px 12px;text-align:left;font-weight:600;color:#475569">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid #e2e8f0">
+              <td style="padding:10px 12px;color:#1e293b">Jane Doe</td>
+              <td style="padding:10px 12px;color:#475569">
+                jane&#64;example.com
+                <pui-lib-tooltip text="Copy email" position="top" variant="teal">
+                  <span style="cursor:pointer;margin-left:4px">📋</span>
+                </pui-lib-tooltip>
+              </td>
+              <td style="padding:10px 12px">
+                <pui-lib-tooltip text="Account is active" position="left" variant="dark">
+                  <pui-lib-badge variant="success">active</pui-lib-badge>
+                </pui-lib-tooltip>
+              </td>
+            </tr>
+            <tr style="border-bottom:1px solid #e2e8f0">
+              <td style="padding:10px 12px;color:#1e293b">Bob Smith</td>
+              <td style="padding:10px 12px;color:#475569">
+                bob&#64;example.com
+                <pui-lib-tooltip text="Copy email" position="top" variant="teal">
+                  <span style="cursor:pointer;margin-left:4px">📋</span>
+                </pui-lib-tooltip>
+              </td>
+              <td style="padding:10px 12px">
+                <pui-lib-tooltip text="Awaiting approval" position="left" variant="dark">
+                  <pui-lib-badge variant="warning">pending</pui-lib-badge>
+                </pui-lib-tooltip>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:10px 12px;color:#1e293b">Alice Jones</td>
+              <td style="padding:10px 12px;color:#475569">
+                alice&#64;corp.com
+                <pui-lib-tooltip text="Copy email" position="top" variant="teal">
+                  <span style="cursor:pointer;margin-left:4px">📋</span>
+                </pui-lib-tooltip>
+              </td>
+              <td style="padding:10px 12px">
+                <pui-lib-tooltip text="Access revoked" position="left" variant="dark">
+                  <pui-lib-badge variant="danger">blocked</pui-lib-badge>
+                </pui-lib-tooltip>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </docs-framework-preview>
+
+    <h4 class="fw-ref-title">Tooltip Quick Reference</h4>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="tag-name">text</span></td>
+            <td><span class="tag-ng">text="..."</span></td>
+            <td><span class="tag-html">text="..."</span></td>
+            <td><span class="tag-js">el.text = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">position</span></td>
+            <td><span class="tag-ng">position="top"</span></td>
+            <td><span class="tag-html">position="top"</span></td>
+            <td><span class="tag-js">el.position = 'top'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">variant</span></td>
+            <td><span class="tag-ng">variant="dark"</span></td>
+            <td><span class="tag-html">variant="dark"</span></td>
+            <td><span class="tag-js">el.variant = 'dark'</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
     </docs-page>
-  

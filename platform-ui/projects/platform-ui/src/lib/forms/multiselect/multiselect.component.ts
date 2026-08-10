@@ -1,4 +1,4 @@
-﻿import {
+import {
   Component, Input, Output, EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef, inject,
   HostListener, ElementRef, ViewEncapsulation } from '@angular/core';
@@ -24,13 +24,13 @@ export class PuiMultiSelectComponent {
   cdr = inject(ChangeDetectorRef);
   private el = inject(ElementRef);
 
-  /* ── State ──────────────────────────────── */
+  /* -- State -------------------------------- */
   open      = false;
   query     = '';
   selected: (string | number)[] = [];
 
   _options:       MultiSelectOption[] = [];
-  _placeholder    = 'Select options…';
+  _placeholder    = 'Select options�';
   _searchable     = true;
   _showSelectAll  = true;
   _maxChips       = 3;
@@ -38,7 +38,7 @@ export class PuiMultiSelectComponent {
   _error          = '';
   _hint           = '';
 
-  /* ── Inputs ─────────────────────────────── */
+  /* -- Inputs ------------------------------- */
   @Input() set options(v: MultiSelectOption[] | string) {
     this._options = typeof v === 'string' ? (this._parse<MultiSelectOption[]>(v) ?? []) : (v || []);
     this.cdr.markForCheck();
@@ -55,11 +55,11 @@ export class PuiMultiSelectComponent {
   @Input() set error(v: string)            { this._error = v; }
   @Input() set hint(v: string)             { this._hint  = v; }
 
-  /* ── Outputs ────────────────────────────── */
+  /* -- Outputs ------------------------------ */
   @Output() valueChange = new EventEmitter<(string | number)[]>();
   @Output() change      = new EventEmitter<(string | number)[]>();
 
-  /* ── Click outside ──────────────────────── */
+  /* -- Click outside ------------------------ */
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
     if (!this.el.nativeElement.contains(e.target as Node)) {
@@ -68,7 +68,7 @@ export class PuiMultiSelectComponent {
     }
   }
 
-  /* ── Computed ───────────────────────────── */
+  /* -- Computed ----------------------------- */
   get filteredOptions(): MultiSelectOption[] {
     if (!this.query.trim()) return this._options;
     const q = this.query.toLowerCase();
@@ -86,7 +86,7 @@ export class PuiMultiSelectComponent {
     return Array.from(map.entries()).map(([name, items]) => ({ name, items }));
   }
 
-  /* ── Actions ────────────────────────────── */
+  /* -- Actions ------------------------------ */
   toggle() { this.open = !this.open; this.cdr.markForCheck(); }
 
   toggle_option(opt: MultiSelectOption) {

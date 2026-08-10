@@ -1,4 +1,4 @@
-﻿import {
+import {
   Component, ChangeDetectionStrategy, inject, signal, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { ToastService } from './toast.service';

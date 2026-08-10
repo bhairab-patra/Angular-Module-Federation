@@ -44,6 +44,7 @@ export class AppComponent {
     { label: 'Advanced Filters',route: '/filters',         category: 'Component',       keywords: ['filter', 'panel', 'checkbox', 'range', 'date', 'select', 'advanced'] },
     { label: 'Toast',           route: '/toast',           category: 'Component',       keywords: ['notification', 'alert', 'snackbar', 'success', 'error', 'warning', 'info'] },
     { label: 'Sidebar',         route: '/sidebar',         category: 'Component',       keywords: ['sidebar', 'navigation', 'nav', 'menu', 'shell', 'layout', 'drawer', 'collapse'] },
+    { label: 'App Shell',       route: '/app-shell',       category: 'Component',       keywords: ['app shell', 'shell', 'layout', 'header', 'sidebar', 'full page', 'navigation', 'frame'] },
     { label: 'Table',       route: '/table',      category: 'Component', keywords: ['table', 'grid', 'data', 'sort', 'search', 'pagination', 'paginate', 'rows', 'columns', 'filter', 'selectable', 'sticky', 'scroll'] },
     { label: 'Tabs',        route: '/tabs',       category: 'Component', keywords: ['tabs', 'tab', 'panel', 'navigation', 'line', 'pill', 'card', 'switch', 'active'] },
     { label: 'Date Picker',    route: '/datepicker',    category: 'Component', keywords: ['date', 'datepicker', 'calendar', 'picker', 'range', 'input', 'schedule', 'time'] },
