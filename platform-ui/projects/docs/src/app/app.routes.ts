@@ -9,7 +9,9 @@ export const routes: Routes = [
   { path: 'button',  loadComponent: () => import('./pages/button-page/button-page.component').then(m => m.ButtonPageComponent) },
   { path: 'card',    loadComponent: () => import('./pages/card-page/card-page.component').then(m => m.CardPageComponent) },
   { path: 'badge',   loadComponent: () => import('./pages/badge-page/badge-page.component').then(m => m.BadgePageComponent) },
-  { path: 'modal',   loadComponent: () => import('./pages/modal-page/modal-page.component').then(m => m.ModalPageComponent) },
+  { path: 'modal',        loadComponent: () => import('./pages/modal-page/modal-page.component').then(m => m.ModalPageComponent) },
+  { path: 'form-dialog',    loadComponent: () => import('./pages/form-dialog-page/form-dialog-page.component').then(m => m.FormDialogPageComponent) },
+  { path: 'confirm-dialog', loadComponent: () => import('./pages/confirm-dialog-page/confirm-dialog-page.component').then(m => m.ConfirmDialogPageComponent) },
   { path: 'header',  loadComponent: () => import('./pages/header-page/header-page.component').then(m => m.HeaderPageComponent) },
   { path: 'icon',    loadComponent: () => import('./pages/icon-page/icon-page.component').then(m => m.IconPageComponent) },
   { path: 'tooltip', loadComponent: () => import('./pages/tooltip-page/tooltip-page.component').then(m => m.TooltipPageComponent) },
@@ -27,7 +29,16 @@ export const routes: Routes = [
   { path: 'toast',    loadComponent: () => import('./pages/toast-page/toast-page.component').then(m => m.ToastPageComponent) },
   { path: 'sidebar',   loadComponent: () => import('./pages/sidebar-page/sidebar-page.component').then(m => m.SidebarPageComponent) },
   { path: 'app-shell', loadComponent: () => import('./pages/app-shell-page/app-shell-page.component').then(m => m.AppShellPageComponent) },
-  { path: 'table',      loadComponent: () => import('./pages/table-page/table-page.component').then(m => m.TablePageComponent) },
+  {
+    path: 'table',
+    loadComponent: () => import('./pages/table-page/table-layout.component').then(m => m.TableLayoutComponent),
+    children: [
+      { path: '',          redirectTo: 'display', pathMatch: 'full' },
+      { path: 'display',   loadComponent: () => import('./pages/table-page/display/table-display-page.component').then(m => m.TableDisplayPageComponent) },
+      { path: 'data-grid', loadComponent: () => import('./pages/table-page/data-grid/table-data-grid-page.component').then(m => m.TableDataGridPageComponent) },
+      { path: 'editable',  loadComponent: () => import('./pages/table-page/editable/table-editable-page.component').then(m => m.TableEditablePageComponent) },
+    ]
+  },
   { path: 'tabs',       loadComponent: () => import('./pages/tabs-page/tabs-page.component').then(m => m.TabsPageComponent) },
   { path: 'datepicker',    loadComponent: () => import('./pages/datepicker-page/datepicker-page.component').then(m => m.DatepickerPageComponent) },
   { path: 'multi-select', loadComponent: () => import('./pages/multiselect-page/multiselect-page.component').then(m => m.MultiSelectPageComponent) },

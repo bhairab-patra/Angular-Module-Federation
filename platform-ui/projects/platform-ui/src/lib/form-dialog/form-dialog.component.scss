@@ -1,0 +1,113 @@
+:host { display: contents; }
+
+/* ── Backdrop ─────────────────────────────────── */
+.pui-fd-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 16px;
+  animation: pui-fd-fade .15s ease;
+}
+
+/* ── Dialog panel ─────────────────────────────── */
+.pui-fd {
+  background: var(--pui-white, #fff);
+  border-radius: 12px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.20);
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  width: 100%;
+  animation: pui-fd-in .18s ease;
+  font-family: inherit;
+
+  &--sm { max-width: 380px; }
+  &--md { max-width: 560px; }
+  &--lg { max-width: 780px; }
+}
+
+/* ── Header ───────────────────────────────────── */
+.pui-fd__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 22px 16px;
+  border-bottom: 1px solid var(--pui-neutral-200, #e5e7eb);
+  flex-shrink: 0;
+}
+
+.pui-fd__title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--pui-neutral-900, #111827);
+  line-height: 1.3;
+}
+
+.pui-fd__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--pui-neutral-400, #9ca3af);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.12s, color 0.12s;
+  flex-shrink: 0;
+
+  &:hover {
+    background: var(--pui-neutral-100, #f3f4f6);
+    color: var(--pui-neutral-700, #374151);
+  }
+}
+
+/* ── Body ─────────────────────────────────────── */
+.pui-fd__body {
+  padding: 22px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* 2-column responsive grid */
+.pui-fd__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px 20px;
+}
+
+.pui-fd__field {
+  display: flex;
+  flex-direction: column;
+
+  &--full { grid-column: 1 / -1; }
+}
+
+/* ── Footer ───────────────────────────────────── */
+.pui-fd__footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px 18px;
+  border-top: 1px solid var(--pui-neutral-200, #e5e7eb);
+  flex-shrink: 0;
+}
+
+/* ── Animations ───────────────────────────────── */
+@keyframes pui-fd-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pui-fd-in {
+  from { opacity: 0; transform: translateY(-14px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}

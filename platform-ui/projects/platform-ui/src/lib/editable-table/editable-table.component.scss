@@ -1,0 +1,281 @@
+:host {
+  display: block;
+  font-family: inherit;
+}
+
+/* ── Host wrapper ─────────────────────────────── */
+.pui-etbl-host {
+  position: relative;
+  border: 1px solid var(--pui-neutral-200);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--pui-white);
+}
+
+/* ── Scroll container (sticky header lives here) */
+.pui-etbl-scroll {
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+/* ── Table ────────────────────────────────────── */
+.pui-etbl {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 12px;
+}
+
+/* ── Header ───────────────────────────────────── */
+.pui-etbl-head {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.pui-etbl-th {
+  padding: 11px 14px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pui-neutral-900);
+  background: var(--pui-neutral-50);
+  border-bottom: 1.5px solid var(--pui-neutral-200);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &--actions {
+    width: 96px;
+    min-width: 96px;
+    text-align: center;
+  }
+}
+
+/* ── Body ─────────────────────────────────────── */
+.pui-etbl-row {
+  transition: background 0.12s;
+
+  &:hover {
+    background: var(--pui-neutral-50);
+  }
+
+  &--striped {
+    background: var(--pui-neutral-100);
+    &:hover { background: var(--pui-neutral-150); }
+  }
+
+  &--editing {
+    background: rgba(18, 198, 168, 0.05) !important;
+    outline: 1.5px solid var(--pui-brand);
+    outline-offset: -1px;
+  }
+}
+
+.pui-etbl-td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--pui-neutral-100);
+  vertical-align: middle;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
+
+  &--actions {
+    width: 96px;
+    min-width: 96px;
+    max-width: 96px;
+    text-align: center;
+    overflow: visible;
+  }
+}
+
+.pui-etbl-cell-text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--pui-neutral-700);
+}
+
+/* ── Inline edit input ────────────────────────── */
+.pui-etbl-input {
+  width: 100%;
+  padding: 4px 8px;
+  border: 1.5px solid var(--pui-brand);
+  border-radius: 5px;
+  font-size: 12px;
+  font-family: inherit;
+  color: var(--pui-neutral-900);
+  background: var(--pui-white);
+  outline: none;
+  box-sizing: border-box;
+  transition: box-shadow 0.15s;
+
+  &:focus {
+    box-shadow: 0 0 0 3px var(--pui-brand-bg);
+  }
+}
+
+/* ── Action buttons ───────────────────────────── */
+.pui-etbl-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.pui-etbl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  transition: background 0.12s, color 0.12s, opacity 0.12s;
+  padding: 0;
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  &--edit {
+    color: var(--pui-neutral-500);
+    &:hover:not(:disabled) {
+      background: var(--pui-neutral-100);
+      color: var(--pui-neutral-700);
+    }
+  }
+
+  &--delete {
+    color: var(--pui-neutral-500);
+    &:hover:not(:disabled) {
+      background: var(--pui-error-hover-bg);
+      color: var(--pui-error);
+    }
+  }
+
+  &--save {
+    color: var(--pui-success);
+    &:hover:not(:disabled) {
+      background: rgba(34, 197, 94, 0.10);
+    }
+  }
+
+  &--cancel {
+    color: var(--pui-neutral-500);
+    &:hover:not(:disabled) {
+      background: var(--pui-neutral-100);
+      color: var(--pui-neutral-700);
+    }
+  }
+}
+
+/* ── Empty state ──────────────────────────────── */
+.pui-etbl-empty {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--pui-neutral-400);
+  font-size: 13px;
+}
+
+.pui-etbl-empty__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+
+  p { margin: 0; }
+}
+
+/* ── Loading skeleton ─────────────────────────── */
+.pui-etbl-loading {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  background: rgba(255,255,255,.7);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  padding-top: 44px;
+}
+
+.pui-etbl-skeleton {
+  display: flex;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--pui-neutral-100);
+}
+
+.pui-etbl-skeleton__cell {
+  flex: 1;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--pui-skeleton-shimmer);
+  animation: pui-shimmer 1.4s ease-in-out infinite;
+
+  &--actions {
+    flex: 0 0 80px;
+  }
+}
+
+@keyframes pui-shimmer {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: .45; }
+}
+
+/* ── Confirm delete overlay ───────────────────── */
+.pui-etbl-confirm-backdrop {
+  position: absolute; inset: 0; z-index: 20;
+  background: rgba(15, 23, 42, 0.35);
+  border-radius: 10px;
+}
+
+.pui-etbl-confirm {
+  position: absolute; z-index: 21;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--pui-white);
+  border-radius: 14px;
+  box-shadow: 0 16px 48px rgba(0,0,0,.18);
+  padding: 28px 28px 22px;
+  width: 320px;
+  text-align: center;
+  animation: pui-confirm-in .15s ease both;
+
+  &__icon  { margin-bottom: 12px; }
+  &__title { font-size: 16px; font-weight: 700; color: var(--pui-neutral-900); margin: 0 0 8px; }
+  &__msg   { font-size: 13px; color: var(--pui-neutral-500); margin: 0 0 20px; line-height: 1.55; }
+
+  &__actions {
+    display: flex; gap: 8px; justify-content: center;
+  }
+
+  &__btn {
+    padding: 8px 20px; border-radius: 8px;
+    font-size: 13px; font-weight: 600; font-family: inherit;
+    cursor: pointer; border: 1px solid transparent;
+    transition: background .12s, border-color .12s, color .12s;
+
+    &--cancel {
+      background: var(--pui-neutral-100);
+      color: var(--pui-neutral-700);
+      border-color: var(--pui-neutral-200);
+      &:hover { background: var(--pui-neutral-200); }
+    }
+
+    &--delete {
+      background: #ef4444;
+      color: #fff;
+      &:hover { background: #dc2626; }
+    }
+  }
+}
+
+@keyframes pui-confirm-in {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(.96); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}

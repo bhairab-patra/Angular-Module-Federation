@@ -1,0 +1,115 @@
+.demo-section {
+  margin-bottom: 40px;
+}
+
+.demo-section__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--pui-neutral-900);
+  margin: 0 0 6px;
+}
+
+.demo-section__desc {
+  font-size: 13px;
+  color: var(--pui-neutral-500);
+  margin: 0 0 16px;
+  line-height: 1.6;
+
+  code {
+    font-size: 12px;
+    background: var(--pui-neutral-100);
+    padding: 1px 5px;
+    border-radius: 4px;
+    color: var(--pui-primary-600);
+  }
+}
+
+.demo-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.demo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: var(--pui-primary-600);
+  color: #fff;
+  transition: background 0.15s;
+
+  &:hover { background: var(--pui-primary-700); }
+
+  &--secondary {
+    background: var(--pui-neutral-100);
+    color: var(--pui-neutral-800);
+    border: 1px solid var(--pui-neutral-200);
+    &:hover { background: var(--pui-neutral-200); }
+  }
+
+  &--danger {
+    background: var(--pui-error-600, #dc2626);
+    &:hover { background: var(--pui-error-700, #b91c1c); }
+  }
+}
+
+.demo-log {
+  padding: 10px 14px;
+  background: var(--pui-neutral-50);
+  border: 1px solid var(--pui-neutral-200);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.demo-log__entry {
+  font-size: 12px;
+  color: var(--pui-neutral-600);
+  margin: 0;
+  padding: 3px 0;
+  border-bottom: 1px solid var(--pui-neutral-100);
+
+  &:last-child { border-bottom: none; }
+}
+
+.pui-api-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--pui-neutral-50);
+    border-bottom: 2px solid var(--pui-neutral-200);
+    font-weight: 600;
+    color: var(--pui-neutral-700);
+  }
+
+  td {
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--pui-neutral-100);
+    color: var(--pui-neutral-700);
+    vertical-align: top;
+
+    code {
+      font-size: 11px;
+      background: var(--pui-neutral-100);
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+  }
+
+  .xfw-odd td { background: var(--pui-neutral-50); }
+}
+
+.tag-name {
+  color: var(--pui-primary-600) !important;
+  font-weight: 600;
+}

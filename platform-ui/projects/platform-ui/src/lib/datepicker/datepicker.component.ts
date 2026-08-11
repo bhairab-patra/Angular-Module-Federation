@@ -39,7 +39,7 @@ export class PuiDatepickerComponent {
   _max:         Date | null = null;
   _disabled     = false;
   _clearable    = true;
-  _placeholder  = 'Select date…';
+  _placeholder  = 'Select dateï¿½';
   _format       = 'MMM d, yyyy';
 
   readonly dayNames   = DAYS;
@@ -75,7 +75,12 @@ export class PuiDatepickerComponent {
   /* -- Click outside -------------------- */
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
-    if (!this.el.nativeElement.contains(e.target as Node)) {
+    // composedPath() traverses shadow boundaries correctly; fall back to contains()
+    const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
+    const inside = path.length
+      ? path.includes(this.el.nativeElement)
+      : this.el.nativeElement.contains(e.target as Node);
+    if (!inside) {
       this.open = false;
       this.cdr.markForCheck();
     }
@@ -89,7 +94,7 @@ export class PuiDatepickerComponent {
       const { start, end } = this._range;
       if (!start) return '';
       return end
-        ? `${this._fmt(start)} — ${this._fmt(end)}`
+        ? `${this._fmt(start)} ï¿½ ${this._fmt(end)}`
         : this._fmt(start);
     }
     return this._value ? this._fmt(this._value) : '';
@@ -118,7 +123,15 @@ export class PuiDatepickerComponent {
   }
 
   /* -- Actions -------------------------- */
-  toggle() { this.open = !this.open; this.cdr.markForCheck(); }
+  toggle() {
+    this.open = !this.open;
+    if (this.open) {
+      // Navigate calendar to the currently selected date's month when opening
+      const nav = this._mode === 'single' ? this._value : this._range.start;
+      if (nav) { this.viewYear = nav.getFullYear(); this.viewMonth = nav.getMonth(); }
+    }
+    this.cdr.markForCheck();
+  }
 
   prevMonth() {
     if (this.viewMonth === 0) { this.viewMonth = 11; this.viewYear--; }
@@ -218,8 +231,16 @@ export class PuiDatepickerComponent {
   }
 
   private _isDisabled(d: Date) {
-    if (this._min && d < this._min) return true;
-    if (this._max && d > this._max) return true;
+    // Compare at day granularity â€” strip time from min/max so today is never
+    // incorrectly disabled when minDate was created with new Date() (current time).
+    if (this._min) {
+      const min = new Date(this._min); min.setHours(0, 0, 0, 0);
+      if (d < min) return true;
+    }
+    if (this._max) {
+      const max = new Date(this._max); max.setHours(23, 59, 59, 999);
+      if (d > max) return true;
+    }
     return false;
   }
 

@@ -1,0 +1,112 @@
+<docs-page title="Confirm Dialog"
+  description="pui-lib-confirm-dialog — a lightweight confirmation prompt for destructive or irreversible actions. Supports customisable title, message, button labels, and confirm variant."
+  [api]="api">
+
+  <ng-container demo>
+
+    <!-- 1. Delete confirmation -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Delete Confirmation</h3>
+      <p class="demo-section__desc">
+        The most common use case — ask the user before a permanent delete.
+        Use <code>confirmVariant="destructive"</code> to style the confirm button in red.
+      </p>
+      <div class="demo-row">
+        <button class="demo-btn demo-btn--danger" (click)="deleteOpen = true">Delete Record</button>
+      </div>
+      <div class="demo-result" *ngIf="deleteResult">{{ deleteResult }}</div>
+
+      <pui-lib-confirm-dialog
+        [open]="deleteOpen"
+        title="Delete Record?"
+        message="This action is permanent and cannot be undone. The record will be removed immediately."
+        confirmLabel="Yes, Delete"
+        cancelLabel="Cancel"
+        confirmVariant="destructive"
+        (confirmed)="onDeleteConfirm()"
+        (cancelled)="onDeleteCancel()"
+        (closed)="deleteOpen = false">
+      </pui-lib-confirm-dialog>
+    </div>
+
+    <!-- 2. Publish / info -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Publish Confirmation</h3>
+      <p class="demo-section__desc">
+        Use <code>confirmVariant="primary"</code> for non-destructive actions that still need acknowledgement.
+      </p>
+      <div class="demo-row">
+        <button class="demo-btn" (click)="infoOpen = true">Publish Changes</button>
+      </div>
+      <div class="demo-result" *ngIf="infoResult">{{ infoResult }}</div>
+
+      <pui-lib-confirm-dialog
+        [open]="infoOpen"
+        title="Publish Changes?"
+        message="Your changes will become visible to all users. You can revert by publishing a new version."
+        confirmLabel="Publish"
+        cancelLabel="Keep as Draft"
+        confirmVariant="primary"
+        (confirmed)="onInfoConfirm()"
+        (cancelled)="onInfoCancel()"
+        (closed)="infoOpen = false">
+      </pui-lib-confirm-dialog>
+    </div>
+
+    <!-- 3. Logout -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Session / Logout Confirmation</h3>
+      <p class="demo-section__desc">
+        Good for session-ending actions. Use <code>confirmVariant="outline"</code> for a neutral tone.
+      </p>
+      <div class="demo-row">
+        <button class="demo-btn demo-btn--secondary" (click)="logoutOpen = true">Sign Out</button>
+      </div>
+      <div class="demo-result" *ngIf="logoutResult">{{ logoutResult }}</div>
+
+      <pui-lib-confirm-dialog
+        [open]="logoutOpen"
+        title="Sign Out?"
+        message="You will be returned to the login page. Any unsaved work will be lost."
+        confirmLabel="Sign Out"
+        cancelLabel="Stay Logged In"
+        confirmVariant="primary-outline"
+        (confirmed)="onLogoutConfirm()"
+        (cancelled)="onLogoutCancel()"
+        (closed)="logoutOpen = false">
+      </pui-lib-confirm-dialog>
+    </div>
+
+    <!-- 4. Archive / secondary action -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Archive Project</h3>
+      <p class="demo-section__desc">
+        For reversible but significant actions, <code>confirmVariant="secondary"</code> signals caution without alarm.
+      </p>
+      <div class="demo-row">
+        <button class="demo-btn demo-btn--secondary" (click)="archiveOpen = true">Archive Project</button>
+      </div>
+      <div class="demo-result" *ngIf="archiveResult">{{ archiveResult }}</div>
+
+      <pui-lib-confirm-dialog
+        [open]="archiveOpen"
+        title="Archive Project?"
+        message="The project will be hidden from your dashboard but can be restored from the archive at any time."
+        confirmLabel="Archive"
+        cancelLabel="Cancel"
+        confirmVariant="secondary"
+        (confirmed)="onArchiveConfirm()"
+        (cancelled)="onArchiveCancel()"
+        (closed)="archiveOpen = false">
+      </pui-lib-confirm-dialog>
+    </div>
+
+    <!-- 5. Code Usage -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Usage</h3>
+      <app-code lang="html"       id="cd-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <app-code lang="typescript" id="cd-ts"   [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    </div>
+
+  </ng-container>
+</docs-page>

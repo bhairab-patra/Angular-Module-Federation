@@ -1,0 +1,79 @@
+<div *ngIf="_open" class="pui-fd-backdrop" (click)="onBackdropClick($event)">
+  <div class="pui-fd pui-fd--{{ size }}" role="dialog" [attr.aria-label]="title">
+
+    <!-- ── Header ─────────────────────────── -->
+    <div class="pui-fd__header">
+      <h2 class="pui-fd__title">{{ title }}</h2>
+      <button class="pui-fd__close" (click)="onCancel()" type="button" aria-label="Close dialog">
+        <svg viewBox="0 0 20 20" fill="none" width="18" height="18">
+          <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- ── Body — form fields ─────────────── -->
+    <div class="pui-fd__body">
+      <div class="pui-fd__grid">
+        <div *ngFor="let field of _fields"
+             class="pui-fd__field"
+             [class.pui-fd__field--full]="field.span === 'full'">
+
+          <!-- Textarea -->
+          <pui-lib-textarea
+            *ngIf="field.type === 'textarea'"
+            [label]="field.label"
+            [placeholder]="field.placeholder || ''"
+            [required]="field.required || false"
+            [readonly]="field.readonly || false"
+            [error]="errors[field.key] || ''"
+            [rows]="3"
+            [(ngModel)]="draft[field.key]" size="sm">
+          </pui-lib-textarea>
+
+          <!-- Select -->
+          <pui-lib-select
+            *ngIf="field.type === 'select'"
+            [label]="field.label"
+            [placeholder]="field.placeholder || 'Select…'"
+            [options]="field.options || []"
+            [required]="field.required || false"
+            [disabled]="field.readonly || false"
+            [error]="errors[field.key] || ''"
+            [(ngModel)]="draft[field.key]" size="sm">
+          </pui-lib-select>
+
+          <!-- Input (text / number / email / password / default) -->
+          <pui-lib-input
+            *ngIf="!field.type || (field.type !== 'textarea' && field.type !== 'select')"
+            [label]="field.label"
+            [placeholder]="field.placeholder || ''"
+            [type]="field.type || 'text'"
+            [required]="field.required || false"
+            [readonly]="field.readonly || false"
+            [error]="errors[field.key] || ''"
+            [(ngModel)]="draft[field.key]" size="sm">
+          </pui-lib-input>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Footer — PUI buttons ───────────── -->
+    <div class="pui-fd__footer">
+      <pui-lib-button
+        variant="secondary"
+        [label]="cancelLabel"
+        size="sm"
+        (buttonClick)="onCancel()">
+      </pui-lib-button>
+      <pui-lib-button
+        variant="primary"
+        [label]="saveLabel"
+        size="sm"
+        (buttonClick)="onSave()">
+      </pui-lib-button>
+    </div>
+
+  </div>
+</div>

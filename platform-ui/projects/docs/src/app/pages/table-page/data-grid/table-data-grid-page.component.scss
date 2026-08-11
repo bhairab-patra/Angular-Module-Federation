@@ -1,0 +1,82 @@
+
+.demo-section { margin-bottom: 48px; }
+.demo-section__title { font-size: 15px; font-weight: 700; color: var(--pui-neutral-900); margin: 0 0 6px; }
+.demo-section__desc  { font-size: 13px; color: var(--pui-neutral-500); margin: 0 0 14px; line-height: 1.6; }
+.demo-section__desc code { background: var(--pui-neutral-100); padding: 1px 5px; border-radius: 4px; font-size: 12px; border: 1px solid var(--pui-neutral-200); }
+
+.demo-row  { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.demo-desc { font-size: 12px; color: var(--pui-neutral-500); margin-top: 8px; }
+
+.demo-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px; border-radius: 8px;
+  border: 1px solid var(--pui-neutral-200);
+  background: var(--pui-white);
+  color: var(--pui-neutral-700);
+  font-size: 13px; font-weight: 500;
+  font-family: 'Poppins', system-ui, sans-serif;
+  cursor: pointer;
+  transition: background .12s, border-color .12s, color .12s;
+  &:hover { background: var(--pui-neutral-100); border-color: var(--pui-neutral-300); }
+}
+
+.demo-log { margin-top: 12px; display: flex; flex-direction: column; gap: 4px; }
+.demo-log__entry {
+  font-size: 12px; color: var(--pui-neutral-600); margin: 0;
+  padding: 4px 10px; background: var(--pui-neutral-100);
+  border-radius: 6px; border-left: 3px solid var(--pui-brand);
+}
+
+/* ── Framework usage ─────────────────── */
+.fw-title { font-size: 22px; font-weight: 700; color: var(--pui-neutral-900); margin: 0 0 8px; }
+.fw-lead  { font-size: 14px; color: var(--pui-neutral-500); margin: 0 0 22px; line-height: 1.65; max-width: 680px; }
+.fw-lead code { background: var(--pui-neutral-100); padding: 1px 5px; border-radius: 4px; font-size: 13px; border: 1px solid var(--pui-neutral-200); }
+
+.fw-tabs {
+  display: flex; gap: 4px; margin-bottom: 16px;
+  border-bottom: 1px solid var(--pui-neutral-200);
+}
+.fw-tab {
+  display: flex; align-items: center; gap: 7px;
+  padding: 8px 16px; font-size: 13px; font-weight: 500;
+  color: var(--pui-neutral-500); background: none;
+  border: 1px solid transparent; border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer; font-family: inherit;
+  transition: color .12s, background .12s;
+  margin-bottom: -1px;
+  &:hover { color: var(--pui-neutral-800); }
+  &--active {
+    color: var(--pui-neutral-900); font-weight: 600;
+    border-color: var(--pui-neutral-200);
+    background: var(--pui-white);
+    border-bottom: 2px solid var(--pui-white);
+  }
+}
+
+.fw-panel { margin-bottom: 24px; }
+.fw-note {
+  padding: 10px 14px; border-radius: 8px; margin-bottom: 14px;
+  font-size: 13px; line-height: 1.55;
+  code { font-size: 12px; }
+  &--angular { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+}
+
+.fw-ref-title { font-size: 14px; font-weight: 700; color: var(--pui-neutral-700); margin: 24px 0 10px; }
+.xfw-wrap { overflow-x: auto; border-radius: 10px; border: 1px solid var(--pui-neutral-200); }
+.xfw-table {
+  width: 100%; border-collapse: collapse; font-size: 12.5px;
+  th {
+    padding: 10px 14px; text-align: left;
+    background: var(--pui-neutral-50); color: var(--pui-neutral-500);
+    font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+    border-bottom: 1px solid var(--pui-neutral-200);
+  }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--pui-neutral-100); }
+  tr:last-child td { border-bottom: none; }
+}
+.xfw-odd td { background: var(--pui-neutral-50); }
+.tag-name { background: var(--pui-neutral-100); color: var(--pui-neutral-800); padding: 2px 7px; border-radius: 4px; font-size: 12px; border: 1px solid var(--pui-neutral-200); }
+.tag-ng   { color: #991b1b; background: #fef2f2; padding: 2px 7px; border-radius: 4px; font-size: 12px; border: 1px solid #fecaca; }
+.tag-html { color: #9a3412; background: #fff7ed; padding: 2px 7px; border-radius: 4px; font-size: 12px; border: 1px solid #fed7aa; }
+.tag-js   { color: #713f12; background: #fefce8; padding: 2px 7px; border-radius: 4px; font-size: 12px; border: 1px solid #fef08a; }
