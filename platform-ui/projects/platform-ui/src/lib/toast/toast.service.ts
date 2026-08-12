@@ -1,5 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { Toast, ToastConfig, ToastPosition, ToastType } from '../models/toast.model';
+import { Toast, ToastConfig, ToastPosition } from '../models/toast.model';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
@@ -25,13 +25,13 @@ export class ToastService {
     const toast: Toast = {
       id,
       message:      config.message,
-      title:        config.title,
+      ...(config.title    !== undefined && { title:    config.title }),
+      ...(config.action   !== undefined && { action:   config.action }),
       type:         config.type         ?? 'info',
       duration:     config.duration     ?? this._defaultDuration,
       showProgress: config.showProgress ?? true,
       dismissible:  config.dismissible  ?? true,
       position:     config.position     ?? this._defaultPosition,
-      action:       config.action,
       createdAt:    Date.now(),
     };
 

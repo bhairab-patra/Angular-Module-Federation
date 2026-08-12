@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, ChangeDetectionStrategy, SecurityContext, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ICON_REGISTRY } from './icon-registry';

@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
-  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
+  ChangeDetectionStrategy, ViewEncapsulation
 } from '@angular/core';
 import { NgFor, NgIf, NgClass, NgStyle } from '@angular/common';
 import { PuiSearchComponent } from '../search/search.component';
@@ -155,7 +155,7 @@ export class PuiSidebarComponent implements OnChanges {
   clickItem(item: SidebarNavItem): void {
     if (item.disabled) return;
     if (item.children?.length) {
-      this.openIds.has(item.id) ? this.openIds.delete(item.id) : this.openIds.add(item.id);
+      if (this.openIds.has(item.id)) { this.openIds.delete(item.id); } else { this.openIds.add(item.id); }
     } else {
       this.itemSelect.emit(item);
     }

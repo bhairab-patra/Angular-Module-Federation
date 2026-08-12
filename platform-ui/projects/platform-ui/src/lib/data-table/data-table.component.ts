@@ -5,9 +5,9 @@ import {
 } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { TableColumn, TableAction, SortDir, SortState } from '../models/table.model';
+import { TableColumn, TableAction, SortState } from '../models/table.model';
 
-/* re-export so consumers import from one place */
+
 export { TableColumn, TableAction, SortDir, SortState } from '../models/table.model';
 
 @Component({
@@ -20,18 +20,17 @@ export { TableColumn, TableAction, SortDir, SortState } from '../models/table.mo
   styleUrls: ['./data-table.component.scss'],
 })
 export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestroy {
-  private cdr       = inject(ChangeDetectorRef);
-  private zone      = inject(NgZone);
-  private el        = inject(ElementRef);
+  private cdr = inject(ChangeDetectorRef);
+  private zone = inject(NgZone);
+  private el = inject(ElementRef);
   private sanitizer = inject(DomSanitizer);
 
   safeHtml(html: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
-  /* ── Columns / data ──────────────────────── */
   _columns: TableColumn[] = [];
-  _data:    any[]         = [];
+  _data: any[] = [];
 
   @Input() set columns(v: TableColumn[] | string) {
     this._columns = typeof v === 'string' ? (this._parse<TableColumn[]>(v) ?? []) : (v || []);
@@ -40,74 +39,67 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
 
   @Input() set data(v: any[] | string) {
     this._data = typeof v === 'string' ? (this._parse<any[]>(v) ?? []) : (v || []);
-    this.page  = 1;
+    this.page = 1;
     this.selectedRows.clear();
   }
   get data() { return this._data; }
 
-  /* ── Feature flags ───────────────────────── */
-  _sortable     = false;
-  _searchable   = false;
-  _paginated    = false;
+  _sortable = false;
+  _searchable = false;
+  _paginated = false;
   _stickyHeader = false;
-  _striped      = false;
-  _selectable   = false;
-  _loading      = false;
+  _striped = false;
+  _selectable = false;
+  _loading = false;
 
-  @Input() set sortable(v: boolean | string)     { this._sortable     = this._bool(v); }
-  @Input() set searchable(v: boolean | string)   { this._searchable   = this._bool(v); }
-  @Input() set paginated(v: boolean | string)    { this._paginated    = this._bool(v); }
+  @Input() set sortable(v: boolean | string) { this._sortable = this._bool(v); }
+  @Input() set searchable(v: boolean | string) { this._searchable = this._bool(v); }
+  @Input() set paginated(v: boolean | string) { this._paginated = this._bool(v); }
   @Input() set stickyHeader(v: boolean | string) { this._stickyHeader = this._bool(v); }
-  @Input() set striped(v: boolean | string)      { this._striped      = this._bool(v); }
-  @Input() set selectable(v: boolean | string)   { this._selectable   = this._bool(v); }
-  @Input() set loading(v: boolean | string)      { this._loading      = this._bool(v); }
+  @Input() set striped(v: boolean | string) { this._striped = this._bool(v); }
+  @Input() set selectable(v: boolean | string) { this._selectable = this._bool(v); }
+  @Input() set loading(v: boolean | string) { this._loading = this._bool(v); }
 
-  /* ── Numeric ─────────────────────────────── */
-  _pageSize  = 10;
+  _pageSize = 10;
   _maxHeight = 0;
 
-  @Input() set pageSize(v: number | string)  { this._pageSize  = Number(v) || 10; this.page = 1; }
+  @Input() set pageSize(v: number | string) { this._pageSize = Number(v) || 10; this.page = 1; }
   @Input() set maxHeight(v: number | string) { this._maxHeight = Number(v) || 0; }
 
-  /* ── Actions ─────────────────────────────── */
   _actions: TableAction[] = [];
   @Input() set actions(v: TableAction[] | string) {
     this._actions = typeof v === 'string' ? (this._parse<TableAction[]>(v) ?? []) : (v || []);
   }
   get actions() { return this._actions; }
 
-  /* ── Tooltip ─────────────────────────────── */
   _tooltipPos: 'top' | 'bottom' | 'left' | 'right' = 'top';
   @Input() set tooltipPosition(v: 'top' | 'bottom' | 'left' | 'right') {
     this._tooltipPos = v || 'top';
   }
 
   cellTooltipVisible = false;
-  hoveredCellText    = '';
-  cellTooltipCoords  = { top: 0, left: 0 };
+  hoveredCellText = '';
+  cellTooltipCoords = { top: 0, left: 0 };
 
-  /* ── Outputs ─────────────────────────────── */
-  @Output() sortChange      = new EventEmitter<SortState>();
-  @Output() pageChange      = new EventEmitter<number>();
-  @Output() searchChange    = new EventEmitter<string>();
-  @Output() rowClick        = new EventEmitter<any>();
+  @Output() sortChange = new EventEmitter<SortState>();
+  @Output() pageChange = new EventEmitter<number>();
+  @Output() searchChange = new EventEmitter<string>();
+  @Output() rowClick = new EventEmitter<any>();
   @Output() selectionChange = new EventEmitter<any[]>();
-  @Output() actionClick     = new EventEmitter<{ action: TableAction; row: any }>();
+  @Output() actionClick = new EventEmitter<{ action: TableAction; row: any }>();
 
-  /* ── State ───────────────────────────────── */
-  sort:                SortState = { key: '', dir: '' };
-  openActionRow:       number | null = null;
-  openActionRowData:   any = null;
-  actionMenuPos        = { top: 0, left: 0 };
+  sort: SortState = { key: '', dir: '' };
+  openActionRow: number | null = null;
+  openActionRowData: any = null;
+  actionMenuPos = { top: 0, left: 0 };
   private _closeMenuListener: (() => void) | null = null;
-  searchTerm           = '';
-  page                 = 1;
-  pageSizeOptions      = [5, 10, 20, 50, 100];
-  selectedRows         = new Set<string>();
-  skeletonRows         = Array(5).fill(null);
-  rowClickEnabled      = false;
+  searchTerm = '';
+  page = 1;
+  pageSizeOptions = [5, 10, 20, 50, 100];
+  selectedRows = new Set<string>();
+  skeletonRows = Array(5).fill(null);
+  rowClickEnabled = false;
 
-  /* ── Derived ─────────────────────────────── */
   get filteredRows(): any[] {
     let rows = [...this._data];
     if (this.searchTerm) {
@@ -136,7 +128,7 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
 
   get totalPages(): number { return Math.max(1, Math.ceil(this.filteredRows.length / this._pageSize)); }
   get rangeStart(): number { return this.filteredRows.length === 0 ? 0 : (this.page - 1) * this._pageSize + 1; }
-  get rangeEnd():   number { return Math.min(this.page * this._pageSize, this.filteredRows.length); }
+  get rangeEnd(): number { return Math.min(this.page * this._pageSize, this.filteredRows.length); }
 
   get pageNumbers(): number[] {
     const total = this.totalPages; const cur = this.page; const delta = 2;
@@ -157,7 +149,6 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
   ngAfterViewInit(): void { this.rowClickEnabled = this.rowClick.observed; this.cdr.markForCheck(); }
   ngOnDestroy(): void { this._detachCloseListener(); }
 
-  /* ── Handlers ────────────────────────────── */
   onSort(key: string): void {
     if (this.sort.key === key) {
       this.sort = { key, dir: this.sort.dir === 'asc' ? 'desc' : this.sort.dir === 'desc' ? '' : 'asc' };
@@ -192,7 +183,7 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
   onRowClick(row: any): void { this.rowClick.emit(row); }
 
   getRowId(row: any, i: number): string {
-    return row['id'] != null ? String(row['id']) : String(i);
+    return row['id'] !== null && row['id'] !== undefined ? String(row['id']) : String(i);
   }
 
   toggleRow(row: any, i: number): void {
@@ -215,17 +206,17 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
   toggleActionMenu(rowIndex: number, event: Event): void {
     event.stopPropagation();
     if (this.openActionRow === rowIndex) { this._closeMenu(); return; }
-    const btn      = event.currentTarget as HTMLElement;
-    const btnRect  = btn.getBoundingClientRect();
+    const btn = event.currentTarget as HTMLElement;
+    const btnRect = btn.getBoundingClientRect();
     const hostRect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
     const menuW = 200; const menuH = 160;
     const spaceBelow = window.innerHeight - btnRect.bottom;
-    const topRel  = spaceBelow >= menuH + 8
+    const topRel = spaceBelow >= menuH + 8
       ? btnRect.bottom - hostRect.top + 4
       : btnRect.top - hostRect.top - menuH - 4;
     const leftRel = Math.min(btnRect.right - menuW - hostRect.left, hostRect.width - menuW - 4);
-    this.actionMenuPos    = { top: Math.max(0, topRel), left: Math.max(0, leftRel) };
-    this.openActionRow    = rowIndex;
+    this.actionMenuPos = { top: Math.max(0, topRel), left: Math.max(0, leftRel) };
+    this.openActionRow = rowIndex;
     this.openActionRowData = this.displayRows[rowIndex];
     this.cdr.markForCheck();
     this.zone.runOutsideAngular(() => {
@@ -246,19 +237,19 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
 
   showCellTooltip(event: MouseEvent, text: string): void {
     if (!text) return;
-    const td     = event.currentTarget as HTMLElement;
+    const td = event.currentTarget as HTMLElement;
     const textEl = td.querySelector('.pui-cell-text') as HTMLElement | null;
     if (!textEl || textEl.scrollWidth <= textEl.clientWidth) return;
     const hostRect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
-    const rect     = td.getBoundingClientRect();
+    const rect = td.getBoundingClientRect();
     let top = 0, left = 0;
     switch (this._tooltipPos) {
-      case 'top':    top = rect.top    - hostRect.top  - 8; left = rect.left - hostRect.left + rect.width / 2; break;
-      case 'bottom': top = rect.bottom - hostRect.top  + 8; left = rect.left - hostRect.left + rect.width / 2; break;
-      case 'left':   top = rect.top    - hostRect.top  + rect.height / 2; left = rect.left  - hostRect.left - 8; break;
-      case 'right':  top = rect.top    - hostRect.top  + rect.height / 2; left = rect.right - hostRect.left + 8; break;
+      case 'top': top = rect.top - hostRect.top - 8; left = rect.left - hostRect.left + rect.width / 2; break;
+      case 'bottom': top = rect.bottom - hostRect.top + 8; left = rect.left - hostRect.left + rect.width / 2; break;
+      case 'left': top = rect.top - hostRect.top + rect.height / 2; left = rect.left - hostRect.left - 8; break;
+      case 'right': top = rect.top - hostRect.top + rect.height / 2; left = rect.right - hostRect.left + 8; break;
     }
-    this.hoveredCellText   = text;
+    this.hoveredCellText = text;
     this.cellTooltipCoords = { top, left };
     this.cellTooltipVisible = true;
     this.cdr.markForCheck();

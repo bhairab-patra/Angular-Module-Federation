@@ -50,7 +50,9 @@ export class PuiSelectComponent implements ControlValueAccessor {
   innerValue: any = '';
   focused = false;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onChangeFn: (v: any) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onTouchedFn: () => void = () => {};
 
   constructor(private cdr: ChangeDetectorRef) {}

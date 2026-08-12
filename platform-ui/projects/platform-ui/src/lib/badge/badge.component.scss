@@ -1,15 +1,54 @@
+.pui-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: .02em;
+}
 
-    .pui-badge {
-      display: inline-flex; align-items: center;
-      border-radius: 999px; font-weight: 600;
-      white-space: nowrap; letter-spacing: .02em;
-    }
-    .pui-badge--sm  { padding: 2px 8px;  font-size: 11px; }
-    .pui-badge--md  { padding: 4px 10px; font-size: 12px; }
-    .pui-badge--default { background:var(--pui-slate-100); color:var(--pui-indigo-mid); border:1px solid var(--pui-indigo-mid); }
-    .pui-badge--primary { background:var(--pui-info-light); color:var(--pui-info); border:1px solid var(--pui-info); }
-    .pui-badge--success { background:var(--pui-success-bg); color:var(--pui-success-dark); border:1px solid var(--pui-success-dark); }
-    .pui-badge--warning { background:var(--pui-warning-bg); color:var(--pui-warning-dark); border:1px solid var(--pui-warning-dark); }
-    .pui-badge--danger  { background:var(--pui-error-bg); color:var(--pui-error-dark); border:1px solid var(--pui-error-dark); }
-    .pui-badge--info    { background:var(--pui-info-bg); color:var(--pui-info-dark); border:1px solid var(--pui-info-dark); }
-  
+.pui-badge--sm {
+  padding: 2px 8px;
+  font-size: 11px;
+}
+
+.pui-badge--md {
+  padding: 4px 10px;
+  font-size: 12px;
+}
+
+.pui-badge--default {
+  background: var(--pui-slate-100);
+  color: var(--pui-indigo-mid);
+  border: 1px solid var(--pui-indigo-mid);
+}
+
+.pui-badge--primary {
+  background: var(--pui-info-light);
+  color: var(--pui-info);
+  border: 1px solid var(--pui-info);
+}
+
+.pui-badge--success {
+  background: var(--pui-success-bg);
+  color: var(--pui-success-dark);
+  border: 1px solid var(--pui-success-dark);
+}
+
+.pui-badge--warning {
+  background: var(--pui-warning-bg);
+  color: var(--pui-warning-dark);
+  border: 1px solid var(--pui-warning-dark);
+}
+
+.pui-badge--danger {
+  background: var(--pui-error-bg);
+  color: var(--pui-error-dark);
+  border: 1px solid var(--pui-error-dark);
+}
+
+.pui-badge--info {
+  background: var(--pui-info-bg);
+  color: var(--pui-info-dark);
+  border: 1px solid var(--pui-info-dark);
+}

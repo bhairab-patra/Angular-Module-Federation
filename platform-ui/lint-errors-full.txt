@@ -1,0 +1,476 @@
+﻿
+Linting "platform-ui"...
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\breadcrumb\breadcrumb.component.html
+  3:9  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\card\card.component.html
+  1:1  warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+  1:1  warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\chip\chip.component.html
+  1:1  warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+  1:1  warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\confirm-dialog\confirm-dialog.component.html
+  1:1  warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+  1:1  warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\confirm-dialog\confirm-dialog.component.ts
+  24:54  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  38:3   warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\data-table\data-table.component.html
+   17:29  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+   28:36  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+   30:44  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+   42:37  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+   46:15  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+   85:13  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  100:15  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  118:45  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  164:13  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  178:89  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+  179:17  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  194:17  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\data-table\data-table.component.ts
+    8:36  error    'SortDir' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+   33:10  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+   38:3   warning  Missing return type on function                                            @typescript-eslint/explicit-function-return-type
+   40:24  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+   41:55  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+   45:3   warning  Missing return type on function                                            @typescript-eslint/explicit-function-return-type
+   73:3   warning  Missing return type on function                                            @typescript-eslint/explicit-function-return-type
+   87:41  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+   88:48  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+   89:72  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+   93:22  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+  103:23  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+  122:22  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+  148:3   warning  Missing return type on function                                            @typescript-eslint/explicit-function-return-type
+  183:19  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+  185:17  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+  186:22  error    Expected '!==' and instead saw '!='                                        eqeqeq
+  189:18  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+  230:43  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+  278:48  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\datagrid\datagrid.component.html
+  12:15  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  14:86  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+  41:13  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  48:15  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\datagrid\datagrid.component.ts
+   4:37  warning  Unexpected any. Specify a different type                                                  @typescript-eslint/no-explicit-any
+  33:60  warning  Unexpected any. Specify a different type                                                  @typescript-eslint/no-explicit-any
+  33:67  warning  Unexpected any. Specify a different type                                                  @typescript-eslint/no-explicit-any
+  49:3   error    The generic type arguments should be specified as part of the constructor type arguments  @typescript-eslint/consistent-generic-constructors
+  49:21  warning  Unexpected any. Specify a different type                                                  @typescript-eslint/no-explicit-any
+  56:14  error    Expected '===' and instead saw '=='                                                       eqeqeq
+  56:28  error    Expected '===' and instead saw '=='                                                       eqeqeq
+  57:14  error    Expected '===' and instead saw '=='                                                       eqeqeq
+  58:14  error    Expected '===' and instead saw '=='                                                       eqeqeq
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\datepicker\datepicker.component.html
+   4:3   warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+   4:3   warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+  26:3   warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+  26:3   warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+  50:15  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+  57:35  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+  58:15  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\datepicker\datepicker.component.ts
+   61:101  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+   62:103  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+   68:13   error    Output bindings, including aliases, should not be named as standard DOM events  @angular-eslint/no-output-native
+   71:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+   83:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  118:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  128:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  134:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  140:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  146:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  169:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  176:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  184:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  217:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  223:3    warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\editable-table\editable-table.component.html
+    5:36  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+    6:44  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+   17:15  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+   40:13  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+   44:15  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+  115:3   warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+  115:3   warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\editable-table\editable-table.component.ts
+   9:61  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   9:74  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  10:57  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  29:3   warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  32:10  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  33:24  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  34:55  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  39:3   warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  47:57  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  52:63  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  62:25  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  66:22  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  70:3   warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\filter-panel\filter-panel.component.html
+   15:17  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+   27:14  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+   46:22  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+   52:61  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+   64:22  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+   81:45  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+   83:25  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+   95:41  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+  129:48  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+  135:46  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\filter-panel\filter-panel.component.ts
+    4:23  error    'KeyValuePipe' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+   34:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+   38:56  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+   40:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+   50:13  error    Output bindings, including aliases, should not be named as standard DOM events  @angular-eslint/no-output-native
+   69:30  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+  135:33  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+  136:20  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+  141:30  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\form-dialog\form-dialog.component.html
+   1:1   warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+   1:1   warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+  18:14  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\form-dialog\form-dialog.component.ts
+  25:61  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+  47:54  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+  62:25  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+  63:39  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+  64:70  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+  69:13  error    Output bindings, including aliases, should not be named as standard DOM events  @angular-eslint/no-output-native
+  72:26  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+  75:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\checkbox\checkbox.component.ts
+  26:99   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  27:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  30:111  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  31:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  34:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  35:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  38:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  39:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  45:27   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  45:48   error    Unexpected empty method 'onChangeFn'      @typescript-eslint/no-empty-function
+  46:43   error    Unexpected empty method 'onTouchedFn'     @typescript-eslint/no-empty-function
+  50:19   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  51:24   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  52:25   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\combobox\combobox.component.html
+  18:30  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+  70:19  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  73:15  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\combobox\combobox.component.ts
+   63:13  error    Output bindings, including aliases, should not be named as standard DOM events  @angular-eslint/no-output-native
+   67:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+   94:7   warning  Forbidden non-null assertion                                                    @typescript-eslint/no-non-null-assertion
+  114:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  118:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  126:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  148:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  155:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  160:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  171:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  179:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  188:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  196:48  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\input\input.component.html
+  33:33  warning  Avoid using "$any" in templates  @angular-eslint/template/no-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\input\input.component.ts
+  35:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  36:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  39:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  40:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  43:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  44:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  47:103  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  48:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  51:103  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  52:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  58:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  69:25   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  69:46   error    Unexpected empty method 'onChange'        @typescript-eslint/no-empty-function
+  70:41   error    Unexpected empty method 'onTouched'       @typescript-eslint/no-empty-function
+  74:19   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  78:24   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  79:25   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\multiselect\multiselect.component.html
+   8:3   warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+   8:3   warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+  17:15  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+  47:3   warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+  47:3   warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+  60:31  warning  Avoid using "$any" in templates                                                         @angular-eslint/template/no-any
+  79:21  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+  84:17  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\multiselect\multiselect.component.ts
+   60:13  error    Output bindings, including aliases, should not be named as standard DOM events  @angular-eslint/no-output-native
+   64:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+   84:7   warning  Forbidden non-null assertion                                                    @typescript-eslint/no-non-null-assertion
+   90:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+   92:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  101:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  107:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  115:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  121:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  134:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  140:48  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\password\password-input.component.html
+  15:24  warning  Avoid using "$any" in templates  @angular-eslint/template/no-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\password\password-input.component.ts
+   58:13  error    Output bindings, including aliases, should not be named as standard DOM events  @angular-eslint/no-output-native
+   62:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+   63:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+   64:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+   90:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+   98:3   warning  Missing return type on function                                                 @typescript-eslint/explicit-function-return-type
+  107:48  warning  Unexpected any. Specify a different type                                        @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\radio\radio.component.html
+  8:14  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\radio\radio.component.ts
+   6:10   error    'FormSize' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+  35:101  warning  Unexpected any. Specify a different type                                    @typescript-eslint/no-explicit-any
+  36:3    warning  Missing return type on function                                             @typescript-eslint/explicit-function-return-type
+  39:101  warning  Unexpected any. Specify a different type                                    @typescript-eslint/no-explicit-any
+  40:3    warning  Missing return type on function                                             @typescript-eslint/explicit-function-return-type
+  47:44   warning  Unexpected any. Specify a different type                                    @typescript-eslint/no-explicit-any
+  48:44   warning  Unexpected any. Specify a different type                                    @typescript-eslint/no-explicit-any
+  50:15   warning  Unexpected any. Specify a different type                                    @typescript-eslint/no-explicit-any
+  52:27   warning  Unexpected any. Specify a different type                                    @typescript-eslint/no-explicit-any
+  52:48   error    Unexpected empty method 'onChangeFn'                                        @typescript-eslint/no-empty-function
+  53:43   error    Unexpected empty method 'onTouchedFn'                                       @typescript-eslint/no-empty-function
+  57:19   warning  Unexpected any. Specify a different type                                    @typescript-eslint/no-explicit-any
+  58:24   warning  Unexpected any. Specify a different type                                    @typescript-eslint/no-explicit-any
+  59:25   warning  Unexpected any. Specify a different type                                    @typescript-eslint/no-explicit-any
+  62:15   warning  Unexpected any. Specify a different type                                    @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\select\select.component.html
+  17:37  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+  21:19  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\select\select.component.ts
+  35:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  36:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  39:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  40:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  47:44   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  48:48   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  50:15   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  53:27   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  53:48   error    Unexpected empty method 'onChangeFn'      @typescript-eslint/no-empty-function
+  54:43   error    Unexpected empty method 'onTouchedFn'     @typescript-eslint/no-empty-function
+  58:19   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  59:24   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  60:25   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  63:18   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\switch\switch.component.ts
+  30:99   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  31:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  34:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  35:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  38:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  39:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  45:27   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  45:48   error    Unexpected empty method 'onChangeFn'      @typescript-eslint/no-empty-function
+  46:43   error    Unexpected empty method 'onTouchedFn'     @typescript-eslint/no-empty-function
+  50:19   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  51:24   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  52:25   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\textarea\textarea.component.html
+  26:28  warning  Avoid using "$any" in templates  @angular-eslint/template/no-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\forms\textarea\textarea.component.ts
+  31:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  37:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  40:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  41:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  44:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  45:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  48:101  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  49:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  52:103  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  53:3    warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  63:27   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  63:48   error    Unexpected empty method 'onChangeFn'      @typescript-eslint/no-empty-function
+  64:43   error    Unexpected empty method 'onTouchedFn'     @typescript-eslint/no-empty-function
+  68:19   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  69:24   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  70:25   warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\header\header.component.html
+   39:12  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+   68:7   warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+   68:7   warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+   89:9   warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+   89:9   warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+  109:25  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\header\header.component.ts
+  36:63  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  39:3   warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  43:63  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  46:3   warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  54:58  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  57:3   warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\icon\icon.component.ts
+  1:64  error  'SecurityContext' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\list\list.component.html
+  3:21  warning  Missing trackBy function in ngFor directive                                             @angular-eslint/template/use-track-by-function
+  5:9   warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+  5:9   warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\menu\menu.component.html
+  31:5   warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+  31:5   warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+  52:11  warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+  52:11  warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+  68:7   warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+  68:7   warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\modal\modal.component.html
+  2:5  warning  click must be accompanied by either keyup, keydown or keypress event for accessibility  @angular-eslint/template/click-events-have-key-events
+  2:5  warning  Elements with interaction handlers must be focusable                                    @angular-eslint/template/interactive-supports-focus
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\models\filter.model.ts
+   5:10  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  22:43  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  28:10  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\models\form.model.ts
+   9:13  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  16:13  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\models\search.model.ts
+  5:10  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\models\table.model.ts
+  15:20  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  16:20  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\search\search.component.html
+  24:33  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+  51:19  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  66:25  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  68:21  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\search\search.component.ts
+   43:59  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   45:3   warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+   49:58  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   51:3   warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+   55:57  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   58:3   warning  Missing return type on function           @typescript-eslint/explicit-function-return-type
+  107:7   warning  Forbidden non-null assertion              @typescript-eslint/no-non-null-assertion
+npx : Lint warnings found in the listed files.
+At line:1 char:355
++ ... LATFORM\ANGULR_ARCH\platform-ui; npx ng lint platform-ui 2>&1 | Out-F ...
++                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Lint warnings found in the listed files.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Lint errors found in the listed files.
+
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\sidebar\sidebar.component.html
+  34:32  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  41:13  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  75:17  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\sidebar\sidebar.component.ts
+    3:28  error    'ChangeDetectorRef' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+   57:59  warning  Unexpected any. Specify a different type                                             @typescript-eslint/no-explicit-any
+   59:3   warning  Missing return type on function                                                      @typescript-eslint/explicit-function-return-type
+   65:3   warning  Missing return type on function                                                      @typescript-eslint/explicit-function-return-type
+  158:7   error    Expected an assignment or function call and instead saw an expression                @typescript-eslint/no-unused-expressions
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\skeleton\skeleton.component.html
+  4:21  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\spinner\spinner.component.html
+  24:17  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  41:19  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\spinner\spinner.component.ts
+  38:7  error  Literals should be exposed using readonly fields  @typescript-eslint/class-literal-property-style
+  39:7  error  Literals should be exposed using readonly fields  @typescript-eslint/class-literal-property-style
+  52:7  error  Literals should be exposed using readonly fields  @typescript-eslint/class-literal-property-style
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\table\table.component.html
+  11:53  warning  Avoid using "$any" in templates              @angular-eslint/template/no-any
+  21:37  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  22:45  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  29:15  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  69:13  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  74:15  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+  98:46  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\table\table.component.ts
+    8:23  error    'SortDir' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+   33:13  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+   38:3   warning  Missing return type on function                                            @typescript-eslint/explicit-function-return-type
+   40:24  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+   41:55  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+   43:3   warning  Missing return type on function                                            @typescript-eslint/explicit-function-return-type
+   75:45  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+   84:22  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+  103:3   warning  Missing return type on function                                            @typescript-eslint/explicit-function-return-type
+  128:19  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+  156:48  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\tabs\tabs.component.html
+  11:13  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\tabs\tabs.component.ts
+  70:3   warning  Missing return type on function                                      @typescript-eslint/explicit-function-return-type
+  77:3   warning  Missing return type on function                                      @typescript-eslint/explicit-function-return-type
+  77:27  error    'i' is defined but never used. Allowed unused args must match /^_/u  @typescript-eslint/no-unused-vars
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\toast\toast-container.component.html
+  2:19  warning  Missing trackBy function in ngFor directive  @angular-eslint/template/use-track-by-function
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\toast\toast-container.component.ts
+   2:47  error  'signal' is defined but never used. Allowed unused vars must match /^_/u                   @typescript-eslint/no-unused-vars
+   2:55  error  'OnInit' is defined but never used. Allowed unused vars must match /^_/u                   @typescript-eslint/no-unused-vars
+  24:44  error  The component's `changeDetection` value should be set to `ChangeDetectionStrategy.OnPush`  @angular-eslint/prefer-on-push-component-change-detection
+
+C:\JAVA_MS_2027\PLATFORM\ANGULR_ARCH\platform-ui\projects\platform-ui\src\lib\toast\toast.service.ts
+  2:45  error  'ToastType' is defined but never used. Allowed unused vars must match /^_/u  @typescript-eslint/no-unused-vars
+
+✖ 346 problems (39 errors, 307 warnings)
+  1 error and 0 warnings potentially fixable with the `--fix` option.
+

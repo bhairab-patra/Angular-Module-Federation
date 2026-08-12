@@ -18,14 +18,14 @@ import { SidebarGroup, SidebarNavItem, SidebarConfig, SidebarTheme } from '../mo
 })
 export class PuiAppShellComponent {
 
-  // ── App identity ──────────────────────────────────────────
+ 
   @Input() appTitle    = 'My App';
   @Input() appSubtitle = '';
-  @Input() logo        = '';      // SVG/HTML string shown in header brand
-  @Input() logoUrl     = '';      // image URL — use when you have a PNG/SVG asset
-  @Input() brandName   = '';      // sidebar brand name (falls back to appTitle)
+  @Input() logo        = '';      
+  @Input() logoUrl     = '';      
+  @Input() brandName   = '';    
 
-  // ── Sidebar nav ───────────────────────────────────────────
+  
   @Input() set groups(v: SidebarGroup[] | string) {
     this._groups = typeof v === 'string' ? (this._tryParse<SidebarGroup[]>(v) ?? []) : (v || []);
   }
@@ -48,7 +48,7 @@ export class PuiAppShellComponent {
   get theme(): SidebarTheme { return this._theme; }
   private _theme: SidebarTheme = {};
 
-  // ── Sidebar quick-theme shortcuts (override theme object) ─
+ 
   @Input() sidebarBgColor     = '';
   @Input() sidebarTextColor   = '';
   @Input() sidebarActiveColor = '';
@@ -56,7 +56,7 @@ export class PuiAppShellComponent {
   @Input() sidebarBorderColor = '';
   @Input() sidebarWidth       = 0;
 
-  // ── Header ────────────────────────────────────────────────
+  
   @Input() headerBgColor         = '#12C6A8';
   @Input() headerTextColor       = '#ffffff';
   @Input() headerUserName        = '';
@@ -80,7 +80,7 @@ export class PuiAppShellComponent {
   get headerMenuItems(): UserMenuItem[] { return this._headerMenuItems; }
   private _headerMenuItems: UserMenuItem[] = [];
 
-  // ── Outputs ───────────────────────────────────────────────
+ 
   @Output() sidebarVisibleChange   = new EventEmitter<boolean>();
   @Output() sidebarCollapsedChange = new EventEmitter<boolean>();
   @Output() itemSelect             = new EventEmitter<SidebarNavItem>();

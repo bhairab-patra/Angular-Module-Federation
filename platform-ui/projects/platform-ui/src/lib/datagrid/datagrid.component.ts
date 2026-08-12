@@ -46,16 +46,16 @@ export class PuiDataGridComponent<T extends Record<string, any> = any> {
 
   sort:        DataGridSort | null = null;
   currentPage  = 1;
-  selectedRows: Set<any> = new Set();
+  selectedRows = new Set<any>();
 
   get sortedRows(): T[] {
     if (!this.sort) return this.rows;
     const { field, dir } = this.sort;
     return [...this.rows].sort((a, b) => {
       const av = a[field], bv = b[field];
-      if (av == null && bv == null) return 0;
-      if (av == null) return 1;
-      if (bv == null) return -1;
+      if (av == null && bv == null) return 0; // eslint-disable-line eqeqeq
+      if (av == null) return 1;               // eslint-disable-line eqeqeq
+      if (bv == null) return -1;              // eslint-disable-line eqeqeq
       const cmp = av < bv ? -1 : av > bv ? 1 : 0;
       return dir === 'asc' ? cmp : -cmp;
     });

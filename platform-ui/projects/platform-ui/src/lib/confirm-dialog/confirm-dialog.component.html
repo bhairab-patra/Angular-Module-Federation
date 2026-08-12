@@ -1,34 +1,24 @@
 <div *ngIf="_open" class="pui-cd-backdrop" (click)="onBackdropClick($event)">
   <div class="pui-cd" role="alertdialog" [attr.aria-label]="title">
 
-    <!-- ── Warning icon ───────────────────────── -->
     <div class="pui-cd__icon">
       <svg viewBox="0 0 24 24" fill="none" width="28" height="28">
-        <path d="M12 9v4M12 17h.01" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M12 9v4M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+          stroke-linejoin="round" />
         <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
-              stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round"/>
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
       </svg>
     </div>
 
-    <!-- ── Content ────────────────────────────── -->
     <div class="pui-cd__content">
       <h3 class="pui-cd__title">{{ title }}</h3>
       <p class="pui-cd__message">{{ message }}</p>
     </div>
 
-    <!-- ── Footer — PUI buttons ───────────────── -->
     <div class="pui-cd__footer">
-      <pui-lib-button
-        variant="secondary"
-        [label]="cancelLabel"
-        (buttonClick)="onCancel()" size="sm">
+      <pui-lib-button variant="secondary" [label]="cancelLabel" (buttonClick)="onCancel()" size="sm">
       </pui-lib-button>
-      <pui-lib-button
-        [variant]="confirmVariant"
-        [label]="confirmLabel"
-        (buttonClick)="onConfirm()" size="sm">
+      <pui-lib-button [variant]="confirmVariant" [label]="confirmLabel" (buttonClick)="onConfirm()" size="sm">
       </pui-lib-button>
     </div>
 

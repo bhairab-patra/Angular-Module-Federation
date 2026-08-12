@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { TableColumn, SortDir, SortState } from '../models/table.model';
+import { TableColumn, SortState } from '../models/table.model';
 
 /* re-export so consumers keep existing import paths */
 export { TableColumn, SortDir, SortState } from '../models/table.model';

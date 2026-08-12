@@ -34,9 +34,9 @@ export class SpinnerComponent {
   get px(): number { return this.sizePx ?? SIZE_MAP[this.size]; }
   get dur(): string { return `${this.speed}ms`; }
 
-  /* Dash line positions — inner 11, outer 18 (of 20 radius viewBox) */
-  get dashY1(): number { return 6; }
-  get dashY2(): number { return 12; }
+  /* Dash line positions ï¿½ inner 11, outer 18 (of 20 radius viewBox) */
+  readonly dashY1 = 6;
+  readonly dashY2 = 12;
 
   lineOpacity(i: number): number {
     /* Step from dim (index 0 = top = trailing) to bright (index 11 = just before top) */
@@ -49,10 +49,7 @@ export class SpinnerComponent {
     return parseFloat(((i + 1) / steps).toFixed(2));
   }
 
-  get dotR(): number {
-    /* dot radius scales with overall size */
-    return 2.0;
-  }
+  readonly dotR = 2.0;
 
   private buildDotPositions(): { cx: number; cy: number }[] {
     const count = 12;

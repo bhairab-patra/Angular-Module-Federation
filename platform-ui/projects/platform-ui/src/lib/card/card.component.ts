@@ -12,31 +12,16 @@ import { CardData, CardVariant, CardSize } from '../models/card.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent {
-  /** Structured stat/metric data — renders the metric layout automatically. */
+  
   @Input() data?: CardData;
-
-  /** Visual style variant. */
   @Input() variant: CardVariant = 'default';
-
-  /** Card size — controls internal padding. */
   @Input() size: CardSize = 'md';
-
-  /** Drop-shadow. */
   @Input() elevated = true;
-
-  /** Hover lift — use when the card is interactive/clickable. */
   @Input() clickable = false;
-
-  /** Stretch to full container width. */
   @Input() fullWidth = false;
-
-  /** Show a top-border accent strip. */
   @Input() accent = false;
-
-  /** Extra CSS class on the host wrapper. */
   @Input() cardClass = '';
 
-  /** Emitted when clickable=true and user clicks the card. */
   @Output() cardClick = new EventEmitter<MouseEvent>();
 
   get hostClasses(): string {
@@ -44,10 +29,10 @@ export class CardComponent {
       'pui-card',
       `pui-card--${this.variant}`,
       `pui-card--${this.size}`,
-      this.elevated  ? 'pui-card--elevated'  : '',
+      this.elevated ? 'pui-card--elevated' : '',
       this.clickable ? 'pui-card--clickable' : '',
-      this.fullWidth ? 'pui-card--full'      : '',
-      this.accent    ? 'pui-card--accent'    : '',
+      this.fullWidth ? 'pui-card--full' : '',
+      this.accent ? 'pui-card--accent' : '',
       this.cardClass,
     ].filter(Boolean).join(' ');
   }
@@ -58,9 +43,9 @@ export class CardComponent {
 
   get trendIcon(): string {
     switch (this.data?.trend) {
-      case 'up':   return '▲';
+      case 'up': return '▲';
       case 'down': return '▼';
-      default:     return '—';
+      default: return '—';
     }
   }
 

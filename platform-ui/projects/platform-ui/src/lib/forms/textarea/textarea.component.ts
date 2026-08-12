@@ -60,7 +60,9 @@ export class PuiTextareaComponent implements ControlValueAccessor {
   innerValue = '';
   isFocused  = false;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onChangeFn: (v: any) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onTouchedFn: () => void = () => {};
 
   constructor(public cdr: ChangeDetectorRef) {}

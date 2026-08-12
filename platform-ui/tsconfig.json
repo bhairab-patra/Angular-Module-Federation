@@ -3,28 +3,41 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@solifi/platform-ui":       ["projects/platform-ui/src/public-api"],
+      "@solifi/platform-ui":        ["projects/platform-ui/src/public-api"],
       "@bhairab-patra/platform-ui": ["projects/platform-ui/src/public-api"]
     },
-    "forceConsistentCasingInFileNames": true,
+
+    // ── Strict mode bundle (covers 8 flags — see TypeScript-strict-mode.md) ──
     "strict": true,
+
+    // ── Extra strictness beyond the strict bundle ────────────────────────────
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "declaration": false,
-    "experimentalDecorators": true,
-    "moduleResolution": "bundler",
-    "importHelpers": true,
+    "exactOptionalPropertyTypes": true,
+    "useUnknownInCatchVariables": true,
+
+    // ── Module / output ─────────────────────────────────────────────────────
     "target": "ES2022",
     "module": "ES2022",
-    "useDefineForClassFields": false,
-    "lib": ["ES2022", "dom"]
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "dom"],
+    "importHelpers": true,
+
+    // ── Emit ────────────────────────────────────────────────────────────────
+    "sourceMap": true,
+    "declaration": false,
+
+    // ── Interop / compatibility ──────────────────────────────────────────────
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
+    // ── Angular template strict checks ──────────────────────────────────────
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,

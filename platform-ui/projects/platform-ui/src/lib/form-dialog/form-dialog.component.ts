@@ -66,6 +66,7 @@ export class PuiFormDialogComponent implements OnChanges {
   }
 
   @Output() save   = new EventEmitter<FormDialogSaveEvent>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() cancel = new EventEmitter<void>();
   @Output() closed = new EventEmitter<void>();
 

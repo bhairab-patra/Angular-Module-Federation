@@ -1,37 +1,30 @@
+<nav class="pui-bc" [attr.aria-label]="ariaLabel">
+  <ol class="pui-bc__list">
+    <li *ngFor="let item of items; let i = index; let last = last" class="pui-bc__item">
 
-    <nav class="pui-bc" [attr.aria-label]="ariaLabel">
-      <ol class="pui-bc__list">
-        <li *ngFor="let item of items; let i = index; let last = last"
-            class="pui-bc__item">
 
-          <!-- ── Link (not last) ── -->
-          <a *ngIf="!last && item.route"
-             class="pui-bc__link"
-             [routerLink]="item.route">
-            <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
-            {{ item.label }}
-          </a>
+      <a *ngIf="!last && item.route" class="pui-bc__link" [routerLink]="item.route">
+        <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
+        {{ item.label }}
+      </a>
 
-          <!-- ── Plain text link (no route) ── -->
-          <span *ngIf="!last && !item.route" class="pui-bc__link pui-bc__link--plain">
-            <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
-            {{ item.label }}
-          </span>
 
-          <!-- ── Active (last) item ── -->
-          <span *ngIf="last" class="pui-bc__current" [attr.aria-current]="'page'">
-            <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
-            {{ item.label }}
-          </span>
+      <span *ngIf="!last && !item.route" class="pui-bc__link pui-bc__link--plain">
+        <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
+        {{ item.label }}
+      </span>
 
-          <!-- ── Separator (not after last) ── -->
-          <span *ngIf="!last"
-                class="pui-bc__sep"
-                [class.pui-bc__sep--svg]="separator === 'chevron' || separator === 'arrow'"
-                [innerHTML]="sep">
-          </span>
 
-        </li>
-      </ol>
-    </nav>
-  
+      <span *ngIf="last" class="pui-bc__current" [attr.aria-current]="'page'">
+        <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
+        {{ item.label }}
+      </span>
+
+
+      <span *ngIf="!last" class="pui-bc__sep"
+        [class.pui-bc__sep--svg]="separator === 'chevron' || separator === 'arrow'" [innerHTML]="sep">
+      </span>
+
+    </li>
+  </ol>
+</nav>

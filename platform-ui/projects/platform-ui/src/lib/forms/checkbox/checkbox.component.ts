@@ -42,7 +42,9 @@ export class PuiCheckboxComponent implements ControlValueAccessor {
   @Output() checkedChange = new EventEmitter<boolean>();
   @Output() changed       = new EventEmitter<boolean>();
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onChangeFn: (v: any) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onTouchedFn: () => void = () => {};
 
   constructor(private cdr: ChangeDetectorRef) {}

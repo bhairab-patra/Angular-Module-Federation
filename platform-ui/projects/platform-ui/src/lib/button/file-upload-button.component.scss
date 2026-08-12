@@ -1,46 +1,61 @@
+:host {
+  display: block;
+}
 
-    :host { display: block; }
+.pui-file-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: inherit;
+}
 
-    .pui-file-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-family: inherit;
-    }
+.pui-file-btn__trigger {
+  padding: 9px 20px;
+  background: var(--pui-indigo-bg);
+  color: var(--pui-indigo);
+  border: 2px solid var(--pui-indigo-light);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
 
-    .pui-file-btn__trigger {
-      padding: 9px 20px;
-      background: var(--pui-indigo-bg);
-      color: var(--pui-indigo);
-      border: 2px solid var(--pui-indigo-light);
-      border-radius: 999px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      font-family: inherit;
-      white-space: nowrap;
-      &:hover:not(:disabled) { background: var(--pui-indigo-light); }
-      &:focus-visible        { outline: none; box-shadow: 0 0 0 3px rgba(44,44,82,.25); }
-      &:disabled             { opacity: 0.4; cursor: not-allowed; }
-    }
+  &:hover:not(:disabled) {
+    background: var(--pui-indigo-light);
+  }
 
-    .pui-file-btn__hint {
-      font-size: 13px;
-      color: var(--pui-neutral-500);
-      white-space: nowrap;
-    }
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(44, 44, 82, .25);
+  }
 
-    .pui-file-btn__area {
-      flex: 1;
-      min-width: 140px;
-      padding: 9px 18px;
-      background: var(--pui-file-btn-disabled);
-      border-radius: 999px;
-      font-size: 13px;
-      color: var(--pui-indigo-muted);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      &--filled { color: var(--pui-indigo); background: var(--pui-indigo-bg); }
-    }
-  
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.pui-file-btn__hint {
+  font-size: 13px;
+  color: var(--pui-neutral-500);
+  white-space: nowrap;
+}
+
+.pui-file-btn__area {
+  flex: 1;
+  min-width: 140px;
+  padding: 9px 18px;
+  background: var(--pui-file-btn-disabled);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--pui-indigo-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &--filled {
+    color: var(--pui-indigo);
+    background: var(--pui-indigo-bg);
+  }
+}

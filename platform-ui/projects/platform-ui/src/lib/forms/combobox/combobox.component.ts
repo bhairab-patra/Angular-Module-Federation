@@ -32,7 +32,7 @@ export class PuiComboboxComponent {
 
   _options:      ComboboxOption[] = [];
   _value:        string | number | null = null;
-  _placeholder   = 'Select or search…';
+  _placeholder   = 'Select or searchï¿½';
   _searchable    = true;
   _clearable     = true;
   _allowFreeText = false;
@@ -60,6 +60,7 @@ export class PuiComboboxComponent {
 
   /* -- Outputs ------------------------------ */
   @Output() valueChange = new EventEmitter<string | number | null>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() change      = new EventEmitter<string | number | null>();
 
   /* -- Click outside ------------------------ */

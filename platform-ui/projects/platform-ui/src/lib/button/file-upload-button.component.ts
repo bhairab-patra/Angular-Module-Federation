@@ -19,8 +19,8 @@ export class FileUploadButtonComponent {
   @Input() multiple = false;
   @Input() disabled = false;
 
-  @Output() fileSelected  = new EventEmitter<FileList>();
-  @Output() buttonClick   = new EventEmitter<MouseEvent>();
+  @Output() fileSelected = new EventEmitter<FileList>();
+  @Output() buttonClick = new EventEmitter<MouseEvent>();
 
   selectedName = '';
 

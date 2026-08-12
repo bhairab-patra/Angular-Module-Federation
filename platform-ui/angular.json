@@ -33,6 +33,15 @@
               "zone.js/testing"
             ]
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/platform-ui/**/*.ts",
+              "projects/platform-ui/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -95,6 +104,15 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/elements/**/*.ts",
+              "projects/elements/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -186,6 +204,15 @@
             }
           },
           "defaultConfiguration": "development"
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/docs/**/*.ts",
+              "projects/docs/**/*.html"
+            ]
+          }
         }
       }
     }

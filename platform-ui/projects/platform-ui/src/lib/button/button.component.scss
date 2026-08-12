@@ -1,20 +1,28 @@
 // ── Design tokens ─────────────────────────────────────────
 $radius: 999px; // pill shape
 
-:host { display: inline-block; }
+:host {
+  display: inline-block;
+}
 
-// ── Mixin: state variants ──────────────────────────────────
-// generates both :hover/:focus-visible AND forced demo classes
 @mixin hover($bg, $border: $bg) {
+
   &:hover:not(:disabled),
-  &.pui-btn--state-hover { background: $bg; border-color: $border; }
-}
-@mixin focus($shadow) {
-  &:focus-visible,
-  &.pui-btn--state-focus { box-shadow: $shadow; outline: none; }
+  &.pui-btn--state-hover {
+    background: $bg;
+    border-color: $border;
+  }
 }
 
-// ── Base ──────────────────────────────────────────────────
+@mixin focus($shadow) {
+
+  &:focus-visible,
+  &.pui-btn--state-focus {
+    box-shadow: $shadow;
+    outline: none;
+  }
+}
+
 .pui-btn {
   display: inline-flex;
   align-items: center;
@@ -31,82 +39,105 @@ $radius: 999px; // pill shape
   text-decoration: none;
   transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
 
-  // ── Sizes ────────────────────────────────────────────────
-  &--sm  { padding: 5px 14px;  font-size: 12px; line-height: 1.5; }
-  &--md  { padding: 9px 20px;  font-size: 14px; line-height: 1.5; }
-  &--lg  { padding: 13px 28px; font-size: 16px; line-height: 1.5; }
-  &--full { width: 100%; }
+  &--sm {
+    padding: 5px 14px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
 
-  // ── Variants ─────────────────────────────────────────────
+  &--md {
+    padding: 9px 20px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
 
-  // Primary — dark teal
+  &--lg {
+    padding: 13px 28px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  &--full {
+    width: 100%;
+  }
+
   &--primary {
     background: var(--pui-brand-deep);
     color: var(--pui-white);
     border-color: var(--pui-brand-deep);
     @include hover(var(--pui-brand-pressed));
-    @include focus(0 0 0 3px rgba(13,110,95,.35));
+    @include focus(0 0 0 3px rgba(13, 110, 95, .35));
   }
 
-  // Primary Light — soft mint
   &--primary-light {
     background: var(--pui-brand-light);
     color: var(--pui-brand-text-dark);
     border-color: var(--pui-brand-light);
     @include hover(var(--pui-brand-muted), var(--pui-brand-muted));
-    @include focus(0 0 0 3px rgba(13,110,95,.2));
+    @include focus(0 0 0 3px rgba(13, 110, 95, .2));
   }
 
-  // Primary Outline — transparent with teal border
   &--primary-outline {
     background: transparent;
     color: var(--pui-brand-deep);
     border-color: var(--pui-brand-deep);
+
     &:hover:not(:disabled),
-    &.pui-btn--state-hover { background: var(--pui-brand-muted-bg); }
-    @include focus(0 0 0 3px rgba(13,110,95,.25));
+    &.pui-btn--state-hover {
+      background: var(--pui-brand-muted-bg);
+    }
+
+    @include focus(0 0 0 3px rgba(13, 110, 95, .25));
   }
 
-  // Secondary — warm gray
   &--secondary {
     background: var(--pui-btn-disabled-bg);
     color: var(--pui-white);
     border-color: var(--pui-btn-disabled-bg);
     @include hover(var(--pui-btn-neutral-hover2));
-    @include focus(0 0 0 3px rgba(168,158,149,.4));
+    @include focus(0 0 0 3px rgba(168, 158, 149, .4));
   }
 
-  // Secondary Light — very light with border
   &--secondary-light {
     background: var(--pui-btn-ghost-hover);
     color: var(--pui-btn-neutral-text);
     border-color: var(--pui-btn-neutral-bdr);
+
     &:hover:not(:disabled),
-    &.pui-btn--state-hover { background: var(--pui-btn-neutral-hover); }
-    @include focus(0 0 0 3px rgba(168,158,149,.25));
+    &.pui-btn--state-hover {
+      background: var(--pui-btn-neutral-hover);
+    }
+
+    @include focus(0 0 0 3px rgba(168, 158, 149, .25));
   }
 
-  // Inverse — white on dark bg
   &--inverse {
     background: var(--pui-white);
     color: var(--pui-neutral-900);
     border-color: var(--pui-neutral-200);
+
     &:hover:not(:disabled),
-    &.pui-btn--state-hover { background: var(--pui-btn-ghost-bg); border-color: var(--pui-btn-ghost-bdr); }
-    @include focus(0 0 0 3px rgba(17,24,39,.2));
+    &.pui-btn--state-hover {
+      background: var(--pui-btn-ghost-bg);
+      border-color: var(--pui-btn-ghost-bdr);
+    }
+    @include focus(0 0 0 3px rgba(17, 24, 39, .2));
   }
 
-  // Tertiary Outline — dark navy border
+
   &--tertiary-outline {
     background: transparent;
     color: var(--pui-indigo);
     border-color: var(--pui-indigo);
+
     &:hover:not(:disabled),
-    &.pui-btn--state-hover { background: var(--pui-btn-ghost-hover-2); }
-    @include focus(0 0 0 3px rgba(44,44,82,.3));
+    &.pui-btn--state-hover {
+      background: var(--pui-btn-ghost-hover-2);
+    }
+
+    @include focus(0 0 0 3px rgba(44, 44, 82, .3));
   }
 
-  // Text — underlined link style
   &--text {
     background: transparent;
     color: var(--pui-btn-link-color);
@@ -114,30 +145,32 @@ $radius: 999px; // pill shape
     text-decoration: underline;
     padding-left: 6px;
     padding-right: 6px;
+
     &:hover:not(:disabled),
-    &.pui-btn--state-hover { color: var(--pui-btn-link-hover); }
-    @include focus(0 0 0 3px rgba(91,91,214,.25));
+    &.pui-btn--state-hover {
+      color: var(--pui-btn-link-hover);
+    }
+
+    @include focus(0 0 0 3px rgba(91, 91, 214, .25));
   }
 
-  // Destructive — red
   &--destructive {
     background: var(--pui-error-pressed);
     color: var(--pui-white);
     border-color: var(--pui-error-pressed);
     @include hover(var(--pui-error-pressed2));
-    @include focus(0 0 0 3px rgba(196,34,34,.35));
+    @include focus(0 0 0 3px rgba(196, 34, 34, .35));
   }
 
-  // Destructive Light — soft pink
+
   &--destructive-light {
     background: var(--pui-error-soft-bg);
     color: var(--pui-error-text-dark);
     border-color: var(--pui-error-soft-bg);
     @include hover(var(--pui-error-soft-bdr), var(--pui-error-soft-bdr));
-    @include focus(0 0 0 3px rgba(196,34,34,.2));
+    @include focus(0 0 0 3px rgba(196, 34, 34, .2));
   }
 
-  // Chip — small pill label
   &--chip {
     background: var(--pui-brand-muted-bg);
     color: var(--pui-brand-deep);
@@ -146,12 +179,15 @@ $radius: 999px; // pill shape
     padding: 3px 12px;
     font-size: 12px;
     font-weight: 500;
+
     &:hover:not(:disabled),
-    &.pui-btn--state-hover { background: var(--pui-brand-light); }
-    @include focus(0 0 0 3px rgba(13,110,95,.2));
+    &.pui-btn--state-hover {
+      background: var(--pui-brand-light);
+    }
+
+    @include focus(0 0 0 3px rgba(13, 110, 95, .2));
   }
 
-  // Upload Progress — wide pill with embedded progress bar
   &--upload-progress {
     background: var(--pui-indigo-bg);
     color: var(--pui-indigo);
@@ -163,7 +199,7 @@ $radius: 999px; // pill shape
     align-items: center;
     gap: 12px;
     cursor: default;
-    @include focus(0 0 0 3px rgba(44,44,82,.25));
+    @include focus(0 0 0 3px rgba(44, 44, 82, .25));
   }
 
   &__up-label {
@@ -184,7 +220,9 @@ $radius: 999px; // pill shape
 
   &__up-fill {
     position: absolute;
-    left: 0; top: 0; bottom: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
     background: var(--pui-indigo);
     border-radius: 999px;
     transition: width 0.3s ease;
@@ -199,16 +237,27 @@ $radius: 999px; // pill shape
     text-align: right;
   }
 
-  // Back-compat aliases
-  &--danger { @extend .pui-btn--destructive; }
-  &--ghost  { @extend .pui-btn--primary-outline; }
+  &--danger {
+    @extend .pui-btn--destructive;
+  }
 
-  // ── States ───────────────────────────────────────────────
-  &:disabled   { opacity: 0.4; cursor: not-allowed; }
-  &--loading   { cursor: wait; }
+  &--ghost {
+    @extend .pui-btn--primary-outline;
+  }
+
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &--loading {
+    cursor: wait;
+  }
 
   &__spinner {
-    width: 14px; height: 14px;
+    width: 14px;
+    height: 14px;
     border: 2px solid currentColor;
     border-top-color: transparent;
     border-radius: 50%;
@@ -217,4 +266,8 @@ $radius: 999px; // pill shape
   }
 }
 
-@keyframes pui-spin { to { transform: rotate(360deg); } }
+@keyframes pui-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

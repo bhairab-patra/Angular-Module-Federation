@@ -1,9 +1,10 @@
 // ── Design tokens ───────────────────────────────────────
 $radius: 14px;
 
-:host { display: block; }
+:host {
+  display: block;
+}
 
-// ── Base ────────────────────────────────────────────────
 .pui-card {
   background: var(--pui-white);
   border-radius: $radius;
@@ -12,13 +13,22 @@ $radius: 14px;
   font-family: inherit;
   position: relative;
 
-  // ── Sizes ─────────────────────────────────────────────
-  &--sm  { padding: 16px; }
-  &--md  { padding: 24px; }
-  &--lg  { padding: 32px; }
+  &--sm {
+    padding: 16px;
+  }
 
-  // ── Variants ──────────────────────────────────────────
-  &--default  { background: var(--pui-white); border-color: var(--pui-slate-200); }
+  &--md {
+    padding: 24px;
+  }
+
+  &--lg {
+    padding: 32px;
+  }
+
+  &--default {
+    background: var(--pui-white);
+    border-color: var(--pui-slate-200);
+  }
 
   &--outlined {
     background: transparent;
@@ -42,26 +52,37 @@ $radius: 14px;
     border-color: var(--pui-card-dark-bdr);
     color: var(--pui-slate-100);
 
-    .pui-card__title   { color: var(--pui-slate-400); }
-    .pui-card__value   { color: var(--pui-slate-050); }
-    .pui-card__subtitle { color: var(--pui-slate-600); }
+    .pui-card__title {
+      color: var(--pui-slate-400);
+    }
+
+    .pui-card__value {
+      color: var(--pui-slate-050);
+    }
+
+    .pui-card__subtitle {
+      color: var(--pui-slate-600);
+    }
   }
 
-  // ── Modifiers ─────────────────────────────────────────
+
   &--elevated {
-    box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06);
   }
 
   &--clickable {
     cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
+
     &:hover {
       transform: translateY(-3px);
-      box-shadow: 0 6px 24px rgba(0,0,0,.12);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, .12);
     }
   }
 
-  &--full { width: 100%; }
+  &--full {
+    width: 100%;
+  }
 
   &--accent::before {
     content: '';
@@ -70,10 +91,12 @@ $radius: 14px;
     background: linear-gradient(90deg, var(--pui-brand), var(--pui-brand-deep));
     border-radius: $radius $radius 0 0;
     position: absolute;
-    top: 0; left: 0; right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
   }
 
-  // ── Stat/metric layout ─────────────────────────────────
+
   &__header {
     display: flex;
     align-items: center;
@@ -90,10 +113,13 @@ $radius: 14px;
   }
 
   &__icon-badge {
-    width: 36px; height: 36px;
+    width: 36px;
+    height: 36px;
     border-radius: 10px;
     background: var(--pui-slate-100);
-    display: inline-flex; align-items: center; justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     font-size: 18px;
   }
 
@@ -113,7 +139,10 @@ $radius: 14px;
     gap: 8px;
   }
 
-  &__subtitle { font-size: 12px; color: var(--pui-slate-400); }
+  &__subtitle {
+    font-size: 12px;
+    color: var(--pui-slate-400);
+  }
 
   &__trend {
     display: inline-flex;
@@ -124,13 +153,23 @@ $radius: 14px;
     padding: 2px 8px;
     border-radius: 99px;
 
-    &--up      { color: var(--pui-green-dark); background: var(--pui-success-bg); }
-    &--down    { color: var(--pui-error-hover); background: var(--pui-error-bg); }
-    &--neutral { color: var(--pui-slate-600); background: var(--pui-slate-100); }
+    &--up {
+      color: var(--pui-green-dark);
+      background: var(--pui-success-bg);
+    }
+
+    &--down {
+      color: var(--pui-error-hover);
+      background: var(--pui-error-bg);
+    }
+
+    &--neutral {
+      color: var(--pui-slate-600);
+      background: var(--pui-slate-100);
+    }
   }
 
-  // ── Slot layout ────────────────────────────────────────
-  &__body { }
+  &__body {}
 
   &__slot-header {
     padding-bottom: 16px;

@@ -30,7 +30,7 @@ export class PuiMultiSelectComponent {
   selected: (string | number)[] = [];
 
   _options:       MultiSelectOption[] = [];
-  _placeholder    = 'Select options…';
+  _placeholder    = 'Select optionsï¿½';
   _searchable     = true;
   _showSelectAll  = true;
   _maxChips       = 3;
@@ -57,6 +57,7 @@ export class PuiMultiSelectComponent {
 
   /* -- Outputs ------------------------------ */
   @Output() valueChange = new EventEmitter<(string | number)[]>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() change      = new EventEmitter<(string | number)[]>();
 
   /* -- Click outside ------------------------ */

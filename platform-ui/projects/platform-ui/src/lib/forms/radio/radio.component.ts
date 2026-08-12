@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { FormSize, RadioOption } from '../../models/form.model';
+import { RadioOption } from '../../models/form.model';
 
 @Component({
   selector: 'pui-lib-radio-group',
@@ -49,7 +49,9 @@ export class PuiRadioGroupComponent implements ControlValueAccessor {
 
   innerValue: any = null;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onChangeFn: (v: any) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onTouchedFn: () => void = () => {};
 
   constructor(private cdr: ChangeDetectorRef) {}

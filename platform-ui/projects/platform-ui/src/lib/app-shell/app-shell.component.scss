@@ -11,14 +11,14 @@
   font-family: 'Poppins', system-ui, sans-serif;
 }
 
-/* Body row: sidebar + main content */
+
 .pas__body {
   display: flex;
   flex: 1;
   overflow: hidden;
 }
 
-/* Main content — transitions width smoothly when sidebar slides in/out */
+
 .pas__content {
   flex: 1;
   overflow: auto;
@@ -26,7 +26,7 @@
   transition: margin-left .22s cubic-bezier(.4, 0, .2, 1);
 }
 
-/* ── Header brand area ──────────────────────────────────── */
+
 .pas__brand {
   display: flex;
   align-items: center;
@@ -57,7 +57,7 @@
   text-transform: uppercase;
 }
 
-/* Logo — SVG/HTML string */
+
 .pas__logo {
   display: flex;
   align-items: center;
@@ -70,7 +70,6 @@
   height: 28px;
 }
 
-/* Logo — image URL */
 .pas__logo-img {
   width: 32px;
   height: 32px;
@@ -79,7 +78,7 @@
   flex-shrink: 0;
 }
 
-/* ── Hamburger button ───────────────────────────────────── */
+
 .pas__hamburger {
   display: flex;
   flex-direction: column;
@@ -114,7 +113,7 @@
   transform-origin: center;
 }
 
-/* Animate bars to X when sidebar is open */
+
 .pas__hamburger--open .pas__bar--top {
   transform: translateY(6.5px) rotate(45deg);
 }
@@ -128,7 +127,7 @@
   transform: translateY(-6.5px) rotate(-45deg);
 }
 
-/* Ensure sidebar custom element fills its height */
+
 pui-lib-sidebar {
   display: block;
   height: 100%;

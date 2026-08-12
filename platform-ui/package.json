@@ -10,18 +10,23 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build:local": "ng build platform-ui --configuration development",
-    "build:publish": "ng build platform-ui --configuration production",
+    "lint": "ng lint platform-ui",
+    "lint:docs": "ng lint docs",
+    "lint:all": "ng lint platform-ui && ng lint docs",
+
+    "build:local": "npm run lint && ng build platform-ui --configuration development",
+    "build:publish": "npm run lint && ng build platform-ui --configuration production",
     "build": "npm run build:local",
     "build:watch": "ng build platform-ui --configuration development --watch",
     "pack:local": "npm run build:local && cd dist/platform-ui && npm pack",
-    "test": "ng test platform-ui",
-    "lint": "ng lint platform-ui",
-    "publish:lib": "npm run build:publish && npm publish ./dist/platform-ui --access public --registry https://registry.npmjs.org",
-    "build:elements": "ng build elements --configuration production && node scripts/concat-elements.js",
+
+    "publish:lib": "npm run lint && npm run build:publish && npm publish ./dist/platform-ui --access public --registry https://registry.npmjs.org",
+
+    "build:elements": "npm run lint && ng build elements --configuration production && node scripts/concat-elements.js",
     "build:elements:dev": "ng build elements --configuration development && node scripts/concat-elements.js",
-    "copy:react": "node scripts/copy-elements-to-react.js",
-    "build:full": "npm run build:publish && npm run build:elements && node scripts/copy-elements-to-dist.js && npm run copy:react",
+    "build:full": "npm run lint && npm run build:publish && npm run build:elements && node scripts/copy-elements-to-dist.js",
+
+    "test": "ng test platform-ui",
     "docs": "ng serve docs --port 4210 --open",
     "docs:build": "ng build docs",
     "serve:demo": "npx http-server . -p 4300 --cors -o demo/index.html"
@@ -43,6 +48,8 @@
     "@angular/platform-browser": "^19.0.0",
     "@angular/router": "^19.2.25",
     "@types/jasmine": "~5.1.0",
+    "angular-eslint": "21.0.1",
+    "eslint": "^9.39.1",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -52,6 +59,7 @@
     "ng-packagr": "^19.0.0",
     "tslib": "^2.3.0",
     "typescript": "~5.6.0",
+    "typescript-eslint": "8.46.4",
     "zone.js": "~0.15.0"
   },
   "dependencies": {

@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { TableColumn } from '../table/table.component';
 
 export interface EditableRowSaveEvent { index: number; row: any; oldRow: any; }
-export interface EditableRowEvent     { index: number; row: any; }
+export interface EditableRowEvent { index: number; row: any; }
 
 @Component({
   selector: 'pui-lib-editable-table',
@@ -53,13 +53,13 @@ export class PuiEditableTableComponent implements OnChanges {
   }
 
   /* ── Outputs ─────────────────────────── */
-  @Output() rowSave   = new EventEmitter<EditableRowSaveEvent>();
+  @Output() rowSave = new EventEmitter<EditableRowSaveEvent>();
   @Output() rowDelete = new EventEmitter<EditableRowEvent>();
-  @Output() rowEdit   = new EventEmitter<EditableRowEvent>();
+  @Output() rowEdit = new EventEmitter<EditableRowEvent>();
 
   /* ── Edit state ──────────────────────── */
   editingIndex: number | null = null;
-  draft: Record<string, any>  = {};
+  draft: Record<string, any> = {};
 
   /* ── Pending delete state ────────────── */
   _pendingDeleteIndex: number | null = null;
@@ -79,10 +79,10 @@ export class PuiEditableTableComponent implements OnChanges {
 
   saveEdit(): void {
     if (this.editingIndex === null) return;
-    const idx    = this.editingIndex;
+    const idx = this.editingIndex;
     const oldRow = this._rows[idx];
     const newRow = { ...oldRow, ...this.draft };
-    this._rows   = this._rows.map((r, i) => i === idx ? newRow : r);
+    this._rows = this._rows.map((r, _i) => _i === idx ? newRow : r);
     this.rowSave.emit({ index: idx, row: newRow, oldRow });
     this._cancelEdit();
   }
@@ -93,7 +93,7 @@ export class PuiEditableTableComponent implements OnChanges {
     if (this.editingIndex !== null) return;
     if (this._confirmDelete) {
       this._pendingDeleteIndex = i;
-      this._pendingDeleteRow   = this._rows[i];
+      this._pendingDeleteRow = this._rows[i];
       this.cdr.markForCheck();
       return;
     }
@@ -104,17 +104,17 @@ export class PuiEditableTableComponent implements OnChanges {
     if (this._pendingDeleteIndex === null) return;
     this._doDelete(this._pendingDeleteIndex);
     this._pendingDeleteIndex = null;
-    this._pendingDeleteRow   = null;
+    this._pendingDeleteRow = null;
   }
 
   cancelDeleteRow(): void {
     this._pendingDeleteIndex = null;
-    this._pendingDeleteRow   = null;
+    this._pendingDeleteRow = null;
     this.cdr.markForCheck();
   }
 
   private _doDelete(i: number): void {
-    const row  = this._rows[i];
+    const row = this._rows[i];
     this._rows = this._rows.filter((_, idx) => idx !== i);
     this.rowDelete.emit({ index: i, row });
     this.cdr.markForCheck();

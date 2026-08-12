@@ -1,5 +1,5 @@
 import {
-  Component, ChangeDetectionStrategy, inject, signal, OnInit, ViewEncapsulation } from '@angular/core';
+  Component, ChangeDetectionStrategy, inject, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { ToastService } from './toast.service';
 import { Toast, ToastPosition } from '../models/toast.model';
@@ -21,7 +21,7 @@ const ICONS: Record<string, string> = {
   standalone: true,
   imports: [NgFor, NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './toast-container.component.html',
   styleUrls: ['./toast-container.component.scss'],
 })

@@ -74,7 +74,7 @@ export class PuiTabsComponent {
     this.cdr.markForCheck();
   }
 
-  onKey(e: KeyboardEvent, i: number) {
+  onKey(e: KeyboardEvent, _i: number) {
     const enabled = this._tabs.filter(t => !t.disabled);
     const cur  = enabled.findIndex(t => t.id === this._active);
     const isH  = this._orientation === 'horizontal';

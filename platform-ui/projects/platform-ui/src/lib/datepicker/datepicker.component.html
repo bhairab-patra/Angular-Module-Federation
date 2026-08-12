@@ -1,40 +1,34 @@
-
 <div class="pui-dp-host" [class.pui-dp--disabled]="_disabled">
 
-  <!-- ── Trigger input ─────────────────────────────────── -->
-  <div class="pui-dp-trigger"
-       [class.pui-dp-trigger--open]="open"
-       [class.pui-dp-trigger--focused]="open"
-       (click)="!_disabled && toggle()">
+
+  <div class="pui-dp-trigger" [class.pui-dp-trigger--open]="open" [class.pui-dp-trigger--focused]="open"
+    (click)="!_disabled && toggle()">
 
     <svg class="pui-dp-cal-icon" viewBox="0 0 20 20" fill="none">
-      <rect x="2" y="4" width="16" height="14" rx="2.5" stroke="currentColor" stroke-width="1.4"/>
-      <path d="M2 8h16M6 2v4M14 2v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <rect x="2" y="4" width="16" height="14" rx="2.5" stroke="currentColor" stroke-width="1.4" />
+      <path d="M2 8h16M6 2v4M14 2v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
     </svg>
 
     <span class="pui-dp-value" [class.pui-dp-placeholder]="!displayValue">
       {{ displayValue || _placeholder }}
     </span>
 
-    <button *ngIf="_clearable && displayValue"
-            class="pui-dp-clear"
-            (click)="$event.stopPropagation(); clear()"
-            aria-label="Clear date">✕</button>
+    <button *ngIf="_clearable && displayValue" class="pui-dp-clear" (click)="$event.stopPropagation(); clear()"
+      aria-label="Clear date">✕</button>
 
-    <svg class="pui-dp-chevron" [class.pui-dp-chevron--up]="open"
-         viewBox="0 0 16 16" fill="none" width="14" height="14">
-      <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <svg class="pui-dp-chevron" [class.pui-dp-chevron--up]="open" viewBox="0 0 16 16" fill="none" width="14"
+      height="14">
+      <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   </div>
 
-  <!-- ── Calendar popup ────────────────────────────────── -->
-  <div *ngIf="open" class="pui-dp-popup" (click)="$event.stopPropagation()">
 
-    <!-- Month/Year nav -->
+  <div *ngIf="open" class="pui-dp-popup" (click)="$event.stopPropagation()">
     <div class="pui-dp-nav">
       <button class="pui-dp-nav-btn" (click)="prevMonth()" title="Previous month">
         <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-          <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" />
         </svg>
       </button>
 
@@ -46,50 +40,35 @@
 
       <button class="pui-dp-nav-btn" (click)="nextMonth()" title="Next month">
         <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-          <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" />
         </svg>
       </button>
     </div>
 
-    <!-- Month grid picker -->
     <div *ngIf="viewMode === 'months'" class="pui-dp-month-grid">
-      <button *ngFor="let m of monthNames; let mi = index"
-              class="pui-dp-month-cell"
-              [class.pui-dp-month-cell--active]="mi === viewMonth"
-              (click)="pickMonth(mi)">
+      <button *ngFor="let m of monthNames; let mi = index" class="pui-dp-month-cell"
+        [class.pui-dp-month-cell--active]="mi === viewMonth" (click)="pickMonth(mi)">
         {{ m.slice(0,3) }}
       </button>
     </div>
 
-    <!-- Day grid -->
     <div *ngIf="viewMode === 'days'" class="pui-dp-grid">
-
-      <!-- Weekday headers -->
       <div class="pui-dp-dayname" *ngFor="let d of dayNames">{{ d }}</div>
-
-      <!-- Day cells -->
-      <button *ngFor="let cell of calCells"
-              class="pui-dp-cell"
-              [class.pui-dp-cell--other]="!cell.cur"
-              [class.pui-dp-cell--today]="cell.today"
-              [class.pui-dp-cell--selected]="isSelected(cell.date)"
-              [class.pui-dp-cell--range-start]="_mode==='range' && isRangeStart(cell.date)"
-              [class.pui-dp-cell--range-end]="_mode==='range' && isRangeEnd(cell.date)"
-              [class.pui-dp-cell--in-range]="_mode==='range' && isInRange(cell.date)"
-              [class.pui-dp-cell--disabled]="cell.disabled"
-              [disabled]="cell.disabled || null"
-              (click)="pickDay(cell.date)"
-              (mouseenter)="_mode==='range' && hoverDate(cell.date)">
+      <button *ngFor="let cell of calCells" class="pui-dp-cell" [class.pui-dp-cell--other]="!cell.cur"
+        [class.pui-dp-cell--today]="cell.today" [class.pui-dp-cell--selected]="isSelected(cell.date)"
+        [class.pui-dp-cell--range-start]="_mode==='range' && isRangeStart(cell.date)"
+        [class.pui-dp-cell--range-end]="_mode==='range' && isRangeEnd(cell.date)"
+        [class.pui-dp-cell--in-range]="_mode==='range' && isInRange(cell.date)"
+        [class.pui-dp-cell--disabled]="cell.disabled" [disabled]="cell.disabled || null" (click)="pickDay(cell.date)"
+        (mouseenter)="_mode==='range' && hoverDate(cell.date)">
         {{ cell.date.getDate() }}
       </button>
     </div>
 
-    <!-- Footer -->
     <div class="pui-dp-footer">
       <button class="pui-dp-today-btn" (click)="goToday()">Today</button>
       <button *ngIf="_clearable" class="pui-dp-clear-btn" (click)="clear()">Clear</button>
     </div>
   </div>
-
 </div>
-  

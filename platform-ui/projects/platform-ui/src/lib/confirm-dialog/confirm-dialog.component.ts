@@ -24,16 +24,16 @@ export class PuiConfirmDialogComponent implements OnChanges {
     this._open = v === true || v === 'true' || (v as any) === '';
   }
 
-  @Input() title          = 'Are you sure?';
-  @Input() message        = 'This action cannot be undone.';
-  @Input() confirmLabel   = 'Confirm';
-  @Input() cancelLabel    = 'Cancel';
+  @Input() title = 'Are you sure?';
+  @Input() message = 'This action cannot be undone.';
+  @Input() confirmLabel = 'Confirm';
+  @Input() cancelLabel = 'Cancel';
   @Input() confirmVariant: ButtonVariant = 'destructive';
   @Input() closeOnBackdrop = true;
 
   @Output() confirmed = new EventEmitter<void>();
   @Output() cancelled = new EventEmitter<void>();
-  @Output() closed    = new EventEmitter<void>();
+  @Output() closed = new EventEmitter<void>();
 
   ngOnChanges(_: SimpleChanges) { this.cdr.markForCheck(); }
 

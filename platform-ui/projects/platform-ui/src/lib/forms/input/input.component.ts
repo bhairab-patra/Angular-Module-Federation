@@ -66,7 +66,9 @@ export class PuiInputComponent implements ControlValueAccessor {
   isFocused  = false;
   showPass   = false;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onChange: (v: any) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onTouched: () => void = () => {};
 
   constructor(private cdr: ChangeDetectorRef) {}

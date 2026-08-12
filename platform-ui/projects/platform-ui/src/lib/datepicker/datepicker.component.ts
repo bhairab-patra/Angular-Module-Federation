@@ -1,16 +1,15 @@
 import {
   Component, Input, Output, EventEmitter,
   ChangeDetectionStrategy, ChangeDetectorRef, inject,
-  HostListener, ElementRef, ViewEncapsulation } from '@angular/core';
+  HostListener, ElementRef, ViewEncapsulation
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-
 export type DatePickerMode = 'single' | 'range';
-
 export interface DateRange { start: Date | null; end: Date | null; }
 
-const DAYS   = ['Su','Mo','Tu','We','Th','Fr','Sa'];
-const MONTHS = ['January','February','March','April','May','June',
-                'July','August','September','October','November','December'];
+const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
 
 @Component({
   selector: 'pui-lib-datepicker',
@@ -23,29 +22,26 @@ const MONTHS = ['January','February','March','April','May','June',
 })
 export class PuiDatepickerComponent {
   private cdr = inject(ChangeDetectorRef);
-  private el  = inject(ElementRef);
+  private el = inject(ElementRef);
 
-  /* -- Internal state ------------------- */
-  open      = false;
+  open = false;
   viewMode: 'days' | 'months' = 'days';
-  viewYear  = new Date().getFullYear();
+  viewYear = new Date().getFullYear();
   viewMonth = new Date().getMonth();
 
-  _value:       Date | null = null;
-  _range:       DateRange   = { start: null, end: null };
-  _hoverDate:   Date | null = null;
-  _mode:        DatePickerMode = 'single';
-  _min:         Date | null = null;
-  _max:         Date | null = null;
-  _disabled     = false;
-  _clearable    = true;
-  _placeholder  = 'Select date�';
-  _format       = 'MMM d, yyyy';
-
-  readonly dayNames   = DAYS;
+  _value: Date | null = null;
+  _range: DateRange = { start: null, end: null };
+  _hoverDate: Date | null = null;
+  _mode: DatePickerMode = 'single';
+  _min: Date | null = null;
+  _max: Date | null = null;
+  _disabled = false;
+  _clearable = true;
+  _placeholder = 'Select date�';
+  _format = 'MMM d, yyyy';
+  readonly dayNames = DAYS;
   readonly monthNames = MONTHS;
 
-  /* -- Inputs --------------------------- */
   @Input() set value(v: Date | string | null) {
     if (!v) { this._value = null; return; }
     const d = v instanceof Date ? v : new Date(v as string);
@@ -56,23 +52,22 @@ export class PuiDatepickerComponent {
     const r = typeof v === 'string' ? this._parse<DateRange>(v) ?? { start: null, end: null } : v;
     this._range = {
       start: r.start ? new Date(r.start) : null,
-      end:   r.end   ? new Date(r.end)   : null,
+      end: r.end ? new Date(r.end) : null,
     };
   }
-  @Input() set mode(v: DatePickerMode | string)  { this._mode = v === 'range' ? 'range' : 'single'; }
-  @Input() set min(v: Date | string | null)       { this._min  = v ? new Date(v as string) : null; }
-  @Input() set max(v: Date | string | null)       { this._max  = v ? new Date(v as string) : null; }
-  @Input() set disabled(v: boolean | string)      { this._disabled  = v === true || v === 'true' || (v as any) === ''; }
-  @Input() set clearable(v: boolean | string)     { this._clearable = v === true || v === 'true' || (v as any) === ''; }
-  @Input() set placeholder(v: string)             { this._placeholder = v; }
-  @Input() set format(v: string)                  { this._format = v; }
+  @Input() set mode(v: DatePickerMode | string) { this._mode = v === 'range' ? 'range' : 'single'; }
+  @Input() set min(v: Date | string | null) { this._min = v ? new Date(v as string) : null; }
+  @Input() set max(v: Date | string | null) { this._max = v ? new Date(v as string) : null; }
+  @Input() set disabled(v: boolean | string) { this._disabled = v === true || v === 'true' || (v as any) === ''; }
+  @Input() set clearable(v: boolean | string) { this._clearable = v === true || v === 'true' || (v as any) === ''; }
+  @Input() set placeholder(v: string) { this._placeholder = v; }
+  @Input() set format(v: string) { this._format = v; }
 
-  /* -- Outputs -------------------------- */
-  @Output() valueChange  = new EventEmitter<Date | null>();
-  @Output() rangeChange  = new EventEmitter<DateRange>();
-  @Output() change       = new EventEmitter<Date | DateRange | null>();
+  @Output() valueChange = new EventEmitter<Date | null>();
+  @Output() rangeChange = new EventEmitter<DateRange>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
+  @Output() change = new EventEmitter<Date | DateRange | null>();
 
-  /* -- Click outside -------------------- */
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
     // composedPath() traverses shadow boundaries correctly; fall back to contains()
@@ -86,7 +81,6 @@ export class PuiDatepickerComponent {
     }
   }
 
-  /* -- Computed ------------------------- */
   get monthName() { return MONTHS[this.viewMonth]; }
 
   get displayValue(): string {
@@ -111,9 +105,9 @@ export class PuiDatepickerComponent {
       const d = new Date(start);
       d.setDate(start.getDate() + i);
       cells.push({
-        date:     d,
-        cur:      d.getMonth() === this.viewMonth,
-        today:    this._sameDay(d, today),
+        date: d,
+        cur: d.getMonth() === this.viewMonth,
+        today: this._sameDay(d, today),
         disabled: this._isDisabled(d),
       });
     }
@@ -122,7 +116,6 @@ export class PuiDatepickerComponent {
     return cells;
   }
 
-  /* -- Actions -------------------------- */
   toggle() {
     this.open = !this.open;
     if (this.open) {
@@ -147,7 +140,7 @@ export class PuiDatepickerComponent {
 
   pickMonth(mi: number) {
     this.viewMonth = mi;
-    this.viewMode  = 'days';
+    this.viewMode = 'days';
     this.cdr.markForCheck();
   }
 
@@ -160,7 +153,6 @@ export class PuiDatepickerComponent {
       this.change.emit(d);
       this.open = false;
     } else {
-      // range mode
       const { start, end } = this._range;
       if (!start || (start && end)) {
         this._range = { start: d, end: null };
@@ -184,9 +176,9 @@ export class PuiDatepickerComponent {
 
   goToday() {
     const t = new Date();
-    this.viewYear  = t.getFullYear();
+    this.viewYear = t.getFullYear();
     this.viewMonth = t.getMonth();
-    this.viewMode  = 'days';
+    this.viewMode = 'days';
     this.cdr.markForCheck();
   }
 
@@ -200,7 +192,6 @@ export class PuiDatepickerComponent {
     this.cdr.markForCheck();
   }
 
-  /* -- Range helpers -------------------- */
   isSelected(d: Date): boolean {
     return this._mode === 'single' && !!this._value && this._sameDay(d, this._value);
   }
@@ -216,23 +207,22 @@ export class PuiDatepickerComponent {
 
   isInRange(d: Date): boolean {
     const start = this._range.start;
-    const end   = this._range.end || this._hoverDate;
+    const end = this._range.end || this._hoverDate;
     if (!start || !end) return false;
     const lo = start < end ? start : end;
-    const hi = start < end ? end   : start;
+    const hi = start < end ? end : start;
     return d > lo && d < hi;
   }
 
-  /* -- Utilities ------------------------ */
+
   private _sameDay(a: Date, b: Date) {
     return a.getFullYear() === b.getFullYear() &&
-           a.getMonth()    === b.getMonth()    &&
-           a.getDate()     === b.getDate();
+      a.getMonth() === b.getMonth() &&
+      a.getDate() === b.getDate();
   }
 
   private _isDisabled(d: Date) {
-    // Compare at day granularity — strip time from min/max so today is never
-    // incorrectly disabled when minDate was created with new Date() (current time).
+
     if (this._min) {
       const min = new Date(this._min); min.setHours(0, 0, 0, 0);
       if (d < min) return true;

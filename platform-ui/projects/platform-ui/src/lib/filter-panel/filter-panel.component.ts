@@ -1,7 +1,7 @@
 import {
   Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
   ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
-import { NgIf, NgFor, KeyValuePipe } from '@angular/common';
+import { NgIf, NgFor } from '@angular/common';
 import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
 
 @Component({
@@ -47,6 +47,7 @@ export class PuiFilterPanelComponent implements OnChanges {
 
   @Output() valuesChange = new EventEmitter<FilterValues>();
   @Output() applied      = new EventEmitter<FilterValues>();
+  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() reset        = new EventEmitter<void>();
   @Output() cleared      = new EventEmitter<void>();
 

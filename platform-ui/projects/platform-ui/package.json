@@ -1,6 +1,6 @@
 {
   "name": "@bhairab-patra/platform-ui",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "public"
