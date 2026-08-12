@@ -17,6 +17,14 @@ out-tsc/
 .vscode/
 .idea/
 
+# Project documentation / local files
+PRD-confluence.md
+PRD.md
+PriorityOrder.md
+publish.md
+README.md
+TypeScript-strict-mode.md
+
 # OS
 .DS_Store
 Thumbs.db
