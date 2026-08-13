@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, OnInit, OnDestroy,
-  HostListener, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, ViewChild, ViewEncapsulation } from '@angular/core';
+  HostListener, ElementRef, ViewChild, ViewEncapsulation, inject } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -10,15 +10,14 @@ import { SearchSuggestion, SearchSize } from '../models/search.model';
   selector: 'pui-lib-search',
   standalone: true,
   imports: [NgIf, NgFor],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
 export class PuiSearchComponent implements OnInit, OnDestroy {
   @ViewChild('inputEl') inputEl!: ElementRef<HTMLInputElement>;
 
-  @Input() placeholder  = 'Search…';
+  @Input() placeholder  = 'Searchï¿½';
   @Input() size: SearchSize = 'md';
   @Input() value        = '';
   @Input() debounce     = 300;
@@ -53,7 +52,6 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
 
   @Input() set loading(v: boolean | string) {
     this._loading = v === true || v === 'true' || (v as any) === '';
-    this.cdr.markForCheck();
   }
   get loading() { return this._loading; }
   private _loading = false;
@@ -77,7 +75,7 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
   private input$ = new Subject<string>();
   private sub!: Subscription;
 
-  constructor(private cdr: ChangeDetectorRef, private host: ElementRef) {}
+  private host = inject(ElementRef);
 
   ngOnInit(): void {
     this.recentItems = [...this.recentSearches].slice(0, this.maxRecent);
@@ -136,24 +134,24 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
     this.openDropdown();
   }
 
+  onBlur(): void { this.focused = false; }
+
   onFocus(): void {
     this.focused = true;
     this.openDropdown();
-    this.cdr.markForCheck();
   }
 
-  onBlur(): void { this.focused = false; this.cdr.markForCheck(); }
 
   onKeydown(e: KeyboardEvent): void {
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault();
         this.focusIdx = Math.min(this.focusIdx + 1, this.totalFocusable - 1);
-        this.cdr.markForCheck(); break;
+        break;
       case 'ArrowUp':
         e.preventDefault();
         this.focusIdx = Math.max(this.focusIdx - 1, -1);
-        this.cdr.markForCheck(); break;
+        break;
       case 'Enter':
         e.preventDefault();
         if (this.focusIdx >= 0 && this.value) {
@@ -182,7 +180,6 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
     this.searchChange.emit(s.label);
     this.suggestionSelected.emit(s);
     this.closeDropdown();
-    this.cdr.markForCheck();
   }
 
   selectRecent(r: string): void {
@@ -190,7 +187,6 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
     this.valueChange.emit(r);
     this.input$.next(r);
     this.closeDropdown();
-    this.cdr.markForCheck();
   }
 
   clear(e: MouseEvent): void {
@@ -201,13 +197,11 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
     this.cleared.emit();
     this.openDropdown();
     this.inputEl?.nativeElement.focus();
-    this.cdr.markForCheck();
   }
 
   clearRecent(e: MouseEvent): void {
     e.preventDefault();
     this.recentItems = [];
-    this.cdr.markForCheck();
   }
 
   private addToRecent(val: string): void {
@@ -218,11 +212,9 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
   private openDropdown(): void {
     this.isOpen = (this.value.length > 0 && this.filteredSuggestions.length > 0)
                || (!this.value && this.recentItems.length > 0);
-    this.cdr.markForCheck();
   }
 
   private closeDropdown(): void {
-    this.isOpen = false; this.focusIdx = -1; this.cdr.markForCheck();
   }
 
   @HostListener('document:click', ['$event'])

@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, inject, ViewEncapsulation } from '@angular/core';
+  inject, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface TabItem {
@@ -19,13 +19,11 @@ export type TabsSize        = 'sm' | 'md' | 'lg';
   selector: 'pui-lib-tabs',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
 })
 export class PuiTabsComponent {
-  private cdr = inject(ChangeDetectorRef);
 
   /* -- Internal state ------------------- */
   _tabs: TabItem[]          = [];
@@ -40,13 +38,11 @@ export class PuiTabsComponent {
     if (this._tabs.length && !this._tabs.find(t => t.id === this._active)) {
       this._active = this._tabs.find(t => !t.disabled)?.id ?? '';
     }
-    this.cdr.markForCheck();
   }
 
   @Input() set activeTab(v: string) {
     if (v && v !== this._active) {
       this._active = v;
-      this.cdr.markForCheck();
     }
   }
 
@@ -71,7 +67,6 @@ export class PuiTabsComponent {
     if (tab.disabled || tab.id === this._active) return;
     this._active = tab.id;
     this.tabChange.emit(tab);
-    this.cdr.markForCheck();
   }
 
   onKey(e: KeyboardEvent, _i: number) {

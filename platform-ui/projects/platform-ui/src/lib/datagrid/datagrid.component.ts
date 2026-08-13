@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf, NgStyle, DecimalPipe, DatePipe } from '@angular/common';
 
 export interface DataGridColumn<T = any> {
@@ -25,8 +25,7 @@ export interface DataGridPageEvent {
   selector: 'pui-lib-datagrid',
   standalone: true,
   imports: [NgFor, NgIf, NgStyle, DecimalPipe, DatePipe],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './datagrid.component.html',
   styleUrls: ['./datagrid.component.scss'],
 })

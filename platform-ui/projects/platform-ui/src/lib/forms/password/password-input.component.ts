@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, inject
+  inject
 
  , ViewEncapsulation } from '@angular/core';
 import { NgIf } from '@angular/common';
@@ -11,13 +11,11 @@ export type PasswordStrength = 'weak' | 'fair' | 'strong' | 'very-strong';
   selector: 'pui-lib-password-input',
   standalone: true,
   imports: [NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './password-input.component.html',
   styleUrls: ['./password-input.component.scss'],
 })
 export class PuiPasswordInputComponent {
-  cdr = inject(ChangeDetectorRef);
 
   /* -- State -------------------------------- */
   show    = false;
@@ -93,14 +91,11 @@ export class PuiPasswordInputComponent {
     this.valueChange.emit(v);
     this.change.emit(v);
     this.strengthChange.emit(this.strength);
-    this.cdr.markForCheck();
   }
 
   copyValue() {
     navigator.clipboard.writeText(this._value).then(() => {
       this.copied = true;
-      this.cdr.markForCheck();
-      setTimeout(() => { this.copied = false; this.cdr.markForCheck(); }, 2000);
     });
   }
 

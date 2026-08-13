@@ -57,10 +57,10 @@
              type="text"
              placeholder="Search…"
              [value]="query"
-             (input)="query = $any($event.target).value; cdr.markForCheck()"
+             (input)="query = $any($event.target).value"
              (click)="$event.stopPropagation()">
       <button *ngIf="query" class="pui-ms-search-clear"
-              (click)="query=''; cdr.markForCheck()">✕</button>
+              (click)="query=''">✕</button>
     </div>
 
     <!-- Select all / Clear all -->

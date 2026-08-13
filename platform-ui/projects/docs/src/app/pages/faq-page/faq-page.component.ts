@@ -153,6 +153,44 @@ input { border: 2px solid red; }   /* blocked */
 }`,
           lang: 'css',
         },
+        {
+          q: 'How do I override a library component\'s style (e.g. make the header taller) from my consumer app?',
+          a: 'The library uses ViewEncapsulation.Emulated, which means Angular scopes component styles using attribute selectors. A plain class override in your component stylesheet will not reach inside the library component because the attribute tokens won\'t match. Use ::ng-deep prefixed with :host to pierce the encapsulation boundary — this scopes the override to your component only so it does not bleed globally.\n\nFor overrides that should apply everywhere in the app, put them in your global styles.scss instead.',
+          code: `/* ── Option 1: Override in a specific component only ──────────
+   your-page.component.scss
+   :host scopes it to this component; ::ng-deep pierces the
+   library's Emulated encapsulation boundary              */
+
+:host ::ng-deep .pui-header {
+  height: 80px;   /* library default is 60px */
+}
+
+
+/* ── Option 2: Override globally (all pages in the app) ────
+   src/styles.scss — no scoping needed, reaches everywhere  */
+
+.pui-header {
+  height: 80px;
+}
+
+
+/* ── Option 3: Use a CSS custom property if available ──────
+   Cleanest — no ::ng-deep needed                           */
+
+:root {
+  --pui-header-height: 80px;
+}
+
+
+/* ── What NOT to do ────────────────────────────────────────
+   A plain class rule inside a component stylesheet gets
+   an Angular attribute token and will NEVER match the
+   library's DOM elements (which have a different token)    */
+
+/* ❌ This will not work inside a component .scss file */
+.pui-header { height: 80px; }`,
+          lang: 'css',
+        },
       ],
     },
     {

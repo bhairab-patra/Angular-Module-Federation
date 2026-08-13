@@ -1,7 +1,8 @@
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation
+  ViewEncapsulation, inject, OnInit
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { PuiSidebarComponent } from '../sidebar/sidebar.component';
 import { UserMenuItem, HeaderBadge } from '../models/header.model';
@@ -11,12 +12,23 @@ import { SidebarGroup, SidebarNavItem, SidebarConfig, SidebarTheme } from '../mo
   selector: 'pui-lib-app-shell',
   standalone: true,
   imports: [HeaderComponent, PuiSidebarComponent],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
 })
-export class PuiAppShellComponent {
+export class PuiAppShellComponent implements OnInit {
+  private doc = inject(DOCUMENT);
+
+  ngOnInit(): void {
+    const id = 'pui-material-symbols-font';
+    if (!this.doc.getElementById(id)) {
+      const link = this.doc.createElement('link');
+      link.id = id;
+      link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block';
+      this.doc.head.appendChild(link);
+    }
+  }
 
  
   @Input() appTitle    = 'My App';
@@ -87,18 +99,15 @@ export class PuiAppShellComponent {
   @Output() headerMenuAction       = new EventEmitter<string>();
   @Output() headerHelpClick        = new EventEmitter<void>();
 
-  constructor(private cdr: ChangeDetectorRef) {}
 
   toggleSidebar(): void {
     this.sidebarVisible = !this.sidebarVisible;
     this.sidebarVisibleChange.emit(this.sidebarVisible);
-    this.cdr.markForCheck();
   }
 
   onCollapsedChange(v: boolean): void {
     this.sidebarCollapsed = v;
     this.sidebarCollapsedChange.emit(v);
-    this.cdr.markForCheck();
   }
 
   private _tryParse<T>(s: string): T | null {

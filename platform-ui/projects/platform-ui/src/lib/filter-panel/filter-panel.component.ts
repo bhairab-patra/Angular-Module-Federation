@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
-  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+  ViewEncapsulation } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
 
@@ -8,8 +8,7 @@ import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
   selector: 'pui-lib-filter-panel',
   standalone: true,
   imports: [NgIf, NgFor],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './filter-panel.component.html',
   styleUrls: ['./filter-panel.component.scss'],
 })
@@ -53,7 +52,6 @@ export class PuiFilterPanelComponent implements OnChanges {
 
   collapsed: Record<string, boolean> = {};
 
-  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(c: SimpleChanges): void {
     if (c['filters']) {
@@ -121,7 +119,6 @@ export class PuiFilterPanelComponent implements OnChanges {
 
   toggleGroup(id: string): void {
     this.collapsed[id] = !this.collapsed[id];
-    this.cdr.markForCheck();
   }
 
   // -- Change handlers ----------------------------------
@@ -130,7 +127,6 @@ export class PuiFilterPanelComponent implements OnChanges {
     this.values = { ...vals };
     this.valuesChange.emit(this.values);
     if (!this.showActions) this.applied.emit(this.values);
-    this.cdr.markForCheck();
   }
 
   onCheckbox(f: FilterDef, val: any, checked: boolean): void {
@@ -181,7 +177,6 @@ export class PuiFilterPanelComponent implements OnChanges {
     this.values = {};
     this.valuesChange.emit({});
     this.cleared.emit();
-    this.cdr.markForCheck();
   }
 
   apply(): void  { this.applied.emit({ ...this.values }); }
@@ -190,6 +185,5 @@ export class PuiFilterPanelComponent implements OnChanges {
     this.values = {};
     this.valuesChange.emit({});
     this.reset.emit();
-    this.cdr.markForCheck();
   }
 }

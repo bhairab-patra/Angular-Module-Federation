@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, SimpleChanges,
+  SimpleChanges,
   inject, ViewEncapsulation
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
@@ -34,13 +34,11 @@ export interface FormDialogSaveEvent { data: Record<string, any>; }
     PuiSelectComponent,
     PuiTextareaComponent,
   ],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.scss'],
 })
-export class PuiFormDialogComponent implements OnChanges {
-  private cdr = inject(ChangeDetectorRef);
+export class PuiFormDialogComponent {
 
   _open = false;
   @Input() set open(v: boolean | string) {
@@ -73,7 +71,6 @@ export class PuiFormDialogComponent implements OnChanges {
   draft:  Record<string, any>    = {};
   errors: Record<string, string> = {};
 
-  ngOnChanges(_: SimpleChanges) { this.cdr.markForCheck(); }
 
   onBackdropClick(e: MouseEvent): void {
     if (this.closeOnBackdrop && e.target === e.currentTarget) this._close();
@@ -93,7 +90,6 @@ export class PuiFormDialogComponent implements OnChanges {
   private _close(): void {
     this.closed.emit();
     this.errors = {};
-    this.cdr.markForCheck();
   }
 
   private _initDraft(): void {
@@ -111,7 +107,6 @@ export class PuiFormDialogComponent implements OnChanges {
         }
       }
     }
-    this.cdr.markForCheck();
     return Object.keys(this.errors).length === 0;
   }
 

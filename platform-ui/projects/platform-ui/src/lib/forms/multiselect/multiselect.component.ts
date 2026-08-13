@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, inject,
+  inject,
   HostListener, ElementRef, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
@@ -15,13 +15,11 @@ export interface MultiSelectOption {
   selector: 'pui-lib-multiselect',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './multiselect.component.html',
   styleUrls: ['./multiselect.component.scss'],
 })
 export class PuiMultiSelectComponent {
-  cdr = inject(ChangeDetectorRef);
   private el = inject(ElementRef);
 
   /* -- State -------------------------------- */
@@ -41,11 +39,9 @@ export class PuiMultiSelectComponent {
   /* -- Inputs ------------------------------- */
   @Input() set options(v: MultiSelectOption[] | string) {
     this._options = typeof v === 'string' ? (this._parse<MultiSelectOption[]>(v) ?? []) : (v || []);
-    this.cdr.markForCheck();
   }
   @Input() set value(v: (string | number)[] | string) {
     this.selected = typeof v === 'string' ? (this._parse<(string|number)[]>(v) ?? []) : (v || []);
-    this.cdr.markForCheck();
   }
   @Input() set placeholder(v: string)      { this._placeholder   = v; }
   @Input() set searchable(v: boolean | string)   { this._searchable   = this._bool(v); }
@@ -65,7 +61,6 @@ export class PuiMultiSelectComponent {
   onDocClick(e: MouseEvent) {
     if (!this.el.nativeElement.contains(e.target as Node)) {
       this.open = false;
-      this.cdr.markForCheck();
     }
   }
 
@@ -88,7 +83,8 @@ export class PuiMultiSelectComponent {
   }
 
   /* -- Actions ------------------------------ */
-  toggle() { this.open = !this.open; this.cdr.markForCheck(); }
+
+  toggle(): void { this.open = !this.open; }
 
   toggle_option(opt: MultiSelectOption) {
     if (opt.disabled) return;
@@ -96,13 +92,11 @@ export class PuiMultiSelectComponent {
     if (idx >= 0) this.selected = this.selected.filter(v => v !== opt.value);
     else          this.selected = [...this.selected, opt.value];
     this._emit();
-    this.cdr.markForCheck();
   }
 
   deselect(v: string | number) {
     this.selected = this.selected.filter(s => s !== v);
     this._emit();
-    this.cdr.markForCheck();
   }
 
   selectAll() {
@@ -110,18 +104,15 @@ export class PuiMultiSelectComponent {
     const combined = Array.from(new Set([...this.selected, ...enabledVals]));
     this.selected = combined;
     this._emit();
-    this.cdr.markForCheck();
   }
 
   clearAll() {
     this.selected = [];
     this._emit();
-    this.cdr.markForCheck();
   }
 
   apply() {
     this.open = false;
-    this.cdr.markForCheck();
   }
 
   isSelected(v: string | number): boolean {

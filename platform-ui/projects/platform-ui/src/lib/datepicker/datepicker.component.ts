@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, inject,
+  inject,
   HostListener, ElementRef, ViewEncapsulation
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
@@ -15,13 +15,11 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
   selector: 'pui-lib-datepicker',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss'],
 })
 export class PuiDatepickerComponent {
-  private cdr = inject(ChangeDetectorRef);
   private el = inject(ElementRef);
 
   open = false;
@@ -77,7 +75,6 @@ export class PuiDatepickerComponent {
       : this.el.nativeElement.contains(e.target as Node);
     if (!inside) {
       this.open = false;
-      this.cdr.markForCheck();
     }
   }
 
@@ -123,25 +120,21 @@ export class PuiDatepickerComponent {
       const nav = this._mode === 'single' ? this._value : this._range.start;
       if (nav) { this.viewYear = nav.getFullYear(); this.viewMonth = nav.getMonth(); }
     }
-    this.cdr.markForCheck();
   }
 
   prevMonth() {
     if (this.viewMonth === 0) { this.viewMonth = 11; this.viewYear--; }
     else this.viewMonth--;
-    this.cdr.markForCheck();
   }
 
   nextMonth() {
     if (this.viewMonth === 11) { this.viewMonth = 0; this.viewYear++; }
     else this.viewMonth++;
-    this.cdr.markForCheck();
   }
 
   pickMonth(mi: number) {
     this.viewMonth = mi;
     this.viewMode = 'days';
-    this.cdr.markForCheck();
   }
 
   pickDay(d: Date) {
@@ -164,13 +157,11 @@ export class PuiDatepickerComponent {
         this.open = false;
       }
     }
-    this.cdr.markForCheck();
   }
 
   hoverDate(d: Date) {
     if (this._mode === 'range' && this._range.start && !this._range.end) {
       this._hoverDate = d;
-      this.cdr.markForCheck();
     }
   }
 
@@ -179,7 +170,6 @@ export class PuiDatepickerComponent {
     this.viewYear = t.getFullYear();
     this.viewMonth = t.getMonth();
     this.viewMode = 'days';
-    this.cdr.markForCheck();
   }
 
   clear() {
@@ -189,7 +179,6 @@ export class PuiDatepickerComponent {
     this.valueChange.emit(null);
     this.rangeChange.emit({ start: null, end: null });
     this.change.emit(null);
-    this.cdr.markForCheck();
   }
 
   isSelected(d: Date): boolean {

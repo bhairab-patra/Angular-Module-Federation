@@ -24,7 +24,7 @@
           [attr.maxlength]="maxLength || null"
           [value]="innerValue"
           (input)="onInput($any($event.target).value)"
-          (focus)="isFocused = true; cdr.markForCheck()"
+          (focus)="isFocused = true"
           (blur)="onBlur()">
         </textarea>
       </div>

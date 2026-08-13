@@ -50,26 +50,39 @@ type Framework = 'angular' | 'react' | 'html';
 
         <div class="fw-badge fw-badge--angular">Angular 19</div>
 
+        <!-- ── MODE TOGGLE ── -->
+        <div class="mode-toggle">
+          <button class="mode-btn" [class.mode-btn--active]="ngMode==='published'" (click)="ngMode='published'">
+            📦 Published npm (production)
+          </button>
+          <button class="mode-btn" [class.mode-btn--active]="ngMode==='local'" (click)="ngMode='local'">
+            🔧 Local Dev (without publishing)
+          </button>
+        </div>
+
+        <!-- ════════════════════════ PUBLISHED NPM ════════════════════════ -->
+        <ng-container *ngIf="ngMode==='published'">
+
         <section id="ng-prereq" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">1</span> Prerequisites</h2>
           <ul class="gs-list">
             <li>Node.js 18+ and npm 9+</li>
             <li>Angular CLI 19+&nbsp;&nbsp;<code>npm install -g &#64;angular/cli</code></li>
-            <li>An existing Angular 19 project (standalone or NgModule)</li>
-            <li>A GitHub account with access to <strong>GitHub Packages</strong></li>
+            <li>An Angular 19 project — standalone or NgModule both work</li>
+            <li>A GitHub Personal Access Token with <code>read:packages</code> scope</li>
           </ul>
           <div class="note note--info">
-            Platform UI is built with <strong>Angular 19 standalone APIs</strong>. NgModule
-            apps still work — import components individually in your NgModule's <code>imports</code>.
+            Platform UI uses <strong>Angular 19 standalone components</strong> internally.
+            NgModule apps still work — just import each component inside your <code>imports</code> array.
           </div>
         </section>
 
         <section id="ng-npmrc" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">2</span> Configure npm for GitHub Packages</h2>
-          <p class="gs-p">Create a <code>.npmrc</code> file in your project root. Replace the token with your own GitHub Personal Access Token (needs <code>read:packages</code> scope):</p>
+          <p class="gs-p">Create <code>.npmrc</code> in your project root and paste the two lines below. Replace <code>YOUR_GITHUB_PAT_HERE</code> with your token:</p>
           <app-code lang=".npmrc" [id]="'ng-npmrc'" [text]="code.ng.npmrc" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
           <div class="note note--warn">
-            Never commit <code>.npmrc</code> to git — add it to <code>.gitignore</code>.
+            Add <code>.npmrc</code> to <code>.gitignore</code> — never commit a token to source control.
           </div>
         </section>
 
@@ -77,14 +90,14 @@ type Framework = 'angular' | 'react' | 'html';
           <h2 class="gs-h2"><span class="step-badge">3</span> Install the Library</h2>
           <app-code lang="bash" [id]="'ng-install'" [text]="code.ng.install" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
 
-          <h3 class="gs-h3" style="margin-top:24px">If you use Module Federation (admin-hub / tenant-management-ui)</h3>
-          <p class="gs-p">Add the package to the <code>skip</code> list in <code>federation.config.js</code> so Native Federation doesn't try to bundle it:</p>
+          <h3 class="gs-h3" style="margin-top:24px">Using Module Federation?</h3>
+          <p class="gs-p">Add the package to the <code>skip</code> list so Native Federation does not try to re-bundle it:</p>
           <app-code lang="federation.config.js" [id]="'ng-fed'" [text]="code.ng.federation" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
         <section id="ng-styles" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">4</span> Add Global Styles</h2>
-          <p class="gs-p">In <code>angular.json</code> add the styles entry (Poppins font + CSS custom properties):</p>
+          <p class="gs-p">Open <code>angular.json</code> and add the library stylesheet to the <code>"styles"</code> array. This loads the Poppins font and all CSS custom properties:</p>
           <app-code lang="angular.json" [id]="'ng-styles'" [text]="code.ng.styles" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
@@ -100,7 +113,7 @@ type Framework = 'angular' | 'react' | 'html';
 
         <section id="ng-use" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">6</span> Full App Shell Example</h2>
-          <p class="gs-p">Drop <code>pui-lib-app-shell</code> into your root component and get a complete layout — header, collapsible sidebar, and hamburger — in one tag:</p>
+          <p class="gs-p">Drop <code>pui-lib-app-shell</code> into your root component and you get a full layout — collapsible sidebar, header with user menu, and a slot for your router outlet — in a single tag:</p>
           <app-code lang="app.component.ts" [id]="'ng-shell'" [text]="code.ng.shell" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
@@ -112,6 +125,134 @@ type Framework = 'angular' | 'react' | 'html';
           </div>
         </section>
 
+        </ng-container><!-- end published -->
+
+        <!-- ════════════════════════ LOCAL DEV ════════════════════════ -->
+        <ng-container *ngIf="ngMode==='local'">
+
+        <div class="note note--info" style="margin-bottom:28px">
+          Use this when you are actively developing the library and want a consumer app to
+          pick up changes instantly — <strong>no publish step required</strong>.
+          The mechanism is <code>npm link</code> + a symlink from the consumer's
+          <code>node_modules</code> to the library's local <code>dist/</code> folder.
+        </div>
+
+        <section id="ng-local-prereq" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">1</span> Prerequisites</h2>
+          <ul class="gs-list">
+            <li>Node.js 18+ and npm 9+</li>
+            <li>Angular CLI 19+&nbsp;&nbsp;<code>npm install -g &#64;angular/cli</code></li>
+            <li>The <strong>platform-ui library source</strong> cloned locally</li>
+            <li>Your Angular consumer app cloned locally</li>
+          </ul>
+        </section>
+
+        <section id="ng-local-build" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">2</span> Build the Library</h2>
+          <p class="gs-p">Run this inside the <strong>library repo</strong>. This produces the compiled output in <code>dist/platform-ui/</code>:</p>
+          <app-code lang="bash" [id]="'ng-local-build'" [text]="code.ng.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <div class="note note--info">
+            Using <code>--configuration development</code> skips the lint step so the build is faster. Never use <code>npm run build:local</code> — it runs lint first and may block.
+          </div>
+        </section>
+
+        <section id="ng-local-link1" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">3</span> Register the dist Folder Globally</h2>
+          <p class="gs-p">Navigate into the <strong>built output folder</strong> and run <code>npm link</code>. This registers <code>&#64;bhairab-patra/platform-ui</code> globally on your machine:</p>
+          <app-code lang="bash" [id]="'ng-local-link1'" [text]="code.ng.localLink1" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <p class="gs-p" style="margin-top:10px">Do this <strong>once per machine</strong> (or after a fresh clone). You do not need to repeat it every rebuild.</p>
+        </section>
+
+        <section id="ng-local-link2" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">4</span> Link the Consumer App</h2>
+          <p class="gs-p">Inside your <strong>Angular consumer app</strong>, link it to the globally registered dist:</p>
+          <app-code lang="bash" [id]="'ng-local-link2'" [text]="code.ng.localLink2" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <div class="note note--warn">
+            If you run <code>npm install</code> in the consumer later, it will overwrite this symlink.
+            Just run the link command again to restore it.
+          </div>
+        </section>
+
+        <section id="ng-local-syms" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">5</span> Add preserveSymlinks to angular.json</h2>
+          <p class="gs-p">Without this, Angular loads two separate copies of <code>&#64;angular/core</code> — one from the library's own <code>node_modules</code> and one from the consumer's. This causes <code>lView</code> errors and injection failures at runtime. Open <code>angular.json</code> and add one line:</p>
+          <app-code lang="angular.json" [id]="'ng-local-syms'" [text]="code.ng.preserveSymlinks" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </section>
+
+        <section id="ng-local-styles" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">6</span> Add Global Styles</h2>
+          <p class="gs-p">Add the library stylesheet to the <code>"styles"</code> array in <code>angular.json</code>:</p>
+          <app-code lang="angular.json" [id]="'ng-local-styles'" [text]="code.ng.stylesLocal" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </section>
+
+        <section id="ng-local-import" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">7</span> Import &amp; Use Components</h2>
+          <p class="gs-p">Import exactly the same way as the published flow — the symlink makes npm think it is the real package:</p>
+          <app-code lang="TypeScript" [id]="'ng-local-import'" [text]="code.ng.standalone" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </section>
+
+        <section id="ng-local-serve" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">8</span> Start the App</h2>
+          <app-code lang="bash" [id]="'ng-local-serve'" [text]="code.ng.localServe" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <div class="note note--success" style="margin-top:18px">
+            Open <strong>http://localhost:4200</strong>. Every time you rebuild the library, refresh the browser — no re-link needed.
+          </div>
+        </section>
+
+        <section id="ng-local-daily" class="gs-section">
+          <h2 class="gs-h2">Day-to-Day: Rebuild on Every Library Change</h2>
+          <p class="gs-p">After changing any library source file, rebuild and refresh:</p>
+          <app-code lang="bash" [id]="'ng-local-daily'" [text]="code.ng.localDaily" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <h3 class="gs-h3" style="margin-top:20px">Or watch mode — rebuilds automatically on every save:</h3>
+          <app-code lang="bash" [id]="'ng-local-watch'" [text]="code.ng.localWatch" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </section>
+
+        <section id="ng-local-blockers" class="gs-section">
+          <h2 class="gs-h2">Common Blockers &amp; Fixes</h2>
+
+          <div class="blocker-list">
+
+            <div class="blocker-item">
+              <div class="blocker-title">❌ &nbsp;<code>lView[15] null</code> or injection errors at startup</div>
+              <div class="blocker-body">
+                <strong>Cause:</strong> Angular loaded two copies of <code>&#64;angular/core</code> through the symlink.<br>
+                <strong>Fix:</strong> Make sure <code>"preserveSymlinks": true</code> is in <code>angular.json</code> (Step 5). Then clear the cache:
+                <app-code lang="bash" [id]="'ng-fix-lview'" [text]="code.ng.clearCache" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+              </div>
+            </div>
+
+            <div class="blocker-item">
+              <div class="blocker-title">❌ &nbsp;Stale output — old component version still shows after rebuild</div>
+              <div class="blocker-body">
+                <strong>Cause:</strong> Angular compiler cache is holding the old build.<br>
+                <strong>Fix:</strong> Delete the cache and restart. Use <code>rm -rf</code> in Git Bash — <code>rmdir /s /q</code> does not work in Git Bash.
+                <app-code lang="bash (Git Bash)" [id]="'ng-fix-cache'" [text]="code.ng.clearCache" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+              </div>
+            </div>
+
+            <div class="blocker-item">
+              <div class="blocker-title">❌ &nbsp;Cannot find module <code>&#64;bhairab-patra/platform-ui</code></div>
+              <div class="blocker-body">
+                <strong>Cause:</strong> <code>npm install</code> ran after <code>npm link</code> and overwrote the symlink.<br>
+                <strong>Fix:</strong> Re-run the link command in the consumer app:
+                <app-code lang="bash" [id]="'ng-fix-nomod'" [text]="code.ng.localLink2" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+              </div>
+            </div>
+
+            <div class="blocker-item">
+              <div class="blocker-title">❌ &nbsp;Build fails — lint errors block the build</div>
+              <div class="blocker-body">
+                <strong>Cause:</strong> <code>npm run build:local</code> runs lint before compiling.<br>
+                <strong>Fix:</strong> Use <code>ng build</code> directly — it skips lint:
+                <app-code lang="bash" [id]="'ng-fix-lint'" [text]="code.ng.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        </ng-container><!-- end local dev -->
+
       </ng-container>
 
       <!-- ╔══════════════════════════════════════════════════════╗ -->
@@ -121,69 +262,238 @@ type Framework = 'angular' | 'react' | 'html';
 
         <div class="fw-badge fw-badge--react">React 19</div>
 
+        <!-- ── MODE TOGGLE ── -->
+        <div class="mode-toggle">
+          <button class="mode-btn" [class.mode-btn--active]="rxMode==='published'" (click)="rxMode='published'">
+            📦 Published npm (production)
+          </button>
+          <button class="mode-btn" [class.mode-btn--active]="rxMode==='local'" (click)="rxMode='local'">
+            🔧 Local Dev (without publishing)
+          </button>
+        </div>
+
+        <!-- ════════════════════════ PUBLISHED NPM ════════════════════════ -->
+        <ng-container *ngIf="rxMode==='published'">
+
         <section id="rx-prereq" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">1</span> Prerequisites</h2>
           <ul class="gs-list">
             <li>Node.js 18+ and npm 9+</li>
-            <li>A React 19 project — Vite is recommended</li>
-            <li>A GitHub account with a Personal Access Token (<code>read:packages</code> scope)</li>
+            <li>A React 18 / 19 project — Vite is recommended</li>
+            <li>A GitHub Personal Access Token with <code>read:packages</code> scope</li>
           </ul>
           <div class="note note--info">
-            React 19 added <strong>first-class Web Components support</strong>.
-            Custom element attributes, properties, and events all work natively — no wrapper library needed.
+            Platform UI exposes components as <strong>Angular Elements</strong> (standard Web Components).
+            React 19 supports custom elements natively — no wrapper needed.
+            Object and array inputs must be set as <strong>DOM properties</strong> via a <code>ref</code>, not as HTML attributes.
           </div>
         </section>
 
         <section id="rx-create" class="gs-section">
-          <h2 class="gs-h2"><span class="step-badge">2</span> Create a React App (skip if existing)</h2>
+          <h2 class="gs-h2"><span class="step-badge">2</span> Create a React + Vite App (skip if existing)</h2>
           <app-code lang="bash" [id]="'rx-create'" [text]="code.react.create" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
         <section id="rx-npmrc" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">3</span> Configure npm for GitHub Packages</h2>
-          <p class="gs-p">Create <code>.npmrc</code> in your project root:</p>
+          <p class="gs-p">Create <code>.npmrc</code> in your project root and replace the token:</p>
           <app-code lang=".npmrc" [id]="'rx-npmrc'" [text]="code.react.npmrc" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-          <div class="note note--warn">Never commit <code>.npmrc</code> to git — add it to <code>.gitignore</code>.</div>
+          <div class="note note--warn">Add <code>.npmrc</code> to <code>.gitignore</code> — never commit a token.</div>
         </section>
 
         <section id="rx-install" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">4</span> Install the Library</h2>
           <app-code lang="bash" [id]="'rx-install'" [text]="code.react.install" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <p class="gs-p" style="margin-top:12px">After install, two files inside the package are used by React:</p>
+          <div class="file-list">
+            <div class="file-row">
+              <span class="file-icon">📄</span>
+              <div>
+                <div class="file-name">node_modules/&#64;bhairab-patra/platform-ui/elements/pui-elements.js</div>
+                <div class="file-desc">All components as Web Components — Angular runtime bundled inside</div>
+              </div>
+            </div>
+            <div class="file-row">
+              <span class="file-icon">🎨</span>
+              <div>
+                <div class="file-name">node_modules/&#64;bhairab-patra/platform-ui/elements/styles.css</div>
+                <div class="file-desc">Poppins font + all CSS custom properties / design tokens</div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section id="rx-bootstrap" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">5</span> Bootstrap Web Components</h2>
-          <p class="gs-p">Import the elements bundle once at the top of <code>src/main.tsx</code>. This registers all <code>pui-*</code> custom elements before React renders:</p>
-          <app-code lang="main.tsx" [id]="'rx-main'" [text]="code.react.main" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <p class="gs-p">Import the elements bundle once at the top of <code>src/main.tsx</code>. This registers all <code>pui-*</code> custom elements with the browser before React renders anything:</p>
+          <app-code lang="src/main.tsx" [id]="'rx-main'" [text]="code.react.main" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
         <section id="rx-types" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">6</span> Add TypeScript Declarations</h2>
-          <p class="gs-p">Create <code>src/pui.d.ts</code> so TypeScript recognises all <code>pui-*</code> tags in JSX:</p>
+          <p class="gs-p">Create <code>src/pui.d.ts</code> so TypeScript recognises all <code>pui-*</code> tags in JSX without errors:</p>
           <app-code lang="src/pui.d.ts" [id]="'rx-types'" [text]="code.react.types" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-          <p class="gs-p" style="margin-top:14px">Reference it in <code>tsconfig.json</code>:</p>
+          <p class="gs-p" style="margin-top:14px">Then reference it in <code>tsconfig.json</code>:</p>
           <app-code lang="tsconfig.json" [id]="'rx-tsref'" [text]="code.react.tsconfig" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
         <section id="rx-use" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">7</span> Full App Shell Example</h2>
-          <p class="gs-p">String inputs use kebab-case HTML attributes. Object / array inputs must be set via a React <code>ref</code> on the DOM property:</p>
+          <p class="gs-p">
+            <strong>String inputs</strong> → kebab-case HTML attributes (<code>app-title="My App"</code>).<br>
+            <strong>Object / Array inputs</strong> → must be set as DOM properties via a <code>ref</code> — never as HTML attributes.
+          </p>
           <app-code lang="src/App.tsx" [id]="'rx-app'" [text]="code.react.app" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
         <section id="rx-events" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">8</span> Handling Events</h2>
-          <p class="gs-p">Custom element events are native <code>CustomEvent</code>s. Use <code>addEventListener</code> via a ref:</p>
-          <app-code lang="TSX" [id]="'rx-events'" [text]="code.react.events" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <p class="gs-p">All outputs are native <code>CustomEvent</code>s — use <code>addEventListener</code> via a <code>ref</code> in a <code>useEffect</code>:</p>
+          <app-code lang="src/App.tsx" [id]="'rx-events'" [text]="code.react.events" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
         <section id="rx-verify" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">9</span> Run &amp; Verify</h2>
           <app-code lang="bash" [id]="'rx-serve'" [text]="'npm run dev'" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
           <div class="note note--success" style="margin-top:18px">
-            Open <strong>http://localhost:5173</strong>. You should see the full Platform UI shell inside your React app.
+            Open <strong>http://localhost:5173</strong>. You should see the full Platform UI shell — header, sidebar, and your React content — rendered inside the browser.
           </div>
         </section>
+
+        </ng-container><!-- end published -->
+
+        <!-- ════════════════════════ LOCAL DEV ════════════════════════ -->
+        <ng-container *ngIf="rxMode==='local'">
+
+        <div class="note note--info" style="margin-bottom:28px">
+          Use this when you are actively developing the library and want the React app to
+          pick up changes instantly — <strong>no publish step required</strong>.
+          React uses a <strong>Vite alias</strong> pointing directly at the library's
+          <code>dist/</code> folder, plus a dev-server middleware that serves
+          <code>pui-elements.js</code> from <code>dist/elements/</code>.
+          No <code>npm link</code> is needed for React.
+        </div>
+
+        <section id="rx-local-prereq" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">1</span> Prerequisites</h2>
+          <ul class="gs-list">
+            <li>Node.js 18+ and npm 9+</li>
+            <li>A React + Vite project</li>
+            <li>The <strong>platform-ui library source</strong> cloned locally</li>
+            <li>Angular CLI 19+ installed globally (needed to build the library)</li>
+          </ul>
+        </section>
+
+        <section id="rx-local-build" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">2</span> Build the Library and Elements Bundle</h2>
+          <p class="gs-p">Run both commands inside the <strong>library repo</strong>. You need both outputs — the library itself and the web components bundle:</p>
+          <app-code lang="bash" [id]="'rx-local-build'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <div class="file-list" style="margin-top:14px">
+            <div class="file-row">
+              <span class="file-icon">📁</span>
+              <div>
+                <div class="file-name">dist/platform-ui/</div>
+                <div class="file-desc">Angular component library — used by Vite alias for types and imports</div>
+              </div>
+            </div>
+            <div class="file-row">
+              <span class="file-icon">📄</span>
+              <div>
+                <div class="file-name">dist/elements/pui-elements.js</div>
+                <div class="file-desc">Web components bundle — what the React app actually loads in the browser</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="rx-local-vite" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">3</span> Configure vite.config.js</h2>
+          <p class="gs-p">Add a resolve alias so imports from <code>&#64;bhairab-patra/platform-ui</code> resolve directly to the local dist folder. Also add a middleware plugin so Vite serves <code>pui-elements.js</code> from <code>dist/elements/</code> at dev time:</p>
+          <app-code lang="vite.config.js" [id]="'rx-local-vite'" [text]="code.react.localVite" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </section>
+
+        <section id="rx-local-html" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">4</span> Load Elements Bundle in index.html</h2>
+          <p class="gs-p">Add this script tag inside <code>&lt;head&gt;</code> of <code>index.html</code>. Vite's middleware serves it from <code>dist/elements/</code>:</p>
+          <app-code lang="index.html" [id]="'rx-local-html'" [text]="code.react.localHtml" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </section>
+
+        <section id="rx-local-types" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">5</span> Add TypeScript Declarations</h2>
+          <p class="gs-p">Create <code>src/pui.d.ts</code> so TypeScript recognises all <code>pui-*</code> JSX tags:</p>
+          <app-code lang="src/pui.d.ts" [id]="'rx-local-types'" [text]="code.react.types" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <p class="gs-p" style="margin-top:14px">Add it to <code>tsconfig.json</code>:</p>
+          <app-code lang="tsconfig.json" [id]="'rx-local-tsref'" [text]="code.react.tsconfig" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </section>
+
+        <section id="rx-local-use" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">6</span> Use Components — Same as Published Flow</h2>
+          <p class="gs-p">The usage is identical to the published flow. String inputs as kebab-case attributes; objects/arrays via a <code>ref</code>:</p>
+          <app-code lang="src/App.tsx" [id]="'rx-local-use'" [text]="code.react.app" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+        </section>
+
+        <section id="rx-local-serve" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">7</span> Start the React App</h2>
+          <app-code lang="bash" [id]="'rx-local-serve'" [text]="'npm run dev'" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <div class="note note--success" style="margin-top:18px">
+            Open <strong>http://localhost:5173</strong>. Vite serves the elements bundle live from <code>dist/elements/</code>.
+          </div>
+        </section>
+
+        <section id="rx-local-daily" class="gs-section">
+          <h2 class="gs-h2">Day-to-Day: Rebuild on Every Library Change</h2>
+          <p class="gs-p">After changing any library source file, run both builds then refresh the browser:</p>
+          <app-code lang="bash" [id]="'rx-local-daily'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <div class="note note--info" style="margin-top:14px">
+            Both builds are needed every time — the elements bundle wraps the library output.
+            If you only rebuild the library without rebuilding elements, the browser still runs the old bundle.
+          </div>
+        </section>
+
+        <section id="rx-local-blockers" class="gs-section">
+          <h2 class="gs-h2">Common Blockers &amp; Fixes</h2>
+
+          <div class="blocker-list">
+
+            <div class="blocker-item">
+              <div class="blocker-title">❌ &nbsp;<code>pui-elements.js</code> returns 404</div>
+              <div class="blocker-body">
+                <strong>Cause:</strong> The elements bundle has not been built yet, or <code>dist/elements/</code> does not exist.<br>
+                <strong>Fix:</strong> Run the elements build:
+                <app-code lang="bash" [id]="'rx-fix-404'" [text]="code.react.localElementsBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+              </div>
+            </div>
+
+            <div class="blocker-item">
+              <div class="blocker-title">❌ &nbsp;Components not updating after library rebuild</div>
+              <div class="blocker-body">
+                <strong>Cause:</strong> Only the library was rebuilt — the elements bundle still contains the old code.<br>
+                <strong>Fix:</strong> Always rebuild <em>both</em> after a change:
+                <app-code lang="bash" [id]="'rx-fix-stale'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+              </div>
+            </div>
+
+            <div class="blocker-item">
+              <div class="blocker-title">❌ &nbsp;Vite crashes with ENOENT on startup</div>
+              <div class="blocker-body">
+                <strong>Cause:</strong> Vite middleware tries to read <code>dist/elements/</code> but the folder does not exist yet.<br>
+                <strong>Fix:</strong> Run both builds before starting Vite (Step 2).
+              </div>
+            </div>
+
+            <div class="blocker-item">
+              <div class="blocker-title">❌ &nbsp;Object input has no effect — component shows default value</div>
+              <div class="blocker-body">
+                <strong>Cause:</strong> Objects and arrays passed as HTML attributes are treated as plain strings by the browser.<br>
+                <strong>Fix:</strong> Always set them as DOM properties via a <code>ref</code> inside <code>useEffect</code>:
+                <app-code lang="TSX" [id]="'rx-fix-prop'" [text]="code.react.propFix" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        </ng-container><!-- end local dev -->
 
       </ng-container>
 
@@ -491,12 +801,45 @@ type Framework = 'angular' | 'react' | 'html';
     }
     .fw-mini-btn:hover { background: #f9fafb; color: #111827; }
     .fw-mini-btn--active { background: #f0fdfb; color: #0d9e87; font-weight: 600; }
+
+    /* ── Mode toggle ─────────────────────────────────────────── */
+    .mode-toggle {
+      display: flex; gap: 8px; flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+    .mode-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 20px; border-radius: 10px;
+      border: 1.5px solid #e5e7eb; background: #fff;
+      font-size: 13.5px; font-weight: 500; color: #374151;
+      cursor: pointer; font-family: inherit; transition: all .14s;
+    }
+    .mode-btn:hover { border-color: #12C6A8; color: #0d9e87; background: #f0fdfb; }
+    .mode-btn--active { border-color: #12C6A8; background: #f0fdfb; color: #0d9e87; font-weight: 700; }
+
+    /* ── Blocker list ────────────────────────────────────────── */
+    .blocker-list { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
+    .blocker-item {
+      border: 1px solid #fde68a; border-radius: 10px;
+      overflow: hidden;
+    }
+    .blocker-title {
+      background: #fffbeb; padding: 12px 16px;
+      font-size: 13.5px; font-weight: 600; color: #92400e;
+      border-bottom: 1px solid #fde68a;
+    }
+    .blocker-body {
+      padding: 14px 16px; font-size: 13.5px;
+      color: #374151; line-height: 1.75;
+    }
   `],
 })
 export class GettingStartedComponent implements OnInit {
-  copied       = '';
+  copied        = '';
   active: Framework = 'angular';
   activeSection = '';
+  ngMode: 'published' | 'local' = 'published';
+  rxMode: 'published' | 'local' = 'published';
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -551,24 +894,33 @@ export class GettingStartedComponent implements OnInit {
 
   sectionMap: Record<Framework, { id: string; label: string }[]> = {
     angular: [
-      { id: 'ng-prereq',  label: 'Prerequisites'     },
-      { id: 'ng-npmrc',   label: '.npmrc Setup'       },
-      { id: 'ng-install', label: 'Install'            },
-      { id: 'ng-styles',  label: 'Global Styles'      },
-      { id: 'ng-import',  label: 'Import Components'  },
-      { id: 'ng-use',     label: 'App Shell Example'  },
-      { id: 'ng-verify',  label: 'Run & Verify'       },
+      { id: 'ng-prereq',          label: 'Prerequisites'     },
+      { id: 'ng-npmrc',           label: '.npmrc Setup'      },
+      { id: 'ng-install',         label: 'Install'           },
+      { id: 'ng-styles',          label: 'Global Styles'     },
+      { id: 'ng-import',          label: 'Import Components' },
+      { id: 'ng-use',             label: 'App Shell Example' },
+      { id: 'ng-verify',          label: 'Run & Verify'      },
+      { id: 'ng-local-prereq',    label: '— Local: Prerequisites' },
+      { id: 'ng-local-build',     label: '— Local: Build'    },
+      { id: 'ng-local-link1',     label: '— Local: npm link' },
+      { id: 'ng-local-syms',      label: '— preserveSymlinks'},
+      { id: 'ng-local-blockers',  label: '— Blockers & Fixes'},
     ],
     react: [
-      { id: 'rx-prereq',    label: 'Prerequisites'    },
-      { id: 'rx-create',    label: 'Create App'       },
-      { id: 'rx-npmrc',     label: '.npmrc Setup'     },
-      { id: 'rx-install',   label: 'Install'          },
-      { id: 'rx-bootstrap', label: 'Bootstrap'        },
-      { id: 'rx-types',     label: 'TypeScript Types' },
-      { id: 'rx-use',       label: 'App Shell Example'},
-      { id: 'rx-events',    label: 'Events'           },
-      { id: 'rx-verify',    label: 'Run & Verify'     },
+      { id: 'rx-prereq',          label: 'Prerequisites'     },
+      { id: 'rx-create',          label: 'Create App'        },
+      { id: 'rx-npmrc',           label: '.npmrc Setup'      },
+      { id: 'rx-install',         label: 'Install'           },
+      { id: 'rx-bootstrap',       label: 'Bootstrap Elements'},
+      { id: 'rx-types',           label: 'TypeScript Types'  },
+      { id: 'rx-use',             label: 'App Shell Example' },
+      { id: 'rx-events',          label: 'Events'            },
+      { id: 'rx-verify',          label: 'Run & Verify'      },
+      { id: 'rx-local-prereq',    label: '— Local: Prerequisites' },
+      { id: 'rx-local-build',     label: '— Local: Build'    },
+      { id: 'rx-local-vite',      label: '— Local: vite.config'},
+      { id: 'rx-local-blockers',  label: '— Blockers & Fixes'},
     ],
     html: [
       { id: 'html-npmrc',   label: '.npmrc Setup'    },
@@ -618,6 +970,56 @@ export class GettingStartedComponent implements OnInit {
 @bhairab-patra:registry=https://npm.pkg.github.com`,
 
       install: `npm install @bhairab-patra/platform-ui`,
+
+      // ── Local dev snippets ──────────────────────────────────
+      localBuild:
+`# Run inside the platform-ui library repo
+cd path/to/platform-ui
+ng build platform-ui --configuration development`,
+
+      localLink1:
+`# Run inside dist/platform-ui (the built output folder)
+cd path/to/platform-ui/dist/platform-ui
+npm link`,
+
+      localLink2:
+`# Run inside your Angular consumer app
+cd path/to/your-angular-app
+npm link @bhairab-patra/platform-ui`,
+
+      preserveSymlinks:
+`// angular.json  — add inside architect > build > options
+"options": {
+  "preserveSymlinks": true,
+  "outputPath": "dist/...",
+  ...
+}`,
+
+      stylesLocal:
+`// angular.json  — add to "styles" array
+"styles": [
+  "node_modules/@bhairab-patra/platform-ui/styles.css",
+  "src/styles.css"
+]`,
+
+      localServe:
+`# Inside your Angular consumer app
+cd path/to/your-angular-app
+npm start`,
+
+      localDaily:
+`# Inside the platform-ui library repo — rebuild after every change
+ng build platform-ui --configuration development
+# Then just refresh the browser in your Angular app`,
+
+      localWatch:
+`# Run in a separate terminal — rebuilds on every file save
+ng build platform-ui --configuration development --watch`,
+
+      clearCache:
+`# Inside your Angular consumer app (use Git Bash)
+rm -rf .angular
+npm start`,
 
       federation:
 `// federation.config.js
@@ -747,6 +1149,88 @@ npm install`,
 @bhairab-patra:registry=https://npm.pkg.github.com`,
 
       install: `npm install @bhairab-patra/platform-ui`,
+
+      // ── Local dev snippets ──────────────────────────────────
+      localBuild:
+`# Run inside the platform-ui library repo
+cd path/to/platform-ui
+
+# Step 1 — build the Angular component library
+ng build platform-ui --configuration development
+
+# Step 2 — build the web components (elements) bundle
+ng build elements --configuration production`,
+
+      localElementsBuild:
+`# Inside the platform-ui library repo
+ng build elements --configuration production`,
+
+      localVite:
+`// vite.config.js — in your React app
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
+import fs from 'fs'
+import { fileURLToPath } from 'url'
+
+const __dirname  = path.dirname(fileURLToPath(import.meta.url))
+
+// Adjust relative paths to where platform-ui lives on your machine
+const distRoot    = path.resolve(__dirname, '../platform-ui/dist/platform-ui')
+const elementsRoot = path.resolve(__dirname, '../platform-ui/dist/elements')
+
+export default defineConfig({
+  plugins: [
+    react(),
+    {
+      name: 'serve-pui-assets',
+      configureServer(server) {
+        // Serve pui-elements.js from dist/elements at dev time
+        server.middlewares.use('/pui-elements.js', (_req, res) => {
+          const file = path.join(elementsRoot, 'pui-elements.js')
+          if (!fs.existsSync(file)) {
+            res.statusCode = 404
+            res.end('pui-elements.js not found — run: ng build elements --configuration production')
+            return
+          }
+          res.setHeader('Content-Type', 'application/javascript')
+          fs.createReadStream(file).pipe(res)
+        })
+        // Serve tokens / design-token stylesheet
+        server.middlewares.use('/tokens.css', (_req, res) => {
+          const file = path.join(elementsRoot, 'styles.css')
+          if (!fs.existsSync(file)) { res.statusCode = 404; res.end(); return }
+          res.setHeader('Content-Type', 'text/css')
+          fs.createReadStream(file).pipe(res)
+        })
+      },
+    },
+  ],
+  resolve: {
+    alias: {
+      // Imports from '@bhairab-patra/platform-ui' resolve to local dist
+      '@bhairab-patra/platform-ui': distRoot,
+    },
+  },
+})`,
+
+      localHtml:
+`<!-- index.html — inside <head> -->
+<!-- Vite middleware serves this from dist/elements/ -->
+<script src="/pui-elements.js"></script>`,
+
+      propFix:
+`// ✅ Correct — set objects/arrays as DOM properties via ref
+useEffect(() => {
+  const el = shellRef.current;
+  if (!el) return;
+  el.groups          = navGroups;   // array
+  el.headerMenuItems = menuItems;   // array
+  el.headerBadge     = badgeObj;    // object
+}, []);
+
+// ❌ Wrong — this passes the object as a string attribute
+<pui-lib-app-shell groups={navGroups} />`,
 
       main:
 `// src/main.tsx

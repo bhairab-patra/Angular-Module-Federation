@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, SimpleChanges,
+  SimpleChanges,
   inject, ViewEncapsulation
 } from '@angular/core';
 import { NgIf } from '@angular/common';
@@ -11,13 +11,11 @@ import { ButtonVariant } from '../models/button.model';
   selector: 'pui-lib-confirm-dialog',
   standalone: true,
   imports: [NgIf, ButtonComponent],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.scss'],
 })
-export class PuiConfirmDialogComponent implements OnChanges {
-  private cdr = inject(ChangeDetectorRef);
+export class PuiConfirmDialogComponent {
 
   _open = false;
   @Input() set open(v: boolean | string) {
@@ -35,7 +33,6 @@ export class PuiConfirmDialogComponent implements OnChanges {
   @Output() cancelled = new EventEmitter<void>();
   @Output() closed = new EventEmitter<void>();
 
-  ngOnChanges(_: SimpleChanges) { this.cdr.markForCheck(); }
 
   onBackdropClick(e: MouseEvent): void {
     if (this.closeOnBackdrop && e.target === e.currentTarget) {

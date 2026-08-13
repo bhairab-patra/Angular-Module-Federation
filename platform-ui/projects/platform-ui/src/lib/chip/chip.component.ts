@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { NgIf } from '@angular/common';
 
 export type ChipVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
@@ -8,8 +8,7 @@ export type ChipSize    = 'sm' | 'md';
   selector: 'pui-lib-chip',
   standalone: true,
   imports: [NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })

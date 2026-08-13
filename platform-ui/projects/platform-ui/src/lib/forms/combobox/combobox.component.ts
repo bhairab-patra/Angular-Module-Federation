@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef, inject,
+  inject,
   HostListener, ElementRef, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
@@ -16,13 +16,11 @@ export interface ComboboxOption {
   selector: 'pui-lib-combobox',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './combobox.component.html',
   styleUrls: ['./combobox.component.scss'],
 })
 export class PuiComboboxComponent {
-  cdr = inject(ChangeDetectorRef);
   private el = inject(ElementRef);
 
   /* -- State -------------------------------- */
@@ -43,12 +41,10 @@ export class PuiComboboxComponent {
   /* -- Inputs ------------------------------- */
   @Input() set options(v: ComboboxOption[] | string) {
     this._options = typeof v === 'string' ? (this._parse<ComboboxOption[]>(v) ?? []) : (v || []);
-    this.cdr.markForCheck();
   }
   @Input() set value(v: string | number | null) {
     this._value = v;
     this.query  = this.labelFor(v) ?? '';
-    this.cdr.markForCheck();
   }
   @Input() set placeholder(v: string)            { this._placeholder   = v; }
   @Input() set searchable(v: boolean | string)   { this._searchable    = this._bool(v); }
@@ -121,7 +117,6 @@ export class PuiComboboxComponent {
     this._value = null;
     this.open = true;
     this.focusedIndex = -1;
-    this.cdr.markForCheck();
   }
 
   onKey(e: KeyboardEvent) {
@@ -143,14 +138,12 @@ export class PuiComboboxComponent {
     } else if (e.key === 'Escape') {
       this.close();
     }
-    this.cdr.markForCheck();
   }
 
   openDropdown() {
     this.open = true;
     if (this._searchable) this.query = '';
     this.focusedIndex = -1;
-    this.cdr.markForCheck();
   }
 
   toggle() {
@@ -166,7 +159,6 @@ export class PuiComboboxComponent {
     this.focusedIndex = -1;
     this.valueChange.emit(opt.value);
     this.change.emit(opt.value);
-    this.cdr.markForCheck();
   }
 
   selectFreeText() {
@@ -174,7 +166,6 @@ export class PuiComboboxComponent {
     this.open   = false;
     this.valueChange.emit(this.query);
     this.change.emit(this.query);
-    this.cdr.markForCheck();
   }
 
   clear() {
@@ -183,14 +174,12 @@ export class PuiComboboxComponent {
     this.open   = false;
     this.valueChange.emit(null);
     this.change.emit(null);
-    this.cdr.markForCheck();
   }
 
   close() {
     this.open = false;
     if (this._value === null && !this._allowFreeText) this.query = '';
     else if (this._value !== null) this.query = this.labelFor(this._value) ?? this.query;
-    this.cdr.markForCheck();
   }
 
   private _bool(v: boolean | string): boolean {

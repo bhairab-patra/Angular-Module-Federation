@@ -1,6 +1,6 @@
 import {
-  Component, Input, Output, EventEmitter, ChangeDetectionStrategy,
-  ChangeDetectorRef, OnChanges, SimpleChanges, inject, ViewEncapsulation
+  Component, Input, Output, EventEmitter,
+  SimpleChanges, inject, ViewEncapsulation
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -13,13 +13,11 @@ export interface EditableRowEvent { index: number; row: any; }
   selector: 'pui-lib-editable-table',
   standalone: true,
   imports: [NgFor, NgIf, FormsModule],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './editable-table.component.html',
   styleUrls: ['./editable-table.component.scss'],
 })
-export class PuiEditableTableComponent implements OnChanges {
-  private cdr = inject(ChangeDetectorRef);
+export class PuiEditableTableComponent {
 
   /* ── Columns ─────────────────────────── */
   _columns: TableColumn[] = [];
@@ -67,14 +65,12 @@ export class PuiEditableTableComponent implements OnChanges {
 
   skeletonRows = Array(5).fill(null);
 
-  ngOnChanges(_: SimpleChanges) { this.cdr.markForCheck(); }
 
   startEdit(i: number): void {
     if (this.editingIndex !== null) return;
     this.editingIndex = i;
     this.draft = { ...this._rows[i] };
     this.rowEdit.emit({ index: i, row: this._rows[i] });
-    this.cdr.markForCheck();
   }
 
   saveEdit(): void {
@@ -94,7 +90,6 @@ export class PuiEditableTableComponent implements OnChanges {
     if (this._confirmDelete) {
       this._pendingDeleteIndex = i;
       this._pendingDeleteRow = this._rows[i];
-      this.cdr.markForCheck();
       return;
     }
     this._doDelete(i);
@@ -110,20 +105,17 @@ export class PuiEditableTableComponent implements OnChanges {
   cancelDeleteRow(): void {
     this._pendingDeleteIndex = null;
     this._pendingDeleteRow = null;
-    this.cdr.markForCheck();
   }
 
   private _doDelete(i: number): void {
     const row = this._rows[i];
     this._rows = this._rows.filter((_, idx) => idx !== i);
     this.rowDelete.emit({ index: i, row });
-    this.cdr.markForCheck();
   }
 
   private _cancelEdit(): void {
     this.editingIndex = null;
     this.draft = {};
-    this.cdr.markForCheck();
   }
 
   private _parse<T>(s: string): T | null {

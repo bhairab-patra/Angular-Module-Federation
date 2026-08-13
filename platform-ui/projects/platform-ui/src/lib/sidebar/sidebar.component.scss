@@ -131,9 +131,17 @@
     /* ── Icon ────────────────────────────────────────────── */
     .pui-sb__item-icon {
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; width: 18px; height: 18px;
+      flex-shrink: 0; width: 20px; height: 20px;
       opacity: .85;
       transition: opacity .13s;
+      /* Material Symbols Rounded — applied directly so plain icon-name strings render */
+      font-family: 'Material Symbols Rounded', sans-serif;
+      font-weight: normal; font-style: normal;
+      font-size: 20px; line-height: 1;
+      letter-spacing: normal; text-transform: none;
+      white-space: nowrap; direction: ltr;
+      -webkit-font-smoothing: antialiased;
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
     .pui-sb__item--active .pui-sb__item-icon,
     .pui-sb__item:hover .pui-sb__item-icon { opacity: 1; }

@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface ListItem {
@@ -18,8 +18,7 @@ export type ListVariant = 'default' | 'bordered' | 'striped' | 'flush';
   selector: 'pui-lib-list',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })

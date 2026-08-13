@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
-  ChangeDetectionStrategy, ViewEncapsulation
+  ViewEncapsulation
 } from '@angular/core';
 import { NgFor, NgIf, NgClass, NgStyle } from '@angular/common';
 import { PuiSearchComponent } from '../search/search.component';
@@ -12,8 +12,7 @@ const DEFAULT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none
   selector: 'pui-lib-sidebar',
   standalone: true,
   imports: [NgFor, NgIf, NgClass, NgStyle, PuiSearchComponent],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })

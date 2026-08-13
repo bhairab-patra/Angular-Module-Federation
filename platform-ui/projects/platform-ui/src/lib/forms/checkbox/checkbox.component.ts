@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+  ViewEncapsulation } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
@@ -8,8 +8,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
   selector: 'pui-lib-checkbox',
   standalone: true,
   imports: [NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PuiCheckboxComponent),
@@ -47,12 +46,10 @@ export class PuiCheckboxComponent implements ControlValueAccessor {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onTouchedFn: () => void = () => {};
 
-  constructor(private cdr: ChangeDetectorRef) {}
 
-  writeValue(val: any): void { this._checked = !!val; this.cdr.markForCheck(); }
+  writeValue(val: any): void { this._checked = !!val; }
   registerOnChange(fn: any): void  { this.onChangeFn = fn; }
   registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
-  setDisabledState(d: boolean): void { this._disabled = d; this.cdr.markForCheck(); }
 
   toggle(e: Event): void {
     if (this._disabled) return;
@@ -61,6 +58,5 @@ export class PuiCheckboxComponent implements ControlValueAccessor {
     this.onTouchedFn();
     this.checkedChange.emit(this._checked);
     this.changed.emit(this._checked);
-    this.cdr.markForCheck();
   }
 }

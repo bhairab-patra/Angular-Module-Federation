@@ -1,13 +1,12 @@
-import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { BadgeVariant, BadgeSize } from '../models/badge.model';
 
 @Component({
   selector: 'pui-lib-badge',
   standalone: true,
-  encapsulation: ViewEncapsulation.ShadowDom,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BadgeComponent {
   @Input() variant: BadgeVariant = 'default';

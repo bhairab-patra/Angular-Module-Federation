@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, HostListener, HostBinding,
-  ChangeDetectionStrategy, ChangeDetectorRef, inject, ViewEncapsulation } from '@angular/core';
+  inject, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
 
@@ -8,13 +8,11 @@ import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
   selector: 'pui-lib-menu',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent {
-  private cdr = inject(ChangeDetectorRef);
 
   @HostBinding('style.position') readonly _pos  = 'relative';
   @HostBinding('style.display')  readonly _disp = 'inline-block';
@@ -47,13 +45,11 @@ export class MenuComponent {
     if (this.disabled) return;
     this.open = !this.open;
     if (!this.open) this.activeSubmenuId = null;
-    this.cdr.markForCheck();
   }
 
   close(): void {
     this.open = false;
     this.activeSubmenuId = null;
-    this.cdr.markForCheck();
   }
 
   select(item: MenuItem, event: Event): void {
@@ -61,7 +57,6 @@ export class MenuComponent {
     if (item.children?.length) {
       event.stopPropagation();
       this.activeSubmenuId = this.activeSubmenuId === item.id ? null : item.id;
-      this.cdr.markForCheck();
       return;
     }
     this.menuSelect.emit(item);

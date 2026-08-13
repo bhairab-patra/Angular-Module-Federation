@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf, NgStyle } from '@angular/common';
 
 export type SkeletonVariant = 'text' | 'circle' | 'rect' | 'card';
@@ -7,8 +7,7 @@ export type SkeletonVariant = 'text' | 'circle' | 'rect' | 'card';
   selector: 'pui-lib-skeleton',
   standalone: true,
   imports: [NgFor, NgIf, NgStyle],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './skeleton.component.html',
   styleUrls: ['./skeleton.component.scss'],
 })

@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, ElementRef, AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, SimpleChanges,
+  SimpleChanges,
   inject, ViewEncapsulation
 } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
@@ -14,13 +14,11 @@ export { TableColumn, SortDir, SortState } from '../models/table.model';
   selector: 'pui-lib-table',
   standalone: true,
   imports: [NgFor, NgIf, DecimalPipe, DatePipe],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class PuiTableComponent implements OnChanges, AfterViewInit {
-  private cdr       = inject(ChangeDetectorRef);
+export class PuiTableComponent implements AfterViewInit {
   private el        = inject(ElementRef);
   private sanitizer = inject(DomSanitizer);
 
@@ -100,11 +98,9 @@ export class PuiTableComponent implements OnChanges, AfterViewInit {
     return rows;
   }
 
-  ngOnChanges(_: SimpleChanges) { this.cdr.markForCheck(); }
 
   ngAfterViewInit(): void {
     this.rowClickEnabled = this.rowClick.observed;
-    this.cdr.markForCheck();
   }
 
   /* ── Handlers ─────────────────────────────── */
@@ -116,13 +112,11 @@ export class PuiTableComponent implements OnChanges, AfterViewInit {
     }
     if (!this.sort.dir) this.sort = { key: '', dir: '' };
     this.sortChange.emit(this.sort);
-    this.cdr.markForCheck();
   }
 
   onSearch(term: string): void {
     this.searchTerm = term;
     this.searchChange.emit(term);
-    this.cdr.markForCheck();
   }
 
   onRowClick(row: any): void { this.rowClick.emit(row); }
@@ -144,12 +138,10 @@ export class PuiTableComponent implements OnChanges, AfterViewInit {
     this.hoveredCellText   = text;
     this.cellTooltipCoords = { top, left };
     this.cellTooltipVisible = true;
-    this.cdr.markForCheck();
   }
 
   hideCellTooltip(): void {
     this.cellTooltipVisible = false;
-    this.cdr.markForCheck();
   }
 
   private _bool(v: boolean | string): boolean {

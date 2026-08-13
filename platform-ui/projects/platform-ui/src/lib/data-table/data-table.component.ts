@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, NgZone, ElementRef, AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef, OnChanges, SimpleChanges,
+  SimpleChanges,
   OnDestroy, inject, ViewEncapsulation
 } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
@@ -14,13 +14,11 @@ export { TableColumn, TableAction, SortDir, SortState } from '../models/table.mo
   selector: 'pui-lib-data-table',
   standalone: true,
   imports: [NgFor, NgIf, DecimalPipe, DatePipe],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
-export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestroy {
-  private cdr = inject(ChangeDetectorRef);
+export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   private zone = inject(NgZone);
   private el = inject(ElementRef);
   private sanitizer = inject(DomSanitizer);
@@ -145,8 +143,6 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
     return this.displayRows.some((r, i) => this.selectedRows.has(this.getRowId(r, i)));
   }
 
-  ngOnChanges(_: SimpleChanges) { this.cdr.markForCheck(); }
-  ngAfterViewInit(): void { this.rowClickEnabled = this.rowClick.observed; this.cdr.markForCheck(); }
   ngOnDestroy(): void { this._detachCloseListener(); }
 
   onSort(key: string): void {
@@ -158,26 +154,22 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
     if (!this.sort.dir) this.sort = { key: '', dir: '' };
     this.page = 1;
     this.sortChange.emit(this.sort);
-    this.cdr.markForCheck();
   }
 
   onSearch(term: string): void {
     this.searchTerm = term;
     this.page = 1;
     this.searchChange.emit(term);
-    this.cdr.markForCheck();
   }
 
   goPage(p: number): void {
     this.page = Math.max(1, Math.min(p, this.totalPages));
     this.pageChange.emit(this.page);
-    this.cdr.markForCheck();
   }
 
   onPageSizeChange(val: string): void {
     this._pageSize = Number(val) || 10;
     this.page = 1;
-    this.cdr.markForCheck();
   }
 
   onRowClick(row: any): void { this.rowClick.emit(row); }
@@ -191,7 +183,6 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
     if (this.selectedRows.has(id)) { this.selectedRows.delete(id); }
     else { this.selectedRows.add(id); }
     this._emitSelection();
-    this.cdr.markForCheck();
   }
 
   toggleAll(checked: boolean): void {
@@ -200,7 +191,6 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
       if (checked) { this.selectedRows.add(id); } else { this.selectedRows.delete(id); }
     });
     this._emitSelection();
-    this.cdr.markForCheck();
   }
 
   toggleActionMenu(rowIndex: number, event: Event): void {
@@ -218,7 +208,6 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
     this.actionMenuPos = { top: Math.max(0, topRel), left: Math.max(0, leftRel) };
     this.openActionRow = rowIndex;
     this.openActionRowData = this.displayRows[rowIndex];
-    this.cdr.markForCheck();
     this.zone.runOutsideAngular(() => {
       setTimeout(() => {
         this._closeMenuListener = () => this.zone.run(() => this._closeMenu());
@@ -230,7 +219,6 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
   onActionClick(action: TableAction, row: any, event: Event): void {
     event.stopPropagation();
     this.openActionRow = null;
-    this.cdr.markForCheck();
     action.action(row);
     this.actionClick.emit({ action, row });
   }
@@ -252,14 +240,16 @@ export class PuiDataTableComponent implements OnChanges, AfterViewInit, OnDestro
     this.hoveredCellText = text;
     this.cellTooltipCoords = { top, left };
     this.cellTooltipVisible = true;
-    this.cdr.markForCheck();
   }
 
-  hideCellTooltip(): void { this.cellTooltipVisible = false; this.cdr.markForCheck(); }
+
+  ngAfterViewInit(): void {}
+
+  hideCellTooltip(): void { this.cellTooltipVisible = false; }
 
   private _closeMenu(): void {
     this.openActionRow = null; this.openActionRowData = null;
-    this.cdr.detectChanges(); this._detachCloseListener();
+    this._detachCloseListener();
   }
 
   private _detachCloseListener(): void {

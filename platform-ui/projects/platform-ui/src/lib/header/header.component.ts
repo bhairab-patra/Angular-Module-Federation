@@ -1,7 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ChangeDetectionStrategy, ChangeDetectorRef,
-  HostListener, ElementRef, ViewEncapsulation
+  HostListener, ElementRef, ViewEncapsulation, inject
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
@@ -10,8 +9,7 @@ import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
   selector: 'pui-lib-header',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
@@ -34,14 +32,12 @@ export class HeaderComponent {
 
   @Input() set showHamburger(v: boolean | string) {
     this._showHamburger = v === true || v === 'true' || (v as any) === '';
-    this.cdr.markForCheck();
   }
   get showHamburger() { return this._showHamburger; }
   private _showHamburger = false;
 
   @Input() set hamburgerOpen(v: boolean | string) {
     this._hamburgerOpen = v === true || v === 'true' || (v as any) === '';
-    this.cdr.markForCheck();
   }
   get hamburgerOpen() { return this._hamburgerOpen; }
   private _hamburgerOpen = false;
@@ -52,7 +48,6 @@ export class HeaderComponent {
   // React: show-help="true"  Angular: [showHelp]="true"  JS: el.showHelp = true
   @Input() set showHelp(v: boolean | string) {
     this._showHelp = v === true || v === 'true' || (v as any) === '';
-    this.cdr.markForCheck();
   }
   get showHelp() { return this._showHelp; }
   private _showHelp = false;
@@ -63,7 +58,6 @@ export class HeaderComponent {
   // JS: el.badge = { text: 'UAT', color: '#f59e0b' }
   @Input() set badge(v: HeaderBadge | string | null) {
     this._badge = typeof v === 'string' ? this._parseJson<HeaderBadge>(v) : v;
-    this.cdr.markForCheck();
   }
   get badge(): HeaderBadge | null { return this._badge; }
   private _badge: HeaderBadge | null = null;
@@ -73,7 +67,6 @@ export class HeaderComponent {
   // Angular: [navLinks]="links"   JS: el.navLinks = [...]
   @Input() set navLinks(v: NavLink[] | string) {
     this._navLinks = typeof v === 'string' ? (this._parseJson<NavLink[]>(v) ?? []) : (v ?? []);
-    this.cdr.markForCheck();
   }
   get navLinks(): NavLink[] { return this._navLinks; }
   private _navLinks: NavLink[] = [];
@@ -83,7 +76,6 @@ export class HeaderComponent {
     this._menuItems = typeof v === 'string'
       ? (this._parseJson<UserMenuItem[]>(v) ?? this._defaultMenuItems())
       : (v ?? this._defaultMenuItems());
-    this.cdr.markForCheck();
   }
   get menuItems(): UserMenuItem[] { return this._menuItems; }
   private _menuItems: UserMenuItem[] = this._defaultMenuItems();
@@ -95,7 +87,7 @@ export class HeaderComponent {
 
   menuOpen = false;
 
-  constructor(private cdr: ChangeDetectorRef, private el: ElementRef) {}
+  private el = inject(ElementRef);
 
   private _parseJson<T>(s: string): T | null {
     if (!s) return null;
@@ -120,13 +112,11 @@ export class HeaderComponent {
   toggleMenu(e: MouseEvent): void {
     e.stopPropagation();
     this.menuOpen = !this.menuOpen;
-    this.cdr.markForCheck();
   }
 
   onMenuAction(item: UserMenuItem): void {
     this.menuAction.emit(item.action);
     this.menuOpen = false;
-    this.cdr.markForCheck();
   }
 
   @HostListener('document:click', ['$event'])
@@ -134,7 +124,6 @@ export class HeaderComponent {
     if (!this.el.nativeElement.contains(e.target)) {
       if (this.menuOpen) {
         this.menuOpen = false;
-        this.cdr.markForCheck();
       }
     }
   }

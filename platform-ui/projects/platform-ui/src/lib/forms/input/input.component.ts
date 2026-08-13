@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
+  ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormSize, InputType } from '../../models/form.model';
@@ -9,8 +9,7 @@ import { FormSize, InputType } from '../../models/form.model';
   selector: 'pui-lib-input',
   standalone: true,
   imports: [NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PuiInputComponent),
@@ -71,15 +70,10 @@ export class PuiInputComponent implements ControlValueAccessor {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onTouched: () => void = () => {};
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
-  writeValue(val: any): void {
-    this.innerValue = val ?? '';
-    this.cdr.markForCheck();
-  }
+  writeValue(val: any): void { this.innerValue = val ?? ''; }
   registerOnChange(fn: any): void  { this.onChange = fn; }
   registerOnTouched(fn: any): void { this.onTouched = fn; }
-  setDisabledState(d: boolean): void { this.disabled = d; this.cdr.markForCheck(); }
+  setDisabledState(d: boolean): void { this.disabled = d; }
 
   onInput(val: string): void {
     this.innerValue = val;
@@ -88,16 +82,12 @@ export class PuiInputComponent implements ControlValueAccessor {
     this.inputChange.emit(val);
   }
 
-  onFocus(): void {
-    this.isFocused = true;
-    this.cdr.markForCheck();
-  }
+  onFocus(): void { this.isFocused = true; }
 
   onBlur(): void {
     this.isFocused = false;
     this.onTouched();
     this.blurred.emit();
-    this.cdr.markForCheck();
   }
 
   clear(e: MouseEvent): void {
@@ -106,12 +96,10 @@ export class PuiInputComponent implements ControlValueAccessor {
     this.onChange('');
     this.valueChange.emit('');
     this.inputEl?.nativeElement.focus();
-    this.cdr.markForCheck();
   }
 
   togglePass(e: MouseEvent): void {
     e.preventDefault();
     this.showPass = !this.showPass;
-    this.cdr.markForCheck();
   }
 }

@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+  ViewEncapsulation } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { RadioOption } from '../../models/form.model';
@@ -9,8 +9,7 @@ import { RadioOption } from '../../models/form.model';
   selector: 'pui-lib-radio-group',
   standalone: true,
   imports: [NgIf, NgFor],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PuiRadioGroupComponent),
@@ -54,12 +53,10 @@ export class PuiRadioGroupComponent implements ControlValueAccessor {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onTouchedFn: () => void = () => {};
 
-  constructor(private cdr: ChangeDetectorRef) {}
 
-  writeValue(val: any): void { this.innerValue = val; this.cdr.markForCheck(); }
+  writeValue(val: any): void { this.innerValue = val ?? null; }
   registerOnChange(fn: any): void  { this.onChangeFn = fn; }
   registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
-  setDisabledState(d: boolean): void { this.disabled = d; this.cdr.markForCheck(); }
 
   select(val: any): void {
     this.innerValue = val;
@@ -67,6 +64,5 @@ export class PuiRadioGroupComponent implements ControlValueAccessor {
     this.onTouchedFn();
     this.valueChange.emit(val);
     this.changed.emit(val);
-    this.cdr.markForCheck();
   }
 }

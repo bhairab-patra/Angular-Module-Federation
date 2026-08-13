@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+  ViewEncapsulation } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormSize, SelectOption } from '../../models/form.model';
@@ -9,8 +9,7 @@ import { FormSize, SelectOption } from '../../models/form.model';
   selector: 'pui-lib-select',
   standalone: true,
   imports: [NgIf, NgFor],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PuiSelectComponent),
@@ -55,24 +54,20 @@ export class PuiSelectComponent implements ControlValueAccessor {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onTouchedFn: () => void = () => {};
 
-  constructor(private cdr: ChangeDetectorRef) {}
 
-  writeValue(val: any): void { this.innerValue = val ?? ''; this.cdr.markForCheck(); }
+  writeValue(val: any): void { this.innerValue = val ?? ''; }
   registerOnChange(fn: any): void  { this.onChangeFn = fn; }
   registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
-  setDisabledState(d: boolean): void { this.disabled = d; this.cdr.markForCheck(); }
 
   onChange2(val: any): void {
     this.innerValue = val;
     this.onChangeFn(val);
     this.valueChange.emit(val);
     this.selectionChange.emit(val);
-    this.cdr.markForCheck();
   }
 
   onBlur(): void {
     this.focused = false;
     this.onTouchedFn();
-    this.cdr.markForCheck();
   }
 }

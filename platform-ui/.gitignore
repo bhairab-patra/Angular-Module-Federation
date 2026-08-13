@@ -17,6 +17,9 @@ out-tsc/
 .vscode/
 .idea/
 
+# Local documents folder
+document/
+
 # Project documentation / local files
 PRD-confluence.md
 PRD.md

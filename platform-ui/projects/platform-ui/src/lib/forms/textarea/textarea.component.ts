@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+  ViewEncapsulation } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormSize } from '../../models/form.model';
@@ -9,8 +9,7 @@ import { FormSize } from '../../models/form.model';
   selector: 'pui-lib-textarea',
   standalone: true,
   imports: [NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.Emulated,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PuiTextareaComponent),
@@ -65,12 +64,10 @@ export class PuiTextareaComponent implements ControlValueAccessor {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onTouchedFn: () => void = () => {};
 
-  constructor(public cdr: ChangeDetectorRef) {}
 
-  writeValue(val: any): void { this.innerValue = val ?? ''; this.cdr.markForCheck(); }
+  writeValue(val: any): void { this.innerValue = val ?? ''; }
   registerOnChange(fn: any): void  { this.onChangeFn = fn; }
   registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
-  setDisabledState(d: boolean): void { this.disabled = d; this.cdr.markForCheck(); }
 
   onInput(val: string): void {
     this.innerValue = val;
@@ -83,6 +80,5 @@ export class PuiTextareaComponent implements ControlValueAccessor {
     this.isFocused = false;
     this.onTouchedFn();
     this.blurred.emit();
-    this.cdr.markForCheck();
   }
 }

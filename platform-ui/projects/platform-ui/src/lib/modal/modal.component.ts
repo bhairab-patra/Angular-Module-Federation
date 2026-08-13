@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ModalSize } from '../models/modal.model';
 
@@ -6,10 +6,9 @@ import { ModalSize } from '../models/modal.model';
   selector: 'pui-lib-modal',
   standalone: true,
   imports: [NgIf],
-  encapsulation: ViewEncapsulation.ShadowDom,
+  encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalComponent {
   @Input() open  = false;
