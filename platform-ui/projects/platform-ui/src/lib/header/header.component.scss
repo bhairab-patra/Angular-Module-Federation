@@ -128,16 +128,21 @@
     .pui-header__caret--open { transform: rotate(180deg); }
 
     /* ── Dropdown menu ────────────────────────── */
+    /* position:fixed escapes overflow:hidden on app-shell and   */
+    /* any stacking context created by Emulated encapsulation.   */
+    /* top/right are set in JS via [style.top] / [style.right].  */
     .pui-header__menu {
-      position: absolute; top: calc(100% + 8px); right: 0;
-      min-width: 220px; background: var(--pui-white);
-      border: 1px solid var(--pui-neutral-200); border-radius: 14px;
-      box-shadow: 0 12px 32px rgba(0,0,0,.15);
+      position: fixed;
+      min-width: 220px;
+      background: var(--pui-white);
+      border: 1px solid var(--pui-neutral-200);
+      border-radius: 14px;
+      box-shadow: 0 12px 32px rgba(0,0,0,.18);
       padding: 6px;
       opacity: 0; transform: translateY(-6px) scale(.97);
       pointer-events: none;
       transition: opacity .2s ease, transform .2s cubic-bezier(.4,0,.2,1);
-      z-index: 999;
+      z-index: 99999;
     }
     .pui-header__menu--open {
       opacity: 1; transform: translateY(0) scale(1); pointer-events: auto;
@@ -176,8 +181,8 @@
       transition: background .12s, color .12s;
     }
     .pui-header__menu-item:hover { background: var(--pui-neutral-100); color: var(--pui-neutral-900); }
-    .pui-header__menu-item--danger { color: var(--pui-error-hover); }
-    .pui-header__menu-item--danger:hover { background: var(--pui-error-hover-bg); color: var(--pui-error-dark); }
+    .pui-header__menu-item--danger { color: var(--pui-error); }
+    .pui-header__menu-item--danger:hover { background: var(--pui-error-hover-bg); color: var(--pui-error-hover); }
     .pui-header__menu-item-icon {
       display: flex; align-items: center; width: 16px; height: 16px; flex-shrink: 0;
     }

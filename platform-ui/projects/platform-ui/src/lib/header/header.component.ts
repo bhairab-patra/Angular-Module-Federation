@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  HostListener, ElementRef, ViewEncapsulation, inject
+  HostListener, ElementRef, ViewEncapsulation, inject, ViewChild
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
@@ -86,7 +86,10 @@ export class HeaderComponent {
   @Output() helpClick  = new EventEmitter<void>();
 
   menuOpen = false;
+  menuTop  = '0px';
+  menuRight = '0px';
 
+  @ViewChild('userArea') private userAreaRef!: ElementRef<HTMLElement>;
   private el = inject(ElementRef);
 
   private _parseJson<T>(s: string): T | null {
@@ -112,6 +115,11 @@ export class HeaderComponent {
   toggleMenu(e: MouseEvent): void {
     e.stopPropagation();
     this.menuOpen = !this.menuOpen;
+    if (this.menuOpen && this.userAreaRef) {
+      const rect = this.userAreaRef.nativeElement.getBoundingClientRect();
+      this.menuTop   = `${rect.bottom + 8}px`;
+      this.menuRight = `${window.innerWidth - rect.right}px`;
+    }
   }
 
   onMenuAction(item: UserMenuItem): void {
@@ -125,6 +133,13 @@ export class HeaderComponent {
       if (this.menuOpen) {
         this.menuOpen = false;
       }
+    }
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    if (this.menuOpen) {
+      this.menuOpen = false;
     }
   }
 }

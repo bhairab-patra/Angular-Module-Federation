@@ -65,7 +65,7 @@
       <div *ngIf="userName" class="pui-header__divider"></div>
 
       <!-- ── User area ── -->
-      <div *ngIf="userName" class="pui-header__user" (click)="toggleMenu($event)">
+      <div *ngIf="userName" #userArea class="pui-header__user" (click)="toggleMenu($event)">
         <div class="pui-header__user-info">
           <span class="pui-header__greeting" *ngIf="greeting">{{ greeting }}, {{ firstName }}</span>
           <span class="pui-header__greeting" *ngIf="!greeting">{{ firstName }}</span>
@@ -85,36 +85,41 @@
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
 
-        <!-- ── Dropdown menu ── -->
-        <div class="pui-header__menu" [class.pui-header__menu--open]="menuOpen"
-             (click)="$event.stopPropagation()">
+      </div>
 
-          <!-- Menu header -->
-          <div class="pui-header__menu-header">
-            <div class="pui-header__menu-avatar"
-                 [style.background]="avatarColor"
-                 [style.color]="avatarTextColor">
-              <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-header__avatar-img" alt="">
-              <span *ngIf="!avatarUrl">{{ initials }}</span>
-            </div>
-            <div>
-              <div class="pui-header__menu-name">{{ userName }}</div>
-              <div class="pui-header__menu-email">{{ userEmail }}</div>
-            </div>
+      <!-- ── Dropdown menu (fixed — escapes overflow + stacking context) ── -->
+      <div *ngIf="userName"
+           class="pui-header__menu"
+           [class.pui-header__menu--open]="menuOpen"
+           [style.top]="menuTop"
+           [style.right]="menuRight"
+           (click)="$event.stopPropagation()">
+
+        <!-- Menu header -->
+        <div class="pui-header__menu-header">
+          <div class="pui-header__menu-avatar"
+               [style.background]="avatarColor"
+               [style.color]="avatarTextColor">
+            <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-header__avatar-img" alt="">
+            <span *ngIf="!avatarUrl">{{ initials }}</span>
           </div>
-
-          <div class="pui-header__menu-divider"></div>
-
-          <!-- Menu items -->
-          <ng-container *ngFor="let item of menuItems">
-            <button class="pui-header__menu-item"
-                    [class.pui-header__menu-item--danger]="item.danger"
-                    (click)="onMenuAction(item)">
-              <span *ngIf="item.icon" class="pui-header__menu-item-icon" [innerHTML]="item.icon"></span>
-              {{ item.label }}
-            </button>
-          </ng-container>
+          <div>
+            <div class="pui-header__menu-name">{{ userName }}</div>
+            <div class="pui-header__menu-email">{{ userEmail }}</div>
+          </div>
         </div>
+
+        <div class="pui-header__menu-divider"></div>
+
+        <!-- Menu items -->
+        <ng-container *ngFor="let item of menuItems">
+          <button class="pui-header__menu-item"
+                  [class.pui-header__menu-item--danger]="item.danger"
+                  (click)="onMenuAction(item)">
+            <span *ngIf="item.icon" class="pui-header__menu-item-icon" [innerHTML]="item.icon"></span>
+            {{ item.label }}
+          </button>
+        </ng-container>
       </div>
 
     </header>
