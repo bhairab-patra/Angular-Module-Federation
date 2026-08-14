@@ -1,38 +1,36 @@
-﻿
+
     :host { display: block; pointer-events: none; }
 
-    /* â”€â”€ Container â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pui-toast-container {
+    /* ── Container ──────────────────────── */
+    .pui-tc {
       position: fixed; z-index: 9999;
       display: flex; flex-direction: column; gap: var(--pui-space-2-5);
       pointer-events: none;
     }
-    .pui-toast-container--top-right     { top: var(--pui-space-5); right: var(--pui-space-5); align-items: flex-end; }
-    .pui-toast-container--top-left      { top: var(--pui-space-5); left: var(--pui-space-5); align-items: flex-start; }
-    .pui-toast-container--top-center    { top: var(--pui-space-5); left: 50%; transform: translateX(-50%); align-items: center; }
-    .pui-toast-container--bottom-right  { bottom: var(--pui-space-5); right: var(--pui-space-5); align-items: flex-end; flex-direction: column-reverse; }
-    .pui-toast-container--bottom-left   { bottom: var(--pui-space-5); left: var(--pui-space-5); align-items: flex-start; flex-direction: column-reverse; }
-    .pui-toast-container--bottom-center { bottom: var(--pui-space-5); left: 50%; transform: translateX(-50%); align-items: center; flex-direction: column-reverse; }
+    .pui-tc--top-right     { top: var(--pui-space-5); right: var(--pui-space-5); align-items: flex-end; }
+    .pui-tc--top-left      { top: var(--pui-space-5); left: var(--pui-space-5); align-items: flex-start; }
+    .pui-tc--top-center    { top: var(--pui-space-5); left: 50%; transform: translateX(-50%); align-items: center; }
+    .pui-tc--bottom-right  { bottom: var(--pui-space-5); right: var(--pui-space-5); align-items: flex-end; flex-direction: column-reverse; }
+    .pui-tc--bottom-left   { bottom: var(--pui-space-5); left: var(--pui-space-5); align-items: flex-start; flex-direction: column-reverse; }
+    .pui-tc--bottom-center { bottom: var(--pui-space-5); left: 50%; transform: translateX(-50%); align-items: center; flex-direction: column-reverse; }
 
-    /* â”€â”€ Toast â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* ── Toast ───────────────────────────── */
     .pui-toast {
       position: relative;
-      display: flex;
-      align-items: flex-start;
+      display: flex; align-items: flex-start;
       gap: var(--pui-space-3);
       padding: var(--pui-space-4);
       border-radius: var(--pui-radius-xl);
-      background: var(--pui-toast-bg);
-      color: var(--pui-toast-text);
-      min-width: 280px;
-      max-width: 420px;
+      background: var(--pui-toast-bg, var(--pui-white));
+      color: var(--pui-toast-text, var(--pui-neutral-800));
+      min-width: 280px; max-width: 420px;
       box-shadow: var(--pui-shadow-toast);
-      pointer-events: all;
-      overflow: hidden;
+      pointer-events: all; overflow: hidden;
       border: 1px solid var(--pui-toast-border, var(--pui-neutral-150));
       animation: pui-toast-in var(--pui-duration-base) cubic-bezier(.25,.8,.25,1) both;
+      font-family: var(--pui-font-family);
     }
-    .pui-toast--leaving {
+    .pui-toast--exit {
       animation: pui-toast-out var(--pui-duration-base) ease forwards;
     }
 
@@ -45,57 +43,53 @@
       to   { opacity: 0; transform: translateY(-8px) scale(.97); max-height: 0; margin-bottom: 0; }
     }
 
-    /* â”€â”€ Icon â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pui-toast-icon {
+    /* ── Left accent bar ─────────────────── */
+    .pui-toast__bar {
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: var(--pui-space-1);
+      border-radius: var(--pui-radius-xl) 0 0 var(--pui-radius-xl);
+      background: var(--pui-neutral-300);
+    }
+    .pui-toast--success .pui-toast__bar { background: var(--pui-success); }
+    .pui-toast--error   .pui-toast__bar { background: var(--pui-error); }
+    .pui-toast--warning .pui-toast__bar { background: var(--pui-warning); }
+    .pui-toast--info    .pui-toast__bar { background: var(--pui-info); }
+
+    /* ── Icon ────────────────────────────── */
+    .pui-toast__icon {
       flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       width: 20px; height: 20px;
       margin-top: var(--pui-space-0-5);
     }
-    .pui-toast--success .pui-toast-icon { color: var(--pui-success); }
-    .pui-toast--error   .pui-toast-icon { color: var(--pui-error); }
-    .pui-toast--warning .pui-toast-icon { color: var(--pui-warning-text); }
-    .pui-toast--info    .pui-toast-icon { color: var(--pui-info); }
+    .pui-toast--success .pui-toast__icon { color: var(--pui-success); }
+    .pui-toast--error   .pui-toast__icon { color: var(--pui-error); }
+    .pui-toast--warning .pui-toast__icon { color: var(--pui-warning); }
+    .pui-toast--info    .pui-toast__icon { color: var(--pui-info); }
 
-    /* â”€â”€ Body â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pui-toast-body {
-      flex: 1;
-      display: flex; flex-direction: column; gap: var(--pui-space-1-5);
+    /* ── Body ────────────────────────────── */
+    .pui-toast__body {
+      flex: 1; display: flex; flex-direction: column; gap: var(--pui-space-1-5);
     }
-    .pui-toast-title {
-      font-size: var(--pui-text-base);
-      font-weight: 600;
-      font-family: 'Poppins', system-ui, sans-serif;
-      line-height: 1.4;
-      color: var(--pui-toast-title, var(--pui-neutral-900));
-      margin: 0;
+    .pui-toast__title {
+      font-size: var(--pui-text-base); font-weight: 600; line-height: 1.4;
+      color: var(--pui-toast-title, var(--pui-neutral-900)); margin: 0;
     }
-    .pui-toast-message {
-      font-size: var(--pui-text-sm);
-      font-family: 'Poppins', system-ui, sans-serif;
-      line-height: 1.5;
-      color: var(--pui-toast-muted, var(--pui-neutral-600));
-      margin: 0;
+    .pui-toast__msg {
+      font-size: var(--pui-text-sm); line-height: 1.5;
+      color: var(--pui-toast-muted, var(--pui-neutral-600)); margin: 0;
     }
 
-    /* â”€â”€ Actions â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pui-toast-actions {
-      display: flex; gap: var(--pui-space-2); flex-wrap: wrap; margin-top: var(--pui-space-1);
-    }
-    .pui-toast-action {
-      font-size: var(--pui-text-xs);
-      font-weight: 600;
-      font-family: inherit;
-      background: none; border: none;
-      padding: 0; cursor: pointer;
-      color: var(--pui-brand);
-      text-decoration: underline;
-      text-underline-offset: 2px;
+    /* ── Action ──────────────────────────── */
+    .pui-toast__action {
+      font-size: var(--pui-text-xs); font-weight: 600; font-family: inherit;
+      background: none; border: none; padding: 0; cursor: pointer;
+      color: var(--pui-brand); text-decoration: underline; text-underline-offset: 2px;
       &:hover { color: var(--pui-brand-hover); }
     }
 
-    /* â”€â”€ Close button â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pui-toast-close {
+    /* ── Dismiss ─────────────────────────── */
+    .pui-toast__dismiss {
       flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
       width: 24px; height: 24px;
@@ -106,26 +100,25 @@
       &:hover { color: var(--pui-neutral-700); background: var(--pui-neutral-100); }
     }
 
-    /* â”€â”€ Progress bar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pui-toast-progress {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
+    /* ── Progress ────────────────────────── */
+    .pui-toast__progress {
+      position: absolute; bottom: 0; left: 0; right: 0;
       height: var(--pui-space-0-75);
       background: var(--pui-neutral-200);
       border-radius: 0 0 var(--pui-radius-xl) var(--pui-radius-xl);
       overflow: hidden;
     }
-    .pui-toast-progress__bar {
-      height: 100%;
-      width: 4px;
+    .pui-toast__progress-fill {
+      height: 100%; width: 100%;
       border-radius: 0 2px 2px 0;
       background: var(--pui-brand);
       animation: pui-toast-progress linear both;
     }
-    .pui-toast--success .pui-toast-progress__bar { background: var(--pui-success); }
-    .pui-toast--error   .pui-toast-progress__bar { background: var(--pui-error); }
-    .pui-toast--warning .pui-toast-progress__bar { background: var(--pui-warning-text); }
-    .pui-toast--info    .pui-toast-progress__bar { background: var(--pui-info); }
+    .pui-toast__progress-fill--paused { animation-play-state: paused; }
+    .pui-toast--success .pui-toast__progress-fill { background: var(--pui-success); }
+    .pui-toast--error   .pui-toast__progress-fill { background: var(--pui-error); }
+    .pui-toast--warning .pui-toast__progress-fill { background: var(--pui-warning); }
+    .pui-toast--info    .pui-toast__progress-fill { background: var(--pui-info); }
 
     @keyframes pui-toast-progress {
       from { width: 100%; }

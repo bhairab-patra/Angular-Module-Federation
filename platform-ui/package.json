@@ -25,6 +25,7 @@
     "build:elements": "ng build elements --configuration production && node scripts/concat-elements.js",
     "build:elements:dev": "ng build elements --configuration development && node scripts/concat-elements.js",
     "build:full": "npm run build:publish && npm run build:elements && node scripts/copy-elements-to-dist.js",
+    "publish:full": "npm run build:full && npm publish ./dist/platform-ui --access public",
 
     "test": "ng test platform-ui",
     "docs": "ng serve docs --port 4210 --open",

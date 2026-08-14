@@ -1,8 +1,11 @@
 {
   "name": "@bhairab-patra/platform-ui",
-  "version": "1.6.5",
+  "version": "1.6.9",
+  "description": "Shared UI component library — Angular library + Web Components bundle",
+  "keywords": ["angular", "web-components", "ui", "design-system", "platform-ui"],
+  "license": "MIT",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
+    "registry": "https://registry.npmjs.org",
     "access": "public"
   },
   "peerDependencies": {
@@ -12,5 +15,9 @@
   "dependencies": {
     "tslib": "^2.3.0"
   },
-  "sideEffects": false
+  "sideEffects": [
+    "./elements/pui-elements.js",
+    "./elements/styles.css",
+    "*.css"
+  ]
 }

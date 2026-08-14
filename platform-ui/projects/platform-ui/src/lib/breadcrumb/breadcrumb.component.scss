@@ -2,6 +2,11 @@
   display: block;
 }
 
+.pui-bc {
+  display: block;
+  font-family: var(--pui-font-family);
+}
+
 .pui-bc__list {
   display: flex;
   align-items: center;
@@ -10,7 +15,7 @@
   margin: 0;
   padding: 0;
   gap: 0;
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: var(--pui-font-family);
 }
 
 .pui-bc__item {

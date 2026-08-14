@@ -37,6 +37,6 @@
     /* Label */
     .pui-sp-label {
       font-size: var(--pui-text-base); font-weight: 500;
-      font-family: 'Poppins', system-ui, sans-serif;
+      font-family: var(--pui-font-family);
       letter-spacing: .01em;
     }

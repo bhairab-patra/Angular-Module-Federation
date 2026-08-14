@@ -1,176 +1,26 @@
 
     :host { display: block; height: 100%; }
 
-    /* ── Shell layout ────────────────── */
-    .pui-shell {
+    /* ── Shell root ──────────────────── */
+    .pas {
       display: flex; flex-direction: column;
       height: 100vh; min-height: 0;
-      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      font-family: var(--pui-font-family);
     }
-    .pui-shell__body {
+
+    /* ── Body: sidebar + main ────────── */
+    .pas__body {
       display: flex; flex: 1; min-height: 0; overflow: hidden;
     }
-    .pui-shell__main {
+
+    /* ── Main content area ───────────── */
+    .pas__content {
       flex: 1; overflow-y: auto; overflow-x: hidden;
       display: flex; flex-direction: column;
-    }
-    .pui-shell__content {
-      flex: 1; padding: var(--pui-space-6) var(--pui-space-8);
-    }
-
-    /* ── Top bar ─────────────────────── */
-    .pui-shell-topbar {
-      display: flex; align-items: center;
-      height: 56px; padding: 0 var(--pui-space-5);
-      border-bottom: 1px solid var(--pui-neutral-200);
-      background: var(--pui-topbar-bg, var(--pui-white));
-      flex-shrink: 0;
-      gap: var(--pui-space-2-5);
-      position: relative; z-index: 30;
-    }
-
-    /* ── Hamburger ───────────────────── */
-    .pui-shell-hamburger {
-      display: none;
-      flex-direction: column; justify-content: center;
-      gap: 4.5px;
-      width: 28px; height: 28px;
-      background: none; border: none; cursor: pointer;
-      border-radius: var(--pui-radius-sm);
-      padding: var(--pui-space-1);
-      color: var(--pui-neutral-600);
-      transition: background var(--pui-duration-base);
-      &:hover { background: var(--pui-neutral-100); }
-    }
-    .pui-shell-hamburger__bar {
-      width: 18px; height: 1.5px;
-      background: currentColor;
-      border-radius: var(--pui-radius-full);
-      transition: transform var(--pui-duration-slow), opacity var(--pui-duration-slow);
-    }
-    .pui-shell-hamburger--open .pui-shell-hamburger__bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .pui-shell-hamburger--open .pui-shell-hamburger__bar:nth-child(2) { opacity: 0; }
-    .pui-shell-hamburger--open .pui-shell-hamburger__bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-    /* ── Brand ───────────────────────── */
-    .pui-shell-brand {
-      display: flex; align-items: center; gap: var(--pui-space-2-5);
-      text-decoration: none;
-      font-size: var(--pui-text-lg);
-      font-weight: 700;
-      color: var(--pui-neutral-900);
-    }
-    .pui-shell-brand__logo {
-      width: 32px; height: 32px;
-      border-radius: var(--pui-radius-md);
-    }
-    .pui-shell-brand__wordmark { line-height: 1; }
-    .pui-shell-brand__env {
-      font-size: var(--pui-text-2xs);
-      font-weight: 600;
-      padding: var(--pui-space-px) var(--pui-space-1-5);
-      border-radius: var(--pui-radius-2);
-      background: var(--pui-warning-bg);
-      color: var(--pui-warning-dark);
-    }
-
-    /* ── Nav spacer ──────────────────── */
-    .pui-shell-topbar__spacer { flex: 1; }
-
-    /* ── Top nav ─────────────────────── */
-    .pui-shell-topnav {
-      display: flex; align-items: center; gap: var(--pui-space-1);
-    }
-    .pui-shell-topnav__link {
-      display: inline-flex; align-items: center; gap: var(--pui-space-1-5);
-      padding: var(--pui-space-1-5) var(--pui-space-2-5);
-      border-radius: var(--pui-radius-md);
-      font-size: var(--pui-text-base);
-      font-weight: 500;
-      font-family: inherit;
-      color: var(--pui-neutral-600);
-      text-decoration: none; cursor: pointer;
-      background: none; border: none;
-      transition: color var(--pui-duration-base), background var(--pui-duration-base);
-      &:hover { color: var(--pui-neutral-900); background: var(--pui-neutral-100); }
-      &--active { color: var(--pui-brand); font-weight: 600; background: rgba(18,198,168,.06); }
-    }
-
-    /* ── Actions zone ────────────────── */
-    .pui-shell-actions {
-      display: flex; align-items: center; gap: var(--pui-space-1-5);
-    }
-    .pui-shell-action-btn {
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px;
-      border-radius: var(--pui-radius-md);
-      background: none; border: none; cursor: pointer;
-      color: var(--pui-neutral-500);
-      transition: color var(--pui-duration-base), background var(--pui-duration-base);
-      &:hover { color: var(--pui-neutral-800); background: var(--pui-neutral-100); }
-    }
-    .pui-shell-notif-badge {
-      position: absolute; top: var(--pui-space-1); right: var(--pui-space-1);
-      width: 8px; height: 8px;
-      background: var(--pui-error); border-radius: 50%;
-      border: 2px solid var(--pui-white);
-    }
-
-    /* ── Sidebar ─────────────────────── */
-    .pui-shell-sidebar {
-      width: 220px; flex-shrink: 0;
-      background: var(--pui-sidebar-bg, var(--pui-neutral-50));
-      border-right: 1px solid var(--pui-neutral-200);
-      display: flex; flex-direction: column;
-      overflow-y: auto; overflow-x: hidden;
-      transition: width var(--pui-duration-slow), transform var(--pui-duration-slow);
-    }
-    .pui-shell-sidebar--collapsed { width: 56px; }
-
-    /* ── Sidebar toggle ──────────────── */
-    .pui-shell-sidebar-toggle {
-      display: flex; align-items: center; justify-content: center;
-      width: 28px; height: 28px;
-      background: var(--pui-white); border: 1px solid var(--pui-neutral-200);
-      border-radius: var(--pui-radius-md);
-      cursor: pointer; color: var(--pui-neutral-500);
-      transition: color var(--pui-duration-base), border-color var(--pui-duration-base);
-      position: absolute; right: calc(-14px); top: var(--pui-space-5);
-      z-index: 10;
-      &:hover { color: var(--pui-neutral-800); border-color: var(--pui-neutral-300); }
-    }
-
-    /* ── Mobile overlay ──────────────── */
-    .pui-shell-overlay {
-      display: none; position: fixed; inset: 0;
-      background: rgba(0,0,0,.35); z-index: 40;
-      animation: pui-fade-in var(--pui-duration-base) ease;
-    }
-    @keyframes pui-fade-in {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    /* ── Footer ──────────────────────── */
-    .pui-shell-footer {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: var(--pui-space-3) var(--pui-space-5);
-      border-top: 1px solid var(--pui-neutral-200);
-      background: var(--pui-white);
-      font-size: var(--pui-text-2xs);
-      color: var(--pui-neutral-400);
+      padding: var(--pui-space-6) var(--pui-space-8);
     }
 
     /* ── Responsive ──────────────────── */
     @media (max-width: 768px) {
-      .pui-shell-sidebar {
-        position: fixed; left: 0; top: 0; bottom: 0; z-index: 50;
-        transform: translateX(-100%); width: 260px;
-        &--open { transform: translateX(0); }
-      }
-      .pui-shell-overlay { display: block; }
-      .pui-shell-hamburger { display: flex; }
-      .pui-shell__content { padding: var(--pui-space-4); }
-      .pui-shell-topnav { display: none; }
+      .pas__content { padding: var(--pui-space-4); }
     }
