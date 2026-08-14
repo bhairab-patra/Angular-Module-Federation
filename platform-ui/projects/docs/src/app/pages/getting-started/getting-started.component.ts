@@ -71,9 +71,30 @@ type Framework = 'angular' | 'react' | 'html';
             <li>An Angular 19 project — standalone or NgModule both work</li>
             <li>A GitHub Personal Access Token with <code>read:packages</code> scope</li>
           </ul>
-          <div class="note note--info">
-            Platform UI uses <strong>Angular 19 standalone components</strong> internally.
-            NgModule apps still work — just import each component inside your <code>imports</code> array.
+          <!-- How it works cards -->
+          <div class="hiw-header">
+            <span class="hiw-label">How it works</span>
+            <span class="hiw-sub">Platform UI ships as <strong>Angular 19 standalone components</strong>. NgModule apps work too — just add them to your <code>imports</code> array.</span>
+          </div>
+          <div class="hiw-grid">
+            <div class="hiw-card">
+              <div class="hiw-card__icon">📥</div>
+              <div class="hiw-card__title">Standalone import</div>
+              <div class="hiw-card__desc">Add the component directly to your standalone component's <code>imports</code></div>
+              <code class="hiw-card__code">imports: [PuiButtonComponent]</code>
+            </div>
+            <div class="hiw-card">
+              <div class="hiw-card__icon">🧩</div>
+              <div class="hiw-card__title">NgModule import</div>
+              <div class="hiw-card__desc">Import in your <code>&#64;NgModule</code> — all its components become available in templates</div>
+              <code class="hiw-card__code">imports: [PuiButtonComponent]</code>
+            </div>
+            <div class="hiw-card">
+              <div class="hiw-card__icon">🔗</div>
+              <div class="hiw-card__title">Template binding</div>
+              <div class="hiw-card__desc">Use standard Angular <code>[input]</code> and <code>(event)</code> bindings</div>
+              <code class="hiw-card__code">[label]="'Save'" (clicked)="onSave()"</code>
+            </div>
           </div>
         </section>
 
@@ -298,14 +319,31 @@ type Framework = 'angular' | 'react' | 'html';
             <li>A React 18 / 19 project — Vite is recommended</li>
             <li>A GitHub Personal Access Token with <code>read:packages</code> scope</li>
           </ul>
-          <div class="note note--info">
-            Platform UI exposes components as <strong>Angular Elements</strong> (standard Web Components).
-            React 19 supports custom elements natively — no wrapper needed.<br><br>
-            <strong>String inputs</strong> → kebab-case HTML attributes (<code>app-title="My App"</code>).<br>
-            <strong>Array / Object inputs</strong> → pass as a <code>JSON.stringify()</code> string attribute —
-            Angular Elements parses them via <code>attributeChangedCallback</code> which is zone-patched
-            and triggers change detection automatically.<br>
-            <strong>Events</strong> → native <code>addEventListener</code> via a <code>ref</code>.
+
+          <!-- How it works cards -->
+          <div class="hiw-header">
+            <span class="hiw-label">How it works</span>
+            <span class="hiw-sub">Platform UI exposes components as <strong>Angular Elements</strong> (Web Components). React 19 supports custom elements natively — no wrapper needed.</span>
+          </div>
+          <div class="hiw-grid">
+            <div class="hiw-card">
+              <div class="hiw-card__icon">🔤</div>
+              <div class="hiw-card__title">String inputs</div>
+              <div class="hiw-card__desc">Pass as kebab-case HTML attributes</div>
+              <code class="hiw-card__code">app-title="My App"</code>
+            </div>
+            <div class="hiw-card">
+              <div class="hiw-card__icon">📦</div>
+              <div class="hiw-card__title">Array / Object inputs</div>
+              <div class="hiw-card__desc">Stringify and pass as attribute — Angular parses via <code>attributeChangedCallback</code></div>
+              <code class="hiw-card__code">groups='&#123;JSON.stringify(data)&#125;'</code>
+            </div>
+            <div class="hiw-card">
+              <div class="hiw-card__icon">⚡</div>
+              <div class="hiw-card__title">Events</div>
+              <div class="hiw-card__desc">Native CustomEvents — listen via <code>addEventListener</code> on a ref</div>
+              <code class="hiw-card__code">ref.addEventListener('itemSelect', fn)</code>
+            </div>
           </div>
         </section>
 
@@ -602,9 +640,30 @@ type Framework = 'angular' | 'react' | 'html';
 
         <div class="fw-badge fw-badge--html">Plain HTML</div>
 
-        <div class="note note--info" style="margin-bottom:32px">
-          No build tool, no bundler, no framework. Install the package via npm, then serve over HTTP.
-          Angular Elements <strong>cannot run from <code>file://</code></strong> — you must use a local HTTP server.
+        <!-- How it works cards -->
+        <div class="hiw-header" style="margin-top:4px">
+          <span class="hiw-label">How it works</span>
+          <span class="hiw-sub">No build tool, no bundler, no framework — just a <code>&lt;script&gt;</code> tag. Angular Elements <strong>cannot run from <code>file://</code></strong> — use a local HTTP server.</span>
+        </div>
+        <div class="hiw-grid" style="margin-bottom:28px">
+          <div class="hiw-card">
+            <div class="hiw-card__icon">🏷️</div>
+            <div class="hiw-card__title">String inputs</div>
+            <div class="hiw-card__desc">Pass as kebab-case HTML attributes directly on the element tag</div>
+            <code class="hiw-card__code">app-title="My App"</code>
+          </div>
+          <div class="hiw-card">
+            <div class="hiw-card__icon">📦</div>
+            <div class="hiw-card__title">Array / Object inputs</div>
+            <div class="hiw-card__desc">Set via <code>element.setAttribute()</code> with a <code>JSON.stringify()</code> value</div>
+            <code class="hiw-card__code">el.setAttribute('items', JSON.stringify(arr))</code>
+          </div>
+          <div class="hiw-card">
+            <div class="hiw-card__icon">⚡</div>
+            <div class="hiw-card__title">Events</div>
+            <div class="hiw-card__desc">Native CustomEvents — listen with <code>addEventListener</code></div>
+            <code class="hiw-card__code">el.addEventListener('itemSelect', fn)</code>
+          </div>
         </div>
 
         <section id="html-npmrc" class="gs-section">
@@ -832,6 +891,39 @@ type Framework = 'angular' | 'react' | 'html';
     .note--info    { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
     .note--success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
     .note--warn    { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+
+    /* How it works section */
+    .hiw-header {
+      display: flex; align-items: baseline; gap: 12px; margin: 18px 0 12px;
+      flex-wrap: wrap;
+    }
+    .hiw-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em;
+      color: #6b7280; flex-shrink: 0;
+    }
+    .hiw-sub {
+      font-size: 13px; color: #374151; line-height: 1.5;
+    }
+    .hiw-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;
+    }
+    @media (max-width: 700px) {
+      .hiw-grid { grid-template-columns: 1fr; }
+    }
+    .hiw-card {
+      display: flex; flex-direction: column; gap: 6px;
+      background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .hiw-card__icon { font-size: 20px; line-height: 1; }
+    .hiw-card__title { font-size: 13px; font-weight: 700; color: #111827; }
+    .hiw-card__desc { font-size: 12px; color: #6b7280; line-height: 1.55; }
+    .hiw-card__code {
+      display: block; margin-top: 4px;
+      font-family: 'Fira Code','Cascadia Code', monospace; font-size: 11.5px;
+      background: #e5e7eb; color: #111827; border-radius: 6px;
+      padding: 5px 8px; word-break: break-all;
+    }
 
     .file-list { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; }
     .file-row  { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: 10px; background: #f9fafb; border: 1px solid #e5e7eb; }
