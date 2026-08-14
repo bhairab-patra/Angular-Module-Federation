@@ -97,8 +97,16 @@ type Framework = 'angular' | 'react' | 'html';
 
         <section id="ng-styles" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">4</span> Add Global Styles</h2>
-          <p class="gs-p">Open <code>angular.json</code> and add the library stylesheet to the <code>"styles"</code> array. This loads the Poppins font and all CSS custom properties:</p>
+          <p class="gs-p">
+            Open <code>angular.json</code> and add <strong>two</strong> library CSS files to the <code>"styles"</code> array.
+            The tokens file defines all CSS custom properties; the theme file applies the default teal colour scheme.
+            Consumers import them explicitly — they are never bundled automatically:
+          </p>
           <app-code lang="angular.json" [id]="'ng-styles'" [text]="code.ng.styles" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <div class="note note--warn">
+            Do <strong>not</strong> import from <code>elements/styles.css</code> — that path is for the Angular Elements / web-component build only.
+            Angular consumers always import from <code>styles/tokens.css</code> and <code>styles/themes/theme-new.css</code>.
+          </div>
         </section>
 
         <section id="ng-import" class="gs-section">
@@ -113,8 +121,16 @@ type Framework = 'angular' | 'react' | 'html';
 
         <section id="ng-use" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">6</span> Full App Shell Example</h2>
-          <p class="gs-p">Drop <code>pui-lib-app-shell</code> into your root component and you get a full layout — collapsible sidebar, header with user menu, and a slot for your router outlet — in a single tag:</p>
-          <app-code lang="app.component.ts" [id]="'ng-shell'" [text]="code.ng.shell" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <p class="gs-p">
+            Drop <code>pui-lib-app-shell</code> into your root component.
+            Wire <code>provideRouter(routes)</code> in <code>app.config.ts</code> and place
+            <code>&lt;router-outlet /&gt;</code> inside the shell tag — the sidebar navigation
+            drives Angular's router automatically via the <code>(itemSelect)</code> output:
+          </p>
+          <app-code lang="app.config.ts" [id]="'ng-config'" [text]="code.ng.appConfig" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <app-code lang="app.routes.ts" [id]="'ng-routes'" [text]="code.ng.routes" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:14px"></app-code>
+          <app-code lang="app.component.ts" [id]="'ng-shell'" [text]="code.ng.shell" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:14px"></app-code>
+          <app-code lang="app.component.html" [id]="'ng-shell-html'" [text]="code.ng.shellHtml" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:14px"></app-code>
         </section>
 
         <section id="ng-verify" class="gs-section">
@@ -181,7 +197,7 @@ type Framework = 'angular' | 'react' | 'html';
 
         <section id="ng-local-styles" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">6</span> Add Global Styles</h2>
-          <p class="gs-p">Add the library stylesheet to the <code>"styles"</code> array in <code>angular.json</code>:</p>
+          <p class="gs-p">Add the two library CSS files to the <code>"styles"</code> array in <code>angular.json</code>. After linking, the symlink makes these resolve to your local <code>dist/platform-ui/styles/</code>:</p>
           <app-code lang="angular.json" [id]="'ng-local-styles'" [text]="code.ng.stylesLocal" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
@@ -284,8 +300,12 @@ type Framework = 'angular' | 'react' | 'html';
           </ul>
           <div class="note note--info">
             Platform UI exposes components as <strong>Angular Elements</strong> (standard Web Components).
-            React 19 supports custom elements natively — no wrapper needed.
-            Object and array inputs must be set as <strong>DOM properties</strong> via a <code>ref</code>, not as HTML attributes.
+            React 19 supports custom elements natively — no wrapper needed.<br><br>
+            <strong>String inputs</strong> → kebab-case HTML attributes (<code>app-title="My App"</code>).<br>
+            <strong>Array / Object inputs</strong> → pass as a <code>JSON.stringify()</code> string attribute —
+            Angular Elements parses them via <code>attributeChangedCallback</code> which is zone-patched
+            and triggers change detection automatically.<br>
+            <strong>Events</strong> → native <code>addEventListener</code> via a <code>ref</code>.
           </div>
         </section>
 
@@ -304,7 +324,7 @@ type Framework = 'angular' | 'react' | 'html';
         <section id="rx-install" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">4</span> Install the Library</h2>
           <app-code lang="bash" [id]="'rx-install'" [text]="code.react.install" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-          <p class="gs-p" style="margin-top:12px">After install, two files inside the package are used by React:</p>
+          <p class="gs-p" style="margin-top:12px">After install, the files used by React live inside the package:</p>
           <div class="file-list">
             <div class="file-row">
               <span class="file-icon">📄</span>
@@ -314,23 +334,60 @@ type Framework = 'angular' | 'react' | 'html';
               </div>
             </div>
             <div class="file-row">
+              <span class="file-icon">📄</span>
+              <div>
+                <div class="file-name">node_modules/&#64;bhairab-patra/platform-ui/elements/runtime.js</div>
+                <div class="file-desc">Angular Webpack runtime — must load before pui-elements.js</div>
+              </div>
+            </div>
+            <div class="file-row">
+              <span class="file-icon">📄</span>
+              <div>
+                <div class="file-name">node_modules/&#64;bhairab-patra/platform-ui/elements/polyfills.js</div>
+                <div class="file-desc">Zone.js polyfills — must load before pui-elements.js</div>
+              </div>
+            </div>
+            <div class="file-row">
               <span class="file-icon">🎨</span>
               <div>
-                <div class="file-name">node_modules/&#64;bhairab-patra/platform-ui/elements/styles.css</div>
-                <div class="file-desc">Poppins font + all CSS custom properties / design tokens</div>
+                <div class="file-name">node_modules/&#64;bhairab-patra/platform-ui/styles/tokens.css</div>
+                <div class="file-desc">CSS custom properties (design tokens) — load in &lt;head&gt;</div>
+              </div>
+            </div>
+            <div class="file-row">
+              <span class="file-icon">🎨</span>
+              <div>
+                <div class="file-name">node_modules/&#64;bhairab-patra/platform-ui/styles/themes/theme-new.css</div>
+                <div class="file-desc">Default teal theme — load after tokens.css</div>
               </div>
             </div>
           </div>
         </section>
 
         <section id="rx-bootstrap" class="gs-section">
-          <h2 class="gs-h2"><span class="step-badge">5</span> Bootstrap Web Components</h2>
-          <p class="gs-p">Import the elements bundle once at the top of <code>src/main.tsx</code>. This registers all <code>pui-*</code> custom elements with the browser before React renders anything:</p>
-          <app-code lang="src/main.tsx" [id]="'rx-main'" [text]="code.react.main" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <h2 class="gs-h2"><span class="step-badge">5</span> Load the Elements Bundle in index.html</h2>
+          <p class="gs-p">
+            The Angular Elements bundle is <strong>not an ES module</strong> — it must be loaded as plain <code>&lt;script&gt;</code> tags in <code>index.html</code>,
+            <strong>in this exact order</strong>. The styles must also be loaded via <code>&lt;link&gt;</code> tags:
+          </p>
+          <app-code lang="index.html" [id]="'rx-main'" [text]="code.react.main" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <div class="note note--warn" style="margin-top:14px">
+            <strong>Order matters:</strong> runtime.js → polyfills.js → pui-elements.js.
+            Loading out of order causes Angular bootstrap to fail silently.
+          </div>
+        </section>
+
+        <section id="rx-mainjs" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">6</span> Wait for Elements in main.jsx</h2>
+          <p class="gs-p">
+            Do not render React until the elements bundle has registered all custom elements.
+            Use <code>customElements.whenDefined()</code> to gate the initial render:
+          </p>
+          <app-code lang="src/main.jsx" [id]="'rx-mainjs'" [text]="code.react.mainJsx" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
         <section id="rx-types" class="gs-section">
-          <h2 class="gs-h2"><span class="step-badge">6</span> Add TypeScript Declarations</h2>
+          <h2 class="gs-h2"><span class="step-badge">7</span> Add TypeScript Declarations</h2>
           <p class="gs-p">Create <code>src/pui.d.ts</code> so TypeScript recognises all <code>pui-*</code> tags in JSX without errors:</p>
           <app-code lang="src/pui.d.ts" [id]="'rx-types'" [text]="code.react.types" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
           <p class="gs-p" style="margin-top:14px">Then reference it in <code>tsconfig.json</code>:</p>
@@ -338,22 +395,24 @@ type Framework = 'angular' | 'react' | 'html';
         </section>
 
         <section id="rx-use" class="gs-section">
-          <h2 class="gs-h2"><span class="step-badge">7</span> Full App Shell Example</h2>
+          <h2 class="gs-h2"><span class="step-badge">8</span> Full App Shell Example</h2>
           <p class="gs-p">
             <strong>String inputs</strong> → kebab-case HTML attributes (<code>app-title="My App"</code>).<br>
-            <strong>Object / Array inputs</strong> → must be set as DOM properties via a <code>ref</code> — never as HTML attributes.
+            <strong>Array / Object inputs</strong> → pass as <code>JSON.stringify()</code> string attributes.
+            Angular Elements parses them via <code>attributeChangedCallback</code> which is zone-patched
+            and automatically triggers Angular change detection.
           </p>
           <app-code lang="src/App.tsx" [id]="'rx-app'" [text]="code.react.app" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
         <section id="rx-events" class="gs-section">
-          <h2 class="gs-h2"><span class="step-badge">8</span> Handling Events</h2>
+          <h2 class="gs-h2"><span class="step-badge">9</span> Handling Events</h2>
           <p class="gs-p">All outputs are native <code>CustomEvent</code>s — use <code>addEventListener</code> via a <code>ref</code> in a <code>useEffect</code>:</p>
           <app-code lang="src/App.tsx" [id]="'rx-events'" [text]="code.react.events" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
         <section id="rx-verify" class="gs-section">
-          <h2 class="gs-h2"><span class="step-badge">9</span> Run &amp; Verify</h2>
+          <h2 class="gs-h2"><span class="step-badge">10</span> Run &amp; Verify</h2>
           <app-code lang="bash" [id]="'rx-serve'" [text]="'npm run dev'" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
           <div class="note note--success" style="margin-top:18px">
             Open <strong>http://localhost:5173</strong>. You should see the full Platform UI shell — header, sidebar, and your React content — rendered inside the browser.
@@ -367,11 +426,13 @@ type Framework = 'angular' | 'react' | 'html';
 
         <div class="note note--info" style="margin-bottom:28px">
           Use this when you are actively developing the library and want the React app to
-          pick up changes instantly — <strong>no publish step required</strong>.
-          React uses a <strong>Vite alias</strong> pointing directly at the library's
-          <code>dist/</code> folder, plus a dev-server middleware that serves
-          <code>pui-elements.js</code> from <code>dist/elements/</code>.
-          No <code>npm link</code> is needed for React.
+          pick up changes instantly — <strong>no publish step required, no npm link needed</strong>.<br><br>
+          The mechanism: a <strong>Vite auto-copy plugin</strong> copies the built bundle files from
+          <code>dist/elements/</code> into the React app's <code>public/</code> folder on every
+          dev server start. Vite then serves them as static files.<br><br>
+          <strong>Important:</strong> Angular CLI outputs the main bundle as <code>main.js</code> —
+          the plugin copies it to <code>public/pui-elements.js</code> so the script tag in
+          <code>index.html</code> stays consistent.
         </div>
 
         <section id="rx-local-prereq" class="gs-section">
@@ -385,22 +446,29 @@ type Framework = 'angular' | 'react' | 'html';
         </section>
 
         <section id="rx-local-build" class="gs-section">
-          <h2 class="gs-h2"><span class="step-badge">2</span> Build the Library and Elements Bundle</h2>
-          <p class="gs-p">Run both commands inside the <strong>library repo</strong>. You need both outputs — the library itself and the web components bundle:</p>
+          <h2 class="gs-h2"><span class="step-badge">2</span> Build the Elements Bundle</h2>
+          <p class="gs-p">Run this inside the <strong>library repo</strong>. The elements build produces the web components bundle that the React app loads:</p>
           <app-code lang="bash" [id]="'rx-local-build'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
           <div class="file-list" style="margin-top:14px">
             <div class="file-row">
-              <span class="file-icon">📁</span>
+              <span class="file-icon">📄</span>
               <div>
-                <div class="file-name">dist/platform-ui/</div>
-                <div class="file-desc">Angular component library — used by Vite alias for types and imports</div>
+                <div class="file-name">dist/elements/main.js</div>
+                <div class="file-desc">Web components bundle (Angular CLI names it main.js) — Vite copies it to public/pui-elements.js</div>
               </div>
             </div>
             <div class="file-row">
               <span class="file-icon">📄</span>
               <div>
-                <div class="file-name">dist/elements/pui-elements.js</div>
-                <div class="file-desc">Web components bundle — what the React app actually loads in the browser</div>
+                <div class="file-name">dist/elements/runtime.js &amp; polyfills.js</div>
+                <div class="file-desc">Angular runtime chunks — also copied to public/ and loaded before pui-elements.js</div>
+              </div>
+            </div>
+            <div class="file-row">
+              <span class="file-icon">🎨</span>
+              <div>
+                <div class="file-name">dist/platform-ui/styles/tokens.css &amp; themes/theme-new.css</div>
+                <div class="file-desc">Design token CSS files — also copied to public/ and loaded as &lt;link&gt; tags</div>
               </div>
             </div>
           </div>
@@ -408,18 +476,42 @@ type Framework = 'angular' | 'react' | 'html';
 
         <section id="rx-local-vite" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">3</span> Configure vite.config.js</h2>
-          <p class="gs-p">Add a resolve alias so imports from <code>&#64;bhairab-patra/platform-ui</code> resolve directly to the local dist folder. Also add a middleware plugin so Vite serves <code>pui-elements.js</code> from <code>dist/elements/</code> at dev time:</p>
+          <p class="gs-p">
+            Add a Vite plugin that copies the built bundle files into <code>public/</code> on every server start.
+            Vite then serves them as static files at <code>/pui-*.js</code> and <code>/tokens.css</code>.
+            The plugin also watches <code>dist/elements/</code> and triggers a full reload when you rebuild.
+          </p>
           <app-code lang="vite.config.js" [id]="'rx-local-vite'" [text]="code.react.localVite" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <div class="note note--info" style="margin-top:14px">
+            Angular CLI names the main bundle <code>main.js</code>. The plugin copies it to
+            <code>public/pui-elements.js</code> so the script tag stays consistent.
+          </div>
         </section>
 
         <section id="rx-local-html" class="gs-section">
-          <h2 class="gs-h2"><span class="step-badge">4</span> Load Elements Bundle in index.html</h2>
-          <p class="gs-p">Add this script tag inside <code>&lt;head&gt;</code> of <code>index.html</code>. Vite's middleware serves it from <code>dist/elements/</code>:</p>
+          <h2 class="gs-h2"><span class="step-badge">4</span> Load All Assets in index.html</h2>
+          <p class="gs-p">
+            Add the design token CSS files and <strong>three script tags in order</strong> inside <code>&lt;head&gt;</code>.
+            All five files are served from <code>public/</code> by Vite:
+          </p>
           <app-code lang="index.html" [id]="'rx-local-html'" [text]="code.react.localHtml" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <div class="note note--warn" style="margin-top:14px">
+            <strong>Script order is mandatory:</strong> pui-runtime.js → pui-polyfills.js → pui-elements.js.
+            Do <strong>not</strong> add <code>type="module"</code> or <code>defer</code> to these — they must run synchronously before React's module script loads.
+          </div>
+        </section>
+
+        <section id="rx-local-mainjs" class="gs-section">
+          <h2 class="gs-h2"><span class="step-badge">5</span> Wait for Elements in main.jsx</h2>
+          <p class="gs-p">
+            Gate the React render with <code>customElements.whenDefined()</code>. This ensures all
+            <code>pui-*</code> custom elements are registered before React renders any JSX that references them:
+          </p>
+          <app-code lang="src/main.jsx" [id]="'rx-local-mainjs'" [text]="code.react.mainJsx" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
         <section id="rx-local-types" class="gs-section">
-          <h2 class="gs-h2"><span class="step-badge">5</span> Add TypeScript Declarations</h2>
+          <h2 class="gs-h2"><span class="step-badge">6</span> Add TypeScript Declarations</h2>
           <p class="gs-p">Create <code>src/pui.d.ts</code> so TypeScript recognises all <code>pui-*</code> JSX tags:</p>
           <app-code lang="src/pui.d.ts" [id]="'rx-local-types'" [text]="code.react.types" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
           <p class="gs-p" style="margin-top:14px">Add it to <code>tsconfig.json</code>:</p>
@@ -427,26 +519,31 @@ type Framework = 'angular' | 'react' | 'html';
         </section>
 
         <section id="rx-local-use" class="gs-section">
-          <h2 class="gs-h2"><span class="step-badge">6</span> Use Components — Same as Published Flow</h2>
-          <p class="gs-p">The usage is identical to the published flow. String inputs as kebab-case attributes; objects/arrays via a <code>ref</code>:</p>
+          <h2 class="gs-h2"><span class="step-badge">7</span> Use Components in App.jsx</h2>
+          <p class="gs-p">
+            String inputs → kebab-case HTML attributes.<br>
+            Arrays/Objects → <code>JSON.stringify()</code> string attributes. Angular Elements' <code>attributeChangedCallback</code> is
+            zone-patched and triggers change detection automatically — no manual <code>ref</code> property setting needed.
+          </p>
           <app-code lang="src/App.tsx" [id]="'rx-local-use'" [text]="code.react.app" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
         </section>
 
         <section id="rx-local-serve" class="gs-section">
-          <h2 class="gs-h2"><span class="step-badge">7</span> Start the React App</h2>
+          <h2 class="gs-h2"><span class="step-badge">8</span> Start the React App</h2>
           <app-code lang="bash" [id]="'rx-local-serve'" [text]="'npm run dev'" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
           <div class="note note--success" style="margin-top:18px">
-            Open <strong>http://localhost:5173</strong>. Vite serves the elements bundle live from <code>dist/elements/</code>.
+            Open <strong>http://localhost:5173</strong>. On startup Vite copies the built bundle files to <code>public/</code> and serves them.
+            You should see the full shell — teal header, dark sidebar with nav groups, and your React content.
           </div>
         </section>
 
         <section id="rx-local-daily" class="gs-section">
-          <h2 class="gs-h2">Day-to-Day: Rebuild on Every Library Change</h2>
-          <p class="gs-p">After changing any library source file, run both builds then refresh the browser:</p>
+          <h2 class="gs-h2">Day-to-Day: Rebuild the Elements Bundle</h2>
+          <p class="gs-p">After changing any library source, rebuild the elements bundle then restart or refresh Vite (it re-copies on server start):</p>
           <app-code lang="bash" [id]="'rx-local-daily'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
           <div class="note note--info" style="margin-top:14px">
-            Both builds are needed every time — the elements bundle wraps the library output.
-            If you only rebuild the library without rebuilding elements, the browser still runs the old bundle.
+            The Vite plugin watches <code>dist/elements/</code> — if you rebuild the elements bundle while Vite is running,
+            it detects the file change and triggers a <strong>full browser reload</strong> automatically.
           </div>
         </section>
 
@@ -458,35 +555,36 @@ type Framework = 'angular' | 'react' | 'html';
             <div class="blocker-item">
               <div class="blocker-title">❌ &nbsp;<code>pui-elements.js</code> returns 404</div>
               <div class="blocker-body">
-                <strong>Cause:</strong> The elements bundle has not been built yet, or <code>dist/elements/</code> does not exist.<br>
-                <strong>Fix:</strong> Run the elements build:
+                <strong>Cause:</strong> The elements bundle has not been built yet, or the Vite auto-copy plugin could not find <code>dist/elements/main.js</code>.<br>
+                <strong>Fix:</strong> Build the elements bundle, then restart Vite:
                 <app-code lang="bash" [id]="'rx-fix-404'" [text]="code.react.localElementsBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+              </div>
+            </div>
+
+            <div class="blocker-item">
+              <div class="blocker-title">❌ &nbsp;Double header — two header bars appear</div>
+              <div class="blocker-body">
+                <strong>Cause:</strong> <code>pui-lib-header</code> and <code>pui-lib-sidebar</code> are registered as standalone custom elements in the elements bundle. When <code>pui-lib-app-shell</code> renders its template containing <code>&lt;pui-lib-header&gt;</code>, the browser fires <code>connectedCallback</code> again — bootstrapping a second Angular component instance alongside the one Angular's template engine already manages.<br>
+                <strong>Fix:</strong> Do <strong>not</strong> register <code>pui-lib-header</code> or <code>pui-lib-sidebar</code> as custom elements in <code>main.ts</code>. They are internal to the app-shell and managed by Angular's template engine. Only <code>pui-lib-app-shell</code> should be registered as a custom element.
+              </div>
+            </div>
+
+            <div class="blocker-item">
+              <div class="blocker-title">❌ &nbsp;Sidebar groups / menu items not showing</div>
+              <div class="blocker-body">
+                <strong>Cause:</strong> Passing arrays/objects as JS DOM properties from React's <code>useEffect</code> may not trigger Angular change detection if the property setter runs outside Angular's zone.<br>
+                <strong>Fix:</strong> Pass arrays and objects as <code>JSON.stringify()</code> string attributes directly in JSX.
+                Angular Elements' <code>attributeChangedCallback</code> is zone-patched and triggers change detection automatically:
+                <app-code lang="JSX" [id]="'rx-fix-prop'" [text]="code.react.propFix" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
               </div>
             </div>
 
             <div class="blocker-item">
               <div class="blocker-title">❌ &nbsp;Components not updating after library rebuild</div>
               <div class="blocker-body">
-                <strong>Cause:</strong> Only the library was rebuilt — the elements bundle still contains the old code.<br>
-                <strong>Fix:</strong> Always rebuild <em>both</em> after a change:
+                <strong>Cause:</strong> Only the library was rebuilt — the elements bundle still has the old code.<br>
+                <strong>Fix:</strong> Rebuild the elements bundle. The Vite plugin auto-detects the change in <code>dist/elements/</code> and triggers a full reload:
                 <app-code lang="bash" [id]="'rx-fix-stale'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
-              </div>
-            </div>
-
-            <div class="blocker-item">
-              <div class="blocker-title">❌ &nbsp;Vite crashes with ENOENT on startup</div>
-              <div class="blocker-body">
-                <strong>Cause:</strong> Vite middleware tries to read <code>dist/elements/</code> but the folder does not exist yet.<br>
-                <strong>Fix:</strong> Run both builds before starting Vite (Step 2).
-              </div>
-            </div>
-
-            <div class="blocker-item">
-              <div class="blocker-title">❌ &nbsp;Object input has no effect — component shows default value</div>
-              <div class="blocker-body">
-                <strong>Cause:</strong> Objects and arrays passed as HTML attributes are treated as plain strings by the browser.<br>
-                <strong>Fix:</strong> Always set them as DOM properties via a <code>ref</code> inside <code>useEffect</code>:
-                <app-code lang="TSX" [id]="'rx-fix-prop'" [text]="code.react.propFix" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
               </div>
             </div>
 
@@ -610,7 +708,7 @@ type Framework = 'angular' | 'react' | 'html';
               <tr>
                 <td>Object / Array</td>
                 <td><code>[groups]="navGroups"</code></td>
-                <td><code>ref.current.groups = data</code></td>
+                <td><code>groups=&#123;JSON.stringify(data)&#125;</code></td>
                 <td><code>el.groups = data</code></td>
               </tr>
               <tr>
@@ -894,33 +992,37 @@ export class GettingStartedComponent implements OnInit {
 
   sectionMap: Record<Framework, { id: string; label: string }[]> = {
     angular: [
-      { id: 'ng-prereq',          label: 'Prerequisites'     },
-      { id: 'ng-npmrc',           label: '.npmrc Setup'      },
-      { id: 'ng-install',         label: 'Install'           },
-      { id: 'ng-styles',          label: 'Global Styles'     },
-      { id: 'ng-import',          label: 'Import Components' },
-      { id: 'ng-use',             label: 'App Shell Example' },
-      { id: 'ng-verify',          label: 'Run & Verify'      },
+      { id: 'ng-prereq',          label: 'Prerequisites'      },
+      { id: 'ng-npmrc',           label: '.npmrc Setup'       },
+      { id: 'ng-install',         label: 'Install'            },
+      { id: 'ng-styles',          label: 'Global Styles'      },
+      { id: 'ng-import',          label: 'Import Components'  },
+      { id: 'ng-use',             label: 'App Shell + Router' },
+      { id: 'ng-verify',          label: 'Run & Verify'       },
       { id: 'ng-local-prereq',    label: '— Local: Prerequisites' },
-      { id: 'ng-local-build',     label: '— Local: Build'    },
-      { id: 'ng-local-link1',     label: '— Local: npm link' },
-      { id: 'ng-local-syms',      label: '— preserveSymlinks'},
-      { id: 'ng-local-blockers',  label: '— Blockers & Fixes'},
+      { id: 'ng-local-build',     label: '— Local: Build'     },
+      { id: 'ng-local-link1',     label: '— Local: npm link'  },
+      { id: 'ng-local-syms',      label: '— preserveSymlinks' },
+      { id: 'ng-local-styles',    label: '— Local: Styles'    },
+      { id: 'ng-local-blockers',  label: '— Blockers & Fixes' },
     ],
     react: [
-      { id: 'rx-prereq',          label: 'Prerequisites'     },
-      { id: 'rx-create',          label: 'Create App'        },
-      { id: 'rx-npmrc',           label: '.npmrc Setup'      },
-      { id: 'rx-install',         label: 'Install'           },
-      { id: 'rx-bootstrap',       label: 'Bootstrap Elements'},
-      { id: 'rx-types',           label: 'TypeScript Types'  },
-      { id: 'rx-use',             label: 'App Shell Example' },
-      { id: 'rx-events',          label: 'Events'            },
-      { id: 'rx-verify',          label: 'Run & Verify'      },
+      { id: 'rx-prereq',          label: 'Prerequisites'       },
+      { id: 'rx-create',          label: 'Create App'          },
+      { id: 'rx-npmrc',           label: '.npmrc Setup'        },
+      { id: 'rx-install',         label: 'Install'             },
+      { id: 'rx-bootstrap',       label: 'Load in index.html'  },
+      { id: 'rx-mainjs',          label: 'Wait for Elements'   },
+      { id: 'rx-types',           label: 'TypeScript Types'    },
+      { id: 'rx-use',             label: 'App Shell Example'   },
+      { id: 'rx-events',          label: 'Events'              },
+      { id: 'rx-verify',          label: 'Run & Verify'        },
       { id: 'rx-local-prereq',    label: '— Local: Prerequisites' },
-      { id: 'rx-local-build',     label: '— Local: Build'    },
+      { id: 'rx-local-build',     label: '— Local: Build'      },
       { id: 'rx-local-vite',      label: '— Local: vite.config'},
-      { id: 'rx-local-blockers',  label: '— Blockers & Fixes'},
+      { id: 'rx-local-html',      label: '— Local: index.html' },
+      { id: 'rx-local-mainjs',    label: '— Local: main.jsx'   },
+      { id: 'rx-local-blockers',  label: '— Blockers & Fixes'  },
     ],
     html: [
       { id: 'html-npmrc',   label: '.npmrc Setup'    },
@@ -996,10 +1098,11 @@ npm link @bhairab-patra/platform-ui`,
 }`,
 
       stylesLocal:
-`// angular.json  — add to "styles" array
+`// angular.json  — add TWO files to "styles" array
 "styles": [
-  "node_modules/@bhairab-patra/platform-ui/styles.css",
-  "src/styles.css"
+  "node_modules/@bhairab-patra/platform-ui/styles/tokens.css",
+  "node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css",
+  "src/styles.scss"
 ]`,
 
       localServe:
@@ -1029,10 +1132,11 @@ skip: [
 ],`,
 
       styles:
-`// angular.json  — add to "styles" array
+`// angular.json  — add TWO files to "styles" array
 "styles": [
-  "node_modules/@bhairab-patra/platform-ui/elements/styles.css",
-  "src/styles.css"
+  "node_modules/@bhairab-patra/platform-ui/styles/tokens.css",
+  "node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css",
+  "src/styles.scss"
 ]`,
 
       standalone:
@@ -1077,64 +1181,108 @@ import {
 })
 export class AppModule {}`,
 
+      appConfig:
+`// app.config.ts
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+  ],
+};`,
+
+      routes:
+`// app.routes.ts  — lazy-load each page component
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [
+  { path: '',         redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard', loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent) },
+  { path: 'users',     loadComponent: () => import('./users/users.component').then(m => m.UsersComponent) },
+  { path: 'settings',  loadComponent: () => import('./settings/settings.component').then(m => m.SettingsComponent) },
+  { path: '**',        redirectTo: 'dashboard' },
+];`,
+
       shell:
 `// app.component.ts
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import {
   PuiAppShellComponent,
+  SidebarGroup,
+  UserMenuItem,
 } from '@bhairab-patra/platform-ui';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [PuiAppShellComponent, RouterOutlet],
-  template: \`
-    <pui-lib-app-shell
-      appTitle="Admin Portal"
-      appSubtitle="v2.0"
-      headerBgColor="#12C6A8"
-      headerUserName="Jane Doe"
-      headerUserEmail="jane@example.com"
-      [headerMenuItems]="menu"
-      [groups]="nav"
-      [activeId]="activeId"
-      (itemSelect)="onNav($event.id)"
-      style="height:100vh;display:block">
-
-      <router-outlet />
-
-    </pui-lib-app-shell>
-  \`,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterOutlet, PuiAppShellComponent],
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
+  private router = inject(Router);
+
   activeId = 'dashboard';
 
-  menu = [
-    { label: 'Profile',  action: 'profile' },
-    { label: 'Sign Out', action: 'logout', danger: true },
+  menuItems: UserMenuItem[] = [
+    { label: 'My Profile', action: 'profile' },
+    { label: 'Settings',   action: 'settings' },
+    { label: 'Sign Out',   action: 'logout', danger: true },
   ];
 
-  nav = [
+  navGroups: SidebarGroup[] = [
     {
-      id: 'grp-main', label: 'Main',
+      id: 'main', label: 'Main',
       items: [
-        { id: 'dashboard', label: 'Dashboard' },
-        { id: 'reports',   label: 'Reports'   },
-        { id: 'users',     label: 'Users', badge: 12 },
+        { id: 'dashboard', label: 'Dashboard', route: '/dashboard' },
+        { id: 'users',     label: 'Users',     route: '/users',    badge: 12 },
       ],
     },
     {
-      id: 'grp-settings', label: 'Settings',
+      id: 'config', label: 'Settings',
       items: [
-        { id: 'settings', label: 'General' },
-        { id: 'billing',  label: 'Billing'  },
+        { id: 'settings', label: 'Settings', route: '/settings' },
       ],
     },
   ];
 
-  onNav(id: string) { this.activeId = id; }
+  onNavSelect(event: { id: string; route?: string }): void {
+    this.activeId = event.id;
+    if (event.route) this.router.navigateByUrl(event.route);
+  }
+
+  onAction(actionId: string): void {
+    if (actionId === 'logout') console.log('Signing out…');
+  }
 }`,
+
+      shellHtml:
+`<!-- app.component.html -->
+<pui-lib-app-shell
+  appTitle="Admin Portal"
+  appSubtitle="Management Console"
+  headerBgColor="#12C6A8"
+  headerUserName="Jane Doe"
+  headerUserEmail="jane@example.com"
+  headerGreeting="Hi"
+  sidebarBgColor="#0f172a"
+  sidebarTextColor="#94a3b8"
+  sidebarActiveColor="#12C6A8"
+  [groups]="navGroups"
+  [headerMenuItems]="menuItems"
+  [activeId]="activeId"
+  (itemSelect)="onNavSelect($event)"
+  (headerMenuAction)="onAction($event)"
+  style="height:100vh;display:block">
+
+  <!-- Router outlet renders inside the shell's content area -->
+  <router-outlet />
+
+</pui-lib-app-shell>`,
     },
 
     // ─ React ───────────────────────────────────────────────────
@@ -1155,15 +1303,13 @@ npm install`,
 `# Run inside the platform-ui library repo
 cd path/to/platform-ui
 
-# Step 1 — build the Angular component library
-ng build platform-ui --configuration development
-
-# Step 2 — build the web components (elements) bundle
-ng build elements --configuration production`,
+# Build the web components (elements) bundle
+# Angular CLI outputs: dist/elements/main.js, runtime.js, polyfills.js
+npx ng build elements --configuration production`,
 
       localElementsBuild:
 `# Inside the platform-ui library repo
-ng build elements --configuration production`,
+npx ng build elements --configuration production`,
 
       localVite:
 `// vite.config.js — in your React app
@@ -1173,80 +1319,109 @@ import path from 'path'
 import fs from 'fs'
 import { fileURLToPath } from 'url'
 
-const __dirname  = path.dirname(fileURLToPath(import.meta.url))
+const __dirname    = path.dirname(fileURLToPath(import.meta.url))
 
-// Adjust relative paths to where platform-ui lives on your machine
-const distRoot    = path.resolve(__dirname, '../platform-ui/dist/platform-ui')
+// Adjust these paths to where platform-ui is on your machine
 const elementsRoot = path.resolve(__dirname, '../platform-ui/dist/elements')
+const stylesRoot   = path.resolve(__dirname, '../platform-ui/dist/platform-ui/styles')
+const publicDir    = path.resolve(__dirname, 'public')
+
+function copyFile(src, dest) {
+  if (!fs.existsSync(src)) {
+    console.warn('[pui] WARNING: source not found:', src)
+    return
+  }
+  fs.mkdirSync(path.dirname(dest), { recursive: true })
+  fs.copyFileSync(src, dest)
+  console.log('[pui] copied →', path.relative(__dirname, dest))
+}
+
+function syncPuiAssets() {
+  // Angular CLI names the main bundle main.js — serve it as pui-elements.js
+  copyFile(path.join(elementsRoot, 'runtime.js'),  path.join(publicDir, 'pui-runtime.js'))
+  copyFile(path.join(elementsRoot, 'polyfills.js'), path.join(publicDir, 'pui-polyfills.js'))
+  copyFile(path.join(elementsRoot, 'main.js'),      path.join(publicDir, 'pui-elements.js'))
+  // Design tokens
+  copyFile(path.join(stylesRoot, 'tokens.css'),              path.join(publicDir, 'tokens.css'))
+  copyFile(path.join(stylesRoot, 'themes', 'theme-new.css'), path.join(publicDir, 'themes', 'theme-new.css'))
+}
 
 export default defineConfig({
   plugins: [
     react(),
     {
-      name: 'serve-pui-assets',
+      name: 'sync-pui-assets',
+      buildStart() { syncPuiAssets() },
       configureServer(server) {
-        // Serve pui-elements.js from dist/elements at dev time
-        server.middlewares.use('/pui-elements.js', (_req, res) => {
-          const file = path.join(elementsRoot, 'pui-elements.js')
-          if (!fs.existsSync(file)) {
-            res.statusCode = 404
-            res.end('pui-elements.js not found — run: ng build elements --configuration production')
-            return
+        syncPuiAssets()
+        // Auto-reload browser when the elements bundle is rebuilt
+        server.watcher.on('change', (file) => {
+          if (file.includes('dist/elements') || file.includes('dist\\\\elements')) {
+            syncPuiAssets()
+            server.ws.send({ type: 'full-reload' })
           }
-          res.setHeader('Content-Type', 'application/javascript')
-          fs.createReadStream(file).pipe(res)
-        })
-        // Serve tokens / design-token stylesheet
-        server.middlewares.use('/tokens.css', (_req, res) => {
-          const file = path.join(elementsRoot, 'styles.css')
-          if (!fs.existsSync(file)) { res.statusCode = 404; res.end(); return }
-          res.setHeader('Content-Type', 'text/css')
-          fs.createReadStream(file).pipe(res)
         })
       },
     },
   ],
-  resolve: {
-    alias: {
-      // Imports from '@bhairab-patra/platform-ui' resolve to local dist
-      '@bhairab-patra/platform-ui': distRoot,
-    },
-  },
 })`,
 
       localHtml:
 `<!-- index.html — inside <head> -->
-<!-- Vite middleware serves this from dist/elements/ -->
+<!-- Design tokens (served from public/ by Vite) -->
+<link rel="stylesheet" href="/tokens.css" />
+<link rel="stylesheet" href="/themes/theme-new.css" />
+
+<!-- Angular Elements bundle — THREE files, in this exact order -->
+<!-- Do NOT add type="module" or defer — must run synchronously -->
+<script src="/pui-runtime.js"></script>
+<script src="/pui-polyfills.js"></script>
 <script src="/pui-elements.js"></script>`,
 
       propFix:
-`// ✅ Correct — set objects/arrays as DOM properties via ref
-useEffect(() => {
-  const el = shellRef.current;
-  if (!el) return;
-  el.groups          = navGroups;   // array
-  el.headerMenuItems = menuItems;   // array
-  el.headerBadge     = badgeObj;    // object
-}, []);
+`// ✅ Correct — pass arrays/objects as JSON string attributes
+// Angular Elements parses them via attributeChangedCallback (zone-patched)
+const NAV_GROUPS  = JSON.stringify([{ id: 'main', label: 'Main', items: [...] }])
+const MENU_ITEMS  = JSON.stringify([{ label: 'Sign Out', action: 'logout', danger: true }])
 
-// ❌ Wrong — this passes the object as a string attribute
-<pui-lib-app-shell groups={navGroups} />`,
+<pui-lib-app-shell
+  groups={NAV_GROUPS}
+  header-menu-items={MENU_ITEMS}
+  app-title="My App"
+/>
+
+// ⚠️ Unreliable — DOM property setting from outside Angular's zone
+// may not trigger change detection
+useEffect(() => {
+  shellRef.current.groups = navGroups  // might not update the UI
+}, [])`,
 
       main:
-`// src/main.tsx
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+`<!-- index.html — inside <head> -->
+<!-- Design tokens: load before any component renders -->
+<link rel="stylesheet" href="node_modules/@bhairab-patra/platform-ui/styles/tokens.css" />
+<link rel="stylesheet" href="node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css" />
 
-// Register all pui-* web components before React renders
-import '@bhairab-patra/platform-ui/elements';
-import '@bhairab-patra/platform-ui/elements/styles.css';
+<!-- Elements bundle: THREE files in this exact order -->
+<script src="node_modules/@bhairab-patra/platform-ui/elements/runtime.js"></script>
+<script src="node_modules/@bhairab-patra/platform-ui/elements/polyfills.js"></script>
+<script src="node_modules/@bhairab-patra/platform-ui/elements/main.js"></script>`,
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);`,
+      mainJsx:
+`// src/main.jsx  (or main.tsx)
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App.jsx'
+
+// Wait for the elements bundle to register all pui-* custom elements
+// before React renders — prevents "undefined custom element" errors
+customElements.whenDefined('pui-lib-button').then(() => {
+  createRoot(document.getElementById('root')).render(
+    <StrictMode>
+      <App />
+    </StrictMode>
+  )
+})`,
 
       types:
 `// src/pui.d.ts
@@ -1289,10 +1464,12 @@ declare global {
 }`,
 
       app:
-`// src/App.tsx
-import { useRef, useEffect } from 'react';
+`// src/App.jsx
+import { useRef, useEffect, useState } from 'react'
 
-const NAV_GROUPS = [
+// Serialize arrays/objects to JSON strings — Angular Elements
+// parses them via attributeChangedCallback (zone-patched → auto CD)
+const NAV_GROUPS = JSON.stringify([
   {
     id: 'grp-main', label: 'Main',
     items: [
@@ -1303,88 +1480,96 @@ const NAV_GROUPS = [
   },
   {
     id: 'grp-settings', label: 'Settings',
-    items: [
-      { id: 'settings', label: 'General' },
-    ],
+    items: [{ id: 'settings', label: 'General' }],
   },
-];
+])
 
-const MENU_ITEMS = [
+const MENU_ITEMS = JSON.stringify([
   { label: 'My Profile', action: 'profile' },
   { label: 'Sign Out',   action: 'logout', danger: true },
-];
+])
 
 export default function App() {
-  const shellRef = useRef<any>(null);
+  const shellRef = useRef(null)
+  const [activeId, setActiveId] = useState('dashboard')
 
-  // Object inputs must be set as DOM properties via a ref
+  // useEffect is only needed for event listeners
   useEffect(() => {
-    const el = shellRef.current;
-    if (!el) return;
-    el.groups          = NAV_GROUPS;
-    el.headerMenuItems = MENU_ITEMS;
-    el.headerBadge     = { text: 'PROD', color: '#10b981', textColor: '#fff' };
-  }, []);
-
-  return (
-    <div style={{ height: '100vh' }}>
-      <pui-lib-app-shell
-        ref={shellRef}
-        app-title="React App"
-        app-subtitle="Powered by Platform UI"
-        header-bg-color="#12C6A8"
-        header-user-name="Jane Doe"
-        header-user-email="jane@example.com"
-        active-id="dashboard"
-        style={{ height: '100%', display: 'block' }}>
-
-        <div style={{ padding: '32px' }}>
-          <h1>Dashboard</h1>
-          <p>Content rendered inside Platform UI shell from React.</p>
-          <pui-lib-button variant="primary">Get Started</pui-lib-button>
-          <pui-lib-badge variant="success" style={{ marginLeft: '12px' }}>Live</pui-lib-badge>
-        </div>
-
-      </pui-lib-app-shell>
-    </div>
-  );
-}`,
-
-      events:
-`// src/App.tsx — event handling via addEventListener + ref
-import { useRef, useEffect, useState } from 'react';
-
-export default function App() {
-  const shellRef = useRef<any>(null);
-  const [activeId, setActiveId] = useState('dashboard');
-
-  useEffect(() => {
-    const el = shellRef.current;
-    if (!el) return;
-
-    const onNav = (e: CustomEvent) => setActiveId(e.detail.id);
-    const onMenu = (e: CustomEvent) => {
-      if (e.detail === 'logout') console.log('Signing out…');
-    };
-
-    el.addEventListener('itemSelect',       onNav);
-    el.addEventListener('headerMenuAction', onMenu);
-
-    return () => {
-      el.removeEventListener('itemSelect',       onNav);
-      el.removeEventListener('headerMenuAction', onMenu);
-    };
-  }, []);
+    const el = shellRef.current
+    if (!el) return
+    const onNav = (e) => setActiveId(e.detail?.id ?? e.detail)
+    el.addEventListener('itemSelect',       onNav)
+    el.addEventListener('headerMenuAction', (e) => console.log('menu:', e.detail))
+    return () => el.removeEventListener('itemSelect', onNav)
+  }, [])
 
   return (
     <pui-lib-app-shell
       ref={shellRef}
       app-title="React App"
+      app-subtitle="Powered by Platform UI"
+      header-bg-color="#12C6A8"
+      header-user-name="Jane Doe"
+      header-user-email="jane@example.com"
+      header-show-help="true"
       active-id={activeId}
-      style={{ height: '100vh', display: 'block' }}>
+      groups={NAV_GROUPS}
+      header-menu-items={MENU_ITEMS}
+      style={{ display: 'block', height: '100vh' }}>
+
+      <div style={{ padding: '32px' }}>
+        <h1>Dashboard</h1>
+        <p>Content rendered inside Platform UI shell from React.</p>
+        <pui-lib-button variant="primary">Get Started</pui-lib-button>
+        <pui-lib-badge variant="success" style={{ marginLeft: '12px' }}>Live</pui-lib-badge>
+      </div>
+
+    </pui-lib-app-shell>
+  )
+}`,
+
+      events:
+`// src/App.jsx — event handling via addEventListener inside useEffect
+import { useRef, useEffect, useState } from 'react'
+
+const NAV_GROUPS = JSON.stringify([
+  { id: 'grp-main', label: 'Main', items: [
+    { id: 'dashboard', label: 'Dashboard' },
+    { id: 'users',     label: 'Users'     },
+  ]},
+])
+
+export default function App() {
+  const shellRef = useRef(null)
+  const [activeId, setActiveId] = useState('dashboard')
+
+  useEffect(() => {
+    const el = shellRef.current
+    if (!el) return
+
+    const onNav  = (e) => setActiveId(e.detail?.id ?? e.detail)
+    const onMenu = (e) => { if (e.detail === 'logout') console.log('Signing out…') }
+
+    el.addEventListener('itemSelect',       onNav)
+    el.addEventListener('headerMenuAction', onMenu)
+    el.addEventListener('headerHelpClick',  () => console.log('help!'))
+
+    return () => {
+      el.removeEventListener('itemSelect',       onNav)
+      el.removeEventListener('headerMenuAction', onMenu)
+    }
+  }, [])
+
+  return (
+    <pui-lib-app-shell
+      ref={shellRef}
+      app-title="React App"
+      groups={NAV_GROUPS}
+      active-id={activeId}
+      style={{ display: 'block', height: '100vh' }}>
       <p style={{ padding: 32 }}>Active page: <strong>{activeId}</strong></p>
     </pui-lib-app-shell>
-  );
+  )
 }`,
     },
 

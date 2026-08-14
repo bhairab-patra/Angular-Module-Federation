@@ -16,7 +16,7 @@
     .pui-tabs-strip {
       display: flex;
       flex-wrap: wrap;
-      gap: 2px;
+      gap: var(--pui-space-0-5);
     }
     .pui-tabs--vertical .pui-tabs-strip {
       flex-direction: column;
@@ -31,28 +31,28 @@
       position: relative;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 9px 16px;
+      gap: var(--pui-space-1-5);
+      padding: var(--pui-space-2) var(--pui-space-4);
       border: none;
       background: transparent;
-      font-size: 13.5px;
+      font-size: var(--pui-text-md);
       font-weight: 500;
       font-family: inherit;
       color: var(--pui-neutral-500);
       cursor: pointer;
       border-radius: 0;
-      transition: color .15s, background .15s;
+      transition: color var(--pui-duration-base), background var(--pui-duration-base);
       white-space: nowrap;
       outline: none;
       user-select: none;
     }
-    .pui-tab-btn--sm { padding: 6px 12px; font-size: 12px; }
-    .pui-tab-btn--lg { padding: 11px 20px; font-size: 15px; }
+    .pui-tab-btn--sm { padding: var(--pui-space-1-5) var(--pui-space-3); font-size: var(--pui-text-sm); }
+    .pui-tab-btn--lg { padding: var(--pui-space-2) var(--pui-space-5); font-size: var(--pui-text-xl); }
 
     .pui-tab-btn:focus-visible {
       outline: 2px solid var(--pui-brand);
       outline-offset: -2px;
-      border-radius: 6px;
+      border-radius: var(--pui-radius-sm);
     }
     .pui-tab-btn--disabled {
       opacity: .45;
@@ -71,7 +71,7 @@
     }
     [data-variant='line'] .pui-tab-btn {
       border-radius: 0;
-      padding-bottom: 11px;
+      padding-bottom: var(--pui-space-2);
     }
     [data-variant='line'] .pui-tab-btn:hover:not(.pui-tab-btn--disabled) {
       color: var(--pui-brand-hover);
@@ -89,7 +89,7 @@
       height: 2.5px;
       background: var(--pui-brand);
       border-radius: 2px 2px 0 0;
-      animation: pui-tab-slide-in .18s ease;
+      animation: pui-tab-slide-in var(--pui-duration-base) ease;
     }
     .pui-tabs--vertical .pui-tab-indicator {
       top: 0; bottom: 0; right: 0; left: auto;
@@ -105,14 +105,14 @@
     /* ── PILL variant ────────────────── */
     [data-variant='pill'] .pui-tabs-strip {
       background: var(--pui-neutral-100);
-      border-radius: 10px;
-      padding: 4px;
+      border-radius: var(--pui-radius-lg);
+      padding: var(--pui-space-1);
       border: none;
-      gap: 2px;
+      gap: var(--pui-space-0-5);
       align-self: flex-start;
     }
     [data-variant='pill'] .pui-tab-btn {
-      border-radius: 7px;
+      border-radius: var(--pui-radius-sm);
     }
     [data-variant='pill'] .pui-tab-btn:hover:not(.pui-tab-btn--disabled) {
       background: rgba(0,0,0,.06);
@@ -127,13 +127,13 @@
 
     /* ── CARD variant ────────────────── */
     [data-variant='card'] .pui-tabs-strip {
-      gap: 4px;
+      gap: var(--pui-space-1);
       border-bottom: 1px solid var(--pui-neutral-200);
     }
     [data-variant='card'] .pui-tab-btn {
       border: 1px solid transparent;
       border-bottom: none;
-      border-radius: 8px 8px 0 0;
+      border-radius: var(--pui-radius-md) var(--pui-radius-md) 0 0;
       background: transparent;
       margin-bottom: -1px;
     }
@@ -166,13 +166,13 @@
       justify-content: center;
       min-width: 18px;
       height: 18px;
-      padding: 0 5px;
-      border-radius: 9px;
-      font-size: 11px;
+      padding: 0 var(--pui-space-1-5);
+      border-radius: var(--pui-radius-full);
+      font-size: var(--pui-text-xs);
       font-weight: 600;
       background: var(--pui-neutral-200);
       color: var(--pui-neutral-700);
-      transition: background .15s, color .15s;
+      transition: background var(--pui-duration-base), color var(--pui-duration-base);
     }
     .pui-tab-badge--active {
       background: rgba(18,198,168,.18);
@@ -182,14 +182,13 @@
     /* ── Panel ───────────────────────── */
     .pui-tabs-panel {
       flex: 1;
-      padding: 16px 0 0;
-      animation: pui-panel-in .18s ease;
+      padding: var(--pui-space-4) 0 0;
+      animation: pui-panel-in var(--pui-duration-base) ease;
     }
     .pui-tabs--vertical .pui-tabs-panel {
-      padding: 0 0 0 20px;
+      padding: 0 0 0 var(--pui-space-5);
     }
     @keyframes pui-panel-in {
       from { opacity: 0; transform: translateY(4px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-  

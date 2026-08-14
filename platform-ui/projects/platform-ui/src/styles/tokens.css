@@ -1,112 +1,223 @@
 /*
- * Platform UI -- Design Tokens (Base)
- * Structural tokens: neutrals, typography, radius, semantic colors, focus rings.
- * Brand/primary color tokens live in themes/theme-*.css and are loaded on top.
- *
- * DO NOT put brand colors here -- put them in the theme file instead.
+ * Platform UI — Design Tokens (Base)
+ * Generated from: styles/tokens/_*.scss partials.
+ * Consumers MUST load this file + themes/theme-new.css.
+ * Brand/primary colors live in the theme file, NOT here.
  */
 
 :root {
 
-  /* ========================================
-     INDIGO / APP-SHELL SIDEBAR
-     ======================================== */
-  --pui-indigo:             #2c2c52;
-  --pui-indigo-dark:        #0f172a;
-  --pui-indigo-mid:         #475569;
-  --pui-indigo-bg:          #ebebf5;
-  --pui-indigo-light:       #d8d8ee;
-  --pui-indigo-muted:       #6b6b9a;
+  /* ════════════════════════════════════════════
+     SPACING  (4 px base grid)
+     ════════════════════════════════════════════ */
+  --pui-space-px:    1px;
+  --pui-space-0-5:   2px;
+  --pui-space-0-75:  3px;
+  --pui-space-1:    4px;
+  --pui-space-1-5:  6px;
+  --pui-space-1-75: 7px;
+  --pui-space-2:    8px;
+  --pui-space-2-5:  10px;
+  --pui-space-3:    12px;
+  --pui-space-3-5:  14px;
+  --pui-space-4:    16px;
+  --pui-space-4-5:  18px;
+  --pui-space-5:    20px;
+  --pui-space-5-5:  22px;
+  --pui-space-6:    24px;
+  --pui-space-7:    28px;
+  --pui-space-8:    32px;
+  --pui-space-9:    36px;
+  --pui-space-10:   40px;
+  --pui-space-11:   44px;
+  --pui-space-12:   48px;
+  --pui-space-13:   52px;
+  --pui-space-14:   56px;
+  --pui-space-16:   64px;
 
-  /* ========================================
-     NEUTRALS (Tailwind Gray)
-     ======================================== */
-  --pui-white:              #fff;
-  --pui-neutral-50:         #f9fafb;
-  --pui-neutral-100:        #f3f4f6;
-  --pui-neutral-150:        #fafafa;
-  --pui-neutral-200:        #e5e7eb;
-  --pui-neutral-300:        #d1d5db;
-  --pui-neutral-400:        #9ca3af;
-  --pui-neutral-500:        #6b7280;
-  --pui-neutral-700:        #374151;
-  --pui-neutral-800:        #1f2937;
-  --pui-neutral-900:        #111827;
+  /* ════════════════════════════════════════════
+     TYPOGRAPHY
+     ════════════════════════════════════════════ */
+  --pui-font-family:  'Poppins', system-ui, sans-serif;
+  --pui-font-mono:    'SF Mono', ui-monospace, monospace;
 
-  /* ========================================
-     SLATE (code / dark surfaces)
-     ======================================== */
-  --pui-slate-050:          #f8fafc;
-  --pui-slate-100:          #f1f5f9;
-  --pui-slate-200:          #e2e8f0;
-  --pui-slate-300:          #334155;
-  --pui-slate-400:          #94a3b8;
-  --pui-slate-600:          #64748b;
-  --pui-slate-900:          #0f172a;
-  --pui-skeleton-shimmer:   #e9eaec;
+  --pui-text-3xs:   9px;
+  --pui-text-2xs:   10px;
+  --pui-text-xs:    11px;
+  --pui-text-sm:    12px;
+  --pui-text-base:  13px;
+  --pui-text-md:    13.5px;
+  --pui-text-lg:    14px;
+  --pui-text-xl:    15px;
+  --pui-text-2xl:   16px;
+  --pui-text-3xl:   17px;
+  --pui-text-4xl:   18px;
+  --pui-text-5xl:   20px;
+  --pui-text-6xl:   30px;
 
-  /* ========================================
-     SEMANTIC: ERROR / DANGER
-     ======================================== */
-  --pui-error:              #ef4444;
-  --pui-error-hover:        #dc2626;
-  --pui-error-dark:         #b91c1c;
-  --pui-error-bg:           #fee2e2;
-  --pui-error-light:        #fca5a5;
-  --pui-error-pressed:      #c42222;
-  --pui-error-pressed2:     #a31c1c;
-  --pui-error-soft-bg:      #fbd7d7;
-  --pui-error-soft-bdr:     #f7b8b8;
-  --pui-error-text-dark:    #8b1a1a;
-  --pui-error-hover-bg:     #fef2f2;
+  /* Legacy aliases */
+  --pui-font-size-xs:   var(--pui-text-xs);
+  --pui-font-size-sm:   var(--pui-text-sm);
+  --pui-font-size-md:   var(--pui-text-base);
+  --pui-font-size-base: var(--pui-text-lg);
 
-  /* ========================================
-     SEMANTIC: SUCCESS
-     ======================================== */
-  --pui-success:            #22c55e;
-  --pui-success-dark:       #15803d;
-  --pui-success-bg:         #dcfce7;
-  --pui-green-dark:         #16a34a;
-  --pui-green-bg:           #f0fdf9;
-  --pui-green-light:        #ecfdf5;
-  --pui-green-border:       #a7f3d0;
-  --pui-filter-active-hover:#d1fae5;
+  --pui-font-normal:   400;
+  --pui-font-medium:   500;
+  --pui-font-semibold: 600;
+  --pui-font-bold:     700;
 
-  /* ========================================
-     SEMANTIC: WARNING
-     ======================================== */
-  --pui-warning:            #f59e0b;
-  --pui-warning-dark:       #a16207;
-  --pui-warning-bg:         #fef9c3;
-  --pui-warning-border:     #fde047;
-  --pui-warning-action:     #d97706;
-  --pui-yellow:             #eab308;
-  --pui-yellow-light:       #fde047;
+  --pui-leading-tight:   1.3;
+  --pui-leading-snug:    1.4;
+  --pui-leading-normal:  1.5;
+  --pui-leading-relaxed: 1.55;
 
-  /* ========================================
-     SEMANTIC: INFO
-     ======================================== */
-  --pui-info:               #1d4ed8;
-  --pui-info-dark:          #0369a1;
-  --pui-info-bg:            #e0f2fe;
-  --pui-info-light:         #dbeafe;
-  --pui-info-action:        #2563eb;
-  --pui-blue:               #3b82f6;
-  --pui-blue-bg:            #eff6ff;
-  --pui-sky:                #0ea5e9;
+  /* ════════════════════════════════════════════
+     BORDER RADIUS
+     ════════════════════════════════════════════ */
+  --pui-radius-2:    2px;
+  --pui-radius-xs:   4px;
+  --pui-radius-sm:   6px;
+  --pui-radius-md:   8px;
+  --pui-radius-lg:   10px;
+  --pui-radius-xl:   12px;
+  --pui-radius-2xl:  14px;
+  --pui-radius-full: 999px;
 
-  /* ========================================
-     EXTENDED PALETTE
-     ======================================== */
-  --pui-orange:             #f97316;
-  --pui-purple-bg:          #f3e8ff;
-  --pui-purple:             #7e22ce;
-  --pui-pink-bg:            #fce7f3;
-  --pui-pink:               #be185d;
+  /* ════════════════════════════════════════════
+     SHADOWS
+     ════════════════════════════════════════════ */
+  --pui-shadow-sm:         0 1px 3px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .06);
+  --pui-shadow-card:       0 1px 3px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06);
+  --pui-shadow-card-hover: 0 6px 24px rgba(0, 0, 0, .12);
+  --pui-shadow-md:         0 4px 14px rgba(0, 0, 0, .12);
+  --pui-shadow-lg:         0 8px 24px rgba(0, 0, 0, .12), 0 2px 6px rgba(0, 0, 0, .06);
+  --pui-shadow-xl:         0 12px 32px rgba(0, 0, 0, .18);
+  --pui-shadow-2xl:        0 20px 60px rgba(0, 0, 0, .18);
+  --pui-shadow-3xl:        0 24px 64px rgba(0, 0, 0, .22);
+  --pui-shadow-panel:      0 8px 28px rgba(0, 0, 0, .11);
+  --pui-shadow-tooltip:    0 4px 14px rgba(0, 0, 0, .22);
+  --pui-shadow-toast:      0 8px 32px rgba(0, 0, 0, .12), 0 2px 8px rgba(0, 0, 0, .08);
+  --pui-shadow-modal:      0 20px 60px rgba(0, 0, 0, .18);
+  --pui-shadow-header:     0 2px 8px rgba(0, 0, 0, .18);
+  --pui-shadow-switch:     0 1px 3px rgba(0, 0, 0, .18);
 
-  /* ========================================
-     BUTTON VARIANTS
-     ======================================== */
+  --pui-shadow-focus:         0 0 0 3px rgba(18, 198, 168, .18);
+  --pui-shadow-focus-sm:      0 0 0 3px rgba(18, 198, 168, .12);
+  --pui-shadow-focus-brand:   0 0 0 3px rgba(18, 198, 168, .25);
+  --pui-shadow-focus-error:   0 0 0 3px rgba(239, 68, 68, .1);
+  --pui-shadow-focus-neutral: 0 0 0 3px rgba(168, 158, 149, .4);
+
+  /* ════════════════════════════════════════════
+     ANIMATION
+     ════════════════════════════════════════════ */
+  --pui-duration-fast:   0.1s;
+  --pui-duration-base:   0.15s;
+  --pui-duration-slow:   0.2s;
+  --pui-duration-slower: 0.3s;
+  --pui-ease:            ease;
+  --pui-ease-out:        ease-out;
+
+  /* ════════════════════════════════════════════
+     COMPONENT SIZES
+     ════════════════════════════════════════════ */
+  --pui-form-h-sm:  34px;
+  --pui-form-h-md:  42px;
+  --pui-form-h-lg:  50px;
+
+  --pui-icon-xs:   14px;
+  --pui-icon-sm:   16px;
+  --pui-icon-md:   18px;
+  --pui-icon-lg:   20px;
+  --pui-icon-xl:   24px;
+
+  /* ════════════════════════════════════════════
+     COLORS — INDIGO / APP-SHELL
+     ════════════════════════════════════════════ */
+  --pui-indigo:         #2c2c52;
+  --pui-indigo-dark:    #0f172a;
+  --pui-indigo-mid:     #475569;
+  --pui-indigo-bg:      #ebebf5;
+  --pui-indigo-light:   #d8d8ee;
+  --pui-indigo-muted:   #6b6b9a;
+
+  /* ════════════════════════════════════════════
+     COLORS — NEUTRALS
+     ════════════════════════════════════════════ */
+  --pui-white:        #fff;
+  --pui-neutral-50:   #f9fafb;
+  --pui-neutral-100:  #f3f4f6;
+  --pui-neutral-150:  #fafafa;
+  --pui-neutral-200:  #e5e7eb;
+  --pui-neutral-300:  #d1d5db;
+  --pui-neutral-400:  #9ca3af;
+  --pui-neutral-500:  #6b7280;
+  --pui-neutral-600:  #4b5563;
+  --pui-neutral-700:  #374151;
+  --pui-neutral-800:  #1f2937;
+  --pui-neutral-900:  #111827;
+
+  /* ════════════════════════════════════════════
+     COLORS — SLATE
+     ════════════════════════════════════════════ */
+  --pui-slate-050:         #f8fafc;
+  --pui-slate-100:         #f1f5f9;
+  --pui-slate-200:         #e2e8f0;
+  --pui-slate-300:         #334155;
+  --pui-slate-400:         #94a3b8;
+  --pui-slate-600:         #64748b;
+  --pui-slate-900:         #0f172a;
+  --pui-skeleton-shimmer:  #e9eaec;
+
+  /* ════════════════════════════════════════════
+     COLORS — SEMANTIC
+     ════════════════════════════════════════════ */
+  --pui-error:           #ef4444;
+  --pui-error-hover:     #dc2626;
+  --pui-error-dark:      #b91c1c;
+  --pui-error-bg:        #fee2e2;
+  --pui-error-light:     #fca5a5;
+  --pui-error-pressed:   #c42222;
+  --pui-error-pressed2:  #a31c1c;
+  --pui-error-soft-bg:   #fbd7d7;
+  --pui-error-soft-bdr:  #f7b8b8;
+  --pui-error-text-dark: #8b1a1a;
+  --pui-error-hover-bg:  #fef2f2;
+
+  --pui-success:       #22c55e;
+  --pui-success-dark:  #15803d;
+  --pui-success-bg:    #dcfce7;
+  --pui-green-dark:    #16a34a;
+  --pui-green-bg:      #f0fdf9;
+  --pui-green-light:   #ecfdf5;
+  --pui-green-border:  #a7f3d0;
+  --pui-filter-active-hover: #d1fae5;
+
+  --pui-warning:        #f59e0b;
+  --pui-warning-dark:   #a16207;
+  --pui-warning-bg:     #fef9c3;
+  --pui-warning-border: #fde047;
+  --pui-warning-action: #d97706;
+  --pui-yellow:         #eab308;
+  --pui-yellow-light:   #fde047;
+
+  --pui-info:        #1d4ed8;
+  --pui-info-dark:   #0369a1;
+  --pui-info-bg:     #e0f2fe;
+  --pui-info-light:  #dbeafe;
+  --pui-info-action: #2563eb;
+  --pui-blue:        #3b82f6;
+  --pui-blue-bg:     #eff6ff;
+  --pui-sky:         #0ea5e9;
+
+  --pui-orange:    #f97316;
+  --pui-purple-bg: #f3e8ff;
+  --pui-purple:    #7e22ce;
+  --pui-pink-bg:   #fce7f3;
+  --pui-pink:      #be185d;
+
+  /* ════════════════════════════════════════════
+     COLORS — COMPONENT-SPECIFIC
+     ════════════════════════════════════════════ */
   --pui-btn-neutral-text:   #4b4540;
   --pui-btn-neutral-bdr:    #d8d2cc;
   --pui-btn-neutral-hover:  #e8e4e0;
@@ -121,46 +232,22 @@
   --pui-btn-link-disabled:  #d0d0e8;
   --pui-file-btn-disabled:  #d0d0d8;
 
-  /* ========================================
-     CARD VARIANTS
-     ======================================== */
-  --pui-card-stat-bg:       #f8fafc;
-  --pui-card-grad-end:      #d7f5ee;
-  --pui-card-selected-hover:#e6faf7;
-  --pui-card-dark-bg:       #0A0F1A;
-  --pui-card-dark-bdr:      #1e293b;
+  --pui-card-stat-bg:        #f8fafc;
+  --pui-card-grad-end:       #d7f5ee;
+  --pui-card-selected-hover: #e6faf7;
+  --pui-card-dark-bg:        #0A0F1A;
+  --pui-card-dark-bdr:       #1e293b;
 
-  /* ========================================
-     CHIP BORDERS
-     ======================================== */
-  --pui-chip-default-bdr:   #cbd5e1;
-  --pui-chip-primary-bdr:   #93c5fd;
-  --pui-chip-success-bdr:   #86efac;
-  --pui-chip-info-bdr:      #7dd3fc;
+  --pui-chip-default-bdr: #cbd5e1;
+  --pui-chip-primary-bdr: #93c5fd;
+  --pui-chip-success-bdr: #86efac;
+  --pui-chip-info-bdr:    #7dd3fc;
 
-  /* ========================================
-     MISC COMPONENT
-     ======================================== */
-  --pui-input-readonly-bg:  #fafbfc;
-  --pui-table-placeholder:  #c4c9d4;
-  --pui-toast-msg-color:    #4b5563;
-
-  /* ========================================
-     TYPOGRAPHY
-     ======================================== */
-  --pui-font-family:        'Poppins', system-ui, sans-serif;
-  --pui-font-size-xs:       11px;
-  --pui-font-size-sm:       12px;
-  --pui-font-size-md:       13px;
-  --pui-font-size-base:     14px;
-
-  /* ========================================
-     BORDER RADIUS
-     ======================================== */
-  --pui-radius-sm:          6px;
-  --pui-radius-md:          8px;
-  --pui-radius-lg:          10px;
-  --pui-radius-xl:          12px;
-  --pui-radius-full:        999px;
+  --pui-input-readonly-bg: #fafbfc;
+  --pui-table-placeholder: #c4c9d4;
+  --pui-toast-msg-color:   #4b5563;
+  --pui-tooltip-bg:        #1e293b;
+  --pui-tooltip-color:     #f8fafc;
+  --pui-menu-dark-hover:   #263347;
 
 }

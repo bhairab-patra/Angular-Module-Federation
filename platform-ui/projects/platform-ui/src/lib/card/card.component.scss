@@ -14,15 +14,15 @@ $radius: 14px;
   position: relative;
 
   &--sm {
-    padding: 16px;
+    padding: var(--pui-space-4);
   }
 
   &--md {
-    padding: 24px;
+    padding: var(--pui-space-6);
   }
 
   &--lg {
-    padding: 32px;
+    padding: var(--pui-space-8);
   }
 
   &--default {
@@ -67,16 +67,16 @@ $radius: 14px;
 
 
   &--elevated {
-    box-shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06);
+    box-shadow: var(--pui-shadow-card);
   }
 
   &--clickable {
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    transition: transform var(--pui-duration-base) ease, box-shadow var(--pui-duration-base) ease;
 
     &:hover {
       transform: translateY(-3px);
-      box-shadow: 0 6px 24px rgba(0, 0, 0, .12);
+      box-shadow: var(--pui-shadow-card-hover);
     }
   }
 
@@ -101,11 +101,11 @@ $radius: 14px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: var(--pui-space-2-5);
   }
 
   &__title {
-    font-size: 13px;
+    font-size: var(--pui-text-base);
     font-weight: 600;
     color: var(--pui-slate-600);
     text-transform: uppercase;
@@ -115,20 +115,20 @@ $radius: 14px;
   &__icon-badge {
     width: 36px;
     height: 36px;
-    border-radius: 10px;
+    border-radius: var(--pui-radius-lg);
     background: var(--pui-slate-100);
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: var(--pui-text-4xl);
   }
 
   &__value {
-    font-size: 30px;
+    font-size: var(--pui-text-6xl);
     font-weight: 700;
     color: var(--pui-slate-900);
     line-height: 1.2;
-    margin-bottom: 12px;
+    margin-bottom: var(--pui-space-3);
   }
 
   &__footer {
@@ -136,22 +136,22 @@ $radius: 14px;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: var(--pui-space-2);
   }
 
   &__subtitle {
-    font-size: 12px;
+    font-size: var(--pui-text-sm);
     color: var(--pui-slate-400);
   }
 
   &__trend {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    font-size: 11px;
+    gap: var(--pui-space-1);
+    font-size: var(--pui-text-xs);
     font-weight: 600;
-    padding: 2px 8px;
-    border-radius: 99px;
+    padding: var(--pui-space-0-5) var(--pui-space-2);
+    border-radius: var(--pui-radius-full);
 
     &--up {
       color: var(--pui-green-dark);
@@ -172,14 +172,14 @@ $radius: 14px;
   &__body {}
 
   &__slot-header {
-    padding-bottom: 16px;
-    margin-bottom: 16px;
+    padding-bottom: var(--pui-space-4);
+    margin-bottom: var(--pui-space-4);
     border-bottom: 1px solid var(--pui-slate-200);
   }
 
   &__slot-footer {
-    padding-top: 16px;
-    margin-top: 16px;
+    padding-top: var(--pui-space-4);
+    margin-top: var(--pui-space-4);
     border-top: 1px solid var(--pui-slate-200);
   }
 }

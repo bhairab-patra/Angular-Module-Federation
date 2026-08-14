@@ -1,4 +1,4 @@
-:host {
+﻿:host {
   display: inline-block;
   position: relative;
 }
@@ -6,7 +6,7 @@
 
 .pui-dp-host {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  font-size: 13.5px;
+  font-size: var(--pui-text-md);
   position: relative;
   display: inline-block;
   width: 100%;
@@ -21,13 +21,13 @@
 .pui-dp-trigger {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 9px 12px;
+  gap: var(--pui-space-2);
+  padding: var(--pui-space-2) var(--pui-space-3);
   border: 1.5px solid var(--pui-neutral-200);
-  border-radius: 10px;
+  border-radius: var(--pui-radius-lg);
   background: var(--pui-white);
   cursor: pointer;
-  transition: border-color .15s, box-shadow .15s;
+  transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
   min-width: 200px;
 }
 
@@ -49,7 +49,7 @@
 
 .pui-dp-value {
   flex: 1;
-  font-size: 13.5px;
+  font-size: var(--pui-text-md);
   color: var(--pui-neutral-900);
   white-space: nowrap;
   overflow: hidden;
@@ -63,7 +63,7 @@
 .pui-dp-chevron {
   color: var(--pui-neutral-400);
   flex-shrink: 0;
-  transition: transform .18s;
+  transition: transform var(--pui-duration-base);
 }
 
 .pui-dp-chevron--up {
@@ -74,8 +74,8 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0 2px;
-  font-size: 11px;
+  padding: 0 var(--pui-space-0-5);
+  font-size: var(--pui-text-xs);
   color: var(--pui-neutral-400);
   line-height: 1;
 }
@@ -92,9 +92,9 @@
   z-index: 1000;
   background: var(--pui-white);
   border: 1px solid var(--pui-neutral-200);
-  border-radius: 14px;
+  border-radius: var(--pui-radius-2xl);
   box-shadow: 0 8px 30px rgba(0, 0, 0, .12);
-  padding: 14px;
+  padding: var(--pui-space-3-5);
   min-width: 280px;
   animation: pui-dp-in .16s ease;
 }
@@ -116,7 +116,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: var(--pui-space-2-5);
 }
 
 .pui-dp-nav-btn {
@@ -126,11 +126,11 @@
   width: 28px;
   height: 28px;
   border: 1px solid var(--pui-neutral-200);
-  border-radius: 7px;
+  border-radius: var(--pui-radius-sm);
   background: var(--pui-white);
   cursor: pointer;
   color: var(--pui-neutral-700);
-  transition: all .12s;
+  transition: all var(--pui-duration-fast);
 }
 
 .pui-dp-nav-btn:hover {
@@ -148,13 +148,13 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--pui-text-lg);
   font-weight: 600;
   color: var(--pui-neutral-900);
   font-family: inherit;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: background .12s;
+  padding: var(--pui-space-1) var(--pui-space-2);
+  border-radius: var(--pui-radius-sm);
+  transition: background var(--pui-duration-fast);
 }
 
 .pui-dp-nav-month:hover {
@@ -165,21 +165,21 @@
 .pui-dp-month-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-  margin-bottom: 10px;
+  gap: var(--pui-space-1);
+  margin-bottom: var(--pui-space-2-5);
 }
 
 .pui-dp-month-cell {
-  padding: 8px 4px;
+  padding: var(--pui-space-2) var(--pui-space-1);
   border: 1px solid transparent;
-  border-radius: 7px;
+  border-radius: var(--pui-radius-sm);
   background: none;
-  font-size: 12.5px;
+  font-size: var(--pui-text-sm);
   font-family: inherit;
   color: var(--pui-neutral-700);
   cursor: pointer;
   text-align: center;
-  transition: all .12s;
+  transition: all var(--pui-duration-fast);
 }
 
 .pui-dp-month-cell:hover {
@@ -198,15 +198,15 @@
 .pui-dp-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 1px;
+  gap: var(--pui-space-px);
 }
 
 .pui-dp-dayname {
   text-align: center;
-  font-size: 11px;
+  font-size: var(--pui-text-xs);
   font-weight: 600;
   color: var(--pui-neutral-400);
-  padding: 3px 0 6px;
+  padding: var(--pui-space-0-75) 0 var(--pui-space-1-5);
   text-transform: uppercase;
   letter-spacing: .04em;
 }
@@ -218,13 +218,13 @@
   justify-content: center;
   height: 32px;
   border: none;
-  border-radius: 7px;
+  border-radius: var(--pui-radius-sm);
   background: transparent;
-  font-size: 12.5px;
+  font-size: var(--pui-text-sm);
   font-family: inherit;
   color: var(--pui-neutral-700);
   cursor: pointer;
-  transition: background .12s, color .12s;
+  transition: background var(--pui-duration-fast), color var(--pui-duration-fast);
   position: relative;
 }
 
@@ -249,7 +249,7 @@
 .pui-dp-cell--today::after {
   content: '';
   position: absolute;
-  bottom: 3px;
+  bottom: var(--pui-space-0-75);
   left: 50%;
   transform: translateX(-50%);
   width: 4px;
@@ -273,7 +273,7 @@
   background: var(--pui-brand) !important;
   color: var(--pui-white) !important;
   font-weight: 600;
-  border-radius: 7px;
+  border-radius: var(--pui-radius-sm);
   z-index: 1;
 }
 
@@ -292,24 +292,24 @@
 
 .pui-dp-footer {
   display: flex;
-  gap: 8px;
-  margin-top: 10px;
-  padding-top: 10px;
+  gap: var(--pui-space-2);
+  margin-top: var(--pui-space-2-5);
+  padding-top: var(--pui-space-2-5);
   border-top: 1px solid var(--pui-neutral-100);
 }
 
 .pui-dp-today-btn,
 .pui-dp-clear-btn {
   flex: 1;
-  padding: 6px;
+  padding: var(--pui-space-1-5);
   border: 1px solid var(--pui-neutral-200);
-  border-radius: 7px;
+  border-radius: var(--pui-radius-sm);
   background: var(--pui-white);
-  font-size: 12px;
+  font-size: var(--pui-text-sm);
   font-family: inherit;
   color: var(--pui-neutral-700);
   cursor: pointer;
-  transition: all .12s;
+  transition: all var(--pui-duration-fast);
 }
 
 .pui-dp-today-btn:hover {
@@ -321,5 +321,5 @@
 .pui-dp-clear-btn:hover {
   border-color: var(--pui-error-light);
   color: var(--pui-error-hover);
-  background: #fff5f5;
+  background: var(--pui-error-hover-bg);
 }

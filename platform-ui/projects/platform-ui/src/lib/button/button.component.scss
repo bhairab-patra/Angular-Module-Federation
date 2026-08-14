@@ -1,4 +1,4 @@
-// ── Design tokens ─────────────────────────────────────────
+﻿// â”€â”€ Design tokens â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 $radius: 999px; // pill shape
 
 :host {
@@ -27,7 +27,7 @@ $radius: 999px; // pill shape
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--pui-space-2);
   border: 2px solid transparent;
   border-radius: $radius;
   font-family: inherit;
@@ -37,23 +37,23 @@ $radius: 999px; // pill shape
   outline: none;
   box-sizing: border-box;
   text-decoration: none;
-  transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
+  transition: background var(--pui-duration-base), border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
 
   &--sm {
-    padding: 5px 14px;
-    font-size: 12px;
+    padding: var(--pui-space-1-5) var(--pui-space-3-5);
+    font-size: var(--pui-text-sm);
     line-height: 1.5;
   }
 
   &--md {
-    padding: 9px 20px;
-    font-size: 14px;
+    padding: var(--pui-space-2) var(--pui-space-5);
+    font-size: var(--pui-text-lg);
     line-height: 1.5;
   }
 
   &--lg {
-    padding: 13px 28px;
-    font-size: 16px;
+    padding: var(--pui-space-3-5) var(--pui-space-7);
+    font-size: var(--pui-text-2xl);
     line-height: 1.5;
   }
 
@@ -66,7 +66,7 @@ $radius: 999px; // pill shape
     color: var(--pui-white);
     border-color: var(--pui-brand-deep);
     @include hover(var(--pui-brand-pressed));
-    @include focus(0 0 0 3px rgba(13, 110, 95, .35));
+    @include focus(var(--pui-shadow-focus));
   }
 
   &--primary-light {
@@ -74,7 +74,7 @@ $radius: 999px; // pill shape
     color: var(--pui-brand-text-dark);
     border-color: var(--pui-brand-light);
     @include hover(var(--pui-brand-muted), var(--pui-brand-muted));
-    @include focus(0 0 0 3px rgba(13, 110, 95, .2));
+    @include focus(var(--pui-shadow-focus));
   }
 
   &--primary-outline {
@@ -87,7 +87,7 @@ $radius: 999px; // pill shape
       background: var(--pui-brand-muted-bg);
     }
 
-    @include focus(0 0 0 3px rgba(13, 110, 95, .25));
+    @include focus(var(--pui-shadow-focus));
   }
 
   &--secondary {
@@ -95,7 +95,7 @@ $radius: 999px; // pill shape
     color: var(--pui-white);
     border-color: var(--pui-btn-disabled-bg);
     @include hover(var(--pui-btn-neutral-hover2));
-    @include focus(0 0 0 3px rgba(168, 158, 149, .4));
+    @include focus(var(--pui-shadow-focus-neutral));
   }
 
   &--secondary-light {
@@ -108,7 +108,7 @@ $radius: 999px; // pill shape
       background: var(--pui-btn-neutral-hover);
     }
 
-    @include focus(0 0 0 3px rgba(168, 158, 149, .25));
+    @include focus(var(--pui-shadow-focus-neutral));
   }
 
   &--inverse {
@@ -121,7 +121,7 @@ $radius: 999px; // pill shape
       background: var(--pui-btn-ghost-bg);
       border-color: var(--pui-btn-ghost-bdr);
     }
-    @include focus(0 0 0 3px rgba(17, 24, 39, .2));
+    @include focus(0 0 0 var(--pui-space-0-75) rgba(17, 24, 39, .2));
   }
 
 
@@ -135,7 +135,7 @@ $radius: 999px; // pill shape
       background: var(--pui-btn-ghost-hover-2);
     }
 
-    @include focus(0 0 0 3px rgba(44, 44, 82, .3));
+    @include focus(var(--pui-shadow-focus-neutral));
   }
 
   &--text {
@@ -143,15 +143,15 @@ $radius: 999px; // pill shape
     color: var(--pui-btn-link-color);
     border-color: transparent;
     text-decoration: underline;
-    padding-left: 6px;
-    padding-right: 6px;
+    padding-left: var(--pui-space-1-5);
+    padding-right: var(--pui-space-1-5);
 
     &:hover:not(:disabled),
     &.pui-btn--state-hover {
       color: var(--pui-btn-link-hover);
     }
 
-    @include focus(0 0 0 3px rgba(91, 91, 214, .25));
+    @include focus(var(--pui-shadow-focus-brand));
   }
 
   &--destructive {
@@ -159,7 +159,7 @@ $radius: 999px; // pill shape
     color: var(--pui-white);
     border-color: var(--pui-error-pressed);
     @include hover(var(--pui-error-pressed2));
-    @include focus(0 0 0 3px rgba(196, 34, 34, .35));
+    @include focus(var(--pui-shadow-focus-error));
   }
 
 
@@ -168,7 +168,7 @@ $radius: 999px; // pill shape
     color: var(--pui-error-text-dark);
     border-color: var(--pui-error-soft-bg);
     @include hover(var(--pui-error-soft-bdr), var(--pui-error-soft-bdr));
-    @include focus(0 0 0 3px rgba(196, 34, 34, .2));
+    @include focus(var(--pui-shadow-focus-error));
   }
 
   &--chip {
@@ -176,8 +176,8 @@ $radius: 999px; // pill shape
     color: var(--pui-brand-deep);
     border-color: var(--pui-brand-border);
     border-radius: $radius;
-    padding: 3px 12px;
-    font-size: 12px;
+    padding: var(--pui-space-0-75) var(--pui-space-3);
+    font-size: var(--pui-text-sm);
     font-weight: 500;
 
     &:hover:not(:disabled),
@@ -185,7 +185,7 @@ $radius: 999px; // pill shape
       background: var(--pui-brand-light);
     }
 
-    @include focus(0 0 0 3px rgba(13, 110, 95, .2));
+    @include focus(var(--pui-shadow-focus));
   }
 
   &--upload-progress {
@@ -193,18 +193,18 @@ $radius: 999px; // pill shape
     color: var(--pui-indigo);
     border-color: var(--pui-indigo-light);
     border-radius: $radius;
-    padding: 10px 18px;
+    padding: var(--pui-space-2-5) var(--pui-space-4-5);
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: var(--pui-space-3);
     cursor: default;
-    @include focus(0 0 0 3px rgba(44, 44, 82, .25));
+    @include focus(var(--pui-shadow-focus-neutral));
   }
 
   &__up-label {
     font-weight: 700;
-    font-size: 14px;
+    font-size: var(--pui-text-lg);
     color: var(--pui-indigo);
     flex-shrink: 0;
   }
@@ -213,7 +213,7 @@ $radius: 999px; // pill shape
     flex: 1;
     height: 4px;
     background: var(--pui-btn-link-disabled);
-    border-radius: 999px;
+    border-radius: var(--pui-radius-full);
     overflow: hidden;
     position: relative;
   }
@@ -224,12 +224,12 @@ $radius: 999px; // pill shape
     top: 0;
     bottom: 0;
     background: var(--pui-indigo);
-    border-radius: 999px;
+    border-radius: var(--pui-radius-full);
     transition: width 0.3s ease;
   }
 
   &__up-pct {
-    font-size: 13px;
+    font-size: var(--pui-text-base);
     font-weight: 600;
     color: var(--pui-indigo-muted);
     flex-shrink: 0;

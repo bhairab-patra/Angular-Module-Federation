@@ -1,20 +1,20 @@
 .pui-badge {
   display: inline-flex;
   align-items: center;
-  border-radius: 999px;
+  border-radius: var(--pui-radius-full);
   font-weight: 600;
   white-space: nowrap;
   letter-spacing: .02em;
 }
 
 .pui-badge--sm {
-  padding: 2px 8px;
-  font-size: 11px;
+  padding: var(--pui-space-0-5) var(--pui-space-2);
+  font-size: var(--pui-text-xs);
 }
 
 .pui-badge--md {
-  padding: 4px 10px;
-  font-size: 12px;
+  padding: var(--pui-space-1) var(--pui-space-2-5);
+  font-size: var(--pui-text-sm);
 }
 
 .pui-badge--default {

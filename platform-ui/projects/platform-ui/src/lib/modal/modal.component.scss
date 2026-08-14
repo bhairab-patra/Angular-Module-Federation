@@ -6,33 +6,32 @@
       z-index: 1000;
     }
     .pui-modal {
-      background: var(--pui-white); border-radius: 10px;
-      box-shadow: 0 20px 60px rgba(0,0,0,.18);
+      background: var(--pui-white); border-radius: var(--pui-radius-lg);
+      box-shadow: var(--pui-shadow-2xl);
       display: flex; flex-direction: column;
       max-height: 90vh; overflow: hidden;
-      animation: pui-modal-in .18s ease;
+      animation: pui-modal-in var(--pui-duration-base) ease;
     }
     .pui-modal--sm { width: 360px; }
     .pui-modal--md { width: 520px; }
     .pui-modal--lg { width: 720px; }
     .pui-modal__header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 20px; border-bottom: 1px solid var(--pui-slate-200);
+      padding: var(--pui-space-4) var(--pui-space-5); border-bottom: 1px solid var(--pui-slate-200);
     }
-    .pui-modal__title { font-size: 16px; font-weight: 600; color: var(--pui-slate-900); }
+    .pui-modal__title { font-size: var(--pui-text-2xl); font-weight: 600; color: var(--pui-slate-900); }
     .pui-modal__close {
       background: none; border: none; cursor: pointer;
-      color: var(--pui-slate-400); font-size: 18px; padding: 0 4px;
+      color: var(--pui-slate-400); font-size: var(--pui-text-4xl); padding: 0 var(--pui-space-1);
       &:hover { color: var(--pui-slate-300); }
     }
-    .pui-modal__body   { padding: 20px; overflow-y: auto; flex: 1; color: var(--pui-slate-300); }
+    .pui-modal__body   { padding: var(--pui-space-5); overflow-y: auto; flex: 1; color: var(--pui-slate-300); }
     .pui-modal__footer {
-      padding: 12px 20px; border-top: 1px solid var(--pui-slate-200);
-      display: flex; justify-content: flex-end; gap: 8px;
+      padding: var(--pui-space-3) var(--pui-space-5); border-top: 1px solid var(--pui-slate-200);
+      display: flex; justify-content: flex-end; gap: var(--pui-space-2);
     }
     .pui-modal__footer:empty { display: none; }
     @keyframes pui-modal-in {
       from { opacity: 0; transform: translateY(-12px) scale(.97); }
       to   { opacity: 1; transform: none; }
     }
-  

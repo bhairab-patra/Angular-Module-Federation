@@ -50,11 +50,6 @@ import { PuiMultiSelectComponent } from '../../platform-ui/src/lib/forms/multise
   const ngZone = app.injector.get(NgZone);
   const appRef = app.injector.get(ApplicationRef);
 
-  // Tags that are Angular-component children inside pui-lib-app-shell.
-  // When the browser sees these inside an app-shell, Angular already manages
-  // them — skip the standalone Angular Elements bootstrap to avoid duplicate instances.
-  const SHELL_MANAGED = new Set(['pui-lib-header', 'pui-lib-sidebar']);
-
   const define = (component: any, tag: string) => {
     if (customElements.get(tag)) return;
 
@@ -62,7 +57,7 @@ import { PuiMultiSelectComponent } from '../../platform-ui/src/lib/forms/multise
     const proto = NgElement.prototype as any;
 
     // Patch attributeChangedCallback so attribute changes from React / plain HTML
-    // trigger Angular change detection on OnPush components.
+    // trigger Angular change detection.
     const origAttr = proto.attributeChangedCallback;
     proto.attributeChangedCallback = function (name: string, oldValue: string, newValue: string) {
       ngZone.run(() => {
@@ -70,21 +65,6 @@ import { PuiMultiSelectComponent } from '../../platform-ui/src/lib/forms/multise
         appRef.tick();
       });
     };
-
-    // For components that are also Angular children of pui-lib-app-shell,
-    // skip standalone bootstrap when the element is inside an app-shell —
-    // Angular already owns that instance and a second bootstrap causes duplicates.
-    if (SHELL_MANAGED.has(tag)) {
-      const origConn = proto.connectedCallback;
-      proto.connectedCallback = function () {
-        // closest() cannot pierce shadow DOM boundaries, so use getRootNode() instead.
-        // If this element lives inside pui-lib-app-shell's shadow root, Angular already
-        // manages it — skip the standalone Angular Elements bootstrap.
-        const root = this.getRootNode();
-        if (root instanceof ShadowRoot && root.host?.tagName?.toLowerCase() === 'pui-lib-app-shell') return;
-        origConn.call(this);
-      };
-    }
 
     customElements.define(tag, NgElement);
   };
@@ -94,7 +74,9 @@ import { PuiMultiSelectComponent } from '../../platform-ui/src/lib/forms/multise
   define(CardComponent, 'pui-lib-card');
   define(BadgeComponent, 'pui-lib-badge');
   define(ModalComponent, 'pui-lib-modal');
-  define(HeaderComponent, 'pui-lib-header');
+  // pui-lib-header and pui-lib-sidebar are NOT registered as standalone custom elements.
+  // They are internal children of pui-lib-app-shell — Angular manages them via template
+  // binding. Registering them would cause a duplicate component bootstrap (double header).
   define(IconComponent, 'pui-lib-icon');
   define(TooltipComponent, 'pui-lib-tooltip');
   define(SpinnerComponent, 'pui-lib-spinner');
@@ -108,7 +90,6 @@ import { PuiMultiSelectComponent } from '../../platform-ui/src/lib/forms/multise
   define(PuiSearchComponent, 'pui-lib-search');
   define(PuiFilterPanelComponent, 'pui-lib-filter-panel');
   define(PuiToastContainerComponent, 'pui-lib-toast-container');
-  define(PuiSidebarComponent, 'pui-lib-sidebar');
   define(PuiAppShellComponent, 'pui-lib-app-shell');
   define(PuiTableComponent, 'pui-lib-table');
   define(PuiTabsComponent, 'pui-lib-tabs');
@@ -121,6 +102,10 @@ import { PuiMultiSelectComponent } from '../../platform-ui/src/lib/forms/multise
   define(PuiPasswordInputComponent, 'pui-lib-password-input');
   define(PuiComboboxComponent, 'pui-lib-combobox');
   define(PuiMultiSelectComponent, 'pui-lib-multiselect');
+
+  // Expose tick helper — call after setting JS properties on custom elements from React
+  // so Angular's change detection picks up the new values.
+  (window as any)['puiTick'] = () => ngZone.run(() => appRef.tick());
 
   // Expose global toast API for React / plain HTML consumers
   const toast = app.injector.get(ToastService);

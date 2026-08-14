@@ -22,14 +22,14 @@
 .pui-bc__link {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--pui-space-1-5);
   text-decoration: none;
   font-size: var(--pui-bc-size, 13px);
   font-weight: 500;
   color: var(--pui-bc-link-color, var(--pui-neutral-500));
-  border-radius: 4px;
-  padding: 1px 4px;
-  transition: color .15s, background .15s;
+  border-radius: var(--pui-radius-xs);
+  padding: var(--pui-space-px) var(--pui-space-1);
+  transition: color var(--pui-duration-base), background var(--pui-duration-base);
 }
 
 .pui-bc__link:hover {
@@ -49,20 +49,20 @@
 .pui-bc__current {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: var(--pui-space-1-5);
   font-size: var(--pui-bc-size, 13px);
   font-weight: 600;
   color: var(--pui-bc-active-color, var(--pui-neutral-900));
-  padding: 1px 4px;
+  padding: var(--pui-space-px) var(--pui-space-1);
 }
 
 .pui-bc__sep {
   display: inline-flex;
   align-items: center;
   color: var(--pui-bc-sep-color, var(--pui-neutral-300));
-  font-size: 13px;
+  font-size: var(--pui-text-base);
   font-weight: 400;
-  margin: 0 4px;
+  margin: 0 var(--pui-space-1);
   user-select: none;
 }
 

@@ -1,7 +1,7 @@
-
+﻿
     :host, pui-lib-sidebar { display: block; height: 100%; }
 
-    /* ── Sidebar rail ────────────────────────────────────── */
+    /* â”€â”€ Sidebar rail â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb {
       display: flex; flex-direction: column;
       height: 100%; overflow: hidden;
@@ -23,16 +23,16 @@
       transition: width .22s cubic-bezier(.4,0,.2,1);
     }
 
-    /* ── Brand ──────────────────────────────────────────── */
+    /* â”€â”€ Brand â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__brand {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 20px 16px 16px;
+      padding: var(--pui-space-5) var(--pui-space-4) var(--pui-space-4);
       border-bottom: 1px solid var(--pui-sb-border);
       flex-shrink: 0;
-      gap: 8px;
+      gap: var(--pui-space-2);
     }
     .pui-sb__logo-wrap {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: var(--pui-space-2-5);
       overflow: hidden; min-width: 0;
     }
     .pui-sb__logo {
@@ -41,17 +41,17 @@
     }
     .pui-sb__logo svg, .pui-sb__logo img { width: 32px; height: 32px; }
     .pui-sb__brand-name {
-      font-size: 15px; font-weight: 700;
+      font-size: var(--pui-text-xl); font-weight: 700;
       color: var(--pui-sb-active-txt);
       white-space: nowrap; overflow: hidden;
       text-overflow: ellipsis;
-      opacity: 1; transition: opacity .18s;
+      opacity: 1; transition: opacity var(--pui-duration-base);
     }
     .pui-sb--collapsed .pui-sb__brand-name { opacity: 0; width: 0; }
 
     .pui-sb__toggle {
       flex-shrink: 0; width: 28px; height: 28px;
-      border-radius: 7px; border: 1px solid var(--pui-sb-border);
+      border-radius: var(--pui-radius-sm); border: 1px solid var(--pui-sb-border);
       background: transparent; color: var(--pui-sb-text);
       display: flex; align-items: center; justify-content: center;
       cursor: pointer; transition: background .14s, color .14s, border-color .14s;
@@ -62,42 +62,42 @@
       border-color: var(--pui-sb-active-brd);
     }
 
-    /* ── Search ─────────────────────────────────────────── */
+    /* â”€â”€ Search â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__search {
-      padding: 12px 12px 8px;
+      padding: var(--pui-space-3) var(--pui-space-3) var(--pui-space-2);
       flex-shrink: 0;
     }
     .pui-sb__search pui-search { display: block; width: 100%; }
 
-    /* ── Nav ─────────────────────────────────────────────── */
+    /* â”€â”€ Nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__nav {
       flex: 1; overflow-y: auto; overflow-x: hidden;
-      padding: 8px 0 12px;
+      padding: var(--pui-space-2) 0 var(--pui-space-3);
       scrollbar-width: thin;
       scrollbar-color: var(--pui-sb-border) transparent;
     }
     .pui-sb__nav::-webkit-scrollbar { width: 4px; }
     .pui-sb__nav::-webkit-scrollbar-thumb {
-      background: var(--pui-sb-border); border-radius: 4px;
+      background: var(--pui-sb-border); border-radius: var(--pui-radius-xs);
     }
 
-    /* ── Group ───────────────────────────────────────────── */
-    .pui-sb__group { margin-bottom: 4px; }
+    /* â”€â”€ Group â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .pui-sb__group { margin-bottom: var(--pui-space-1); }
     .pui-sb__group-label {
-      font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+      font-size: var(--pui-text-2xs); font-weight: 700; text-transform: uppercase;
       letter-spacing: .08em;
       color: var(--pui-sb-group-txt);
-      padding: 14px 16px 4px;
+      padding: var(--pui-space-3-5) var(--pui-space-4) var(--pui-space-1);
       white-space: nowrap; overflow: hidden;
     }
     .pui-sb__list { list-style: none; margin: 0; padding: 0; }
     .pui-sb__li { position: relative; }
-    .pui-sb__li--divider { border-bottom: 1px solid var(--pui-sb-border); margin-bottom: 8px; padding-bottom: 8px; }
+    .pui-sb__li--divider { border-bottom: 1px solid var(--pui-sb-border); margin-bottom: var(--pui-space-2); padding-bottom: var(--pui-space-2); }
 
-    /* ── Item ────────────────────────────────────────────── */
+    /* â”€â”€ Item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__item {
-      width: 100%; display: flex; align-items: center; gap: 10px;
-      padding: 0 10px 0 12px; height: 40px;
+      width: 100%; display: flex; align-items: center; gap: var(--pui-space-2-5);
+      padding: 0 var(--pui-space-2-5) 0 var(--pui-space-3); height: 40px;
       border: none; background: transparent;
       color: var(--pui-sb-text);
       cursor: pointer; text-align: left;
@@ -106,8 +106,8 @@
       font-family: inherit;
     }
     .pui-sb__item::before {
-      content: ''; position: absolute; left: 0; top: 6px; bottom: 6px;
-      width: 3px; border-radius: 0 3px 3px 0;
+      content: ''; position: absolute; left: 0; top: var(--pui-space-1-5); bottom: var(--pui-space-1-5);
+      width: var(--pui-space-0-75); border-radius: 0 var(--pui-space-0-75) var(--pui-space-0-75) 0;
       background: transparent;
       transition: background .13s;
     }
@@ -122,22 +122,22 @@
     .pui-sb__item--active::before { background: var(--pui-sb-active-brd) !important; }
     .pui-sb__item--disabled { opacity: .42; cursor: not-allowed; }
 
-    /* ── Collapsed: center icon ──────────────────────────── */
+    /* â”€â”€ Collapsed: center icon â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb--collapsed .pui-sb__item {
       padding: 0; justify-content: center;
     }
     .pui-sb--collapsed .pui-sb__item::before { display: none; }
 
-    /* ── Icon ────────────────────────────────────────────── */
+    /* â”€â”€ Icon â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__item-icon {
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0; width: 20px; height: 20px;
       opacity: .85;
       transition: opacity .13s;
-      /* Material Symbols Rounded — applied directly so plain icon-name strings render */
+      /* Material Symbols Rounded â€” applied directly so plain icon-name strings render */
       font-family: 'Material Symbols Rounded', sans-serif;
       font-weight: normal; font-style: normal;
-      font-size: 20px; line-height: 1;
+      font-size: var(--pui-text-5xl); line-height: 1;
       letter-spacing: normal; text-transform: none;
       white-space: nowrap; direction: ltr;
       -webkit-font-smoothing: antialiased;
@@ -147,36 +147,36 @@
     .pui-sb__item:hover .pui-sb__item-icon { opacity: 1; }
     .pui-sb__item-icon svg { width: 18px; height: 18px; }
 
-    /* ── Label ───────────────────────────────────────────── */
+    /* â”€â”€ Label â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__item-body {
       flex: 1; display: flex; align-items: center;
-      gap: 8px; min-width: 0; overflow: hidden;
+      gap: var(--pui-space-2); min-width: 0; overflow: hidden;
     }
     .pui-sb__item-label {
-      flex: 1; font-size: 13.5px; font-weight: 500;
+      flex: 1; font-size: var(--pui-text-md); font-weight: 500;
       white-space: nowrap; overflow: hidden;
       text-overflow: ellipsis;
     }
     .pui-sb__item-label--ellipsis { cursor: help; }
     .pui-sb__item-label mark {
       background: rgba(18,198,168,.35);
-      color: inherit; border-radius: 2px; padding: 0 1px;
+      color: inherit; border-radius: var(--pui-radius-2); padding: 0 var(--pui-space-px);
     }
 
-    /* ── Arrow ───────────────────────────────────────────── */
+    /* â”€â”€ Arrow â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__arrow {
       flex-shrink: 0; display: flex; align-items: center;
       color: var(--pui-sb-text); opacity: .6;
-      transition: transform .2s, opacity .13s;
+      transition: transform var(--pui-duration-slow), opacity .13s;
     }
     .pui-sb__arrow--open { transform: rotate(90deg); opacity: 1; }
     .pui-sb__item:hover .pui-sb__arrow { opacity: 1; }
 
-    /* ── Badge ───────────────────────────────────────────── */
+    /* â”€â”€ Badge â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__badge {
       flex-shrink: 0;
-      font-size: 10.5px; font-weight: 700;
-      padding: 1px 7px; border-radius: 20px;
+      font-size: var(--pui-text-2xs); font-weight: 700;
+      padding: var(--pui-space-px) 7px; border-radius: var(--pui-radius-full);
       line-height: 1.6;
     }
     .pui-sb__badge--primary { background: rgba(18,198,168,.2); color: var(--pui-brand); }
@@ -185,7 +185,7 @@
     .pui-sb__badge--danger  { background: rgba(239,68,68,.2);  color: var(--pui-error); }
     .pui-sb__badge--info    { background: rgba(59,130,246,.2); color: var(--pui-blue); }
 
-    /* ── Submenu ─────────────────────────────────────────── */
+    /* â”€â”€ Submenu â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__sub {
       list-style: none; margin: 0; padding: 0;
       max-height: 0; overflow: hidden;
@@ -195,8 +195,8 @@
     .pui-sb__sub--open { max-height: 600px; }
 
     .pui-sb__subitem {
-      width: 100%; display: flex; align-items: center; gap: 10px;
-      padding: 0 10px 0 44px; height: 36px;
+      width: 100%; display: flex; align-items: center; gap: var(--pui-space-2-5);
+      padding: 0 var(--pui-space-2-5) 0 44px; height: 36px;
       border: none; background: transparent;
       color: var(--pui-sb-text); opacity: .85;
       cursor: pointer; text-align: left;
@@ -223,27 +223,27 @@
     .pui-sb__subitem:hover .pui-sb__subitem-dot { opacity: 1; }
 
     .pui-sb__subitem-label {
-      flex: 1; font-size: 13px; font-weight: 400;
+      flex: 1; font-size: var(--pui-text-base); font-weight: 400;
       white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
 
-    /* ── Empty state ─────────────────────────────────────── */
+    /* â”€â”€ Empty state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__empty {
       display: flex; flex-direction: column; align-items: center;
-      gap: 10px; padding: 32px 16px;
+      gap: var(--pui-space-2-5); padding: var(--pui-space-8) var(--pui-space-4);
       color: var(--pui-sb-group-txt);
-      font-size: 13px; text-align: center;
+      font-size: var(--pui-text-base); text-align: center;
     }
 
-    /* ── Footer ──────────────────────────────────────────── */
+    /* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__footer {
       flex-shrink: 0;
-      padding: 12px;
+      padding: var(--pui-space-3);
       border-top: 1px solid var(--pui-sb-border);
       display: flex; justify-content: center;
     }
     .pui-sb__expand-btn {
-      width: 36px; height: 36px; border-radius: 8px;
+      width: 36px; height: 36px; border-radius: var(--pui-radius-md);
       border: 1px solid var(--pui-sb-border);
       background: transparent; color: var(--pui-sb-text);
       display: flex; align-items: center; justify-content: center;
@@ -254,4 +254,3 @@
       background: var(--pui-sb-hover-bg);
       color: var(--pui-sb-hover-txt);
     }
-  

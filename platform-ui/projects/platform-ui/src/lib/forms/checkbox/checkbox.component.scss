@@ -1,8 +1,8 @@
 
-    :host { display: flex; flex-direction: column; gap: 4px; }
+    :host { display: flex; flex-direction: column; gap: var(--pui-space-1); }
 
     .pui-cb {
-      display: inline-flex; align-items: center; gap: 9px;
+      display: inline-flex; align-items: center; gap: var(--pui-space-2);
       cursor: pointer; user-select: none;
     }
     .pui-cb--disabled { cursor: not-allowed; }
@@ -10,9 +10,9 @@
     /* Box */
     .pui-cb__box {
       position: relative; width: 18px; height: 18px; flex-shrink: 0;
-      border: 1.8px solid var(--pui-neutral-300); border-radius: 5px;
+      border: 1.8px solid var(--pui-neutral-300); border-radius: var(--pui-radius-xs);
       background: var(--pui-white); display: flex; align-items: center; justify-content: center;
-      transition: border-color .15s, background .15s, box-shadow .15s;
+      transition: border-color var(--pui-duration-base), background var(--pui-duration-base), box-shadow var(--pui-duration-base);
     }
     .pui-cb__box:hover:not(.pui-cb__box--disabled) { border-color: var(--pui-brand); }
     .pui-cb__box--checked { background: var(--pui-brand) !important; border-color: var(--pui-brand) !important; }
@@ -23,7 +23,7 @@
 
     /* Focus ring via child input */
     .pui-cb__box:focus-within {
-      box-shadow: 0 0 0 3px rgba(18,198,168,.18);
+      box-shadow: var(--pui-shadow-focus);
     }
 
     .pui-cb__native {
@@ -33,14 +33,13 @@
     .pui-cb__check { pointer-events: none; position: relative; z-index: 1; }
 
     /* Label */
-    .pui-cb__label { font-size: 14px; color: var(--pui-neutral-700); font-family: 'Poppins', system-ui, sans-serif; }
+    .pui-cb__label { font-size: var(--pui-text-lg); color: var(--pui-neutral-700); font-family: 'Poppins', system-ui, sans-serif; }
     .pui-cb--disabled .pui-cb__label { color: var(--pui-neutral-400); }
-    .pui-cb__req { color: var(--pui-error); margin-left: 2px; }
+    .pui-cb__req { color: var(--pui-error); margin-left: var(--pui-space-0-5); }
 
-    .pui-field__hint  { font-size: 11px; color: var(--pui-neutral-500); font-family: 'Poppins', system-ui, sans-serif; padding-left: 27px; }
+    .pui-field__hint  { font-size: var(--pui-text-xs); color: var(--pui-neutral-500); font-family: 'Poppins', system-ui, sans-serif; padding-left: 27px; }
     .pui-field__error {
-      display: flex; align-items: center; gap: 5px;
-      font-size: 11px; color: var(--pui-error); font-weight: 500;
+      display: flex; align-items: center; gap: var(--pui-space-1-5);
+      font-size: var(--pui-text-xs); color: var(--pui-error); font-weight: 500;
       font-family: 'Poppins', system-ui, sans-serif; padding-left: 27px;
     }
-  

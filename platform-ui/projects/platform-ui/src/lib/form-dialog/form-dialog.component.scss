@@ -9,20 +9,20 @@
   align-items: center;
   justify-content: center;
   z-index: 1200;
-  padding: 16px;
-  animation: pui-fd-fade .15s ease;
+  padding: var(--pui-space-4);
+  animation: pui-fd-fade var(--pui-duration-base) ease;
 }
 
 /* ── Dialog panel ─────────────────────────────── */
 .pui-fd {
-  background: var(--pui-white, #fff);
-  border-radius: 12px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.20);
+  background: var(--pui-white);
+  border-radius: var(--pui-radius-xl);
+  box-shadow: var(--pui-shadow-3xl);
   display: flex;
   flex-direction: column;
   max-height: 90vh;
   width: 100%;
-  animation: pui-fd-in .18s ease;
+  animation: pui-fd-in var(--pui-duration-base) ease;
   font-family: inherit;
 
   &--sm { max-width: 380px; }
@@ -35,16 +35,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 22px 16px;
-  border-bottom: 1px solid var(--pui-neutral-200, #e5e7eb);
+  padding: var(--pui-space-4-5) var(--pui-space-5-5) var(--pui-space-4);
+  border-bottom: 1px solid var(--pui-neutral-200);
   flex-shrink: 0;
 }
 
 .pui-fd__title {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--pui-text-2xl);
   font-weight: 700;
-  color: var(--pui-neutral-900, #111827);
+  color: var(--pui-neutral-900);
   line-height: 1.3;
 }
 
@@ -55,23 +55,23 @@
   width: 32px;
   height: 32px;
   border: none;
-  border-radius: 7px;
+  border-radius: var(--pui-radius-sm);
   background: transparent;
-  color: var(--pui-neutral-400, #9ca3af);
+  color: var(--pui-neutral-400);
   cursor: pointer;
   padding: 0;
   transition: background 0.12s, color 0.12s;
   flex-shrink: 0;
 
   &:hover {
-    background: var(--pui-neutral-100, #f3f4f6);
-    color: var(--pui-neutral-700, #374151);
+    background: var(--pui-neutral-100);
+    color: var(--pui-neutral-700);
   }
 }
 
 /* ── Body ─────────────────────────────────────── */
 .pui-fd__body {
-  padding: 22px;
+  padding: var(--pui-space-5-5);
   overflow-y: auto;
   flex: 1;
 }
@@ -80,7 +80,7 @@
 .pui-fd__grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 4px 20px;
+  gap: var(--pui-space-1) var(--pui-space-5);
 }
 
 .pui-fd__field {
@@ -95,9 +95,9 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  gap: 10px;
-  padding: 14px 22px 18px;
-  border-top: 1px solid var(--pui-neutral-200, #e5e7eb);
+  gap: var(--pui-space-2-5);
+  padding: var(--pui-space-3-5) var(--pui-space-5-5) var(--pui-space-4-5);
+  border-top: 1px solid var(--pui-neutral-200);
   flex-shrink: 0;
 }
 

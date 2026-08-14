@@ -1,29 +1,29 @@
-:host {
+﻿:host {
   display: inline-flex;
 }
 
 .pui-chip {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  border-radius: 999px;
+  gap: var(--pui-space-1-5);
+  border-radius: var(--pui-radius-full);
   font-weight: 500;
   cursor: pointer;
   border: 1px solid transparent;
   white-space: nowrap;
   font-family: inherit;
-  transition: opacity .15s, box-shadow .15s;
+  transition: opacity var(--pui-duration-base), box-shadow var(--pui-duration-base);
   user-select: none;
 }
 
 .pui-chip--sm {
-  padding: 3px 10px;
-  font-size: 12px;
+  padding: var(--pui-space-0-75) var(--pui-space-2-5);
+  font-size: var(--pui-text-sm);
 }
 
 .pui-chip--md {
-  padding: 5px 14px;
-  font-size: 13px;
+  padding: var(--pui-space-1-5) var(--pui-space-3-5);
+  font-size: var(--pui-text-base);
 }
 
 /* variants */
@@ -95,7 +95,7 @@
   cursor: pointer;
   padding: 0;
   opacity: .7;
-  margin-left: 2px;
+  margin-left: var(--pui-space-0-5);
 }
 
 .pui-chip__remove:hover {

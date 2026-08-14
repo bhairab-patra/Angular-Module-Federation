@@ -5,17 +5,17 @@
 .pui-file-btn {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--pui-space-2-5);
   font-family: inherit;
 }
 
 .pui-file-btn__trigger {
-  padding: 9px 20px;
+  padding: var(--pui-space-2) var(--pui-space-5);
   background: var(--pui-indigo-bg);
   color: var(--pui-indigo);
   border: 2px solid var(--pui-indigo-light);
-  border-radius: 999px;
-  font-size: 14px;
+  border-radius: var(--pui-radius-full);
+  font-size: var(--pui-text-lg);
   font-weight: 700;
   cursor: pointer;
   font-family: inherit;
@@ -27,7 +27,7 @@
 
   &:focus-visible {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(44, 44, 82, .25);
+    box-shadow: var(--pui-shadow-focus-neutral);
   }
 
   &:disabled {
@@ -37,7 +37,7 @@
 }
 
 .pui-file-btn__hint {
-  font-size: 13px;
+  font-size: var(--pui-text-base);
   color: var(--pui-neutral-500);
   white-space: nowrap;
 }
@@ -45,10 +45,10 @@
 .pui-file-btn__area {
   flex: 1;
   min-width: 140px;
-  padding: 9px 18px;
+  padding: var(--pui-space-2) var(--pui-space-4-5);
   background: var(--pui-file-btn-disabled);
-  border-radius: 999px;
-  font-size: 13px;
+  border-radius: var(--pui-radius-full);
+  font-size: var(--pui-text-base);
   color: var(--pui-indigo-muted);
   white-space: nowrap;
   overflow: hidden;

@@ -1,0 +1,12 @@
+// Platform UI — Animation & Transition Tokens
+:root {
+  --pui-duration-fast:   0.1s;
+  --pui-duration-base:   0.15s;
+  --pui-duration-slow:   0.2s;
+  --pui-duration-slower: 0.3s;
+
+  --pui-ease:        ease;
+  --pui-ease-in:     ease-in;
+  --pui-ease-out:    ease-out;
+  --pui-ease-in-out: ease-in-out;
+}
