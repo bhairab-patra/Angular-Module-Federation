@@ -21,7 +21,7 @@ export class TableDisplayPageComponent {
   isLoading = false;
   lastAction = '';
 
-  copy(id: string, text: string) {
+  copy(id: string, text: string): void {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
@@ -29,7 +29,9 @@ export class TableDisplayPageComponent {
     });
   }
 
-  toggleLoading() { this.isLoading = !this.isLoading; this.cdr.markForCheck(); }
+  toggleLoading(): void { this.isLoading = !this.isLoading; this.cdr.markForCheck(); }
+
+  trackByIndex(_i: number): number { return _i; }
 
   /* ── Simple demo data ───────────────────────── */
   simpleCols: TableColumn[] = [

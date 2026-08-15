@@ -1,4 +1,4 @@
-
+﻿
 <docs-page
   title="Input"
   description="A single-line text field with focus, hover, error, disabled, and readonly states. Works seamlessly in Angular forms, React, and plain HTML as a Web Component."
@@ -13,7 +13,7 @@
         <pui-lib-input label="Full name"  placeholder="John Doe"        [(ngModel)]="v1" style="flex:1"/>
         <pui-lib-input label="Email"      placeholder="you@company.com" type="email" [(ngModel)]="v2" style="flex:1"/>
       </div>
-      <p class="demo-desc">Name: <strong>{{ v1 || '—' }}</strong></p>
+      <p class="demo-desc">Name: <strong>{{ v1 || 'â€”' }}</strong></p>
     </div>
 
     <div class="demo-section">
@@ -29,7 +29,7 @@
       <h3 class="demo-section__title">Password & Clearable</h3>
       <div class="demo-row">
         <pui-lib-input label="Password" type="password" placeholder="Enter password" [(ngModel)]="vPass" style="flex:1"/>
-        <pui-lib-input label="Search"   [clearable]="clearable" placeholder="Type to search…" [(ngModel)]="vSearch" style="flex:1"/>
+        <pui-lib-input label="Search"   [clearable]="clearable" placeholder="Type to searchâ€¦" [(ngModel)]="vSearch" style="flex:1"/>
       </div>
     </div>
 
@@ -56,7 +56,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-input</code> is a Web Component — works in Angular, React, and plain HTML with no extra config. String inputs work as HTML attributes. Booleans (<code>disabled</code>, <code>readonly</code>, <code>clearable</code>, <code>showCount</code>) accept <code>"true"</code> strings or JS properties. <code>maxLength</code> accepts a number or numeric string.</p>
+    <p class="fw-lead"><code>pui-lib-input</code> is a Web Component â€” works in Angular, React, and plain HTML with no extra config. String inputs work as HTML attributes. Booleans (<code>disabled</code>, <code>readonly</code>, <code>clearable</code>, <code>showCount</code>) accept <code>"true"</code> strings or JS properties. <code>maxLength</code> accepts a number or numeric string.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
@@ -82,7 +82,7 @@
       <table class="xfw-table">
         <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ r.name }}</code></td>
             <td><code class="tag-ng">{{ r.angular }}</code></td>
             <td><code class="tag-html">{{ r.attr }}</code></td>

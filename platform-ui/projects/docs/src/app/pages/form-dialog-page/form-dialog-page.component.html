@@ -1,5 +1,5 @@
-<docs-page title="Form Dialog"
-  description="pui-lib-form-dialog — a configurable modal form with support for text, email, number, password, textarea, and select fields. Handles both add and edit flows via the [data] input."
+﻿<docs-page title="Form Dialog"
+  description="pui-lib-form-dialog â€” a configurable modal form with support for text, email, number, password, textarea, and select fields. Handles both add and edit flows via the [data] input."
   [api]="api">
 
   <ng-container demo>
@@ -16,7 +16,7 @@
         <button class="demo-btn demo-btn--secondary" (click)="openEdit()">Edit User</button>
       </div>
       <div class="demo-log" *ngIf="basicLog.length">
-        <p *ngFor="let entry of basicLog" class="demo-log__entry">{{ entry }}</p>
+        <p *ngFor="let entry of basicLog; trackBy: trackByIndex" class="demo-log__entry">{{ entry }}</p>
       </div>
 
       <pui-lib-form-dialog
@@ -75,7 +75,7 @@
 
     <!-- 3. Complex multi-field form -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Complex Form — Product Catalog</h3>
+      <h3 class="demo-section__title">Complex Form â€” Product Catalog</h3>
       <p class="demo-section__desc">
         Use <code>span: 'half'</code> to place two fields side-by-side in the 2-column grid,
         or <code>span: 'full'</code> (default) to stretch a field the full width.
@@ -85,7 +85,7 @@
         <button class="demo-btn" (click)="productOpen = true">Add Product</button>
       </div>
       <div class="demo-log" *ngIf="productLog.length">
-        <p *ngFor="let entry of productLog" class="demo-log__entry">{{ entry }}</p>
+        <p *ngFor="let entry of productLog; trackBy: trackByIndex" class="demo-log__entry">{{ entry }}</p>
       </div>
 
       <pui-lib-form-dialog
@@ -103,8 +103,8 @@
     <!-- 4. Code Usage -->
     <div class="demo-section">
       <h3 class="demo-section__title">Usage</h3>
-      <app-code lang="html"       id="fd-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <app-code lang="typescript" id="fd-ts"   [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="html"       id="fd-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="typescript" id="fd-ts"   [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
     </div>
 
     <!-- 5. FormDialogField interface -->
@@ -116,7 +116,7 @@
       <table class="pui-api-table">
         <thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-          <tr *ngFor="let row of fieldApi; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let row of fieldApi; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ row.input }}</code></td>
             <td><code>{{ row.type }}</code></td>
             <td><code>{{ row.default }}</code></td>
@@ -128,3 +128,4 @@
 
   </ng-container>
 </docs-page>
+

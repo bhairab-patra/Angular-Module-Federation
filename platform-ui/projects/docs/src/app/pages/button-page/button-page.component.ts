@@ -2,10 +2,10 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
-import { ButtonComponent, FileUploadButtonComponent } from '@bhairab-patra/platform-ui';
+import { ButtonComponent, FileUploadButtonComponent, ButtonVariant } from '@bhairab-patra/platform-ui';
 
 @Component({
-  selector: 'app-button-page',
+  selector: 'docs-button-page',
   standalone: true,
   imports: [NgFor, NgIf, DocPageComponent, ButtonComponent, FileUploadButtonComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -77,7 +77,7 @@ function ArticleFormFooter({ onCancel, onSaveDraft, onPublish }) {
 </script>`;
 
   demoLabel    = 'Save Changes';
-  demoVariant: any = 'primary';
+  demoVariant: ButtonVariant = 'primary';
   demoDisabled = false;
   selectedFile = '';
 
@@ -92,6 +92,23 @@ function ArticleFormFooter({ onCancel, onSaveDraft, onPublish }) {
     this.selectedFile = files[0]?.name ?? '';
     this.cdr.markForCheck();
   }
+
+  onDemoLabelInput(event: Event): void {
+    this.demoLabel = (event.target as HTMLInputElement).value;
+    this.cdr.markForCheck();
+  }
+
+  onDemoVariantChange(event: Event): void {
+    this.demoVariant = (event.target as HTMLSelectElement).value as ButtonVariant;
+    this.cdr.markForCheck();
+  }
+
+  onDemoDisabledChange(event: Event): void {
+    this.demoDisabled = (event.target as HTMLInputElement).checked;
+    this.cdr.markForCheck();
+  }
+
+  trackByIndex(_i: number): number { return _i; }
 
   xfwRows = [
     { name: 'variant',   angular: 'variant="primary"',       attr: 'variant="primary"',  js: 'el.variant = "primary"'   },

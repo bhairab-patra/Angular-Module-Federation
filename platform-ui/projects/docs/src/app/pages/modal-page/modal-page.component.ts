@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { ModalComponent, ButtonComponent, CardComponent, IconComponent } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
@@ -106,14 +106,15 @@ function Page() {
     { name: 'title',           angular: 'title="Dialog"',           attr: 'title="Dialog"',    js: 'el.title = "Dialog"'     },
     { name: 'size',            angular: 'size="lg"',                attr: 'size="lg"',          js: 'el.size = "lg"'          },
     { name: 'closeOnBackdrop', angular: '[closeOnBackdrop]="false"', attr: 'close-on-backdrop="false"', js: 'el.closeOnBackdrop = false' },
-    { name: 'closed',          angular: '(closed)="fn()"',          attr: '—',                 js: 'el.addEventListener(…)'  },
+    { name: 'closed',          angular: '(closed)="fn()"',          attr: 'â€”',                 js: 'el.addEventListener(â€¦)'  },
   ];
 
   api: ApiRow[] = [
-    { input: 'open',            type: 'boolean',             default: 'false',    description: 'Controls visibility — set to true to show, false to hide.' },
+    { input: 'open',            type: 'boolean',             default: 'false',    description: 'Controls visibility â€” set to true to show, false to hide.' },
     { input: 'title',           type: 'string',              default: `'Dialog'`, description: 'Header title text.' },
-    { input: 'size',            type: `'sm'|'md'|'lg'`,      default: `'md'`,     description: 'Dialog width — sm 360px · md 520px · lg 720px.' },
+    { input: 'size',            type: `'sm'|'md'|'lg'`,      default: `'md'`,     description: 'Dialog width â€” sm 360px Â· md 520px Â· lg 720px.' },
     { input: 'closeOnBackdrop', type: 'boolean',             default: 'true',     description: 'Click backdrop to close.' },
-    { input: '(closed)',        type: 'EventEmitter<void>',  default: '—',        description: 'Fires when backdrop or ✕ is clicked — sync your state here.' },
+    { input: '(closed)',        type: 'EventEmitter<void>',  default: 'â€”',        description: 'Fires when backdrop or âœ• is clicked â€” sync your state here.' },
   ];
+  trackByIndex(_i: number): number { return _i; }
 }

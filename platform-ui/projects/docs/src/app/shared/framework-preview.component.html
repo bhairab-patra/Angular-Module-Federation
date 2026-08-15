@@ -1,6 +1,6 @@
-<div class="fp-wrap">
+﻿<div class="fp-wrap">
 
-  <!-- ── Toolbar ── -->
+  <!-- â”€â”€ Toolbar â”€â”€ -->
   <div class="fp-toolbar">
 
     <!-- Preview / Code toggle -->
@@ -24,13 +24,14 @@
     <div class="fp-toolbar__right">
       <!-- Framework tabs -->
       <div class="fp-fw-tabs">
-        <button *ngFor="let fw of frameworks"
+        <button *ngFor="let fw of frameworks; trackBy: trackByIndex"
                 class="fp-fw-tab"
                 [class.fp-fw-tab--active]="activeFw === fw.id"
                 [class.fp-fw-tab--disabled]="fw.id === 'html'"
                 [disabled]="fw.id === 'html'"
-                (click)="setFw(fw.id)"
-                [innerHTML]="fw.icon + ' ' + fw.label">
+                (click)="setFw(fw.id)">
+          <span class="fp-fw-tab__icon" [innerHTML]="safeHtml(fw.icon)"></span>
+          <span>{{ fw.label }}</span>
         </button>
       </div>
 
@@ -48,19 +49,19 @@
     </div>
   </div>
 
-  <!-- ── Preview pane ── -->
+  <!-- â”€â”€ Preview pane â”€â”€ -->
   <div class="fp-preview" *ngIf="mode === 'preview'">
-    <!-- Angular slot — hidden when React is active and a react-preview slot was provided -->
+    <!-- Angular slot â€” hidden when React is active and a react-preview slot was provided -->
     <div [style.display]="activeFw === 'react' && hasReactPreview ? 'none' : 'contents'">
       <ng-content select="[preview]"></ng-content>
     </div>
-    <!-- React slot — hidden unless React tab is active -->
+    <!-- React slot â€” hidden unless React tab is active -->
     <div #reactSlot [style.display]="activeFw === 'react' && hasReactPreview ? 'contents' : 'none'">
       <ng-content select="[react-preview]"></ng-content>
     </div>
   </div>
 
-  <!-- ── Code pane ── -->
+  <!-- â”€â”€ Code pane â”€â”€ -->
   <div class="fp-code" *ngIf="mode === 'code'">
     <pre class="fp-pre"><code>{{ currentCode }}</code></pre>
   </div>

@@ -32,7 +32,7 @@ type Framework = 'angular' | 'react' | 'html';
 
       <!-- Framework picker tabs -->
       <div class="fw-tabs">
-        <button *ngFor="let fw of frameworks"
+        <button *ngFor="let fw of frameworks; trackBy: trackByIndex"
           class="fw-tab"
           [class.fw-tab--active]="active === fw.id"
           (click)="setFramework(fw.id)">
@@ -101,7 +101,7 @@ type Framework = 'angular' | 'react' | 'html';
         <section id="ng-npmrc" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">2</span> Configure npm for GitHub Packages</h2>
           <p class="gs-p">Create <code>.npmrc</code> in your project root and paste the two lines below. Replace <code>YOUR_GITHUB_PAT_HERE</code> with your token:</p>
-          <app-code lang=".npmrc" [id]="'ng-npmrc'" [text]="code.ng.npmrc" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang=".npmrc" [id]="'ng-npmrc'" [text]="code.ng.npmrc" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--warn">
             Add <code>.npmrc</code> to <code>.gitignore</code> — never commit a token to source control.
           </div>
@@ -109,11 +109,11 @@ type Framework = 'angular' | 'react' | 'html';
 
         <section id="ng-install" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">3</span> Install the Library</h2>
-          <app-code lang="bash" [id]="'ng-install'" [text]="code.ng.install" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'ng-install'" [text]="code.ng.install" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
 
           <h3 class="gs-h3" style="margin-top:24px">Using Module Federation?</h3>
           <p class="gs-p">Add the package to the <code>skip</code> list so Native Federation does not try to re-bundle it:</p>
-          <app-code lang="federation.config.js" [id]="'ng-fed'" [text]="code.ng.federation" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="federation.config.js" [id]="'ng-fed'" [text]="code.ng.federation" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="ng-styles" class="gs-section">
@@ -123,7 +123,7 @@ type Framework = 'angular' | 'react' | 'html';
             The tokens file defines all CSS custom properties; the theme file applies the default teal colour scheme.
             Consumers import them explicitly — they are never bundled automatically:
           </p>
-          <app-code lang="angular.json" [id]="'ng-styles'" [text]="code.ng.styles" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="angular.json" [id]="'ng-styles'" [text]="code.ng.styles" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--warn">
             Do <strong>not</strong> import from <code>elements/styles.css</code> — that path is for the Angular Elements / web-component build only.
             Angular consumers always import from <code>styles/tokens.css</code> and <code>styles/themes/theme-new.css</code>.
@@ -134,10 +134,10 @@ type Framework = 'angular' | 'react' | 'html';
           <h2 class="gs-h2"><span class="step-badge">5</span> Import Components</h2>
 
           <h3 class="gs-h3">Standalone component (recommended)</h3>
-          <app-code lang="TypeScript" [id]="'ng-sa'" [text]="code.ng.standalone" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="TypeScript" [id]="'ng-sa'" [text]="code.ng.standalone" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
 
           <h3 class="gs-h3" style="margin-top:24px">NgModule (legacy apps)</h3>
-          <app-code lang="TypeScript" [id]="'ng-mod'" [text]="code.ng.ngModule" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="TypeScript" [id]="'ng-mod'" [text]="code.ng.ngModule" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="ng-use" class="gs-section">
@@ -148,15 +148,15 @@ type Framework = 'angular' | 'react' | 'html';
             <code>&lt;router-outlet /&gt;</code> inside the shell tag — the sidebar navigation
             drives Angular's router automatically via the <code>(itemSelect)</code> output:
           </p>
-          <app-code lang="app.config.ts" [id]="'ng-config'" [text]="code.ng.appConfig" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
-          <app-code lang="app.routes.ts" [id]="'ng-routes'" [text]="code.ng.routes" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:14px"></app-code>
-          <app-code lang="app.component.ts" [id]="'ng-shell'" [text]="code.ng.shell" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:14px"></app-code>
-          <app-code lang="app.component.html" [id]="'ng-shell-html'" [text]="code.ng.shellHtml" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:14px"></app-code>
+          <docs-code-block lang="app.config.ts" [id]="'ng-config'" [text]="code.ng.appConfig" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
+          <docs-code-block lang="app.routes.ts" [id]="'ng-routes'" [text]="code.ng.routes" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:14px"></docs-code-block>
+          <docs-code-block lang="app.component.ts" [id]="'ng-shell'" [text]="code.ng.shell" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:14px"></docs-code-block>
+          <docs-code-block lang="app.component.html" [id]="'ng-shell-html'" [text]="code.ng.shellHtml" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:14px"></docs-code-block>
         </section>
 
         <section id="ng-verify" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">7</span> Run &amp; Verify</h2>
-          <app-code lang="bash" [id]="'ng-serve'" [text]="'ng serve'" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'ng-serve'" [text]="'ng serve'" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--success" style="margin-top:18px">
             Open <strong>http://localhost:4200</strong>. You should see the teal header, sidebar rail, and hamburger toggle.
           </div>
@@ -187,7 +187,7 @@ type Framework = 'angular' | 'react' | 'html';
         <section id="ng-local-build" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">2</span> Build the Library</h2>
           <p class="gs-p">Run this inside the <strong>library repo</strong>. This produces the compiled output in <code>dist/platform-ui/</code>:</p>
-          <app-code lang="bash" [id]="'ng-local-build'" [text]="code.ng.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'ng-local-build'" [text]="code.ng.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--info">
             Using <code>--configuration development</code> skips the lint step so the build is faster. Never use <code>npm run build:local</code> — it runs lint first and may block.
           </div>
@@ -196,14 +196,14 @@ type Framework = 'angular' | 'react' | 'html';
         <section id="ng-local-link1" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">3</span> Register the dist Folder Globally</h2>
           <p class="gs-p">Navigate into the <strong>built output folder</strong> and run <code>npm link</code>. This registers <code>&#64;bhairab-patra/platform-ui</code> globally on your machine:</p>
-          <app-code lang="bash" [id]="'ng-local-link1'" [text]="code.ng.localLink1" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'ng-local-link1'" [text]="code.ng.localLink1" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <p class="gs-p" style="margin-top:10px">Do this <strong>once per machine</strong> (or after a fresh clone). You do not need to repeat it every rebuild.</p>
         </section>
 
         <section id="ng-local-link2" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">4</span> Link the Consumer App</h2>
           <p class="gs-p">Inside your <strong>Angular consumer app</strong>, link it to the globally registered dist:</p>
-          <app-code lang="bash" [id]="'ng-local-link2'" [text]="code.ng.localLink2" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'ng-local-link2'" [text]="code.ng.localLink2" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--warn">
             If you run <code>npm install</code> in the consumer later, it will overwrite this symlink.
             Just run the link command again to restore it.
@@ -213,24 +213,24 @@ type Framework = 'angular' | 'react' | 'html';
         <section id="ng-local-syms" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">5</span> Add preserveSymlinks to angular.json</h2>
           <p class="gs-p">Without this, Angular loads two separate copies of <code>&#64;angular/core</code> — one from the library's own <code>node_modules</code> and one from the consumer's. This causes <code>lView</code> errors and injection failures at runtime. Open <code>angular.json</code> and add one line:</p>
-          <app-code lang="angular.json" [id]="'ng-local-syms'" [text]="code.ng.preserveSymlinks" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="angular.json" [id]="'ng-local-syms'" [text]="code.ng.preserveSymlinks" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="ng-local-styles" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">6</span> Add Global Styles</h2>
           <p class="gs-p">Add the two library CSS files to the <code>"styles"</code> array in <code>angular.json</code>. After linking, the symlink makes these resolve to your local <code>dist/platform-ui/styles/</code>:</p>
-          <app-code lang="angular.json" [id]="'ng-local-styles'" [text]="code.ng.stylesLocal" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="angular.json" [id]="'ng-local-styles'" [text]="code.ng.stylesLocal" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="ng-local-import" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">7</span> Import &amp; Use Components</h2>
           <p class="gs-p">Import exactly the same way as the published flow — the symlink makes npm think it is the real package:</p>
-          <app-code lang="TypeScript" [id]="'ng-local-import'" [text]="code.ng.standalone" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="TypeScript" [id]="'ng-local-import'" [text]="code.ng.standalone" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="ng-local-serve" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">8</span> Start the App</h2>
-          <app-code lang="bash" [id]="'ng-local-serve'" [text]="code.ng.localServe" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'ng-local-serve'" [text]="code.ng.localServe" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--success" style="margin-top:18px">
             Open <strong>http://localhost:4200</strong>. Every time you rebuild the library, refresh the browser — no re-link needed.
           </div>
@@ -239,9 +239,9 @@ type Framework = 'angular' | 'react' | 'html';
         <section id="ng-local-daily" class="gs-section">
           <h2 class="gs-h2">Day-to-Day: Rebuild on Every Library Change</h2>
           <p class="gs-p">After changing any library source file, rebuild and refresh:</p>
-          <app-code lang="bash" [id]="'ng-local-daily'" [text]="code.ng.localDaily" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'ng-local-daily'" [text]="code.ng.localDaily" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <h3 class="gs-h3" style="margin-top:20px">Or watch mode — rebuilds automatically on every save:</h3>
-          <app-code lang="bash" [id]="'ng-local-watch'" [text]="code.ng.localWatch" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'ng-local-watch'" [text]="code.ng.localWatch" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="ng-local-blockers" class="gs-section">
@@ -254,7 +254,7 @@ type Framework = 'angular' | 'react' | 'html';
               <div class="blocker-body">
                 <strong>Cause:</strong> Angular loaded two copies of <code>&#64;angular/core</code> through the symlink.<br>
                 <strong>Fix:</strong> Make sure <code>"preserveSymlinks": true</code> is in <code>angular.json</code> (Step 5). Then clear the cache:
-                <app-code lang="bash" [id]="'ng-fix-lview'" [text]="code.ng.clearCache" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+                <docs-code-block lang="bash" [id]="'ng-fix-lview'" [text]="code.ng.clearCache" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></docs-code-block>
               </div>
             </div>
 
@@ -263,7 +263,7 @@ type Framework = 'angular' | 'react' | 'html';
               <div class="blocker-body">
                 <strong>Cause:</strong> Angular compiler cache is holding the old build.<br>
                 <strong>Fix:</strong> Delete the cache and restart. Use <code>rm -rf</code> in Git Bash — <code>rmdir /s /q</code> does not work in Git Bash.
-                <app-code lang="bash (Git Bash)" [id]="'ng-fix-cache'" [text]="code.ng.clearCache" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+                <docs-code-block lang="bash (Git Bash)" [id]="'ng-fix-cache'" [text]="code.ng.clearCache" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></docs-code-block>
               </div>
             </div>
 
@@ -272,7 +272,7 @@ type Framework = 'angular' | 'react' | 'html';
               <div class="blocker-body">
                 <strong>Cause:</strong> <code>npm install</code> ran after <code>npm link</code> and overwrote the symlink.<br>
                 <strong>Fix:</strong> Re-run the link command in the consumer app:
-                <app-code lang="bash" [id]="'ng-fix-nomod'" [text]="code.ng.localLink2" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+                <docs-code-block lang="bash" [id]="'ng-fix-nomod'" [text]="code.ng.localLink2" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></docs-code-block>
               </div>
             </div>
 
@@ -281,7 +281,7 @@ type Framework = 'angular' | 'react' | 'html';
               <div class="blocker-body">
                 <strong>Cause:</strong> <code>npm run build:local</code> runs lint before compiling.<br>
                 <strong>Fix:</strong> Use <code>ng build</code> directly — it skips lint:
-                <app-code lang="bash" [id]="'ng-fix-lint'" [text]="code.ng.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+                <docs-code-block lang="bash" [id]="'ng-fix-lint'" [text]="code.ng.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></docs-code-block>
               </div>
             </div>
 
@@ -349,19 +349,19 @@ type Framework = 'angular' | 'react' | 'html';
 
         <section id="rx-create" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">2</span> Create a React + Vite App (skip if existing)</h2>
-          <app-code lang="bash" [id]="'rx-create'" [text]="code.react.create" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'rx-create'" [text]="code.react.create" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="rx-npmrc" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">3</span> Configure npm for GitHub Packages</h2>
           <p class="gs-p">Create <code>.npmrc</code> in your project root and replace the token:</p>
-          <app-code lang=".npmrc" [id]="'rx-npmrc'" [text]="code.react.npmrc" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang=".npmrc" [id]="'rx-npmrc'" [text]="code.react.npmrc" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--warn">Add <code>.npmrc</code> to <code>.gitignore</code> — never commit a token.</div>
         </section>
 
         <section id="rx-install" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">4</span> Install the Library</h2>
-          <app-code lang="bash" [id]="'rx-install'" [text]="code.react.install" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'rx-install'" [text]="code.react.install" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <p class="gs-p" style="margin-top:12px">After install, the files used by React live inside the package:</p>
           <div class="file-list">
             <div class="file-row">
@@ -408,7 +408,7 @@ type Framework = 'angular' | 'react' | 'html';
             The Angular Elements bundle is <strong>not an ES module</strong> — it must be loaded as plain <code>&lt;script&gt;</code> tags in <code>index.html</code>,
             <strong>in this exact order</strong>. The styles must also be loaded via <code>&lt;link&gt;</code> tags:
           </p>
-          <app-code lang="index.html" [id]="'rx-main'" [text]="code.react.main" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="index.html" [id]="'rx-main'" [text]="code.react.main" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--warn" style="margin-top:14px">
             <strong>Order matters:</strong> runtime.js → polyfills.js → pui-elements.js.
             Loading out of order causes Angular bootstrap to fail silently.
@@ -421,15 +421,15 @@ type Framework = 'angular' | 'react' | 'html';
             Do not render React until the elements bundle has registered all custom elements.
             Use <code>customElements.whenDefined()</code> to gate the initial render:
           </p>
-          <app-code lang="src/main.jsx" [id]="'rx-mainjs'" [text]="code.react.mainJsx" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="src/main.jsx" [id]="'rx-mainjs'" [text]="code.react.mainJsx" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="rx-types" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">7</span> Add TypeScript Declarations</h2>
           <p class="gs-p">Create <code>src/pui.d.ts</code> so TypeScript recognises all <code>pui-*</code> tags in JSX without errors:</p>
-          <app-code lang="src/pui.d.ts" [id]="'rx-types'" [text]="code.react.types" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="src/pui.d.ts" [id]="'rx-types'" [text]="code.react.types" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <p class="gs-p" style="margin-top:14px">Then reference it in <code>tsconfig.json</code>:</p>
-          <app-code lang="tsconfig.json" [id]="'rx-tsref'" [text]="code.react.tsconfig" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="tsconfig.json" [id]="'rx-tsref'" [text]="code.react.tsconfig" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="rx-use" class="gs-section">
@@ -440,18 +440,18 @@ type Framework = 'angular' | 'react' | 'html';
             Angular Elements parses them via <code>attributeChangedCallback</code> which is zone-patched
             and automatically triggers Angular change detection.
           </p>
-          <app-code lang="src/App.tsx" [id]="'rx-app'" [text]="code.react.app" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="src/App.tsx" [id]="'rx-app'" [text]="code.react.app" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="rx-events" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">9</span> Handling Events</h2>
           <p class="gs-p">All outputs are native <code>CustomEvent</code>s — use <code>addEventListener</code> via a <code>ref</code> in a <code>useEffect</code>:</p>
-          <app-code lang="src/App.tsx" [id]="'rx-events'" [text]="code.react.events" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="src/App.tsx" [id]="'rx-events'" [text]="code.react.events" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="rx-verify" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">10</span> Run &amp; Verify</h2>
-          <app-code lang="bash" [id]="'rx-serve'" [text]="'npm run dev'" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'rx-serve'" [text]="'npm run dev'" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--success" style="margin-top:18px">
             Open <strong>http://localhost:5173</strong>. You should see the full Platform UI shell — header, sidebar, and your React content — rendered inside the browser.
           </div>
@@ -486,7 +486,7 @@ type Framework = 'angular' | 'react' | 'html';
         <section id="rx-local-build" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">2</span> Build the Elements Bundle</h2>
           <p class="gs-p">Run this inside the <strong>library repo</strong>. The elements build produces the web components bundle that the React app loads:</p>
-          <app-code lang="bash" [id]="'rx-local-build'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'rx-local-build'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="file-list" style="margin-top:14px">
             <div class="file-row">
               <span class="file-icon">📄</span>
@@ -519,7 +519,7 @@ type Framework = 'angular' | 'react' | 'html';
             Vite then serves them as static files at <code>/pui-*.js</code> and <code>/tokens.css</code>.
             The plugin also watches <code>dist/elements/</code> and triggers a full reload when you rebuild.
           </p>
-          <app-code lang="vite.config.js" [id]="'rx-local-vite'" [text]="code.react.localVite" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="vite.config.js" [id]="'rx-local-vite'" [text]="code.react.localVite" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--info" style="margin-top:14px">
             Angular CLI names the main bundle <code>main.js</code>. The plugin copies it to
             <code>public/pui-elements.js</code> so the script tag stays consistent.
@@ -532,7 +532,7 @@ type Framework = 'angular' | 'react' | 'html';
             Add the design token CSS files and <strong>three script tags in order</strong> inside <code>&lt;head&gt;</code>.
             All five files are served from <code>public/</code> by Vite:
           </p>
-          <app-code lang="index.html" [id]="'rx-local-html'" [text]="code.react.localHtml" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="index.html" [id]="'rx-local-html'" [text]="code.react.localHtml" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--warn" style="margin-top:14px">
             <strong>Script order is mandatory:</strong> pui-runtime.js → pui-polyfills.js → pui-elements.js.
             Do <strong>not</strong> add <code>type="module"</code> or <code>defer</code> to these — they must run synchronously before React's module script loads.
@@ -545,15 +545,15 @@ type Framework = 'angular' | 'react' | 'html';
             Gate the React render with <code>customElements.whenDefined()</code>. This ensures all
             <code>pui-*</code> custom elements are registered before React renders any JSX that references them:
           </p>
-          <app-code lang="src/main.jsx" [id]="'rx-local-mainjs'" [text]="code.react.mainJsx" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="src/main.jsx" [id]="'rx-local-mainjs'" [text]="code.react.mainJsx" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="rx-local-types" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">6</span> Add TypeScript Declarations</h2>
           <p class="gs-p">Create <code>src/pui.d.ts</code> so TypeScript recognises all <code>pui-*</code> JSX tags:</p>
-          <app-code lang="src/pui.d.ts" [id]="'rx-local-types'" [text]="code.react.types" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="src/pui.d.ts" [id]="'rx-local-types'" [text]="code.react.types" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <p class="gs-p" style="margin-top:14px">Add it to <code>tsconfig.json</code>:</p>
-          <app-code lang="tsconfig.json" [id]="'rx-local-tsref'" [text]="code.react.tsconfig" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="tsconfig.json" [id]="'rx-local-tsref'" [text]="code.react.tsconfig" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="rx-local-use" class="gs-section">
@@ -563,12 +563,12 @@ type Framework = 'angular' | 'react' | 'html';
             Arrays/Objects → <code>JSON.stringify()</code> string attributes. Angular Elements' <code>attributeChangedCallback</code> is
             zone-patched and triggers change detection automatically — no manual <code>ref</code> property setting needed.
           </p>
-          <app-code lang="src/App.tsx" [id]="'rx-local-use'" [text]="code.react.app" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="src/App.tsx" [id]="'rx-local-use'" [text]="code.react.app" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="rx-local-serve" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">8</span> Start the React App</h2>
-          <app-code lang="bash" [id]="'rx-local-serve'" [text]="'npm run dev'" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'rx-local-serve'" [text]="'npm run dev'" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--success" style="margin-top:18px">
             Open <strong>http://localhost:5173</strong>. On startup Vite copies the built bundle files to <code>public/</code> and serves them.
             You should see the full shell — teal header, dark sidebar with nav groups, and your React content.
@@ -578,7 +578,7 @@ type Framework = 'angular' | 'react' | 'html';
         <section id="rx-local-daily" class="gs-section">
           <h2 class="gs-h2">Day-to-Day: Rebuild the Elements Bundle</h2>
           <p class="gs-p">After changing any library source, rebuild the elements bundle then restart or refresh Vite (it re-copies on server start):</p>
-          <app-code lang="bash" [id]="'rx-local-daily'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'rx-local-daily'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--info" style="margin-top:14px">
             The Vite plugin watches <code>dist/elements/</code> — if you rebuild the elements bundle while Vite is running,
             it detects the file change and triggers a <strong>full browser reload</strong> automatically.
@@ -595,7 +595,7 @@ type Framework = 'angular' | 'react' | 'html';
               <div class="blocker-body">
                 <strong>Cause:</strong> The elements bundle has not been built yet, or the Vite auto-copy plugin could not find <code>dist/elements/main.js</code>.<br>
                 <strong>Fix:</strong> Build the elements bundle, then restart Vite:
-                <app-code lang="bash" [id]="'rx-fix-404'" [text]="code.react.localElementsBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+                <docs-code-block lang="bash" [id]="'rx-fix-404'" [text]="code.react.localElementsBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></docs-code-block>
               </div>
             </div>
 
@@ -613,7 +613,7 @@ type Framework = 'angular' | 'react' | 'html';
                 <strong>Cause:</strong> Passing arrays/objects as JS DOM properties from React's <code>useEffect</code> may not trigger Angular change detection if the property setter runs outside Angular's zone.<br>
                 <strong>Fix:</strong> Pass arrays and objects as <code>JSON.stringify()</code> string attributes directly in JSX.
                 Angular Elements' <code>attributeChangedCallback</code> is zone-patched and triggers change detection automatically:
-                <app-code lang="JSX" [id]="'rx-fix-prop'" [text]="code.react.propFix" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+                <docs-code-block lang="JSX" [id]="'rx-fix-prop'" [text]="code.react.propFix" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></docs-code-block>
               </div>
             </div>
 
@@ -622,7 +622,7 @@ type Framework = 'angular' | 'react' | 'html';
               <div class="blocker-body">
                 <strong>Cause:</strong> Only the library was rebuilt — the elements bundle still has the old code.<br>
                 <strong>Fix:</strong> Rebuild the elements bundle. The Vite plugin auto-detects the change in <code>dist/elements/</code> and triggers a full reload:
-                <app-code lang="bash" [id]="'rx-fix-stale'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></app-code>
+                <docs-code-block lang="bash" [id]="'rx-fix-stale'" [text]="code.react.localBuild" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:10px"></docs-code-block>
               </div>
             </div>
 
@@ -669,13 +669,13 @@ type Framework = 'angular' | 'react' | 'html';
         <section id="html-npmrc" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">1</span> Configure npm for GitHub Packages</h2>
           <p class="gs-p">Create <code>.npmrc</code> in your project folder:</p>
-          <app-code lang=".npmrc" [id]="'html-npmrc'" [text]="code.html.npmrc" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang=".npmrc" [id]="'html-npmrc'" [text]="code.html.npmrc" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--warn">Never commit <code>.npmrc</code> to git.</div>
         </section>
 
         <section id="html-install" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">2</span> Install the Package</h2>
-          <app-code lang="bash" [id]="'html-install'" [text]="code.html.install" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'html-install'" [text]="code.html.install" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <p class="gs-p" style="margin-top:12px">This creates <code>node_modules/&#64;bhairab-patra/platform-ui/elements/</code> with two files you need:</p>
           <div class="file-list">
             <div class="file-row">
@@ -698,13 +698,13 @@ type Framework = 'angular' | 'react' | 'html';
         <section id="html-page" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">3</span> Create your HTML page</h2>
           <p class="gs-p">Reference the files from <code>node_modules</code> — they will be served by the HTTP server in the next step:</p>
-          <app-code lang="index.html" [id]="'html-full'" [text]="code.html.full" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="index.html" [id]="'html-full'" [text]="code.html.full" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
         </section>
 
         <section id="html-serve" class="gs-section">
           <h2 class="gs-h2"><span class="step-badge">4</span> Serve with HTTP server</h2>
           <p class="gs-p">Run this command from the folder that contains your <code>index.html</code> and <code>node_modules/</code>:</p>
-          <app-code lang="bash" [id]="'html-serve'" [text]="code.html.serve" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></app-code>
+          <docs-code-block lang="bash" [id]="'html-serve'" [text]="code.html.serve" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <div class="note note--success" style="margin-top:18px">
             Open <strong>http://localhost:4300</strong> in your browser. The shell, sidebar, and all components will load.
           </div>
@@ -791,7 +791,7 @@ type Framework = 'angular' | 'react' | 'html';
       <section id="next" class="gs-section">
         <h2 class="gs-h2">Explore the Components</h2>
         <div class="next-grid">
-          <a *ngFor="let n of nextSteps" [routerLink]="n.route" class="next-card">
+          <a *ngFor="let n of nextSteps; trackBy: trackByIndex" [routerLink]="n.route" class="next-card">
             <span class="next-icon">{{ n.icon }}</span>
             <div>
               <div class="next-title">{{ n.title }}</div>
@@ -807,18 +807,22 @@ type Framework = 'angular' | 'react' | 'html';
     <aside class="otp">
       <div class="otp-label">ON THIS PAGE</div>
       <nav class="otp-nav">
-        <a *ngFor="let s of currentSections"
+        <a *ngFor="let s of currentSections; trackBy: trackByIndex"
            class="otp-link"
            [class.otp-link--active]="activeSection === s.id"
-           (click)="scrollTo(s.id)">{{ s.label }}</a>
+           tabindex="0"
+           role="button"
+           (click)="scrollTo(s.id)"
+           (keydown.enter)="scrollTo(s.id)"
+           (keydown.space)="scrollTo(s.id)">{{ s.label }}</a>
         <div class="otp-sep"></div>
-        <a class="otp-link" (click)="scrollTo('ref')">Input / Output Ref</a>
-        <a class="otp-link" (click)="scrollTo('next')">Explore Components</a>
+        <a class="otp-link" tabindex="0" role="button" (click)="scrollTo('ref')" (keydown.enter)="scrollTo('ref')" (keydown.space)="scrollTo('ref')">Input / Output Ref</a>
+        <a class="otp-link" tabindex="0" role="button" (click)="scrollTo('next')" (keydown.enter)="scrollTo('next')" (keydown.space)="scrollTo('next')">Explore Components</a>
       </nav>
 
       <div class="fw-mini-tabs">
         <div class="fw-mini-label">Switch framework</div>
-        <button *ngFor="let fw of frameworks"
+        <button *ngFor="let fw of frameworks; trackBy: trackByIndex"
           class="fw-mini-btn"
           [class.fw-mini-btn--active]="active === fw.id"
           (click)="setFramework(fw.id)">{{ fw.label }}</button>
@@ -1078,7 +1082,9 @@ export class GettingStartedComponent implements OnInit {
     },
   ];
 
-  get currentSections() {
+  trackByIndex(_i: number): number { return _i; }
+
+  get currentSections(): { id: string; label: string }[] {
     return this.sectionMap[this.active] || [];
   }
 

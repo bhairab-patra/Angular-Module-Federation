@@ -22,13 +22,15 @@ export class TableEditablePageComponent {
   copied = '';
   editableLog: string[] = [];
 
-  copy(id: string, text: string) {
+  copy(id: string, text: string): void {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
       setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
     });
   }
+
+  trackByIndex(_i: number): number { return _i; }
 
   /* ── Editable table demo ────────────────────── */
   editableCols: TableColumn[] = [
@@ -48,15 +50,15 @@ export class TableEditablePageComponent {
     { id: 7, name: 'Grace Kim',      department: 'Analytics',   role: 'Data Analyst',      salary: 88000  },
   ];
 
-  onRowSave(e: EditableRowSaveEvent) {
+  onRowSave(e: EditableRowSaveEvent): void {
     this.editableLog = [`Saved row ${e.index + 1}: ${e.row.name}`, ...this.editableLog.slice(0, 4)];
     this.cdr.markForCheck();
   }
-  onRowDelete(e: EditableRowEvent) {
+  onRowDelete(e: EditableRowEvent): void {
     this.editableLog = [`Deleted: ${e.row.name}`, ...this.editableLog.slice(0, 4)];
     this.cdr.markForCheck();
   }
-  onRowEdit(e: EditableRowEvent) {
+  onRowEdit(e: EditableRowEvent): void {
     this.editableLog = [`Editing row ${e.index + 1}: ${e.row.name}`, ...this.editableLog.slice(0, 4)];
     this.cdr.markForCheck();
   }
@@ -64,12 +66,12 @@ export class TableEditablePageComponent {
   /* ── Form dialog demo ───────────────────────── */
   formOpen      = false;
   formTitle     = '';
-  formData: Record<string, any> = {};
+  formData: Record<string, unknown> = {};
   formSaveLabel = 'Save';
   formLog: string[] = [];
 
   confirmOpen     = false;
-  confirmRow: any = null;
+  confirmRow: Record<string, unknown> | null = null;
 
   employeeFields: FormDialogField[] = [
     { key: 'name',       label: 'Full Name',   required: true, span: 'half' },
@@ -89,30 +91,30 @@ export class TableEditablePageComponent {
       placeholder: 'Any additional information...' },
   ];
 
-  openAddForm() {
+  openAddForm(): void {
     this.formTitle = 'Add Employee'; this.formSaveLabel = 'Add Employee';
     this.formData  = {}; this.formOpen = true; this.cdr.markForCheck();
   }
 
-  openEditForm(row: any) {
+  openEditForm(row: Record<string, unknown>): void {
     this.formTitle = 'Edit Employee'; this.formSaveLabel = 'Save Changes';
     this.formData  = { ...row }; this.formOpen = true; this.cdr.markForCheck();
   }
 
-  openConfirm(row: any) {
+  openConfirm(row: Record<string, unknown>): void {
     this.confirmRow = row; this.confirmOpen = true; this.cdr.markForCheck();
   }
 
-  onFormSave(e: FormDialogSaveEvent) {
-    this.formLog = [`${this.formTitle}: ${e.data['name']}`, ...this.formLog.slice(0, 4)];
+  onFormSave(e: FormDialogSaveEvent): void {
+    this.formLog = [`${this.formTitle}: ${String(e.data['name'])}`, ...this.formLog.slice(0, 4)];
     this.formOpen = false; this.cdr.markForCheck();
   }
-  onFormClose() { this.formOpen = false; this.cdr.markForCheck(); }
-  onConfirmDelete() {
-    if (this.confirmRow) this.formLog = [`Deleted: ${this.confirmRow.name}`, ...this.formLog.slice(0, 4)];
+  onFormClose(): void { this.formOpen = false; this.cdr.markForCheck(); }
+  onConfirmDelete(): void {
+    if (this.confirmRow) this.formLog = [`Deleted: ${String(this.confirmRow['name'])}`, ...this.formLog.slice(0, 4)];
     this.confirmOpen = false; this.confirmRow = null; this.cdr.markForCheck();
   }
-  onConfirmCancel() { this.confirmOpen = false; this.confirmRow = null; this.cdr.markForCheck(); }
+  onConfirmCancel(): void { this.confirmOpen = false; this.confirmRow = null; this.cdr.markForCheck(); }
 
   /* ── Code snippets ──────────────────────────── */
   editableHtml = `<pui-lib-editable-table

@@ -1,11 +1,11 @@
-
+﻿
 <docs-page
   title="Tabs"
   description="A flexible tab navigation component with three visual variants (line, pill, card), horizontal/vertical orientation, keyboard navigation, badge counts, icons, and disabled state. Works in Angular, React, and plain HTML."
   [hasFramework]="true"
   [api]="api">
 
-  <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Line (default) -->
@@ -13,9 +13,9 @@
       <h3 class="demo-section__title">Line variant (default)</h3>
       <pui-lib-tabs [tabs]="basicTabs" (tabChange)="lineActive = $event.id">
         <div class="tab-content-demo">
-          <p *ngIf="lineActive === 'overview'  || !lineActive">Overview panel — product summary, KPIs, and top-level metrics for this account.</p>
-          <p *ngIf="lineActive === 'analytics'">Analytics panel — charts, funnels, and cohort breakdowns rendered here.</p>
-          <p *ngIf="lineActive === 'settings'">Settings panel — configure notifications, integrations, and team access.</p>
+          <p *ngIf="lineActive === 'overview'  || !lineActive">Overview panel â€” product summary, KPIs, and top-level metrics for this account.</p>
+          <p *ngIf="lineActive === 'analytics'">Analytics panel â€” charts, funnels, and cohort breakdowns rendered here.</p>
+          <p *ngIf="lineActive === 'settings'">Settings panel â€” configure notifications, integrations, and team access.</p>
         </div>
       </pui-lib-tabs>
     </div>
@@ -50,10 +50,10 @@
       <h3 class="demo-section__title">Vertical orientation</h3>
       <pui-lib-tabs variant="pill" orientation="vertical" [tabs]="vertTabs" (tabChange)="vertActive = $event.id">
         <div class="tab-content-demo">
-          <p *ngIf="vertActive === 'profile'  || !vertActive">Profile settings — update display name, avatar, and contact info.</p>
-          <p *ngIf="vertActive === 'security'">Security — change password, set up 2FA, manage sessions.</p>
-          <p *ngIf="vertActive === 'billing'">Billing — view invoices, update payment method, manage plan.</p>
-          <p *ngIf="vertActive === 'api'">API — generate tokens, view usage, manage webhooks.</p>
+          <p *ngIf="vertActive === 'profile'  || !vertActive">Profile settings â€” update display name, avatar, and contact info.</p>
+          <p *ngIf="vertActive === 'security'">Security â€” change password, set up 2FA, manage sessions.</p>
+          <p *ngIf="vertActive === 'billing'">Billing â€” view invoices, update payment method, manage plan.</p>
+          <p *ngIf="vertActive === 'api'">API â€” generate tokens, view usage, manage webhooks.</p>
         </div>
       </pui-lib-tabs>
     </div>
@@ -68,21 +68,21 @@
 
     <!-- 6. Sizes -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Sizes — sm / md / lg</h3>
+      <h3 class="demo-section__title">Sizes â€” sm / md / lg</h3>
       <div style="display:flex;flex-direction:column;gap:20px;">
-        <pui-lib-tabs variant="pill" size="sm" [tabs]="sizeTabs"></pui-lib-tabs>
-        <pui-lib-tabs variant="pill" size="md" [tabs]="sizeTabs"></pui-lib-tabs>
-        <pui-lib-tabs variant="pill" size="lg" [tabs]="sizeTabs"></pui-lib-tabs>
+        <pui-lib-tabs variant="pill" size="sm" [tabs]="sizeTabs" [panel]="false"></pui-lib-tabs>
+        <pui-lib-tabs variant="pill" size="md" [tabs]="sizeTabs" [panel]="false"></pui-lib-tabs>
+        <pui-lib-tabs variant="pill" size="lg" [tabs]="sizeTabs" [panel]="false"></pui-lib-tabs>
       </div>
     </div>
 
   </ng-container>
 
-  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-tabs</code> is a Web Component — works in Angular, React, and plain HTML. Pass the <code>tabs</code> array as a JS property from React/HTML; Angular uses <code>[tabs]</code> binding. Content projected inside <code>&lt;pui-lib-tabs&gt;</code> renders as the panel area — you control what shows based on the active tab.</p>
+    <p class="fw-lead"><code>pui-lib-tabs</code> is a Web Component â€” works in Angular, React, and plain HTML. Pass the <code>tabs</code> array as a JS property from React/HTML; Angular uses <code>[tabs]</code> binding. Content projected inside <code>&lt;pui-lib-tabs&gt;</code> renders as the panel area â€” you control what shows based on the active tab.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
@@ -90,15 +90,16 @@
       [htmlCode]="htmlCode">
       <div preview>
         <pui-lib-tabs variant="pill" [tabs]="basicTabs">
-          <div style="padding:12px 0;font-size:13px;color:#6b7280">Tab panel content shown here.</div>
+          <p class="fw-panel-hint">Tab panel content renders here â€” control visibility with <code>*ngIf="active === 'id'"</code>.</p>
         </pui-lib-tabs>
       </div>
       <div react-preview class="react-settings-page">
         <div class="react-settings-page__header">
           <h4 class="react-settings-page__title">Account Settings</h4>
         </div>
-        <pui-lib-tabs [tabs]="basicTabs" variant="line"></pui-lib-tabs>
-        <div class="react-settings-page__content">Select a tab to view settings</div>
+        <pui-lib-tabs [tabs]="basicTabs" variant="line">
+          <p class="fw-panel-hint">Select a tab to view settings</p>
+        </pui-lib-tabs>
       </div>
     </docs-framework-preview>
 
@@ -107,7 +108,7 @@
       <table class="xfw-table">
         <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ r.name }}</code></td>
             <td><code class="tag-ng">{{ r.angular }}</code></td>
             <td><code class="tag-html">{{ r.attr }}</code></td>

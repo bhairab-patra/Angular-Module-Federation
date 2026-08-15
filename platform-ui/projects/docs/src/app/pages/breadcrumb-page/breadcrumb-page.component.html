@@ -1,62 +1,150 @@
-
+﻿
 <docs-page
   title="Breadcrumb"
-  description="A navigational trail showing the user's location in the page hierarchy — four separator styles and full CSS variable theming."
+  description="A navigational trail showing the user's location in the page hierarchy â€” four separator styles and full CSS variable theming."
   [hasFramework]="true"
   [api]="api">
 
-  <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Basic -->
     <div class="demo-section">
       <h3 class="demo-section__title">Basic</h3>
-      <p class="demo-section__desc">Pass an array of <code>BreadcrumbItem</code> objects. The last item is the active page — rendered in a distinct colour without a link.</p>
-      <pui-lib-breadcrumb [items]="basic"></pui-lib-breadcrumb>
+      <p class="demo-section__desc">Pass an array of <code>BreadcrumbItem</code> objects. The last item is the active page â€” rendered bold with a subtle tint background.</p>
+      <div class="bc-preview">
+        <pui-lib-breadcrumb [items]="basic"></pui-lib-breadcrumb>
+      </div>
     </div>
 
-    <!-- 2. Separators -->
+    <!-- 2. Separator Styles â€” rich cards -->
     <div class="demo-section">
       <h3 class="demo-section__title">Separator Styles</h3>
-      <p class="demo-section__desc">Choose from four built-in separators: <code>chevron</code> (default), <code>slash</code>, <code>dot</code>, and <code>arrow</code>.</p>
-      <div class="sep-grid">
-        <div *ngFor="let s of separators" class="sep-row">
-          <span class="sep-label">{{ s.name }}</span>
-          <pui-lib-breadcrumb [items]="basic" [separator]="$any(s.name)"></pui-lib-breadcrumb>
+      <p class="demo-section__desc">Choose from four built-in separators via the <code>separator</code> input. Each exposes a <code>--pui-bc-sep-color</code> custom property for full colour control.</p>
+
+      <div class="sep-card-grid">
+
+        <div class="sep-card sep-card--chevron">
+          <div class="sep-card__header">
+            <span class="sep-card__icon-wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5.5 3.5l5 4.5-5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="sep-card__name">chevron</span>
+            <span class="sep-card__badge">default</span>
+          </div>
+          <div class="sep-card__preview">
+            <pui-lib-breadcrumb [items]="basic" separator="chevron"></pui-lib-breadcrumb>
+          </div>
+          <div class="sep-card__token"><code>separator="chevron"</code></div>
         </div>
+
+        <div class="sep-card sep-card--slash">
+          <div class="sep-card__header">
+            <span class="sep-card__icon-wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="10" y1="2" x2="6" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            </span>
+            <span class="sep-card__name">slash</span>
+          </div>
+          <div class="sep-card__preview">
+            <pui-lib-breadcrumb [items]="basic" separator="slash"></pui-lib-breadcrumb>
+          </div>
+          <div class="sep-card__token"><code>separator="slash"</code></div>
+        </div>
+
+        <div class="sep-card sep-card--dot">
+          <div class="sep-card__header">
+            <span class="sep-card__icon-wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="3"/></svg>
+            </span>
+            <span class="sep-card__name">dot</span>
+          </div>
+          <div class="sep-card__preview">
+            <pui-lib-breadcrumb [items]="basic" separator="dot"></pui-lib-breadcrumb>
+          </div>
+          <div class="sep-card__token"><code>separator="dot"</code></div>
+        </div>
+
+        <div class="sep-card sep-card--arrow">
+          <div class="sep-card__header">
+            <span class="sep-card__icon-wrap">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M10 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <span class="sep-card__name">arrow</span>
+          </div>
+          <div class="sep-card__preview">
+            <pui-lib-breadcrumb [items]="basic" separator="arrow"></pui-lib-breadcrumb>
+          </div>
+          <div class="sep-card__token"><code>separator="arrow"</code></div>
+        </div>
+
       </div>
     </div>
 
     <!-- 3. Deep path -->
     <div class="demo-section">
       <h3 class="demo-section__title">Deep Path</h3>
-      <p class="demo-section__desc">Works naturally with arbitrarily deep hierarchies. Items with an <code>href</code> become links; items without are plain text.</p>
-      <pui-lib-breadcrumb [items]="deepPath"></pui-lib-breadcrumb>
+      <p class="demo-section__desc">Works naturally with arbitrarily deep hierarchies. Items without a <code>route</code> are rendered as plain text.</p>
+      <div class="bc-preview">
+        <pui-lib-breadcrumb [items]="deepPath"></pui-lib-breadcrumb>
+      </div>
     </div>
 
     <!-- 4. With icons -->
     <div class="demo-section">
       <h3 class="demo-section__title">Items with Icons</h3>
-      <p class="demo-section__desc">Each <code>BreadcrumbItem</code> accepts an optional <code>icon</code> SVG string rendered before the label.</p>
-      <pui-lib-breadcrumb [items]="withIcons"></pui-lib-breadcrumb>
+      <p class="demo-section__desc">Each <code>BreadcrumbItem</code> accepts an optional <code>icon</code> SVG string â€” rendered inline before the label using the platform icon size.</p>
+      <div class="bc-preview">
+        <pui-lib-breadcrumb [items]="withIcons"></pui-lib-breadcrumb>
+      </div>
     </div>
 
-    <!-- 5. Custom separator (CSS var) -->
+    <!-- 5. CSS Variable theming -->
     <div class="demo-section">
       <h3 class="demo-section__title">CSS Variable Theming</h3>
-      <p class="demo-section__desc">Override link colour, separator colour, and font size via CSS custom properties — no component config required.</p>
-      <div class="theme-demo">
-        <pui-lib-breadcrumb [items]="basic" class="themed-bc"></pui-lib-breadcrumb>
+      <p class="demo-section__desc">Override any visual token directly on the host element â€” no component config required.</p>
+
+      <div class="theme-grid">
+
+        <div class="theme-card theme-card--teal">
+          <div class="theme-card__label">Brand teal</div>
+          <pui-lib-breadcrumb [items]="basic" class="bc-theme-teal"></pui-lib-breadcrumb>
+          <div class="theme-card__vars">
+            <span class="theme-var">--pui-bc-link-color: #0d9488</span>
+            <span class="theme-var">--pui-bc-sep-color: #5eead4</span>
+            <span class="theme-var">--pui-bc-active-color: #134e4a</span>
+          </div>
+        </div>
+
+        <div class="theme-card theme-card--violet">
+          <div class="theme-card__label">Violet</div>
+          <pui-lib-breadcrumb [items]="basic" class="bc-theme-violet"></pui-lib-breadcrumb>
+          <div class="theme-card__vars">
+            <span class="theme-var">--pui-bc-link-color: #7c3aed</span>
+            <span class="theme-var">--pui-bc-sep-color: #c4b5fd</span>
+            <span class="theme-var">--pui-bc-active-color: #4c1d95</span>
+          </div>
+        </div>
+
+        <div class="theme-card theme-card--amber">
+          <div class="theme-card__label">Amber</div>
+          <pui-lib-breadcrumb [items]="basic" class="bc-theme-amber" separator="dot"></pui-lib-breadcrumb>
+          <div class="theme-card__vars">
+            <span class="theme-var">--pui-bc-link-color: #d97706</span>
+            <span class="theme-var">--pui-bc-sep-color: #fcd34d</span>
+            <span class="theme-var">--pui-bc-active-color: #78350f</span>
+          </div>
+        </div>
+
       </div>
     </div>
 
   </ng-container>
 
-  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-breadcrumb</code> accepts an <code>items</code> array via Angular property binding or as a JS property after element upgrade. All separator values are plain HTML attribute strings.</p>
+    <p class="fw-lead"><code>pui-lib-breadcrumb</code> accepts an <code>items</code> array via Angular property binding or as a JS property after element upgrade.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
@@ -75,12 +163,12 @@
       </div>
     </docs-framework-preview>
 
-    <h4 class="fw-ref-title">Breadcrumb Quick Reference</h4>
+    <h4 class="fw-ref-title">Quick Reference</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
         <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows">
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
             <td><span class="tag-name">{{ r.name }}</span></td>
             <td><span class="tag-ng">{{ r.angular }}</span></td>
             <td><span class="tag-html">{{ r.attr }}</span></td>
@@ -90,7 +178,22 @@
       </table>
     </div>
 
+    <!-- CSS custom properties reference -->
+    <h4 class="fw-ref-title" style="margin-top:28px">CSS Custom Properties</h4>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead><tr><th>Token</th><th>Default</th><th>Controls</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let t of cssTokenRows; trackBy: trackByIndex">
+            <td><code class="css-token">{{ t.token }}</code></td>
+            <td><span class="tag-html">{{ t.default }}</span></td>
+            <td>{{ t.controls }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </ng-container>
 
 </docs-page>
-  
+

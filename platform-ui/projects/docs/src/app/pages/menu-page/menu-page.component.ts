@@ -4,7 +4,7 @@ import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { MenuComponent, MenuItem } from '@bhairab-patra/platform-ui';
 
-const ICON = (d: string) =>
+const ICON = (d: string): string =>
   `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 
 @Component({
@@ -19,6 +19,8 @@ export class MenuPageComponent {
   cdr = inject(ChangeDetectorRef);
 
   lastAction = '';
+
+  trackByIndex(_i: number): number { return _i; }
 
   onSelect(item: MenuItem): void {
     this.lastAction = item.label;

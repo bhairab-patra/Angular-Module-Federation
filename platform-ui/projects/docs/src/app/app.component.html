@@ -25,7 +25,7 @@
             type="text"
             placeholder="Search components..."
             [value]="searchQuery"
-            (input)="onSearch($any($event.target).value)"
+            (input)="onSearch(asInput($event.target).value)"
             (keydown.escape)="clearSearch()"
             (keydown.arrowdown)="moveFocus(1)"
             (keydown.arrowup)="moveFocus(-1)"
@@ -33,7 +33,7 @@
             autocomplete="off">
           <button *ngIf="searchQuery" class="search-clear" (click)="clearSearch()">âœ•</button>
           <ul class="search-dropdown" *ngIf="suggestions.length > 0">
-            <li *ngFor="let s of suggestions; let i = index"
+            <li *ngFor="let s of suggestions; let i = index; trackBy: trackByIndex"
                 class="search-item"
                 [class.search-item--focused]="i === focusedIndex"
                 (mousedown)="navigate(s.route)"
@@ -69,7 +69,7 @@
         <nav class="sidebar-nav">
 
           <!-- Sections -->
-          <div class="nav-section" *ngFor="let s of sections">
+          <div class="nav-section" *ngFor="let s of sections; trackBy: trackByIndex">
 
             <!-- Section header (clickable to collapse) -->
             <button class="nav-section__header" (click)="toggleSection(s)">
@@ -83,7 +83,7 @@
 
             <!-- Collapsible items -->
             <div class="nav-section__items" [class.nav-section__items--open]="!s.collapsed">
-              <ng-container *ngFor="let item of s.items">
+              <ng-container *ngFor="let item of s.items; trackBy: trackByIndex">
 
                 <!-- Flat link -->
                 <a *ngIf="!item.children"
@@ -110,7 +110,7 @@
                     </svg>
                   </button>
                   <div class="nav-children" [class.nav-children--open]="item.expanded">
-                    <a *ngFor="let child of item.children"
+                    <a *ngFor="let child of item.children; trackBy: trackByIndex"
                        [routerLink]="child.route"
                        routerLinkActive="nav-link--active"
                        class="nav-link nav-link--child">

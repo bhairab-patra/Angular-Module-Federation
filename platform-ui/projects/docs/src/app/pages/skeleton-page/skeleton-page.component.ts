@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor} from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { PuiSkeletonComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
-  selector: 'app-skeleton-page',
+  selector: 'docs-skeleton-page',
   standalone: true,
   imports: [NgFor, DocPageComponent, PuiSkeletonComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -81,4 +81,5 @@ function UserCard({ loading, user }) {
     { input: 'rows',     type: 'number',  default: '1',       description: 'Number of skeleton rows to render. Useful for paragraph placeholders.' },
     { input: 'animated', type: 'boolean', default: 'true',    description: 'Enables the shimmer sweep animation.' },
   ];
+  trackByIndex(_i: number): number { return _i; }
 }

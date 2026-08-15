@@ -6,7 +6,7 @@ import { UserMenuItem, HeaderBadge } from '@bhairab-patra/platform-ui';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 
-const ICON = (d: string) =>
+const ICON = (d: string): string =>
   `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
 
 @Component({
@@ -80,9 +80,10 @@ export class AppShellPageComponent {
     },
   ];
 
-  onItemSelect(item: any): void {
-    this.activeId   = item.id ?? item;
-    this.lastAction = `Navigate → ${item.id ?? item}`;
+  onItemSelect(item: { id?: string } | string): void {
+    const id = typeof item === 'string' ? item : item.id;
+    this.activeId   = id ?? '';
+    this.lastAction = `Navigate → ${id ?? item}`;
   }
 
   angularCode = `import { PuiAppShellComponent } from '@bhairab-patra/platform-ui';

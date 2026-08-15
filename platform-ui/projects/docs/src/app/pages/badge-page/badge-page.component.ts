@@ -5,7 +5,7 @@ import { BadgeComponent } from '@bhairab-patra/platform-ui';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
-  selector: 'app-badge-page',
+  selector: 'docs-badge-page',
   standalone: true,
   imports: [NgFor, DocPageComponent, BadgeComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -77,7 +77,7 @@ export default function DeploymentList() {
 <pui-lib-badge variant="primary">New</pui-lib-badge>
 <pui-lib-badge variant="default">Draft</pui-lib-badge>`;
 
-  variants = [
+  variants: { id: 'default'|'primary'|'success'|'warning'|'danger'|'info'; label: string }[] = [
     { id: 'default', label: 'Default' },
     { id: 'primary', label: 'Primary' },
     { id: 'success', label: 'Success' },
@@ -86,7 +86,7 @@ export default function DeploymentList() {
     { id: 'info', label: 'Info' },
   ];
 
-  inlineDemo = [
+  inlineDemo: { name: string; variant: 'default'|'primary'|'success'|'warning'|'danger'|'info'; label: string }[] = [
     { name: 'Deployment #47', variant: 'success', label: 'Passed' },
     { name: 'Deployment #46', variant: 'danger', label: 'Failed' },
     { name: 'Deployment #45', variant: 'warning', label: 'In Progress' },
@@ -98,6 +98,8 @@ export default function DeploymentList() {
     { name: 'variant', angular: '[variant]="\'success\'"', attr: 'variant="success"', js: 'el.variant = "success"' },
     { name: 'size', angular: 'size="sm"', attr: 'size="sm"', js: 'el.size = "sm"' },
   ];
+
+  trackByIndex(_i: number): number { return _i; }
 
   api: ApiRow[] = [
     { input: 'variant', type: `'default'|'primary'|'success'|'warning'|'danger'|'info'`, default: `'default'`, description: 'Colour variant. Semantically: success=active/passed, warning=pending, danger=error/failed, info=informational.' },

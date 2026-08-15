@@ -10,6 +10,6 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
   constructor(private router: Router) {}
-  goStart()      { this.router.navigate(['/getting-started']); }
-  goComponents() { this.router.navigate(['/badge']); }
+  goStart(): void      { this.router.navigate(['/getting-started']); }
+  goComponents(): void { this.router.navigate(['/badge']); }
 }

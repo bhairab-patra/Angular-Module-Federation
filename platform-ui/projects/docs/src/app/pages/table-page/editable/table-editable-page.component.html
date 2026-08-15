@@ -1,16 +1,16 @@
-<docs-page title="Editable Table"
-  description="pui-lib-editable-table — inline row editing with edit/save/cancel/delete controls per row. Only one row can be edited at a time. Supports pui-lib-form-dialog for modal add/edit flows and pui-lib-confirm-dialog for delete confirmation."
+﻿<docs-page title="Editable Table"
+  description="pui-lib-editable-table â€” inline row editing with edit/save/cancel/delete controls per row. Only one row can be edited at a time. Supports pui-lib-form-dialog for modal add/edit flows and pui-lib-confirm-dialog for delete confirmation."
   [api]="api">
 
-  <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Editable table inline editing -->
     <div class="demo-section">
       <h3 class="demo-section__title">Inline Row Editing</h3>
       <p class="demo-section__desc">
-        Click the <strong>pencil</strong> icon to enter edit mode — all cells become inputs.
-        Click the <strong>checkmark</strong> to save or <strong>✕</strong> to cancel.
+        Click the <strong>pencil</strong> icon to enter edit mode â€” all cells become inputs.
+        Click the <strong>checkmark</strong> to save or <strong>âœ•</strong> to cancel.
         Only one row can be in edit mode at a time.
         With <code>[confirmDelete]="true"</code>, clicking the <strong>trash</strong> icon shows a
         built-in confirm dialog before deleting.
@@ -25,13 +25,13 @@
         (rowEdit)="onRowEdit($event)">
       </pui-lib-editable-table>
       <div class="demo-log" *ngIf="editableLog.length">
-        <p *ngFor="let entry of editableLog" class="demo-log__entry">{{ entry }}</p>
+        <p *ngFor="let entry of editableLog; trackBy: trackByIndex" class="demo-log__entry">{{ entry }}</p>
       </div>
     </div>
 
     <!-- 2. Form Dialog: Add / Edit -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Form Dialog — Add &amp; Edit</h3>
+      <h3 class="demo-section__title">Form Dialog â€” Add &amp; Edit</h3>
       <p class="demo-section__desc">
         <code>pui-lib-form-dialog</code> is a reusable modal with fully configurable <code>[fields]</code>.
         Set <code>[data]</code> to pre-fill values for an edit flow; leave empty for an add flow.
@@ -42,7 +42,7 @@
         <button class="demo-btn" (click)="openEditForm(editableRows[0])">Edit First Row</button>
       </div>
       <div class="demo-log" *ngIf="formLog.length">
-        <p *ngFor="let entry of formLog" class="demo-log__entry">{{ entry }}</p>
+        <p *ngFor="let entry of formLog; trackBy: trackByIndex" class="demo-log__entry">{{ entry }}</p>
       </div>
 
       <pui-lib-form-dialog
@@ -58,13 +58,13 @@
       </pui-lib-form-dialog>
 
       <h4 style="margin: 20px 0 8px; font-size: 13px; color: #6b7280">Angular usage</h4>
-      <app-code lang="html"       id="fd-html" [text]="formDialogHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <app-code lang="typescript" id="fd-ts"   [text]="formDialogTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="html"       id="fd-html" [text]="formDialogHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="typescript" id="fd-ts"   [text]="formDialogTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
     </div>
 
     <!-- 3. Confirm Dialog -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Confirm Dialog — Delete Confirmation</h3>
+      <h3 class="demo-section__title">Confirm Dialog â€” Delete Confirmation</h3>
       <p class="demo-section__desc">
         <code>pui-lib-confirm-dialog</code> shows a simple confirmation prompt before a destructive action.
         Customize the title, message, button labels, and confirm variant.
@@ -78,7 +78,7 @@
       <pui-lib-confirm-dialog
         [open]="confirmOpen"
         title="Delete Employee?"
-        [message]="'Are you sure you want to delete &quot;' + (confirmRow?.name || '') + '&quot;? This action cannot be undone.'"
+        [message]="'Are you sure you want to delete &quot;' + (confirmRow?.['name'] || '') + '&quot;? This action cannot be undone.'"
         confirmLabel="Yes, Delete"
         cancelLabel="Cancel"
         confirmVariant="destructive"
@@ -87,14 +87,14 @@
       </pui-lib-confirm-dialog>
 
       <h4 style="margin: 20px 0 8px; font-size: 13px; color: #6b7280">Angular usage</h4>
-      <app-code lang="html" id="cd-html" [text]="confirmDialogHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="html" id="cd-html" [text]="confirmDialogHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
     </div>
 
     <!-- 4. Inline editable table code -->
     <div class="demo-section">
       <h3 class="demo-section__title">Editable Table Usage</h3>
-      <app-code lang="html"       id="et-html" [text]="editableHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <app-code lang="typescript" id="et-ts"   [text]="editableTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="html"       id="et-html" [text]="editableHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="typescript" id="et-ts"   [text]="editableTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
     </div>
 
     <!-- 5. pui-lib-form-dialog API -->
@@ -103,7 +103,7 @@
       <table class="pui-api-table">
         <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-          <tr *ngFor="let row of formDialogApi; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let row of formDialogApi; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ row.input }}</code></td>
             <td><code>{{ row.type }}</code></td>
             <td><code>{{ row.default }}</code></td>
@@ -119,7 +119,7 @@
       <table class="pui-api-table">
         <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
         <tbody>
-          <tr *ngFor="let row of confirmDialogApi; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let row of confirmDialogApi; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ row.input }}</code></td>
             <td><code>{{ row.type }}</code></td>
             <td><code>{{ row.default }}</code></td>
@@ -132,3 +132,4 @@
   </ng-container>
 
 </docs-page>
+

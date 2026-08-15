@@ -1,25 +1,25 @@
-
+﻿
     <div class="tp-page">
 
-      <!-- ── Page header ── -->
+      <!-- â”€â”€ Page header â”€â”€ -->
       <div class="tp-header">
         <h1 class="tp-header__title">Typography</h1>
         <p class="tp-header__desc">
-          Platform UI uses <strong>Poppins</strong> — a geometric sans-serif designed by Indian Type Foundry.
+          Platform UI uses <strong>Poppins</strong> â€” a geometric sans-serif designed by Indian Type Foundry.
           It ships with 9 weights and matching italics, giving applications a modern, professional look
           across all screen sizes.
         </p>
       </div>
 
-      <!-- ════════════════════════════════════════ -->
-      <!-- 1 · Installation                        -->
-      <!-- ════════════════════════════════════════ -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+      <!-- 1 Â· Installation                        -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <section class="tp-section">
         <h2 class="tp-section__title">
           <span class="tp-section__num">01</span> Installation
         </h2>
 
-        <!-- Option A — Google Fonts CDN -->
+        <!-- Option A â€” Google Fonts CDN -->
         <div class="tp-card">
           <div class="tp-card__header">
             <span class="tp-badge tp-badge--green">Recommended</span>
@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <!-- Option B — NPM -->
+        <!-- Option B â€” NPM -->
         <div class="tp-card" style="margin-top:16px">
           <div class="tp-card__header">
             <span class="tp-badge tp-badge--blue">Alternative</span>
@@ -59,9 +59,9 @@
         </div>
       </section>
 
-      <!-- ════════════════════════════════════════ -->
-      <!-- 2 · Angular Configuration               -->
-      <!-- ════════════════════════════════════════ -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+      <!-- 2 Â· Angular Configuration               -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <section class="tp-section">
         <h2 class="tp-section__title">
           <span class="tp-section__num">02</span> Angular Configuration
@@ -95,9 +95,9 @@
         </div>
       </section>
 
-      <!-- ════════════════════════════════════════ -->
-      <!-- 3 · Type Scale                          -->
-      <!-- ════════════════════════════════════════ -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+      <!-- 3 Â· Type Scale                          -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <section class="tp-section">
         <h2 class="tp-section__title">
           <span class="tp-section__num">03</span> Type Scale
@@ -107,7 +107,7 @@
           <div class="tp-scale-head">
             <span>Token</span><span>Size</span><span>Weight</span><span>Line height</span><span>Preview</span>
           </div>
-          <div *ngFor="let t of scale" class="tp-scale-row">
+          <div *ngFor="let t of scale; trackBy: trackByIndex" class="tp-scale-row">
             <code class="tp-scale-row__token">{{ t.token }}</code>
             <span class="tp-scale-row__size">{{ t.size }}</span>
             <span class="tp-scale-row__weight">{{ t.weight }}</span>
@@ -122,15 +122,15 @@
         </div>
       </section>
 
-      <!-- ════════════════════════════════════════ -->
-      <!-- 4 · Font Weights                        -->
-      <!-- ════════════════════════════════════════ -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+      <!-- 4 Â· Font Weights                        -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <section class="tp-section">
         <h2 class="tp-section__title">
           <span class="tp-section__num">04</span> Font Weights
         </h2>
         <div class="tp-weights">
-          <div *ngFor="let w of weights" class="tp-weight-item">
+          <div *ngFor="let w of weights; trackBy: trackByIndex" class="tp-weight-item">
             <span class="tp-weight-item__name">{{ w.name }}</span>
             <span class="tp-weight-item__num">{{ w.value }}</span>
             <span class="tp-weight-item__sample" [style.font-weight]="w.value">
@@ -140,9 +140,9 @@
         </div>
       </section>
 
-      <!-- ════════════════════════════════════════ -->
-      <!-- 5 · Headings                            -->
-      <!-- ════════════════════════════════════════ -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+      <!-- 5 Â· Headings                            -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <section class="tp-section">
         <h2 class="tp-section__title">
           <span class="tp-section__num">05</span> Headings
@@ -175,9 +175,9 @@
         </div>
       </section>
 
-      <!-- ════════════════════════════════════════ -->
-      <!-- 6 · Paragraph & Body                    -->
-      <!-- ════════════════════════════════════════ -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+      <!-- 6 Â· Paragraph & Body                    -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <section class="tp-section">
         <h2 class="tp-section__title">
           <span class="tp-section__num">06</span> Paragraph &amp; Body Text
@@ -206,7 +206,7 @@
             <code class="tp-body-token">body-sm</code>
             <p class="tp-body-sm">
               Small body text is used for secondary content, helper text, captions,
-              and metadata fields. Keep line lengths between 45–75 characters for optimal readability.
+              and metadata fields. Keep line lengths between 45â€“75 characters for optimal readability.
             </p>
           </div>
 
@@ -220,9 +220,9 @@
         </div>
       </section>
 
-      <!-- ════════════════════════════════════════ -->
-      <!-- 7 · Special Styles                      -->
-      <!-- ════════════════════════════════════════ -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+      <!-- 7 Â· Special Styles                      -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <section class="tp-section">
         <h2 class="tp-section__title">
           <span class="tp-section__num">07</span> Special Styles
@@ -246,7 +246,7 @@
 
           <div class="tp-special-card">
             <span class="tp-special-label">Link</span>
-            <a class="tp-link" href="#">View documentation →</a>
+            <a class="tp-link" href="#">View documentation â†’</a>
           </div>
 
           <div class="tp-special-card">
@@ -262,9 +262,9 @@
         </div>
       </section>
 
-      <!-- ════════════════════════════════════════ -->
-      <!-- 8 · SCSS Tokens Reference               -->
-      <!-- ════════════════════════════════════════ -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+      <!-- 8 Â· SCSS Tokens Reference               -->
+      <!-- â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <section class="tp-section">
         <h2 class="tp-section__title">
           <span class="tp-section__num">08</span> SCSS Tokens &amp; Usage

@@ -1,4 +1,4 @@
-
+﻿
 <docs-page
   title="Checkbox"
   description="A styled checkbox with checked, indeterminate, error, and disabled states. Works with Angular forms, React refs, and plain HTML via Web Component."
@@ -42,7 +42,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-checkbox</code> is a Web Component — works in Angular, React, and plain HTML with no extra config. Boolean inputs (<code>checked</code>, <code>disabled</code>, <code>indeterminate</code>, <code>required</code>) accept <code>true</code>/<code>false</code> JS properties or the string <code>"true"</code> as an HTML attribute.</p>
+    <p class="fw-lead"><code>pui-lib-checkbox</code> is a Web Component â€” works in Angular, React, and plain HTML with no extra config. Boolean inputs (<code>checked</code>, <code>disabled</code>, <code>indeterminate</code>, <code>required</code>) accept <code>true</code>/<code>false</code> JS properties or the string <code>"true"</code> as an HTML attribute.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
@@ -67,7 +67,7 @@
       <table class="xfw-table">
         <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ r.name }}</code></td>
             <td><code class="tag-ng">{{ r.angular }}</code></td>
             <td><code class="tag-html">{{ r.attr }}</code></td>

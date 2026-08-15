@@ -1,11 +1,11 @@
-
+﻿
   <docs-page
     title="Menu"
     description="A dropdown menu component with support for nested submenus, keyboard shortcuts, dividers, danger actions, and four trigger variants. Works identically in Angular, React, and plain HTML."
     [hasFramework]="true"
     [api]="api">
 
-    <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+    <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <ng-container demo>
 
       <!-- Basic menu -->
@@ -77,7 +77,7 @@
 
     </ng-container>
 
-    <!-- ══ FRAMEWORK USAGE ════════════════════════════════════════════════ -->
+    <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
     <ng-container framework>
 
       <h2 class="fw-title">Framework Usage</h2>
@@ -92,7 +92,7 @@
         <!-- Angular preview: document toolbar with Edit / Export submenu / Delete -->
         <div preview style="display:flex;flex-direction:column;gap:16px;align-items:flex-start">
           <p style="margin:0;font-size:13px;color:#64748b">
-            Document actions — bound via <code>[items]</code> and <code>(menuSelect)</code>
+            Document actions â€” bound via <code>[items]</code> and <code>(menuSelect)</code>
           </p>
           <div style="display:flex;align-items:center;gap:12px">
             <pui-lib-menu
@@ -103,7 +103,7 @@
               (menuSelect)="onFwSelect($event)">
             </pui-lib-menu>
             <span *ngIf="fwLastAction" style="font-size:13px;color:#0d6e5f;font-weight:500">
-              ✓ {{ fwLastAction }}
+              âœ“ {{ fwLastAction }}
             </span>
           </div>
         </div>
@@ -111,7 +111,7 @@
         <!-- React preview: user account menu with profile / settings / sign-out -->
         <div react-preview style="display:flex;flex-direction:column;gap:16px;align-items:flex-start">
           <p style="margin:0;font-size:13px;color:#64748b">
-            User account menu — items set via <code>el.items = [...]</code> in <code>useEffect</code>
+            User account menu â€” items set via <code>el.items = [...]</code> in <code>useEffect</code>
           </p>
           <div style="display:flex;align-items:center;gap:12px">
             <pui-lib-menu
@@ -122,7 +122,7 @@
               (menuSelect)="onFwSelect($event)">
             </pui-lib-menu>
             <span *ngIf="fwLastAction" style="font-size:13px;color:#0d6e5f;font-weight:500">
-              ✓ {{ fwLastAction }}
+              âœ“ {{ fwLastAction }}
             </span>
           </div>
         </div>
@@ -134,7 +134,7 @@
         <table class="xfw-table">
           <thead><tr><th>Input</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
           <tbody>
-            <tr *ngFor="let r of xfwRows; let odd=odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
               <td><code class="tag-name">{{ r.name }}</code></td>
               <td><code class="tag-ng">{{ r.angular }}</code></td>
               <td><code class="tag-html">{{ r.attr }}</code></td>
@@ -147,3 +147,4 @@
     </ng-container>
 
   </docs-page>
+

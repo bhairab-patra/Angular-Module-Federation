@@ -23,13 +23,15 @@ export class TabsPageComponent {
   cardActive = 'details';
   vertActive = 'profile';
 
-  copy(id: string, text: string) {
+  copy(id: string, text: string): void {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
       setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
     });
   }
+
+  trackByIndex(_i: number): number { return _i; }
 
   /* ── Demo data ──────────────────────────────────── */
   basicTabs: TabItem[] = [

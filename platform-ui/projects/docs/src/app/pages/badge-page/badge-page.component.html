@@ -53,9 +53,9 @@
       <p class="demo-section__desc">Badges are <code>inline-flex</code> elements — they sit naturally next to text,
         inside table cells, or alongside item names.</p>
       <div class="demo-list">
-        <div class="demo-list-row" *ngFor="let d of inlineDemo">
+        <div class="demo-list-row" *ngFor="let d of inlineDemo; trackBy: trackByIndex">
           <span class="demo-list-name">{{ d.name }}</span>
-          <pui-lib-badge [variant]="$any(d.variant)" size="sm">{{ d.label }}</pui-lib-badge>
+          <pui-lib-badge [variant]="d.variant" size="sm">{{ d.label }}</pui-lib-badge>
         </div>
       </div>
     </div>
@@ -73,10 +73,10 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let v of variants">
+          <tr *ngFor="let v of variants; trackBy: trackByIndex">
             <td class="demo-table__name">{{ v.id }}</td>
-            <td><pui-lib-badge [variant]="$any(v.id)" size="md">{{ v.label }}</pui-lib-badge></td>
-            <td><pui-lib-badge [variant]="$any(v.id)" size="sm">{{ v.label }}</pui-lib-badge></td>
+            <td><pui-lib-badge [variant]="v.id" size="md">{{ v.label }}</pui-lib-badge></td>
+            <td><pui-lib-badge [variant]="v.id" size="sm">{{ v.label }}</pui-lib-badge></td>
           </tr>
         </tbody>
       </table>
@@ -134,7 +134,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows">
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
             <td><span class="tag-name">{{ r.name }}</span></td>
             <td><span class="tag-ng">{{ r.angular }}</span></td>
             <td><span class="tag-html">{{ r.attr }}</span></td>

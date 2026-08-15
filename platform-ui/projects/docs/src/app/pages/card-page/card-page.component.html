@@ -1,11 +1,11 @@
-
+﻿
 <docs-page
   title="Card"
-  description="Flexible surface component — supports stat/metric layouts, slot projection (header · body · footer), 5 variants, 3 sizes, full-width, accent strip, clickable lift, and a cardClick event."
+  description="Flexible surface component â€” supports stat/metric layouts, slot projection (header Â· body Â· footer), 5 variants, 3 sizes, full-width, accent strip, clickable lift, and a cardClick event."
   [hasFramework]="true"
   [api]="api">
 
-  <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Content cards -->
@@ -18,7 +18,7 @@
             <span class="card-avatar">JD</span>
             <div>
               <div class="card-author">John Doe</div>
-              <div class="card-meta">Product Designer · 2 min ago</div>
+              <div class="card-meta">Product Designer Â· 2 min ago</div>
             </div>
           </div>
           <p class="card-body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
@@ -34,7 +34,7 @@
             <span class="card-avatar card-avatar--teal">AK</span>
             <div>
               <div class="card-author">Alice Kim</div>
-              <div class="card-meta">Engineering Lead · 5 min ago</div>
+              <div class="card-meta">Engineering Lead Â· 5 min ago</div>
             </div>
           </div>
           <p class="card-body-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
@@ -60,7 +60,7 @@
     <!-- 3. Variants -->
     <div class="demo-section">
       <h3 class="demo-section__title">Variants</h3>
-      <p class="demo-section__desc">Five visual styles — choose based on the card's position in the visual hierarchy.</p>
+      <p class="demo-section__desc">Five visual styles â€” choose based on the card's position in the visual hierarchy.</p>
       <div class="card-row card-row--wrap">
         <pui-lib-card variant="default"  style="width:180px"><p class="variant-label">Default</p><p class="variant-desc">White + shadow</p></pui-lib-card>
         <pui-lib-card variant="outlined" style="width:180px"><p class="variant-label">Outlined</p><p class="variant-desc">Border only</p></pui-lib-card>
@@ -84,7 +84,7 @@
     <!-- 5. Balance card layouts -->
     <div class="demo-section">
       <h3 class="demo-section__title">Balance Card Layouts</h3>
-      <p class="demo-section__desc">Four layout patterns for financial stat cards — all use <code>variant="flat"</code> with <code>[clickable]="true"</code>.</p>
+      <p class="demo-section__desc">Four layout patterns for financial stat cards â€” all use <code>variant="flat"</code> with <code>[clickable]="true"</code>.</p>
       <div class="card-row">
         <pui-lib-card variant="flat" size="sm" [clickable]="true" cardClass="bal-card" style="flex:1;min-width:0">
           <div class="bal-row">
@@ -133,11 +133,11 @@
 
   </ng-container>
 
-  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-card</code> is a flexible surface — project any content via <code>ng-content</code> or use named slots (<code>card-header</code>, <code>card-footer</code>). Pass a <code>[data]</code> object for the automatic stat/metric layout.</p>
+    <p class="fw-lead"><code>pui-lib-card</code> is a flexible surface â€” project any content via <code>ng-content</code> or use named slots (<code>card-header</code>, <code>card-footer</code>). Pass a <code>[data]</code> object for the automatic stat/metric layout.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
@@ -171,7 +171,7 @@
       <table class="xfw-table">
         <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows">
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
             <td><span class="tag-name">{{ r.name }}</span></td>
             <td><span class="tag-ng">{{ r.angular }}</span></td>
             <td><span class="tag-html">{{ r.attr }}</span></td>

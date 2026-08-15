@@ -1,11 +1,11 @@
-
+﻿
 <docs-page
   title="Modal"
   description="Dialog overlay for confirmations, alerts, forms, and focused tasks. Trigger any dialog from a card or button."
   [hasFramework]="true"
   [api]="api">
 
-  <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Dialog trigger cards -->
@@ -71,11 +71,11 @@
 
   </ng-container>
 
-  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead">Control visibility with <code>[open]</code>. Project body content directly inside the element; use <code>footer</code> attribute for footer actions. Listen to <code>(closed)</code> to sync your state when the backdrop or ✕ is clicked.</p>
+    <p class="fw-lead">Control visibility with <code>[open]</code>. Project body content directly inside the element; use <code>footer</code> attribute for footer actions. Listen to <code>(closed)</code> to sync your state when the backdrop or âœ• is clicked.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
@@ -101,7 +101,7 @@
       <table class="xfw-table">
         <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows">
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
             <td><span class="tag-name">{{ r.name }}</span></td>
             <td><span class="tag-ng">{{ r.angular }}</span></td>
             <td><span class="tag-html">{{ r.attr }}</span></td>
@@ -115,14 +115,14 @@
 
 </docs-page>
 
-<!-- ══ Basic Modal ══ -->
+<!-- â•â• Basic Modal â•â• -->
 <pui-lib-modal [open]="basicOpen" title="Basic Dialog" size="md" (closed)="basicOpen=false;cdr.markForCheck()">
   <div class="modal-body-content">
     <p class="modal-text">Use <code>ng-content</code> to project any content into the modal body. This is a general-purpose dialog suitable for messages, notices, or lightweight interactions.</p>
     <pui-lib-card variant="flat" size="sm" style="margin-top:12px">
       <div class="info-row">
         <pui-lib-icon name="info" size="sm" color="#0369a1"></pui-lib-icon>
-        <span style="font-size:13px;color:#374151">Click the backdrop or ✕ button to close this dialog.</span>
+        <span style="font-size:13px;color:#374151">Click the backdrop or âœ• button to close this dialog.</span>
       </div>
     </pui-lib-card>
   </div>
@@ -132,7 +132,7 @@
   </div>
 </pui-lib-modal>
 
-<!-- ══ Confirm Delete Modal ══ -->
+<!-- â•â• Confirm Delete Modal â•â• -->
 <pui-lib-modal [open]="confirmOpen" title="Delete Item" size="sm" (closed)="confirmOpen=false;cdr.markForCheck()">
   <div class="modal-body-content">
     <pui-lib-card variant="flat" size="sm" cardClass="danger-card">
@@ -151,7 +151,7 @@
   </div>
 </pui-lib-modal>
 
-<!-- ══ Success Modal ══ -->
+<!-- â•â• Success Modal â•â• -->
 <pui-lib-modal [open]="successOpen" title="Payment Successful" size="sm" (closed)="successOpen=false;cdr.markForCheck()">
   <div class="modal-body-content modal-body-content--center">
     <div class="success-icon-wrap"><pui-lib-icon name="check-circle" size="xl" color="#15803d"></pui-lib-icon></div>
@@ -168,7 +168,7 @@
   </div>
 </pui-lib-modal>
 
-<!-- ══ Form Modal ══ -->
+<!-- â•â• Form Modal â•â• -->
 <pui-lib-modal [open]="formOpen" title="Edit Profile" size="lg" (closed)="formOpen=false;cdr.markForCheck()">
   <div class="modal-body-content">
     <div class="form-grid">

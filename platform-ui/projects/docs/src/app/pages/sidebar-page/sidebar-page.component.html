@@ -1,4 +1,4 @@
-
+﻿
     <docs-page
       title="Sidebar"
       description="Full-featured navigation sidebar with collapsible groups, submenu expansion, live search, badge indicators, and flexible theming. Works identically in Angular, React, and plain HTML."
@@ -10,7 +10,7 @@
 
         <div class="theme-bar">
           <span class="theme-bar__label">Theme</span>
-          <button *ngFor="let t of themeKeys" class="theme-pill"
+          <button *ngFor="let t of themeKeys; trackBy: trackByIndex" class="theme-pill"
                   [class.theme-pill--active]="activeThemeName===t"
                   (click)="setTheme(t)">
             <span class="theme-dot" [style.background]="SIDEBAR_THEMES[t].bg"></span>{{ t }}
@@ -31,12 +31,12 @@
           <div class="fake-content">
             <div class="fake-title">{{ activeId || 'Dashboard' }}</div>
             <div class="fake-cards">
-              <div class="fake-card" *ngFor="let c of cards">
+              <div class="fake-card" *ngFor="let c of cards; trackBy: trackByIndex">
                 <div class="fake-card__lbl">{{ c.lbl }}</div>
                 <div class="fake-card__val" [style.color]="c.color">{{ c.val }}</div>
               </div>
             </div>
-            <div class="fake-row" *ngFor="let _ of [1,2,3,4]"></div>
+            <div class="fake-row" *ngFor="let _ of [1,2,3,4]; trackBy: trackByIndex"></div>
           </div>
         </div>
 
@@ -83,7 +83,7 @@
           <table class="xfw-table">
             <thead><tr><th>Input</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
             <tbody>
-              <tr *ngFor="let r of xfwRows; let odd=odd" [class.xfw-odd]="odd">
+              <tr *ngFor="let r of xfwRows; let odd=odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
                 <td><code class="tag-name">{{ r.name }}</code></td>
                 <td><code class="tag-ng">{{ r.angular }}</code></td>
                 <td><code class="tag-html">{{ r.attr }}</code></td>
@@ -96,3 +96,4 @@
       </ng-container>
 
     </docs-page>
+

@@ -128,15 +128,15 @@
       <div class="live-demo">
         <div class="live-controls">
           <label class="ctrl-label">Label
-            <input class="ctrl-input" [value]="demoLabel" (input)="demoLabel = $any($event.target).value; cdr.markForCheck()" placeholder="Button label">
+            <input class="ctrl-input" [value]="demoLabel" (input)="onDemoLabelInput($event)" placeholder="Button label">
           </label>
           <label class="ctrl-label">Variant
-            <select class="ctrl-input" (change)="demoVariant = $any($event.target).value; cdr.markForCheck()">
-              <option *ngFor="let v of variantOptions" [value]="v" [selected]="v === demoVariant">{{ v }}</option>
+            <select class="ctrl-input" (change)="onDemoVariantChange($event)">
+              <option *ngFor="let v of variantOptions; trackBy: trackByIndex" [value]="v" [selected]="v === demoVariant">{{ v }}</option>
             </select>
           </label>
           <label class="ctrl-label" style="flex-direction:row;align-items:center;gap:8px">
-            <input type="checkbox" [checked]="demoDisabled" (change)="demoDisabled = $any($event.target).checked; cdr.markForCheck()">
+            <input type="checkbox" [checked]="demoDisabled" (change)="onDemoDisabledChange($event)">
             Disabled
           </label>
         </div>
@@ -180,7 +180,7 @@
       <table class="xfw-table">
         <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows">
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
             <td><span class="tag-name">{{ r.name }}</span></td>
             <td><span class="tag-ng">{{ r.angular }}</span></td>
             <td><span class="tag-html">{{ r.attr }}</span></td>

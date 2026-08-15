@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
-import { ToastService } from '@bhairab-patra/platform-ui';
+import { ToastService, ToastPosition } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
@@ -18,42 +18,44 @@ export class ToastPageComponent {
 
   get angularCode(): string { return `${this.angularTpl}\n\n// component.ts\n${this.angularTs}`; }
 
-  get toast() { return this.toastSvc; }
+  get toast(): typeof this.toastSvc { return this.toastSvc; }
 
-  doCopy(text: string, id: string) {
+  doCopy(text: string, id: string): void {
     navigator.clipboard.writeText(text).then(() => { this.copied = id; setTimeout(() => this.copied = '', 2000); });
   }
 
-  showSuccess() {
+  showSuccess(): void {
     this.toastSvc.success('Changes saved successfully!', { title: 'Saved', showProgress: true });
   }
-  showError() {
+  showError(): void {
     this.toastSvc.error('Failed to connect to the server.', { title: 'Connection Error', showProgress: true });
   }
-  showWarning() {
+  showWarning(): void {
     this.toastSvc.warning('Your session expires in 5 minutes.', { title: 'Session Warning', showProgress: true });
   }
-  showInfo() {
+  showInfo(): void {
     this.toastSvc.info('A new version is available.', { title: 'Update Available', showProgress: true });
   }
-  showWithTitle() {
+  showWithTitle(): void {
     this.toastSvc.success('Your profile has been updated.', { title: 'Profile Saved', showProgress: true });
   }
-  showWithAction() {
+  showWithAction(): void {
     this.toastSvc.warning('Email moved to Trash.', {
       title: 'Item Deleted',
       showProgress: true,
       duration: 6000,
-      action: { label: 'Undo', callback: () => console.log('Undo clicked') },
+      action: { label: 'Undo', callback: () => console.warn('Undo clicked') },
     });
   }
-  showPersistent() {
+  showPersistent(): void {
     this.toastSvc.info('This notification will stay until dismissed.', { title: 'Persistent', duration: 0, showProgress: false });
   }
-  at(pos: any) {
-    this.toastSvc.info(`Toast at ${pos}`, { position: pos, showProgress: true });
+  trackByIndex(_i: number): number { return _i; }
+
+  at(pos: string): void {
+    this.toastSvc.info(`Toast at ${pos}`, { position: pos as ToastPosition, showProgress: true });
   }
-  dur(ms: number) {
+  dur(ms: number): void {
     this.toastSvc.success(`Auto-dismiss in ${ms / 1000}s`, { duration: ms, showProgress: true });
   }
 

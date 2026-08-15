@@ -7,7 +7,7 @@ import { PuiDataGridComponent, DataGridColumn, BadgeComponent } from '@bhairab-p
 interface Employee { id: number; name: string; role: string; department: string; status: string; salary: number; joined: string; }
 
 @Component({
-  selector: 'app-datagrid-page',
+  selector: 'docs-datagrid-page',
   standalone: true,
   imports: [NgFor, NgIf, DocPageComponent, PuiDataGridComponent, BadgeComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -90,7 +90,9 @@ customElements.whenDefined('pui-lib-datagrid').then(() => {
 });
 </script>`;
 
-  selectedNames(): string { return this.selected.map((r: any) => r['name']).join(', '); }
+  selectedNames(): string { return this.selected.map((r: Employee) => r.name).join(', '); }
+
+  trackByIndex(_i: number): number { return _i; }
 
   basicCols: DataGridColumn<Employee>[] = [
     { field: 'name',       header: 'Name',       sortable: true },
@@ -98,11 +100,11 @@ customElements.whenDefined('pui-lib-datagrid').then(() => {
     { field: 'department', header: 'Department'               },
   ];
 
-  basicRows: any[] = [
-    { id: 1, name: 'Alice Johnson',  role: 'Senior Engineer', department: 'Engineering' },
-    { id: 2, name: 'Bob Smith',      role: 'Product Designer',department: 'Design'      },
-    { id: 3, name: 'Carol Williams', role: 'Product Manager', department: 'Product'     },
-    { id: 4, name: 'David Brown',    role: 'Frontend Dev',    department: 'Engineering' },
+  basicRows: Employee[] = [
+    { id: 1, name: 'Alice Johnson',  role: 'Senior Engineer', department: 'Engineering', status: 'Active',   salary: 95000, joined: '2021-03-12' },
+    { id: 2, name: 'Bob Smith',      role: 'Product Designer',department: 'Design',      status: 'Active',   salary: 88000, joined: '2020-07-01' },
+    { id: 3, name: 'Carol Williams', role: 'Product Manager', department: 'Product',     status: 'Pending',  salary: 102000,joined: '2022-01-15' },
+    { id: 4, name: 'David Brown',    role: 'Frontend Dev',    department: 'Engineering', status: 'Inactive', salary: 78000, joined: '2019-11-20' },
   ];
 
   empCols: DataGridColumn<Employee>[] = [

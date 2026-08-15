@@ -22,7 +22,7 @@
         </div>
       </section>
 
-      <!-- 2. Framework Usage (optional slot — shown when consumer provides [framework] content) -->
+      <!-- 2. Framework Usage (optional slot – shown when consumer provides [framework] content) -->
       <section id="framework" class="doc-section">
         <ng-content select="[framework]"></ng-content>
       </section>
@@ -36,7 +36,7 @@
         <div class="code-wrap">
           <div class="code-header">
             <span class="code-lang">TypeScript / HTML</span>
-            <button class="copy-btn" (click)="copy()">{{ copied ? '✓ Copied!' : 'Copy' }}</button>
+            <button class="copy-btn" (click)="copy()">{{ copied ? '✔ Copied!' : 'Copy' }}</button>
           </div>
           <pre><code>{{ code }}</code></pre>
         </div>
@@ -56,7 +56,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let row of api; let odd = odd" [class.row-odd]="odd">
+              <tr *ngFor="let row of api; let odd = odd; trackBy: trackByIndex" [class.row-odd]="odd">
                 <td><code class="tag-prop">{{ row.input }}</code></td>
                 <td><code class="tag-type">{{ row.type }}</code></td>
                 <td><code class="tag-def">{{ row.default }}</code></td>
@@ -73,18 +73,29 @@
       <div class="otp-label">ON THIS PAGE</div>
       <nav class="otp-nav">
         <a class="otp-link" [class.otp-link-active]="active==='demo'"
-           (click)="scrollTo('demo')">Demo</a>
+           (click)="scrollTo('demo')"
+           (keydown.enter)="scrollTo('demo')"
+           (keydown.space)="scrollTo('demo')"
+           tabindex="0" role="button">Demo</a>
         <a *ngIf="hasFramework"
            class="otp-link" [class.otp-link-active]="active==='framework'"
-           (click)="scrollTo('framework')">Framework Usage</a>
+           (click)="scrollTo('framework')"
+           (keydown.enter)="scrollTo('framework')"
+           (keydown.space)="scrollTo('framework')"
+           tabindex="0" role="button">Framework Usage</a>
         <a *ngIf="code"
            class="otp-link" [class.otp-link-active]="active==='usage'"
-           (click)="scrollTo('usage')">Usage</a>
+           (click)="scrollTo('usage')"
+           (keydown.enter)="scrollTo('usage')"
+           (keydown.space)="scrollTo('usage')"
+           tabindex="0" role="button">Usage</a>
         <a *ngIf="api.length"
            class="otp-link" [class.otp-link-active]="active==='api'"
-           (click)="scrollTo('api')">Component API</a>
+           (click)="scrollTo('api')"
+           (keydown.enter)="scrollTo('api')"
+           (keydown.space)="scrollTo('api')"
+           tabindex="0" role="button">Component API</a>
       </nav>
     </aside>
 
   </div>
-  

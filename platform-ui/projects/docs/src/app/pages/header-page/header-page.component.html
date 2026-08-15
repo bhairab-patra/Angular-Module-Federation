@@ -1,14 +1,14 @@
-
+﻿
     <docs-page
       title="Header"
-      description="Flexible top app bar. Supports logo, badge, nav links, user menu and help button. Works identically in Angular, React, and plain HTML — no consumer hacks needed."
+      description="Flexible top app bar. Supports logo, badge, nav links, user menu and help button. Works identically in Angular, React, and plain HTML â€” no consumer hacks needed."
       [hasFramework]="true"
       [api]="api">
 
-      <!-- ══ 1. LIVE DEMO ══════════════════════════════════════════════ -->
+      <!-- â•â• 1. LIVE DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <ng-container demo>
 
-        <div class="demo-label"><span>Admin Portal — UAT</span></div>
+        <div class="demo-label"><span>Admin Portal â€” UAT</span></div>
         <pui-lib-header
           appTitle="Admin Portal"
           appSubtitle="PLATFORM MANAGEMENT"
@@ -55,7 +55,7 @@
           (menuAction)="onAction($event)">
         </pui-lib-header>
 
-        <div class="demo-label"><span>Minimal — No User</span></div>
+        <div class="demo-label"><span>Minimal â€” No User</span></div>
         <pui-lib-header appTitle="My App" bgColor="#1e293b"></pui-lib-header>
 
         <div class="demo-label"><span>Last Menu Action</span></div>
@@ -63,17 +63,17 @@
           menuAction emitted: <strong>{{ lastAction }}</strong>
         </div>
         <div class="action-log action-log--empty" *ngIf="!lastAction">
-          Click the user avatar → a menu item to see the emitted action here.
+          Click the user avatar â†’ a menu item to see the emitted action here.
         </div>
 
       </ng-container>
 
-      <!-- ══ 2. FRAMEWORK USAGE ═══════════════════════════════════════ -->
+      <!-- â•â• 2. FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <ng-container framework>
 
         <h2 class="fw-title">Framework Usage</h2>
         <p class="fw-lead">
-          <code>pui-lib-header</code> is a Web Component — it works in Angular, React, and plain HTML
+          <code>pui-lib-header</code> is a Web Component â€” it works in Angular, React, and plain HTML
           with no extra wrappers. String inputs are HTML attributes; objects/arrays accept a JSON
           string or a JS property; events are standard DOM CustomEvents.
         </p>
@@ -124,7 +124,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
                 <td><code class="tag-name">{{ r.name }}</code></td>
                 <td><code class="tag-ng">{{ r.angular }}</code></td>
                 <td><code class="tag-html">{{ r.attr }}</code></td>

@@ -1,11 +1,11 @@
-
+﻿
     <docs-page
       title="Advanced Filters"
       description="Composable filter panel with checkbox groups, radio buttons, select dropdowns, dual-thumb range sliders, text inputs, and date-range pickers. Active filters display as removable chips. Works in Angular, React, and plain HTML."
       [hasFramework]="true"
       [api]="api">
 
-      <!-- ══ DEMO ═════════════════════════════════════════════ -->
+      <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <ng-container demo>
 
         <div class="demo-label"><span>Sidebar Filter Panel (batch apply)</span></div>
@@ -48,13 +48,13 @@
 
       </ng-container>
 
-      <!-- ══ FRAMEWORK USAGE ══════════════════════════════════ -->
+      <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <ng-container framework>
 
         <h2 class="fw-title">Framework Usage</h2>
         <p class="fw-lead">
           <code>pui-lib-filter-panel</code> is a Web Component. The <code>filters</code> definition array and
-          <code>values</code> object are complex structures — pass them as JS properties or as a JSON string attribute.
+          <code>values</code> object are complex structures â€” pass them as JS properties or as a JSON string attribute.
           The component emits <code>valuesChange</code>, <code>applied</code>, <code>reset</code>, and <code>cleared</code> CustomEvents.
         </p>
 
@@ -96,7 +96,7 @@
           <table class="xfw-table">
             <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property / event</th></tr></thead>
             <tbody>
-              <tr *ngFor="let r of xfwRows; let odd=odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
                 <td><code class="tag-name">{{ r.name }}</code></td>
                 <td><code class="tag-ng">{{ r.angular }}</code></td>
                 <td><code class="tag-html">{{ r.attr }}</code></td>

@@ -1,17 +1,36 @@
 
-    .tab-content-demo {
-      padding: 14px 4px;
-      font-size: 13.5px;
-      color: var(--pui-neutral-700);
-      line-height: 1.65;
-      min-height: 56px;
-    }
-    .tab-content-demo--card {
-      padding: 16px;
-      border: 1px solid var(--pui-neutral-200);
-      border-top: none;
-      border-radius: 0 0 8px 8px;
-      background: var(--pui-white);
-    }
-    .tab-content-demo p { margin: 0; }
-  
+/* Content inside the panel — panel itself handles padding/border now */
+.tab-content-demo {
+  font-size: 13.5px;
+  color: var(--pui-neutral-700);
+  line-height: 1.65;
+  min-height: 44px;
+}
+/* Remove old manual card border — pui-tabs-panel handles this for card variant */
+.tab-content-demo--card {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+.tab-content-demo p { margin: 0; }
+
+/* Framework Usage preview hint text */
+.fw-panel-hint {
+  margin: 0;
+  font-size: 13px;
+  color: var(--pui-neutral-400);
+  font-style: italic;
+}
+.fw-panel-hint code {
+  background: var(--pui-neutral-100);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-style: normal;
+  color: var(--pui-neutral-700);
+}
+
+.react-settings-page { display: flex; flex-direction: column; gap: 0; }
+.react-settings-page__header { padding: 0 0 14px; }
+.react-settings-page__title { font-size: 15px; font-weight: 700; color: var(--pui-neutral-900); margin: 0; }

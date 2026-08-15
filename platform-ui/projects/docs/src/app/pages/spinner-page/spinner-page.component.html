@@ -1,27 +1,27 @@
-
+﻿
 <docs-page
   title="Spinner"
-  description="Two animation styles — dash (radiating lines) and dots (orbiting dot ring). Supports overlay, custom colour, speed, size, and z-index."
+  description="Two animation styles â€” dash (radiating lines) and dots (orbiting dot ring). Supports overlay, custom colour, speed, size, and z-index."
   [hasFramework]="true"
   [api]="api">
 
-  <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Types -->
     <div class="demo-section">
       <h3 class="demo-section__title">Animation Types</h3>
-      <p class="demo-section__desc">Two SVG animation styles — <code>dash</code> uses radiating lines with a steps(12) rotation, <code>dots</code> uses an orbiting dot ring.</p>
+      <p class="demo-section__desc">Two SVG animation styles â€” <code>dash</code> uses radiating lines with a steps(12) rotation, <code>dots</code> uses an orbiting dot ring.</p>
       <div class="type-grid">
         <div class="type-card">
           <div class="type-preview"><pui-lib-spinner type="dash" size="lg" color="#12C6A8"></pui-lib-spinner></div>
           <code class="type-name">type="dash"</code>
-          <span class="type-desc">Radiating lines — steps(12) rotation</span>
+          <span class="type-desc">Radiating lines â€” steps(12) rotation</span>
         </div>
         <div class="type-card">
           <div class="type-preview"><pui-lib-spinner type="dots" size="lg" color="#12C6A8"></pui-lib-spinner></div>
           <code class="type-name">type="dots"</code>
-          <span class="type-desc">Orbiting dot ring — steps(12) rotation</span>
+          <span class="type-desc">Orbiting dot ring â€” steps(12) rotation</span>
         </div>
       </div>
     </div>
@@ -29,12 +29,12 @@
     <!-- 2. Sizes -->
     <div class="demo-section">
       <h3 class="demo-section__title">Sizes</h3>
-      <p class="demo-section__desc">Four preset sizes — <code>sm</code> 24px, <code>md</code> 40px (default), <code>lg</code> 56px, <code>xl</code> 80px. Use <code>[sizePx]</code> for arbitrary pixel sizes.</p>
+      <p class="demo-section__desc">Four preset sizes â€” <code>sm</code> 24px, <code>md</code> 40px (default), <code>lg</code> 56px, <code>xl</code> 80px. Use <code>[sizePx]</code> for arbitrary pixel sizes.</p>
       <div class="two-col">
         <div class="variant-block">
           <span class="variant-heading">dash</span>
           <div class="size-row">
-            <div *ngFor="let s of sizes" class="size-cell">
+            <div *ngFor="let s of sizes; trackBy: trackByIndex" class="size-cell">
               <pui-lib-spinner type="dash" [size]="s.size" color="#12C6A8"></pui-lib-spinner>
               <span class="size-label">{{ s.size }}<small>{{ s.px }}px</small></span>
             </div>
@@ -43,7 +43,7 @@
         <div class="variant-block">
           <span class="variant-heading">dots</span>
           <div class="size-row">
-            <div *ngFor="let s of sizes" class="size-cell">
+            <div *ngFor="let s of sizes; trackBy: trackByIndex" class="size-cell">
               <pui-lib-spinner type="dots" [size]="s.size" color="#12C6A8"></pui-lib-spinner>
               <span class="size-label">{{ s.size }}<small>{{ s.px }}px</small></span>
             </div>
@@ -55,12 +55,12 @@
     <!-- 3. Colours -->
     <div class="demo-section">
       <h3 class="demo-section__title">Colours</h3>
-      <p class="demo-section__desc">Pass any CSS colour string to <code>color</code> — hex, rgb, hsl, or a CSS variable.</p>
+      <p class="demo-section__desc">Pass any CSS colour string to <code>color</code> â€” hex, rgb, hsl, or a CSS variable.</p>
       <div class="two-col">
         <div class="variant-block">
           <span class="variant-heading">dash</span>
           <div class="color-row">
-            <div *ngFor="let c of colors" class="color-cell">
+            <div *ngFor="let c of colors; trackBy: trackByIndex" class="color-cell">
               <pui-lib-spinner type="dash" size="md" [color]="c.color"></pui-lib-spinner>
               <span class="color-label" [style.color]="c.color">{{ c.name }}</span>
             </div>
@@ -69,7 +69,7 @@
         <div class="variant-block">
           <span class="variant-heading">dots</span>
           <div class="color-row">
-            <div *ngFor="let c of colors" class="color-cell">
+            <div *ngFor="let c of colors; trackBy: trackByIndex" class="color-cell">
               <pui-lib-spinner type="dots" size="md" [color]="c.color"></pui-lib-spinner>
               <span class="color-label" [style.color]="c.color">{{ c.name }}</span>
             </div>
@@ -83,7 +83,7 @@
       <h3 class="demo-section__title">Speed</h3>
       <p class="demo-section__desc">Control animation duration in milliseconds. Lower values = faster spin.</p>
       <div class="speed-row">
-        <div *ngFor="let s of speeds" class="speed-cell">
+        <div *ngFor="let s of speeds; trackBy: trackByIndex" class="speed-cell">
           <div class="speed-pair">
             <pui-lib-spinner type="dash" size="md" color="#12C6A8" [speed]="s.ms"></pui-lib-spinner>
             <pui-lib-spinner type="dots" size="md" color="#6366f1" [speed]="s.ms"></pui-lib-spinner>
@@ -98,8 +98,8 @@
       <h3 class="demo-section__title">With Label</h3>
       <p class="demo-section__desc">Optional text displayed below the spinner. Use <code>labelColor</code> to match the spinner colour.</p>
       <div class="label-row">
-        <pui-lib-spinner type="dash" size="md" color="#12C6A8" label="Loading…"></pui-lib-spinner>
-        <pui-lib-spinner type="dots" size="md" color="#6366f1" label="Please wait…" labelColor="#6366f1"></pui-lib-spinner>
+        <pui-lib-spinner type="dash" size="md" color="#12C6A8" label="Loadingâ€¦"></pui-lib-spinner>
+        <pui-lib-spinner type="dots" size="md" color="#6366f1" label="Please waitâ€¦" labelColor="#6366f1"></pui-lib-spinner>
       </div>
     </div>
 
@@ -119,7 +119,7 @@
 
   </ng-container>
 
-  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
@@ -133,7 +133,7 @@
         <pui-lib-spinner type="dash" size="md" color="#12C6A8"></pui-lib-spinner>
         <pui-lib-spinner type="dots" size="md" color="#12C6A8"></pui-lib-spinner>
         <pui-lib-spinner type="dash" size="lg" color="#6366f1"></pui-lib-spinner>
-        <pui-lib-spinner type="dots" size="lg" color="#6366f1" label="Loading…"></pui-lib-spinner>
+        <pui-lib-spinner type="dots" size="lg" color="#6366f1" label="Loadingâ€¦"></pui-lib-spinner>
       </div>
       <div react-preview class="react-spinner-demo">
         <pui-lib-button variant="primary" [disabled]="true">
@@ -152,7 +152,7 @@
       <table class="xfw-table">
         <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows">
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
             <td><span class="tag-name">{{ r.name }}</span></td>
             <td><span class="tag-ng">{{ r.angular }}</span></td>
             <td><span class="tag-html">{{ r.attr }}</span></td>

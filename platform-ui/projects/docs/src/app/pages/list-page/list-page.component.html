@@ -1,11 +1,11 @@
-
+﻿
 <docs-page
   title="List"
-  description="A structured vertical list with icons, descriptions, badges, metadata, dividers, and selectable rows — available in four layout variants."
+  description="A structured vertical list with icons, descriptions, badges, metadata, dividers, and selectable rows â€” available in four layout variants."
   [hasFramework]="true"
   [api]="api">
 
-  <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Basic bordered -->
@@ -44,7 +44,7 @@
     <!-- 4. Variants -->
     <div class="demo-section">
       <h3 class="demo-section__title">Layout Variants</h3>
-      <p class="demo-section__desc">Four variants — <code>bordered</code>, <code>striped</code>, <code>flush</code>, and <code>default</code> — suit different layout contexts.</p>
+      <p class="demo-section__desc">Four variants â€” <code>bordered</code>, <code>striped</code>, <code>flush</code>, and <code>default</code> â€” suit different layout contexts.</p>
       <div style="display:flex;gap:24px;flex-wrap:wrap">
         <div style="flex:1;min-width:200px">
           <p class="demo-label">flush</p>
@@ -68,7 +68,7 @@
 
   </ng-container>
 
-  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
@@ -92,7 +92,7 @@
       <table class="xfw-table">
         <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows">
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
             <td><span class="tag-name">{{ r.name }}</span></td>
             <td><span class="tag-ng">{{ r.angular }}</span></td>
             <td><span class="tag-html">{{ r.attr }}</span></td>

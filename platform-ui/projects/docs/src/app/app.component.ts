@@ -87,7 +87,7 @@ export class AppComponent {
   }
 
   constructor(private router: Router, private el: ElementRef, private san: DomSanitizer) {
-    const i = (svg: string) => this.san.bypassSecurityTrustHtml(svg);
+    const i = (svg: string): SafeHtml => this.san.bypassSecurityTrustHtml(svg);
     this.sections = [
       {
         heading: 'Getting Started',
@@ -213,13 +213,16 @@ export class AppComponent {
 
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)
-    ).subscribe((e: any) => {
+    ).subscribe((e: NavigationEnd) => {
       this.isHome = e.urlAfterRedirects === '/';
       this.expandParentForRoute(e.urlAfterRedirects);
       this.clearSearch();
     });
     this.expandParentForRoute(this.router.url);
   }
+
+  asInput(t: EventTarget | null): HTMLInputElement { return t as HTMLInputElement; }
+  trackByIndex(_i: number): number { return _i; }
 
   onSearch(q: string): void {
     this.searchQuery  = q;

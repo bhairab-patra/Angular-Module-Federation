@@ -116,4 +116,6 @@ $font-weight-extrabold: 800;
       setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 1800);
     });
   }
+
+  trackByIndex(_i: number): number { return _i; }
 }

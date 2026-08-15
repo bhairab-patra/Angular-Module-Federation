@@ -1,11 +1,11 @@
-
+﻿
     <docs-page
       title="Toast"
-      description="Lightweight notification service — 4 types, 6 positions, progress bar, hover-pause, action buttons, and configurable auto-dismiss. Add &lt;pui-lib-toast-container&gt; once in your app root. In React and plain HTML use the global window.puiToast API exposed by the elements bundle."
+      description="Lightweight notification service â€” 4 types, 6 positions, progress bar, hover-pause, action buttons, and configurable auto-dismiss. Add &lt;pui-lib-toast-container&gt; once in your app root. In React and plain HTML use the global window.puiToast API exposed by the elements bundle."
       [hasFramework]="true"
       [api]="api">
 
-      <!-- ══ DEMO ═════════════════════════════════════════════ -->
+      <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <ng-container demo>
 
         <div class="demo-label"><span>Toast Types</span></div>
@@ -39,16 +39,16 @@
             <span>With Title</span>
           </button>
           <button class="action-card" (click)="showWithAction()">
-            <span class="action-icon action-icon--blue">↩</span>
+            <span class="action-icon action-icon--blue">â†©</span>
             <span>With Undo Action</span>
           </button>
           <button class="action-card" (click)="showPersistent()">
-            <span class="action-icon action-icon--gray">∞</span>
+            <span class="action-icon action-icon--gray">âˆž</span>
             <span>Persistent (no auto-dismiss)</span>
           </button>
         </div>
 
-        <div class="demo-label"><span>Screen Positions — click a corner</span></div>
+        <div class="demo-label"><span>Screen Positions â€” click a corner</span></div>
         <div class="pos-diagram">
           <button class="pos-btn pos-btn--tl"  (click)="at('top-left')">top-left</button>
           <button class="pos-btn pos-btn--tc"  (click)="at('top-center')">top-center</button>
@@ -78,13 +78,13 @@
 
       </ng-container>
 
-      <!-- ══ FRAMEWORK USAGE ══════════════════════════════════ -->
+      <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <ng-container framework>
 
         <h2 class="fw-title">Framework Usage</h2>
         <p class="fw-lead">
           Toast is <strong>service-driven</strong>. In Angular inject <code>ToastService</code>.
-          In React and plain HTML the elements bundle exposes <code>window.puiToast</code> — a global API
+          In React and plain HTML the elements bundle exposes <code>window.puiToast</code> â€” a global API
           with the same methods. In all cases place <code>&lt;pui-lib-toast-container&gt;</code> once in your app root.
         </p>
 
@@ -136,12 +136,12 @@
           </div>
         </docs-framework-preview>
 
-        <h3 class="fw-ref-title">API Comparison — Angular service vs global API</h3>
+        <h3 class="fw-ref-title">API Comparison â€” Angular service vs global API</h3>
         <div class="xfw-wrap">
           <table class="xfw-table">
             <thead><tr><th>Operation</th><th>Angular (ToastService)</th><th>React / Plain HTML (window.puiToast)</th></tr></thead>
             <tbody>
-              <tr *ngFor="let r of xfwRows; let odd=odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
                 <td><code class="tag-name">{{ r.name }}</code></td>
                 <td><code class="tag-ng">{{ r.angular }}</code></td>
                 <td><code class="tag-html">{{ r.html }}</code></td>

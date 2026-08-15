@@ -104,8 +104,8 @@
     <!-- 5. Code Usage -->
     <div class="demo-section">
       <h3 class="demo-section__title">Usage</h3>
-      <app-code lang="html"       id="cd-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <app-code lang="typescript" id="cd-ts"   [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="html"       id="cd-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="typescript" id="cd-ts"   [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
     </div>
 
   </ng-container>

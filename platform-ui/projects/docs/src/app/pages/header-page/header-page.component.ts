@@ -19,14 +19,16 @@ export class HeaderPageComponent {
 
   get angularCode(): string { return `${this.angularTemplate}\n\n// component.ts\n${this.angularTs}`; }
 
-  doCopy(text: string, id: string) {
+  doCopy(text: string, id: string): void {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       setTimeout(() => { this.copied = ''; }, 2000);
     });
   }
 
-  onAction(action: string) { this.lastAction = action; }
+  onAction(action: string): void { this.lastAction = action; }
+
+  trackByIndex(_i: number): number { return _i; }
 
   uatBadge  = { text: 'UAT',  color: '#f59e0b', textColor: '#fff' };
   prodBadge = { text: 'PROD', color: '#ef4444', textColor: '#fff' };

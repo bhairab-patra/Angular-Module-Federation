@@ -2,11 +2,14 @@ import {
   Component, Input, Output, EventEmitter,
   inject, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { IconComponent } from '../icon/icon.component';
 
 export interface TabItem {
   id: string;
   label: string;
-  icon?: string;          // SVG string or emoji
+  iconName?: string;      // platform icon registry key (preferred)
+  icon?: string;          // raw SVG string fallback
   badge?: string | number;
   disabled?: boolean;
 }
@@ -18,12 +21,18 @@ export type TabsSize        = 'sm' | 'md' | 'lg';
 @Component({
   selector: 'pui-lib-tabs',
   standalone: true,
-  imports: [NgFor, NgIf],
+  imports: [NgFor, NgIf, IconComponent],
   encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
 })
 export class PuiTabsComponent {
+
+  private sanitizer = inject(DomSanitizer);
+
+  safeIcon(icon: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(icon);
+  }
 
   /* -- Internal state ------------------- */
   _tabs: TabItem[]          = [];
@@ -58,6 +67,9 @@ export class PuiTabsComponent {
   @Input() set size(v: TabsSize | string) {
     this._size = (['sm','md','lg'].includes(v as TabsSize) ? v as TabsSize : 'md');
   }
+
+  /** Set false to suppress the bordered panel container — use when projecting no content or managing panel externally */
+  @Input() panel = true;
 
   /* -- Output --------------------------- */
   @Output() tabChange = new EventEmitter<TabItem>();

@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { PuiListComponent, ListItem } from '@bhairab-patra/platform-ui';
 
 @Component({
-  selector: 'app-list-page',
+  selector: 'docs-list-page',
   standalone: true,
   imports: [NgFor, NgIf, DocPageComponent, PuiListComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -77,17 +77,17 @@ customElements.whenDefined('pui-lib-list').then(() => {
 </script>`;
 
   teamItems: ListItem[] = [
-    { id: 1, label: 'Alice Johnson',  description: 'Senior Engineer · Engineering',  meta: 'Online'  },
-    { id: 2, label: 'Bob Smith',      description: 'Product Designer · Design',       meta: 'Away'    },
-    { id: 3, label: 'Carol Williams', description: 'Product Manager · Product',       meta: 'Offline' },
-    { id: 4, label: 'David Brown',    description: 'Frontend Engineer · Engineering', meta: 'Online'  },
+    { id: 1, label: 'Alice Johnson',  description: 'Senior Engineer Â· Engineering',  meta: 'Online'  },
+    { id: 2, label: 'Bob Smith',      description: 'Product Designer Â· Design',       meta: 'Away'    },
+    { id: 3, label: 'Carol Williams', description: 'Product Manager Â· Product',       meta: 'Offline' },
+    { id: 4, label: 'David Brown',    description: 'Frontend Engineer Â· Engineering', meta: 'Online'  },
   ];
 
   notifItems: ListItem[] = [
     { id: 1, label: 'New comment on PR #142', description: 'Alice left a review on your pull request.',     badge: 'New',  meta: '2m ago'  },
-    { id: 2, label: 'Deployment succeeded',   description: 'v1.3.0 was deployed to production.',            badge: '✓',    meta: '1h ago'  },
+    { id: 2, label: 'Deployment succeeded',   description: 'v1.3.0 was deployed to production.',            badge: 'âœ“',    meta: '1h ago'  },
     { id: 3, label: 'Build failed',           description: 'The staging pipeline failed on step "test".',              meta: '3h ago'  },
-    { id: 4, label: 'Scheduled maintenance',  description: 'Downtime window: Saturday 02:00–04:00 UTC.',               meta: 'Tomorrow'},
+    { id: 4, label: 'Scheduled maintenance',  description: 'Downtime window: Saturday 02:00â€“04:00 UTC.',               meta: 'Tomorrow'},
   ];
 
   menuItems: ListItem[] = [
@@ -113,11 +113,11 @@ customElements.whenDefined('pui-lib-list').then(() => {
   ];
 
   xfwRows = [
-    { name: 'items',      angular: '[items]="items"',          attr: '—',              js: 'el.items = [...]'        },
+    { name: 'items',      angular: '[items]="items"',          attr: 'â€”',              js: 'el.items = [...]'        },
     { name: 'variant',    angular: 'variant="flush"',          attr: 'variant="flush"',js: 'el.variant = "flush"'    },
     { name: 'selectable', angular: '[selectable]="true"',      attr: 'selectable',     js: 'el.selectable = true'    },
-    { name: 'selectedId', angular: '[selectedId]="id"',        attr: '—',              js: 'el.selectedId = "id"'    },
-    { name: 'itemSelect', angular: '(itemSelect)="fn($event)"',attr: '—',              js: 'el.addEventListener(…)'  },
+    { name: 'selectedId', angular: '[selectedId]="id"',        attr: 'â€”',              js: 'el.selectedId = "id"'    },
+    { name: 'itemSelect', angular: '(itemSelect)="fn($event)"',attr: 'â€”',              js: 'el.addEventListener(â€¦)'  },
   ];
 
   api: ApiRow[] = [
@@ -125,6 +125,7 @@ customElements.whenDefined('pui-lib-list').then(() => {
     { input: 'variant',    type: `'bordered'|'striped'|'flush'|'default'`, default: `'bordered'`, description: 'Visual layout of the list.' },
     { input: 'selectable', type: 'boolean',    default: 'false',      description: 'Enables clickable rows with a selection highlight.' },
     { input: 'selectedId', type: 'string|number|null', default: 'null', description: 'Currently selected item id.' },
-    { input: 'itemSelect', type: 'EventEmitter<ListItem>', default: '—', description: 'Emits the clicked ListItem when selectable is true.' },
+    { input: 'itemSelect', type: 'EventEmitter<ListItem>', default: 'â€”', description: 'Emits the clicked ListItem when selectable is true.' },
   ];
+  trackByIndex(_i: number): number { return _i; }
 }

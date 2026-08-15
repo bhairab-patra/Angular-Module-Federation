@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { BreadcrumbComponent, BreadcrumbItem } from '@bhairab-patra/platform-ui';
 
 @Component({
-  selector: 'app-breadcrumb-page',
+  selector: 'docs-breadcrumb-page',
   standalone: true,
   imports: [NgFor, DocPageComponent, BreadcrumbComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,9 +30,9 @@ export class BreadcrumbPageComponent {
 })
 export class MyComponent {
   crumbs: BreadcrumbItem[] = [
-    { label: 'Home',     route: '/'          },
-    { label: 'Products', route: '/products'  },
-    { label: 'Widget'                        },
+    { label: 'Home',     route: '/',         iconName: 'home'    },
+    { label: 'Products', route: '/products', iconName: 'folder'  },
+    { label: 'Widget'                                            },
   ];
 }`;
 
@@ -107,26 +107,31 @@ customElements.whenDefined('pui-lib-breadcrumb').then(() => {
   ];
 
   withIcons: BreadcrumbItem[] = [
-    {
-      label: 'Home', route: '/',
-      icon: '<svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>',
-    },
-    {
-      label: 'Components', route: '/components',
-      icon: '<svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"/></svg>',
-    },
-    { label: 'Breadcrumb' },
+    { label: 'Home',       route: '/',          iconName: 'home'     },
+    { label: 'Settings',   route: '/settings',  iconName: 'settings' },
+    { label: 'Profile',                          iconName: 'user'     },
   ];
 
   xfwRows = [
-    { name: 'items',     angular: '[items]="items"',          attr: '—',                 js: 'el.items = [...]'           },
+    { name: 'items',     angular: '[items]="items"',          attr: 'â€”',                 js: 'el.items = [...]'           },
     { name: 'separator', angular: 'separator="slash"',        attr: 'separator="slash"', js: 'el.separator = "slash"'     },
-    { name: 'ariaLabel', angular: 'ariaLabel="Navigation"',   attr: 'aria-label="…"',    js: 'el.ariaLabel = "…"'         },
+    { name: 'ariaLabel', angular: 'ariaLabel="Navigation"',   attr: 'aria-label="â€¦"',    js: 'el.ariaLabel = "â€¦"'         },
+  ];
+
+  cssTokenRows = [
+    { token: '--pui-bc-link-color',    default: 'var(--pui-neutral-500)', controls: 'Ancestor link text colour'         },
+    { token: '--pui-bc-link-hover',    default: 'var(--pui-brand)',       controls: 'Ancestor link hover colour'        },
+    { token: '--pui-bc-link-bg-hover', default: 'rgba(18,198,168,.08)',   controls: 'Ancestor link hover background'    },
+    { token: '--pui-bc-active-color',  default: 'var(--pui-neutral-900)', controls: 'Current page text colour'          },
+    { token: '--pui-bc-active-bg',     default: 'rgba(18,198,168,.07)',   controls: 'Current page background tint'      },
+    { token: '--pui-bc-sep-color',     default: 'var(--pui-neutral-300)', controls: 'Separator icon / glyph colour'     },
+    { token: '--pui-bc-size',          default: '13px',                   controls: 'Font size for all crumb items'     },
   ];
 
   api: ApiRow[] = [
-    { input: 'items',     type: 'BreadcrumbItem[]', default: '[]',        description: 'Navigation items. Each has a label, an optional href for the link, and an optional icon SVG string.' },
+    { input: 'items',     type: 'BreadcrumbItem[]', default: '[]',        description: 'Navigation items. Each has a label, optional route, optional iconName (platform icon registry key), and optional icon (raw SVG fallback).' },
     { input: 'separator', type: `'chevron'|'slash'|'dot'|'arrow'`, default: `'chevron'`, description: 'Visual separator rendered between breadcrumb items.' },
     { input: 'ariaLabel', type: 'string',            default: `'Breadcrumb'`, description: 'Accessible label for the <nav> landmark element.' },
   ];
+  trackByIndex(_i: number): number { return _i; }
 }

@@ -1,4 +1,4 @@
-
+﻿
 <docs-page
   title="Textarea"
   description="A multi-line text input with configurable rows, resize control, character counter, and full validation states. Works in Angular, React, and plain HTML as a Web Component."
@@ -9,14 +9,14 @@
 
     <div class="demo-section">
       <h3 class="demo-section__title">Basic</h3>
-      <pui-lib-textarea label="Description" placeholder="Tell us about yourself…"
+      <pui-lib-textarea label="Description" placeholder="Tell us about yourselfâ€¦"
                     [(ngModel)]="v1" [rows]="rows4" style="width:100%"/>
       <p class="demo-desc">{{ v1.length }} characters</p>
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">Character Count</h3>
-      <pui-lib-textarea label="Bio (max 200)" placeholder="Write your bio…"
+      <pui-lib-textarea label="Bio (max 200)" placeholder="Write your bioâ€¦"
                     [(ngModel)]="vBio" [maxLength]="maxLen" [showCount]="showCount"
                     hint="Shown on your public profile" style="width:100%"/>
     </div>
@@ -41,7 +41,7 @@
     <div class="demo-section">
       <h3 class="demo-section__title">Validation States</h3>
       <div class="demo-col">
-        <pui-lib-textarea label="Error"     error="Description is required" placeholder="Required…" style="width:100%"/>
+        <pui-lib-textarea label="Error"     error="Description is required" placeholder="Requiredâ€¦" style="width:100%"/>
         <pui-lib-textarea label="Disabled"  [disabled]="disabledFlag"  placeholder="Cannot edit" style="width:100%"/>
         <pui-lib-textarea label="Read-only" [readonly]="readonlyFlag"  placeholder="Read-only content" style="width:100%"/>
       </div>
@@ -59,7 +59,7 @@
       [reactCode]="reactCode"
       [htmlCode]="htmlCode">
       <div preview class="demo-col">
-        <pui-lib-textarea label="Bio" placeholder="Tell us about yourself…" [rows]="rows4" [maxLength]="maxLen" [showCount]="showCount" hint="Max 200 characters"/>
+        <pui-lib-textarea label="Bio" placeholder="Tell us about yourselfâ€¦" [rows]="rows4" [maxLength]="maxLen" [showCount]="showCount" hint="Max 200 characters"/>
         <pui-lib-textarea label="No resize" resize="none" [rows]="rows3" placeholder="Fixed height"/>
         <pui-lib-textarea label="Error state" error="Description is required" placeholder="Enter description"/>
       </div>
@@ -67,14 +67,14 @@
         <h4 class="react-form-title">Submit Support Ticket</h4>
         <pui-lib-textarea
           label="Issue description"
-          placeholder="Describe the problem in detail…"
+          placeholder="Describe the problem in detailâ€¦"
           [rows]="rows4"
           [maxLength]="maxLen"
           [showCount]="showCount"
           hint="Include steps to reproduce and expected behaviour"/>
         <pui-lib-textarea
           label="Additional context"
-          placeholder="Error messages, screenshots, environment info…"
+          placeholder="Error messages, screenshots, environment infoâ€¦"
           [rows]="rows3"
           resize="none"/>
       </div>
@@ -85,7 +85,7 @@
       <table class="xfw-table">
         <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ r.name }}</code></td>
             <td><code class="tag-ng">{{ r.angular }}</code></td>
             <td><code class="tag-html">{{ r.attr }}</code></td>

@@ -73,7 +73,9 @@ export class FilterPageComponent {
 
   get hasApplied(): boolean { return Object.keys(this.applied).length > 0; }
 
-  doCopy(text: string, id: string) {
+  trackByIndex(_i: number): number { return _i; }
+
+  doCopy(text: string, id: string): void {
     navigator.clipboard.writeText(text).then(() => { this.copied = id; setTimeout(() => this.copied = '', 2000); });
   }
 

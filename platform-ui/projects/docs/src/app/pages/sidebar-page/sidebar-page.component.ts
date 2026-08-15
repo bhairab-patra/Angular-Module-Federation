@@ -1,13 +1,13 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor } from '@angular/common';
 import {
-  PuiSidebarComponent, SidebarGroup, SidebarNavItem,
+  PuiSidebarComponent, SidebarGroup,
   SidebarTheme, SIDEBAR_THEMES
 } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
-const ICON = (path: string) =>
+const ICON = (path: string): string =>
   `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${path}</svg>`;
 
 const NAV_GROUPS: SidebarGroup[] = [
@@ -62,9 +62,11 @@ export class SidebarPageComponent {
   navGroups = NAV_GROUPS;
 
   get activeTheme(): SidebarTheme { return SIDEBAR_THEMES[this.activeThemeName]; }
-  setTheme(t: keyof typeof SIDEBAR_THEMES) { this.activeThemeName = t; }
+  setTheme(t: keyof typeof SIDEBAR_THEMES): void { this.activeThemeName = t; }
 
-  doCopy(text: string, id: string) {
+  trackByIndex(_i: number): number { return _i; }
+
+  doCopy(text: string, id: string): void {
     navigator.clipboard.writeText(text).then(() => { this.copied = id; setTimeout(() => this.copied = '', 2000); });
   }
 

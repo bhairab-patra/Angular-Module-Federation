@@ -1,4 +1,4 @@
-
+﻿
 <docs-page
   title="Select"
   description="A styled native dropdown with consistent cross-browser appearance. Supports validation states, disabled options, and custom placeholder. Works in Angular, React, and plain HTML."
@@ -14,15 +14,15 @@
                     placeholder="Choose a country" style="flex:1"/>
         <pui-lib-select label="Role"    [options]="roles"     [(ngModel)]="vRole" style="flex:1"/>
       </div>
-      <p class="demo-desc">Country: <strong>{{ vCountry || '—' }}</strong> · Role: <strong>{{ vRole || '—' }}</strong></p>
+      <p class="demo-desc">Country: <strong>{{ vCountry || 'â€”' }}</strong> Â· Role: <strong>{{ vRole || 'â€”' }}</strong></p>
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">Sizes</h3>
       <div class="demo-col">
-        <pui-lib-select label="Small"  size="sm" [options]="roles" placeholder="Select role…"/>
-        <pui-lib-select label="Medium" size="md" [options]="roles" placeholder="Select role…"/>
-        <pui-lib-select label="Large"  size="lg" [options]="roles" placeholder="Select role…"/>
+        <pui-lib-select label="Small"  size="sm" [options]="roles" placeholder="Select roleâ€¦"/>
+        <pui-lib-select label="Medium" size="md" [options]="roles" placeholder="Select roleâ€¦"/>
+        <pui-lib-select label="Large"  size="lg" [options]="roles" placeholder="Select roleâ€¦"/>
       </div>
     </div>
 
@@ -72,7 +72,7 @@
       <table class="xfw-table">
         <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ r.name }}</code></td>
             <td><code class="tag-ng">{{ r.angular }}</code></td>
             <td><code class="tag-html">{{ r.attr }}</code></td>

@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { PuiPasswordInputComponent, PuiInputComponent } from '@bhairab-patra/platform-ui';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
-  selector: 'app-password-page',
+  selector: 'docs-password-page',
   standalone: true,
   imports: [NgFor, NgIf, DocPageComponent, PuiPasswordInputComponent, PuiInputComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,8 +22,8 @@ export class PasswordPageComponent {
   strength   = '';
 
   xfwRows = [
-    { name: 'value',          angular: '[value]="pw"',               attr: 'value="…"',         js: 'el.value = "…"'          },
-    { name: 'placeholder',    angular: 'placeholder="…"',            attr: 'placeholder="…"',   js: 'el.placeholder = "…"'    },
+    { name: 'value',          angular: '[value]="pw"',               attr: 'value="â€¦"',         js: 'el.value = "â€¦"'          },
+    { name: 'placeholder',    angular: 'placeholder="â€¦"',            attr: 'placeholder="â€¦"',   js: 'el.placeholder = "â€¦"'    },
     { name: 'showStrength',   angular: '[showStrength]="true"',      attr: 'show-strength',     js: 'el.showStrength = true'  },
     { name: 'showRules',      angular: '[showRules]="true"',         attr: 'show-rules',        js: 'el.showRules = true'     },
     { name: 'minLength',      angular: '[minLength]="10"',           attr: 'min-length="10"',   js: 'el.minLength = 10'       },
@@ -33,8 +33,8 @@ export class PasswordPageComponent {
     { name: 'copyable',       angular: '[copyable]="true"',          attr: 'copyable',          js: 'el.copyable = true'      },
     { name: 'disabled',       angular: '[disabled]="true"',          attr: 'disabled',          js: 'el.disabled = true'      },
     { name: 'error',          angular: 'error="msg"',                attr: 'error="msg"',       js: 'el.error = "msg"'        },
-    { name: 'valueChange',    angular: '(valueChange)="fn($event)"', attr: '—',                 js: 'el.addEventListener(…)'  },
-    { name: 'strengthChange', angular: '(strengthChange)="fn($event)"', attr: '—',              js: 'el.addEventListener(…)'  },
+    { name: 'valueChange',    angular: '(valueChange)="fn($event)"', attr: 'â€”',                 js: 'el.addEventListener(â€¦)'  },
+    { name: 'strengthChange', angular: '(strengthChange)="fn($event)"', attr: 'â€”',              js: 'el.addEventListener(â€¦)'  },
   ];
 
   angularCode = `import { PuiPasswordInputComponent } from '@bhairab-patra/platform-ui';
@@ -114,7 +114,8 @@ document.getElementById('pw').addEventListener('valueChange', e => {
     { input: 'autocomplete',   type: 'string',  default: '"current-password"', description: 'HTML autocomplete attribute value.' },
     { input: 'error',          type: 'string',  default: '""',               description: 'Error message shown below the input with a red border.' },
     { input: 'hint',           type: 'string',  default: '""',               description: 'Helper text shown below the input (hidden when error is set).' },
-    { input: 'valueChange',    type: 'EventEmitter<string>', default: '—',   description: 'Emits the password string on every keystroke.' },
-    { input: 'strengthChange', type: 'EventEmitter',         default: '—',   description: 'Emits the strength level: weak, fair, strong, or very-strong.' },
+    { input: 'valueChange',    type: 'EventEmitter<string>', default: 'â€”',   description: 'Emits the password string on every keystroke.' },
+    { input: 'strengthChange', type: 'EventEmitter',         default: 'â€”',   description: 'Emits the strength level: weak, fair, strong, or very-strong.' },
   ];
+  trackByIndex(_i: number): number { return _i; }
 }

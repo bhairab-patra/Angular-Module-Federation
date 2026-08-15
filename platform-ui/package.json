@@ -14,22 +14,22 @@
     "lint:docs": "ng lint docs",
     "lint:all": "ng lint platform-ui && ng lint docs",
 
-    "build:local": "ng build platform-ui --configuration development",
-    "build:publish": "ng build platform-ui --configuration production",
+    "build:local": "npm run lint && ng build platform-ui --configuration development",
+    "build:publish": "npm run lint:all && ng build platform-ui --configuration production",
     "build": "npm run build:local",
     "build:watch": "ng build platform-ui --configuration development --watch",
     "pack:local": "npm run build:local && cd dist/platform-ui && npm pack",
 
     "publish:lib": "npm run build:publish && npm publish ./dist/platform-ui --access public --registry https://registry.npmjs.org",
 
-    "build:elements": "ng build elements --configuration production && node scripts/concat-elements.js",
+    "build:elements": "npm run lint && ng build elements --configuration production && node scripts/concat-elements.js",
     "build:elements:dev": "ng build elements --configuration development && node scripts/concat-elements.js",
-    "build:full": "npm run build:publish && npm run build:elements && node scripts/copy-elements-to-dist.js",
+    "build:full": "npm run lint:all && ng build platform-ui --configuration production && npm run build:elements:dev && node scripts/copy-elements-to-dist.js",
     "publish:full": "npm run build:full && npm publish ./dist/platform-ui --access public",
 
     "test": "ng test platform-ui",
     "docs": "ng serve docs --port 4210 --open",
-    "docs:build": "ng build docs",
+    "docs:build": "npm run lint:docs && ng build docs",
     "serve:demo": "npx http-server . -p 4300 --cors -o demo/index.html"
   },
   "peerDependencies": {

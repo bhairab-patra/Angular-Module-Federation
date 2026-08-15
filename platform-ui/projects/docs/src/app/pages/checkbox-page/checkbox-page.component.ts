@@ -20,13 +20,15 @@ export class CheckboxPageComponent {
   fw = 'angular';
   copied = '';
 
-  copy(id: string, text: string) {
+  copy(id: string, text: string): void {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
       setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
     });
   }
+
+  trackByIndex(_i: number): number { return _i; }
 
   xfwRows = [
     { name: 'label',         angular: 'label="str"',                       attr: 'label="str"',           js: 'el.label = "..."' },

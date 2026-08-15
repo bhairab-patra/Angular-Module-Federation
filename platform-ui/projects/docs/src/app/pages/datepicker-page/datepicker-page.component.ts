@@ -25,13 +25,15 @@ export class DatepickerPageComponent {
   minDate = new Date();
   maxDate = (() => { const d = new Date(); d.setDate(d.getDate() + 30); return d; })();
 
-  copy(id: string, text: string) {
+  copy(id: string, text: string): void {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
       setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
     });
   }
+
+  trackByIndex(_i: number): number { return _i; }
 
   fmtDate(d: Date | null): string {
     if (!d) return '—';

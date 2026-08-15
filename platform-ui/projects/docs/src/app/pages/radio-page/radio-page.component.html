@@ -1,4 +1,4 @@
-
+﻿
 <docs-page
   title="Radio Group"
   description="A group of radio buttons for single-selection. Supports vertical and horizontal layouts, per-option hints, and disabled states. Works in Angular, React, and plain HTML."
@@ -8,12 +8,12 @@
   <ng-container demo>
 
     <div class="demo-section">
-      <h3 class="demo-section__title">Basic — Vertical</h3>
+      <h3 class="demo-section__title">Basic â€” Vertical</h3>
       <div class="demo-row">
         <pui-lib-radio-group label="Subscription" [options]="plans"   [(ngModel)]="vPlan"/>
         <pui-lib-radio-group label="Contact via"  [options]="contact" [(ngModel)]="vContact"/>
       </div>
-      <p class="demo-desc">Plan: <strong>{{ vPlan || 'none' }}</strong> · Contact: <strong>{{ vContact || 'none' }}</strong></p>
+      <p class="demo-desc">Plan: <strong>{{ vPlan || 'none' }}</strong> Â· Contact: <strong>{{ vContact || 'none' }}</strong></p>
     </div>
 
     <div class="demo-section">
@@ -40,7 +40,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-radio-group</code> is a Web Component. Pass the <code>options</code> array via Angular binding (<code>[options]</code>) or JS property assignment in React and HTML — attribute-based array JSON also works.</p>
+    <p class="fw-lead"><code>pui-lib-radio-group</code> is a Web Component. Pass the <code>options</code> array via Angular binding (<code>[options]</code>) or JS property assignment in React and HTML â€” attribute-based array JSON also works.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
@@ -62,7 +62,7 @@
       <table class="xfw-table">
         <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ r.name }}</code></td>
             <td><code class="tag-ng">{{ r.angular }}</code></td>
             <td><code class="tag-html">{{ r.attr }}</code></td>

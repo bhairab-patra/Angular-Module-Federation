@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 import { PuiTagComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
-  selector: 'app-tag-page',
+  selector: 'docs-tag-page',
   standalone: true,
   imports: [NgFor, DocPageComponent, PuiTagComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -60,4 +60,5 @@ function StatusTag({ status }) {
     { input: 'variant', type: `'default'|'primary'|'success'|'warning'|'danger'|'info'|'purple'|'pink'`, default: `'default'`, description: 'Colour variant.' },
     { input: 'size',    type: `'sm'|'md'`, default: `'md'`, description: 'Tag size. Use sm in dense tables or alongside body text.' },
   ];
+  trackByIndex(_i: number): number { return _i; }
 }

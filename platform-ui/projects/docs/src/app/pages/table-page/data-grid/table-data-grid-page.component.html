@@ -1,13 +1,13 @@
-<docs-page title="Data Grid"
-  description="pui-lib-data-table — a full-featured data grid extending the Display Table with pagination, row selection (with select-all), and action menus. Designed for large datasets with server-side or client-side paging."
+﻿<docs-page title="Data Grid"
+  description="pui-lib-data-table â€” a full-featured data grid extending the Display Table with pagination, row selection (with select-all), and action menus. Designed for large datasets with server-side or client-side paging."
   [hasFramework]="true" [api]="api">
 
-  <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Full-featured: search + sort + pagination + striped + selectable -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Full Featured — Search, Sort, Pagination &amp; Selection</h3>
+      <h3 class="demo-section__title">Full Featured â€” Search, Sort, Pagination &amp; Selection</h3>
       <p class="demo-section__desc">
         Enable all features together. <code>[selectable]</code> adds a checkbox column with select-all support.
         <code>[paginated]</code> + <code>[pageSize]</code> controls the footer pagination bar.
@@ -21,18 +21,18 @@
         (selectionChange)="selectedCount = $event.length">
       </pui-lib-data-table>
       <p class="demo-desc" *ngIf="lastRow">
-        Last clicked: <strong>{{ lastRow['name'] }}</strong> ·
+        Last clicked: <strong>{{ lastRow['name'] }}</strong> Â·
         Selected: <strong>{{ selectedCount }} row{{ selectedCount === 1 ? '' : 's' }}</strong>
       </p>
     </div>
 
     <!-- 2. Action menu + Form Dialog + Confirm Dialog -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Sticky Header — Action Menu with Form &amp; Confirm Dialogs</h3>
+      <h3 class="demo-section__title">Sticky Header â€” Action Menu with Form &amp; Confirm Dialogs</h3>
       <p class="demo-section__desc">
-        Click <strong>•••</strong> on any row to Add, Edit, or Remove a product.
+        Click <strong>â€¢â€¢â€¢</strong> on any row to Add, Edit, or Remove a product.
         <code>pui-lib-form-dialog</code> and <code>pui-lib-confirm-dialog</code> are shared reusable
-        components — fully customisable via <code>[fields]</code>, <code>[title]</code>, and <code>[data]</code>.
+        components â€” fully customisable via <code>[fields]</code>, <code>[title]</code>, and <code>[data]</code>.
       </p>
       <pui-lib-data-table
         [columns]="productCols"
@@ -41,7 +41,7 @@
         [searchable]="t" [sortable]="t" [stickyHeader]="t" [striped]="t" [maxHeight]="320">
       </pui-lib-data-table>
       <div class="demo-log" *ngIf="dialogLog.length">
-        <p *ngFor="let entry of dialogLog" class="demo-log__entry">{{ entry }}</p>
+        <p *ngFor="let entry of dialogLog; trackBy: trackByIndex" class="demo-log__entry">{{ entry }}</p>
       </div>
 
       <!-- Form dialog: Add / Edit -->
@@ -61,7 +61,7 @@
       <pui-lib-confirm-dialog
         [open]="confirmOpen"
         title="Delete Product?"
-        [message]="'Are you sure you want to delete &quot;' + (confirmRow?.name || '') + '&quot;? This cannot be undone.'"
+        [message]="'Are you sure you want to delete &quot;' + (confirmRow?.['name'] || '') + '&quot;? This cannot be undone.'"
         confirmLabel="Yes, Delete"
         cancelLabel="Cancel"
         confirmVariant="destructive"
@@ -85,7 +85,7 @@
 
   </ng-container>
 
-  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
@@ -101,8 +101,8 @@
 
     <div *ngIf="fw==='angular'" class="fw-panel">
       <div class="fw-note fw-note--angular">Import <code>PuiDataTableComponent</code> instead of <code>PuiTableComponent</code>.</div>
-      <app-code lang="html"       id="ang-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <app-code lang="typescript" id="ang-ts"   [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="html"       id="ang-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="typescript" id="ang-ts"   [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
     </div>
 
     <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
@@ -112,7 +112,7 @@
           <tr><th>Input / Event</th><th>Angular</th><th>HTML attribute</th><th>JS property</th></tr>
         </thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ r.name }}</code></td>
             <td><code class="tag-ng">{{ r.angular }}</code></td>
             <td><code class="tag-html">{{ r.attr }}</code></td>
@@ -125,3 +125,4 @@
   </ng-container>
 
 </docs-page>
+

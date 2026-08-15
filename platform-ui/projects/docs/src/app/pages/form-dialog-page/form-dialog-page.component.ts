@@ -16,7 +16,7 @@ export class FormDialogPageComponent {
   private cdr = inject(ChangeDetectorRef);
 
   copied = '';
-  copy(id: string, text: string) {
+  copy(id: string, text: string): void {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id; this.cdr.markForCheck();
       setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
@@ -27,7 +27,7 @@ export class FormDialogPageComponent {
   basicOpen      = false;
   basicTitle     = '';
   basicSaveLabel = 'Save';
-  basicData: Record<string, any> = {};
+  basicData: Record<string, unknown> = {};
   basicLog: string[] = [];
 
   basicFields: FormDialogField[] = [
@@ -45,14 +45,14 @@ export class FormDialogPageComponent {
     { key: 'bio', label: 'Bio', type: 'textarea', span: 'full', placeholder: 'Short bio...' },
   ];
 
-  openAdd()  { this.basicTitle = 'Add User';  this.basicSaveLabel = 'Add User';     this.basicData = {};                      this.basicOpen = true; this.cdr.markForCheck(); }
-  openEdit() { this.basicTitle = 'Edit User'; this.basicSaveLabel = 'Save Changes'; this.basicData = { firstName: 'Alice', lastName: 'Johnson', email: 'alice@example.com', role: 'admin', bio: 'Frontend Engineer at Platform UI.' }; this.basicOpen = true; this.cdr.markForCheck(); }
+  openAdd(): void  { this.basicTitle = 'Add User';  this.basicSaveLabel = 'Add User';     this.basicData = {};                      this.basicOpen = true; this.cdr.markForCheck(); }
+  openEdit(): void { this.basicTitle = 'Edit User'; this.basicSaveLabel = 'Save Changes'; this.basicData = { firstName: 'Alice', lastName: 'Johnson', email: 'alice@example.com', role: 'admin', bio: 'Frontend Engineer at Platform UI.' }; this.basicOpen = true; this.cdr.markForCheck(); }
 
-  onBasicSave(e: FormDialogSaveEvent) {
-    this.basicLog = [`Saved: ${e.data['firstName']} ${e.data['lastName']} (${e.data['role']})`, ...this.basicLog.slice(0, 3)];
+  onBasicSave(e: FormDialogSaveEvent): void {
+    this.basicLog = [`Saved: ${String(e.data['firstName'])} ${String(e.data['lastName'])} (${String(e.data['role'])})`, ...this.basicLog.slice(0, 3)];
     this.basicOpen = false; this.cdr.markForCheck();
   }
-  onBasicClose() { this.basicOpen = false; this.cdr.markForCheck(); }
+  onBasicClose(): void { this.basicOpen = false; this.cdr.markForCheck(); }
 
   /* ── Demo 2: Sizes ──────────────────────────── */
   sizeOpen: 'sm' | 'md' | 'lg' | '' = '';
@@ -64,7 +64,7 @@ export class FormDialogPageComponent {
 
   /* ── Demo 3: Custom fields ──────────────────── */
   productOpen  = false;
-  productData: Record<string, any> = {};
+  productData: Record<string, unknown> = {};
   productLog: string[] = [];
 
   productFields: FormDialogField[] = [
@@ -91,10 +91,12 @@ export class FormDialogPageComponent {
     { key: 'description', label: 'Description', type: 'textarea', span: 'full', placeholder: 'Product description...' },
   ];
 
-  onProductSave(e: FormDialogSaveEvent) {
-    this.productLog = [`Saved: ${e.data['name']} — $${e.data['price']}`, ...this.productLog.slice(0, 3)];
+  onProductSave(e: FormDialogSaveEvent): void {
+    this.productLog = [`Saved: ${String(e.data['name'])} — $${String(e.data['price'])}`, ...this.productLog.slice(0, 3)];
     this.productOpen = false; this.cdr.markForCheck();
   }
+
+  trackByIndex(_i: number): number { return _i; }
 
   /* ── Code snippets ──────────────────────────── */
   angHtml = `<pui-lib-button variant="primary" (buttonClick)="dialogOpen = true">Open Dialog</pui-lib-button>
@@ -139,7 +141,7 @@ export class MyComponent {
     this.dialogOpen  = true;
   }
 
-  openEdit(row: any) {
+  openEdit(row: Record<string, unknown>): void {
     this.dialogTitle = 'Edit User';
     this.saveLabel   = 'Save Changes';
     this.dialogData  = { ...row };

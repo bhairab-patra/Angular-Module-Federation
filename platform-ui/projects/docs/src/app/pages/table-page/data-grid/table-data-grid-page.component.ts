@@ -22,12 +22,12 @@ export class TableDataGridPageComponent {
   t = true;
   fw = 'angular';
   copied = '';
-  lastRow: any = null;
+  lastRow: Record<string, unknown> | null = null;
   selectedCount = 0;
   isLoading = false;
   dialogLog: string[] = [];
 
-  copy(id: string, text: string) {
+  copy(id: string, text: string): void {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
@@ -35,7 +35,9 @@ export class TableDataGridPageComponent {
     });
   }
 
-  toggleLoading() { this.isLoading = !this.isLoading; this.cdr.markForCheck(); }
+  toggleLoading(): void { this.isLoading = !this.isLoading; this.cdr.markForCheck(); }
+
+  trackByIndex(_i: number): number { return _i; }
 
   /* ── Employee data (full-featured demo) ─────── */
   employeeCols: TableColumn[] = [
@@ -113,10 +115,10 @@ export class TableDataGridPageComponent {
   /* ── Form & confirm dialogs ─────────────────── */
   dialogOpen      = false;
   dialogTitle     = '';
-  dialogData: Record<string, any> = {};
+  dialogData: Record<string, unknown> = {};
   dialogSaveLabel = 'Save';
   confirmOpen     = false;
-  confirmRow: any = null;
+  confirmRow: Record<string, unknown> | null = null;
 
   productFormFields: FormDialogField[] = [
     { key: 'sku',      label: 'SKU',          placeholder: 'PRD-0001', span: 'half' },
@@ -166,16 +168,16 @@ export class TableDataGridPageComponent {
     },
   ];
 
-  onDialogSave(e: FormDialogSaveEvent) {
-    this.dialogLog = [`${this.dialogTitle}: ${e.data['name']}`, ...this.dialogLog.slice(0, 4)];
+  onDialogSave(e: FormDialogSaveEvent): void {
+    this.dialogLog = [`${this.dialogTitle}: ${String(e.data['name'])}`, ...this.dialogLog.slice(0, 4)];
     this.dialogOpen = false; this.cdr.markForCheck();
   }
-  onDialogClose() { this.dialogOpen = false; this.cdr.markForCheck(); }
-  onConfirmDelete() {
-    if (this.confirmRow) this.dialogLog = [`Deleted: ${this.confirmRow.name}`, ...this.dialogLog.slice(0, 4)];
+  onDialogClose(): void { this.dialogOpen = false; this.cdr.markForCheck(); }
+  onConfirmDelete(): void {
+    if (this.confirmRow) this.dialogLog = [`Deleted: ${String(this.confirmRow['name'])}`, ...this.dialogLog.slice(0, 4)];
     this.confirmOpen = false; this.confirmRow = null; this.cdr.markForCheck();
   }
-  onConfirmCancel() { this.confirmOpen = false; this.confirmRow = null; this.cdr.markForCheck(); }
+  onConfirmCancel(): void { this.confirmOpen = false; this.confirmRow = null; this.cdr.markForCheck(); }
 
   /* ── Code snippets ──────────────────────────── */
   angHtml = `<pui-lib-data-table

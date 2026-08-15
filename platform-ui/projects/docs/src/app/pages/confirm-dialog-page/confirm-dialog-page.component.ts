@@ -16,7 +16,7 @@ export class ConfirmDialogPageComponent {
   private cdr = inject(ChangeDetectorRef);
 
   copied = '';
-  copy(id: string, text: string) {
+  copy(id: string, text: string): void {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id; this.cdr.markForCheck();
       setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
@@ -27,29 +27,29 @@ export class ConfirmDialogPageComponent {
   deleteOpen   = false;
   deleteResult = '';
 
-  onDeleteConfirm() { this.deleteResult = '✓ Record deleted.';   this.deleteOpen = false; this.cdr.markForCheck(); }
-  onDeleteCancel()  { this.deleteResult = '✕ Cancelled.';        this.deleteOpen = false; this.cdr.markForCheck(); }
+  onDeleteConfirm(): void { this.deleteResult = '✓ Record deleted.';   this.deleteOpen = false; this.cdr.markForCheck(); }
+  onDeleteCancel(): void  { this.deleteResult = '✕ Cancelled.';        this.deleteOpen = false; this.cdr.markForCheck(); }
 
   /* ── Demo 2: Info / neutral ──────────────────── */
   infoOpen   = false;
   infoResult = '';
 
-  onInfoConfirm() { this.infoResult = '✓ Changes published.';   this.infoOpen = false; this.cdr.markForCheck(); }
-  onInfoCancel()  { this.infoResult = '✕ Kept as draft.';       this.infoOpen = false; this.cdr.markForCheck(); }
+  onInfoConfirm(): void { this.infoResult = '✓ Changes published.';   this.infoOpen = false; this.cdr.markForCheck(); }
+  onInfoCancel(): void  { this.infoResult = '✕ Kept as draft.';       this.infoOpen = false; this.cdr.markForCheck(); }
 
   /* ── Demo 3: Logout / warning ────────────────── */
   logoutOpen   = false;
   logoutResult = '';
 
-  onLogoutConfirm() { this.logoutResult = '✓ Logged out.';        this.logoutOpen = false; this.cdr.markForCheck(); }
-  onLogoutCancel()  { this.logoutResult = '✕ Stayed logged in.';  this.logoutOpen = false; this.cdr.markForCheck(); }
+  onLogoutConfirm(): void { this.logoutResult = '✓ Logged out.';        this.logoutOpen = false; this.cdr.markForCheck(); }
+  onLogoutCancel(): void  { this.logoutResult = '✕ Stayed logged in.';  this.logoutOpen = false; this.cdr.markForCheck(); }
 
   /* ── Demo 4: Custom variant ──────────────────── */
   archiveOpen   = false;
   archiveResult = '';
 
-  onArchiveConfirm() { this.archiveResult = '✓ Project archived.'; this.archiveOpen = false; this.cdr.markForCheck(); }
-  onArchiveCancel()  { this.archiveResult = '✕ Cancelled.';         this.archiveOpen = false; this.cdr.markForCheck(); }
+  onArchiveConfirm(): void { this.archiveResult = '✓ Project archived.'; this.archiveOpen = false; this.cdr.markForCheck(); }
+  onArchiveCancel(): void  { this.archiveResult = '✕ Cancelled.';         this.archiveOpen = false; this.cdr.markForCheck(); }
 
   /* ── Code snippets ──────────────────────────── */
   angHtml = `<pui-lib-button variant="destructive" (buttonClick)="confirmOpen = true">Delete</pui-lib-button>

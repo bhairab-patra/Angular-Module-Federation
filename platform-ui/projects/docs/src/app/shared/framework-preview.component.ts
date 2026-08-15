@@ -1,8 +1,9 @@
-import {
+﻿import {
   Component, Input, ViewChild, ElementRef, AfterViewInit,
   ChangeDetectionStrategy, ChangeDetectorRef, inject
 } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'docs-framework-preview',
@@ -14,6 +15,11 @@ import { NgIf, NgFor } from '@angular/common';
 })
 export class FrameworkPreviewComponent implements AfterViewInit {
   private cdr = inject(ChangeDetectorRef);
+  private sanitizer = inject(DomSanitizer);
+
+  safeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
 
   @Input() angularCode = '';
   @Input() reactCode = '';
@@ -70,4 +76,5 @@ export class FrameworkPreviewComponent implements AfterViewInit {
       setTimeout(() => { this.copied = false; this.cdr.markForCheck(); }, 2000);
     });
   }
+  trackByIndex(_i: number): number { return _i; }
 }

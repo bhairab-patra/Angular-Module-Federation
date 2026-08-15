@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, HostListener } from '@angular/core';
+﻿import { Component, Input, OnInit, HostListener } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface ApiRow {
@@ -46,4 +46,5 @@ export class DocPageComponent implements OnInit {
       setTimeout(() => (this.copied = false), 2000);
     });
   }
+  trackByIndex(_i: number): number { return _i; }
 }

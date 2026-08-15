@@ -1,17 +1,17 @@
-
+﻿
     <docs-page
       title="Search"
       description="Smart search with real-time suggestions, keyboard navigation, category grouping, recent history, loading states, and debounced input. Works identically in Angular, React, and plain HTML."
       [hasFramework]="true"
       [api]="api">
 
-      <!-- ══ DEMO ═════════════════════════════════════════════ -->
+      <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <ng-container demo>
 
         <div class="demo-label"><span>Basic Search</span></div>
         <div class="demo-block">
           <pui-lib-search
-            placeholder="Search anything…"
+            placeholder="Search anythingâ€¦"
             [debounce]="300"
             (searchChange)="lastQuery = $event">
           </pui-lib-search>
@@ -21,7 +21,7 @@
         <div class="demo-label"><span>With Suggestions & Categories</span></div>
         <div class="demo-block">
           <pui-lib-search
-            placeholder="Type to search components…"
+            placeholder="Type to search componentsâ€¦"
             [suggestions]="suggestions"
             [minChars]="1"
             (suggestionSelected)="selected = $event">
@@ -32,7 +32,7 @@
           </p>
         </div>
 
-        <div class="demo-label"><span>Sizes — sm / md / lg</span></div>
+        <div class="demo-label"><span>Sizes â€” sm / md / lg</span></div>
         <div class="demo-block demo-block--col">
           <div class="size-row"><span class="sz">sm</span><pui-lib-search size="sm" placeholder="Small"></pui-lib-search></div>
           <div class="size-row"><span class="sz">md</span><pui-lib-search size="md" placeholder="Medium (default)"></pui-lib-search></div>
@@ -47,15 +47,15 @@
           </div>
           <div class="state-card">
             <span class="state-tag state-tag--blue">Loading</span>
-            <pui-lib-search placeholder="Fetching results…" [loading]="true"></pui-lib-search>
+            <pui-lib-search placeholder="Fetching resultsâ€¦" [loading]="true"></pui-lib-search>
           </div>
         </div>
 
         <div class="demo-label"><span>Recent Searches + Keyboard Shortcut</span></div>
         <div class="demo-block">
           <pui-lib-search
-            placeholder="Click to see history…"
-            shortcut="⌘K"
+            placeholder="Click to see historyâ€¦"
+            shortcut="âŒ˜K"
             [recentSearches]="recentSearches"
             [maxRecent]="5">
           </pui-lib-search>
@@ -63,12 +63,12 @@
 
       </ng-container>
 
-      <!-- ══ FRAMEWORK USAGE ══════════════════════════════════ -->
+      <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
       <ng-container framework>
 
         <h2 class="fw-title">Framework Usage</h2>
         <p class="fw-lead">
-          <code>pui-lib-search</code> is a Web Component — drop it in any framework.
+          <code>pui-lib-search</code> is a Web Component â€” drop it in any framework.
           Simple inputs (strings, numbers, booleans) work as HTML attributes.
           Arrays (<code>suggestions</code>, <code>recentSearches</code>) work as a JSON string attribute
           or as a JS property via <code>ref</code>.
@@ -80,9 +80,9 @@
           [htmlCode]="htmlCode">
           <div preview class="demo-col">
             <pui-lib-search
-              placeholder="Search components…"
+              placeholder="Search componentsâ€¦"
               size="md"
-              shortcut="⌘K"
+              shortcut="âŒ˜K"
               [suggestions]="suggestions"
               [recentSearches]="recentSearches"
               [debounce]="300"
@@ -95,9 +95,9 @@
             <div class="react-shell-header">
               <span class="react-shell-brand">DataHub</span>
               <pui-lib-search
-                placeholder="Search dashboards, reports…"
+                placeholder="Search dashboards, reportsâ€¦"
                 size="md"
-                shortcut="⌘K"
+                shortcut="âŒ˜K"
                 [suggestions]="suggestions"
                 [debounce]="300">
               </pui-lib-search>
@@ -111,7 +111,7 @@
           <table class="xfw-table">
             <thead><tr><th>Input</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
             <tbody>
-              <tr *ngFor="let r of xfwRows; let odd=odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
                 <td><code class="tag-name">{{ r.name }}</code></td>
                 <td><code class="tag-ng">{{ r.angular }}</code></td>
                 <td><code class="tag-html">{{ r.attr }}</code></td>

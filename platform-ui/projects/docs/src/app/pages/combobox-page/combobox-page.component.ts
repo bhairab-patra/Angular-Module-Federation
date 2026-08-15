@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+﻿import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { PuiComboboxComponent, ComboboxOption } from '@bhairab-patra/platform-ui';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
-  selector: 'app-combobox-page',
+  selector: 'docs-combobox-page',
   standalone: true,
   imports: [NgFor, NgIf, DocPageComponent, PuiComboboxComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,10 +40,10 @@ export class ComboboxPageComponent {
   selectedPriority: string | number | null = null;
 
   planOptions: ComboboxOption[] = [
-    { value: 'free',       label: 'Free',       description: '1 user · 5 projects · community support' },
-    { value: 'pro',        label: 'Pro',         description: '5 users · unlimited projects · email support' },
-    { value: 'team',       label: 'Team',        description: '20 users · unlimited everything · priority support' },
-    { value: 'enterprise', label: 'Enterprise',  description: 'Unlimited users · SLA · dedicated CSM' },
+    { value: 'free',       label: 'Free',       description: '1 user Â· 5 projects Â· community support' },
+    { value: 'pro',        label: 'Pro',         description: '5 users Â· unlimited projects Â· email support' },
+    { value: 'team',       label: 'Team',        description: '20 users Â· unlimited everything Â· priority support' },
+    { value: 'enterprise', label: 'Enterprise',  description: 'Unlimited users Â· SLA Â· dedicated CSM' },
   ];
   selectedPlan: string | number | null = null;
 
@@ -66,15 +66,15 @@ export class ComboboxPageComponent {
   selectedStatus: string | number | null = 'active';
 
   xfwRows = [
-    { name: 'options',       angular: '[options]="opts"',          attr: '—',              js: 'el.options = [...]'      },
+    { name: 'options',       angular: '[options]="opts"',          attr: 'â€”',              js: 'el.options = [...]'      },
     { name: 'value',         angular: '[value]="selected"',        attr: 'value="a"',      js: 'el.value = "a"'          },
-    { name: 'placeholder',   angular: 'placeholder="…"',           attr: 'placeholder="…"',js: 'el.placeholder = "…"'    },
+    { name: 'placeholder',   angular: 'placeholder="â€¦"',           attr: 'placeholder="â€¦"',js: 'el.placeholder = "â€¦"'    },
     { name: 'searchable',    angular: '[searchable]="true"',       attr: 'searchable',     js: 'el.searchable = true'    },
     { name: 'clearable',     angular: '[clearable]="true"',        attr: 'clearable',      js: 'el.clearable = true'     },
     { name: 'allowFreeText', angular: '[allowFreeText]="true"',    attr: 'allow-free-text',js: 'el.allowFreeText = true' },
     { name: 'disabled',      angular: '[disabled]="true"',         attr: 'disabled',       js: 'el.disabled = true'      },
     { name: 'error',         angular: 'error="msg"',               attr: 'error="msg"',    js: 'el.error = "msg"'        },
-    { name: 'valueChange',   angular: '(valueChange)="fn($event)"',attr: '—',              js: 'el.addEventListener(…)'  },
+    { name: 'valueChange',   angular: '(valueChange)="fn($event)"',attr: 'â€”',              js: 'el.addEventListener(â€¦)'  },
   ];
 
   angularCode = `import { PuiComboboxComponent, ComboboxOption } from '@bhairab-patra/platform-ui';
@@ -85,7 +85,7 @@ export class ComboboxPageComponent {
     <pui-lib-combobox
       [options]="options"
       [value]="selected"
-      placeholder="Search…"
+      placeholder="Searchâ€¦"
       [allowFreeText]="true"
       (valueChange)="selected = $event">
     </pui-lib-combobox>
@@ -121,14 +121,14 @@ function TaskForm() {
     <form>
       <pui-lib-combobox
         ref={ref}
-        placeholder="Select priority…"
+        placeholder="Select priorityâ€¦"
         onValueChange={e => setPriority(e.detail)}
       />
     </form>
   );
 }`;
 
-  htmlCode = `<pui-lib-combobox id="cb" placeholder="Select…" allow-free-text clearable></pui-lib-combobox>
+  htmlCode = `<pui-lib-combobox id="cb" placeholder="Selectâ€¦" allow-free-text clearable></pui-lib-combobox>
 
 <script>
 customElements.whenDefined('pui-lib-combobox').then(() => {
@@ -145,14 +145,15 @@ customElements.whenDefined('pui-lib-combobox').then(() => {
   api: ApiRow[] = [
     { input: 'options',       type: 'ComboboxOption[]',   default: '[]',   description: 'Option list. Each has value, label, and optional group, description, and disabled.' },
     { input: 'value',         type: 'string|number|null', default: 'null', description: 'Currently selected value. Supports two-way binding via (valueChange).' },
-    { input: 'placeholder',   type: 'string',             default: '"Select or search…"', description: 'Input placeholder text.' },
+    { input: 'placeholder',   type: 'string',             default: '"Select or searchâ€¦"', description: 'Input placeholder text.' },
     { input: 'searchable',    type: 'boolean',            default: 'true', description: 'Enables type-to-filter on the options list.' },
-    { input: 'clearable',     type: 'boolean',            default: 'true', description: 'Shows an × button to clear the current selection.' },
+    { input: 'clearable',     type: 'boolean',            default: 'true', description: 'Shows an Ã— button to clear the current selection.' },
     { input: 'allowFreeText', type: 'boolean',            default: 'false',description: 'Lets users type a value not present in the options list.' },
     { input: 'disabled',      type: 'boolean',            default: 'false',description: 'Disables the entire combobox.' },
     { input: 'error',         type: 'string',             default: '""',   description: 'Validation error message (red border + text below the input).' },
     { input: 'hint',          type: 'string',             default: '""',   description: 'Helper text shown below the input (hidden when error is set).' },
-    { input: 'valueChange',   type: 'EventEmitter',       default: '—',    description: 'Emits the selected value (or free-text string) on selection.' },
-    { input: 'change',        type: 'EventEmitter',       default: '—',    description: 'Alias for valueChange — preferred in React / HTML event listeners.' },
+    { input: 'valueChange',   type: 'EventEmitter',       default: 'â€”',    description: 'Emits the selected value (or free-text string) on selection.' },
+    { input: 'change',        type: 'EventEmitter',       default: 'â€”',    description: 'Alias for valueChange â€” preferred in React / HTML event listeners.' },
   ];
+  trackByIndex(_i: number): number { return _i; }
 }

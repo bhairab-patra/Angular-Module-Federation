@@ -19,7 +19,9 @@ export class SearchPageComponent {
   get angularCode(): string { return `${this.angularTpl}\n\n// component.ts\n${this.angularTs}`; }
   selected: SearchSuggestion | null = null;
 
-  doCopy(text: string, id: string) {
+  trackByIndex(_i: number): number { return _i; }
+
+  doCopy(text: string, id: string): void {
     navigator.clipboard.writeText(text).then(() => { this.copied = id; setTimeout(() => this.copied = '', 2000); });
   }
 

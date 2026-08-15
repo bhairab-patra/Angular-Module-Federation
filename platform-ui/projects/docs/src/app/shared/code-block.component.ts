@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-code',
+  selector: 'docs-code-block',
   standalone: true,
   templateUrl: './code-block.component.html',
   styleUrls: ['./code-block.component.scss'],

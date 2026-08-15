@@ -5,7 +5,7 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
 import { PuiChipComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
-  selector: 'app-chip-page',
+  selector: 'docs-chip-page',
   standalone: true,
   imports: [NgFor, NgIf, DocPageComponent, PuiChipComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -100,7 +100,7 @@ export class MyComponent {
 }`;
 
   activeTags = ['Angular', 'TypeScript', 'RxJS', 'NgRx', 'Tailwind'];
-  removeTag(tag: string) { this.activeTags = this.activeTags.filter(t => t !== tag); this.cdr.markForCheck(); }
+  removeTag(tag: string): void { this.activeTags = this.activeTags.filter(t => t !== tag); this.cdr.markForCheck(); }
 
   skills = [
     { label: 'Angular',     active: true  },
@@ -109,8 +109,10 @@ export class MyComponent {
     { label: 'TypeScript',  active: true  },
     { label: 'Docker',      active: false },
   ];
-  get selectedSkills() { return this.skills.filter(s => s.active).map(s => s.label); }
-  toggleSkill(s: { label: string; active: boolean }) { s.active = !s.active; }
+  get selectedSkills(): string[] { return this.skills.filter(s => s.active).map(s => s.label); }
+  toggleSkill(s: { label: string; active: boolean }): void { s.active = !s.active; }
+
+  trackByIndex(_i: number): number { return _i; }
 
   xfwRows = [
     { name: 'variant',   angular: 'variant="primary"',        attr: 'variant="primary"',   js: 'el.variant = "primary"'  },

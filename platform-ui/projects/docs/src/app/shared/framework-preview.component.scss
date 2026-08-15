@@ -101,6 +101,13 @@
   pointer-events: none;
 }
 
+.fp-fw-tab__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.fp-fw-tab__icon svg { display: block; }
+
 .fp-fw-tab--active {
   background: var(--pui-white);
   color: var(--pui-neutral-900);

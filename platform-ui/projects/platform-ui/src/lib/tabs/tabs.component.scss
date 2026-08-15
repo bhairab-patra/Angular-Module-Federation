@@ -149,6 +149,16 @@
       font-weight: 600;
     }
 
+    /* ── No-panel mode (panel=false) ─── */
+    .pui-tabs--no-panel .pui-tabs-panel {
+      padding: 0 !important;
+      background: none !important;
+      border: none !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      margin-top: 0 !important;
+    }
+
     /* ── Icon ────────────────────────── */
     .pui-tab-icon {
       display: inline-flex;
@@ -182,13 +192,48 @@
     /* ── Panel ───────────────────────── */
     .pui-tabs-panel {
       flex: 1;
-      padding: var(--pui-space-4) 0 0;
       animation: pui-panel-in var(--pui-duration-base) ease;
     }
     .pui-tabs--vertical .pui-tabs-panel {
-      padding: 0 0 0 var(--pui-space-5);
+      padding-left: var(--pui-space-5);
     }
     @keyframes pui-panel-in {
       from { opacity: 0; transform: translateY(4px); }
       to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* LINE variant panel — subtle contained surface */
+    [data-variant='line'] .pui-tabs-panel {
+      padding: var(--pui-space-5);
+      margin-top: 0;
+      background: var(--pui-white);
+      border: 1px solid var(--pui-neutral-200);
+      border-top: none;
+      border-radius: 0 0 var(--pui-radius-lg) var(--pui-radius-lg);
+    }
+    [data-variant='line'].pui-tabs--vertical .pui-tabs-panel {
+      border: 1px solid var(--pui-neutral-200);
+      border-left: none;
+      border-radius: 0 var(--pui-radius-lg) var(--pui-radius-lg) 0;
+      padding: var(--pui-space-5);
+    }
+
+    /* PILL variant panel — clean card below the pill row */
+    [data-variant='pill'] .pui-tabs-panel {
+      margin-top: var(--pui-space-3);
+      padding: var(--pui-space-5);
+      background: var(--pui-white);
+      border: 1px solid var(--pui-neutral-200);
+      border-radius: var(--pui-radius-lg);
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
+    }
+
+    /* CARD variant panel — seamlessly attached below active tab */
+    [data-variant='card'] .pui-tabs-panel {
+      padding: var(--pui-space-5);
+      background: var(--pui-white);
+      border: 1px solid var(--pui-neutral-200);
+      border-top: none;
+      border-radius: 0 var(--pui-radius-md) var(--pui-radius-md) var(--pui-radius-md);
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
     }

@@ -12,7 +12,7 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class IconPageComponent {
   query      = '';
-  activeSize: any = 'md';
+  activeSize: IconSize = 'md';
   copied     = '';
 
   sizes: IconSize[] = ['xs', 'sm', 'md', 'lg', 'xl'];
@@ -36,6 +36,12 @@ export class IconPageComponent {
     const q = this.query.trim().toLowerCase();
     return q ? this.allIcons.filter(n => n.includes(q)) : this.allIcons;
   }
+
+  onQueryInput(event: Event): void {
+    this.query = (event.target as HTMLInputElement).value;
+  }
+
+  trackByIndex(_i: number): number { return _i; }
 
   copyUsage(name: string): void {
     const text = `<pui-lib-icon name="${name}" size="${this.activeSize}"></pui-lib-icon>`;

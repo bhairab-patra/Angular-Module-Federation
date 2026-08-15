@@ -1,6 +1,7 @@
 
 <div class="pui-tabs-host"
      [class.pui-tabs--vertical]="_orientation === 'vertical'"
+     [class.pui-tabs--no-panel]="!panel"
      [attr.data-variant]="_variant">
 
   <!-- ── Tab strip ─────────────────────────────── -->
@@ -21,8 +22,10 @@
             (click)="select(tab)"
             (keydown)="onKey($event, i)">
 
-      <!-- optional icon -->
-      <span *ngIf="tab.icon" class="pui-tab-icon" [innerHTML]="tab.icon"></span>
+      <!-- optional icon via registry name (preferred) -->
+      <pui-lib-icon *ngIf="tab.iconName" class="pui-tab-icon" [name]="tab.iconName" size="sm"></pui-lib-icon>
+      <!-- optional icon via raw SVG (fallback) -->
+      <span *ngIf="tab.icon && !tab.iconName" class="pui-tab-icon" [innerHTML]="safeIcon(tab.icon)"></span>
 
       <span class="pui-tab-label">{{ tab.label }}</span>
 

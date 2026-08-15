@@ -1,15 +1,15 @@
-<docs-page title="Display Table"
-  description="pui-lib-table — a lightweight display table with sorting, search, sticky header, action menu, badge/pill cells, and cell overflow tooltips. No pagination or row selection. For a full data grid use pui-lib-data-table."
+﻿<docs-page title="Display Table"
+  description="pui-lib-table â€” a lightweight display table with sorting, search, sticky header, action menu, badge/pill cells, and cell overflow tooltips. No pagination or row selection. For a full data grid use pui-lib-data-table."
   [hasFramework]="true" [api]="api">
 
-  <!-- ══ DEMO ══════════════════════════════════════════════════════════ -->
+  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Minimal plain display -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Minimal — Plain Display</h3>
+      <h3 class="demo-section__title">Minimal â€” Plain Display</h3>
       <p class="demo-section__desc">
-        The simplest usage — just pass <code>[columns]</code> and <code>[data]</code>.
+        The simplest usage â€” just pass <code>[columns]</code> and <code>[data]</code>.
         No toolbar, no sorting, no extras.
       </p>
       <pui-lib-table [columns]="simpleCols" [data]="simpleData"></pui-lib-table>
@@ -17,7 +17,7 @@
 
     <!-- 2. Sticky header + search + sort -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Sticky Header — Search &amp; Sort</h3>
+      <h3 class="demo-section__title">Sticky Header â€” Search &amp; Sort</h3>
       <p class="demo-section__desc">
         Enable <code>[searchable]</code>, <code>[sortable]</code>, and <code>[stickyHeader]</code>.
         Set <code>[maxHeight]</code> to constrain scroll.
@@ -43,12 +43,12 @@
       </pui-lib-table>
     </div>
 
-    <!-- 4. Action menu — uses pui-lib-data-table (actions require data-grid) -->
+    <!-- 4. Action menu â€” uses pui-lib-data-table (actions require data-grid) -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Action Menu — 3-dot Dropdown per Row</h3>
+      <h3 class="demo-section__title">Action Menu â€” 3-dot Dropdown per Row</h3>
       <p class="demo-section__desc">
         Action menus are part of <code>pui-lib-data-table</code>.
-        Pass an <code>[actions]</code> array — each item has a <code>label</code>,
+        Pass an <code>[actions]</code> array â€” each item has a <code>label</code>,
         an <code>action(row)</code> callback, and an optional <code>disabled(row)</code> predicate.
         The "Remove Employee" action is disabled for <em>Inactive</em> rows.
       </p>
@@ -61,12 +61,12 @@
 
   </ng-container>
 
-  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
-      <code>pui-lib-table</code> is a Web Component — works in Angular, React, and plain HTML.
+      <code>pui-lib-table</code> is a Web Component â€” works in Angular, React, and plain HTML.
       The <code>columns</code>, <code>data</code>, and <code>actions</code> arrays must be passed
       as JS properties from React / HTML; Angular uses property binding directly.
     </p>
@@ -97,18 +97,18 @@
 
     <div *ngIf="fw==='angular'" class="fw-panel">
       <div class="fw-note fw-note--angular">Pass typed <code>[columns]</code>, <code>[data]</code>, and <code>[actions]</code> arrays directly. All boolean flags use property binding.</div>
-      <app-code lang="html"       id="ang-html"  [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <app-code lang="typescript" id="ang-ts"    [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="html"       id="ang-html"  [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="typescript" id="ang-ts"    [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
     </div>
 
     <div *ngIf="fw==='react'" class="fw-panel">
       <div class="fw-note fw-note--react">Set <code>columns</code>, <code>data</code>, and <code>actions</code> as JS properties via ref. Listen to events with <code>addEventListener</code>.</div>
-      <app-code lang="tsx" id="react-code" [text]="reactCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="tsx" id="react-code" [text]="reactCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
     </div>
 
     <div *ngIf="fw==='html'" class="fw-panel">
       <div class="fw-note fw-note--html">Load <code>pui-elements.js</code> once. Assign array inputs as JS properties.</div>
-      <app-code lang="html" id="html-code" [text]="htmlCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="html" id="html-code" [text]="htmlCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
     </div>
 
     <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
@@ -118,7 +118,7 @@
           <tr><th>Input / Event</th><th>Angular</th><th>HTML attribute</th><th>JS property</th></tr>
         </thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows; let odd = odd" [class.xfw-odd]="odd">
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ r.name }}</code></td>
             <td><code class="tag-ng">{{ r.angular }}</code></td>
             <td><code class="tag-html">{{ r.attr }}</code></td>
@@ -131,3 +131,4 @@
   </ng-container>
 
 </docs-page>
+

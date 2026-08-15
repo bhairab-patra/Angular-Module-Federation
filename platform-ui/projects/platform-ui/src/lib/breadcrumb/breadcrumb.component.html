@@ -1,29 +1,30 @@
 <nav class="pui-bc" [attr.aria-label]="ariaLabel">
   <ol class="pui-bc__list">
-    <li *ngFor="let item of items; let i = index; let last = last" class="pui-bc__item">
+    <li *ngFor="let item of items; let last = last" class="pui-bc__item">
 
-
+      <!-- Ancestor with route -->
       <a *ngIf="!last && item.route" class="pui-bc__link" [routerLink]="item.route">
-        <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
+        <pui-lib-icon *ngIf="item.iconName" class="pui-bc__icon" [name]="item.iconName" size="xs"></pui-lib-icon>
+        <span *ngIf="item.icon && !item.iconName" class="pui-bc__icon" [innerHTML]="safeIcon(item.icon)"></span>
         {{ item.label }}
       </a>
 
-
+      <!-- Ancestor without route -->
       <span *ngIf="!last && !item.route" class="pui-bc__link pui-bc__link--plain">
-        <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
+        <pui-lib-icon *ngIf="item.iconName" class="pui-bc__icon" [name]="item.iconName" size="xs"></pui-lib-icon>
+        <span *ngIf="item.icon && !item.iconName" class="pui-bc__icon" [innerHTML]="safeIcon(item.icon)"></span>
         {{ item.label }}
       </span>
 
-
-      <span *ngIf="last" class="pui-bc__current" [attr.aria-current]="'page'">
-        <span *ngIf="item.icon" class="pui-bc__icon" [innerHTML]="item.icon"></span>
+      <!-- Current / active page -->
+      <span *ngIf="last" class="pui-bc__current" aria-current="page">
+        <pui-lib-icon *ngIf="item.iconName" class="pui-bc__icon" [name]="item.iconName" size="xs"></pui-lib-icon>
+        <span *ngIf="item.icon && !item.iconName" class="pui-bc__icon" [innerHTML]="safeIcon(item.icon)"></span>
         {{ item.label }}
       </span>
 
-
-      <span *ngIf="!last" class="pui-bc__sep"
-        [class.pui-bc__sep--svg]="separator === 'chevron' || separator === 'arrow'" [innerHTML]="sep">
-      </span>
+      <!-- Separator -->
+      <span *ngIf="!last" class="pui-bc__sep" [innerHTML]="sep"></span>
 
     </li>
   </ol>
