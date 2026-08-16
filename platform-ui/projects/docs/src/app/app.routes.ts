@@ -43,7 +43,7 @@ export const routes: Routes = [
   { path: 'datepicker',    loadComponent: () => import('./pages/datepicker-page/datepicker-page.component').then(m => m.DatepickerPageComponent) },
   { path: 'multi-select', loadComponent: () => import('./pages/multiselect-page/multiselect-page.component').then(m => m.MultiSelectPageComponent) },
   { path: 'password-input', loadComponent: () => import('./pages/password-page/password-page.component').then(m => m.PasswordPageComponent) },
-  { path: 'combobox',     loadComponent: () => import('./pages/combobox-page/combobox-page.component').then(m => m.ComboboxPageComponent) },
+  // { path: 'combobox',     loadComponent: () => import('./pages/combobox-page/combobox-page.component').then(m => m.ComboboxPageComponent) },
   { path: 'skeleton',     loadComponent: () => import('./pages/skeleton-page/skeleton-page.component').then(m => m.SkeletonPageComponent) },
   { path: 'chip',         loadComponent: () => import('./pages/chip-page/chip-page.component').then(m => m.ChipPageComponent) },
   { path: 'tag',          loadComponent: () => import('./pages/tag-page/tag-page.component').then(m => m.TagPageComponent) },
