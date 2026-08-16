@@ -1,7 +1,7 @@
 import {
   Component, Input, Output, EventEmitter,
-  inject,
-  HostListener, ElementRef, ViewEncapsulation } from '@angular/core';
+  inject, ViewChild, ElementRef,
+  HostListener, ViewEncapsulation } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface ComboboxOption {
@@ -21,7 +21,9 @@ export interface ComboboxOption {
   styleUrls: ['./combobox.component.scss'],
 })
 export class PuiComboboxComponent {
-  private el = inject(ElementRef);
+  private host = inject(ElementRef);
+
+  @ViewChild('cbInput') cbInput?: ElementRef<HTMLInputElement>;
 
   /* -- State -------------------------------- */
   open         = false;
@@ -30,7 +32,7 @@ export class PuiComboboxComponent {
 
   _options:      ComboboxOption[] = [];
   _value:        string | number | null = null;
-  _placeholder   = 'Select or search�';
+  _placeholder   = 'Select or search…';
   _searchable    = true;
   _clearable     = true;
   _allowFreeText = false;
@@ -44,7 +46,9 @@ export class PuiComboboxComponent {
   }
   @Input() set value(v: string | number | null) {
     this._value = v;
-    this.query  = this.labelFor(v) ?? '';
+    const lbl = this.labelFor(v) ?? '';
+    this.query  = lbl;
+    this._setInput(lbl);
   }
   @Input() set placeholder(v: string)            { this._placeholder   = v; }
   @Input() set searchable(v: boolean | string)   { this._searchable    = this._bool(v); }
@@ -62,13 +66,13 @@ export class PuiComboboxComponent {
   /* -- Click outside ------------------------ */
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
-    if (!this.el.nativeElement.contains(e.target as Node)) {
+    if (this.open && !this.host.nativeElement.contains(e.target as Node)) {
       this.close();
     }
   }
 
   /* -- Computed ----------------------------- */
-  get displayValue(): string {
+  get inputDisplay(): string {
     if (this.open && this._searchable) return this.query;
     return this.labelFor(this._value) ?? this.query;
   }
@@ -109,7 +113,7 @@ export class PuiComboboxComponent {
 
   /* -- Handlers ----------------------------- */
   onFocus() {
-    if (!this._disabled) this.openDropdown();
+    if (!this._disabled && !this.open) this.openDropdown();
   }
 
   onInputChange(v: string) {
@@ -142,7 +146,10 @@ export class PuiComboboxComponent {
 
   openDropdown() {
     this.open = true;
-    if (this._searchable) this.query = '';
+    if (this._searchable) {
+      this.query = '';
+      this._setInput('');
+    }
     this.focusedIndex = -1;
   }
 
@@ -157,6 +164,7 @@ export class PuiComboboxComponent {
     this.query  = opt.label;
     this.open   = false;
     this.focusedIndex = -1;
+    this._setInput(opt.label);   // immediate DOM update — no CD cycle needed
     this.valueChange.emit(opt.value);
     this.change.emit(opt.value);
   }
@@ -164,6 +172,7 @@ export class PuiComboboxComponent {
   selectFreeText() {
     this._value = this.query;
     this.open   = false;
+    this._setInput(this.query);
     this.valueChange.emit(this.query);
     this.change.emit(this.query);
   }
@@ -172,14 +181,28 @@ export class PuiComboboxComponent {
     this._value = null;
     this.query  = '';
     this.open   = false;
+    this._setInput('');
     this.valueChange.emit(null);
     this.change.emit(null);
   }
 
   close() {
     this.open = false;
-    if (this._value === null && !this._allowFreeText) this.query = '';
-    else if (this._value !== null) this.query = this.labelFor(this._value) ?? this.query;
+    if (this._value === null && !this._allowFreeText) {
+      this.query = '';
+      this._setInput('');
+    } else if (this._value !== null) {
+      const lbl = this.labelFor(this._value) ?? this.query;
+      this.query = lbl;
+      this._setInput(lbl);
+    }
+  }
+
+  /** Write directly to the native input — bypasses Angular CD timing issues. */
+  private _setInput(val: string) {
+    if (this.cbInput) {
+      this.cbInput.nativeElement.value = val;
+    }
   }
 
   private _bool(v: boolean | string): boolean {

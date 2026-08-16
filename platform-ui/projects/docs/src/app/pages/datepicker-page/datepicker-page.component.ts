@@ -10,6 +10,7 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
   imports: [NgFor, NgIf, PuiDatepickerComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './datepicker-page.component.html',
+  styleUrls: ['./datepicker-page.component.scss'],
 })
 export class DatepickerPageComponent {
   cdr = inject(ChangeDetectorRef);
@@ -17,13 +18,9 @@ export class DatepickerPageComponent {
   fw = 'angular';
   copied = '';
 
-  singleDate:     Date | null = null;
-  constrainedDate: Date | null = null;
+  singleDate: Date | null = null;
   dateRange: DateRange = { start: null, end: null };
   prefilled: Date | null = new Date(2024, 10, 15);
-
-  minDate = new Date();
-  maxDate = (() => { const d = new Date(); d.setDate(d.getDate() + 30); return d; })();
 
   copy(id: string, text: string): void {
     navigator.clipboard.writeText(text).then(() => {

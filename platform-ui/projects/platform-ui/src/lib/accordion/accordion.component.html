@@ -1,0 +1,34 @@
+<div class="pui-accordion" [class]="'pui-accordion pui-accordion--' + variant">
+
+  <div *ngFor="let item of items; trackBy: trackItem"
+       class="pui-accordion__item"
+       [class.pui-accordion__item--open]="isOpen(item.id)"
+       [class.pui-accordion__item--disabled]="item.disabled">
+
+    <button type="button"
+            class="pui-accordion__trigger"
+            [attr.aria-expanded]="isOpen(item.id)"
+            [attr.aria-disabled]="item.disabled || null"
+            [disabled]="item.disabled || null"
+            (click)="toggle(item)">
+
+      <span class="pui-accordion__trigger-label">
+        <pui-lib-icon *ngIf="item.icon"
+                      [name]="item.icon"
+                      size="sm"
+                      class="pui-accordion__item-icon">
+        </pui-lib-icon>
+        <span class="pui-accordion__title">{{ item.title }}</span>
+      </span>
+
+      <span class="pui-accordion__chevron" aria-hidden="true">
+        <pui-lib-icon name="chevron-down" size="sm"></pui-lib-icon>
+      </span>
+    </button>
+
+    <div class="pui-accordion__panel" [class.pui-accordion__panel--open]="isOpen(item.id)">
+      <div class="pui-accordion__content">{{ item.content }}</div>
+    </div>
+
+  </div>
+</div>

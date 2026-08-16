@@ -1,0 +1,97 @@
+<docs-page title="Pagination"
+  description="Navigate large datasets across pages. Shows a page range summary, first/last jump controls, ellipsis for large ranges, an optional page-size selector, and a record noun label."
+  [code]="angularCode" [api]="api">
+
+  <ng-container demo>
+
+    <!-- 1. Basic -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Basic</h3>
+      <p class="demo-section__desc">
+        Bind <code>[total]</code>, <code>[page]</code>, and <code>[pageSize]</code>.
+        Listen to <code>(pageChange)</code> to update. The component never mutates <code>page</code> itself.
+      </p>
+      <pui-lib-pagination
+        [total]="245"
+        [page]="basicPage"
+        [pageSize]="10"
+        (pageChange)="onPageChange($event, 'basic')">
+      </pui-lib-pagination>
+      <p class="demo-state">Current page: <strong>{{ basicPage }}</strong></p>
+    </div>
+
+    <!-- 2. Page Size Selector -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Page Size Selector</h3>
+      <p class="demo-section__desc">
+        <code>[showPageSizeSelector]="true"</code> (default) adds a per-page dropdown.
+        Listen to <code>(pageSizeChange)</code> to reload with the new size.
+      </p>
+      <pui-lib-pagination
+        [total]="500"
+        [page]="sizePage"
+        [pageSize]="sizePerPage"
+        [pageSizeOptions]="[10, 25, 50, 100]"
+        itemLabel="records"
+        (pageChange)="onPageChange($event, 'size')"
+        (pageSizeChange)="onSizeChange($event)">
+      </pui-lib-pagination>
+      <p class="demo-state">Page: <strong>{{ sizePage }}</strong> · Per page: <strong>{{ sizePerPage }}</strong></p>
+    </div>
+
+    <!-- 3. Without First / Last -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Without First / Last Buttons</h3>
+      <p class="demo-section__desc">Set <code>[showFirstLast]="false"</code> for simpler contexts like table footers.</p>
+      <pui-lib-pagination
+        [total]="120"
+        [page]="simplePage"
+        [pageSize]="10"
+        [showFirstLast]="false"
+        [showPageSizeSelector]="false"
+        (pageChange)="onPageChange($event, 'simple')">
+      </pui-lib-pagination>
+    </div>
+
+    <!-- 4. Compact Mode -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Compact Mode</h3>
+      <p class="demo-section__desc">
+        <code>[compact]="true"</code> hides the info text and page-size selector, reduces button size.
+        Ideal for modal footers or tight spaces.
+      </p>
+      <pui-lib-pagination
+        [total]="80"
+        [page]="compactPage"
+        [pageSize]="10"
+        [compact]="true"
+        (pageChange)="onPageChange($event, 'compact')">
+      </pui-lib-pagination>
+    </div>
+
+    <!-- 5. Large Range with Ellipsis -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Large Range with Ellipsis</h3>
+      <p class="demo-section__desc">
+        When total pages exceed <code>[maxVisible]</code> (default 7), middle pages collapse with an ellipsis.
+        The active page always stays visible with its neighbours.
+      </p>
+      <pui-lib-pagination
+        [total]="2000"
+        [page]="largePage"
+        [pageSize]="20"
+        (pageChange)="onPageChange($event, 'large')">
+      </pui-lib-pagination>
+      <p class="demo-state">Page <strong>{{ largePage }}</strong> of <strong>100</strong></p>
+    </div>
+
+    <!-- 6. Empty State -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Empty State</h3>
+      <p class="demo-section__desc">When <code>[total]="0"</code>, the info text reads "No items" and all navigation is disabled.</p>
+      <pui-lib-pagination [total]="0" [page]="1" [pageSize]="10"></pui-lib-pagination>
+    </div>
+
+  </ng-container>
+
+</docs-page>

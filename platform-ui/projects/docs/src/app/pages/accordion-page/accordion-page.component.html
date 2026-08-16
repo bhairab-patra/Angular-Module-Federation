@@ -1,0 +1,92 @@
+<docs-page title="Accordion"
+  description="Expandable content panels for FAQs, settings, and progressively-revealed content. CSS-animated, three visual variants, optional icons, and multi-open mode."
+  [code]="angularCode" [api]="api">
+
+  <ng-container demo>
+
+    <!-- 1. Default Variant -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Default Variant</h3>
+      <p class="demo-section__desc">Card-style panels separated by a gap. Good for FAQ lists and content pages.</p>
+      <div class="demo-block">
+        <pui-lib-accordion
+          [items]="faqItems"
+          [openIds]="defaultOpen"
+          (openIdsChange)="onOpenChange($event, 'default')">
+        </pui-lib-accordion>
+      </div>
+    </div>
+
+    <!-- 2. Bordered Variant -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Bordered Variant</h3>
+      <p class="demo-section__desc">Single outer border with internal dividers. Compact and settings-panel appropriate.</p>
+      <div class="demo-block">
+        <pui-lib-accordion
+          [items]="settingsItems"
+          variant="bordered"
+          [openIds]="borderedOpen"
+          (openIdsChange)="onOpenChange($event, 'bordered')">
+        </pui-lib-accordion>
+      </div>
+    </div>
+
+    <!-- 3. Ghost Variant -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Ghost Variant</h3>
+      <p class="demo-section__desc">No borders or backgrounds — just text and a hover state. Best for sidebar navigation or inline help.</p>
+      <div class="demo-block demo-block--tinted">
+        <pui-lib-accordion
+          [items]="helpItems"
+          variant="ghost"
+          [openIds]="ghostOpen"
+          (openIdsChange)="onOpenChange($event, 'ghost')">
+        </pui-lib-accordion>
+      </div>
+    </div>
+
+    <!-- 4. With Icons -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">With Icons</h3>
+      <p class="demo-section__desc">Add an <code>icon</code> property to any item using a key from the Platform UI icon registry (e.g. <code>'settings'</code>, <code>'bell'</code>, <code>'user'</code>).</p>
+      <div class="demo-block">
+        <pui-lib-accordion
+          [items]="iconItems"
+          variant="bordered"
+          [openIds]="iconOpen"
+          (openIdsChange)="onOpenChange($event, 'icon')">
+        </pui-lib-accordion>
+      </div>
+    </div>
+
+    <!-- 5. Allow Multiple -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Multiple Open Simultaneously</h3>
+      <p class="demo-section__desc">By default only one panel can be open. Set <code>[allowMultiple]="true"</code> to allow any number.</p>
+      <div class="demo-block">
+        <pui-lib-accordion
+          [items]="multiItems"
+          [allowMultiple]="true"
+          [openIds]="multiOpen"
+          (openIdsChange)="onOpenChange($event, 'multi')">
+        </pui-lib-accordion>
+        <p class="demo-state">Open: <strong>{{ multiOpen.join(', ') || 'none' }}</strong></p>
+      </div>
+    </div>
+
+    <!-- 6. Disabled Items -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Disabled Items</h3>
+      <p class="demo-section__desc">Set <code>disabled: true</code> on any item to prevent expanding it.</p>
+      <div class="demo-block">
+        <pui-lib-accordion
+          [items]="disabledItems"
+          [openIds]="disabledOpen"
+          (openIdsChange)="onOpenChange($event, 'disabled')">
+        </pui-lib-accordion>
+      </div>
+    </div>
+
+  </ng-container>
+
+</docs-page>

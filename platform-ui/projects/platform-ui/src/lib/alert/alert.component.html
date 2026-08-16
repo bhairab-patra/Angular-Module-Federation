@@ -1,0 +1,32 @@
+<div *ngIf="visible"
+     class="pui-alert"
+     [class]="'pui-alert pui-alert--' + type + ' pui-alert--' + variant"
+     [attr.role]="'alert'"
+     [attr.aria-live]="type === 'error' ? 'assertive' : 'polite'">
+
+  <div class="pui-alert__bar"></div>
+
+  <div *ngIf="showIcon" class="pui-alert__icon">
+    <pui-lib-icon [name]="iconName" size="md"></pui-lib-icon>
+  </div>
+
+  <div class="pui-alert__body">
+    <div *ngIf="title"   class="pui-alert__title">{{ title }}</div>
+    <div *ngIf="message" class="pui-alert__message">{{ message }}</div>
+    <ng-content></ng-content>
+    <div *ngIf="actions.length" class="pui-alert__actions">
+      <button *ngFor="let a of actions"
+              type="button"
+              class="pui-alert__action"
+              (click)="a.callback()">{{ a.label }}</button>
+    </div>
+  </div>
+
+  <button *ngIf="dismissible"
+          type="button"
+          class="pui-alert__dismiss"
+          aria-label="Dismiss alert"
+          (click)="dismiss()">
+    <pui-lib-icon name="close" size="sm"></pui-lib-icon>
+  </button>
+</div>

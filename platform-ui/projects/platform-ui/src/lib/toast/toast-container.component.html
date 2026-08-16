@@ -11,8 +11,10 @@
           <!-- Left accent bar -->
           <span class="pui-toast__bar"></span>
 
-          <!-- Icon -->
-          <span class="pui-toast__icon" [innerHTML]="icons[t.type]"></span>
+          <!-- Icon box -->
+          <span class="pui-toast__icon">
+            <pui-lib-icon [name]="typeIcon[t.type]" size="lg"></pui-lib-icon>
+          </span>
 
           <!-- Body -->
           <div class="pui-toast__body">
@@ -24,21 +26,10 @@
           </div>
 
           <!-- Dismiss -->
-          <button *ngIf="t.dismissible" class="pui-toast__dismiss" (click)="dismiss(t.id)">
-            <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-              <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+          <button *ngIf="t.dismissible" class="pui-toast__dismiss" (click)="dismiss(t.id)" aria-label="Dismiss">
+            <pui-lib-icon name="close" size="sm"></pui-lib-icon>
           </button>
 
-          <!-- Progress bar -->
-          <div *ngIf="t.showProgress && t.duration > 0" class="pui-toast__progress">
-            <div class="pui-toast__progress-fill"
-                 [class.pui-toast__progress-fill--paused]="paused.has(t.id)"
-                 [style.animation-duration.ms]="t.duration"
-                 [style.animation-play-state]="paused.has(t.id) ? 'paused' : 'running'">
-            </div>
-          </div>
         </div>
       </div>
     </ng-container>
-  

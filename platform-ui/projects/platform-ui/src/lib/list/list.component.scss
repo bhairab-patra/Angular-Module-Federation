@@ -1,18 +1,30 @@
 
     :host { display: block; }
 
+    /* ── CSS custom-property tokens (overridden via @HostBinding) ─────────── */
+    /* --pui-list-text-color : label text (optional; falls back to neutral-900) */
+    /* --pui-list-active-color: selected-row text + accent  (default: teal)    */
+    /* --pui-list-hover-bg   : row hover background         (default: teal-50) */
+
     .pui-list {
       list-style: none; margin: 0; padding: 0;
-      font-family: inherit; font-size: var(--pui-text-lg); color: var(--pui-neutral-900);
+      font-family: inherit;
+      font-size: var(--pui-text-lg);
+      color: var(--pui-list-text-color, var(--pui-neutral-900));
     }
 
-    /* variants */
-    .pui-list--bordered { border: 1px solid var(--pui-neutral-200); border-radius: var(--pui-radius-lg); overflow: hidden; }
+    /* ── Variants ──────────────────────────────────────────────────────────── */
+    .pui-list--bordered {
+      border: 1px solid var(--pui-neutral-200);
+      border-radius: var(--pui-radius-lg);
+      overflow: hidden;
+    }
     .pui-list--striped .pui-list__item:nth-child(even) { background: var(--pui-neutral-50); }
     .pui-list--flush   .pui-list__item { border-bottom: 1px solid var(--pui-neutral-100); }
     .pui-list--flush   .pui-list__item:last-child { border-bottom: none; }
     .pui-list--default {}
 
+    /* ── Items ─────────────────────────────────────────────────────────────── */
     .pui-list__item {
       display: flex; align-items: center; gap: var(--pui-space-3);
       padding: var(--pui-space-3) var(--pui-space-4);
@@ -20,16 +32,33 @@
     .pui-list--bordered .pui-list__item { border-bottom: 1px solid var(--pui-neutral-100); }
     .pui-list--bordered .pui-list__item:last-child { border-bottom: none; }
 
-    .pui-list__item--clickable { cursor: pointer; transition: background var(--pui-duration-fast); }
-    .pui-list__item--clickable:hover { background: var(--pui-neutral-50); }
-    .pui-list__item--selected  { background: var(--pui-blue-bg) !important; color: var(--pui-info); }
-    .pui-list__item--disabled  { opacity: .45; cursor: not-allowed; }
+    .pui-list__item--clickable {
+      cursor: pointer;
+      transition: background var(--pui-duration-fast), color var(--pui-duration-fast);
+    }
 
+    /* Hover: use --pui-list-hover-bg (default teal-50) */
+    .pui-list__item--clickable:hover:not(.pui-list__item--selected) {
+      background: var(--pui-list-hover-bg, #f0fdfa);
+    }
+
+    /* Selected: tinted background derived from activeColor at 12% opacity */
+    .pui-list__item--selected {
+      background: color-mix(in srgb, var(--pui-list-active-color, #0d9488) 12%, transparent) !important;
+      color: var(--pui-list-active-color, #0d9488) !important;
+    }
+
+    .pui-list__item--disabled { opacity: .45; cursor: not-allowed; }
+
+    /* ── Sub-elements ───────────────────────────────────────────────────────── */
     .pui-list__icon { display: inline-flex; align-items: center; flex-shrink: 0; }
 
     .pui-list__text  { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--pui-space-0-5); }
     .pui-list__label { font-weight: 500; }
     .pui-list__desc  { font-size: var(--pui-text-sm); color: var(--pui-neutral-500); }
+
+    /* Keep desc readable when row is selected */
+    .pui-list__item--selected .pui-list__desc { color: color-mix(in srgb, var(--pui-list-active-color, #0d9488) 70%, var(--pui-neutral-500)); }
 
     .pui-list__right { display: flex; align-items: center; gap: var(--pui-space-2); flex-shrink: 0; }
     .pui-list__meta  { font-size: var(--pui-text-sm); color: var(--pui-neutral-400); }

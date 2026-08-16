@@ -1,106 +1,99 @@
-﻿
+
 <docs-page
   title="Date Picker"
   description="A fully interactive calendar date picker with single-date and date-range modes, min/max constraints, month-grid navigation, Today shortcut, and clear action. Works in Angular, React, and plain HTML."
   [hasFramework]="true"
   [api]="api">
 
-  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- DEMO -->
   <ng-container demo>
 
-    <!-- 1. Single date -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Single Date Selection</h3>
-      <div class="demo-row" style="align-items:flex-start;gap:24px;flex-wrap:wrap;">
-        <div style="min-width:240px;flex:1;max-width:340px;">
-          <p class="demo-desc" style="margin-bottom:8px;">Default â€” no constraints</p>
-          <pui-lib-datepicker
-            placeholder="Pick a dateâ€¦"
-            (valueChange)="singleDate = $event; cdr.markForCheck()">
-          </pui-lib-datepicker>
-          <p class="demo-desc" style="margin-top:6px;">
-            Selected: <strong>{{ singleDate ? fmtDate(singleDate) : 'â€”' }}</strong>
-          </p>
-        </div>
+    <div class="dp-demo-sections">
 
-        <div style="min-width:240px;flex:1;max-width:340px;">
-          <p class="demo-desc" style="margin-bottom:8px;">With min &amp; max constraint</p>
-          <pui-lib-datepicker
-            placeholder="Within next 30 daysâ€¦"
-            [min]="minDate"
-            [max]="maxDate"
-            (valueChange)="constrainedDate = $event; cdr.markForCheck()">
-          </pui-lib-datepicker>
-          <p class="demo-desc" style="margin-top:6px;">
-            Range: {{ fmtDate(minDate) }} to {{ fmtDate(maxDate) }}
-          </p>
-        </div>
-      </div>
-    </div>
+      <!-- 1. Single date + Range side by side -->
+      <div class="dp-section">
+        <h3 class="dp-section__heading">Date Selection</h3>
+        <p class="dp-section__desc">Pick a single date or select a start and end date for a range.</p>
+        <div class="dp-grid">
 
-    <!-- 2. Range mode -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Date Range Selection</h3>
-      <div class="demo-row" style="align-items:flex-start;gap:24px;flex-wrap:wrap;">
-        <div style="min-width:240px;flex:1;max-width:360px;">
-          <p class="demo-desc" style="margin-bottom:8px;">Click start date, then end date</p>
-          <pui-lib-datepicker
-            mode="range"
-            placeholder="Select date rangeâ€¦"
-            (rangeChange)="dateRange = $event; cdr.markForCheck()">
-          </pui-lib-datepicker>
-          <p class="demo-desc" style="margin-top:6px;">
-            <ng-container *ngIf="!dateRange.start">â€”</ng-container>
-            <ng-container *ngIf="dateRange.start && !dateRange.end">{{ fmtDate(dateRange.start) }} â€” select end date</ng-container>
-            <ng-container *ngIf="dateRange.start && dateRange.end">{{ fmtDate(dateRange.start) }} to {{ fmtDate(dateRange.end) }} &mdash; {{ daysBetween(dateRange.start, dateRange.end) }} days</ng-container>
-          </p>
+          <div class="dp-grid__item">
+            <p class="dp-label">Single date</p>
+            <pui-lib-datepicker
+              placeholder="Pick a date…"
+              (valueChange)="singleDate = $event; cdr.markForCheck()">
+            </pui-lib-datepicker>
+            <div class="dp-result">
+              Selected: <strong>{{ singleDate ? fmtDate(singleDate) : '—' }}</strong>
+            </div>
+          </div>
+
+          <div class="dp-grid__item">
+            <p class="dp-label">Date range &mdash; click start, then end</p>
+            <pui-lib-datepicker
+              mode="range"
+              placeholder="Select date range…"
+              (rangeChange)="dateRange = $event; cdr.markForCheck()">
+            </pui-lib-datepicker>
+            <div class="dp-result">
+              <ng-container *ngIf="!dateRange.start">No range selected</ng-container>
+              <ng-container *ngIf="dateRange.start && !dateRange.end"><strong>{{ fmtDate(dateRange.start) }}</strong> &mdash; select end date</ng-container>
+              <ng-container *ngIf="dateRange.start && dateRange.end"><strong>{{ fmtDate(dateRange.start) }}</strong> to <strong>{{ fmtDate(dateRange.end) }}</strong> &mdash; {{ daysBetween(dateRange.start, dateRange.end) }} days</ng-container>
+            </div>
+          </div>
+
         </div>
       </div>
-    </div>
 
-    <!-- 3. Disabled state -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Disabled State</h3>
-      <pui-lib-datepicker
-        disabled="true"
-        placeholder="Not available"
-        style="max-width:280px; display:block;">
-      </pui-lib-datepicker>
-    </div>
+      <!-- 2. States -->
+      <div class="dp-section">
+        <h3 class="dp-section__heading">States</h3>
+        <p class="dp-section__desc">Disabled picker prevents interaction. Pre-filled picker opens with an existing value.</p>
+        <div class="dp-grid">
 
-    <!-- 4. Pre-filled value -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Pre-filled Value</h3>
-      <pui-lib-datepicker
-        [value]="prefilled"
-        style="max-width:280px; display:block;"
-        (valueChange)="prefilled = $event; cdr.markForCheck()">
-      </pui-lib-datepicker>
-      <p class="demo-desc" style="margin-top:6px;">
-        Value: <strong>{{ prefilled ? fmtDate(prefilled) : 'â€”' }}</strong>
-      </p>
+          <div class="dp-grid__item">
+            <p class="dp-label">Disabled</p>
+            <pui-lib-datepicker
+              disabled="true"
+              placeholder="Not available">
+            </pui-lib-datepicker>
+          </div>
+
+          <div class="dp-grid__item">
+            <p class="dp-label">Pre-filled value</p>
+            <pui-lib-datepicker
+              [value]="prefilled"
+              (valueChange)="prefilled = $event; cdr.markForCheck()">
+            </pui-lib-datepicker>
+            <div class="dp-result">
+              Value: <strong>{{ prefilled ? fmtDate(prefilled) : '—' }}</strong>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
   </ng-container>
 
-  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- FRAMEWORK USAGE -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-datepicker</code> is a Web Component â€” works in Angular, React, and plain HTML. Pass <code>value</code> as a JS <code>Date</code> from Angular; use an ISO string from React/HTML. Listen to <code>valueChange</code> (single) or <code>rangeChange</code> (range) for selection events.</p>
+    <p class="fw-lead"><code>pui-lib-datepicker</code> works in Angular, React, and plain HTML. Pass <code>value</code> as a JS <code>Date</code> from Angular; use an ISO string from React/HTML. Listen to <code>(valueChange)</code> (single) or <code>(rangeChange)</code> (range) for selection events.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
       [htmlCode]="htmlCode">
-      <div preview class="demo-row">
+      <div preview class="demo-row" style="gap:16px;flex-wrap:wrap;">
         <pui-lib-datepicker
-          placeholder="Pick a dateâ€¦"
+          placeholder="Pick a date…"
           style="max-width:240px;display:block;">
         </pui-lib-datepicker>
         <pui-lib-datepicker
           mode="range"
-          placeholder="Select date rangeâ€¦"
+          placeholder="Select date range…"
           style="max-width:280px;display:block;">
         </pui-lib-datepicker>
       </div>
@@ -135,4 +128,3 @@
   </ng-container>
 
 </docs-page>
-  

@@ -1,0 +1,132 @@
+$brand:    #12C6A8;
+$brand-dk: #0fa88d;
+
+.pui-pg {
+  display:      flex;
+  align-items:  center;
+  flex-wrap:    wrap;
+  gap:          12px;
+  font-size:    13px;
+  font-family:  inherit;
+
+  // ── Info label ──────────────────────────────────────────────────────────────
+  &__info {
+    color:      #5a6a84;
+    font-size:  13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  // ── Page size selector ───────────────────────────────────────────────────────
+  &__size-wrap {
+    display:     flex;
+    align-items: center;
+    gap:         6px;
+    margin-left: auto;
+  }
+
+  &__size-label {
+    font-size:   12px;
+    font-weight: 600;
+    color:       #5a6a84;
+    white-space: nowrap;
+  }
+
+  &__size-select {
+    font-family: inherit;
+    font-size:   13px;
+    color:       #0d1422;
+    background:  #fff;
+    border:      1.5px solid #dde3ee;
+    border-radius: 7px;
+    padding:     4px 28px 4px 10px;
+    appearance:  none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235a6a84' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:   no-repeat;
+    background-position: right 8px center;
+    cursor:      pointer;
+    transition:  border-color .15s;
+
+    &:hover       { border-color: #b0b9cc; }
+    &:focus       { outline: none; border-color: $brand; box-shadow: 0 0 0 2px rgba(18, 198, 168, .18); }
+  }
+
+  // ── Nav ──────────────────────────────────────────────────────────────────────
+  &__nav {
+    display:     flex;
+    align-items: center;
+    gap:         4px;
+  }
+
+  // ── Shared button base ───────────────────────────────────────────────────────
+  &__btn {
+    font-family:  inherit;
+    font-size:    13px;
+    font-weight:  500;
+    line-height:  1;
+    border:       1.5px solid #dde3ee;
+    border-radius: 7px;
+    background:   #fff;
+    color:        #2d3a4e;
+    cursor:       pointer;
+    display:      inline-flex;
+    align-items:  center;
+    justify-content: center;
+    transition:   background .13s, border-color .13s, color .13s, box-shadow .13s;
+    user-select:  none;
+
+    &:hover:not([disabled]) {
+      background:    #f0f4f9;
+      border-color:  #b0b9cc;
+    }
+    &:focus-visible:not([disabled]) {
+      outline:    none;
+      border-color: $brand;
+      box-shadow: 0 0 0 2px rgba(18, 198, 168, .2);
+    }
+    &[disabled] {
+      opacity: .38;
+      cursor:  not-allowed;
+    }
+
+    // Number buttons
+    &--num  { min-width: 34px; height: 34px; padding: 0 4px; }
+
+    // Icon buttons (prev/next/first/last)
+    &--icon { width: 34px; height: 34px; padding: 0; color: #5a6a84; }
+
+    // Active page
+    &--active {
+      background:   $brand;
+      border-color: $brand;
+      color:        #fff;
+      font-weight:  700;
+
+      &:hover:not([disabled]) {
+        background:   $brand-dk;
+        border-color: $brand-dk;
+      }
+    }
+  }
+
+  // ── Ellipsis ─────────────────────────────────────────────────────────────────
+  &__ellipsis {
+    display:     inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width:   34px;
+    height:      34px;
+    color:       #7a90b0;
+    font-size:   14px;
+    user-select: none;
+  }
+
+  // ── Compact mode ─────────────────────────────────────────────────────────────
+  &--compact {
+    gap: 3px;
+
+    .pui-pg__btn--num { min-width: 30px; height: 30px; font-size: 12px; }
+    .pui-pg__btn--icon { width: 30px; height: 30px; }
+  }
+}

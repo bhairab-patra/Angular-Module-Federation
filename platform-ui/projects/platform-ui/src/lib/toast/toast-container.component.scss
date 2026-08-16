@@ -1,126 +1,133 @@
 
     :host { display: block; pointer-events: none; }
 
-    /* ── Container ──────────────────────── */
+    /* ── Containers ────────────────────────────────────────────────────── */
     .pui-tc {
       position: fixed; z-index: 9999;
-      display: flex; flex-direction: column; gap: var(--pui-space-2-5);
+      display: flex; flex-direction: column; gap: 10px;
       pointer-events: none;
+      /* cap total width so toasts never escape viewport */
+      max-width: calc(100vw - 40px);
     }
-    .pui-tc--top-right     { top: var(--pui-space-5); right: var(--pui-space-5); align-items: flex-end; }
-    .pui-tc--top-left      { top: var(--pui-space-5); left: var(--pui-space-5); align-items: flex-start; }
-    .pui-tc--top-center    { top: var(--pui-space-5); left: 50%; transform: translateX(-50%); align-items: center; }
-    .pui-tc--bottom-right  { bottom: var(--pui-space-5); right: var(--pui-space-5); align-items: flex-end; flex-direction: column-reverse; }
-    .pui-tc--bottom-left   { bottom: var(--pui-space-5); left: var(--pui-space-5); align-items: flex-start; flex-direction: column-reverse; }
-    .pui-tc--bottom-center { bottom: var(--pui-space-5); left: 50%; transform: translateX(-50%); align-items: center; flex-direction: column-reverse; }
+    .pui-tc--top-right     { top: 20px; right: 20px; align-items: flex-end; }
+    .pui-tc--top-left      { top: 20px; left: 20px; align-items: flex-start; }
+    .pui-tc--top-center    { top: 20px; left: 50%; transform: translateX(-50%); align-items: center; }
+    .pui-tc--bottom-right  { bottom: 20px; right: 20px; align-items: flex-end; flex-direction: column-reverse; }
+    .pui-tc--bottom-left   { bottom: 20px; left: 20px; align-items: flex-start; flex-direction: column-reverse; }
+    .pui-tc--bottom-center { bottom: 20px; left: 50%; transform: translateX(-50%); align-items: center; flex-direction: column-reverse; }
 
-    /* ── Toast ───────────────────────────── */
+    /* ── Toast card ─────────────────────────────────────────────────────── */
     .pui-toast {
       position: relative;
-      display: flex; align-items: flex-start;
-      gap: var(--pui-space-3);
-      padding: var(--pui-space-4);
-      border-radius: var(--pui-radius-xl);
-      background: var(--pui-toast-bg, var(--pui-white));
-      color: var(--pui-toast-text, var(--pui-neutral-800));
-      min-width: 280px; max-width: 420px;
-      box-shadow: var(--pui-shadow-toast);
-      pointer-events: all; overflow: hidden;
-      border: 1px solid var(--pui-toast-border, var(--pui-neutral-150));
-      animation: pui-toast-in var(--pui-duration-base) cubic-bezier(.25,.8,.25,1) both;
-      font-family: var(--pui-font-family);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      /* left bar (4px) + left padding (16px) + right padding (14px) */
+      padding: 14px 14px 14px 24px;
+      border-radius: 16px;
+      background: #ffffff;
+      /* fixed width — never shrinks or grows */
+      width: 420px;
+      max-width: 100%;
+      box-sizing: border-box;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .10), 0 1px 4px rgba(0, 0, 0, .06);
+      pointer-events: all;
+      /* overflow hidden keeps rounded corners; content overflow handled per-element */
+      overflow: hidden;
+      border: 1px solid rgba(0, 0, 0, .06);
+      animation: pui-toast-in 220ms cubic-bezier(.25, .8, .25, 1) both;
+      font-family: var(--pui-font-family, 'Poppins', system-ui, sans-serif);
     }
+
+    /* Type-tinted backgrounds */
+    .pui-toast--error   { background: #fff5f5; border-color: rgba(239, 68, 68, .14); }
+    .pui-toast--warning { background: #fffbf0; border-color: rgba(249, 115, 22, .14); }
+
     .pui-toast--exit {
-      animation: pui-toast-out var(--pui-duration-base) ease forwards;
+      animation: pui-toast-out 220ms ease forwards;
     }
 
     @keyframes pui-toast-in {
       from { opacity: 0; transform: translateY(-10px) scale(.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
+      to   { opacity: 1; transform: translateY(0)     scale(1);   }
     }
     @keyframes pui-toast-out {
-      from { opacity: 1; transform: translateY(0) scale(1); max-height: 120px; margin-bottom: var(--pui-space-2-5); }
-      to   { opacity: 0; transform: translateY(-8px) scale(.97); max-height: 0; margin-bottom: 0; }
+      from { opacity: 1; transform: translateY(0) scale(1);   max-height: 120px; margin-bottom: 10px; }
+      to   { opacity: 0; transform: translateY(-8px) scale(.97); max-height: 0;   margin-bottom: 0; }
     }
 
-    /* ── Left accent bar ─────────────────── */
+    /* ── Left accent bar ─────────────────────────────────────────────────── */
     .pui-toast__bar {
       position: absolute; left: 0; top: 0; bottom: 0;
-      width: var(--pui-space-1);
-      border-radius: var(--pui-radius-xl) 0 0 var(--pui-radius-xl);
-      background: var(--pui-neutral-300);
+      width: 4px;
+      border-radius: 16px 0 0 16px;
+      background: #d1d5db;
     }
-    .pui-toast--success .pui-toast__bar { background: var(--pui-success); }
-    .pui-toast--error   .pui-toast__bar { background: var(--pui-error); }
-    .pui-toast--warning .pui-toast__bar { background: var(--pui-warning); }
-    .pui-toast--info    .pui-toast__bar { background: var(--pui-info); }
+    .pui-toast--success .pui-toast__bar { background: #22c55e; }
+    .pui-toast--error   .pui-toast__bar { background: #ef4444; }
+    .pui-toast--warning .pui-toast__bar { background: #f97316; }
+    .pui-toast--info    .pui-toast__bar { background: #3b82f6; }
 
-    /* ── Icon ────────────────────────────── */
+    /* ── Icon box ───────────────────────────────────────────────────────── */
     .pui-toast__icon {
       flex-shrink: 0;
       display: flex; align-items: center; justify-content: center;
-      width: 20px; height: 20px;
-      margin-top: var(--pui-space-0-5);
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: #f1f5f9;
+      /* pass color down to pui-lib-icon via currentColor */
+      color: #64748b;
     }
-    .pui-toast--success .pui-toast__icon { color: var(--pui-success); }
-    .pui-toast--error   .pui-toast__icon { color: var(--pui-error); }
-    .pui-toast--warning .pui-toast__icon { color: var(--pui-warning); }
-    .pui-toast--info    .pui-toast__icon { color: var(--pui-info); }
+    .pui-toast--success .pui-toast__icon { background: #f0fdf4; color: #22c55e; }
+    .pui-toast--error   .pui-toast__icon { background: #fef2f2; color: #ef4444; }
+    .pui-toast--warning .pui-toast__icon { background: #fff7ed; color: #f97316; }
+    .pui-toast--info    .pui-toast__icon { background: #eff6ff; color: #3b82f6; }
 
-    /* ── Body ────────────────────────────── */
+    /* ── Body ───────────────────────────────────────────────────────────── */
     .pui-toast__body {
-      flex: 1; display: flex; flex-direction: column; gap: var(--pui-space-1-5);
+      flex: 1;
+      min-width: 0;          /* lets flex child shrink below content size */
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
     .pui-toast__title {
-      font-size: var(--pui-text-base); font-weight: 600; line-height: 1.4;
-      color: var(--pui-toast-title, var(--pui-neutral-900)); margin: 0;
+      font-size: 15px; font-weight: 700; line-height: 1.3;
+      color: #0f172a; margin: 0;
+      /* prevent long title from breaking layout */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .pui-toast__msg {
-      font-size: var(--pui-text-sm); line-height: 1.5;
-      color: var(--pui-toast-muted, var(--pui-neutral-600)); margin: 0;
+      font-size: 13px; line-height: 1.5;
+      color: #64748b; margin: 0;
+      /* wrap long messages instead of overflowing */
+      word-break: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
     }
 
-    /* ── Action ──────────────────────────── */
+    /* ── Action ──────────────────────────────────────────────────────────── */
     .pui-toast__action {
-      font-size: var(--pui-text-xs); font-weight: 600; font-family: inherit;
+      margin-top: 4px;
+      font-size: 12px; font-weight: 600; font-family: inherit;
       background: none; border: none; padding: 0; cursor: pointer;
-      color: var(--pui-brand); text-decoration: underline; text-underline-offset: 2px;
-      &:hover { color: var(--pui-brand-hover); }
+      color: var(--pui-brand, #6366f1);
+      text-decoration: underline; text-underline-offset: 2px;
+      align-self: flex-start;
     }
+    .pui-toast__action:hover { opacity: .8; }
 
-    /* ── Dismiss ─────────────────────────── */
+    /* ── Dismiss ─────────────────────────────────────────────────────────── */
     .pui-toast__dismiss {
       flex-shrink: 0;
+      align-self: flex-start;
       display: flex; align-items: center; justify-content: center;
-      width: 24px; height: 24px;
+      width: 28px; height: 28px;
       background: none; border: none; cursor: pointer;
-      border-radius: var(--pui-radius-xs);
-      color: var(--pui-neutral-400);
-      transition: color var(--pui-duration-base), background var(--pui-duration-base);
-      &:hover { color: var(--pui-neutral-700); background: var(--pui-neutral-100); }
+      border-radius: 8px;
+      color: #94a3b8;
+      transition: color 150ms, background 150ms;
     }
-
-    /* ── Progress ────────────────────────── */
-    .pui-toast__progress {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      height: var(--pui-space-0-75);
-      background: var(--pui-neutral-200);
-      border-radius: 0 0 var(--pui-radius-xl) var(--pui-radius-xl);
-      overflow: hidden;
-    }
-    .pui-toast__progress-fill {
-      height: 100%; width: 100%;
-      border-radius: 0 2px 2px 0;
-      background: var(--pui-brand);
-      animation: pui-toast-progress linear both;
-    }
-    .pui-toast__progress-fill--paused { animation-play-state: paused; }
-    .pui-toast--success .pui-toast__progress-fill { background: var(--pui-success); }
-    .pui-toast--error   .pui-toast__progress-fill { background: var(--pui-error); }
-    .pui-toast--warning .pui-toast__progress-fill { background: var(--pui-warning); }
-    .pui-toast--info    .pui-toast__progress-fill { background: var(--pui-info); }
-
-    @keyframes pui-toast-progress {
-      from { width: 100%; }
-      to   { width: 0; }
-    }
+    .pui-toast__dismiss:hover { color: #475569; background: rgba(0, 0, 0, .05); }

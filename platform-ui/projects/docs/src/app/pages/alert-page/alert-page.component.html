@@ -1,0 +1,101 @@
+<docs-page title="Alert"
+  description="Inline contextual feedback — success confirmations, error messages, warnings, and info notices. Persistent and placed in the page layout, unlike Toast."
+  [code]="angularCode" [api]="api">
+
+  <ng-container demo>
+
+    <!-- 1. Types -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Types</h3>
+      <p class="demo-section__desc">Four semantic types: <code>success</code>, <code>error</code>, <code>warning</code>, <code>info</code>.</p>
+      <div class="demo-stack">
+        <pui-lib-alert type="success" message="Your changes have been saved successfully."></pui-lib-alert>
+        <pui-lib-alert type="error"   message="Something went wrong. Please try again."></pui-lib-alert>
+        <pui-lib-alert type="warning" message="Your session will expire in 5 minutes."></pui-lib-alert>
+        <pui-lib-alert type="info"    message="A new version of the platform is available."></pui-lib-alert>
+      </div>
+    </div>
+
+    <!-- 2. Variants -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Variants</h3>
+      <p class="demo-section__desc">Three display variants: <code>soft</code> (default), <code>outlined</code>, <code>filled</code>.</p>
+      <div class="demo-stack">
+        <pui-lib-alert type="info" variant="soft"     message="Soft — tinted background with accent border (default)."></pui-lib-alert>
+        <pui-lib-alert type="info" variant="outlined" message="Outlined — transparent background, border only."></pui-lib-alert>
+        <pui-lib-alert type="info" variant="filled"   message="Filled — solid background, highest contrast."></pui-lib-alert>
+      </div>
+    </div>
+
+    <!-- 3. With Title -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">With Title</h3>
+      <p class="demo-section__desc">Add a <code>title</code> for alerts that need a clear label above the message.</p>
+      <div class="demo-stack">
+        <pui-lib-alert type="success" title="Payment complete"
+          message="Invoice #1042 paid. A confirmation has been sent to your email.">
+        </pui-lib-alert>
+        <pui-lib-alert type="error" title="Connection failed" variant="filled"
+          message="Unable to reach the server. Check your network and try again.">
+        </pui-lib-alert>
+      </div>
+    </div>
+
+    <!-- 4. Dismissible -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Dismissible</h3>
+      <p class="demo-section__desc">Set <code>[dismissible]="true"</code> to show a close button. Listen to <code>(dismissed)</code> to react.</p>
+      <div class="demo-stack" *ngIf="!dismissed">
+        <pui-lib-alert type="warning" title="Deprecation notice"
+          message="The v1 API endpoints will be removed on 2027-01-01. Migrate to v2."
+          [dismissible]="true"
+          (dismissed)="onDismissed()">
+        </pui-lib-alert>
+      </div>
+      <div class="demo-dismissed" *ngIf="dismissed">
+        Alert dismissed.
+        <button class="demo-reset-btn" (click)="reset()">Reset</button>
+      </div>
+    </div>
+
+    <!-- 5. With Actions -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">With Actions</h3>
+      <p class="demo-section__desc">Pass <code>[actions]</code> — an array of <code>&#123; label, callback &#125;</code> — for inline call-to-action buttons.</p>
+      <div class="demo-stack">
+        <pui-lib-alert type="info" title="Update available"
+          message="Platform UI v2.4.0 is ready to install. Takes less than a minute."
+          [actions]="updateActions">
+        </pui-lib-alert>
+        <pui-lib-alert type="error" title="Sync failed"
+          message="Could not sync your data. Check your connection or retry."
+          [actions]="retryActions" [dismissible]="true">
+        </pui-lib-alert>
+      </div>
+    </div>
+
+    <!-- 6. No Icon -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Without Icon</h3>
+      <p class="demo-section__desc">Set <code>[showIcon]="false"</code> when the type colour alone is sufficient.</p>
+      <div class="demo-stack">
+        <pui-lib-alert type="success" message="Deployment completed in 3.2 seconds." [showIcon]="false"></pui-lib-alert>
+        <pui-lib-alert type="error"   message="Build failed — 2 errors found." [showIcon]="false" variant="outlined"></pui-lib-alert>
+      </div>
+    </div>
+
+    <!-- 7. Content Projection -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Rich Content</h3>
+      <p class="demo-section__desc">Project arbitrary HTML into the alert body using <code>ng-content</code>.</p>
+      <div class="demo-stack">
+        <pui-lib-alert type="warning" title="Storage limit reached">
+          You are using <strong>9.8 GB</strong> of your 10 GB plan.
+          <a href="#" style="color:inherit;font-weight:600">Upgrade your plan</a> to continue uploading.
+        </pui-lib-alert>
+      </div>
+    </div>
+
+  </ng-container>
+
+</docs-page>

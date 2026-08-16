@@ -1,55 +1,109 @@
 
-    <div class="pui-field" [class.pui-field--error]="error" [class.pui-field--disabled]="disabled">
+<div class="pui-field"
+     [class.pui-field--error]="error"
+     [class.pui-field--disabled]="disabled">
 
-      <label *ngIf="label" class="pui-field__label">
-        {{ label }}<span *ngIf="required" class="pui-field__req">*</span>
-      </label>
+  <label *ngIf="label" class="pui-field__label">
+    {{ label }}<span *ngIf="required" class="pui-field__req">*</span>
+  </label>
 
-      <div class="pui-select-wrap"
-           [class.pui-select-wrap--sm]="size === 'sm'"
-           [class.pui-select-wrap--lg]="size === 'lg'"
-           [class.pui-select-wrap--error]="error"
-           [class.pui-select-wrap--disabled]="disabled">
+  <!-- ── Trigger ──────────────────────────────────── -->
+  <div class="pui-select-wrap"
+       [class.pui-select-wrap--sm]="size === 'sm'"
+       [class.pui-select-wrap--lg]="size === 'lg'"
+       [class.pui-select-wrap--open]="open"
+       [class.pui-select-wrap--error]="error"
+       [class.pui-select-wrap--disabled]="disabled"
+       role="combobox"
+       tabindex="0"
+       [attr.aria-expanded]="open"
+       [attr.aria-haspopup]="'listbox'"
+       (click)="toggle()"
+       (keydown.enter)="toggle()"
+       (keydown.space)="$event.preventDefault(); toggle()"
+       (keydown.escape)="close()">
 
-        <select class="pui-select"
-                [disabled]="disabled"
-                [value]="innerValue"
-                (change)="onChange2($any($event.target).value)"
-                (focus)="focused = true"
-                (blur)="onBlur()">
-          <option value="" disabled [selected]="!innerValue">{{ placeholder }}</option>
-          <option *ngFor="let opt of options"
-                  [value]="opt.value"
-                  [disabled]="opt.disabled || false"
-                  [selected]="innerValue === opt.value">
-            {{ opt.label }}
-          </option>
-        </select>
+    <!-- Selected icon -->
+    <span *ngIf="selectedOption?.icon" class="pui-select-wrap__icon"
+          [innerHTML]="selectedOption!.icon"></span>
 
-        <!-- Chevron -->
-        <span class="pui-select-wrap__arrow">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8"
-                  stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </span>
+    <!-- Value / placeholder -->
+    <span class="pui-select-wrap__value"
+          [class.pui-select-wrap__value--placeholder]="!displayLabel">
+      {{ displayLabel || placeholder }}
+    </span>
 
-        <!-- Error icon -->
-        <span *ngIf="error" class="pui-select-wrap__err-icon">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" fill="#ef4444"/>
-            <path d="M12 8v4M12 16h.01" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </span>
-      </div>
+    <!-- Error icon -->
+    <span *ngIf="error" class="pui-select-wrap__err-icon">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" fill="#ef4444"/>
+        <path d="M12 8v4M12 16h.01" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </span>
 
-      <span *ngIf="hint && !error" class="pui-field__hint">{{ hint }}</span>
-      <span *ngIf="error" class="pui-field__error">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-          <circle cx="8" cy="8" r="7" fill="#ef4444"/>
-          <path d="M8 5v3M8 10.5h.01" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>
-        {{ error }}
-      </span>
+    <!-- Chevron -->
+    <span class="pui-select-wrap__arrow" [class.pui-select-wrap__arrow--up]="open">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  </div>
+
+  <!-- ── Dropdown popup ────────────────────────────── -->
+  <div *ngIf="open" class="pui-select-popup" role="listbox">
+
+    <!-- Search input -->
+    <div *ngIf="searchable" class="pui-select-search">
+      <svg class="pui-select-search__icon" width="14" height="14" viewBox="0 0 20 20" fill="none">
+        <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.6"/>
+        <path d="M14 14l3 3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      <input class="pui-select-search__input"
+             type="text"
+             [placeholder]="searchPlaceholder"
+             [value]="searchText"
+             (input)="onSearch($any($event.target).value)"
+             (click)="$event.stopPropagation()"
+             autocomplete="off">
     </div>
-  
+
+    <!-- Options list -->
+    <ul class="pui-select-list">
+      <li *ngIf="filtered.length === 0" class="pui-select-list__empty">No options found</li>
+
+      <li *ngFor="let opt of filtered; trackBy: trackByValue"
+          class="pui-select-list__item"
+          [class.pui-select-list__item--selected]="innerValue === opt.value"
+          [class.pui-select-list__item--disabled]="opt.disabled"
+          [attr.aria-selected]="innerValue === opt.value"
+          [attr.aria-disabled]="opt.disabled || null"
+          role="option"
+          (mousedown)="pick($event, opt)">
+
+        <!-- Option icon (flag / emoji / SVG) -->
+        <span *ngIf="opt.icon" class="pui-select-list__icon" [innerHTML]="opt.icon"></span>
+
+        <span class="pui-select-list__label">{{ opt.label }}</span>
+
+        <!-- Checkmark for selected -->
+        <svg *ngIf="innerValue === opt.value"
+             class="pui-select-list__check"
+             width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8l4 4 6-7" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </li>
+    </ul>
+  </div>
+
+  <span *ngIf="hint && !error" class="pui-field__hint">{{ hint }}</span>
+  <span *ngIf="error" class="pui-field__error">
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+      <circle cx="8" cy="8" r="7" fill="#ef4444"/>
+      <path d="M8 5v3M8 10.5h.01" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    {{ error }}
+  </span>
+
+</div>

@@ -61,6 +61,9 @@ export class AppComponent {
     { label: 'List',           route: '/list',          category: 'Component', keywords: ['list', 'items', 'selectable', 'bordered', 'striped', 'flush', 'menu', 'navigation'] },
     { label: 'Menu',           route: '/menu',          category: 'Component', keywords: ['menu', 'dropdown', 'submenu', 'context', 'actions', 'popover', 'trigger', 'select'] },
     { label: 'Data Grid',      route: '/datagrid',      category: 'Component', keywords: ['datagrid', 'grid', 'table', 'data', 'sort', 'pagination', 'selectable', 'rows', 'columns', 'badge'] },
+    { label: 'Alert',          route: '/alert',          category: 'Component', keywords: ['alert', 'notification', 'success', 'error', 'warning', 'info', 'dismissible', 'inline', 'feedback', 'message'] },
+    { label: 'Pagination',     route: '/pagination',     category: 'Component', keywords: ['pagination', 'page', 'pager', 'pages', 'next', 'previous', 'navigate', 'records', 'total', 'ellipsis'] },
+    { label: 'Accordion',      route: '/accordion',      category: 'Component', keywords: ['accordion', 'expand', 'collapse', 'faq', 'panel', 'toggle', 'disclosure', 'content', 'sections'] },
   ];
 
   searchQuery   = '';
@@ -159,6 +162,12 @@ export class AppComponent {
               { label: 'Editable Table', route: '/table/editable'  },
             ],
           },
+          { label: 'Accordion',       route: '/accordion',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="4" rx="1"/><rect x="2" y="7" width="12" height="4" rx="1" opacity=".5"/><rect x="2" y="12" width="12" height="2" rx="1" opacity=".25"/></svg>`) },
+          { label: 'Alert',           route: '/alert',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l6 10H2L8 2z"/><path d="M8 7v3M8 11.5v.5"/></svg>`) },
+          { label: 'Pagination',      route: '/pagination',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="3" height="6" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="9" y="5" width="3" height="6" rx="1"/><rect x="13" y="5" width="2" height="6" rx="1"/></svg>`) },
           { label: 'Tabs',            route: '/tabs',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9h12M2 9V6a1 1 0 011-1h2.5a1 1 0 011 1v3"/><rect x="2" y="9" width="12" height="5" rx="1"/></svg>`) },
           { label: 'Tag',             route: '/tag',

@@ -1,0 +1,165 @@
+$brand:   #12C6A8;
+$border:  #e2e8f0;
+$radius:  10px;
+$dur:     .26s;
+$ease:    cubic-bezier(.4, 0, .2, 1);
+
+.pui-accordion {
+  display:       flex;
+  flex-direction: column;
+  font-family:   inherit;
+  font-size:     14px;
+
+  // ── Panel open/close via grid trick (smooth & layout-safe) ───────────────────
+  &__panel {
+    display:              grid;
+    grid-template-rows:   0fr;
+    transition:           grid-template-rows $dur $ease;
+
+    &--open {
+      grid-template-rows: 1fr;
+    }
+  }
+  &__content {
+    overflow:   hidden;
+    padding:    0;
+    transition: padding $dur $ease;
+  }
+  &__panel--open &__content {
+    padding: 0 20px 18px;
+  }
+
+  // ── Chevron rotation ──────────────────────────────────────────────────────────
+  &__chevron {
+    display:     flex;
+    flex-shrink: 0;
+    transition:  transform $dur $ease;
+    color:       #7a90b0;
+  }
+  &__item--open > &__trigger &__chevron {
+    transform: rotate(180deg);
+  }
+
+  // ── Item trigger (shared across all variants) ─────────────────────────────────
+  &__trigger {
+    width:       100%;
+    display:     flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:         12px;
+    background:  transparent;
+    border:      none;
+    cursor:      pointer;
+    font-family: inherit;
+    font-size:   14px;
+    font-weight: 600;
+    color:       #0d1422;
+    text-align:  left;
+    padding:     16px 20px;
+    transition:  background $dur $ease, color .15s;
+
+    &:focus-visible {
+      outline:       none;
+      box-shadow:    inset 0 0 0 2px $brand;
+    }
+  }
+
+  &__trigger-label {
+    display:     flex;
+    align-items: center;
+    gap:         9px;
+    flex:        1;
+    min-width:   0;
+  }
+
+  &__item-icon { color: #5a6a84; flex-shrink: 0; }
+
+  &__title {
+    flex:        1;
+    min-width:   0;
+    white-space: nowrap;
+    overflow:    hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__content {
+    font-size:   13.5px;
+    line-height: 1.65;
+    color:       #3d4f68;
+  }
+
+  // ── Disabled state ────────────────────────────────────────────────────────────
+  &__item--disabled > &__trigger {
+    opacity: .42;
+    cursor:  not-allowed;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // VARIANT: default (flat cards, gap between items)
+  // ─────────────────────────────────────────────────────────────────────────────
+  &--default {
+    gap: 8px;
+
+    .pui-accordion__item {
+      background:    #fff;
+      border:        1px solid $border;
+      border-radius: $radius;
+      overflow:      hidden;
+      box-shadow:    0 1px 3px rgba(0,0,0,.05);
+      transition:    box-shadow .15s;
+
+      &--open { box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    }
+
+    .pui-accordion__trigger:hover:not([disabled]) {
+      background: #f8fafc;
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // VARIANT: bordered (single outer border, internal dividers)
+  // ─────────────────────────────────────────────────────────────────────────────
+  &--bordered {
+    border:        1px solid $border;
+    border-radius: $radius;
+    overflow:      hidden;
+
+    .pui-accordion__item + .pui-accordion__item {
+      border-top: 1px solid $border;
+    }
+
+    .pui-accordion__trigger:hover:not([disabled]) {
+      background: #f8fafc;
+    }
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────────
+  // VARIANT: ghost (no backgrounds or borders — minimal, for sidebars etc.)
+  // ─────────────────────────────────────────────────────────────────────────────
+  &--ghost {
+    gap: 2px;
+
+    .pui-accordion__item {
+      border-radius: 8px;
+    }
+
+    .pui-accordion__trigger {
+      padding:       12px 14px;
+      border-radius: 8px;
+
+      &:hover:not([disabled]) {
+        background: rgba(0,0,0,.04);
+      }
+    }
+
+    .pui-accordion__content { padding-left: 14px; padding-right: 14px; }
+    .pui-accordion__panel--open .pui-accordion__content {
+      padding-bottom: 14px;
+    }
+
+    &.pui-accordion .pui-accordion__item--open > .pui-accordion__trigger {
+      color: $brand;
+      .pui-accordion__chevron { color: $brand; }
+    }
+  }
+}

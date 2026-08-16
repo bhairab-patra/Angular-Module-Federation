@@ -1,10 +1,11 @@
 .fp-wrap {
   border: 1px solid var(--pui-neutral-200);
   border-radius: 12px;
-  overflow: hidden;
+  overflow: visible;           /* must be visible so absolute popups (datepicker, select, menu) can escape */
   background: var(--pui-white);
   font-family: 'Poppins', system-ui, sans-serif;
   width: 100%;
+  position: relative;
 }
 
 /* ── Toolbar ── */
@@ -17,6 +18,8 @@
   border-bottom: 1px solid var(--pui-neutral-200);
   gap: 12px;
   flex-wrap: wrap;
+  border-radius: 12px 12px 0 0;   /* clip top corners since wrap is overflow:visible */
+  overflow: hidden;
 }
 
 .fp-toolbar__right {
@@ -138,18 +141,22 @@
 /* ── Preview pane ── */
 .fp-preview {
   padding: 32px 28px;
-  // display: flex;
+  display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 10px;
   min-height: 80px;
   background: var(--pui-white);
+  overflow: visible;             /* allow absolute popups to escape */
+  border-radius: 0 0 12px 12px; /* clip bottom corners when preview is last */
 }
 
 /* ── Code pane ── */
 .fp-code {
   background: var(--pui-slate-900, #1e293b);
   overflow-x: auto;
+  border-radius: 0 0 12px 12px; /* clip bottom corners */
+  overflow: hidden;
 }
 
 .fp-pre {

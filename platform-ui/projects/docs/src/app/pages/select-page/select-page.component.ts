@@ -11,18 +11,28 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
   imports: [NgFor, FormsModule, PuiSelectComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './select-page.component.html',
+  styleUrls: ['./select-page.component.scss'],
 })
 export class SelectPageComponent {
   private cdr = inject(ChangeDetectorRef);
 
   countries = [
-    { label: 'United States', value: 'us' }, { label: 'United Kingdom', value: 'uk' },
-    { label: 'Germany', value: 'de' },        { label: 'France', value: 'fr' },
-    { label: 'Japan', value: 'jp' },
+    { label: 'United States',  value: 'us', icon: '🇺🇸' },
+    { label: 'United Kingdom', value: 'uk', icon: '🇬🇧' },
+    { label: 'Germany',        value: 'de', icon: '🇩🇪' },
+    { label: 'France',         value: 'fr', icon: '🇫🇷' },
+    { label: 'Japan',          value: 'jp', icon: '🇯🇵' },
+    { label: 'India',          value: 'in', icon: '🇮🇳' },
+    { label: 'Brazil',         value: 'br', icon: '🇧🇷' },
+    { label: 'Canada',         value: 'ca', icon: '🇨🇦' },
+    { label: 'Australia',      value: 'au', icon: '🇦🇺' },
+    { label: 'Singapore',      value: 'sg', icon: '🇸🇬' },
   ];
   roles = [
-    { label: 'Developer', value: 'dev' }, { label: 'Designer', value: 'des' },
-    { label: 'Manager',   value: 'mgr' }, { label: 'Analyst',  value: 'ana' },
+    { label: 'Developer', value: 'dev', icon: '💻' },
+    { label: 'Designer',  value: 'des', icon: '🎨' },
+    { label: 'Manager',   value: 'mgr', icon: '📋' },
+    { label: 'Analyst',   value: 'ana', icon: '📊' },
   ];
   tiersWithDisabled = [
     { label: 'Free', value: 'free' },
@@ -46,16 +56,18 @@ export class SelectPageComponent {
   trackByIndex(_i: number): number { return _i; }
 
   xfwRows = [
-    { name: 'label',           angular: 'label="str"',                      attr: 'label="str"',           js: 'el.label = "..."' },
-    { name: 'placeholder',     angular: 'placeholder="str"',                attr: 'placeholder="str"',     js: 'el.placeholder = "..."' },
-    { name: 'options',         angular: '[options]="optionsArray"',          attr: '— use JS property',     js: 'el.options = [{label,value}]' },
-    { name: 'size',            angular: 'size="sm|md|lg"',                  attr: 'size="sm|md|lg"',       js: 'el.size = "md"' },
-    { name: 'disabled',        angular: '[disabled]="bool"',                attr: '— use JS property',     js: 'el.disabled = true' },
-    { name: 'required',        angular: '[required]="bool"',                attr: 'required="true"',       js: 'el.required = true' },
-    { name: 'error',           angular: '[error]="str"',                    attr: 'error="msg"',           js: 'el.error = "msg"' },
-    { name: 'hint',            angular: '[hint]="str"',                     attr: 'hint="str"',            js: 'el.hint = "..."' },
-    { name: 'valueChange',     angular: '(valueChange)="fn($event)"',       attr: '— use addEventListener', js: 'el.addEventListener("valueChange", fn)' },
-    { name: 'selectionChange', angular: '(selectionChange)="fn($event)"',   attr: '— use addEventListener', js: 'el.addEventListener("selectionChange", fn)' },
+    { name: 'label',              angular: 'label="str"',                    attr: 'label="str"',            js: 'el.label = "..."'            },
+    { name: 'placeholder',        angular: 'placeholder="str"',              attr: 'placeholder="str"',      js: 'el.placeholder = "..."'      },
+    { name: 'options',            angular: '[options]="arr"',                attr: '— use JS property',      js: 'el.options = [{label,value,icon?}]' },
+    { name: 'searchable',         angular: '[searchable]="true"',            attr: 'searchable',             js: 'el.searchable = true'        },
+    { name: 'searchPlaceholder',  angular: 'searchPlaceholder="Search…"',   attr: 'searchPlaceholder="…"',  js: 'el.searchPlaceholder = "…"'  },
+    { name: 'size',               angular: 'size="sm|md|lg"',               attr: 'size="sm"',              js: 'el.size = "md"'              },
+    { name: 'disabled',           angular: '[disabled]="bool"',             attr: '— use JS property',      js: 'el.disabled = true'          },
+    { name: 'required',           angular: '[required]="bool"',             attr: 'required="true"',        js: 'el.required = true'          },
+    { name: 'error',              angular: '[error]="str"',                 attr: 'error="msg"',            js: 'el.error = "msg"'            },
+    { name: 'hint',               angular: '[hint]="str"',                  attr: 'hint="str"',             js: 'el.hint = "..."'             },
+    { name: 'valueChange',        angular: '(valueChange)="fn($event)"',    attr: '— use addEventListener', js: 'el.addEventListener("valueChange", fn)'    },
+    { name: 'selectionChange',    angular: '(selectionChange)="fn($event)"',attr: '— use addEventListener', js: 'el.addEventListener("selectionChange", fn)' },
   ];
 
   angHtml = `<pui-lib-select
@@ -132,15 +144,17 @@ export function RolePicker() {
 </script>`;
 
   api: ApiRow[] = [
-    { input: 'label',           type: 'string',           default: "''",              description: 'Label shown above the select' },
-    { input: 'placeholder',     type: 'string',           default: "'Select an option'", description: 'Disabled placeholder option shown when no value selected' },
-    { input: 'options',         type: 'SelectOption[]',   default: '[]',              description: 'Array of { label, value, disabled? }' },
-    { input: 'size',            type: "'sm'|'md'|'lg'",  default: "'md'",            description: 'Visual size variant' },
-    { input: 'disabled',        type: 'boolean',          default: 'false',           description: 'Disables the dropdown' },
-    { input: 'required',        type: 'boolean',          default: 'false',           description: 'Shows required asterisk' },
-    { input: 'error',           type: 'string',           default: "''",              description: 'Error message; applies error styling' },
-    { input: 'hint',            type: 'string',           default: "''",              description: 'Helper text below the dropdown' },
-    { input: 'valueChange',     type: 'EventEmitter<any>', default: '—',             description: 'Emits the selected value on change' },
-    { input: 'selectionChange', type: 'EventEmitter<any>', default: '—',             description: 'Alias output for selection events' },
+    { input: 'label',             type: 'string',            default: "''",                description: 'Label shown above the select' },
+    { input: 'placeholder',       type: 'string',            default: "'Select an option'", description: 'Placeholder shown when no value is selected' },
+    { input: 'options',           type: 'SelectOption[]',    default: '[]',                description: 'Array of { label, value, icon?, disabled? }. icon is an emoji, flag, or raw SVG string.' },
+    { input: 'searchable',        type: 'boolean',           default: 'false',             description: 'Shows a filter input at the top of the dropdown for quick option lookup.' },
+    { input: 'searchPlaceholder', type: 'string',            default: "'Search…'",         description: 'Placeholder text inside the search input when searchable is true.' },
+    { input: 'size',              type: "'sm'|'md'|'lg'",   default: "'md'",              description: 'Visual size variant — sm (34 px), md (42 px), lg (50 px).' },
+    { input: 'disabled',          type: 'boolean',           default: 'false',             description: 'Disables the dropdown — trigger dims and pointer events are blocked.' },
+    { input: 'required',          type: 'boolean',           default: 'false',             description: 'Shows a red asterisk next to the label.' },
+    { input: 'error',             type: 'string',            default: "''",                description: 'Error message; applies red border and shows message below the field.' },
+    { input: 'hint',              type: 'string',            default: "''",                description: 'Helper text shown below the dropdown when there is no error.' },
+    { input: 'valueChange',       type: 'EventEmitter<any>', default: '—',                 description: 'Emits the selected value on change.' },
+    { input: 'selectionChange',   type: 'EventEmitter<any>', default: '—',                 description: 'Alias output for selection events.' },
   ];
 }

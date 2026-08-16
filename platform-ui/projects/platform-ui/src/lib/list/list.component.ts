@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation, HostBinding } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface ListItem {
@@ -28,7 +28,24 @@ export class PuiListComponent {
   @Input() selectable  = false;
   @Input() selectedId: string | number | null = null;
 
+  /** Label text color for all items. Default: inherits neutral-900. */
+  @Input() textColor    = '';
+  /** Text + accent color for the selected row. Default: teal (#0d9488). */
+  @Input() activeColor  = '#0d9488';
+  /** Background color on row hover. Default: teal-50 (#f0fdfa). */
+  @Input() hoverColor   = '#f0fdfa';
+
   @Output() itemSelect = new EventEmitter<ListItem>();
+
+  @HostBinding('style')
+  get cssVars(): string {
+    const parts: string[] = [
+      `--pui-list-hover-bg: ${this.hoverColor}`,
+      `--pui-list-active-color: ${this.activeColor}`,
+    ];
+    if (this.textColor) parts.push(`--pui-list-text-color: ${this.textColor}`);
+    return parts.join(';');
+  }
 
   get hostClass(): string { return `pui-list pui-list--${this.variant}`; }
 

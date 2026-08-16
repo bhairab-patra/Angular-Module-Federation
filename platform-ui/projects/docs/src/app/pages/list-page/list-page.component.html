@@ -1,96 +1,169 @@
-﻿
-<docs-page
-  title="List"
-  description="A structured vertical list with icons, descriptions, badges, metadata, dividers, and selectable rows â€” available in four layout variants."
-  [hasFramework]="true"
-  [api]="api">
+<docs-page title="List"
+  description="A structured vertical list with icons, descriptions, badges, metadata, dividers, and selectable rows — available in four layout variants."
+  [hasFramework]="true" [api]="api">
 
-  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- DEMO -->
   <ng-container demo>
 
-    <!-- 1. Basic bordered -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Bordered (Default)</h3>
-      <p class="demo-section__desc">The <code>bordered</code> variant wraps items in a rounded card with dividers between rows.</p>
-      <div style="max-width:420px">
-        <pui-lib-list [items]="teamItems" variant="bordered"></pui-lib-list>
-      </div>
-    </div>
-
-    <!-- 2. With descriptions & badges -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Descriptions, Badges & Metadata</h3>
-      <p class="demo-section__desc">Each item supports a <code>description</code> sub-line, a <code>badge</code> pill, and a <code>meta</code> right-side string.</p>
-      <div style="max-width:460px">
-        <pui-lib-list [items]="notifItems" variant="bordered"></pui-lib-list>
-      </div>
-    </div>
-
-    <!-- 3. Selectable -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Selectable Rows</h3>
-      <p class="demo-section__desc">Enable <code>[selectable]="true"</code> to allow single-row selection. The selected row is highlighted; listen to <code>(itemSelect)</code> for changes.</p>
-      <div style="max-width:380px">
-        <pui-lib-list [items]="menuItems"
-                  variant="bordered"
-                  [selectable]="true"
-                  [selectedId]="selectedMenu"
-                  (itemSelect)="selectedMenu = $event.id; cdr.markForCheck()">
-        </pui-lib-list>
-        <p *ngIf="selectedMenu" class="demo-result">Selected: <strong>{{ selectedMenu }}</strong></p>
-      </div>
-    </div>
-
-    <!-- 4. Variants -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Layout Variants</h3>
-      <p class="demo-section__desc">Four variants â€” <code>bordered</code>, <code>striped</code>, <code>flush</code>, and <code>default</code> â€” suit different layout contexts.</p>
-      <div style="display:flex;gap:24px;flex-wrap:wrap">
-        <div style="flex:1;min-width:200px">
-          <p class="demo-label">flush</p>
-          <pui-lib-list [items]="shortItems" variant="flush"></pui-lib-list>
-        </div>
-        <div style="flex:1;min-width:200px">
-          <p class="demo-label">striped</p>
-          <pui-lib-list [items]="shortItems" variant="striped"></pui-lib-list>
+    <div class="lst-demo-sections">
+      <div class="lst-section">
+        <h3 class="lst-section__heading">Selectable Rows</h3>
+        <p class="lst-section__desc">
+          Enable <code>[selectable]="true"</code> to allow single-row selection.
+          The selected row is highlighted; listen to <code>(itemSelect)</code> for changes.
+        </p>
+        <div class="lst-grid">
+          <div class="lst-grid__item" style="max-width:340px">
+            <p class="lst-label">Navigation menu</p>
+            <pui-lib-list [items]="menuItems" variant="bordered" [selectable]="true" [selectedId]="selectedMenu"
+              (itemSelect)="selectedMenu = $event.id; cdr.markForCheck()">
+            </pui-lib-list>
+            <div class="lst-result">
+              Selected: <strong>{{ selectedMenu ?? '—' }}</strong>
+            </div>
+          </div>
+          <div class="lst-grid__item" style="max-width:300px">
+            <p class="lst-label">Action menu with disabled item</p>
+            <pui-lib-list [items]="actionItems" variant="bordered" [selectable]="true"></pui-lib-list>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- 5. Dividers & disabled -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Dividers & Disabled Items</h3>
-      <p class="demo-section__desc">Set <code>divider: true</code> on an item to insert a separator after it. Set <code>disabled: true</code> to make an item non-interactive.</p>
-      <div style="max-width:340px">
-        <pui-lib-list [items]="actionItems" variant="bordered" [selectable]="true"></pui-lib-list>
+      <!-- Color theming -->
+      <div class="lst-section">
+        <h3 class="lst-section__heading">Color Theming</h3>
+        <p class="lst-section__desc">
+          Three inputs control the color: <code>textColor</code> for all label text,
+          <code>activeColor</code> for the selected row (tinted background is derived automatically),
+          and <code>hoverColor</code> for the row hover background.
+          By default all three are <strong>teal</strong>.
+        </p>
+        <div class="lst-color-demo">
+          <div class="lst-color-presets">
+            <p class="lst-label" style="margin-bottom:10px">Pick a theme preset</p>
+            <div class="lst-presets-row">
+              <button *ngFor="let p of colorPresets; trackBy: trackByIndex"
+                class="lst-preset-btn"
+                [style.border-color]="p.active"
+                [class.lst-preset-btn--active]="demoActiveColor === p.active"
+                (click)="applyPreset(p)">
+                <span class="lst-preset-swatch" [style.background]="p.active"></span>
+                {{ p.label }}
+              </button>
+            </div>
+            <div class="lst-color-inputs">
+              <label class="lst-color-field">
+                <span class="lst-label">Active color</span>
+                <div class="lst-color-row">
+                  <input type="color" [value]="demoActiveColor"
+                    (input)="demoActiveColor = $any($event.target).value; cdr.markForCheck()">
+                  <code>{{ demoActiveColor }}</code>
+                </div>
+              </label>
+              <label class="lst-color-field">
+                <span class="lst-label">Hover color</span>
+                <div class="lst-color-row">
+                  <input type="color" [value]="demoHoverColor"
+                    (input)="demoHoverColor = $any($event.target).value; cdr.markForCheck()">
+                  <code>{{ demoHoverColor }}</code>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="lst-color-preview" style="max-width:280px">
+            <p class="lst-label" style="margin-bottom:10px">Live preview</p>
+            <pui-lib-list
+              [items]="menuItems"
+              variant="bordered"
+              [selectable]="true"
+              [selectedId]="colorSelected"
+              [activeColor]="demoActiveColor"
+              [hoverColor]="demoHoverColor"
+              (itemSelect)="colorSelected = $event.id; cdr.markForCheck()">
+            </pui-lib-list>
+            <p class="lst-result" style="margin-top:10px">
+              Selected: <strong>{{ colorSelected ?? '—' }}</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="lst-code-hint">
+          <code>[activeColor]="'{{ demoActiveColor }}'"
+[hoverColor]="'{{ demoHoverColor }}'"</code>
+        </div>
       </div>
+
+      <!-- 5. Layout variants -->
+      <div class="lst-section">
+        <h3 class="lst-section__heading">Layout Variants</h3>
+        <p class="lst-section__desc">
+          Four variants — <code>bordered</code>, <code>striped</code>, <code>flush</code>, and <code>default</code> —
+          suit different layout contexts.
+          Use <code>flush</code> inside panels; <code>striped</code> for dense data tables.
+        </p>
+        <div class="lst-grid">
+          <div class="lst-grid__item">
+            <p class="lst-label">flush</p>
+            <pui-lib-list [items]="flushItems" variant="flush"></pui-lib-list>
+          </div>
+          <div class="lst-grid__item">
+            <p class="lst-label">striped</p>
+            <pui-lib-list [items]="shortItems" variant="striped"></pui-lib-list>
+          </div>
+          <div class="lst-grid__item">
+            <p class="lst-label">default</p>
+            <pui-lib-list [items]="shortItems" variant="default"></pui-lib-list>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Dividers & disabled -->
+      <div class="lst-section">
+        <h3 class="lst-section__heading">Dividers &amp; Disabled Items</h3>
+        <p class="lst-section__desc">
+          Set <code>divider: true</code> on an item to insert a separator after it.
+          Set <code>disabled: true</code> to make an item non-interactive and visually dimmed.
+        </p>
+        <div style="max-width:340px">
+          <pui-lib-list [items]="actionItems" variant="bordered" [selectable]="true"></pui-lib-list>
+        </div>
+      </div>
+
     </div>
 
   </ng-container>
 
-  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
+  <!-- FRAMEWORK USAGE -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-list</code> accepts an <code>items</code> array via Angular property binding or a JSON string in HTML. Pass the array via a <code>ref</code> in React.</p>
+    <p class="fw-lead"><code>pui-lib-list</code> accepts an <code>items</code> array via Angular property binding or a
+      JSON string in HTML. Pass the array via a <code>ref</code> in React.</p>
 
-    <docs-framework-preview
-      [angularCode]="angularCode"
-      [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
+    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
       <div preview style="max-width:320px">
-        <pui-lib-list [items]="menuItems" variant="bordered" [selectable]="true" [selectedId]="selectedMenu"></pui-lib-list>
+        <pui-lib-list [items]="menuItems" variant="bordered" [selectable]="true"
+          [selectedId]="selectedMenu"></pui-lib-list>
       </div>
       <div react-preview class="react-sidebar-menu">
         <div class="react-sidebar-menu__title">Navigation</div>
-        <pui-lib-list [items]="menuItems" variant="bordered" [selectable]="true" [selectedId]="selectedMenu"></pui-lib-list>
+        <pui-lib-list [items]="menuItems" variant="bordered" [selectable]="true"
+          [selectedId]="selectedMenu"></pui-lib-list>
       </div>
     </docs-framework-preview>
 
     <h4 class="fw-ref-title">List Quick Reference</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
             <td><span class="tag-name">{{ r.name }}</span></td>
@@ -105,4 +178,3 @@
   </ng-container>
 
 </docs-page>
-  

@@ -1,4 +1,4 @@
-﻿
+
 <docs-page
   title="Select"
   description="A styled native dropdown with consistent cross-browser appearance. Supports validation states, disabled options, and custom placeholder. Works in Angular, React, and plain HTML."
@@ -7,40 +7,154 @@
 
   <ng-container demo>
 
-    <div class="demo-section">
-      <h3 class="demo-section__title">Basic</h3>
-      <div class="demo-row">
-        <pui-lib-select label="Country" [options]="countries" [(ngModel)]="vCountry"
-                    placeholder="Choose a country" style="flex:1"/>
-        <pui-lib-select label="Role"    [options]="roles"     [(ngModel)]="vRole" style="flex:1"/>
-      </div>
-      <p class="demo-desc">Country: <strong>{{ vCountry || 'â€”' }}</strong> Â· Role: <strong>{{ vRole || 'â€”' }}</strong></p>
-    </div>
+    <div class="sel-demo-sections">
 
-    <div class="demo-section">
-      <h3 class="demo-section__title">Sizes</h3>
-      <div class="demo-col">
-        <pui-lib-select label="Small"  size="sm" [options]="roles" placeholder="Select roleâ€¦"/>
-        <pui-lib-select label="Medium" size="md" [options]="roles" placeholder="Select roleâ€¦"/>
-        <pui-lib-select label="Large"  size="lg" [options]="roles" placeholder="Select roleâ€¦"/>
+      <!-- 1. Basic usage with icons -->
+      <div class="sel-section">
+        <h3 class="sel-section__heading">Basic Usage</h3>
+        <p class="sel-section__desc">
+          Pass an <code>options</code> array with an optional <code>icon</code> field (emoji, flag, or SVG).
+          The icon appears in the trigger and in each dropdown row.
+        </p>
+        <div class="sel-grid">
+          <div class="sel-grid__item">
+            <pui-lib-select
+              label="Country"
+              [options]="countries"
+              [(ngModel)]="vCountry"
+              placeholder="Choose a country">
+            </pui-lib-select>
+          </div>
+          <div class="sel-grid__item">
+            <pui-lib-select
+              label="Role"
+              [options]="roles"
+              [(ngModel)]="vRole"
+              placeholder="Select a role">
+            </pui-lib-select>
+          </div>
+        </div>
+        <div class="sel-result">
+          Country: <strong>{{ vCountry || '—' }}</strong>
+          &nbsp;&nbsp;·&nbsp;&nbsp;
+          Role: <strong>{{ vRole || '—' }}</strong>
+        </div>
       </div>
-    </div>
 
-    <div class="demo-section">
-      <h3 class="demo-section__title">Validation States</h3>
-      <div class="demo-row">
-        <pui-lib-select label="Error"    [options]="roles" error="Please select a role" style="flex:1"/>
-        <pui-lib-select label="Hint"     [options]="roles" hint="Select your job function" style="flex:1"/>
+      <!-- 1b. Searchable -->
+      <div class="sel-section">
+        <h3 class="sel-section__heading">Searchable Dropdown</h3>
+        <p class="sel-section__desc">
+          Add <code>[searchable]="true"</code> to show a filter input at the top of the popup.
+          Useful for long option lists. Customize the input placeholder with <code>searchPlaceholder</code>.
+        </p>
+        <div class="sel-grid">
+          <div class="sel-grid__item">
+            <pui-lib-select
+              label="Country"
+              [options]="countries"
+              [searchable]="true"
+              searchPlaceholder="Search countries…"
+              placeholder="Choose a country"
+              [(ngModel)]="vCountry">
+            </pui-lib-select>
+          </div>
+          <div class="sel-grid__item">
+            <pui-lib-select
+              label="Role (no icon)"
+              [options]="roles"
+              [searchable]="true"
+              searchPlaceholder="Search roles…"
+              placeholder="Select a role">
+            </pui-lib-select>
+          </div>
+        </div>
       </div>
-      <div class="demo-row" style="margin-top:12px">
-        <pui-lib-select label="Required" [options]="roles" [required]="requiredFlag" placeholder="Required" style="flex:1"/>
-        <pui-lib-select label="Disabled" [options]="roles" [disabled]="disabledFlag" style="flex:1"/>
-      </div>
-    </div>
 
-    <div class="demo-section">
-      <h3 class="demo-section__title">With Disabled Options</h3>
-      <pui-lib-select label="Tier" [options]="tiersWithDisabled" [(ngModel)]="vTier" style="width:100%"/>
+      <!-- 2. Sizes -->
+      <div class="sel-section">
+        <h3 class="sel-section__heading">Sizes</h3>
+        <p class="sel-section__desc">
+          Three size variants — <code>sm</code>, <code>md</code> (default), and <code>lg</code> —
+          to match your form density needs.
+        </p>
+        <div class="sel-size-row">
+          <div class="sel-size-col">
+            <span class="sel-label">Small <span class="sel-size-badge">sm</span></span>
+            <pui-lib-select size="sm" [options]="roles" placeholder="Select role…"></pui-lib-select>
+          </div>
+          <div class="sel-size-col">
+            <span class="sel-label">Medium <span class="sel-size-badge">md</span></span>
+            <pui-lib-select size="md" [options]="roles" placeholder="Select role…"></pui-lib-select>
+          </div>
+          <div class="sel-size-col">
+            <span class="sel-label">Large <span class="sel-size-badge">lg</span></span>
+            <pui-lib-select size="lg" [options]="roles" placeholder="Select role…"></pui-lib-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Validation states -->
+      <div class="sel-section">
+        <h3 class="sel-section__heading">Validation States</h3>
+        <p class="sel-section__desc">
+          Pass <code>error</code> for a red error message, <code>hint</code> for helper text,
+          <code>[required]="true"</code> for an asterisk indicator, and <code>[disabled]="true"</code>
+          to make the field non-interactive.
+        </p>
+        <div class="sel-grid">
+          <div class="sel-grid__item">
+            <pui-lib-select
+              label="Error state"
+              [options]="roles"
+              error="Please select a role">
+            </pui-lib-select>
+          </div>
+          <div class="sel-grid__item">
+            <pui-lib-select
+              label="Hint text"
+              [options]="roles"
+              hint="Select your job function">
+            </pui-lib-select>
+          </div>
+          <div class="sel-grid__item">
+            <pui-lib-select
+              label="Required"
+              [options]="roles"
+              [required]="requiredFlag"
+              placeholder="Required field">
+            </pui-lib-select>
+          </div>
+          <div class="sel-grid__item">
+            <pui-lib-select
+              label="Disabled"
+              [options]="roles"
+              [disabled]="disabledFlag">
+            </pui-lib-select>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Disabled options -->
+      <div class="sel-section">
+        <h3 class="sel-section__heading">Disabled Options</h3>
+        <p class="sel-section__desc">
+          Set <code>disabled: true</code> on individual items in the <code>options</code> array
+          to make them non-selectable and visually dimmed.
+        </p>
+        <div style="max-width: 320px">
+          <pui-lib-select
+            label="Subscription Tier"
+            [options]="tiersWithDisabled"
+            [(ngModel)]="vTier"
+            placeholder="Select a plan">
+          </pui-lib-select>
+        </div>
+        <div class="sel-result" style="max-width:320px;margin-top:14px">
+          Selected plan: <strong>{{ vTier || '—' }}</strong>
+        </div>
+      </div>
+
     </div>
 
   </ng-container>
@@ -48,29 +162,39 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-select</code> is a Web Component. Pass options via Angular's <code>[options]</code> binding, or as a JS array property from React and HTML. All string props work as attributes.</p>
+    <p class="fw-lead">
+      <code>pui-lib-select</code> is a Web Component. Pass options via Angular's <code>[options]</code>
+      binding, or as a JS array property from React and HTML. All string props work as attributes.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
       [htmlCode]="htmlCode">
-      <div preview class="demo-col">
-        <pui-lib-select label="Country" [options]="countries" placeholder="Choose a country" [(ngModel)]="vCountry"/>
-        <pui-lib-select label="Role" [options]="roles" placeholder="Select role" [(ngModel)]="vRole"/>
-        <pui-lib-select label="Disabled" [options]="roles" [disabled]="disabledFlag" placeholder="Locked"/>
+      <div preview style="display:flex;flex-direction:column;gap:14px;max-width:340px">
+        <pui-lib-select label="Country" [options]="countries" placeholder="Choose a country" [(ngModel)]="vCountry"></pui-lib-select>
+        <pui-lib-select label="Role" [options]="roles" placeholder="Select role" [(ngModel)]="vRole"></pui-lib-select>
+        <pui-lib-select label="Disabled" [options]="roles" [disabled]="disabledFlag" placeholder="Locked"></pui-lib-select>
       </div>
       <div react-preview class="react-profile-form">
         <h4 class="react-form-title">User Profile</h4>
-        <pui-lib-select label="Country" [options]="countries" placeholder="Select your country"/>
-        <pui-lib-select label="Role" [options]="roles" placeholder="What is your role?"/>
-        <pui-lib-select label="Tier" [options]="tiersWithDisabled" placeholder="Select plan"/>
+        <pui-lib-select label="Country" [options]="countries" placeholder="Select your country"></pui-lib-select>
+        <pui-lib-select label="Role" [options]="roles" placeholder="What is your role?"></pui-lib-select>
+        <pui-lib-select label="Tier" [options]="tiersWithDisabled" placeholder="Select plan"></pui-lib-select>
       </div>
     </docs-framework-preview>
 
     <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Input / Event</th>
+            <th>Angular</th>
+            <th>React / HTML attribute</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ r.name }}</code></td>
@@ -85,4 +209,3 @@
   </ng-container>
 
 </docs-page>
-  

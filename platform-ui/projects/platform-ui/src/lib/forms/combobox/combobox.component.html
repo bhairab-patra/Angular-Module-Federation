@@ -10,7 +10,7 @@
       #cbInput
       class="pui-cb-input"
       type="text"
-      [value]="displayValue"
+      [value]="inputDisplay"
       [disabled]="_disabled || null"
       [placeholder]="_placeholder"
       [readonly]="!_searchable || null"
@@ -52,7 +52,7 @@
     <ng-container *ngIf="_allowFreeText && query && filteredOptions.length === 0">
       <button class="pui-cb-option pui-cb-option--freetext"
               role="option"
-              (click)="selectFreeText()">
+              (mousedown)="$event.preventDefault(); selectFreeText()">
         <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
           <path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5"
                 stroke-linecap="round"/>
@@ -79,7 +79,7 @@
               [disabled]="opt.disabled || null"
               [attr.aria-selected]="opt.value === _value"
               (mouseenter)="focusedIndex = globalIndex(group.name, i)"
-              (click)="selectOption(opt)">
+              (mousedown)="$event.preventDefault(); selectOption(opt)">
 
         <span class="pui-cb-option-body">
           <span class="pui-cb-option-label">{{ opt.label }}</span>
