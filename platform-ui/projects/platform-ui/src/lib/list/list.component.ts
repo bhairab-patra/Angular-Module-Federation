@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, HostBinding } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface ListItem {
@@ -15,6 +15,7 @@ export interface ListItem {
 export type ListVariant = 'default' | 'bordered' | 'striped' | 'flush';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-list',
   standalone: true,
   imports: [NgFor, NgIf],

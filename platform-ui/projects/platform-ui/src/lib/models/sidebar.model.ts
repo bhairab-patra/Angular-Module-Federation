@@ -28,6 +28,7 @@ export interface SidebarTheme {
   borderColor?:   string;   // divider / border color      default: rgba(255,255,255,.08)
   groupTextColor?: string;  // group label text            default: #475569
   subitemBg?:     string;   // submenu indent background   default: rgba(0,0,0,.15)
+  avatarBg?:      string;   // user avatar background      default: #12C6A8
 }
 
 export interface SidebarConfig {
@@ -60,6 +61,13 @@ export const SIDEBAR_THEMES: Record<string, SidebarTheme> = {
     hoverBg: '#f9fafb', hoverText: '#111827',
     borderColor: '#e5e7eb', groupTextColor: '#9ca3af',
     subitemBg: '#f3f4f6',
+  },
+  solifi: {
+    bg: '#112C35', textColor: '#8fa3bc', activeText: '#ffffff',
+    activeBg: 'rgba(255,255,255,.08)', activeBorder: '#12C6A8',
+    hoverBg: 'rgba(255,255,255,.06)', hoverText: '#e2e8f0',
+    borderColor: 'rgba(255,255,255,.07)', groupTextColor: '#4a6080',
+    subitemBg: 'rgba(0,0,0,.12)', avatarBg: '#12C6A8',
   },
   brand: {
     bg: '#0d9d8a', textColor: 'rgba(255,255,255,.75)', activeText: '#fff',

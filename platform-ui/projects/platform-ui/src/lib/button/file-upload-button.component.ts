@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-file-button',
   standalone: true,
   imports: [CommonModule],

@@ -1,9 +1,10 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 
 export type TagVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'purple' | 'pink';
 export type TagSize    = 'sm' | 'md';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-tag',
   standalone: true,
   encapsulation: ViewEncapsulation.Emulated,

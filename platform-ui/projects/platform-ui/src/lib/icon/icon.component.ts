@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ICON_REGISTRY } from './icon-registry';
@@ -14,6 +14,7 @@ const SIZE_MAP: Record<IconSize, number> = {
 };
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-icon',
   standalone: true,
   imports: [CommonModule],

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
 import {
   PuiSidebarComponent, SidebarGroup,
@@ -47,11 +47,12 @@ const NAV_GROUPS: SidebarGroup[] = [
   selector: 'docs-sidebar-page',
   standalone: true,
   imports: [NgFor, PuiSidebarComponent, DocPageComponent, FrameworkPreviewComponent],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './sidebar-page.component.html',
   styleUrls: ['./sidebar-page.component.scss'],
 })
 export class SidebarPageComponent {
+  private cdr = inject(ChangeDetectorRef);
   copied = '';
 
   activeId  = 'dashboard';
@@ -82,10 +83,11 @@ export class SidebarPageComponent {
   [groups]="navGroups"
   [activeId]="activeId"
   [collapsed]="collapsed"
-  bgColor="#0f172a"
-  textColor="#94a3b8"
-  activeColor="#12C6A8"
-  [config]="{ collapsible: true, showSearch: true, width: 256 }"
+  [theme]="activeTheme"
+  [showUser]="true"
+  userName="Rosanne Doyle"
+  userEmail="rdoyle@solifi.com"
+  [config]="{ collapsible: true, showSearch: false, width: 256 }"
   (collapsedChange)="collapsed = $event"
   (itemSelect)="onNav($event)">
 </pui-lib-sidebar>`;
@@ -223,14 +225,21 @@ export function AppSidebar({ children }) {
     { input: 'logo',           type: 'string (SVG/HTML)',       default: 'default',   description: 'Logo HTML shown left of brandName. Defaults to PUI logo.' },
     { input: 'collapsed',      type: 'boolean|string',         default: 'false',      description: 'Collapse sidebar to icon-only rail.' },
     { input: 'showSidebar',    type: 'boolean|string',         default: 'true',       description: 'Hide the sidebar entirely (e.g. on mobile).' },
-    { input: 'bgColor',        type: 'string',                 default: '#0f172a',    description: 'Sidebar background color. Quick override — no theme object needed.' },
+    { input: 'bgColor',        type: 'string',                 default: '#112C35',    description: 'Sidebar background color. Quick override — no theme object needed.' },
     { input: 'textColor',      type: 'string',                 default: '#94a3b8',    description: 'Nav item text color.' },
     { input: 'activeColor',    type: 'string',                 default: '#12C6A8',    description: 'Active item accent color used for text, border, and tinted background.' },
     { input: 'hoverColor',     type: 'string',                 default: 'auto',       description: 'Hover background color override.' },
     { input: 'borderColor',    type: 'string',                 default: 'auto',       description: 'Right border and divider color override.' },
     { input: 'width',          type: 'number',                 default: '0',          description: 'Sidebar width in px. Overrides config.width when non-zero.' },
     { input: 'config',         type: 'SidebarConfig|string',   default: '{}',         description: '{ width, collapsedWidth, showSearch, collapsible, maxLabelLen }' },
-    { input: 'theme',          type: 'SidebarTheme|string',    default: 'dark',       description: 'Full color token object. Takes precedence over individual color inputs. Use SIDEBAR_THEMES presets.' },
+    { input: 'theme',          type: 'SidebarTheme|string',    default: 'dark',       description: 'Full color token object. Takes precedence over individual color inputs. Use SIDEBAR_THEMES presets (dark, slate, light, brand, solifi).' },
+    { input: 'showIcons',      type: 'boolean|string',         default: 'false',      description: 'Show per-item icons. Off by default for text-only (Solifi) design.' },
+    { input: 'showUser',       type: 'boolean|string',         default: 'false',      description: 'Show user profile section at the bottom (logged-in state).' },
+    { input: 'userName',       type: 'string',                 default: "''",         description: 'Full name displayed in the user profile section.' },
+    { input: 'userEmail',      type: 'string',                 default: "''",         description: 'Email displayed below the user name.' },
+    { input: 'userInitials',   type: 'string',                 default: "''",         description: 'Avatar initials (1–2 chars). Auto-derived from userName if omitted.' },
+    { input: 'userAvatarUrl',  type: 'string',                 default: "''",         description: 'Photo URL for the avatar. Falls back to initials bubble when empty.' },
+    { input: 'userAvatarBg',   type: 'string',                 default: '#12C6A8',    description: 'Background colour of the initials avatar bubble.' },
     { input: 'collapsedChange',type: 'EventEmitter<boolean>',  default: '—',          description: 'Fires when sidebar collapse state changes.' },
     { input: 'itemSelect',     type: 'EventEmitter<SidebarNavItem>', default: '—',    description: 'Fires when a nav item (non-parent) is clicked.' },
   ];

@@ -1,11 +1,12 @@
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ViewEncapsulation } from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormSize } from '../../models/form.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-textarea',
   standalone: true,
   imports: [NgIf],

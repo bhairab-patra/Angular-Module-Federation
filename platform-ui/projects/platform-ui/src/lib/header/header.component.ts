@@ -1,11 +1,11 @@
 import {
   Component, Input, Output, EventEmitter,
-  HostListener, ElementRef, ViewEncapsulation, inject, ViewChild
-} from '@angular/core';
+  HostListener, ElementRef, ViewEncapsulation, inject, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-header',
   standalone: true,
   imports: [NgFor, NgIf],

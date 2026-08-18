@@ -1,13 +1,11 @@
 import {
-  Component, Input, Output, EventEmitter,
-  SimpleChanges,
-  inject, ViewEncapsulation
-} from '@angular/core';
+  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { ButtonVariant } from '../models/button.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-confirm-dialog',
   standalone: true,
   imports: [NgIf, ButtonComponent],

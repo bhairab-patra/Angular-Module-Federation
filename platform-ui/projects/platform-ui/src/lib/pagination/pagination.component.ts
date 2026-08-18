@@ -1,11 +1,11 @@
 import {
   Component, Input, Output, EventEmitter,
-  OnChanges, ViewEncapsulation,
-} from '@angular/core';
+  OnChanges, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-pagination',
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],

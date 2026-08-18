@@ -1,8 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, ElementRef, AfterViewInit,
-  SimpleChanges,
-  inject, ViewEncapsulation
-} from '@angular/core';
+  inject, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TableColumn, SortState } from '../models/table.model';
@@ -11,6 +9,7 @@ import { TableColumn, SortState } from '../models/table.model';
 export { TableColumn, SortDir, SortState } from '../models/table.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-table',
   standalone: true,
   imports: [NgFor, NgIf, DecimalPipe, DatePipe],

@@ -1,7 +1,7 @@
 import {
   Component, Input, Output, EventEmitter,
   inject,
-  HostListener, ElementRef, ViewEncapsulation } from '@angular/core';
+  HostListener, ElementRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface MultiSelectOption {
@@ -12,6 +12,7 @@ export interface MultiSelectOption {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-multiselect',
   standalone: true,
   imports: [NgFor, NgIf],

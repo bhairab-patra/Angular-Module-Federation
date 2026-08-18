@@ -1,9 +1,10 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf, NgStyle } from '@angular/common';
 
 export type SkeletonVariant = 'text' | 'circle' | 'rect' | 'card';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-skeleton',
   standalone: true,
   imports: [NgFor, NgIf, NgStyle],

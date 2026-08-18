@@ -1,13 +1,13 @@
 import {
-  Component, Input, Output, EventEmitter,
-  inject
+  Component, Input, Output, EventEmitter
 
- , ViewEncapsulation } from '@angular/core';
+ , ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 
 export type PasswordStrength = 'weak' | 'fair' | 'strong' | 'very-strong';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-password-input',
   standalone: true,
   imports: [NgIf],

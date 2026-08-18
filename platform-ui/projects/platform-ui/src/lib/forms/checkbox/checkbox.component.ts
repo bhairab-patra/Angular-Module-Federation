@@ -1,10 +1,11 @@
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ViewEncapsulation } from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-checkbox',
   standalone: true,
   imports: [NgIf],

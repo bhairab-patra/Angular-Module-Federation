@@ -1,10 +1,10 @@
 import {
-  Component, Input, Output, EventEmitter, HostListener, HostBinding,
-  inject, ViewEncapsulation } from '@angular/core';
+  Component, Input, Output, EventEmitter, HostListener, HostBinding, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-menu',
   standalone: true,
   imports: [NgFor, NgIf],

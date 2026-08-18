@@ -1,11 +1,12 @@
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
+  ViewChild, ElementRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormSize, InputType } from '../../models/form.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-input',
   standalone: true,
   imports: [NgIf],

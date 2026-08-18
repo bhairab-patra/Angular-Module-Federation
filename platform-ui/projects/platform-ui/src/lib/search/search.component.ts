@@ -1,12 +1,13 @@
 import {
   Component, Input, Output, EventEmitter, OnInit, OnDestroy,
-  HostListener, ElementRef, ViewChild, ViewEncapsulation, inject } from '@angular/core';
+  HostListener, ElementRef, ViewChild, ViewEncapsulation, inject, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchSuggestion, SearchSize } from '../models/search.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-search',
   standalone: true,
   imports: [NgIf, NgFor],
@@ -214,8 +215,8 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
                || (!this.value && this.recentItems.length > 0);
   }
 
-  private closeDropdown(): void {
-  }
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  private closeDropdown(): void {}
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {

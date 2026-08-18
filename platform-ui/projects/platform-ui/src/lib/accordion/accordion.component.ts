@@ -1,12 +1,12 @@
 import {
   Component, Input, Output, EventEmitter,
-  ViewEncapsulation,
-} from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { AccordionItem, AccordionVariant } from '../models/accordion.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-accordion',
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],

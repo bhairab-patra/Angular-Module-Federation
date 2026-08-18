@@ -1,7 +1,6 @@
 import {
   Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
-  ViewEncapsulation
-} from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf, NgClass, NgStyle } from '@angular/common';
 import { PuiSearchComponent } from '../search/search.component';
 import { SidebarGroup, SidebarNavItem, SidebarConfig, SidebarTheme } from '../models/sidebar.model';
@@ -9,6 +8,7 @@ import { SidebarGroup, SidebarNavItem, SidebarConfig, SidebarTheme } from '../mo
 const DEFAULT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/></svg>`;
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-sidebar',
   standalone: true,
   imports: [NgFor, NgIf, NgClass, NgStyle, PuiSearchComponent],
@@ -51,6 +51,26 @@ export class PuiSidebarComponent implements OnChanges {
   get theme(): SidebarTheme { return this._theme; }
   private _theme: SidebarTheme = {};
 
+  // ── User profile (logged-in state) ────────────────────────
+  @Input() userName      = '';   // e.g. "Rosanne Doyle"
+  @Input() userEmail     = '';   // e.g. "rdoyle@solifi.com"
+  @Input() userInitials  = '';   // e.g. "R" or "RD" — auto-derived from userName if omitted
+  @Input() userAvatarUrl = '';   // optional photo; falls back to initials bubble
+  @Input() userAvatarBg  = '';   // avatar background colour (CSS value)
+
+  @Input() set showUser(v: boolean | string) {
+    this._showUser = v === true || v === 'true' || (v as any) === '';
+  }
+  get showUser() { return this._showUser; }
+  private _showUser = false;
+
+  // ── Icons ─────────────────────────────────────────────────
+  @Input() set showIcons(v: boolean | string) {
+    this._showIcons = v === true || v === 'true' || (v as any) === '';
+  }
+  get showIcons() { return this._showIcons; }
+  private _showIcons = false;   // Solifi design: text-only by default
+
   // ── State ─────────────────────────────────────────────────
   @Input() set collapsed(v: boolean | string) {
     this._collapsed = v === true || v === 'true' || (v as any) === '';
@@ -90,21 +110,27 @@ export class PuiSidebarComponent implements OnChanges {
     };
   }
 
+  get avatarInitials(): string {
+    if (this.userInitials) return this.userInitials;
+    return this.userName.split(' ').map(p => p[0] ?? '').join('').toUpperCase().slice(0, 2);
+  }
+
   get cssVars(): Record<string, string> {
     const t = this.theme;
     return {
-      '--pui-sb-bg':         t.bg           || this.bgColor     || '#0f172a',
-      '--pui-sb-text':       t.textColor    || this.textColor   || '#94a3b8',
-      '--pui-sb-active-txt': t.activeText   || this.activeColor || '#ffffff',
-      '--pui-sb-active-bg':  t.activeBg     || (this.activeColor ? this.activeColor + '22' : 'rgba(255,255,255,.08)'),
-      '--pui-sb-active-brd': t.activeBorder || this.activeColor || '#12C6A8',
-      '--pui-sb-hover-bg':   t.hoverBg      || this.hoverColor  || 'rgba(255,255,255,.05)',
-      '--pui-sb-hover-txt':  t.hoverText    || '#e2e8f0',
-      '--pui-sb-border':     t.borderColor  || this.borderColor || 'rgba(255,255,255,.08)',
-      '--pui-sb-group-txt':  t.groupTextColor                   || '#475569',
-      '--pui-sb-sub-bg':     t.subitemBg                        || 'rgba(0,0,0,.15)',
-      '--pui-sb-w':          `${this.cfg.width}px`,
-      '--pui-sb-cw':         `${this.cfg.collapsedWidth}px`,
+      '--pui-sb-bg':          t.bg           || this.bgColor     || '#112C35',
+      '--pui-sb-text':        t.textColor    || this.textColor   || '#94a3b8',
+      '--pui-sb-active-txt':  t.activeText   || this.activeColor || '#ffffff',
+      '--pui-sb-active-bg':   t.activeBg     || (this.activeColor ? this.activeColor + '22' : 'rgba(255,255,255,.08)'),
+      '--pui-sb-active-brd':  t.activeBorder || this.activeColor || '#12C6A8',
+      '--pui-sb-hover-bg':    t.hoverBg      || this.hoverColor  || 'rgba(255,255,255,.06)',
+      '--pui-sb-hover-txt':   t.hoverText    || '#e2e8f0',
+      '--pui-sb-border':      t.borderColor  || this.borderColor || 'rgba(255,255,255,.08)',
+      '--pui-sb-group-txt':   t.groupTextColor                   || '#4a6080',
+      '--pui-sb-sub-bg':      t.subitemBg                        || 'rgba(0,0,0,.12)',
+      '--pui-sb-avatar-bg':   this.userAvatarBg || t.avatarBg     || '#12C6A8',
+      '--pui-sb-w':           `${this.cfg.width}px`,
+      '--pui-sb-cw':          `${this.cfg.collapsedWidth}px`,
     };
   }
 

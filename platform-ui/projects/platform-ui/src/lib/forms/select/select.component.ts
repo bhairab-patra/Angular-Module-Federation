@@ -1,12 +1,12 @@
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ViewEncapsulation, HostListener, ElementRef, inject,
-} from '@angular/core';
+  ViewEncapsulation, HostListener, ElementRef, inject, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormSize, SelectOption } from '../../models/form.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-select',
   standalone: true,
   imports: [NgIf, NgFor],
@@ -65,7 +65,9 @@ export class PuiSelectComponent implements ControlValueAccessor {
     return this.selectedOption?.label ?? '';
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private _onChangeFn: (v: unknown) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private _onTouchedFn: () => void          = () => {};
 
   writeValue(val: unknown): void { this.innerValue = val ?? ''; }

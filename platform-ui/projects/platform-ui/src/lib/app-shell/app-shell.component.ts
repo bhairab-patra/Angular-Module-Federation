@@ -1,7 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ViewEncapsulation, inject, OnInit
-} from '@angular/core';
+  ViewEncapsulation, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
 import { PuiSidebarComponent } from '../sidebar/sidebar.component';
@@ -9,6 +8,7 @@ import { UserMenuItem, HeaderBadge } from '../models/header.model';
 import { SidebarGroup, SidebarNavItem, SidebarConfig, SidebarTheme } from '../models/sidebar.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-app-shell',
   standalone: true,
   imports: [HeaderComponent, PuiSidebarComponent],

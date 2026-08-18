@@ -1,10 +1,11 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 
 export type ChipVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info';
 export type ChipSize    = 'sm' | 'md';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-chip',
   standalone: true,
   imports: [NgIf],

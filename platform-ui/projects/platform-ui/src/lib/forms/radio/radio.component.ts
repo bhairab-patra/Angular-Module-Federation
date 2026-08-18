@@ -1,11 +1,12 @@
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ViewEncapsulation } from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { RadioOption } from '../../models/form.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-radio-group',
   standalone: true,
   imports: [NgIf, NgFor],

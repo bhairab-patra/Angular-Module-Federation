@@ -1,5 +1,5 @@
 import {
-  Component, inject, ViewEncapsulation } from '@angular/core';
+  Component, inject, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { ToastService } from './toast.service';
 import { Toast, ToastPosition } from '../models/toast.model';
@@ -19,6 +19,7 @@ const TYPE_ICON: Record<string, string> = {
 };
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-toast-container',
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],

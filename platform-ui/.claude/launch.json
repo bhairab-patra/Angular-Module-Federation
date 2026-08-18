@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "pui-demo-2",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["start", "--prefix", "C:/JAVA_MS_2027/PLATFORM/UI-LIB-TEST/pui-angualr-demo-2/angular-paltfrom-ui"],
+      "port": 4200
+    },
+    {
       "name": "react-demo",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev", "--prefix", "demo/my-react-app"],

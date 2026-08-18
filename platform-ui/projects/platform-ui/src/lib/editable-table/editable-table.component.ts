@@ -1,7 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter,
-  SimpleChanges, inject, ViewEncapsulation
-} from '@angular/core';
+  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableColumn } from '../table/table.component';
@@ -10,6 +8,7 @@ export interface EditableRowSaveEvent { index: number; row: any; oldRow: any; }
 export interface EditableRowEvent { index: number; row: any; }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-editable-table',
   standalone: true,
   imports: [NgFor, NgIf, FormsModule],

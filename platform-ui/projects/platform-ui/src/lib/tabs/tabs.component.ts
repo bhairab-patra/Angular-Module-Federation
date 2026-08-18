@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  inject, ViewEncapsulation } from '@angular/core';
+  inject, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { IconComponent } from '../icon/icon.component';
@@ -19,6 +19,7 @@ export type TabsOrientation = 'horizontal' | 'vertical';
 export type TabsSize        = 'sm' | 'md' | 'lg';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-tabs',
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],

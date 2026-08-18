@@ -1,7 +1,7 @@
 import {
   Component, Input, Output, EventEmitter,
   inject, ViewChild, ElementRef,
-  HostListener, ViewEncapsulation } from '@angular/core';
+  HostListener, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface ComboboxOption {
@@ -13,6 +13,7 @@ export interface ComboboxOption {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-combobox',
   standalone: true,
   imports: [NgFor, NgIf],

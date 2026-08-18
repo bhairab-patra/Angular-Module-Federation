@@ -48,7 +48,7 @@
                   [title]="collapsed ? item.label : (needsEllipsis(item.label) ? item.label : '')"
                   (click)="clickItem(item)">
 
-            <span class="pui-sb__item-icon" [innerHTML]="item.icon || defaultIcon"></span>
+            <span *ngIf="showIcons" class="pui-sb__item-icon" [innerHTML]="item.icon || defaultIcon"></span>
 
             <span class="pui-sb__item-body" *ngIf="!collapsed">
               <span class="pui-sb__item-label"
@@ -102,8 +102,29 @@
     </div>
   </nav>
 
-  <!-- Footer slot -->
-  <div class="pui-sb__footer">
+  <!-- User Profile (logged-in state) -->
+  <div class="pui-sb__user" *ngIf="showUser && !collapsed">
+    <div class="pui-sb__user-avatar">
+      <img *ngIf="userAvatarUrl" [src]="userAvatarUrl" [alt]="userName" class="pui-sb__user-img" />
+      <span *ngIf="!userAvatarUrl" class="pui-sb__user-initials">{{ avatarInitials }}</span>
+    </div>
+    <div class="pui-sb__user-info">
+      <span class="pui-sb__user-name">{{ userName }}</span>
+      <span class="pui-sb__user-email">{{ userEmail }}</span>
+    </div>
+    <svg class="pui-sb__user-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+  </div>
+
+  <!-- Collapsed user avatar -->
+  <div class="pui-sb__user pui-sb__user--collapsed" *ngIf="showUser && collapsed" title="{{ userName }}">
+    <div class="pui-sb__user-avatar">
+      <img *ngIf="userAvatarUrl" [src]="userAvatarUrl" [alt]="userName" class="pui-sb__user-img" />
+      <span *ngIf="!userAvatarUrl" class="pui-sb__user-initials">{{ avatarInitials }}</span>
+    </div>
+  </div>
+
+  <!-- Footer slot (expand button + custom content) -->
+  <div class="pui-sb__footer" *ngIf="!showUser || cfg.collapsible">
     <button *ngIf="cfg.collapsible && collapsed"
             class="pui-sb__expand-btn"
             (click)="toggleCollapse()"

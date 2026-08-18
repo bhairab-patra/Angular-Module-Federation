@@ -1,8 +1,5 @@
 import {
-  Component, Input, Output, EventEmitter,
-  SimpleChanges,
-  inject, ViewEncapsulation
-} from '@angular/core';
+  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent }      from '../button/button.component';
@@ -25,6 +22,7 @@ export interface FormDialogField {
 export interface FormDialogSaveEvent { data: Record<string, any>; }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-form-dialog',
   standalone: true,
   imports: [

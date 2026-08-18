@@ -1,6 +1,6 @@
 {
   "name": "@bhairab-patra/platform-ui",
-  "version": "1.1.1",
+  "version": "1.1.3",
   "description": "Shared UI component library — Angular library + Web Components bundle",
   "keywords": ["angular", "web-components", "ui", "design-system", "platform-ui"],
   "license": "MIT",

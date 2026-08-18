@@ -1,10 +1,11 @@
 import {
   Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
-  ViewEncapsulation } from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-filter-panel',
   standalone: true,
   imports: [NgIf, NgFor],

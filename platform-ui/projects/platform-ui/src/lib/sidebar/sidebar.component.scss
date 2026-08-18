@@ -235,6 +235,50 @@
       font-size: var(--pui-text-base); text-align: center;
     }
 
+    /* â”€â”€ User profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    .pui-sb__user {
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: var(--pui-space-3);
+      padding: var(--pui-space-3) var(--pui-space-4);
+      border-top: 1px solid var(--pui-sb-border);
+      cursor: pointer;
+      transition: background .13s;
+    }
+    .pui-sb__user:hover { background: var(--pui-sb-hover-bg); }
+    .pui-sb__user--collapsed {
+      justify-content: center;
+      padding: var(--pui-space-3) 0;
+    }
+    .pui-sb__user-avatar {
+      flex-shrink: 0;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--pui-sb-avatar-bg);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .pui-sb__user-img { width: 100%; height: 100%; object-fit: cover; }
+    .pui-sb__user-initials {
+      font-size: var(--pui-text-sm); font-weight: 700;
+      color: #fff; line-height: 1;
+    }
+    .pui-sb__user-info {
+      flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px;
+    }
+    .pui-sb__user-name {
+      font-size: var(--pui-text-sm); font-weight: 600;
+      color: var(--pui-sb-active-txt);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .pui-sb__user-email {
+      font-size: var(--pui-text-xs); font-weight: 400;
+      color: var(--pui-sb-text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .pui-sb__user-arrow {
+      flex-shrink: 0;
+      color: var(--pui-sb-text); opacity: .6;
+    }
+
     /* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     .pui-sb__footer {
       flex-shrink: 0;

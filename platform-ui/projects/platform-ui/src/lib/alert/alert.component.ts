@@ -1,7 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  ViewEncapsulation,
-} from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { AlertType, AlertVariant, AlertAction } from '../models/alert.model';
@@ -14,6 +13,7 @@ const TYPE_ICONS: Record<AlertType, string> = {
 };
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-alert',
   standalone: true,
   imports: [NgIf, NgFor, IconComponent],
