@@ -1,0 +1,84 @@
+<docs-page
+  title="Solifi Sidebar"
+  description="A branded dark sidebar for Solifi applications. Expands to text nav with icons, collapses to a 64px icon rail. Flat navigation, fully customisable colours, works in Angular and React."
+  [code]="angularCode"
+  [api]="api">
+
+  <ng-container demo>
+
+    <!-- Controls -->
+    <div class="demo-controls">
+      <!-- Icon mode chips -->
+      <div class="ctrl-group">
+        <button class="ctrl-chip" [class.active]="iconMode==='with-icons'"  (click)="setMode('with-icons')">Icon + text</button>
+        <button class="ctrl-chip" [class.active]="iconMode==='no-icons'"   (click)="setMode('no-icons')">Text only</button>
+        <button class="ctrl-chip" [class.active]="iconMode==='icons-only'" (click)="setMode('icons-only')">Icons only</button>
+      </div>
+      <!-- Layout toggles -->
+      <div class="ctrl-group">
+        <button class="ctrl-btn" (click)="onCollapsed(!collapsed)">
+          {{ collapsed ? 'Expand' : 'Collapse' }} sidebar
+        </button>
+        <button class="ctrl-btn" (click)="toggleUser()">
+          {{ showUser ? 'Hide' : 'Show' }} user profile
+        </button>
+      </div>
+    </div>
+
+    <!-- Live demo shell -->
+    <div class="demo-shell">
+      <pui-lib-solifi-sidebar
+        [brandName]="brandName"
+        [logoUrl]="logoUrl"
+        [groups]="navGroups"
+        [activeId]="activeId"
+        [collapsed]="collapsed"
+        [theme]="theme"
+        [showUser]="showUser"
+        userName="Allen M. George"
+        userEmail="ageorge@meridian.com"
+        [userMenuItems]="userMenuItems"
+        [width]="240"
+        [collapsedWidth]="64"
+        (itemSelect)="onNav($event)"
+        (collapsedChange)="onCollapsed($event)"
+        (userMenuSelect)="onUserMenu($event)">
+      </pui-lib-solifi-sidebar>
+
+      <!-- Main content area -->
+      <div class="demo-content">
+        <div class="demo-topbar">
+          <span class="demo-page-title">{{ pageTitle }}</span>
+        </div>
+        <div class="demo-body">
+          <div class="demo-placeholder">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" style="opacity:.3;margin-bottom:8px"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+            <span>{{ pageTitle }}</span>
+            <span class="demo-action-tag" *ngIf="lastUserMenuAction">
+              User menu: {{ lastUserMenuAction }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Code: Angular template -->
+    <div class="demo-section">
+      <div class="demo-section__title">Angular template</div>
+      <pre class="code-block"><code>{{ angularTpl }}</code></pre>
+    </div>
+
+    <!-- Code: iconName vs icon vs text-only -->
+    <div class="demo-section">
+      <div class="demo-section__title">Nav item icon options</div>
+      <pre class="code-block"><code>{{ angularCode }}</code></pre>
+    </div>
+
+    <!-- Code: React / Web Component -->
+    <div class="demo-section">
+      <div class="demo-section__title">React / HTML (Web Component)</div>
+      <pre class="code-block"><code>{{ reactCode }}</code></pre>
+    </div>
+
+  </ng-container>
+</docs-page>

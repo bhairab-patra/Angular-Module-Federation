@@ -1,156 +1,81 @@
-
 <docs-page
   title="App Shell"
-  description="A complete application layout combining pui-lib-header and pui-lib-sidebar into one drop-in component. Add it once and get a header with logo, user menu, hamburger toggle, animated collapsible sidebar with icon tooltips, and a projected content area. Works in Angular, React, and plain HTML."
-  [hasFramework]="true"
+  description="Full application layout using PuiSolifiSidebarComponent — dark navy sidebar, flat navigation, user profile popup menu, icon or text-only mode, collapse to 64px rail. No header required."
+  [code]="angularCode"
   [api]="api">
 
-  <!-- Demo -->
   <ng-container demo>
 
-    <div class="controls">
-      <button class="ctrl-btn" [class.ctrl-btn--active]="!sidebarVisible"
-              (click)="sidebarVisible = !sidebarVisible">
-        {{ sidebarVisible ? 'Hide Sidebar' : 'Show Sidebar' }}
-      </button>
-      <button class="ctrl-btn" [class.ctrl-btn--active]="sidebarCollapsed"
-              (click)="sidebarCollapsed = !sidebarCollapsed">
-        {{ sidebarCollapsed ? 'Expand Rail' : 'Collapse Rail' }}
-      </button>
-      <button class="ctrl-btn" (click)="cycleTheme()">
-        Theme: {{ activeThemeName }}
-      </button>
-      <span class="ctrl-divider"></span>
-      <span class="ctrl-label">{{ lastAction || 'Click a nav item or menu action' }}</span>
+    <!-- Controls -->
+    <div class="demo-controls">
+      <div class="ctrl-group">
+        <button class="ctrl-chip" [class.active]="iconMode==='with-icons'" (click)="setMode('with-icons')">Icon + text</button>
+        <button class="ctrl-chip" [class.active]="iconMode==='no-icons'"   (click)="setMode('no-icons')">Text only</button>
+      </div>
+      <div class="ctrl-group">
+        <button class="ctrl-btn" (click)="onCollapsed(!collapsed)">
+          {{ collapsed ? 'Expand' : 'Collapse' }} sidebar
+        </button>
+      </div>
+      <span class="ctrl-tag" *ngIf="lastUserAction">User menu → {{ lastUserAction }}</span>
     </div>
 
+    <!-- Shell frame: sidebar + content side by side, no header -->
     <div class="shell-frame">
-      <pui-lib-app-shell
-        appTitle="Experience Hub"
-        appSubtitle="Management Console"
-        headerBgColor="#12C6A8"
-        headerUserName="Bhairab Patra"
-        headerUserEmail="bhairab@example.com"
-        headerGreeting="Hi"
-        [headerBadge]="demoHeaderBadge"
-        [headerMenuItems]="demoMenuItems"
-        [groups]="navGroups"
-        [activeId]="activeId"
-        [sidebarVisible]="sidebarVisible"
-        [sidebarCollapsed]="sidebarCollapsed"
-        [theme]="activeTheme"
-        (sidebarVisibleChange)="sidebarVisible = $event"
-        (sidebarCollapsedChange)="sidebarCollapsed = $event"
-        (itemSelect)="onItemSelect($event)"
-        (headerMenuAction)="lastAction = 'Menu → ' + $event">
 
-        <div class="demo-content">
-          <div class="demo-content__header">
-            <h3>{{ activeId | titlecase }}</h3>
-            <p>Select a nav item to see it highlighted. Collapse the rail to see icon-only mode with tooltips.</p>
-          </div>
-          <div class="demo-cards">
-            <div class="demo-card demo-card--blue">
-              <span class="demo-card__val">1,284</span>
-              <span class="demo-card__lbl">Users</span>
+      <pui-lib-solifi-sidebar
+        brandName="solifi"
+        logoUrl="assets/logo.png"
+        [groups]="displayGroups"
+        [activeId]="activeId"
+        [collapsed]="collapsed"
+        [theme]="theme"
+        [showUser]="true"
+        userName="Rosanna Doyle"
+        userEmail="rdoyle@solifi.com"
+        [userMenuItems]="userMenuItems"
+        [width]="210"
+        [collapsedWidth]="56"
+        (itemSelect)="onNav($event)"
+        (collapsedChange)="onCollapsed($event)"
+        (userMenuSelect)="onUserMenu($event)">
+      </pui-lib-solifi-sidebar>
+
+      <!-- Main content area -->
+      <div class="shell-main">
+
+        <!-- Page title bar -->
+        <div class="shell-titlebar">
+          <span class="shell-titlebar__accent"></span>
+          <span class="shell-titlebar__title">{{ activeLabel }}</span>
+        </div>
+
+        <!-- Welcome card -->
+        <div class="shell-body">
+          <div class="welcome-card">
+            <div class="welcome-card__text">
+              <h2 class="welcome-card__heading">Welcome to<br>the borrower portal!</h2>
+              <p class="welcome-card__sub">
+                Your Account Manager is:
+                <a class="welcome-card__link" href="#">Alan Jasenovic</a>
+              </p>
+              <p class="welcome-card__meta">You last logged in on Monday, 11 December 2025 12:41</p>
             </div>
-            <div class="demo-card demo-card--green">
-              <span class="demo-card__val">$48.2k</span>
-              <span class="demo-card__lbl">Revenue</span>
-            </div>
-            <div class="demo-card demo-card--amber">
-              <span class="demo-card__val">97.4%</span>
-              <span class="demo-card__lbl">Uptime</span>
-            </div>
-            <div class="demo-card demo-card--purple">
-              <span class="demo-card__val">342</span>
-              <span class="demo-card__lbl">Tickets</span>
-            </div>
+            <div class="welcome-card__img-area" aria-hidden="true"></div>
           </div>
         </div>
 
-      </pui-lib-app-shell>
+        <!-- Footer -->
+        <div class="shell-footer">Copyright &copy; 2026 Solifi. All Rights Reserved.</div>
+      </div>
+
     </div>
 
-  </ng-container>
-
-  <!-- Framework Usage -->
-  <ng-container framework>
-
-    <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead">
-      Drop <code>pui-lib-app-shell</code> as your root layout. Pass simple string attributes for
-      quick setup — arrays and objects (<code>groups</code>, <code>headerMenuItems</code>) must be
-      set via JS property or Angular binding.
-    </p>
-
-    <docs-framework-preview
-      [angularCode]="angularCode"
-      [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
-
-      <!-- Angular preview: dark sidebar, teal header, bound groups + active state -->
-      <div preview style="height:420px;border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.15)">
-        <pui-lib-app-shell
-          appTitle="Admin Portal"
-          appSubtitle="Management Console"
-          headerBgColor="#12C6A8"
-          headerUserName="Jane Doe"
-          headerUserEmail="jane@example.com"
-          headerGreeting="Hi"
-          sidebarBgColor="#0f172a"
-          sidebarTextColor="#94a3b8"
-          sidebarActiveColor="#12C6A8"
-          [groups]="navGroups"
-          [activeId]="activeId"
-          (itemSelect)="onItemSelect($event)">
-          <div style="padding:28px">
-            <div style="font-size:18px;font-weight:700;color:#1e293b;margin-bottom:6px;">{{ activeId | titlecase }}</div>
-            <div style="font-size:13px;color:#64748b;margin-bottom:20px;">Angular — two-way binding via <code>[groups]</code> and <code>(itemSelect)</code></div>
-            <div style="height:10px;background:#e2e8f0;border-radius:6px;margin-bottom:10px;"></div>
-            <div style="height:10px;background:#e2e8f0;border-radius:6px;width:70%;margin-bottom:10px;"></div>
-            <div style="height:10px;background:#e2e8f0;border-radius:6px;width:50%;"></div>
-          </div>
-        </pui-lib-app-shell>
-      </div>
-
-      <!-- React preview: slate header, indigo sidebar, JS-property groups -->
-      <div react-preview style="height:420px;border-radius:10px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.15)">
-        <pui-lib-app-shell
-          appTitle="React Dashboard"
-          appSubtitle="Web App"
-          headerBgColor="#1e293b"
-          headerUserName="Bob Smith"
-          headerUserEmail="bob@example.com"
-          headerGreeting="Hello"
-          sidebarBgColor="#1e1b4b"
-          sidebarTextColor="#a5b4fc"
-          sidebarActiveColor="#818cf8"
-          [groups]="navGroups"
-          [activeId]="'users'"
-          (itemSelect)="onItemSelect($event)">
-          <div style="padding:28px">
-            <div style="font-size:18px;font-weight:700;color:#1e293b;margin-bottom:6px;">Users</div>
-            <div style="font-size:13px;color:#64748b;margin-bottom:20px;">React — groups set via <code>el.groups = NAV_GROUPS</code> in <code>useEffect</code></div>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:8px">
-              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px">
-                <div style="font-size:22px;font-weight:700;color:#4f46e5">1 284</div>
-                <div style="font-size:12px;color:#64748b;margin-top:4px">Total Users</div>
-              </div>
-              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px">
-                <div style="font-size:22px;font-weight:700;color:#0891b2">47</div>
-                <div style="font-size:12px;color:#64748b;margin-top:4px">New This Week</div>
-              </div>
-              <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:16px">
-                <div style="font-size:22px;font-weight:700;color:#059669">12</div>
-                <div style="font-size:12px;color:#64748b;margin-top:4px">Pending Invites</div>
-              </div>
-            </div>
-          </div>
-        </pui-lib-app-shell>
-      </div>
-
-    </docs-framework-preview>
+    <!-- Code snippet -->
+    <div class="demo-section">
+      <div class="demo-section__title">Angular usage</div>
+      <pre class="code-block"><code>{{ angularCode }}</code></pre>
+    </div>
 
   </ng-container>
 

@@ -1,260 +1,141 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { TitleCasePipe } from '@angular/common';
-import { PuiAppShellComponent } from '@bhairab-patra/platform-ui';
-import { SidebarGroup, SidebarTheme, SIDEBAR_THEMES } from '@bhairab-patra/platform-ui';
-import { UserMenuItem, HeaderBadge } from '@bhairab-patra/platform-ui';
-import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
+import { NgIf } from '@angular/common';
+import {
+  PuiSolifiSidebarComponent,
+  SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem, SOLIFI_THEME,
+} from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 
-const ICON = (d: string): string =>
-  `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
-
-@Component({
-  selector: 'docs-app-shell-page',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.Default,
-  imports: [TitleCasePipe, PuiAppShellComponent, FrameworkPreviewComponent, DocPageComponent],
-  templateUrl: './app-shell-page.component.html',
-  styleUrls: ['./app-shell-page.component.scss'],
-})
-export class AppShellPageComponent {
-
-  sidebarVisible   = true;
-  sidebarCollapsed = false;
-  activeId         = 'dashboard';
-  lastAction       = '';
-
-  readonly themeNames = Object.keys(SIDEBAR_THEMES) as (keyof typeof SIDEBAR_THEMES)[];
-  activeThemeName: keyof typeof SIDEBAR_THEMES = 'dark';
-  get activeTheme(): SidebarTheme { return SIDEBAR_THEMES[this.activeThemeName]; }
-  cycleTheme(): void {
-    const idx = (this.themeNames.indexOf(this.activeThemeName) + 1) % this.themeNames.length;
-    this.activeThemeName = this.themeNames[idx];
-  }
-
-  demoHeaderBadge: HeaderBadge = { text: 'UAT', color: '#f59e0b', textColor: '#fff' };
-
-  demoMenuItems: UserMenuItem[] = [
-    { label: 'My Profile', action: 'profile',  icon: ICON('<circle cx="12" cy="8" r="5"/><path d="M3 21a9 9 0 0 1 18 0"/>') },
-    { label: 'Settings',   action: 'settings', icon: ICON('<circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/>') },
-    { label: 'Sign Out',   action: 'logout', danger: true, icon: ICON('<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>') },
-  ];
-
-  navGroups: SidebarGroup[] = [
-    {
-      id: 'grp-overview', label: 'Overview',
-      items: [
-        { id: 'dashboard', label: 'Dashboard',
-          icon: ICON('<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>') },
-        { id: 'analytics', label: 'Analytics & Reports', badge: 'New', badgeVariant: 'success',
-          icon: ICON('<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>') },
-      ],
-    },
-    {
-      id: 'grp-management', label: 'Management',
-      items: [
-        { id: 'users', label: 'Users & Permissions', badge: 12, badgeVariant: 'warning',
-          icon: ICON('<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'),
-          children: [
-            { id: 'users-list',   label: 'All Users' },
-            { id: 'users-roles',  label: 'Roles & Permissions' },
-            { id: 'users-invite', label: 'Invite Members' },
-          ],
-        },
-        { id: 'products', label: 'Products',
-          icon: ICON('<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>') },
-        { id: 'orders', label: 'Orders', badge: 3, badgeVariant: 'danger',
-          icon: ICON('<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>') },
-      ],
-    },
-    {
-      id: 'grp-settings', label: 'Settings',
-      items: [
-        { id: 'settings', label: 'General Settings',
-          icon: ICON('<circle cx="12" cy="12" r="3"/><path d="M12 1v3M12 20v3M4.22 4.22l2.12 2.12M17.66 17.66l2.12 2.12M1 12h3M20 12h3"/>') },
-        { id: 'billing',  label: 'Billing & Plans', dividerAfter: true,
-          icon: ICON('<rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>') },
-        { id: 'help',     label: 'Help & Docs',
-          icon: ICON('<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/>') },
-      ],
-    },
-  ];
-
-  onItemSelect(item: { id?: string } | string): void {
-    const id = typeof item === 'string' ? item : item.id;
-    this.activeId   = id ?? '';
-    this.lastAction = `Navigate → ${id ?? item}`;
-  }
-
-  angularCode = `import { PuiAppShellComponent } from '@bhairab-patra/platform-ui';
-
-@Component({
-  standalone: true,
-  imports: [PuiAppShellComponent],
-  template: \`
-    <pui-lib-app-shell
-      appTitle="Admin Portal"
-      appSubtitle="Management Console"
-      logoUrl="/assets/logo.png"
-      headerBgColor="#12C6A8"
-      headerUserName="Jane Doe"
-      headerUserEmail="jane@example.com"
-      headerGreeting="Hi"
-      [headerBadge]="{ text: 'PROD', color: '#10b981', textColor: '#fff' }"
-      [headerMenuItems]="menuItems"
-      [groups]="navGroups"
-      [activeId]="activeId"
-      sidebarBgColor="#0f172a"
-      sidebarTextColor="#94a3b8"
-      sidebarActiveColor="#12C6A8"
-      [sidebarVisible]="open"
-      (itemSelect)="activeId = $event.id"
-      (headerMenuAction)="onAction($event)">
-
-      <router-outlet />
-    </pui-lib-app-shell>
-  \`
-})
-export class AppComponent {
-  activeId = 'dashboard';
-  open = true;
-}`;
-
-  reactCode = `import { useRef, useEffect, useState } from 'react';
-// pui-elements.js loaded via <script> in index.html
-
-const NAV_GROUPS = [
+const NAV_GROUPS: SolifiNavGroup[] = [
   {
-    id: 'main', label: 'Menu',
+    id: 'dashboard', label: 'Dashboard',
     items: [
-      { id: 'Home', label: 'Home', route: '/home' },
-      { id: 'users',     label: 'Users',     route: '/users', badge: 12 },
+      { id: 'borrowing-base',   label: 'Borrowing Base Posting', iconName: 'dashboard'  },
+      { id: 'upload-files',     label: 'Upload Files',           iconName: 'upload'     },
+      { id: 'loan-ledger',      label: 'Loan Ledger',            iconName: 'file'       },
+      { id: 'ineligibles',      label: 'Indkg Due & Reserves',   iconName: 'inbox'      },
+      { id: 'statements',       label: 'Statements',             iconName: 'database'   },
+      { id: 'reports',          label: 'Reports',                iconName: 'chart'      },
+      { id: 'posting-history',  label: 'Posting History',        iconName: 'clock'      },
+      { id: 'interest-history', label: 'Interest History',       iconName: 'dollar'     },
+    ],
+  },
+  {
+    id: 'cadet', label: 'Cadet',
+    items: [
+      { id: 'posting-status', label: 'Posting Status', iconName: 'check-circle' },
+      { id: 'loan-status',    label: 'Loan Status',    iconName: 'credit-card'  },
+    ],
+  },
+  {
+    id: 'user-setup', label: 'User Setup',
+    items: [
+      { id: 'user-setup', label: 'User Setup', iconName: 'users' },
     ],
   },
 ];
 
-const MENU_ITEMS = [
-  { label: 'Profile',  action: 'profile' },
-  { label: 'Sign out', action: 'logout', danger: true },
-];
+@Component({
+  selector: 'docs-app-shell-page',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgIf, PuiSolifiSidebarComponent, DocPageComponent],
+  templateUrl: './app-shell-page.component.html',
+  styleUrls:  ['./app-shell-page.component.scss'],
+})
+export class AppShellPageComponent {
+  private cdr = inject(ChangeDetectorRef);
 
-function App() {
-  const shellRef = useRef(null);
-  const [activeId, setActiveId] = useState('dashboard');
+  navGroups  = NAV_GROUPS;
+  activeId   = 'borrowing-base';
+  collapsed  = false;
+  iconMode: 'with-icons' | 'no-icons' = 'with-icons';
+  theme: SolifiSidebarTheme = { ...SOLIFI_THEME };
 
-  useEffect(() => {
-    const el = shellRef.current;
-    if (!el) return;
-    // Arrays and objects must be JS properties
-    el.groups          = NAV_GROUPS;
-    el.headerMenuItems = MENU_ITEMS;
-    const onNav    = (e) => setActiveId(e.detail.id);
-    const onAction = (e) => console.log('action:', e.detail);
-    el.addEventListener('itemSelect',       onNav);
-    el.addEventListener('headerMenuAction', onAction);
-    return () => {
-      el.removeEventListener('itemSelect',       onNav);
-      el.removeEventListener('headerMenuAction', onAction);
-    };
-  }, []);
+  userMenuItems: SolifiUserMenuItem[] = [
+    { id: 'profile',  label: 'My Profile', iconName: 'user'     },
+    { id: 'settings', label: 'Settings',   iconName: 'settings' },
+    { id: 'logout',   label: 'Logout',     iconName: 'logout', divider: true },
+  ];
 
-  return (
-    <pui-lib-app-shell
-      ref={shellRef}
-      app-title="Admin Portal"
-      logo-url="/assets/logo.png"
-      header-bg-color="#17201f"
-      header-user-name="Jane Doe"
-      header-user-email="jane@example.com"
-      sidebar-bg-color="#0f172a"
-      sidebar-text-color="#94a3b8"
-      sidebar-active-color="#020202"
-      active-id={activeId}
-      style={{ display: 'block', height: '100vh' }}>
-      <main style={{ padding: '24px' }}>Page: {activeId}</main>
-    </pui-lib-app-shell>
-  );
+  lastUserAction = '';
+
+  get activeLabel(): string {
+    return NAV_GROUPS.flatMap(g => g.items).find(i => i.id === this.activeId)?.label ?? 'Dashboard';
+  }
+
+  get displayGroups(): SolifiNavGroup[] {
+    if (this.iconMode === 'no-icons') {
+      return NAV_GROUPS.map(g => ({
+        ...g,
+        items: g.items.map(({ iconName: _, ...rest }) => rest as SolifiNavItem),
+      }));
+    }
+    return NAV_GROUPS;
+  }
+
+  onNav(item: SolifiNavItem): void { this.activeId = item.id; this.cdr.markForCheck(); }
+  onCollapsed(v: boolean): void    { this.collapsed = v; this.cdr.markForCheck(); }
+  onUserMenu(item: SolifiUserMenuItem): void {
+    this.lastUserAction = item.label;
+    this.cdr.markForCheck();
+  }
+  setMode(m: 'with-icons' | 'no-icons'): void { this.iconMode = m; this.cdr.markForCheck(); }
+
+  angularCode = `import { PuiSolifiSidebarComponent, SolifiNavGroup, SOLIFI_THEME } from '@bhairab-patra/platform-ui';
+
+@Component({
+  standalone: true,
+  imports: [PuiSolifiSidebarComponent],
+  template: \`
+    <div class="shell">
+      <pui-lib-solifi-sidebar
+        brandName="solifi"
+        logoUrl="assets/logo.png"
+        [groups]="navGroups"
+        [activeId]="activeId"
+        [theme]="SOLIFI_THEME"
+        [showUser]="true"
+        userName="Rosanna Doyle"
+        userEmail="rdoyle@solifi.com"
+        [userMenuItems]="userMenu"
+        (itemSelect)="onNav($event)"
+        (userMenuSelect)="onUserMenu($event)">
+      </pui-lib-solifi-sidebar>
+      <main class="content">
+        <router-outlet />
+      </main>
+    </div>
+  \`
+})
+export class AppComponent {
+  activeId = 'borrowing-base';
+  navGroups: SolifiNavGroup[] = [...];
+  userMenu = [
+    { id: 'profile',  label: 'My Profile', iconName: 'user'     },
+    { id: 'settings', label: 'Settings',   iconName: 'settings' },
+    { id: 'logout',   label: 'Logout',     iconName: 'logout', divider: true },
+  ];
 }`;
 
-  htmlCode = `<!doctype html>
-<html>
-<head>
-  <link rel="stylesheet" href="/tokens.css" />
-  <link rel="stylesheet" href="/themes/theme-new.css" />
-  <script src="/pui-elements.js"></script>
-  <style>
-    html, body { margin: 0; height: 100%; }
-    pui-lib-app-shell { display: block; height: 100vh; }
-  </style>
-</head>
-<body>
-  <pui-lib-app-shell
-    id="shell"
-    app-title="My App"
-    logo-url="/assets/logo.png"
-    header-bg-color="#12C6A8"
-    header-user-name="Jane Doe"
-    sidebar-bg-color="#0f172a"
-    sidebar-active-color="#12C6A8">
-    <main id="content" style="padding:24px">
-      <h2>Dashboard</h2>
-    </main>
-  </pui-lib-app-shell>
-
-  <script>
-    customElements.whenDefined('pui-lib-app-shell').then(() => {
-      const shell = document.getElementById('shell');
-      shell.groups = [
-        {
-          id: 'main', label: 'Main Menu',
-          items: [
-            { id: 'dashboard', label: 'Dashboard', route: '/' },
-            { id: 'users',     label: 'Users',     route: '/users' },
-          ],
-        },
-      ];
-      shell.headerMenuItems = [
-        { label: 'Sign out', action: 'logout', danger: true }
-      ];
-      shell.addEventListener('itemSelect', (e) => {
-        document.getElementById('content').innerHTML =
-          '<h2>' + e.detail.label + '</h2>';
-      });
-    });
-  </script>
-</body>
-</html>`;
-
   api: ApiRow[] = [
-    { input: 'appTitle',            type: 'string',              default: "'My App'",    description: 'Application name shown in the header brand area.' },
-    { input: 'appSubtitle',         type: 'string',              default: "''",           description: 'Small subtitle under the app title.' },
-    { input: 'logo',                type: 'string (SVG/HTML)',   default: "''",           description: 'Inline SVG or HTML for the logo. Use logoUrl for image assets.' },
-    { input: 'logoUrl',             type: 'string',              default: "''",           description: 'Image URL for logo (PNG, SVG asset). Rendered as <img> in the header.' },
-    { input: 'brandName',           type: 'string',              default: "''",           description: 'Sidebar brand name. Falls back to appTitle.' },
-    { input: 'groups',              type: 'SidebarGroup[]',      default: '[]',           description: 'Navigation groups for the sidebar. Set as JS property in React/HTML.' },
-    { input: 'activeId',            type: 'string',              default: "''",           description: 'ID of the currently active nav item.' },
-    { input: 'sidebarVisible',      type: 'boolean',             default: 'true',         description: 'Show or hide the sidebar. Animated slide in/out.' },
-    { input: 'sidebarCollapsed',    type: 'boolean',             default: 'false',        description: 'Collapse sidebar to icon-only rail with tooltips.' },
-    { input: 'sidebarBgColor',      type: 'string',              default: "''",           description: 'Sidebar background color shortcut.' },
-    { input: 'sidebarTextColor',    type: 'string',              default: "''",           description: 'Sidebar nav item text color shortcut.' },
-    { input: 'sidebarActiveColor',  type: 'string',              default: "''",           description: 'Active item accent color — border, text and tinted background.' },
-    { input: 'sidebarHoverColor',   type: 'string',              default: "''",           description: 'Hover background color shortcut.' },
-    { input: 'sidebarBorderColor',  type: 'string',              default: "''",           description: 'Sidebar border color shortcut.' },
-    { input: 'sidebarWidth',        type: 'number',              default: '0',            description: 'Sidebar width in px. 0 = use default (260px).' },
-    { input: 'config',              type: 'SidebarConfig',       default: '{}',           description: '{ width, collapsedWidth, showSearch, collapsible, maxLabelLen }' },
-    { input: 'theme',               type: 'SidebarTheme',        default: '{}',           description: 'Full sidebar color token object. Use SIDEBAR_THEMES presets.' },
-    { input: 'headerBgColor',       type: 'string',              default: "'#12C6A8'",    description: 'Header background colour.' },
-    { input: 'headerTextColor',     type: 'string',              default: "'#ffffff'",    description: 'Header text and icon colour.' },
-    { input: 'headerUserName',      type: 'string',              default: "''",           description: 'Displayed in header avatar and user menu.' },
-    { input: 'headerUserEmail',     type: 'string',              default: "''",           description: 'Email shown in the user dropdown.' },
-    { input: 'headerGreeting',      type: 'string',              default: "'Hi'",         description: 'Greeting prefix (e.g. "Hi, Jane").' },
-    { input: 'headerBadge',         type: 'HeaderBadge | null',  default: 'null',         description: 'Environment badge e.g. { text: "UAT", color: "#f59e0b" }.' },
-    { input: 'headerMenuItems',     type: 'UserMenuItem[]',      default: '[]',           description: 'User-menu action items. Set as JS property in React/HTML.' },
-    { input: 'headerShowHelp',      type: 'boolean',             default: 'false',        description: 'Show the help (?) icon button in the header.' },
-    { input: 'itemSelect',          type: 'EventEmitter<SidebarNavItem>', default: '—',   description: 'Fires when a nav item is clicked.' },
-    { input: 'headerMenuAction',    type: 'EventEmitter<string>', default: '—',           description: 'Fires when a user-menu item is selected.' },
-    { input: 'headerHelpClick',     type: 'EventEmitter<void>',  default: '—',           description: 'Fires when the help button is clicked.' },
-    { input: 'sidebarVisibleChange',type: 'EventEmitter<boolean>', default: '—',          description: 'Fires when hamburger toggles sidebar visibility.' },
-    { input: 'sidebarCollapsedChange', type: 'EventEmitter<boolean>', default: '—',       description: 'Fires when sidebar collapses / expands.' },
+    { input: 'groups',         type: 'SolifiNavGroup[]',        default: '[]',            description: 'Navigation groups. Items support iconName, icon (SVG), or text-only.' },
+    { input: 'activeId',       type: 'string',                  default: "''",             description: 'ID of the currently active nav item.' },
+    { input: 'brandName',      type: 'string',                  default: "'solifi'",       description: 'Brand name shown next to logo in expanded state.' },
+    { input: 'logoUrl',        type: 'string',                  default: "''",             description: 'Image URL for the logo (e.g. assets/logo.png).' },
+    { input: 'logo',           type: 'string (SVG/HTML)',        default: 'default',        description: 'Raw HTML logo fallback when logoUrl is not set.' },
+    { input: 'collapsed',      type: 'boolean',                 default: 'false',          description: 'Collapse sidebar to 64px icon-only rail.' },
+    { input: 'showUser',       type: 'boolean',                 default: 'false',          description: 'Show user profile section at the bottom.' },
+    { input: 'userName',       type: 'string',                  default: "''",             description: 'Full name in user profile footer.' },
+    { input: 'userEmail',      type: 'string',                  default: "''",             description: 'Email shown under user name.' },
+    { input: 'userInitials',   type: 'string',                  default: "''",             description: 'Avatar initials — auto-derived from userName if empty.' },
+    { input: 'userAvatarUrl',  type: 'string',                  default: "''",             description: 'Avatar photo URL. Falls back to initials bubble.' },
+    { input: 'userMenuItems',  type: 'SolifiUserMenuItem[]',    default: '[]',             description: 'Profile popup menu items. Shown when user profile strip is clicked.' },
+    { input: 'theme',          type: 'SolifiSidebarTheme',      default: 'SOLIFI_THEME',   description: 'Full color token object. Use SOLIFI_THEME preset.' },
+    { input: 'width',          type: 'number',                  default: '240',            description: 'Expanded width in px.' },
+    { input: 'collapsedWidth', type: 'number',                  default: '64',             description: 'Collapsed rail width in px.' },
+    { input: 'itemSelect',     type: 'EventEmitter<SolifiNavItem>',      default: '—', description: 'Fires on nav item click.' },
+    { input: 'collapsedChange',type: 'EventEmitter<boolean>',            default: '—', description: 'Fires when collapsed state toggles.' },
+    { input: 'userMenuSelect', type: 'EventEmitter<SolifiUserMenuItem>', default: '—', description: 'Fires when a user profile menu item is selected.' },
   ];
 }

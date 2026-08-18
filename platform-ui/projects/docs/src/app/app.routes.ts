@@ -27,7 +27,8 @@ export const routes: Routes = [
   { path: 'search',   loadComponent: () => import('./pages/search-page/search-page.component').then(m => m.SearchPageComponent) },
   { path: 'filters',  loadComponent: () => import('./pages/filter-page/filter-page.component').then(m => m.FilterPageComponent) },
   { path: 'toast',    loadComponent: () => import('./pages/toast-page/toast-page.component').then(m => m.ToastPageComponent) },
-  { path: 'sidebar',   loadComponent: () => import('./pages/sidebar-page/sidebar-page.component').then(m => m.SidebarPageComponent) },
+  { path: 'sidebar',         loadComponent: () => import('./pages/sidebar-page/sidebar-page.component').then(m => m.SidebarPageComponent) },
+  { path: 'solifi-sidebar',  loadComponent: () => import('./pages/solifi-sidebar-page/solifi-sidebar-page.component').then(m => m.SolifiSidebarPageComponent) },
   { path: 'app-shell', loadComponent: () => import('./pages/app-shell-page/app-shell-page.component').then(m => m.AppShellPageComponent) },
   {
     path: 'table',

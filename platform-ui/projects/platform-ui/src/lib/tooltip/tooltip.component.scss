@@ -11,6 +11,9 @@
     /* ── Bubble ──────────────────────────── */
     .pui-tt__bubble {
       position: absolute; z-index: 9999;
+      /* max-content width is independent of containing-block width */
+      width: max-content;
+      max-width: 260px;
       padding: var(--pui-space-1-5) var(--pui-space-3);
       border-radius: var(--pui-radius-sm);
       font-size: var(--pui-text-sm);
@@ -19,19 +22,19 @@
       line-height: 1.4;
       white-space: normal;
       word-break: break-word;
-      max-width: 260px;
       pointer-events: none;
       user-select: none;
       opacity: 0;
-      transition: opacity var(--pui-duration-base), transform var(--pui-duration-base);
-      /* dark (default) */
+      /* Only transition opacity — position centering uses CSS `translate` (not transform)
+         so it is never overridden by show/hide logic */
+      transition: opacity var(--pui-duration-base);
       background: var(--pui-tooltip-bg);
       color: var(--pui-tooltip-color);
       box-shadow: var(--pui-shadow-tooltip);
     }
 
-    /* ── Show on host hover ──────────────── */
-    .pui-tt-host:hover .pui-tt__bubble { opacity: 1; transform: none; }
+    /* ── Show on host hover — opacity only, no transform override ── */
+    .pui-tt-host:hover .pui-tt__bubble { opacity: 1; }
 
     /* ── Variant: light ──────────────────── */
     .pui-tt--light .pui-tt__bubble {
@@ -48,13 +51,15 @@
       border: 5px solid transparent;
     }
 
-    /* ── Position: top (default) ─────────── */
+    /* ── Position: top ───────────────────── */
     .pui-tt--top .pui-tt__bubble {
       bottom: calc(100% + var(--pui-space-2));
-      left: 50%; transform: translateX(-50%);
+      left: 50%;
+      translate: -50% 0;   /* CSS translate — not affected by transform:none */
     }
     .pui-tt--top .pui-tt__bubble::after {
-      top: 100%; left: 50%; transform: translateX(-50%);
+      top: 100%; left: 50%;
+      translate: -50% 0;
       border-top-color: var(--pui-tooltip-bg);
     }
     .pui-tt--top.pui-tt--light .pui-tt__bubble::after { border-top-color: var(--pui-neutral-200); }
@@ -62,10 +67,12 @@
     /* ── Position: bottom ────────────────── */
     .pui-tt--bottom .pui-tt__bubble {
       top: calc(100% + var(--pui-space-2));
-      left: 50%; transform: translateX(-50%);
+      left: 50%;
+      translate: -50% 0;
     }
     .pui-tt--bottom .pui-tt__bubble::after {
-      bottom: 100%; left: 50%; transform: translateX(-50%);
+      bottom: 100%; left: 50%;
+      translate: -50% 0;
       border-bottom-color: var(--pui-tooltip-bg);
     }
     .pui-tt--bottom.pui-tt--light .pui-tt__bubble::after { border-bottom-color: var(--pui-neutral-200); }
@@ -73,10 +80,12 @@
     /* ── Position: left ──────────────────── */
     .pui-tt--left .pui-tt__bubble {
       right: calc(100% + var(--pui-space-2));
-      top: 50%; transform: translateY(-50%);
+      top: 50%;
+      translate: 0 -50%;
     }
     .pui-tt--left .pui-tt__bubble::after {
-      top: 50%; left: 100%; transform: translateY(-50%);
+      top: 50%; left: 100%;
+      translate: 0 -50%;
       border-left-color: var(--pui-tooltip-bg);
     }
     .pui-tt--left.pui-tt--light .pui-tt__bubble::after { border-left-color: var(--pui-neutral-200); }
@@ -84,10 +93,12 @@
     /* ── Position: right ─────────────────── */
     .pui-tt--right .pui-tt__bubble {
       left: calc(100% + var(--pui-space-2));
-      top: 50%; transform: translateY(-50%);
+      top: 50%;
+      translate: 0 -50%;
     }
     .pui-tt--right .pui-tt__bubble::after {
-      top: 50%; right: 100%; transform: translateY(-50%);
+      top: 50%; right: 100%;
+      translate: 0 -50%;
       border-right-color: var(--pui-tooltip-bg);
     }
     .pui-tt--right.pui-tt--light .pui-tt__bubble::after { border-right-color: var(--pui-neutral-200); }

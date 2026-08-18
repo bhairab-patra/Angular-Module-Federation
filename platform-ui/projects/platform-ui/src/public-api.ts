@@ -58,3 +58,5 @@ export * from './lib/models/pagination.model';
 export * from './lib/pagination/pagination.component';
 export * from './lib/models/accordion.model';
 export * from './lib/accordion/accordion.component';
+export * from './lib/models/solifi-sidebar.model';
+export * from './lib/solifi-sidebar/solifi-sidebar.component';
