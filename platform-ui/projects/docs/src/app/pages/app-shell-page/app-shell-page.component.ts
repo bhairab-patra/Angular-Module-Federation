@@ -5,6 +5,7 @@ import {
   SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem, SOLIFI_THEME,
 } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 const NAV_GROUPS: SolifiNavGroup[] = [
   {
@@ -39,7 +40,7 @@ const NAV_GROUPS: SolifiNavGroup[] = [
   selector: 'docs-app-shell-page',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, PuiSolifiSidebarComponent, DocPageComponent],
+  imports: [NgIf, PuiSolifiSidebarComponent, DocPageComponent, FrameworkPreviewComponent],
   templateUrl: './app-shell-page.component.html',
   styleUrls:  ['./app-shell-page.component.scss'],
 })
@@ -81,6 +82,162 @@ export class AppShellPageComponent {
     this.cdr.markForCheck();
   }
   setMode(m: 'with-icons' | 'no-icons'): void { this.iconMode = m; this.cdr.markForCheck(); }
+
+  fwAngularCode = `import { PuiAppShellComponent, SolifiNavGroup, SolifiNavItem, SolifiUserMenuItem, SOLIFI_THEME } from '@bhairab-patra/platform-ui';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  standalone: true,
+  imports: [PuiAppShellComponent, RouterOutlet],
+  template: \`
+    <pui-lib-app-shell
+      brandName="solifi"
+      logoUrl="assets/logo.png"
+      [groups]="navGroups"
+      [activeId]="activeId"
+      [theme]="theme"
+      [showUser]="true"
+      userName="Rosanna Doyle"
+      userEmail="rdoyle@solifi.com"
+      [userMenuItems]="userMenu"
+      (itemSelect)="onNav($event)"
+      (collapsedChange)="collapsed = $event"
+      (userMenuSelect)="onUserMenu($event)">
+
+      <router-outlet />
+
+    </pui-lib-app-shell>
+  \`
+})
+export class AppComponent {
+  activeId = 'loan-ledger';
+  collapsed = false;
+  theme = SOLIFI_THEME;
+
+  navGroups: SolifiNavGroup[] = [
+    { id: 'lending', label: 'Lending', items: [
+      { id: 'loan-ledger',   label: 'Loan Ledger',   iconName: 'file'      },
+      { id: 'repayments',    label: 'Repayments',    iconName: 'dollar'    },
+      { id: 'statements',    label: 'Statements',    iconName: 'inbox'     },
+      { id: 'upload-files',  label: 'Upload Files',  iconName: 'upload'    },
+    ]},
+    { id: 'reports', label: 'Reports', items: [
+      { id: 'analytics',     label: 'Analytics',     iconName: 'chart'     },
+      { id: 'audit-log',     label: 'Audit Log',     iconName: 'clock'     },
+    ]},
+    { id: 'admin', label: 'Admin', items: [
+      { id: 'users',         label: 'Users',         iconName: 'users'     },
+      { id: 'settings',      label: 'Settings',      iconName: 'settings'  },
+    ]},
+  ];
+
+  userMenu: SolifiUserMenuItem[] = [
+    { id: 'profile',  label: 'My Profile', iconName: 'user'                   },
+    { id: 'settings', label: 'Settings',   iconName: 'settings'               },
+    { id: 'logout',   label: 'Logout',     iconName: 'logout', divider: true  },
+  ];
+
+  onNav(item: SolifiNavItem)           { this.activeId = item.id; }
+  onUserMenu(item: SolifiUserMenuItem) { console.log('User menu:', item.label); }
+}`;
+
+  fwReactCode = `// After loading pui-elements.js (Web Components bundle):
+import { useEffect, useRef, useState } from 'react';
+
+const SOLIFI_THEME = { bg: '#112C35', textColor: '#8fa3bc', activeColor: '#12C6A8' };
+
+// React app uses a finance-focused flat nav (no group headers)
+const navItems = [
+  { id: 'portfolio',   label: 'Portfolio',   iconName: 'chart'        },
+  { id: 'positions',   label: 'Positions',   iconName: 'database'     },
+  { id: 'risk',        label: 'Risk',        iconName: 'check-circle' },
+  { id: 'settlements', label: 'Settlements', iconName: 'dollar'       },
+  { id: 'reports',     label: 'Reports',     iconName: 'inbox'        },
+];
+
+const userMenuItems = [
+  { id: 'profile',    label: 'My Profile',   iconName: 'user'                   },
+  { id: 'api-keys',   label: 'API Keys',     iconName: 'settings'               },
+  { id: 'logout',     label: 'Sign Out',     iconName: 'logout', divider: true  },
+];
+
+export function AppShell({ children }) {
+  const shellRef = useRef(null);
+  const [activeId, setActiveId] = useState('portfolio');
+
+  useEffect(() => {
+    const el = shellRef.current;
+    if (!el) return;
+    el.groups      = navItems;       // flat SolifiNavItem[] — auto-detected
+    el.theme       = SOLIFI_THEME;
+    el.userMenuItems = userMenuItems;
+    const onNav = (e) => setActiveId(e.detail.id);
+    el.addEventListener('itemSelect', onNav);
+    return () => el.removeEventListener('itemSelect', onNav);
+  }, []);
+
+  return (
+    <pui-lib-app-shell
+      ref={shellRef}
+      brand-name="FlexFleet"
+      logo-url="/assets/logo.png"
+      active-id={activeId}
+      show-user
+      user-name="Jordan Wells"
+      user-email="jwells@flexfleet.io">
+      {children}
+    </pui-lib-app-shell>
+  );
+}`;
+
+  fwHtmlCode = `<!-- Load the Web Components bundle once in your page -->
+<script src="pui-elements.js"></script>
+
+<pui-lib-app-shell
+  id="shell"
+  brand-name="Meridian"
+  logo-url="assets/logo.png"
+  show-user
+  user-name="Alex Morgan"
+  user-email="amorgan@meridian.com">
+
+  <div id="page-content" style="padding:24px">
+    <!-- your page content here -->
+  </div>
+
+</pui-lib-app-shell>
+
+<script>
+  customElements.whenDefined('pui-lib-app-shell').then(() => {
+    const shell = document.getElementById('shell');
+
+    shell.groups = [
+      { id: 'operations', label: 'Operations', items: [
+        { id: 'dashboard',  label: 'Dashboard',  iconName: 'dashboard' },
+        { id: 'contracts',  label: 'Contracts',  iconName: 'file'      },
+        { id: 'payments',   label: 'Payments',   iconName: 'dollar'    },
+        { id: 'documents',  label: 'Documents',  iconName: 'inbox'     },
+      ]},
+      { id: 'admin', label: 'Admin', items: [
+        { id: 'users',      label: 'Users',      iconName: 'users'     },
+        { id: 'settings',   label: 'Settings',   iconName: 'settings'  },
+      ]},
+    ];
+
+    shell.theme = { bg: '#112C35', textColor: '#8fa3bc', activeColor: '#12C6A8' };
+
+    shell.userMenuItems = [
+      { id: 'profile',  label: 'My Profile', iconName: 'user'                   },
+      { id: 'settings', label: 'Settings',   iconName: 'settings'               },
+      { id: 'logout',   label: 'Logout',     iconName: 'logout', divider: true  },
+    ];
+
+    shell.addEventListener('itemSelect', (e) => {
+      console.log('Navigated to:', e.detail.label);
+      shell.activeId = e.detail.id;
+    });
+  });
+</script>`;
 
   angularCode = `import { PuiSolifiSidebarComponent, SolifiNavGroup, SOLIFI_THEME } from '@bhairab-patra/platform-ui';
 

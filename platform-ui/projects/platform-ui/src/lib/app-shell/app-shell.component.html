@@ -1,53 +1,28 @@
 <div class="pas">
 
-  <!-- Header -->
-  <pui-lib-header
-    [appTitle]="appTitle"
-    [appSubtitle]="appSubtitle"
+  <pui-lib-solifi-sidebar
+    [brandName]="brandName"
     [logoUrl]="logoUrl"
-    [bgColor]="headerBgColor"
-    [textColor]="headerTextColor"
-    [userName]="headerUserName"
-    [userEmail]="headerUserEmail"
-    [greeting]="headerGreeting"
-    [userSubtext]="headerUserSubtext"
-    [avatarUrl]="headerAvatarUrl"
-    [avatarColor]="headerAvatarColor"
-    [avatarTextColor]="headerAvatarTextColor"
-    [badge]="headerBadge"
-    [showHelp]="headerShowHelp"
-    [menuItems]="headerMenuItems"
-    [showHamburger]="true"
-    [hamburgerOpen]="sidebarVisible"
-    (hamburgerToggle)="toggleSidebar()"
-    (menuAction)="headerMenuAction.emit($event)"
-    (helpClick)="headerHelpClick.emit()">
-  </pui-lib-header>
+    [groups]="groups"
+    [activeId]="activeId"
+    [collapsed]="collapsed"
+    [showSidebar]="showSidebar"
+    [theme]="theme"
+    [showUser]="showUser"
+    [userName]="userName"
+    [userEmail]="userEmail"
+    [userInitials]="userInitials"
+    [userAvatarUrl]="userAvatarUrl"
+    [userMenuItems]="userMenuItems"
+    [width]="width"
+    [collapsedWidth]="collapsedWidth"
+    (itemSelect)="itemSelect.emit($event)"
+    (collapsedChange)="onCollapsedChange($event)"
+    (userMenuSelect)="userMenuSelect.emit($event)">
+  </pui-lib-solifi-sidebar>
 
-  <!-- Body: sidebar + content -->
-  <div class="pas__body">
+  <main class="pas__content">
+    <ng-content></ng-content>
+  </main>
 
-    <pui-lib-sidebar
-      [brandName]="brandName || appTitle"
-      [groups]="groups"
-      [activeId]="activeId"
-      [collapsed]="sidebarCollapsed"
-      [showSidebar]="sidebarVisible"
-      [config]="config"
-      [theme]="theme"
-      [bgColor]="sidebarBgColor"
-      [textColor]="sidebarTextColor"
-      [activeColor]="sidebarActiveColor"
-      [hoverColor]="sidebarHoverColor"
-      [borderColor]="sidebarBorderColor"
-      [width]="sidebarWidth"
-      (collapsedChange)="onCollapsedChange($event)"
-      (itemSelect)="itemSelect.emit($event)">
-    </pui-lib-sidebar>
-
-    <main class="pas__content">
-      <ng-content></ng-content>
-    </main>
-
-  </div>
 </div>

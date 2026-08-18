@@ -1,26 +1,21 @@
+:host { display: block; height: 100%; }
 
-    :host { display: block; height: 100%; }
+.pas {
+  display: flex;
+  height: 100vh;
+  min-height: 0;
+  font-family: var(--pui-font-family);
+}
 
-    /* ── Shell root ──────────────────── */
-    .pas {
-      display: flex; flex-direction: column;
-      height: 100vh; min-height: 0;
-      font-family: var(--pui-font-family);
-    }
+.pas__content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: var(--pui-space-6, 24px) var(--pui-space-8, 32px);
+}
 
-    /* ── Body: sidebar + main ────────── */
-    .pas__body {
-      display: flex; flex: 1; min-height: 0; overflow: hidden;
-    }
-
-    /* ── Main content area ───────────── */
-    .pas__content {
-      flex: 1; overflow-y: auto; overflow-x: hidden;
-      display: flex; flex-direction: column;
-      padding: var(--pui-space-6) var(--pui-space-8);
-    }
-
-    /* ── Responsive ──────────────────── */
-    @media (max-width: 768px) {
-      .pas__content { padding: var(--pui-space-4); }
-    }
+@media (max-width: 768px) {
+  .pas__content { padding: var(--pui-space-4, 16px); }
+}

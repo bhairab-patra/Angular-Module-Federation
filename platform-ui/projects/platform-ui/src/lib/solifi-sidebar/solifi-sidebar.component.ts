@@ -23,11 +23,24 @@ const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none
 export class PuiSolifiSidebarComponent {
 
   // ── Content ───────────────────────────────────────────────
-  @Input() set groups(v: SolifiNavGroup[] | string) {
-    this._groups = typeof v === 'string' ? (this._parse<SolifiNavGroup[]>(v) ?? []) : (v || []);
+  @Input() set groups(v: SolifiNavGroup[] | SolifiNavItem[] | string) {
+    if (typeof v === 'string') {
+      const parsed = this._parse<SolifiNavGroup[] | SolifiNavItem[]>(v) ?? [];
+      this._groups = this._normalizeGroups(parsed);
+    } else {
+      this._groups = this._normalizeGroups(v || []);
+    }
   }
   get groups(): SolifiNavGroup[] { return this._groups; }
   private _groups: SolifiNavGroup[] = [];
+
+  private _normalizeGroups(v: SolifiNavGroup[] | SolifiNavItem[]): SolifiNavGroup[] {
+    if (!v.length) return [];
+    // If first element has an `items` array it's already SolifiNavGroup[]
+    return 'items' in v[0]
+      ? (v as SolifiNavGroup[])
+      : [{ id: '__flat__', items: v as SolifiNavItem[] }];
+  }
 
   @Input() activeId  = '';
   @Input() brandName = 'solifi';
@@ -98,6 +111,10 @@ export class PuiSolifiSidebarComponent {
   }
 
   onNavItemLeave(): void { this.hoveredItem = null; }
+
+  itemAbbr(item: SolifiNavItem): string {
+    return item.label.charAt(0).toUpperCase();
+  }
 
   // ── Outputs ───────────────────────────────────────────────
   @Output() itemSelect      = new EventEmitter<SolifiNavItem>();

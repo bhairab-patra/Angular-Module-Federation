@@ -49,6 +49,8 @@
             </span>
             <!-- Icon via raw SVG string fallback -->
             <span class="ssb__icon" *ngIf="!item.iconName && item.icon" [innerHTML]="item.icon"></span>
+            <!-- Collapsed fallback for text-only items: show initial letter as icon -->
+            <span class="ssb__abbr" *ngIf="collapsed && !item.iconName && !item.icon">{{ itemAbbr(item) }}</span>
 
             <!-- Label: only in expanded -->
             <span class="ssb__label" *ngIf="!collapsed">{{ item.label }}</span>

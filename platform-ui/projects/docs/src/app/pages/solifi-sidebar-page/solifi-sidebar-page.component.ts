@@ -5,6 +5,7 @@ import {
   SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem, SOLIFI_THEME,
 } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
+import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 
 /** Nav items using platform-ui iconName (from ICON_REGISTRY) */
@@ -47,7 +48,7 @@ const NAV_GROUPS_TEXT_ONLY: SolifiNavGroup[] = NAV_GROUPS.map(g => ({
 @Component({
   selector: 'docs-solifi-sidebar-page',
   standalone: true,
-  imports: [NgIf,PuiSolifiSidebarComponent, DocPageComponent],
+  imports: [NgIf, PuiSolifiSidebarComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './solifi-sidebar-page.component.html',
   styleUrls: ['./solifi-sidebar-page.component.scss'],
@@ -94,6 +95,165 @@ export class SolifiSidebarPageComponent { // v2
   get pageTitle(): string {
     return NAV_GROUPS.flatMap(g => g.items).find(i => i.id === this.activeId)?.label ?? 'Insights';
   }
+
+  fwAngularCode = `import { PuiSolifiSidebarComponent, SolifiNavGroup, SOLIFI_THEME } from '@bhairab-patra/platform-ui';
+
+@Component({
+  standalone: true,
+  imports: [PuiSolifiSidebarComponent],
+  template: \`
+    <div style="display:flex;height:100vh">
+      <pui-lib-solifi-sidebar
+        [brandName]="brandName"
+        [logoUrl]="logoUrl"
+        [groups]="navGroups"
+        [activeId]="activeId"
+        [theme]="SOLIFI_THEME"
+        [showUser]="true"
+        [userName]="user.name"
+        [userEmail]="user.email"
+        [userMenuItems]="userMenu"
+        (itemSelect)="onNav($event)"
+        (collapsedChange)="collapsed = $event"
+        (userMenuSelect)="onUserMenu($event)">
+      </pui-lib-solifi-sidebar>
+      <main style="flex:1;overflow:auto;padding:24px">
+        <router-outlet />
+      </main>
+    </div>
+  \`
+})
+export class AppComponent {
+  brandName = 'insights hub';
+  logoUrl = 'assets/logo.png';
+  activeId = 'insights';
+  collapsed = false;
+  theme = SOLIFI_THEME;
+
+  user = { name: 'Allen M. George', email: 'ageorge@meridian.com' };
+
+  navGroups: SolifiNavGroup[] = [
+    { id: 'dashboard', label: 'Dashboard', items: [
+      { id: 'insights', label: 'Insights', iconName: 'search'  },
+      { id: 'recent',   label: 'Recent',   iconName: 'clock'   },
+      { id: 'reports',  label: 'Reports',  iconName: 'chart'   },
+    ]},
+    { id: 'user-setup', label: 'User Setup', items: [
+      { id: 'users',    label: 'Users',    iconName: 'users'    },
+      { id: 'settings', label: 'Settings', iconName: 'settings' },
+    ]},
+  ];
+
+  userMenu = [
+    { id: 'profile',  label: 'My Profile', iconName: 'user'     },
+    { id: 'settings', label: 'Settings',   iconName: 'settings' },
+    { id: 'logout',   label: 'Logout',     iconName: 'logout',  divider: true },
+  ];
+
+  onNav(item: SolifiNavItem)           { this.activeId = item.id; }
+  onUserMenu(item: SolifiUserMenuItem) { console.log('User menu:', item.label); }
+}`;
+
+  fwReactCode = `// After loading pui-elements.js Web Components bundle
+import { useEffect, useRef, useState } from 'react';
+
+const SOLIFI_THEME = { bg:'#112C35', textColor:'#8fa3bc', activeColor:'#12C6A8' };
+
+const navGroups = [
+  { id: 'dashboard', label: 'Dashboard', items: [
+    { id: 'insights', label: 'Insights', iconName: 'search' },
+    { id: 'recent',   label: 'Recent',   iconName: 'clock'  },
+    { id: 'reports',  label: 'Reports',  iconName: 'chart'  },
+  ]},
+  { id: 'user-setup', label: 'User Setup', items: [
+    { id: 'users',    label: 'Users',    iconName: 'users'    },
+    { id: 'settings', label: 'Settings', iconName: 'settings' },
+  ]},
+];
+
+export function AppLayout() {
+  const sidebarRef = useRef(null);
+  const [activeId, setActiveId] = useState('insights');
+
+  useEffect(() => {
+    const el = sidebarRef.current;
+    if (!el) return;
+    el.groups = navGroups;
+    el.theme = SOLIFI_THEME;
+    el.userMenuItems = [
+      { id: 'profile',  label: 'My Profile', iconName: 'user'     },
+      { id: 'settings', label: 'Settings',   iconName: 'settings' },
+      { id: 'logout',   label: 'Logout',     iconName: 'logout',  divider: true },
+    ];
+    const onNav = (e) => setActiveId(e.detail.id);
+    el.addEventListener('itemSelect', onNav);
+    return () => el.removeEventListener('itemSelect', onNav);
+  }, []);
+
+  return (
+    <div style={{ display:'flex', height:'100vh' }}>
+      <pui-lib-solifi-sidebar
+        ref={sidebarRef}
+        brand-name="insights hub"
+        logo-url="/assets/logo.png"
+        active-id={activeId}
+        show-user
+        user-name="Allen M. George"
+        user-email="ageorge@meridian.com"
+      />
+      <main style={{ flex:1, overflow:'auto', padding:24 }}>
+        {/* page content */}
+      </main>
+    </div>
+  );
+}`;
+
+  fwHtmlCode = `<!-- 1. Load the Web Components bundle once -->
+<script src="pui-elements.js"></script>
+
+<!-- 2. Shell layout -->
+<div style="display:flex;height:100vh">
+  <pui-lib-solifi-sidebar
+    id="sidebar"
+    brand-name="insights hub"
+    logo-url="assets/logo.png"
+    show-user
+    user-name="Allen M. George"
+    user-email="ageorge@meridian.com">
+  </pui-lib-solifi-sidebar>
+
+  <main style="flex:1;overflow:auto;padding:24px">
+    <!-- your page content here -->
+  </main>
+</div>
+
+<!-- 3. Wire data after element registers -->
+<script>
+  customElements.whenDefined('pui-lib-solifi-sidebar').then(() => {
+    const sb = document.getElementById('sidebar');
+
+    sb.groups = [
+      { id: 'dashboard', label: 'Dashboard', items: [
+        { id: 'insights', label: 'Insights', iconName: 'search' },
+        { id: 'recent',   label: 'Recent',   iconName: 'clock'  },
+        { id: 'reports',  label: 'Reports',  iconName: 'chart'  },
+      ]},
+    ];
+
+    sb.theme = { bg:'#112C35', textColor:'#8fa3bc', activeColor:'#12C6A8' };
+
+    sb.userMenuItems = [
+      { id: 'profile',  label: 'My Profile', iconName: 'user'     },
+      { id: 'settings', label: 'Settings',   iconName: 'settings' },
+      { id: 'logout',   label: 'Logout',     iconName: 'logout',  divider: true },
+    ];
+
+    sb.addEventListener('itemSelect', (e) => {
+      console.log('Navigated to:', e.detail.label);
+      sb.activeId = e.detail.id;
+    });
+  });
+</script>`;
 
   angularCode = `import { PuiSolifiSidebarComponent, SolifiNavGroup, SOLIFI_THEME } from '@bhairab-patra/platform-ui';
 

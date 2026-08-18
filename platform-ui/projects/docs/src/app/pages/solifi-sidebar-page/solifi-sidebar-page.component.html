@@ -2,7 +2,8 @@
   title="Solifi Sidebar"
   description="A branded dark sidebar for Solifi applications. Expands to text nav with icons, collapses to a 64px icon rail. Flat navigation, fully customisable colours, works in Angular and React."
   [code]="angularCode"
-  [api]="api">
+  [api]="api"
+  [hasFramework]="true">
 
   <ng-container demo>
 
@@ -81,4 +82,74 @@
     </div>
 
   </ng-container>
+
+  <!-- ══ FRAMEWORK USAGE ══════════════════════════════════════════════ -->
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead">
+      Wrap <code>pui-lib-solifi-sidebar</code> next to your content in a flex container. Pass
+      <code>groups</code> as an array, wire <code>(itemSelect)</code> to track active routes,
+      and optionally enable the user profile footer with <code>[showUser]="true"</code>.
+    </p>
+
+    <docs-framework-preview [angularCode]="fwAngularCode" [reactCode]="fwReactCode" [htmlCode]="fwHtmlCode">
+
+      <!-- Angular live preview: real sidebar in mini shell -->
+      <div preview style="display:flex;height:400px;border-radius:10px;overflow:hidden;border:1px solid var(--pui-border,#e2e8f0)">
+        <pui-lib-solifi-sidebar
+          [brandName]="brandName"
+          [logoUrl]="logoUrl"
+          [groups]="navGroups"
+          [activeId]="activeId"
+          [collapsed]="collapsed"
+          [theme]="theme"
+          [showUser]="showUser"
+          userName="Allen M. George"
+          userEmail="ageorge@meridian.com"
+          [userMenuItems]="userMenuItems"
+          [width]="220"
+          [collapsedWidth]="60"
+          (itemSelect)="onNav($event)"
+          (collapsedChange)="onCollapsed($event)"
+          (userMenuSelect)="onUserMenu($event)">
+        </pui-lib-solifi-sidebar>
+        <div style="flex:1;display:flex;flex-direction:column;background:#f4f5f7;min-width:0">
+          <div style="padding:14px 20px;border-bottom:1px solid #e2e8f0;font-size:14px;font-weight:600;color:#1e293b;display:flex;align-items:center;gap:8px">
+            <span style="width:3px;height:18px;border-radius:2px;background:#12C6A8;flex-shrink:0"></span>
+            {{ pageTitle }}
+          </div>
+          <div style="flex:1;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:13px;flex-direction:column;gap:6px">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="opacity:.35"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+            <span>{{ pageTitle }}</span>
+            <span *ngIf="lastUserMenuAction" style="font-size:11px;background:rgba(18,198,168,.12);color:#12C6A8;padding:2px 10px;border-radius:20px;font-weight:600">
+              User menu → {{ lastUserMenuAction }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </docs-framework-preview>
+
+    <h4 class="fw-ref-title">Solifi Sidebar Quick Reference</h4>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead>
+          <tr><th>Input</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="tag-name">groups</span></td><td><span class="tag-ng">[groups]="navGroups"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.groups = [...]</span></td></tr>
+          <tr><td><span class="tag-name">activeId</span></td><td><span class="tag-ng">[activeId]="activeId"</span></td><td><span class="tag-html">active-id="..."</span></td><td><span class="tag-js">el.activeId = '...'</span></td></tr>
+          <tr><td><span class="tag-name">collapsed</span></td><td><span class="tag-ng">[collapsed]="false"</span></td><td><span class="tag-html">collapsed</span></td><td><span class="tag-js">el.collapsed = true</span></td></tr>
+          <tr><td><span class="tag-name">showUser</span></td><td><span class="tag-ng">[showUser]="true"</span></td><td><span class="tag-html">show-user</span></td><td><span class="tag-js">el.showUser = true</span></td></tr>
+          <tr><td><span class="tag-name">userMenuItems</span></td><td><span class="tag-ng">[userMenuItems]="items"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.userMenuItems = [...]</span></td></tr>
+          <tr><td><span class="tag-name">theme</span></td><td><span class="tag-ng">[theme]="SOLIFI_THEME"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.theme = SOLIFI_THEME</span></td></tr>
+          <tr><td><span class="tag-name">itemSelect</span></td><td><span class="tag-ng">(itemSelect)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('itemSelect', fn)</span></td></tr>
+          <tr><td><span class="tag-name">userMenuSelect</span></td><td><span class="tag-ng">(userMenuSelect)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('userMenuSelect', fn)</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
 </docs-page>

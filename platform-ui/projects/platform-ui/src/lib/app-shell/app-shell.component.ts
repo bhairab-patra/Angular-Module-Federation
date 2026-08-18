@@ -1,116 +1,99 @@
 import {
   Component, Input, Output, EventEmitter,
-  ViewEncapsulation, inject, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { HeaderComponent } from '../header/header.component';
-import { PuiSidebarComponent } from '../sidebar/sidebar.component';
-import { UserMenuItem, HeaderBadge } from '../models/header.model';
-import { SidebarGroup, SidebarNavItem, SidebarConfig, SidebarTheme } from '../models/sidebar.model';
+  ViewEncapsulation, ChangeDetectionStrategy,
+} from '@angular/core';
+import { PuiSolifiSidebarComponent } from '../solifi-sidebar/solifi-sidebar.component';
+import {
+  SolifiNavGroup, SolifiNavItem, SolifiUserMenuItem,
+  SolifiSidebarTheme, SOLIFI_THEME,
+} from '../models/solifi-sidebar.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-app-shell',
   standalone: true,
-  imports: [HeaderComponent, PuiSidebarComponent],
+  imports: [PuiSolifiSidebarComponent],
   encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
 })
-export class PuiAppShellComponent implements OnInit {
-  private doc = inject(DOCUMENT);
+export class PuiAppShellComponent {
 
-  ngOnInit(): void {
-    const id = 'pui-material-symbols-font';
-    if (!this.doc.getElementById(id)) {
-      const link = this.doc.createElement('link');
-      link.id = id;
-      link.rel = 'stylesheet';
-      link.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block';
-      this.doc.head.appendChild(link);
+  // ── Sidebar content ───────────────────────────────────────
+  @Input() set groups(v: SolifiNavGroup[] | SolifiNavItem[] | string) {
+    if (typeof v === 'string') {
+      const parsed = this._parse<SolifiNavGroup[] | SolifiNavItem[]>(v) ?? [];
+      this._groups = this._normalize(parsed);
+    } else {
+      this._groups = this._normalize(v || []);
     }
   }
+  get groups(): SolifiNavGroup[] { return this._groups; }
+  private _groups: SolifiNavGroup[] = [];
 
- 
-  @Input() appTitle    = 'My App';
-  @Input() appSubtitle = '';
-  @Input() logo        = '';      
-  @Input() logoUrl     = '';      
-  @Input() brandName   = '';    
+  @Input() activeId  = '';
+  @Input() brandName = 'solifi';
+  @Input() logoUrl   = '';
 
-  
-  @Input() set groups(v: SidebarGroup[] | string) {
-    this._groups = typeof v === 'string' ? (this._tryParse<SidebarGroup[]>(v) ?? []) : (v || []);
+  // ── Sidebar layout ────────────────────────────────────────
+  @Input() set collapsed(v: boolean | string) {
+    this._collapsed = v === true || v === 'true' || (v as any) === '';
   }
-  get groups(): SidebarGroup[] { return this._groups; }
-  private _groups: SidebarGroup[] = [];
+  get collapsed(): boolean { return this._collapsed; }
+  private _collapsed = false;
 
-  @Input() activeId         = '';
-  @Input() sidebarVisible   = true;
-  @Input() sidebarCollapsed = false;
-
-  @Input() set config(v: SidebarConfig | string) {
-    this._config = typeof v === 'string' ? (this._tryParse<SidebarConfig>(v) ?? {}) : (v || {});
+  @Input() set showSidebar(v: boolean | string) {
+    this._showSidebar = v !== false && v !== 'false';
   }
-  get config(): SidebarConfig { return this._config; }
-  private _config: SidebarConfig = {};
+  get showSidebar(): boolean { return this._showSidebar; }
+  private _showSidebar = true;
 
-  @Input() set theme(v: SidebarTheme | string) {
-    this._theme = typeof v === 'string' ? (this._tryParse<SidebarTheme>(v) ?? {}) : (v || {});
+  @Input() width         = 240;
+  @Input() collapsedWidth = 64;
+
+  // ── Sidebar theme ─────────────────────────────────────────
+  @Input() set theme(v: SolifiSidebarTheme | string) {
+    this._theme = typeof v === 'string' ? (this._parse<SolifiSidebarTheme>(v) ?? SOLIFI_THEME) : (v || SOLIFI_THEME);
   }
-  get theme(): SidebarTheme { return this._theme; }
-  private _theme: SidebarTheme = {};
+  get theme(): SolifiSidebarTheme { return this._theme; }
+  private _theme: SolifiSidebarTheme = { ...SOLIFI_THEME };
 
- 
-  @Input() sidebarBgColor     = '';
-  @Input() sidebarTextColor   = '';
-  @Input() sidebarActiveColor = '';
-  @Input() sidebarHoverColor  = '';
-  @Input() sidebarBorderColor = '';
-  @Input() sidebarWidth       = 0;
-
-  
-  @Input() headerBgColor         = '#12C6A8';
-  @Input() headerTextColor       = '#ffffff';
-  @Input() headerUserName        = '';
-  @Input() headerUserEmail       = '';
-  @Input() headerGreeting        = 'Hi';
-  @Input() headerUserSubtext     = 'Welcome back!';
-  @Input() headerAvatarUrl       = '';
-  @Input() headerAvatarColor     = '#0d6e5f';
-  @Input() headerAvatarTextColor = '#ffffff';
-  @Input() headerShowHelp        = false;
-
-  @Input() set headerBadge(v: HeaderBadge | string | null) {
-    this._headerBadge = typeof v === 'string' ? (this._tryParse<HeaderBadge>(v) ?? null) : v;
+  // ── User profile ──────────────────────────────────────────
+  @Input() set showUser(v: boolean | string) {
+    this._showUser = v === true || v === 'true' || (v as any) === '';
   }
-  get headerBadge(): HeaderBadge | null { return this._headerBadge; }
-  private _headerBadge: HeaderBadge | null = null;
+  get showUser(): boolean { return this._showUser; }
+  private _showUser = false;
 
-  @Input() set headerMenuItems(v: UserMenuItem[] | string) {
-    this._headerMenuItems = typeof v === 'string' ? (this._tryParse<UserMenuItem[]>(v) ?? []) : (v || []);
+  @Input() userName      = '';
+  @Input() userEmail     = '';
+  @Input() userInitials  = '';
+  @Input() userAvatarUrl = '';
+
+  @Input() set userMenuItems(v: SolifiUserMenuItem[] | string) {
+    this._userMenuItems = typeof v === 'string' ? (this._parse<SolifiUserMenuItem[]>(v) ?? []) : (v || []);
   }
-  get headerMenuItems(): UserMenuItem[] { return this._headerMenuItems; }
-  private _headerMenuItems: UserMenuItem[] = [];
+  get userMenuItems(): SolifiUserMenuItem[] { return this._userMenuItems; }
+  private _userMenuItems: SolifiUserMenuItem[] = [];
 
- 
-  @Output() sidebarVisibleChange   = new EventEmitter<boolean>();
-  @Output() sidebarCollapsedChange = new EventEmitter<boolean>();
-  @Output() itemSelect             = new EventEmitter<SidebarNavItem>();
-  @Output() headerMenuAction       = new EventEmitter<string>();
-  @Output() headerHelpClick        = new EventEmitter<void>();
-
-
-  toggleSidebar(): void {
-    this.sidebarVisible = !this.sidebarVisible;
-    this.sidebarVisibleChange.emit(this.sidebarVisible);
-  }
+  // ── Outputs ───────────────────────────────────────────────
+  @Output() itemSelect        = new EventEmitter<SolifiNavItem>();
+  @Output() collapsedChange   = new EventEmitter<boolean>();
+  @Output() userMenuSelect    = new EventEmitter<SolifiUserMenuItem>();
 
   onCollapsedChange(v: boolean): void {
-    this.sidebarCollapsed = v;
-    this.sidebarCollapsedChange.emit(v);
+    this._collapsed = v;
+    this.collapsedChange.emit(v);
   }
 
-  private _tryParse<T>(s: string): T | null {
+  private _normalize(v: SolifiNavGroup[] | SolifiNavItem[]): SolifiNavGroup[] {
+    if (!v.length) return [];
+    return 'items' in v[0]
+      ? (v as SolifiNavGroup[])
+      : [{ id: '__flat__', items: v as SolifiNavItem[] }];
+  }
+
+  private _parse<T>(s: string): T | null {
     try { return JSON.parse(s) as T; } catch { return null; }
   }
 }

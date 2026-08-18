@@ -164,6 +164,20 @@
   border-right-color: #1e293b;
 }
 
+/* ── Abbr (text-only collapsed fallback) ───────────────────── */
+.ssb__abbr {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  background: rgba(255,255,255,.10);
+  color: currentColor;
+  letter-spacing: .02em;
+}
+.ssb__item:hover .ssb__abbr  { background: rgba(255,255,255,.16); }
+.ssb__item--active .ssb__abbr { background: rgba(18,198,168,.22); }
+
 /* ── Icon ──────────────────────────────────────────────────── */
 .ssb__icon {
   display: flex; align-items: center; justify-content: center;
