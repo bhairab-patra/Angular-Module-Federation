@@ -23,7 +23,7 @@ export class SpinnerPageComponent {
   template: \`
     <!-- Inline -->
     <pui-lib-spinner type="dash" size="md" color="#12C6A8"></pui-lib-spinner>
-    <pui-lib-spinner type="dots" size="md" color="#6366f1" label="Loadingâ€¦"></pui-lib-spinner>
+    <pui-lib-spinner type="dots" size="md" color="#6366f1" label="Loading…"></pui-lib-spinner>
 
     <!-- Custom size -->
     <pui-lib-spinner type="dash" [sizePx]="48" color="#12C6A8"></pui-lib-spinner>
@@ -37,7 +37,7 @@ export class SpinnerPageComponent {
       overlayColor="#ffffff"
       [overlayOpacity]="0.75"
       [zIndex]="2000"
-      label="Please waitâ€¦">
+      label="Please wait…">
     </pui-lib-spinner>
   \`
 })
@@ -62,7 +62,7 @@ function LoadingOverlay({ isLoading }) {
       overlay-color="#ffffff"
       overlay-opacity="0.75"
       z-index="2000"
-      label="Loadingâ€¦">
+      label="Loading…">
     </pui-lib-spinner>
   );
 }
@@ -73,7 +73,7 @@ function InlineSpinner() {
 
   htmlCode = `<!-- Inline spinners -->
 <pui-lib-spinner type="dash" size="md" color="#12C6A8"></pui-lib-spinner>
-<pui-lib-spinner type="dots" size="lg" color="#6366f1" label="Loadingâ€¦"></pui-lib-spinner>
+<pui-lib-spinner type="dots" size="lg" color="#6366f1" label="Loading…"></pui-lib-spinner>
 
 <!-- Full-page overlay -->
 <pui-lib-spinner
@@ -85,7 +85,7 @@ function InlineSpinner() {
   overlay-color="#ffffff"
   overlay-opacity="0.75"
   z-index="2000"
-  label="Please waitâ€¦"
+  label="Please wait…"
   style="display:none">
 </pui-lib-spinner>
 
@@ -142,24 +142,24 @@ function InlineSpinner() {
   xfwRows = [
     { name: 'type',           angular: 'type="dots"',              attr: 'type="dots"',         js: 'el.type = "dots"'         },
     { name: 'size',           angular: 'size="lg"',                attr: 'size="lg"',            js: 'el.size = "lg"'           },
-    { name: 'sizePx',         angular: '[sizePx]="48"',            attr: 'â€”',                    js: 'el.sizePx = 48'           },
+    { name: 'sizePx',         angular: '[sizePx]="48"',            attr: '—',                    js: 'el.sizePx = 48'           },
     { name: 'color',          angular: 'color="#12C6A8"',          attr: 'color="#12C6A8"',      js: 'el.color = "#12C6A8"'     },
     { name: 'speed',          angular: '[speed]="400"',            attr: 'speed="400"',          js: 'el.speed = 400'           },
     { name: 'overlay',        angular: '[overlay]="true"',         attr: 'overlay',              js: 'el.overlay = true'        },
     { name: 'overlayColor',   angular: 'overlayColor="#fff"',      attr: 'overlay-color="#fff"', js: 'el.overlayColor = "#fff"' },
     { name: 'overlayOpacity', angular: '[overlayOpacity]="0.75"',  attr: 'overlay-opacity="0.75"', js: 'el.overlayOpacity = 0.75' },
-    { name: 'label',          angular: 'label="Loadingâ€¦"',         attr: 'label="Loadingâ€¦"',    js: 'el.label = "Loadingâ€¦"'    },
+    { name: 'label',          angular: 'label="Loading…"',         attr: 'label="Loading…"',    js: 'el.label = "Loading…"'    },
   ];
 
   api: ApiRow[] = [
     { input: 'type',           type: `'dash'|'dots'`,      default: `'dash'`,    description: 'dash = radiating lines Â· dots = orbiting dot ring.' },
-    { input: 'size',           type: `'sm'|'md'|'lg'|'xl'`, default: `'md'`,   description: 'Size preset â€” sm 24px Â· md 40px Â· lg 56px Â· xl 80px.' },
-    { input: 'sizePx',         type: 'number',             default: 'null',      description: 'Exact pixel size â€” overrides the size preset.' },
+    { input: 'size',           type: `'sm'|'md'|'lg'|'xl'`, default: `'md'`,   description: 'Size preset — sm 24px Â· md 40px Â· lg 56px Â· xl 80px.' },
+    { input: 'sizePx',         type: 'number',             default: 'null',      description: 'Exact pixel size — overrides the size preset.' },
     { input: 'color',          type: 'string',             default: `'#12C6A8'`, description: 'Spinner colour (any CSS colour value).' },
     { input: 'speed',          type: 'number',             default: '800',       description: 'Full-rotation duration in milliseconds.' },
     { input: 'overlay',        type: 'boolean',            default: 'false',     description: 'Render a fixed full-screen backdrop.' },
     { input: 'overlayColor',   type: 'string',             default: `'#ffffff'`, description: 'Overlay background colour.' },
-    { input: 'overlayOpacity', type: 'number',             default: '0.7',       description: 'Overlay opacity â€” 0 (clear) to 1 (solid).' },
+    { input: 'overlayOpacity', type: 'number',             default: '0.7',       description: 'Overlay opacity — 0 (clear) to 1 (solid).' },
     { input: 'zIndex',         type: 'number',             default: '1000',      description: 'z-index of overlay; spinner renders at zIndex + 1.' },
     { input: 'label',          type: 'string',             default: `''`,        description: 'Optional text displayed below the spinner.' },
     { input: 'labelColor',     type: 'string',             default: `'#6b7280'`, description: 'Label text colour.' },

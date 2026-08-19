@@ -1,11 +1,10 @@
 ﻿
 <docs-page
   title="Combobox"
-  description="A searchable single-select input combining a text field with a dropdown list â€” with keyboard navigation, grouped options, option descriptions, and optional free-text entry."
+  description="A searchable single-select input combining a text field with a dropdown list — with keyboard navigation, grouped options, option descriptions, and optional free-text entry."
   [hasFramework]="true"
   [api]="api">
 
-  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Basic -->
@@ -17,7 +16,7 @@
         <pui-lib-combobox
           [options]="countryOptions"
           [value]="selectedCountry"
-          placeholder="Search countriesâ€¦"
+          placeholder="Search countries…"
           (valueChange)="selectedCountry = $event; cdr.markForCheck()">
         </pui-lib-combobox>
         <p *ngIf="selectedCountry" class="demo-result">Selected: {{ selectedCountry }}</p>
@@ -33,7 +32,7 @@
         <pui-lib-combobox
           [options]="priorityOptions"
           [value]="selectedPriority"
-          placeholder="Choose priorityâ€¦"
+          placeholder="Choose priority…"
           (valueChange)="selectedPriority = $event; cdr.markForCheck()">
         </pui-lib-combobox>
         <p *ngIf="selectedPriority" class="demo-result">Priority: {{ selectedPriority }}</p>
@@ -49,7 +48,7 @@
         <pui-lib-combobox
           [options]="planOptions"
           [value]="selectedPlan"
-          placeholder="Choose a planâ€¦"
+          placeholder="Choose a plan…"
           (valueChange)="selectedPlan = $event; cdr.markForCheck()">
         </pui-lib-combobox>
         <p *ngIf="selectedPlan" class="demo-result">Plan: {{ selectedPlan }}</p>
@@ -59,13 +58,13 @@
     <!-- 4. Free text -->
     <div class="demo-section">
       <h3 class="demo-section__title">Free Text Entry</h3>
-      <p class="demo-section__desc">Enable <code>allowFreeText</code> to let users type a value not in the list. A "Use â€¦" option appears when no match exists.</p>
+      <p class="demo-section__desc">Enable <code>allowFreeText</code> to let users type a value not in the list. A "Use …" option appears when no match exists.</p>
       <div style="width:340px">
         <label class="demo-label">Tag or Create New</label>
         <pui-lib-combobox
           [options]="tagOptions"
           [value]="selectedTag"
-          placeholder="Search or create a tagâ€¦"
+          placeholder="Search or create a tag…"
           [allowFreeText]="true"
           (valueChange)="selectedTag = $event; cdr.markForCheck()">
         </pui-lib-combobox>
@@ -83,7 +82,7 @@
           <pui-lib-combobox
             [options]="statusOptions"
             [value]="selectedStatus"
-            placeholder="Select statusâ€¦"
+            placeholder="Select status…"
             (valueChange)="selectedStatus = $event; cdr.markForCheck()">
           </pui-lib-combobox>
         </div>
@@ -93,14 +92,14 @@
             [options]="countryOptions"
             value="US"
             [disabled]="true"
-            placeholder="Select countryâ€¦">
+            placeholder="Select country…">
           </pui-lib-combobox>
         </div>
         <div style="width:260px">
           <label class="demo-label">Error state</label>
           <pui-lib-combobox
             [options]="countryOptions"
-            placeholder="Select countryâ€¦"
+            placeholder="Select country…"
             error="Please select a valid country">
           </pui-lib-combobox>
         </div>
@@ -109,11 +108,10 @@
 
   </ng-container>
 
-  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-combobox</code> is a standalone Web Component with smart JSON-parse setters â€” pass arrays from Angular with <code>[options]</code> bindings, from React via ref, and from HTML via JS property assignment.</p>
+    <p class="fw-lead"><code>pui-lib-combobox</code> is a standalone Web Component with smart JSON-parse setters — pass arrays from Angular with <code>[options]</code> bindings, from React via ref, and from HTML via JS property assignment.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
@@ -121,16 +119,16 @@
       [htmlCode]="htmlCode">
       <div preview class="demo-col" style="max-width:340px">
         <label class="demo-label">Select Country</label>
-        <pui-lib-combobox [options]="countryOptions" [value]="selectedCountry" placeholder="Search countriesâ€¦" (valueChange)="selectedCountry = $event; cdr.markForCheck()"/>
+        <pui-lib-combobox [options]="countryOptions" [value]="selectedCountry" placeholder="Search countries…" (valueChange)="selectedCountry = $event; cdr.markForCheck()"/>
         <label class="demo-label" style="margin-top:12px">Assign Priority</label>
-        <pui-lib-combobox [options]="priorityOptions" [value]="selectedPriority" placeholder="Choose priorityâ€¦" (valueChange)="selectedPriority = $event; cdr.markForCheck()"/>
+        <pui-lib-combobox [options]="priorityOptions" [value]="selectedPriority" placeholder="Choose priority…" (valueChange)="selectedPriority = $event; cdr.markForCheck()"/>
       </div>
       <div react-preview class="react-task-form">
         <h4 class="react-form-title">Create Task</h4>
         <label class="demo-label">Priority</label>
-        <pui-lib-combobox [options]="priorityOptions" placeholder="Select priorityâ€¦"/>
+        <pui-lib-combobox [options]="priorityOptions" placeholder="Select priority…"/>
         <label class="demo-label" style="margin-top:12px">Assignee</label>
-        <pui-lib-combobox [options]="countryOptions" placeholder="Assign toâ€¦" [searchable]="true"/>
+        <pui-lib-combobox [options]="countryOptions" placeholder="Assign to…" [searchable]="true"/>
       </div>
     </docs-framework-preview>
 

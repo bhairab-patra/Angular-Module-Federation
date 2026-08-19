@@ -1,11 +1,10 @@
 ﻿
 <docs-page
   title="Card"
-  description="Flexible surface component â€” supports stat/metric layouts, slot projection (header Â· body Â· footer), 5 variants, 3 sizes, full-width, accent strip, clickable lift, and a cardClick event."
+  description="Flexible surface component — supports stat/metric layouts, slot projection (header Â· body Â· footer), 5 variants, 3 sizes, full-width, accent strip, clickable lift, and a cardClick event."
   [hasFramework]="true"
   [api]="api">
 
-  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Content cards -->
@@ -60,7 +59,7 @@
     <!-- 3. Variants -->
     <div class="demo-section">
       <h3 class="demo-section__title">Variants</h3>
-      <p class="demo-section__desc">Five visual styles â€” choose based on the card's position in the visual hierarchy.</p>
+      <p class="demo-section__desc">Five visual styles — choose based on the card's position in the visual hierarchy.</p>
       <div class="card-row card-row--wrap">
         <pui-lib-card variant="default"  style="width:180px"><p class="variant-label">Default</p><p class="variant-desc">White + shadow</p></pui-lib-card>
         <pui-lib-card variant="outlined" style="width:180px"><p class="variant-label">Outlined</p><p class="variant-desc">Border only</p></pui-lib-card>
@@ -84,7 +83,7 @@
     <!-- 5. Balance card layouts -->
     <div class="demo-section">
       <h3 class="demo-section__title">Balance Card Layouts</h3>
-      <p class="demo-section__desc">Four layout patterns for financial stat cards â€” all use <code>variant="flat"</code> with <code>[clickable]="true"</code>.</p>
+      <p class="demo-section__desc">Four layout patterns for financial stat cards — all use <code>variant="flat"</code> with <code>[clickable]="true"</code>.</p>
       <div class="card-row">
         <pui-lib-card variant="flat" size="sm" [clickable]="true" cardClass="bal-card" style="flex:1;min-width:0">
           <div class="bal-row">
@@ -133,11 +132,10 @@
 
   </ng-container>
 
-  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-card</code> is a flexible surface â€” project any content via <code>ng-content</code> or use named slots (<code>card-header</code>, <code>card-footer</code>). Pass a <code>[data]</code> object for the automatic stat/metric layout.</p>
+    <p class="fw-lead"><code>pui-lib-card</code> is a flexible surface — project any content via <code>ng-content</code> or use named slots (<code>card-header</code>, <code>card-footer</code>). Pass a <code>[data]</code> object for the automatic stat/metric layout.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"

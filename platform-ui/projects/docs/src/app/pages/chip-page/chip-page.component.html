@@ -1,11 +1,10 @@
 ﻿
 <docs-page
   title="Chip"
-  description="Interactive inline elements for filters, selections, and input tags â€” support removable, selectable, and disabled states in six colour variants."
+  description="Interactive inline elements for filters, selections, and input tags — support removable, selectable, and disabled states in six colour variants."
   [hasFramework]="true"
   [api]="api">
 
-  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Variants -->
@@ -25,7 +24,7 @@
     <!-- 2. Sizes -->
     <div class="demo-section">
       <h3 class="demo-section__title">Sizes</h3>
-      <p class="demo-section__desc">Two sizes â€” <code>md</code> (default) and <code>sm</code> â€” for use in different density contexts.</p>
+      <p class="demo-section__desc">Two sizes — <code>md</code> (default) and <code>sm</code> — for use in different density contexts.</p>
       <div class="demo-row" style="align-items:center">
         <pui-lib-chip variant="primary" size="md">Medium chip</pui-lib-chip>
         <pui-lib-chip variant="primary" size="sm">Small chip</pui-lib-chip>
@@ -41,7 +40,7 @@
           variant="primary"
           [removable]="true"
           (removed)="removeTag(tag)">{{ tag }}</pui-lib-chip>
-        <span *ngIf="!activeTags.length" class="demo-empty">All chips removed â€” refresh to reset.</span>
+        <span *ngIf="!activeTags.length" class="demo-empty">All chips removed — refresh to reset.</span>
       </div>
     </div>
 
@@ -72,7 +71,6 @@
 
   </ng-container>
 
-  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
@@ -91,7 +89,7 @@
       <div react-preview class="react-filter-bar">
         <span class="react-filter-label">Active filters:</span>
         <pui-lib-chip variant="primary" [removable]="true">Category: Electronics</pui-lib-chip>
-        <pui-lib-chip variant="primary" [removable]="true">Price: $0â€“$100</pui-lib-chip>
+        <pui-lib-chip variant="primary" [removable]="true">Price: $0–$100</pui-lib-chip>
         <pui-lib-chip variant="primary" [removable]="true">Brand: Sony</pui-lib-chip>
         <pui-lib-chip variant="default">+ Add filter</pui-lib-chip>
       </div>

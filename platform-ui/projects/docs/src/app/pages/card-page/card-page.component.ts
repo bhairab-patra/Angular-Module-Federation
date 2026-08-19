@@ -33,7 +33,7 @@ export class CardPageComponent {
 
     <!-- Clickable -->
     <pui-lib-card [clickable]="true" (cardClick)="onCardClick($event)">
-      Click me â€” hover for lift effect.
+      Click me — hover for lift effect.
     </pui-lib-card>
   \`
 })
@@ -89,23 +89,23 @@ function SimpleCard() {
   xfwRows = [
     { name: 'variant',   angular: 'variant="teal"',          attr: 'variant="teal"',   js: 'el.variant = "teal"'    },
     { name: 'size',      angular: 'size="sm"',               attr: 'size="sm"',         js: 'el.size = "sm"'         },
-    { name: 'data',      angular: '[data]="metric"',         attr: 'â€”',                 js: 'el.data = {...}'        },
+    { name: 'data',      angular: '[data]="metric"',         attr: '—',                 js: 'el.data = {...}'        },
     { name: 'clickable', angular: '[clickable]="true"',      attr: 'clickable',         js: 'el.clickable = true'    },
     { name: 'accent',    angular: '[accent]="true"',         attr: 'accent',            js: 'el.accent = true'       },
     { name: 'fullWidth', angular: '[fullWidth]="true"',      attr: 'full-width',        js: 'el.fullWidth = true'    },
-    { name: 'cardClick', angular: '(cardClick)="fn($event)"', attr: 'â€”',               js: 'el.addEventListener(â€¦)' },
+    { name: 'cardClick', angular: '(cardClick)="fn($event)"', attr: '—',               js: 'el.addEventListener(…)' },
   ];
 
   api: ApiRow[] = [
     { input: 'data',       type: 'CardData',                                          default: 'undefined', description: 'Renders stat/metric layout automatically (title, value, trend, trendValue, subtitle).' },
     { input: 'variant',    type: `'default'|'outlined'|'flat'|'teal'|'dark'`,         default: `'default'`, description: 'Visual style.' },
-    { input: 'size',       type: `'sm'|'md'|'lg'`,                                    default: `'md'`,      description: 'Internal padding â€” sm 16px, md 24px, lg 32px.' },
+    { input: 'size',       type: `'sm'|'md'|'lg'`,                                    default: `'md'`,      description: 'Internal padding — sm 16px, md 24px, lg 32px.' },
     { input: 'elevated',   type: 'boolean',                                            default: 'true',      description: 'Drop-shadow.' },
     { input: 'clickable',  type: 'boolean',                                            default: 'false',     description: 'Hover lift + pointer cursor.' },
     { input: 'fullWidth',  type: 'boolean',                                            default: 'false',     description: 'Stretch to 100% container width.' },
     { input: 'accent',     type: 'boolean',                                            default: 'false',     description: 'Teal gradient top-border accent strip.' },
     { input: 'cardClass',  type: 'string',                                             default: `''`,        description: 'Extra CSS class on the wrapper element.' },
-    { input: '(cardClick)', type: 'EventEmitter<MouseEvent>',                          default: 'â€”',         description: 'Emitted on click when clickable=true.' },
+    { input: '(cardClick)', type: 'EventEmitter<MouseEvent>',                          default: '—',         description: 'Emitted on click when clickable=true.' },
   ];
   trackByIndex(_i: number): number { return _i; }
 }

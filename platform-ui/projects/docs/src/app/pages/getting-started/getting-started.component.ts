@@ -14,7 +14,6 @@ type Framework = 'angular' | 'react' | 'html';
   template: `
   <div class="gs-wrap">
 
-    <!-- ══ CONTENT ══════════════════════════════════════════════ -->
     <article class="gs-content">
 
       <nav class="breadcrumb">
@@ -43,9 +42,7 @@ type Framework = 'angular' | 'react' | 'html';
 
       <hr class="gs-hr">
 
-      <!-- ╔══════════════════════════════════════════════════════╗ -->
       <!-- ║  ANGULAR                                             ║ -->
-      <!-- ╚══════════════════════════════════════════════════════╝ -->
       <ng-container *ngIf="active === 'angular'">
 
         <div class="fw-badge fw-badge--angular">Angular 19</div>
@@ -60,7 +57,6 @@ type Framework = 'angular' | 'react' | 'html';
           </button>
         </div>
 
-        <!-- ════════════════════════ PUBLISHED NPM ════════════════════════ -->
         <ng-container *ngIf="ngMode==='published'">
 
         <section id="ng-prereq" class="gs-section">
@@ -164,7 +160,6 @@ type Framework = 'angular' | 'react' | 'html';
 
         </ng-container><!-- end published -->
 
-        <!-- ════════════════════════ LOCAL DEV ════════════════════════ -->
         <ng-container *ngIf="ngMode==='local'">
 
         <div class="note note--info" style="margin-bottom:28px">
@@ -292,9 +287,7 @@ type Framework = 'angular' | 'react' | 'html';
 
       </ng-container>
 
-      <!-- ╔══════════════════════════════════════════════════════╗ -->
       <!-- ║  REACT                                               ║ -->
-      <!-- ╚══════════════════════════════════════════════════════╝ -->
       <ng-container *ngIf="active === 'react'">
 
         <div class="fw-badge fw-badge--react">React 19</div>
@@ -309,7 +302,6 @@ type Framework = 'angular' | 'react' | 'html';
           </button>
         </div>
 
-        <!-- ════════════════════════ PUBLISHED NPM ════════════════════════ -->
         <ng-container *ngIf="rxMode==='published'">
 
         <section id="rx-prereq" class="gs-section">
@@ -459,7 +451,6 @@ type Framework = 'angular' | 'react' | 'html';
 
         </ng-container><!-- end published -->
 
-        <!-- ════════════════════════ LOCAL DEV ════════════════════════ -->
         <ng-container *ngIf="rxMode==='local'">
 
         <div class="note note--info" style="margin-bottom:28px">
@@ -633,9 +624,7 @@ type Framework = 'angular' | 'react' | 'html';
 
       </ng-container>
 
-      <!-- ╔══════════════════════════════════════════════════════╗ -->
       <!-- ║  PLAIN HTML                                          ║ -->
-      <!-- ╚══════════════════════════════════════════════════════╝ -->
       <ng-container *ngIf="active === 'html'">
 
         <div class="fw-badge fw-badge--html">Plain HTML</div>
@@ -803,7 +792,6 @@ type Framework = 'angular' | 'react' | 'html';
 
     </article>
 
-    <!-- ══ RIGHT PANEL ════════════════════════════════════════════ -->
     <aside class="otp">
       <div class="otp-label">ON THIS PAGE</div>
       <nav class="otp-nav">

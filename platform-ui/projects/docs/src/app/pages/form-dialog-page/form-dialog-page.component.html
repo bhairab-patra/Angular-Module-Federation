@@ -1,5 +1,5 @@
 ﻿<docs-page title="Form Dialog"
-  description="pui-lib-form-dialog â€” a configurable modal form with support for text, email, number, password, textarea, and select fields. Handles both add and edit flows via the [data] input."
+  description="pui-lib-form-dialog — a configurable modal form with support for text, email, number, password, textarea, and select fields. Handles both add and edit flows via the [data] input."
   [api]="api">
 
   <ng-container demo>
@@ -19,15 +19,8 @@
         <p *ngFor="let entry of basicLog; trackBy: trackByIndex" class="demo-log__entry">{{ entry }}</p>
       </div>
 
-      <pui-lib-form-dialog
-        [open]="basicOpen"
-        [title]="basicTitle"
-        [fields]="basicFields"
-        [data]="basicData"
-        [saveLabel]="basicSaveLabel"
-        size="md"
-        (save)="onBasicSave($event)"
-        (cancel)="onBasicClose()"
+      <pui-lib-form-dialog [open]="basicOpen" [title]="basicTitle" [fields]="basicFields" [data]="basicData"
+        [saveLabel]="basicSaveLabel" size="md" (save)="onBasicSave($event)" (cancel)="onBasicClose()"
         (closed)="onBasicClose()">
       </pui-lib-form-dialog>
     </div>
@@ -45,37 +38,22 @@
         <button class="demo-btn" (click)="sizeOpen = 'lg'">Large (720 px)</button>
       </div>
 
-      <pui-lib-form-dialog
-        [open]="sizeOpen === 'sm'"
-        title="Small Dialog"
-        [fields]="sizeFields"
-        size="sm"
-        (save)="sizeOpen = ''"
-        (closed)="sizeOpen = ''">
+      <pui-lib-form-dialog [open]="sizeOpen === 'sm'" title="Small Dialog" [fields]="sizeFields" size="sm"
+        (save)="sizeOpen = ''" (closed)="sizeOpen = ''">
       </pui-lib-form-dialog>
 
-      <pui-lib-form-dialog
-        [open]="sizeOpen === 'md'"
-        title="Medium Dialog"
-        [fields]="sizeFields"
-        size="md"
-        (save)="sizeOpen = ''"
-        (closed)="sizeOpen = ''">
+      <pui-lib-form-dialog [open]="sizeOpen === 'md'" title="Medium Dialog" [fields]="sizeFields" size="md"
+        (save)="sizeOpen = ''" (closed)="sizeOpen = ''">
       </pui-lib-form-dialog>
 
-      <pui-lib-form-dialog
-        [open]="sizeOpen === 'lg'"
-        title="Large Dialog"
-        [fields]="sizeFields"
-        size="lg"
-        (save)="sizeOpen = ''"
-        (closed)="sizeOpen = ''">
+      <pui-lib-form-dialog [open]="sizeOpen === 'lg'" title="Large Dialog" [fields]="sizeFields" size="lg"
+        (save)="sizeOpen = ''" (closed)="sizeOpen = ''">
       </pui-lib-form-dialog>
     </div>
 
     <!-- 3. Complex multi-field form -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Complex Form â€” Product Catalog</h3>
+      <h3 class="demo-section__title">Complex Form — Product Catalog</h3>
       <p class="demo-section__desc">
         Use <code>span: 'half'</code> to place two fields side-by-side in the 2-column grid,
         or <code>span: 'full'</code> (default) to stretch a field the full width.
@@ -88,23 +66,18 @@
         <p *ngFor="let entry of productLog; trackBy: trackByIndex" class="demo-log__entry">{{ entry }}</p>
       </div>
 
-      <pui-lib-form-dialog
-        [open]="productOpen"
-        title="Add Product"
-        [fields]="productFields"
-        [data]="productData"
-        saveLabel="Add Product"
-        size="lg"
-        (save)="onProductSave($event)"
-        (closed)="productOpen = false">
+      <pui-lib-form-dialog [open]="productOpen" title="Add Product" [fields]="productFields" [data]="productData"
+        saveLabel="Add Product" size="lg" (save)="onProductSave($event)" (closed)="productOpen = false">
       </pui-lib-form-dialog>
     </div>
 
     <!-- 4. Code Usage -->
     <div class="demo-section">
       <h3 class="demo-section__title">Usage</h3>
-      <docs-code-block lang="html"       id="fd-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <docs-code-block lang="typescript" id="fd-ts"   [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="html" id="fd-html" [text]="angHtml" [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)" />
+      <docs-code-block lang="typescript" id="fd-ts" [text]="angTs" [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)" />
     </div>
 
     <!-- 5. FormDialogField interface -->
@@ -114,7 +87,14 @@
         Each item in the <code>[fields]</code> array implements this interface.
       </p>
       <table class="pui-api-table">
-        <thead><tr><th>Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let row of fieldApi; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
             <td><code class="tag-name">{{ row.input }}</code></td>
@@ -128,4 +108,3 @@
 
   </ng-container>
 </docs-page>
-

@@ -5,7 +5,6 @@
   [hasFramework]="true"
   [api]="api">
 
-  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Line (default) -->
@@ -13,9 +12,9 @@
       <h3 class="demo-section__title">Line variant (default)</h3>
       <pui-lib-tabs [tabs]="basicTabs" (tabChange)="lineActive = $event.id">
         <div class="tab-content-demo">
-          <p *ngIf="lineActive === 'overview'  || !lineActive">Overview panel â€” product summary, KPIs, and top-level metrics for this account.</p>
-          <p *ngIf="lineActive === 'analytics'">Analytics panel â€” charts, funnels, and cohort breakdowns rendered here.</p>
-          <p *ngIf="lineActive === 'settings'">Settings panel â€” configure notifications, integrations, and team access.</p>
+          <p *ngIf="lineActive === 'overview'  || !lineActive">Overview panel — product summary, KPIs, and top-level metrics for this account.</p>
+          <p *ngIf="lineActive === 'analytics'">Analytics panel — charts, funnels, and cohort breakdowns rendered here.</p>
+          <p *ngIf="lineActive === 'settings'">Settings panel — configure notifications, integrations, and team access.</p>
         </div>
       </pui-lib-tabs>
     </div>
@@ -50,10 +49,10 @@
       <h3 class="demo-section__title">Vertical orientation</h3>
       <pui-lib-tabs variant="pill" orientation="vertical" [tabs]="vertTabs" (tabChange)="vertActive = $event.id">
         <div class="tab-content-demo">
-          <p *ngIf="vertActive === 'profile'  || !vertActive">Profile settings â€” update display name, avatar, and contact info.</p>
-          <p *ngIf="vertActive === 'security'">Security â€” change password, set up 2FA, manage sessions.</p>
-          <p *ngIf="vertActive === 'billing'">Billing â€” view invoices, update payment method, manage plan.</p>
-          <p *ngIf="vertActive === 'api'">API â€” generate tokens, view usage, manage webhooks.</p>
+          <p *ngIf="vertActive === 'profile'  || !vertActive">Profile settings — update display name, avatar, and contact info.</p>
+          <p *ngIf="vertActive === 'security'">Security — change password, set up 2FA, manage sessions.</p>
+          <p *ngIf="vertActive === 'billing'">Billing — view invoices, update payment method, manage plan.</p>
+          <p *ngIf="vertActive === 'api'">API — generate tokens, view usage, manage webhooks.</p>
         </div>
       </pui-lib-tabs>
     </div>
@@ -68,7 +67,7 @@
 
     <!-- 6. Sizes -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Sizes â€” sm / md / lg</h3>
+      <h3 class="demo-section__title">Sizes — sm / md / lg</h3>
       <div style="display:flex;flex-direction:column;gap:20px;">
         <pui-lib-tabs variant="pill" size="sm" [tabs]="sizeTabs" [panel]="false"></pui-lib-tabs>
         <pui-lib-tabs variant="pill" size="md" [tabs]="sizeTabs" [panel]="false"></pui-lib-tabs>
@@ -78,11 +77,10 @@
 
   </ng-container>
 
-  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-tabs</code> is a Web Component â€” works in Angular, React, and plain HTML. Pass the <code>tabs</code> array as a JS property from React/HTML; Angular uses <code>[tabs]</code> binding. Content projected inside <code>&lt;pui-lib-tabs&gt;</code> renders as the panel area â€” you control what shows based on the active tab.</p>
+    <p class="fw-lead"><code>pui-lib-tabs</code> is a Web Component — works in Angular, React, and plain HTML. Pass the <code>tabs</code> array as a JS property from React/HTML; Angular uses <code>[tabs]</code> binding. Content projected inside <code>&lt;pui-lib-tabs&gt;</code> renders as the panel area — you control what shows based on the active tab.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
@@ -90,7 +88,7 @@
       [htmlCode]="htmlCode">
       <div preview>
         <pui-lib-tabs variant="pill" [tabs]="basicTabs">
-          <p class="fw-panel-hint">Tab panel content renders here â€” control visibility with <code>*ngIf="active === 'id'"</code>.</p>
+          <p class="fw-panel-hint">Tab panel content renders here — control visibility with <code>*ngIf="active === 'id'"</code>.</p>
         </pui-lib-tabs>
       </div>
       <div react-preview class="react-settings-page">

@@ -113,9 +113,9 @@ customElements.whenDefined('pui-lib-breadcrumb').then(() => {
   ];
 
   xfwRows = [
-    { name: 'items',     angular: '[items]="items"',          attr: 'â€”',                 js: 'el.items = [...]'           },
+    { name: 'items',     angular: '[items]="items"',          attr: '—',                 js: 'el.items = [...]'           },
     { name: 'separator', angular: 'separator="slash"',        attr: 'separator="slash"', js: 'el.separator = "slash"'     },
-    { name: 'ariaLabel', angular: 'ariaLabel="Navigation"',   attr: 'aria-label="â€¦"',    js: 'el.ariaLabel = "â€¦"'         },
+    { name: 'ariaLabel', angular: 'ariaLabel="Navigation"',   attr: 'aria-label="…"',    js: 'el.ariaLabel = "…"'         },
   ];
 
   cssTokenRows = [

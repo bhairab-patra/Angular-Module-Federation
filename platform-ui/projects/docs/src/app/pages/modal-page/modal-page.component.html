@@ -5,7 +5,6 @@
   [hasFramework]="true"
   [api]="api">
 
-  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Dialog trigger cards -->
@@ -71,7 +70,6 @@
 
   </ng-container>
 
-  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
@@ -115,7 +113,6 @@
 
 </docs-page>
 
-<!-- â•â• Basic Modal â•â• -->
 <pui-lib-modal [open]="basicOpen" title="Basic Dialog" size="md" (closed)="basicOpen=false;cdr.markForCheck()">
   <div class="modal-body-content">
     <p class="modal-text">Use <code>ng-content</code> to project any content into the modal body. This is a general-purpose dialog suitable for messages, notices, or lightweight interactions.</p>
@@ -132,7 +129,6 @@
   </div>
 </pui-lib-modal>
 
-<!-- â•â• Confirm Delete Modal â•â• -->
 <pui-lib-modal [open]="confirmOpen" title="Delete Item" size="sm" (closed)="confirmOpen=false;cdr.markForCheck()">
   <div class="modal-body-content">
     <pui-lib-card variant="flat" size="sm" cardClass="danger-card">
@@ -151,7 +147,6 @@
   </div>
 </pui-lib-modal>
 
-<!-- â•â• Success Modal â•â• -->
 <pui-lib-modal [open]="successOpen" title="Payment Successful" size="sm" (closed)="successOpen=false;cdr.markForCheck()">
   <div class="modal-body-content modal-body-content--center">
     <div class="success-icon-wrap"><pui-lib-icon name="check-circle" size="xl" color="#15803d"></pui-lib-icon></div>
@@ -168,7 +163,6 @@
   </div>
 </pui-lib-modal>
 
-<!-- â•â• Form Modal â•â• -->
 <pui-lib-modal [open]="formOpen" title="Edit Profile" size="lg" (closed)="formOpen=false;cdr.markForCheck()">
   <div class="modal-body-content">
     <div class="form-grid">

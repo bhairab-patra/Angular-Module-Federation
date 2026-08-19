@@ -1,40 +1,32 @@
-﻿
-<docs-page
-  title="Data Grid"
-  description="A feature-rich data table with sortable columns, row selection, badge cells, pagination, and an empty state â€” designed for large datasets."
-  [hasFramework]="true"
-  [api]="api">
+﻿<docs-page title="Data Grid"
+  description="A feature-rich data table with sortable columns, row selection, badge cells, pagination, and an empty state — designed for large datasets."
+  [hasFramework]="true" [api]="api">
 
-  <!-- â•â• DEMO â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container demo>
 
     <!-- 1. Basic -->
     <div class="demo-section">
       <h3 class="demo-section__title">Basic Grid</h3>
-      <p class="demo-section__desc">Define columns via the <code>columns</code> array and pass rows as plain objects. Column headers are uppercase automatically.</p>
+      <p class="demo-section__desc">Define columns via the <code>columns</code> array and pass rows as plain objects.
+        Column headers are uppercase automatically.</p>
       <pui-lib-datagrid [columns]="basicCols" [rows]="basicRows"></pui-lib-datagrid>
     </div>
 
     <!-- 2. Sortable + badge column -->
     <div class="demo-section">
       <h3 class="demo-section__title">Sortable Columns & Badge Cells</h3>
-      <p class="demo-section__desc">Mark any column <code>sortable: true</code> to enable client-side sorting. Use <code>type: 'badge'</code> with a <code>badgeMap</code> for colour-coded status pills.</p>
-      <pui-lib-datagrid
-        [columns]="empCols"
-        [rows]="empRows"
-        rowKey="id">
+      <p class="demo-section__desc">Mark any column <code>sortable: true</code> to enable client-side sorting. Use
+        <code>type: 'badge'</code> with a <code>badgeMap</code> for colour-coded status pills.</p>
+      <pui-lib-datagrid [columns]="empCols" [rows]="empRows" rowKey="id">
       </pui-lib-datagrid>
     </div>
 
     <!-- 3. Row selection -->
     <div class="demo-section">
       <h3 class="demo-section__title">Row Selection</h3>
-      <p class="demo-section__desc">Enable <code>[selectable]="true"</code> to add a checkbox column. A header checkbox selects/deselects all visible rows.</p>
-      <pui-lib-datagrid
-        [columns]="empCols"
-        [rows]="empRows"
-        rowKey="id"
-        [selectable]="true"
+      <p class="demo-section__desc">Enable <code>[selectable]="true"</code> to add a checkbox column. A header checkbox
+        selects/deselects all visible rows.</p>
+      <pui-lib-datagrid [columns]="empCols" [rows]="empRows" rowKey="id" [selectable]="true"
         (selectionChange)="selected = $event; cdr.markForCheck()">
       </pui-lib-datagrid>
       <p *ngIf="selected.length" class="demo-result">{{ selected.length }} row(s) selected: {{ selectedNames() }}</p>
@@ -43,39 +35,31 @@
     <!-- 4. Pagination -->
     <div class="demo-section">
       <h3 class="demo-section__title">Pagination</h3>
-      <p class="demo-section__desc">Enable <code>[paginate]="true"</code> with a <code>[pageSize]</code> to add a row-count footer with prev/next navigation.</p>
-      <pui-lib-datagrid
-        [columns]="empCols"
-        [rows]="largeRows"
-        rowKey="id"
-        [paginate]="true"
-        [pageSize]="5">
+      <p class="demo-section__desc">Enable <code>[paginate]="true"</code> with a <code>[pageSize]</code> to add a
+        row-count footer with prev/next navigation.</p>
+      <pui-lib-datagrid [columns]="empCols" [rows]="largeRows" rowKey="id" [paginate]="true" [pageSize]="5">
       </pui-lib-datagrid>
     </div>
 
     <!-- 5. Empty state -->
     <div class="demo-section">
       <h3 class="demo-section__title">Empty State</h3>
-      <p class="demo-section__desc">When <code>rows</code> is empty the grid renders a centred empty message. Customise it with <code>emptyText</code>.</p>
-      <pui-lib-datagrid
-        [columns]="basicCols"
-        [rows]="[]"
-        emptyText="No employees found. Try adjusting your filters.">
+      <p class="demo-section__desc">When <code>rows</code> is empty the grid renders a centred empty message. Customise
+        it with <code>emptyText</code>.</p>
+      <pui-lib-datagrid [columns]="basicCols" [rows]="[]" emptyText="No employees found. Try adjusting your filters.">
       </pui-lib-datagrid>
     </div>
 
   </ng-container>
 
-  <!-- â•â• FRAMEWORK USAGE â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• -->
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-datagrid</code> is a full-featured Angular component. Pass <code>columns</code> and <code>rows</code> as typed arrays. For React and HTML, set both as JS properties via a ref after element upgrade.</p>
+    <p class="fw-lead"><code>pui-lib-datagrid</code> is a full-featured Angular component. Pass <code>columns</code> and
+      <code>rows</code> as typed arrays. For React and HTML, set both as JS properties via a ref after element upgrade.
+    </p>
 
-    <docs-framework-preview
-      [angularCode]="angularCode"
-      [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
+    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
       <div preview>
         <pui-lib-datagrid [columns]="basicCols" [rows]="basicRows"></pui-lib-datagrid>
       </div>
@@ -91,7 +75,14 @@
     <h4 class="fw-ref-title">Data Grid Quick Reference</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
             <td><span class="tag-name">{{ r.name }}</span></td>
@@ -106,4 +97,3 @@
   </ng-container>
 
 </docs-page>
-  
