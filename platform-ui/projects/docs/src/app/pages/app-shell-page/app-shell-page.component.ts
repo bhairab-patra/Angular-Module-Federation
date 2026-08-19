@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgIf } from '@angular/common';
 import {
-  PuiSolifiSidebarComponent,
+  PuiAppShellComponent, PuiSolifiSidebarComponent,
   SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem, SOLIFI_THEME,
 } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
@@ -40,7 +40,7 @@ const NAV_GROUPS: SolifiNavGroup[] = [
   selector: 'docs-app-shell-page',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, PuiSolifiSidebarComponent, DocPageComponent, FrameworkPreviewComponent],
+  imports: [NgIf, PuiAppShellComponent, PuiSolifiSidebarComponent, DocPageComponent, FrameworkPreviewComponent],
   templateUrl: './app-shell-page.component.html',
   styleUrls:  ['./app-shell-page.component.scss'],
 })
@@ -89,12 +89,16 @@ import { RouterOutlet } from '@angular/router';
 @Component({
   standalone: true,
   imports: [PuiAppShellComponent, RouterOutlet],
+  // pui-lib-app-shell owns the complete layout:
+  //   sidebar | title bar + scrollable content + fixed footer
   template: \`
     <pui-lib-app-shell
       brandName="solifi"
       logoUrl="assets/logo.png"
       [groups]="navGroups"
       [activeId]="activeId"
+      [pageTitle]="activeLabel"
+      footerText="Copyright © 2026 Solifi. All Rights Reserved."
       [theme]="theme"
       [showUser]="true"
       userName="Rosanna Doyle"
@@ -104,6 +108,7 @@ import { RouterOutlet } from '@angular/router';
       (collapsedChange)="collapsed = $event"
       (userMenuSelect)="onUserMenu($event)">
 
+      <!-- Only YOUR page content goes here — shell handles the rest -->
       <router-outlet />
 
     </pui-lib-app-shell>
@@ -137,6 +142,10 @@ export class AppComponent {
     { id: 'logout',   label: 'Logout',     iconName: 'logout', divider: true  },
   ];
 
+  get activeLabel(): string {
+    return this.navGroups.flatMap(g => g.items).find(i => i.id === this.activeId)?.label ?? '';
+  }
+
   onNav(item: SolifiNavItem)           { this.activeId = item.id; }
   onUserMenu(item: SolifiUserMenuItem) { console.log('User menu:', item.label); }
 }`;
@@ -146,35 +155,48 @@ import { useEffect, useRef, useState } from 'react';
 
 const SOLIFI_THEME = { bg: '#112C35', textColor: '#8fa3bc', activeColor: '#12C6A8' };
 
-// React app uses a finance-focused flat nav (no group headers)
-const navItems = [
-  { id: 'portfolio',   label: 'Portfolio',   iconName: 'chart'        },
-  { id: 'positions',   label: 'Positions',   iconName: 'database'     },
-  { id: 'risk',        label: 'Risk',        iconName: 'check-circle' },
-  { id: 'settlements', label: 'Settlements', iconName: 'dollar'       },
-  { id: 'reports',     label: 'Reports',     iconName: 'inbox'        },
+const NAV_GROUPS = [
+  { id: 'trading', label: 'Trading', items: [
+    { id: 'portfolio',   label: 'Portfolio',   iconName: 'chart'        },
+    { id: 'positions',   label: 'Positions',   iconName: 'database'     },
+    { id: 'risk',        label: 'Risk',        iconName: 'check-circle' },
+    { id: 'settlements', label: 'Settlements', iconName: 'dollar'       },
+  ]},
+  { id: 'admin', label: 'Admin', items: [
+    { id: 'reports',     label: 'Reports',     iconName: 'inbox'        },
+    { id: 'settings',    label: 'Settings',    iconName: 'settings'     },
+  ]},
 ];
 
-const userMenuItems = [
-  { id: 'profile',    label: 'My Profile',   iconName: 'user'                   },
-  { id: 'api-keys',   label: 'API Keys',     iconName: 'settings'               },
-  { id: 'logout',     label: 'Sign Out',     iconName: 'logout', divider: true  },
+const USER_MENU = [
+  { id: 'profile',  label: 'My Profile', iconName: 'user'                   },
+  { id: 'api-keys', label: 'API Keys',   iconName: 'settings'               },
+  { id: 'logout',   label: 'Sign Out',   iconName: 'logout', divider: true  },
 ];
+
+const ALL_ITEMS = NAV_GROUPS.flatMap(g => g.items);
 
 export function AppShell({ children }) {
   const shellRef = useRef(null);
   const [activeId, setActiveId] = useState('portfolio');
 
+  const pageTitle = ALL_ITEMS.find(i => i.id === activeId)?.label ?? '';
+
   useEffect(() => {
     const el = shellRef.current;
     if (!el) return;
-    el.groups      = navItems;       // flat SolifiNavItem[] — auto-detected
-    el.theme       = SOLIFI_THEME;
-    el.userMenuItems = userMenuItems;
+    el.groups        = NAV_GROUPS;
+    el.theme         = SOLIFI_THEME;
+    el.userMenuItems = USER_MENU;
     const onNav = (e) => setActiveId(e.detail.id);
     el.addEventListener('itemSelect', onNav);
     return () => el.removeEventListener('itemSelect', onNav);
   }, []);
+
+  // Update pageTitle attribute whenever active item changes
+  useEffect(() => {
+    if (shellRef.current) shellRef.current.setAttribute('page-title', pageTitle);
+  }, [pageTitle]);
 
   return (
     <pui-lib-app-shell
@@ -182,27 +204,38 @@ export function AppShell({ children }) {
       brand-name="FlexFleet"
       logo-url="/assets/logo.png"
       active-id={activeId}
+      page-title={pageTitle}
+      footer-text="Copyright © 2026 FlexFleet. All Rights Reserved."
       show-user
       user-name="Jordan Wells"
       user-email="jwells@flexfleet.io">
+
+      {/* Your page content — shell provides sidebar, title bar & footer */}
       {children}
+
     </pui-lib-app-shell>
   );
 }`;
 
-  fwHtmlCode = `<!-- Load the Web Components bundle once in your page -->
+  fwHtmlCode = `<!-- 1. Load the Web Components bundle once -->
 <script src="pui-elements.js"></script>
 
+<!-- 2. App shell owns sidebar + title bar + scrollable content + footer -->
 <pui-lib-app-shell
   id="shell"
   brand-name="Meridian"
   logo-url="assets/logo.png"
+  page-title="Dashboard"
+  footer-text="Copyright © 2026 Meridian Finance. All Rights Reserved."
   show-user
   user-name="Alex Morgan"
   user-email="amorgan@meridian.com">
 
-  <div id="page-content" style="padding:24px">
-    <!-- your page content here -->
+  <!-- 3. Only YOUR content goes here -->
+  <div class="welcome-card">
+    <h2>Welcome back, Alex!</h2>
+    <p>Your Account Manager is: <a href="#">Alan Jasenovic</a></p>
+    <p>You last logged in on Monday, 11 December 2025 12:41</p>
   </div>
 
 </pui-lib-app-shell>
@@ -211,7 +244,7 @@ export function AppShell({ children }) {
   customElements.whenDefined('pui-lib-app-shell').then(() => {
     const shell = document.getElementById('shell');
 
-    shell.groups = [
+    const NAV_GROUPS = [
       { id: 'operations', label: 'Operations', items: [
         { id: 'dashboard',  label: 'Dashboard',  iconName: 'dashboard' },
         { id: 'contracts',  label: 'Contracts',  iconName: 'file'      },
@@ -219,22 +252,25 @@ export function AppShell({ children }) {
         { id: 'documents',  label: 'Documents',  iconName: 'inbox'     },
       ]},
       { id: 'admin', label: 'Admin', items: [
-        { id: 'users',      label: 'Users',      iconName: 'users'     },
-        { id: 'settings',   label: 'Settings',   iconName: 'settings'  },
+        { id: 'users',    label: 'Users',    iconName: 'users'    },
+        { id: 'settings', label: 'Settings', iconName: 'settings' },
       ]},
     ];
 
-    shell.theme = { bg: '#112C35', textColor: '#8fa3bc', activeColor: '#12C6A8' };
+    const ALL_ITEMS = NAV_GROUPS.flatMap(g => g.items);
 
+    shell.groups = NAV_GROUPS;
+    shell.theme  = { bg: '#112C35', textColor: '#8fa3bc', activeColor: '#12C6A8' };
     shell.userMenuItems = [
       { id: 'profile',  label: 'My Profile', iconName: 'user'                   },
       { id: 'settings', label: 'Settings',   iconName: 'settings'               },
       { id: 'logout',   label: 'Logout',     iconName: 'logout', divider: true  },
     ];
 
+    // Update title bar when nav item is clicked
     shell.addEventListener('itemSelect', (e) => {
-      console.log('Navigated to:', e.detail.label);
-      shell.activeId = e.detail.id;
+      shell.activeId   = e.detail.id;
+      shell.pageTitle  = e.detail.label;
     });
   });
 </script>`;

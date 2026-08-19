@@ -2,6 +2,7 @@ import {
   Component, Input, Output, EventEmitter,
   ViewEncapsulation, ChangeDetectionStrategy,
 } from '@angular/core';
+import { NgIf } from '@angular/common';
 import { PuiSolifiSidebarComponent } from '../solifi-sidebar/solifi-sidebar.component';
 import {
   SolifiNavGroup, SolifiNavItem, SolifiUserMenuItem,
@@ -12,7 +13,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-app-shell',
   standalone: true,
-  imports: [PuiSolifiSidebarComponent],
+  imports: [NgIf, PuiSolifiSidebarComponent],
   encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
@@ -75,6 +76,10 @@ export class PuiAppShellComponent {
   }
   get userMenuItems(): SolifiUserMenuItem[] { return this._userMenuItems; }
   private _userMenuItems: SolifiUserMenuItem[] = [];
+
+  // ── Page layout ──────────────────────────────────────────
+  @Input() pageTitle  = '';   // shown in the top title bar; omit to hide the bar
+  @Input() footerText = '';   // shown in the fixed footer; omit to hide the footer
 
   // ── Outputs ───────────────────────────────────────────────
   @Output() itemSelect        = new EventEmitter<SolifiNavItem>();

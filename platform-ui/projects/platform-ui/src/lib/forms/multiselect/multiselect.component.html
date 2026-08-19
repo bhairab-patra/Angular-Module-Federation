@@ -32,10 +32,6 @@
       </ng-container>
     </div>
 
-    <span class="pui-ms-count" *ngIf="selected.length > 0 && selected.length <= _maxChips">
-      {{ selected.length }}/{{ _options.length }}
-    </span>
-
     <svg class="pui-ms-chevron" [class.pui-ms-chevron--up]="open"
          viewBox="0 0 16 16" fill="none" width="14" height="14">
       <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5"
@@ -102,12 +98,6 @@
         </button>
 
       </ng-container>
-    </div>
-
-    <!-- Footer -->
-    <div class="pui-ms-footer" *ngIf="selected.length > 0">
-      <span class="pui-ms-footer-count">{{ selected.length }} selected</span>
-      <button class="pui-ms-apply-btn" (click)="apply()">Apply</button>
     </div>
   </div>
 

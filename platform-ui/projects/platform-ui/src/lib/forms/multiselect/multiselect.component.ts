@@ -112,10 +112,6 @@ export class PuiMultiSelectComponent {
     this._emit();
   }
 
-  apply() {
-    this.open = false;
-  }
-
   isSelected(v: string | number): boolean {
     return this.selected.includes(v);
   }

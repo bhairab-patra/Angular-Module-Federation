@@ -1,21 +1,78 @@
 :host { display: block; height: 100%; }
 
+/* ── Shell root: sidebar + right panel side-by-side ── */
 .pas {
   display: flex;
   height: 100vh;
   min-height: 0;
-  font-family: var(--pui-font-family);
+  font-family: var(--pui-font-family, 'Poppins', system-ui, sans-serif);
+  background: var(--pui-bg, #f4f5f7);
 }
 
+/* ── Right panel: title bar + scrollable content + footer ── */
+.pas__panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--pui-surface-2, #f4f5f7);
+  overflow: hidden;
+}
+
+/* ── Title bar (optional, hidden when pageTitle is empty) ── */
+.pas__titlebar {
+  flex-shrink: 0;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 28px;
+  background: var(--pui-bg, #ffffff);
+  border-bottom: 1px solid var(--pui-border, #e2e8f0);
+}
+
+.pas__titlebar-accent {
+  flex-shrink: 0;
+  width: 3px;
+  height: 20px;
+  border-radius: 2px;
+  background: #12C6A8;
+}
+
+.pas__titlebar-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--pui-text, #1e293b);
+  letter-spacing: -.01em;
+  flex: 1;
+}
+
+/* ── Scrollable content area ── */
 .pas__content {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  display: flex;
-  flex-direction: column;
   padding: var(--pui-space-6, 24px) var(--pui-space-8, 32px);
+  min-height: 0;
 }
 
+/* ── Fixed footer (optional) ── */
+.pas__footer {
+  flex-shrink: 0;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--pui-muted, #94a3b8);
+  background: var(--pui-bg, #ffffff);
+  border-top: 1px solid var(--pui-border, #e2e8f0);
+  letter-spacing: .01em;
+}
+
+/* ── Responsive ── */
 @media (max-width: 768px) {
   .pas__content { padding: var(--pui-space-4, 16px); }
+  .pas__titlebar { padding: 0 16px; }
 }

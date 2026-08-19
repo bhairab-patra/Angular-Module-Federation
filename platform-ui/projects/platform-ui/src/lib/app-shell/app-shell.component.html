@@ -1,5 +1,6 @@
 <div class="pas">
 
+  <!-- ── Sidebar ─────────────────────────────────────────── -->
   <pui-lib-solifi-sidebar
     [brandName]="brandName"
     [logoUrl]="logoUrl"
@@ -21,8 +22,27 @@
     (userMenuSelect)="userMenuSelect.emit($event)">
   </pui-lib-solifi-sidebar>
 
-  <main class="pas__content">
-    <ng-content></ng-content>
-  </main>
+ 
+  <div class="pas__panel">
+
+    <!-- Title bar -->
+    <div class="pas__titlebar" *ngIf="pageTitle">
+      <span class="pas__titlebar-accent"></span>
+      <span class="pas__titlebar-title">{{ pageTitle }}</span>
+      <!-- Extra title-bar actions projected here -->
+      <ng-content select="[title-actions]"></ng-content>
+    </div>
+
+    <!-- Scrollable content -->
+    <main class="pas__content">
+      <ng-content></ng-content>
+    </main>
+
+   
+    <footer class="pas__footer" *ngIf="footerText">
+      {{ footerText }}
+    </footer>
+
+  </div>
 
 </div>

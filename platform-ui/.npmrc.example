@@ -1,0 +1,29 @@
+# ============================================================
+# .npmrc example - for consumer applications
+# ============================================================
+# Copy this file into the ROOT folder of your consumer project
+# and rename it to ".npmrc" (remove the .example extension).
+#
+# NOTE: Do NOT hardcode an actual token in this file - the
+# token is picked up from an environment variable
+# (SOLIFI_NPM_TOKEN) at runtime.
+# ============================================================
+
+# Packages under the @solifi scope will be resolved from the GitLab Package Registry
+@solifi:registry=https://gitlab.solifi.com/api/v4/groups/<GROUP_ID>/-/packages/npm/
+
+# Auth token - picked up from an env variable, do not put the literal value here
+//gitlab.solifi.com/api/v4/packages/npm/:_authToken=${SOLIFI_NPM_TOKEN}
+
+# ------------------------------------------------------------
+# Setup steps (one-time, each developer does this on their own machine):
+#
+# 1) Replace <GROUP_ID> with your actual Solifi GitLab group ID
+#    (GitLab group -> Settings -> General -> "Group ID")
+#
+# 2) Create your own Personal Access Token:
+#    GitLab -> Profile -> Access Tokens -> scope: read_api (or read_package_registry)
+#
+# 3) Open a new terminal, then install the package:
+#        npm install @solifi/platform-ui@1.2.5
+# ------------------------------------------------------------

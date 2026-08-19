@@ -92,38 +92,38 @@
 
     <docs-framework-preview [angularCode]="fwAngularCode" [reactCode]="fwReactCode" [htmlCode]="fwHtmlCode">
 
-      <!-- Angular live preview: mini shell with real sidebar -->
-      <div preview style="display:flex;height:340px;border-radius:10px;overflow:hidden;border:1px solid var(--pui-border,#e2e8f0)">
-        <pui-lib-solifi-sidebar
-          brandName="solifi"
-          logoUrl="assets/logo.png"
-          [groups]="displayGroups"
-          [activeId]="activeId"
-          [collapsed]="collapsed"
-          [theme]="theme"
-          [showUser]="true"
-          userName="Rosanna Doyle"
-          userEmail="rdoyle@solifi.com"
-          [userMenuItems]="userMenuItems"
-          [width]="200"
-          [collapsedWidth]="52"
-          (itemSelect)="onNav($event)"
-          (collapsedChange)="onCollapsed($event)"
-          (userMenuSelect)="onUserMenu($event)">
-        </pui-lib-solifi-sidebar>
-        <div style="flex:1;display:flex;flex-direction:column;background:#f4f5f7;min-width:0">
-          <div style="padding:14px 20px;border-bottom:1px solid #e2e8f0;font-size:14px;font-weight:600;color:#1e293b;display:flex;align-items:center;gap:8px">
-            <span style="width:3px;height:18px;border-radius:2px;background:#12C6A8;flex-shrink:0"></span>
-            {{ activeLabel }}
-          </div>
-          <div style="flex:1;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:13px">
-            Page content renders here
-          </div>
-          <div style="padding:10px 20px;font-size:11.5px;color:#94a3b8;border-top:1px solid #e8edf3;background:#fff;text-align:center">
-            Copyright &copy; 2026 Solifi. All Rights Reserved.
-          </div>
+      <!-- Angular live preview — real pui-lib-app-shell with complete layout -->
+      <pui-lib-app-shell
+        preview
+        brandName="solifi"
+        logoUrl="assets/logo.png"
+        [groups]="displayGroups"
+        [activeId]="activeId"
+        [collapsed]="collapsed"
+        [theme]="theme"
+        [pageTitle]="activeLabel"
+        footerText="Copyright © 2026 Solifi. All Rights Reserved."
+        [showUser]="true"
+        userName="Rosanna Doyle"
+        userEmail="rdoyle@solifi.com"
+        [userMenuItems]="userMenuItems"
+        [width]="200"
+        [collapsedWidth]="52"
+        (itemSelect)="onNav($event)"
+        (collapsedChange)="onCollapsed($event)"
+        (userMenuSelect)="onUserMenu($event)"
+        style="display:flex;height:340px;border-radius:10px;overflow:hidden;border:1px solid var(--pui-border,#e2e8f0)">
+
+        <!-- Consumer's page content -->
+        <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94a3b8;font-size:13px;flex-direction:column;gap:6px">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="opacity:.35"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+          <span>{{ activeLabel }}</span>
+          <span *ngIf="lastUserAction" style="font-size:11px;background:rgba(18,198,168,.12);color:#12C6A8;padding:2px 10px;border-radius:20px;font-weight:600">
+            User menu → {{ lastUserAction }}
+          </span>
         </div>
-      </div>
+
+      </pui-lib-app-shell>
 
     </docs-framework-preview>
 
@@ -136,6 +136,8 @@
         <tbody>
           <tr><td><span class="tag-name">groups</span></td><td><span class="tag-ng">[groups]="navGroups"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.groups = [...]</span></td></tr>
           <tr><td><span class="tag-name">activeId</span></td><td><span class="tag-ng">[activeId]="activeId"</span></td><td><span class="tag-html">active-id="..."</span></td><td><span class="tag-js">el.activeId = '...'</span></td></tr>
+          <tr><td><span class="tag-name">pageTitle</span></td><td><span class="tag-ng">[pageTitle]="activeLabel"</span></td><td><span class="tag-html">page-title="..."</span></td><td><span class="tag-js">el.pageTitle = '...'</span></td></tr>
+          <tr><td><span class="tag-name">footerText</span></td><td><span class="tag-ng">footerText="Copyright..."</span></td><td><span class="tag-html">footer-text="..."</span></td><td><span class="tag-js">el.footerText = '...'</span></td></tr>
           <tr><td><span class="tag-name">collapsed</span></td><td><span class="tag-ng">[collapsed]="false"</span></td><td><span class="tag-html">collapsed</span></td><td><span class="tag-js">el.collapsed = true</span></td></tr>
           <tr><td><span class="tag-name">showUser</span></td><td><span class="tag-ng">[showUser]="true"</span></td><td><span class="tag-html">show-user</span></td><td><span class="tag-js">el.showUser = true</span></td></tr>
           <tr><td><span class="tag-name">userMenuItems</span></td><td><span class="tag-ng">[userMenuItems]="items"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.userMenuItems = [...]</span></td></tr>
