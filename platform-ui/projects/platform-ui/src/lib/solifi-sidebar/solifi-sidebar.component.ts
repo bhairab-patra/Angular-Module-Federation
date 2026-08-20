@@ -7,12 +7,11 @@ import { IconComponent } from '../icon/icon.component';
 import { TooltipComponent } from '../tooltip/tooltip.component';
 import { SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem } from '../models/solifi-sidebar.model';
 
-/** Labels longer than this get truncated with an ellipsis + hover tooltip. */
 const MAX_LABEL_LEN = 22;
 
 const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
   <polygon points="14,1 27,7.5 27,20.5 14,27 1,20.5 1,7.5" fill="var(--pui-brand)"/>
-  <text x="14" y="19" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#fff">S</text>
+  <text x="14" y="19" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="var(--pui-white)">S</text>
 </svg>`;
 
 @Component({
@@ -26,7 +25,6 @@ const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none
 })
 export class PuiSolifiSidebarComponent {
 
-  // ── Content ───────────────────────────────────────────────
   @Input() set groups(v: SolifiNavGroup[] | SolifiNavItem[] | string) {
     if (typeof v === 'string') {
       const parsed = this._parse<SolifiNavGroup[] | SolifiNavItem[]>(v) ?? [];
@@ -40,7 +38,6 @@ export class PuiSolifiSidebarComponent {
 
   private _normalizeGroups(v: SolifiNavGroup[] | SolifiNavItem[]): SolifiNavGroup[] {
     if (!v.length) return [];
-    // If first element has an `items` array it's already SolifiNavGroup[]
     return 'items' in v[0]
       ? (v as SolifiNavGroup[])
       : [{ id: '__flat__', items: v as SolifiNavItem[] }];
@@ -49,9 +46,8 @@ export class PuiSolifiSidebarComponent {
   @Input() activeId  = '';
   @Input() brandName = 'solifi';
   @Input() logo      = '';
-  @Input() logoUrl   = '';   // image URL — preferred over raw logo HTML
+  @Input() logoUrl   = '';
 
-  // ── User profile ──────────────────────────────────────────
   @Input() set showUser(v: boolean | string) {
     this._showUser = v === true || v === 'true' || (v as any) === '';
   }
@@ -63,7 +59,6 @@ export class PuiSolifiSidebarComponent {
   @Input() userInitials = '';
   @Input() userAvatarUrl = '';
 
-  // ── Layout ────────────────────────────────────────────────
   @Input() set collapsed(v: boolean | string) {
     this._collapsed = v === true || v === 'true' || (v as any) === '';
   }
@@ -79,7 +74,6 @@ export class PuiSolifiSidebarComponent {
   @Input() width          = 240;
   @Input() collapsedWidth = 64;
 
-  // ── Theme ─────────────────────────────────────────────────
   @Input() set theme(v: SolifiSidebarTheme | string) {
     this._theme = typeof v === 'string' ? (this._parse<SolifiSidebarTheme>(v) ?? {}) : (v || {});
   }
@@ -90,7 +84,6 @@ export class PuiSolifiSidebarComponent {
   @Input() textColor    = '';
   @Input() activeColor  = '';
 
-  // ── User menu ─────────────────────────────────────────────
   @Input() set userMenuItems(v: SolifiUserMenuItem[] | string) {
     this._userMenuItems = typeof v === 'string' ? (this._parse<SolifiUserMenuItem[]>(v) ?? []) : (v || []);
   }
@@ -99,14 +92,12 @@ export class PuiSolifiSidebarComponent {
 
   userMenuOpen = false;
 
-  // ── Collapsed tooltip ─────────────────────────────────────
   hoveredItem: SolifiNavItem | null = null;
   tooltipTop = 0;
 
   onNavItemEnter(item: SolifiNavItem, event: MouseEvent): void {
     if (!this._collapsed) return;
     const btn = event.currentTarget as HTMLElement;
-    // Use the actual .ssb element (position:relative) as the reference — not the host
     const ssbEl = (this._elRef.nativeElement as HTMLElement).querySelector('.ssb') as HTMLElement;
     const ssbRect = ssbEl.getBoundingClientRect();
     const btnRect = btn.getBoundingClientRect();
@@ -124,7 +115,6 @@ export class PuiSolifiSidebarComponent {
     return label.length > MAX_LABEL_LEN;
   }
 
-  // ── Outputs ───────────────────────────────────────────────
   @Output() itemSelect      = new EventEmitter<SolifiNavItem>();
   @Output() collapsedChange = new EventEmitter<boolean>();
   @Output() userMenuSelect  = new EventEmitter<SolifiUserMenuItem>();
@@ -148,13 +138,13 @@ export class PuiSolifiSidebarComponent {
   get cssVars(): Record<string, string> {
     const t = this.theme;
     return {
-      '--ssb-bg':      t.bg          || this.bgColor     || '#112C35',
-      '--ssb-text':    t.textColor   || this.textColor   || '#8fa3bc',
+      '--ssb-bg':      t.bg          || this.bgColor     || 'var(--pui-solifi-sb-bg)',
+      '--ssb-text':    t.textColor   || this.textColor   || 'var(--pui-solifi-sb-text)',
       '--ssb-active':  t.activeColor || this.activeColor || 'var(--pui-brand)',
-      '--ssb-active-bg': t.activeBg                      || 'var(--pui-brand-tint-12)',
-      '--ssb-hover':   t.hoverBg                         || 'rgba(255,255,255,.06)',
-      '--ssb-border':  t.borderColor                     || 'rgba(255,255,255,.07)',
-      '--ssb-group':   t.groupColor                      || '#4a6080',
+      '--ssb-active-bg': t.activeBg                      || 'var(--pui-brand-tint-25)',
+      '--ssb-hover':   t.hoverBg                         || 'var(--pui-overlay-white-06)',
+      '--ssb-border':  t.borderColor                     || 'var(--pui-overlay-white-07)',
+      '--ssb-group':   t.groupColor                      || 'var(--pui-solifi-sb-group)',
       '--ssb-avatar':  t.avatarBg                        || 'var(--pui-brand)',
       '--ssb-w':       `${this.width}px`,
       '--ssb-cw':      `${this.collapsedWidth}px`,

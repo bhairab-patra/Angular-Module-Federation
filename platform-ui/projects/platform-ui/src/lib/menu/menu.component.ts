@@ -17,25 +17,18 @@ export class MenuComponent {
   @HostBinding('style.position') readonly _pos  = 'relative';
   @HostBinding('style.display')  readonly _disp = 'inline-block';
 
-  /** Menu items (supports nested children for submenus) */
   @Input() items: MenuItem[] = [];
 
-  /** Label shown on the trigger button when no ng-content is projected */
   @Input() trigger = 'Menu';
 
-  /** Visual style of the trigger button */
   @Input() variant: MenuVariant = 'default';
 
-  /** Where the dropdown opens relative to the trigger */
   @Input() placement: MenuPlacement = 'bottom-start';
 
-  /** Disable the trigger */
   @Input() disabled = false;
 
-  /** Max pixel height of the dropdown panel before it scrolls */
   @Input() maxHeight = 320;
 
-  /** Emits the selected MenuItem (leaf items only) */
   @Output() menuSelect = new EventEmitter<MenuItem>();
 
   open = false;

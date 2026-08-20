@@ -26,7 +26,6 @@
   font-size: var(--pui-text-base);
 }
 
-/* variants */
 .pui-chip--default {
   background: var(--pui-slate-100);
   color: var(--pui-indigo-mid);
@@ -100,5 +99,5 @@
 
 .pui-chip__remove:hover {
   opacity: 1;
-  background: rgba(0, 0, 0, .08);
+  background: var(--pui-overlay-black-08);
 }

@@ -47,7 +47,6 @@ export class PuiFilterPanelComponent implements OnChanges {
 
   @Output() valuesChange = new EventEmitter<FilterValues>();
   @Output() applied      = new EventEmitter<FilterValues>();
-  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() reset        = new EventEmitter<void>();
   @Output() cleared      = new EventEmitter<void>();
 
@@ -63,8 +62,6 @@ export class PuiFilterPanelComponent implements OnChanges {
       }
     }
   }
-
-  // -- Read helpers --------------------------------------
 
   isChecked(id: string, val: any): boolean {
     return Array.isArray(this.values[id]) && this.values[id].includes(val);
@@ -116,13 +113,9 @@ export class PuiFilterPanelComponent implements OnChanges {
     return span ? ((this.getRangeMax(f) - this.getRangeMin(f)) / span) * 100 : 0;
   }
 
-  // -- Toggle --------------------------------------------
-
   toggleGroup(id: string): void {
     this.collapsed[id] = !this.collapsed[id];
   }
-
-  // -- Change handlers ----------------------------------
 
   private emit(vals: FilterValues): void {
     this.values = { ...vals };

@@ -1,6 +1,5 @@
 <div class="pui-tbl-host">
 
-  <!-- ── Toolbar ─────────────────────────────────────── -->
   <div class="pui-tbl-toolbar" *ngIf="_searchable">
     <div class="pui-tbl-search">
       <svg class="pui-tbl-search__icon" viewBox="0 0 20 20" fill="none">
@@ -13,10 +12,8 @@
     </div>
   </div>
 
-  <!-- ── Scroll container ─────────────────────────────── -->
   <div class="pui-tbl-scroll" [style.maxHeight]="_maxHeight ? _maxHeight + 'px' : null">
 
-    <!-- Skeleton overlay -->
     <div class="pui-tbl-loading" *ngIf="_loading">
       <div class="pui-tbl-skeleton" *ngFor="let r of skeletonRows">
         <div class="pui-tbl-skeleton__cell" *ngFor="let c of _columns"></div>
@@ -51,21 +48,19 @@
       </thead>
 
       <tbody class="pui-tbl-body">
-        <!-- Empty state -->
         <tr *ngIf="!_loading && displayRows.length === 0">
           <td [colSpan]="_columns.length" class="pui-tbl-empty">
             <div class="pui-tbl-empty__inner">
               <svg viewBox="0 0 48 48" fill="none" width="40" height="40">
-                <rect x="6" y="8" width="36" height="32" rx="3" stroke="#d1d5db" stroke-width="2"/>
-                <path d="M6 16h36" stroke="#d1d5db" stroke-width="2"/>
-                <path d="M14 24h4M22 24h12M14 32h8" stroke="#d1d5db" stroke-width="2" stroke-linecap="round"/>
+                <rect x="6" y="8" width="36" height="32" rx="3" stroke="var(--pui-neutral-300)" stroke-width="2"/>
+                <path d="M6 16h36" stroke="var(--pui-neutral-300)" stroke-width="2"/>
+                <path d="M14 24h4M22 24h12M14 32h8" stroke="var(--pui-neutral-300)" stroke-width="2" stroke-linecap="round"/>
               </svg>
               <p>{{ searchTerm ? 'No results for "' + searchTerm + '"' : 'No data available' }}</p>
             </div>
           </td>
         </tr>
 
-        <!-- Data rows -->
         <tr *ngFor="let row of displayRows; let i = index" class="pui-tbl-row"
             [class.pui-tbl-row--striped]="_striped && i % 2 !== 0"
             [class.pui-tbl-row--clickable]="rowClickEnabled"
@@ -77,7 +72,6 @@
               (mouseenter)="showCellTooltip($event, row[col.key] ?? '')"
               (mouseleave)="hideCellTooltip()">
 
-            <!-- Badge -->
             <ng-container *ngIf="col.type === 'badge'; else pills">
               <ng-container *ngIf="col.badgeMap && col.badgeMap[row[col.key]]; let bm">
                 <span class="pui-tbl-badge"
@@ -91,7 +85,6 @@
                 <span class="pui-tbl-badge pui-tbl-badge--default">{{ row[col.key] }}</span>
               </ng-container>
             </ng-container>
-            <!-- Pills -->
             <ng-template #pills>
               <ng-container *ngIf="col.type === 'pills'; else currency">
                 <span class="pui-tbl-pills">
@@ -99,25 +92,21 @@
                 </span>
               </ng-container>
             </ng-template>
-            <!-- Currency -->
             <ng-template #currency>
               <ng-container *ngIf="col.type === 'currency'; else number">
                 <span class="pui-tbl-cell--mono">{{ row[col.key] | number:'1.2-2' }}</span>
               </ng-container>
             </ng-template>
-            <!-- Number -->
             <ng-template #number>
               <ng-container *ngIf="col.type === 'number'; else date">
                 <span class="pui-tbl-cell--mono">{{ row[col.key] | number }}</span>
               </ng-container>
             </ng-template>
-            <!-- Date -->
             <ng-template #date>
               <ng-container *ngIf="col.type === 'date'; else text">
                 {{ row[col.key] | date:'mediumDate' }}
               </ng-container>
             </ng-template>
-            <!-- Text -->
             <ng-template #text>
               <span class="pui-cell-text">{{ row[col.key] ?? '—' }}</span>
             </ng-template>
@@ -128,7 +117,6 @@
     </table>
   </div>
 
-  <!-- ── Cell tooltip portal ──────────────────────────── -->
   <div *ngIf="cellTooltipVisible" class="pui-cell-tooltip"
        [class]="'pui-cell-tooltip--' + _tooltipPos"
        [style.top.px]="cellTooltipCoords.top"

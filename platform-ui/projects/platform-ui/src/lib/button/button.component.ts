@@ -18,11 +18,8 @@ export class ButtonComponent {
   @Input() loading = false;
   @Input() fullWidth = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  /** Dynamic label — use instead of ng-content for programmatic control */
   @Input() label?: string;
-  /** Upload progress value 0–100 (used with variant="upload-progress") */
   @Input() progress = 0;
-  /** Docs-only: force a visual state for demo purposes */
   @Input() forceState?: 'hover' | 'focus';
 
   @Output() buttonClick = new EventEmitter<MouseEvent>();

@@ -5,7 +5,6 @@ import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TableColumn, SortState } from '../models/table.model';
 
-/* re-export so consumers keep existing import paths */
 export { TableColumn, SortDir, SortState } from '../models/table.model';
 
 @Component({
@@ -25,7 +24,6 @@ export class PuiTableComponent implements AfterViewInit {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
-  /* ── Columns / data ───────────────────────── */
   _columns: TableColumn[] = [];
   _data:    any[]         = [];
 
@@ -39,7 +37,6 @@ export class PuiTableComponent implements AfterViewInit {
   }
   get data() { return this._data; }
 
-  /* ── Feature flags ────────────────────────── */
   _sortable     = false;
   _searchable   = false;
   _stickyHeader = false;
@@ -52,11 +49,9 @@ export class PuiTableComponent implements AfterViewInit {
   @Input() set striped(v: boolean | string)      { this._striped      = this._bool(v); }
   @Input() set loading(v: boolean | string)      { this._loading      = this._bool(v); }
 
-  /* ── Numeric ──────────────────────────────── */
   _maxHeight = 0;
   @Input() set maxHeight(v: number | string) { this._maxHeight = Number(v) || 0; }
 
-  /* ── Tooltip ──────────────────────────────── */
   _tooltipPos: 'top' | 'bottom' | 'left' | 'right' = 'top';
   @Input() set tooltipPosition(v: 'top' | 'bottom' | 'left' | 'right') {
     this._tooltipPos = v || 'top';
@@ -66,18 +61,15 @@ export class PuiTableComponent implements AfterViewInit {
   hoveredCellText    = '';
   cellTooltipCoords  = { top: 0, left: 0 };
 
-  /* ── Outputs ──────────────────────────────── */
   @Output() sortChange   = new EventEmitter<SortState>();
   @Output() searchChange = new EventEmitter<string>();
   @Output() rowClick     = new EventEmitter<any>();
 
-  /* ── State ────────────────────────────────── */
   sort:           SortState = { key: '', dir: '' };
   searchTerm      = '';
   skeletonRows    = Array(5).fill(null);
   rowClickEnabled = false;
 
-  /* ── Derived ──────────────────────────────── */
   get displayRows(): any[] {
     let rows = [...this._data];
     if (this.searchTerm) {
@@ -102,7 +94,6 @@ export class PuiTableComponent implements AfterViewInit {
     this.rowClickEnabled = this.rowClick.observed;
   }
 
-  /* ── Handlers ─────────────────────────────── */
   onSort(key: string): void {
     if (this.sort.key === key) {
       this.sort = { key, dir: this.sort.dir === 'asc' ? 'desc' : this.sort.dir === 'desc' ? '' : 'asc' };

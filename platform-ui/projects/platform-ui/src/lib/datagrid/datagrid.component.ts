@@ -53,9 +53,9 @@ export class PuiDataGridComponent<T extends Record<string, any> = any> {
     const { field, dir } = this.sort;
     return [...this.rows].sort((a, b) => {
       const av = a[field], bv = b[field];
-      if (av == null && bv == null) return 0; // eslint-disable-line eqeqeq
-      if (av == null) return 1;               // eslint-disable-line eqeqeq
-      if (bv == null) return -1;              // eslint-disable-line eqeqeq
+      if (av == null && bv == null) return 0;
+      if (av == null) return 1;
+      if (bv == null) return -1;
       const cmp = av < bv ? -1 : av > bv ? 1 : 0;
       return dir === 'asc' ? cmp : -cmp;
     });

@@ -26,7 +26,6 @@ export class PuiComboboxComponent {
 
   @ViewChild('cbInput') cbInput?: ElementRef<HTMLInputElement>;
 
-  /* -- State -------------------------------- */
   open         = false;
   query        = '';
   focusedIndex = -1;
@@ -41,7 +40,6 @@ export class PuiComboboxComponent {
   _error         = '';
   _hint          = '';
 
-  /* -- Inputs ------------------------------- */
   @Input() set options(v: ComboboxOption[] | string) {
     this._options = typeof v === 'string' ? (this._parse<ComboboxOption[]>(v) ?? []) : (v || []);
   }
@@ -59,12 +57,9 @@ export class PuiComboboxComponent {
   @Input() set error(v: string)                  { this._error = v; }
   @Input() set hint(v: string)                   { this._hint  = v; }
 
-  /* -- Outputs ------------------------------ */
   @Output() valueChange = new EventEmitter<string | number | null>();
-  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() change      = new EventEmitter<string | number | null>();
 
-  /* -- Click outside ------------------------ */
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
     if (this.open && !this.host.nativeElement.contains(e.target as Node)) {
@@ -72,7 +67,6 @@ export class PuiComboboxComponent {
     }
   }
 
-  /* -- Computed ----------------------------- */
   get inputDisplay(): string {
     if (this.open && this._searchable) return this.query;
     return this.labelFor(this._value) ?? this.query;
@@ -112,7 +106,6 @@ export class PuiComboboxComponent {
     return this._options.find(o => o.value === v)?.label ?? null;
   }
 
-  /* -- Handlers ----------------------------- */
   onFocus() {
     if (!this._disabled && !this.open) this.openDropdown();
   }
@@ -165,7 +158,7 @@ export class PuiComboboxComponent {
     this.query  = opt.label;
     this.open   = false;
     this.focusedIndex = -1;
-    this._setInput(opt.label);   // immediate DOM update — no CD cycle needed
+    this._setInput(opt.label);
     this.valueChange.emit(opt.value);
     this.change.emit(opt.value);
   }
@@ -199,7 +192,6 @@ export class PuiComboboxComponent {
     }
   }
 
-  /** Write directly to the native input — bypasses Angular CD timing issues. */
   private _setInput(val: string) {
     if (this.cbInput) {
       this.cbInput.nativeElement.value = val;

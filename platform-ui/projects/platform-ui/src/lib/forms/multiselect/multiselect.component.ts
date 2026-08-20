@@ -23,7 +23,6 @@ export interface MultiSelectOption {
 export class PuiMultiSelectComponent {
   private el = inject(ElementRef);
 
-  /* -- State -------------------------------- */
   open      = false;
   query     = '';
   selected: (string | number)[] = [];
@@ -37,7 +36,6 @@ export class PuiMultiSelectComponent {
   _error          = '';
   _hint           = '';
 
-  /* -- Inputs ------------------------------- */
   @Input() set options(v: MultiSelectOption[] | string) {
     this._options = typeof v === 'string' ? (this._parse<MultiSelectOption[]>(v) ?? []) : (v || []);
   }
@@ -52,12 +50,9 @@ export class PuiMultiSelectComponent {
   @Input() set error(v: string)            { this._error = v; }
   @Input() set hint(v: string)             { this._hint  = v; }
 
-  /* -- Outputs ------------------------------ */
   @Output() valueChange = new EventEmitter<(string | number)[]>();
-  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() change      = new EventEmitter<(string | number)[]>();
 
-  /* -- Click outside ------------------------ */
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
     if (!this.el.nativeElement.contains(e.target as Node)) {
@@ -65,7 +60,6 @@ export class PuiMultiSelectComponent {
     }
   }
 
-  /* -- Computed ----------------------------- */
   get filteredOptions(): MultiSelectOption[] {
     if (!this.query.trim()) return this._options;
     const q = this.query.toLowerCase();
@@ -82,8 +76,6 @@ export class PuiMultiSelectComponent {
     });
     return Array.from(map.entries()).map(([name, items]) => ({ name, items }));
   }
-
-  /* -- Actions ------------------------------ */
 
   toggle(): void { this.open = !this.open; }
 

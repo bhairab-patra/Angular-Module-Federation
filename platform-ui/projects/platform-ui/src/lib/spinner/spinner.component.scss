@@ -1,42 +1,52 @@
+:host {
+  display: inline-block;
+}
 
-    :host { display: inline-block; }
+.pui-sp-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: all;
+}
 
-    /* Overlay */
-    .pui-sp-overlay {
-      position: fixed; inset: 0; pointer-events: all;
-    }
+.pui-sp-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    /* Wrap */
-    .pui-sp-wrap {
-      display: inline-flex; align-items: center; justify-content: center;
-    }
-    .pui-sp-wrap--overlay {
-      position: fixed; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      pointer-events: none;
-    }
+.pui-sp-wrap--overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
 
-    .pui-sp-box {
-      display: flex; flex-direction: column; align-items: center; gap: var(--pui-space-3);
-    }
+.pui-sp-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--pui-space-3);
+}
 
-    /* Dash spinner */
-    .pui-sp-dash {
-      animation: pui-spin steps(12, end) infinite;
-    }
+.pui-sp-dash {
+  animation: pui-spin steps(12, end) infinite;
+}
 
-    /* Dots spinner */
-    .pui-sp-dots {
-      animation: pui-spin steps(12, end) infinite;
-    }
+.pui-sp-dots {
+  animation: pui-spin steps(12, end) infinite;
+}
 
-    @keyframes pui-spin {
-      to { transform: rotate(360deg); }
-    }
+@keyframes pui-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
-    /* Label */
-    .pui-sp-label {
-      font-size: var(--pui-text-base); font-weight: 500;
-      font-family: var(--pui-font-family);
-      letter-spacing: .01em;
-    }
+.pui-sp-label {
+  font-size: var(--pui-text-base);
+  font-weight: 500;
+  font-family: var(--pui-font-family);
+  letter-spacing: .01em;
+}

@@ -4,7 +4,6 @@
      [class.pui-tabs--no-panel]="!panel"
      [attr.data-variant]="_variant">
 
-  <!-- ── Tab strip ─────────────────────────────── -->
   <div class="pui-tabs-strip"
        role="tablist"
        [attr.aria-orientation]="_orientation">
@@ -22,30 +21,24 @@
             (click)="select(tab)"
             (keydown)="onKey($event, i)">
 
-      <!-- optional icon via registry name (preferred) -->
       <pui-lib-icon *ngIf="tab.iconName" class="pui-tab-icon" [name]="tab.iconName" size="sm"></pui-lib-icon>
-      <!-- optional icon via raw SVG (fallback) -->
       <span *ngIf="tab.icon && !tab.iconName" class="pui-tab-icon" [innerHTML]="safeIcon(tab.icon)"></span>
 
       <span class="pui-tab-label">{{ tab.label }}</span>
 
-      <!-- optional badge -->
       <span *ngIf="tab.badge !== undefined && tab.badge !== null"
             class="pui-tab-badge"
             [class.pui-tab-badge--active]="tab.id === _active">
         {{ tab.badge }}
       </span>
 
-      <!-- active indicator for line variant -->
       <span *ngIf="_variant === 'line' && tab.id === _active"
             class="pui-tab-indicator" aria-hidden="true"></span>
     </button>
   </div>
 
-  <!-- ── Panel ─────────────────────────────────── -->
   <div class="pui-tabs-panel" role="tabpanel">
     <ng-content></ng-content>
   </div>
 
 </div>
-  

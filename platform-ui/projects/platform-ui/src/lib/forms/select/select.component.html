@@ -7,7 +7,6 @@
     {{ label }}<span *ngIf="required" class="pui-field__req">*</span>
   </label>
 
-  <!-- ── Trigger ──────────────────────────────────── -->
   <div class="pui-select-wrap"
        [class.pui-select-wrap--sm]="size === 'sm'"
        [class.pui-select-wrap--lg]="size === 'lg'"
@@ -23,25 +22,21 @@
        (keydown.space)="$event.preventDefault(); toggle()"
        (keydown.escape)="close()">
 
-    <!-- Selected icon -->
     <span *ngIf="selectedOption?.icon" class="pui-select-wrap__icon"
           [innerHTML]="selectedOption!.icon"></span>
 
-    <!-- Value / placeholder -->
     <span class="pui-select-wrap__value"
           [class.pui-select-wrap__value--placeholder]="!displayLabel">
       {{ displayLabel || placeholder }}
     </span>
 
-    <!-- Error icon -->
     <span *ngIf="error" class="pui-select-wrap__err-icon">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="10" fill="#ef4444"/>
-        <path d="M12 8v4M12 16h.01" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="10" fill="var(--pui-error)"/>
+        <path d="M12 8v4M12 16h.01" stroke="var(--pui-white)" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </span>
 
-    <!-- Chevron -->
     <span class="pui-select-wrap__arrow" [class.pui-select-wrap__arrow--up]="open">
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
         <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8"
@@ -50,10 +45,8 @@
     </span>
   </div>
 
-  <!-- ── Dropdown popup ────────────────────────────── -->
   <div *ngIf="open" class="pui-select-popup" role="listbox">
 
-    <!-- Search input -->
     <div *ngIf="searchable" class="pui-select-search">
       <svg class="pui-select-search__icon" width="14" height="14" viewBox="0 0 20 20" fill="none">
         <circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.6"/>
@@ -68,7 +61,6 @@
              autocomplete="off">
     </div>
 
-    <!-- Options list -->
     <ul class="pui-select-list">
       <li *ngIf="filtered.length === 0" class="pui-select-list__empty">No options found</li>
 
@@ -81,12 +73,10 @@
           role="option"
           (mousedown)="pick($event, opt)">
 
-        <!-- Option icon (flag / emoji / SVG) -->
         <span *ngIf="opt.icon" class="pui-select-list__icon" [innerHTML]="opt.icon"></span>
 
         <span class="pui-select-list__label">{{ opt.label }}</span>
 
-        <!-- Checkmark for selected -->
         <svg *ngIf="innerValue === opt.value"
              class="pui-select-list__check"
              width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -100,8 +90,8 @@
   <span *ngIf="hint && !error" class="pui-field__hint">{{ hint }}</span>
   <span *ngIf="error" class="pui-field__error">
     <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-      <circle cx="8" cy="8" r="7" fill="#ef4444"/>
-      <path d="M8 5v3M8 10.5h.01" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+      <circle cx="8" cy="8" r="7" fill="var(--pui-error)"/>
+      <path d="M8 5v3M8 10.5h.01" stroke="var(--pui-white)" stroke-width="1.6" stroke-linecap="round"/>
     </svg>
     {{ error }}
   </span>

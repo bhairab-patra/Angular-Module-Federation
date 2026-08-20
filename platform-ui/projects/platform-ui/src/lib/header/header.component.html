@@ -1,9 +1,7 @@
 
     <header class="pui-header" [style.background]="bgColor" [style.color]="textColor">
 
-      <!-- ── Brand ── -->
       <div class="pui-header__brand">
-        <!-- Hamburger toggle (used by app-shell) -->
         <button *ngIf="showHamburger"
           class="pui-header__hamburger"
           [class.pui-header__hamburger--open]="hamburgerOpen"
@@ -24,17 +22,14 @@
         </div>
       </div>
 
-      <!-- ── Divider after brand ── -->
       <div *ngIf="badge" class="pui-header__divider"></div>
 
-      <!-- ── Environment badge ── -->
       <span *ngIf="badge" class="pui-header__badge"
             [style.background]="badge.color"
-            [style.color]="badge.textColor || '#fff'">
+            [style.color]="badge.textColor || 'var(--pui-white)'">
         {{ badge.text }}
       </span>
 
-      <!-- ── Nav links ── -->
       <nav *ngIf="navLinks.length" class="pui-header__nav">
         <a *ngFor="let link of navLinks"
            [href]="link.href"
@@ -44,15 +39,12 @@
         </a>
       </nav>
 
-      <!-- ── Spacer ── -->
       <div class="pui-header__spacer"></div>
 
-      <!-- ── Custom actions slot ── -->
       <div class="pui-header__actions">
         <ng-content select="[actions]"></ng-content>
       </div>
 
-      <!-- ── Help icon ── -->
       <button *ngIf="showHelp" class="pui-header__icon-btn" (click)="helpClick.emit()" title="Help">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -61,10 +53,8 @@
         </svg>
       </button>
 
-      <!-- ── Divider before user ── -->
       <div *ngIf="userName" class="pui-header__divider"></div>
 
-      <!-- ── User area ── -->
       <div *ngIf="userName" #userArea class="pui-header__user" (click)="toggleMenu($event)">
         <div class="pui-header__user-info">
           <span class="pui-header__greeting" *ngIf="greeting">{{ greeting }}, {{ firstName }}</span>
@@ -87,7 +77,6 @@
 
       </div>
 
-      <!-- ── Dropdown menu (fixed — escapes overflow + stacking context) ── -->
       <div *ngIf="userName"
            class="pui-header__menu"
            [class.pui-header__menu--open]="menuOpen"
@@ -95,7 +84,6 @@
            [style.right]="menuRight"
            (click)="$event.stopPropagation()">
 
-        <!-- Menu header -->
         <div class="pui-header__menu-header">
           <div class="pui-header__menu-avatar"
                [style.background]="avatarColor"
@@ -111,7 +99,6 @@
 
         <div class="pui-header__menu-divider"></div>
 
-        <!-- Menu items -->
         <ng-container *ngFor="let item of menuItems">
           <button class="pui-header__menu-item"
                   [class.pui-header__menu-item--danger]="item.danger"
@@ -123,4 +110,3 @@
       </div>
 
     </header>
-  

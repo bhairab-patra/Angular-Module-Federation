@@ -15,8 +15,8 @@ export interface FormDialogField {
   placeholder?: string;
   required?:    boolean;
   readonly?:    boolean;
-  options?:     SelectOption[];   // used when type === 'select'
-  span?:        'full' | 'half'; // grid span; default 'half' (2-col grid)
+  options?:     SelectOption[];
+  span?:        'full' | 'half';
 }
 
 export interface FormDialogSaveEvent { data: Record<string, any>; }
@@ -62,7 +62,6 @@ export class PuiFormDialogComponent {
   }
 
   @Output() save   = new EventEmitter<FormDialogSaveEvent>();
-  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() cancel = new EventEmitter<void>();
   @Output() closed = new EventEmitter<void>();
 
@@ -84,7 +83,6 @@ export class PuiFormDialogComponent {
     this._close();
   }
 
-  /* called externally by consumer after save succeeds to close dialog */
   private _close(): void {
     this.closed.emit();
     this.errors = {};

@@ -7,49 +7,69 @@
 
 :root {
 
-  /* ========================================
+   /* ========================================
      BRAND / PRIMARY
      ======================================== */
-   --pui-brand:           #12C6A8;
-  /* --pui-brand:           #112C35; */
-  --pui-brand-hover:     #0d9e87;
-  --pui-brand-deep:      #0d6e5f;
-  --pui-brand-bg:        #f0fdfb;
-  --pui-brand-light:     #c5e8e3;
-  --pui-brand-muted:     #a8d9d2;
-  --pui-brand-muted-bg:  #e8f5f3;
-  --pui-brand-border:    #b5dbd6;
-  --pui-brand-accent:    #0fa78d;
-  --pui-brand-hover-2:   #0fb090;
-  --pui-brand-pressed:   #0a5a4e;
-  --pui-brand-text-dark: #0d4f45;
+   --pui-brand: #12C6A8;
+   /* --pui-brand:           #112C35; */
+   --pui-brand-hover: #0d9e87;
+   --pui-brand-deep: #0d6e5f;
+   --pui-brand-bg: #f0fdfb;
+   --pui-brand-light: #c5e8e3;
+   --pui-brand-muted: #a8d9d2;
+   --pui-brand-muted-bg: #e8f5f3;
+   --pui-brand-border: #b5dbd6;
+   --pui-brand-accent: #0fa78d;
+   --pui-brand-hover-2: #0fb090;
+   --pui-brand-pressed: #0a5a4e;
+   --pui-brand-text-dark: #0d4f45;
+   --pui-brand-solid: #0d9d8a;
 
-  /* Brand color pre-mixed with alpha, as flat 8-digit hex (#RRGGBBAA) —
+   /* Brand color pre-mixed with alpha, as flat 8-digit hex (#RRGGBBAA) —
      used by components that need a translucent brand tint, so every
      value stays a plain hex code instead of rgba(). */
-  --pui-brand-tint-05:   #12C6A80D;   /* 5%  */
-  --pui-brand-tint-08:   #12C6A814;   /* 8%  */
-  --pui-brand-tint-12:   #12C6A81F;   /* 12% */
-  --pui-brand-tint-14:   #12C6A824;   /* 14% */
-  --pui-brand-tint-18:   #12C6A82E;   /* 18% */
-  --pui-brand-tint-20:   #12C6A833;   /* 20% */
-  --pui-brand-tint-22:   #12C6A838;   /* 22% */
-  --pui-brand-tint-25:   #12C6A840;   /* 25% */
-  --pui-brand-tint-35:   #12C6A859;   /* 35% */
+   --pui-brand-tint-05: #12C6A80D;
+   /* 5%  */
+   --pui-brand-tint-07: #12C6A812;
+   /* 7%  */
+   --pui-brand-tint-08: #12C6A814;
+   /* 8%  */
+   --pui-brand-tint-10: #12C6A81A;
+   /* 10% */
+   --pui-brand-tint-12: #12C6A81F;
+   /* 12% */
+   --pui-brand-tint-14: #12C6A824;
+   /* 14% */
+   --pui-brand-tint-18: #12C6A82E;
+   /* 18% */
+   --pui-brand-tint-20: #12C6A833;
+   /* 20% */
+   --pui-brand-tint-22: #12C6A838;
+   /* 22% */
+   --pui-brand-tint-25: #12C6A840;
+   /* 25% */
+   --pui-brand-tint-35: #12C6A859;
+   /* 35% */
 
-  /* ========================================
+   /* ========================================
+     LIST (brand-tinted)
+     ======================================== */
+   --pui-list-active-default: #0d9488;
+   --pui-list-hover-bg-default: #f0fdfa;
+
+   /* ========================================
      CARD GRADIENT (brand-tinted)
      ======================================== */
-  --pui-card-grad-start: #e6faf7;
+   --pui-card-grad-start: #e6faf7;
 
-  /* ========================================
+   /* ========================================
      FOCUS RINGS
      ======================================== */
-  --pui-focus-ring:       0 0 0 3px var(--pui-brand-tint-14);
-  --pui-focus-ring-error: 0 0 0 3px rgba(239, 68, 68, .14);
+   --pui-focus-ring: 0 0 0 3px var(--pui-brand-tint-14);
+   --pui-focus-ring-error: 0 0 0 3px rgba(239, 68, 68, .14);
 
-  --pui-shadow-focus:       0 0 0 3px var(--pui-brand-tint-18);
-  --pui-shadow-focus-sm:    0 0 0 3px var(--pui-brand-tint-12);
-  --pui-shadow-focus-brand: 0 0 0 3px var(--pui-brand-tint-25);
+   --pui-shadow-focus: 0 0 0 3px var(--pui-brand-tint-18);
+   --pui-shadow-focus-sm: 0 0 0 3px var(--pui-brand-tint-12);
+   --pui-shadow-focus-brand: 0 0 0 3px var(--pui-brand-tint-25);
 
 }

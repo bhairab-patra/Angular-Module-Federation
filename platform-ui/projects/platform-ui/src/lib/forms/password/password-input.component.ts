@@ -17,7 +17,6 @@ export type PasswordStrength = 'weak' | 'fair' | 'strong' | 'very-strong';
 })
 export class PuiPasswordInputComponent {
 
-  /* -- State -------------------------------- */
   show    = false;
   focused = false;
   copied  = false;
@@ -36,7 +35,6 @@ export class PuiPasswordInputComponent {
   _error = '';
   _hint  = '';
 
-  /* -- Inputs ------------------------------- */
   @Input() set value(v: string)            { this._value = v || ''; }
   @Input() set placeholder(v: string)      { this._placeholder = v; }
   @Input() set disabled(v: boolean | string)      { this._disabled = this._bool(v); }
@@ -51,13 +49,10 @@ export class PuiPasswordInputComponent {
   @Input() set error(v: string)            { this._error = v; }
   @Input() set hint(v: string)             { this._hint  = v; }
 
-  /* -- Outputs ------------------------------ */
   @Output() valueChange = new EventEmitter<string>();
-  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() change      = new EventEmitter<string>();
   @Output() strengthChange = new EventEmitter<PasswordStrength>();
 
-  /* -- Derived ------------------------------ */
   get hasUpper()   { return /[A-Z]/.test(this._value); }
   get hasNumber()  { return /\d/.test(this._value); }
   get hasSpecial() { return /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>/?]/.test(this._value); }
@@ -85,7 +80,6 @@ export class PuiPasswordInputComponent {
     return index < map[this.strength] ? `active-${this.strength}` : '';
   }
 
-  /* -- Handlers ----------------------------- */
   onInput(v: string) {
     this._value = v;
     this.valueChange.emit(v);

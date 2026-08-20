@@ -3,7 +3,6 @@
        [class.ssb--hidden]="!showSidebar"
        [ngStyle]="cssVars">
 
-  <!-- Header -->
   <div class="ssb__header">
     <div class="ssb__brand" *ngIf="!collapsed">
       <span class="ssb__logo">
@@ -18,7 +17,6 @@
     </button>
   </div>
 
-  <!-- Logo-only row when collapsed -->
   <div class="ssb__logo-only" *ngIf="collapsed">
     <span class="ssb__logo">
       <img *ngIf="logoUrl" [src]="logoUrl" width="28" height="28" [alt]="brandName" class="ssb__logo-img" />
@@ -26,7 +24,6 @@
     </span>
   </div>
 
-  <!-- Navigation -->
   <nav class="ssb__nav">
     <div class="ssb__group" *ngFor="let group of groups">
 
@@ -43,16 +40,12 @@
                   (mouseenter)="onNavItemEnter(item, $event)"
                   (mouseleave)="onNavItemLeave()">
 
-            <!-- Icon via platform-ui icon name -->
             <span class="ssb__icon" *ngIf="item.iconName">
               <pui-lib-icon [name]="item.iconName" size="sm" color="currentColor"></pui-lib-icon>
             </span>
-            <!-- Icon via raw SVG string fallback -->
             <span class="ssb__icon" *ngIf="!item.iconName && item.icon" [innerHTML]="item.icon"></span>
-            <!-- Collapsed fallback for text-only items: show initial letter as icon -->
             <span class="ssb__abbr" *ngIf="collapsed && !item.iconName && !item.icon">{{ itemAbbr(item) }}</span>
 
-            <!-- Label: only in expanded -->
             <ng-container *ngIf="!collapsed">
               <pui-lib-tooltip *ngIf="needsEllipsis(item.label); else plainLabel"
                                 class="ssb__label-tt"
@@ -71,10 +64,8 @@
     </div>
   </nav>
 
-  <!-- User profile + menu -->
   <div class="ssb__user-wrap" *ngIf="showUser">
 
-    <!-- User menu popup (shown above the profile strip) -->
     <div class="ssb__user-menu" *ngIf="userMenuOpen && userMenuItems.length">
       <div *ngFor="let item of userMenuItems">
         <div class="ssb__user-menu-divider" *ngIf="item.divider"></div>
@@ -90,7 +81,6 @@
       </div>
     </div>
 
-    <!-- Profile strip -->
     <div class="ssb__user"
          [class.ssb__user--clickable]="userMenuItems.length"
          [class.ssb__user--open]="userMenuOpen"
@@ -117,8 +107,6 @@
 
   </div>
 
-
-  <!-- Collapsed nav tooltip — rendered outside nav so scrolling still works -->
   <div class="ssb__nav-tooltip" *ngIf="collapsed && hoveredItem" [style.top.px]="tooltipTop">
     {{ hoveredItem!.label }}
   </div>

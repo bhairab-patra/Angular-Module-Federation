@@ -13,7 +13,6 @@
   color: var(--pui-neutral-900);
 }
 
-/* â”€â”€ Toolbar â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-dt-toolbar {
   display: flex;
   align-items: center;
@@ -47,7 +46,6 @@
   border-radius: var(--pui-radius-full);
 }
 
-/* Search */
 .pui-dt-search {
   position: relative;
   display: flex;
@@ -101,18 +99,16 @@
   }
 }
 
-/* â”€â”€ Scroll container â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-dt-scroll {
   overflow-x: auto;
   overflow-y: auto;
 }
 
-/* â”€â”€ Loading skeleton â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-dt-loading {
   position: absolute;
   inset: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, .85);
+  background: var(--pui-overlay-white-85);
   display: flex;
   flex-direction: column;
   gap: var(--pui-space-px);
@@ -146,7 +142,6 @@
   }
 }
 
-/* â”€â”€ Table â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-dt {
   width: 100%;
   border-collapse: collapse;
@@ -154,7 +149,6 @@
   table-layout: fixed;
 }
 
-/* Header */
 .pui-dt-head {
   background: var(--pui-neutral-50);
 }
@@ -229,7 +223,6 @@
   transition: stroke var(--pui-duration-base);
 }
 
-/* Rows */
 .pui-dt-row {
   transition: background var(--pui-duration-fast);
   animation: pui-dt-row-in var(--pui-duration-base) ease both;
@@ -319,7 +312,6 @@
   font-size: var(--pui-text-sm);
 }
 
-/* Checkbox */
 .pui-dt-cb {
   display: inline-flex;
   align-items: center;
@@ -374,7 +366,6 @@
   border: none;
 }
 
-/* Badge */
 .pui-dt-badge {
   display: inline-flex;
   align-items: center;
@@ -392,7 +383,6 @@
   }
 }
 
-/* Pills */
 .pui-dt-pills {
   display: flex;
   flex-wrap: wrap;
@@ -410,7 +400,6 @@
   border: 1px solid var(--pui-neutral-200);
 }
 
-/* Empty */
 .pui-dt-empty {
   padding: var(--pui-space-13) var(--pui-space-4);
   text-align: center;
@@ -430,7 +419,6 @@
   }
 }
 
-/* â”€â”€ Cell tooltip portal â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-cell-tooltip {
   position: absolute;
   z-index: 9998;
@@ -497,7 +485,6 @@
   border-right-color: var(--pui-tooltip-bg);
 }
 
-/* â”€â”€ Action menu â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-dt-action-btn {
   display: inline-flex;
   align-items: center;
@@ -569,7 +556,6 @@
   height: 16px;
 }
 
-/* â”€â”€ Pagination â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-dt-pager {
   display: flex;
   align-items: center;

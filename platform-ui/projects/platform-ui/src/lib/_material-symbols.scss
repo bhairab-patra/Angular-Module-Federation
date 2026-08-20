@@ -1,6 +1,4 @@
 
-    /* Material Symbols — icon font utility classes */
-
     .material-symbols-outlined,
     .material-symbols-rounded,
     .material-symbols-sharp {
@@ -20,13 +18,11 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Size modifiers */
     .pui-icon--xs  { font-size: var(--pui-text-xs); }
     .pui-icon--sm  { font-size: var(--pui-text-base); }
     .pui-icon--md  { font-size: var(--pui-text-5xl); }
     .pui-icon--lg  { font-size: var(--pui-text-4xl); }
     .pui-icon--xl  { font-size: var(--pui-text-6xl); }
 
-    /* Variable-font axis defaults */
     .pui-icon--fill   { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
     .pui-icon--outline { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }

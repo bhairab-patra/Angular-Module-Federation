@@ -8,8 +8,8 @@ import { IconComponent } from '../icon/icon.component';
 export interface TabItem {
   id: string;
   label: string;
-  iconName?: string;      // platform icon registry key (preferred)
-  icon?: string;          // raw SVG string fallback
+  iconName?: string;
+  icon?: string;
   badge?: string | number;
   disabled?: boolean;
 }
@@ -35,14 +35,12 @@ export class PuiTabsComponent {
     return this.sanitizer.bypassSecurityTrustHtml(icon);
   }
 
-  /* -- Internal state ------------------- */
   _tabs: TabItem[]          = [];
   _active                   = '';
   _variant: TabsVariant     = 'line';
   _orientation: TabsOrientation = 'horizontal';
   _size: TabsSize           = 'md';
 
-  /* -- Inputs --------------------------- */
   @Input() set tabs(v: TabItem[] | string) {
     this._tabs = typeof v === 'string' ? (this._parse<TabItem[]>(v) ?? []) : (v || []);
     if (this._tabs.length && !this._tabs.find(t => t.id === this._active)) {
@@ -69,13 +67,10 @@ export class PuiTabsComponent {
     this._size = (['sm','md','lg'].includes(v as TabsSize) ? v as TabsSize : 'md');
   }
 
-  /** Set false to suppress the bordered panel container — use when projecting no content or managing panel externally */
   @Input() panel = true;
 
-  /* -- Output --------------------------- */
   @Output() tabChange = new EventEmitter<TabItem>();
 
-  /* -- Actions -------------------------- */
   select(tab: TabItem) {
     if (tab.disabled || tab.id === this._active) return;
     this._active = tab.id;

@@ -1,13 +1,11 @@
 
     <div class="pui-field" [class.pui-field--error]="error" [class.pui-field--disabled]="disabled">
 
-      <!-- Label -->
       <label *ngIf="label" class="pui-field__label">
         {{ label }}
         <span *ngIf="required" class="pui-field__req">*</span>
       </label>
 
-      <!-- Input wrapper -->
       <div class="pui-input-wrap"
            [class.pui-input-wrap--sm]="size === 'sm'"
            [class.pui-input-wrap--lg]="size === 'lg'"
@@ -16,11 +14,9 @@
            [class.pui-input-wrap--disabled]="disabled"
            [class.pui-input-wrap--readonly]="readonly">
 
-        <!-- Prefix icon -->
         <span *ngIf="prefixIcon" class="pui-input-wrap__icon pui-input-wrap__icon--pre"
               [innerHTML]="prefixIcon"></span>
 
-        <!-- Native input -->
         <input #inputEl
                class="pui-input"
                [type]="showPass ? 'text' : type"
@@ -34,12 +30,10 @@
                (blur)="onBlur()"
                (focus)="onFocus()"/>
 
-        <!-- Character count -->
         <span *ngIf="showCount && maxLength" class="pui-input-wrap__count">
           {{ (innerValue || '').length }}/{{ maxLength }}
         </span>
 
-        <!-- Clear button -->
         <button *ngIf="clearable && innerValue && !disabled && !readonly"
                 class="pui-input-wrap__action"
                 type="button"
@@ -51,7 +45,6 @@
           </svg>
         </button>
 
-        <!-- Password toggle -->
         <button *ngIf="type === 'password' && !disabled"
                 class="pui-input-wrap__action"
                 type="button"
@@ -69,27 +62,23 @@
           </svg>
         </button>
 
-        <!-- Suffix icon -->
         <span *ngIf="suffixIcon && type !== 'password'" class="pui-input-wrap__icon pui-input-wrap__icon--suf"
               [innerHTML]="suffixIcon"></span>
 
-        <!-- Error icon -->
         <span *ngIf="error" class="pui-input-wrap__icon pui-input-wrap__icon--err">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" fill="#ef4444"/>
-            <path d="M12 8v4M12 16h.01" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="10" fill="var(--pui-error)"/>
+            <path d="M12 8v4M12 16h.01" stroke="var(--pui-white)" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </span>
       </div>
 
-      <!-- Hint -->
       <span *ngIf="hint && !error" class="pui-field__hint">{{ hint }}</span>
 
-      <!-- Error message -->
       <span *ngIf="error" class="pui-field__error">
         <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-          <circle cx="8" cy="8" r="7" fill="#ef4444"/>
-          <path d="M8 5v3M8 10.5h.01" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="8" cy="8" r="7" fill="var(--pui-error)"/>
+          <path d="M8 5v3M8 10.5h.01" stroke="var(--pui-white)" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
         {{ error }}
       </span>

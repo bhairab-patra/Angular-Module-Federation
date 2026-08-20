@@ -20,7 +20,6 @@ import {
 })
 export class PuiAppShellComponent {
 
-  // ── Sidebar content ───────────────────────────────────────
   @Input() set groups(v: SolifiNavGroup[] | SolifiNavItem[] | string) {
     if (typeof v === 'string') {
       const parsed = this._parse<SolifiNavGroup[] | SolifiNavItem[]>(v) ?? [];
@@ -36,7 +35,6 @@ export class PuiAppShellComponent {
   @Input() brandName = 'solifi';
   @Input() logoUrl   = '';
 
-  // ── Sidebar layout ────────────────────────────────────────
   @Input() set collapsed(v: boolean | string) {
     this._collapsed = v === true || v === 'true' || (v as any) === '';
   }
@@ -52,14 +50,12 @@ export class PuiAppShellComponent {
   @Input() width         = 240;
   @Input() collapsedWidth = 64;
 
-  // ── Sidebar theme ─────────────────────────────────────────
   @Input() set theme(v: SolifiSidebarTheme | string) {
     this._theme = typeof v === 'string' ? (this._parse<SolifiSidebarTheme>(v) ?? SOLIFI_THEME) : (v || SOLIFI_THEME);
   }
   get theme(): SolifiSidebarTheme { return this._theme; }
   private _theme: SolifiSidebarTheme = { ...SOLIFI_THEME };
 
-  // ── User profile ──────────────────────────────────────────
   @Input() set showUser(v: boolean | string) {
     this._showUser = v === true || v === 'true' || (v as any) === '';
   }
@@ -77,11 +73,9 @@ export class PuiAppShellComponent {
   get userMenuItems(): SolifiUserMenuItem[] { return this._userMenuItems; }
   private _userMenuItems: SolifiUserMenuItem[] = [];
 
-  // ── Page layout ──────────────────────────────────────────
-  @Input() pageTitle  = '';   // shown in the top title bar; omit to hide the bar
-  @Input() footerText = '';   // shown in the fixed footer; omit to hide the footer
+  @Input() pageTitle  = '';
+  @Input() footerText = '';
 
-  // ── Outputs ───────────────────────────────────────────────
   @Output() itemSelect        = new EventEmitter<SolifiNavItem>();
   @Output() collapsedChange   = new EventEmitter<boolean>();
   @Output() userMenuSelect    = new EventEmitter<SolifiUserMenuItem>();

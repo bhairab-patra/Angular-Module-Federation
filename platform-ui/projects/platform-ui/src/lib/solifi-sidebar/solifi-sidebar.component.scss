@@ -4,7 +4,6 @@ pui-lib-solifi-sidebar {
   height: 100%;
 }
 
-/* ── Shell ─────────────────────────────────────────────────── */
 .ssb {
   display: flex;
   flex-direction: column;
@@ -30,7 +29,6 @@ pui-lib-solifi-sidebar {
   overflow: hidden;
 }
 
-/* ── Header ────────────────────────────────────────────────── */
 .ssb__header {
   display: flex;
   align-items: center;
@@ -75,7 +73,7 @@ pui-lib-solifi-sidebar {
   font-size: 18px;
   font-weight: 700;
   letter-spacing: .02em;
-  color: #fff;
+  color: var(--pui-white);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -98,16 +96,14 @@ pui-lib-solifi-sidebar {
 
 .ssb__toggle:hover {
   background: var(--ssb-hover, rgba(255, 255, 255, .06));
-  color: #fff;
+  color: var(--pui-white);
 }
 
-/* Collapsed: toggle is the only thing in header, centered */
 .ssb--collapsed .ssb__header {
   justify-content: center;
   padding: 18px 0 14px;
 }
 
-/* ── Logo-only row (collapsed) ─────────────────────────────── */
 .ssb__logo-only {
   display: flex;
   align-items: center;
@@ -117,7 +113,6 @@ pui-lib-solifi-sidebar {
   flex-shrink: 0;
 }
 
-/* ── Nav ───────────────────────────────────────────────────── */
 .ssb__nav {
   flex: 1;
   overflow-y: auto;
@@ -127,7 +122,6 @@ pui-lib-solifi-sidebar {
   scrollbar-color: var(--ssb-border, rgba(255, 255, 255, .07)) transparent;
 }
 
-/* Collapsed: nav still scrolls; tooltip is rendered outside nav on the root */
 .ssb--collapsed .ssb__nav {
   overflow-y: auto;
   overflow-x: hidden;
@@ -142,7 +136,6 @@ pui-lib-solifi-sidebar {
   border-radius: 4px;
 }
 
-/* ── Group ─────────────────────────────────────────────────── */
 .ssb__group {
   margin-bottom: 4px;
 }
@@ -163,7 +156,6 @@ pui-lib-solifi-sidebar {
   padding: 0;
 }
 
-/* ── Item ──────────────────────────────────────────────────── */
 .ssb__item {
   width: 100%;
   display: flex;
@@ -197,11 +189,11 @@ pui-lib-solifi-sidebar {
 
 .ssb__item:hover:not(.ssb__item--disabled) {
   background: var(--ssb-hover, rgba(255, 255, 255, .06));
-  color: #fff;
+  color: var(--pui-white);
 }
 
 .ssb__item--active {
-  color: #fff !important;
+  color: var(--pui-white) !important;
   font-weight: 500;
 }
 
@@ -214,16 +206,11 @@ pui-lib-solifi-sidebar {
   cursor: not-allowed;
 }
 
-/* Deliberate, consistent focus indicator — without this, buttons fall back
-   to whichever native focus ring the browser/OS happens to draw, which
-   looks different per-browser and only appears on whichever item was last
-   focused (easy to mistake for a random inconsistent "shadow" on one icon). */
 .ssb__item:focus-visible {
   outline: 2px solid var(--ssb-active, var(--pui-brand));
   outline-offset: -2px;
 }
 
-/* Collapsed: center icon */
 .ssb--collapsed .ssb__item {
   padding: 0;
   justify-content: center;
@@ -234,22 +221,15 @@ pui-lib-solifi-sidebar {
   display: none;
 }
 
-/* ── Collapsed tooltip bubble — matches pui-lib-tooltip exactly ─ */
 .ssb__nav-tooltip {
   position: absolute;
   left: calc(100% + 8px);
-  /* same gap as pui-tt--right: calc(100% + var(--pui-space-2)) */
   transform: translateY(-50%);
-  background: #1e293b;
-  /* --pui-tooltip-bg */
-  color: #f8fafc;
-  /* --pui-tooltip-color */
+  background: var(--pui-tooltip-bg);
+  color: var(--pui-tooltip-color);
   padding: 6px 12px;
-  /* --pui-space-1-5 / --pui-space-3 */
   border-radius: 6px;
-  /* --pui-radius-sm */
   font-size: 12px;
-  /* --pui-text-sm */
   font-weight: 500;
   font-family: 'Poppins', system-ui, sans-serif;
   line-height: 1.4;
@@ -257,8 +237,7 @@ pui-lib-solifi-sidebar {
   pointer-events: none;
   user-select: none;
   z-index: 9999;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, .22);
-  /* --pui-shadow-tooltip */
+  box-shadow: var(--pui-shadow-tooltip);
   animation: ssb-tt-in .15s ease;
 }
 
@@ -274,7 +253,6 @@ pui-lib-solifi-sidebar {
   }
 }
 
-/* Left-pointing arrow — matches pui-tt--right .pui-tt__bubble::after */
 .ssb__nav-tooltip::after {
   content: '';
   position: absolute;
@@ -282,10 +260,9 @@ pui-lib-solifi-sidebar {
   top: 50%;
   transform: translateY(-50%);
   border: 5px solid transparent;
-  border-right-color: #1e293b;
+  border-right-color: var(--pui-tooltip-bg);
 }
 
- 
 .ssb__abbr {
   flex-shrink: 0;
   width: 28px;
@@ -297,20 +274,19 @@ pui-lib-solifi-sidebar {
   font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, .10);
+  background: var(--pui-overlay-white-10);
   color: currentColor;
   letter-spacing: .02em;
 }
 
 .ssb__item:hover .ssb__abbr {
-  background: rgba(255, 255, 255, .16);
+  background: var(--pui-overlay-white-16);
 }
 
 .ssb__item--active .ssb__abbr {
   background: var(--pui-brand-tint-22);
 }
 
- 
 .ssb__icon {
   display: flex;
   align-items: center;
@@ -319,8 +295,8 @@ pui-lib-solifi-sidebar {
   width: 32px;
   height: 32px;
   border-radius: var(--pui-radius-md, 8px);
-  background: #2f4c55;
-  color: #FFF;
+  background: var(--pui-solifi-sb-icon-chip-bg);
+  color: var(--pui-white);
   border-radius: 100%;
   transition: opacity .13s, background .13s;
   font-size: 10px;
@@ -337,7 +313,6 @@ pui-lib-solifi-sidebar {
   height: 20px;
 }
 
-/* In expanded mode, the chip box is slightly smaller to match the row height */
 .ssb:not(.ssb--collapsed) .ssb__icon {
   width: 30px;
   height: 30px;
@@ -348,7 +323,6 @@ pui-lib-solifi-sidebar {
   height: 18px;
 }
 
-/* ── Label ─────────────────────────────────────────────────── */
 .ssb__label {
   flex: 1;
   min-width: 0;
@@ -369,25 +343,23 @@ pui-lib-solifi-sidebar {
   }
 }
 
-/* ── User wrap (positions the popup) ───────────────────────── */
 .ssb__user-wrap {
   flex-shrink: 0;
   position: relative;
   border-top: 1px solid var(--ssb-border, rgba(255, 255, 255, .07));
 }
 
-/* ── User menu popup ────────────────────────────────────────── */
 .ssb__user-menu {
   position: absolute;
   bottom: 100%;
   left: 8px;
   right: 8px;
-  background: #1a3a47;
-  border: 1px solid rgba(255, 255, 255, .1);
+  background: var(--pui-solifi-sb-menu-bg);
+  border: 1px solid var(--pui-overlay-white-10);
   border-radius: 10px;
   padding: 6px;
   margin-bottom: 6px;
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, .35);
+  box-shadow: var(--pui-solifi-sb-menu-shadow-up);
   z-index: 100;
   animation: ssb-menu-in .14s cubic-bezier(.4, 0, .2, 1);
 }
@@ -417,19 +389,18 @@ pui-lib-solifi-sidebar {
 }
 
 .ssb--collapsed .ssb__user-menu {
-  /* Appear to the RIGHT of the collapsed rail */
   left: calc(100% + 8px);
   right: auto;
   bottom: 0;
   margin-bottom: 0;
   min-width: 180px;
-  box-shadow: 8px 0 24px rgba(0, 0, 0, .35);
+  box-shadow: var(--pui-solifi-sb-menu-shadow-right);
   animation: ssb-menu-in-right .14s cubic-bezier(.4, 0, .2, 1);
 }
 
 .ssb__user-menu-divider {
   height: 1px;
-  background: rgba(255, 255, 255, .09);
+  background: var(--pui-overlay-white-09);
   margin: 4px;
 }
 
@@ -453,7 +424,7 @@ pui-lib-solifi-sidebar {
 
 .ssb__user-menu-item:hover:not(.ssb__user-menu-item--disabled) {
   background: var(--ssb-hover, rgba(255, 255, 255, .07));
-  color: #fff;
+  color: var(--pui-white);
 }
 
 .ssb__user-menu-item--disabled {
@@ -479,7 +450,6 @@ pui-lib-solifi-sidebar {
   flex: 1;
 }
 
-/* ── User profile strip ─────────────────────────────────────── */
 .ssb__user {
   display: flex;
   align-items: center;
@@ -507,7 +477,7 @@ pui-lib-solifi-sidebar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #207372;
+  background: var(--pui-solifi-sb-avatar-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -523,7 +493,7 @@ pui-lib-solifi-sidebar {
 .ssb__avatar-initials {
   font-size: 13px;
   font-weight: 700;
-  color: #fff;
+  color: var(--pui-white);
   line-height: 1;
 }
 
@@ -538,7 +508,7 @@ pui-lib-solifi-sidebar {
 .ssb__user-name {
   font-size: 13px;
   font-weight: 600;
-  color: #fff;
+  color: var(--pui-white);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

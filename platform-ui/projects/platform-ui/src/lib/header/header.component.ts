@@ -14,20 +14,19 @@ import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  // ── Simple string inputs (work as HTML attributes everywhere) ──────────
   @Input() appTitle    = 'My App';
   @Input() appSubtitle = '';
   @Input() logoText    = '';
   @Input() logoUrl     = '';
   @Input() bgColor     = 'var(--pui-brand)';
-  @Input() textColor   = '#ffffff';
+  @Input() textColor   = 'var(--pui-white)';
   @Input() userName    = '';
   @Input() userEmail   = '';
   @Input() greeting    = 'Hi';
   @Input() userSubtext = 'Welcome back!';
   @Input() avatarUrl   = '';
   @Input() avatarColor      = 'var(--pui-brand-deep)';
-  @Input() avatarTextColor  = '#ffffff';
+  @Input() avatarTextColor  = 'var(--pui-white)';
   @Input() hasLogoSlot = false;
 
   @Input() set showHamburger(v: boolean | string) {
@@ -44,34 +43,24 @@ export class HeaderComponent {
 
   @Output() hamburgerToggle = new EventEmitter<void>();
 
-  // ── Boolean input — accepts true/false OR the strings "true"/"false" ──
-  // React: show-help="true"  Angular: [showHelp]="true"  JS: el.showHelp = true
   @Input() set showHelp(v: boolean | string) {
     this._showHelp = v === true || v === 'true' || (v as any) === '';
   }
   get showHelp() { return this._showHelp; }
   private _showHelp = false;
 
-  // ── Object input — accepts JSON string OR plain object ────────────────
-  // React: badge='{"text":"UAT","color":"#f59e0b"}'
-  // Angular: [badge]="{ text: 'UAT', color: '#f59e0b' }"
-  // JS: el.badge = { text: 'UAT', color: '#f59e0b' }
   @Input() set badge(v: HeaderBadge | string | null) {
     this._badge = typeof v === 'string' ? this._parseJson<HeaderBadge>(v) : v;
   }
   get badge(): HeaderBadge | null { return this._badge; }
   private _badge: HeaderBadge | null = null;
 
-  // ── Array input — accepts JSON string OR plain array ──────────────────
-  // React: nav-links='[{"label":"Home","href":"/"}]'
-  // Angular: [navLinks]="links"   JS: el.navLinks = [...]
   @Input() set navLinks(v: NavLink[] | string) {
     this._navLinks = typeof v === 'string' ? (this._parseJson<NavLink[]>(v) ?? []) : (v ?? []);
   }
   get navLinks(): NavLink[] { return this._navLinks; }
   private _navLinks: NavLink[] = [];
 
-  // ── Array input — accepts JSON string OR plain array ──────────────────
   @Input() set menuItems(v: UserMenuItem[] | string) {
     this._menuItems = typeof v === 'string'
       ? (this._parseJson<UserMenuItem[]>(v) ?? this._defaultMenuItems())
@@ -80,9 +69,7 @@ export class HeaderComponent {
   get menuItems(): UserMenuItem[] { return this._menuItems; }
   private _menuItems: UserMenuItem[] = this._defaultMenuItems();
 
-  /** Emitted when a menu item is clicked — payload is item.action */
   @Output() menuAction = new EventEmitter<string>();
-  /** Emitted when the help button is clicked */
   @Output() helpClick  = new EventEmitter<void>();
 
   menuOpen = false;

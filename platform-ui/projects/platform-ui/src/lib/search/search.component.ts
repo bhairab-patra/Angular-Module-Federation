@@ -215,7 +215,6 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
                || (!this.value && this.recentItems.length > 0);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private closeDropdown(): void {}
 
   @HostListener('document:click', ['$event'])

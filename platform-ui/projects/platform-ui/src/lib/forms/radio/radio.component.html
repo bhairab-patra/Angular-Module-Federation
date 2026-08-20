@@ -33,8 +33,8 @@
       <span *ngIf="hint && !error" class="pui-field__hint" style="margin-top:4px">{{ hint }}</span>
       <span *ngIf="error" class="pui-field__error" style="margin-top:4px">
         <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-          <circle cx="8" cy="8" r="7" fill="#ef4444"/>
-          <path d="M8 5v3M8 10.5h.01" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+          <circle cx="8" cy="8" r="7" fill="var(--pui-error)"/>
+          <path d="M8 5v3M8 10.5h.01" stroke="var(--pui-white)" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
         {{ error }}
       </span>

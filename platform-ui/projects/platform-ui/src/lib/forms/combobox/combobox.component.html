@@ -4,7 +4,6 @@
      [class.pui-cb--open]="open"
      [class.pui-cb--error]="_error">
 
-  <!-- ── Trigger input ──────────────────── -->
   <div class="pui-cb-field">
     <input
       #cbInput
@@ -22,7 +21,6 @@
       [attr.aria-haspopup]="'listbox'"
       role="combobox">
 
-    <!-- Clear button -->
     <button *ngIf="_clearable && _value !== null && _value !== ''"
             class="pui-cb-clear"
             type="button"
@@ -34,7 +32,6 @@
       </svg>
     </button>
 
-    <!-- Chevron -->
     <button class="pui-cb-chevron" type="button"
             (click)="!_disabled && toggle()">
       <svg [class.pui-cb-chevron--up]="open"
@@ -45,10 +42,8 @@
     </button>
   </div>
 
-  <!-- ── Dropdown ───────────────────────── -->
   <div *ngIf="open" class="pui-cb-dropdown" role="listbox">
 
-    <!-- Free-text option when no match -->
     <ng-container *ngIf="_allowFreeText && query && filteredOptions.length === 0">
       <button class="pui-cb-option pui-cb-option--freetext"
               role="option"
@@ -61,12 +56,10 @@
       </button>
     </ng-container>
 
-    <!-- Empty state -->
     <ng-container *ngIf="!_allowFreeText && filteredOptions.length === 0">
       <div class="pui-cb-empty">No options found</div>
     </ng-container>
 
-    <!-- Option groups -->
     <ng-container *ngFor="let group of groupedOptions">
       <div *ngIf="group.name" class="pui-cb-group-label">{{ group.name }}</div>
 
@@ -96,7 +89,6 @@
 
   </div>
 
-  <!-- Error / hint -->
   <div *ngIf="_error" class="pui-cb-error-msg">{{ _error }}</div>
   <div *ngIf="_hint && !_error" class="pui-cb-hint">{{ _hint }}</div>
 

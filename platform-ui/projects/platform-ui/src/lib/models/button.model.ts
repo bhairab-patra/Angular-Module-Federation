@@ -11,7 +11,7 @@ export type ButtonVariant =
   | 'destructive-light'
   | 'chip'
   | 'upload-progress'
-  | 'danger'   // back-compat alias
-  | 'ghost';   // back-compat alias
+  | 'danger'
+  | 'ghost';
 
 export type ButtonSize = 'sm' | 'md' | 'lg';

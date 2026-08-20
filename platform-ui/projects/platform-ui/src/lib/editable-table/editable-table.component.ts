@@ -18,14 +18,12 @@ export interface EditableRowEvent { index: number; row: any; }
 })
 export class PuiEditableTableComponent {
 
-  /* ── Columns ─────────────────────────── */
   _columns: TableColumn[] = [];
   @Input() set columns(v: TableColumn[] | string) {
     this._columns = typeof v === 'string' ? (this._parse<TableColumn[]>(v) ?? []) : (v || []);
   }
   get columns() { return this._columns; }
 
-  /* ── Data ────────────────────────────── */
   _rows: any[] = [];
   @Input() set data(v: any[] | string) {
     this._rows = typeof v === 'string' ? (this._parse<any[]>(v) ?? []) : ([...(v || [])]);
@@ -35,7 +33,6 @@ export class PuiEditableTableComponent {
   }
   get data() { return this._rows; }
 
-  /* ── Options ─────────────────────────── */
   _maxHeight = 480;
   @Input() set maxHeight(v: number | string) { this._maxHeight = Number(v) || 480; }
 
@@ -49,21 +46,17 @@ export class PuiEditableTableComponent {
     this._confirmDelete = v === true || v === 'true' || (v as any) === '';
   }
 
-  /* ── Outputs ─────────────────────────── */
   @Output() rowSave = new EventEmitter<EditableRowSaveEvent>();
   @Output() rowDelete = new EventEmitter<EditableRowEvent>();
   @Output() rowEdit = new EventEmitter<EditableRowEvent>();
 
-  /* ── Edit state ──────────────────────── */
   editingIndex: number | null = null;
   draft: Record<string, any> = {};
 
-  /* ── Pending delete state ────────────── */
   _pendingDeleteIndex: number | null = null;
   _pendingDeleteRow: any = null;
 
   skeletonRows = Array(5).fill(null);
-
 
   startEdit(i: number): void {
     if (this.editingIndex !== null) return;

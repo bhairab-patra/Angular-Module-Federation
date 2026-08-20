@@ -65,9 +65,7 @@ export class PuiSelectComponent implements ControlValueAccessor {
     return this.selectedOption?.label ?? '';
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private _onChangeFn: (v: unknown) => void = () => {};
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private _onTouchedFn: () => void          = () => {};
 
   writeValue(val: unknown): void { this.innerValue = val ?? ''; }
@@ -86,8 +84,8 @@ export class PuiSelectComponent implements ControlValueAccessor {
   }
 
   pick(e: MouseEvent, opt: SelectOption): void {
-    e.preventDefault();   // prevent focus loss from trigger
-    e.stopPropagation();  // prevent document:click from seeing this mousedown
+    e.preventDefault();
+    e.stopPropagation();
     if (opt.disabled) return;
     this.innerValue = opt.value;
     this.open       = false;

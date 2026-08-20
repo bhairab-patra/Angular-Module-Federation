@@ -4,7 +4,7 @@ pui-lib-sidebar {
   height: 100%;
 }
 
- 
+
 .pui-sb {
   display: flex;
   flex-direction: column;
@@ -32,7 +32,6 @@ pui-lib-sidebar {
   transition: width .22s cubic-bezier(.4, 0, .2, 1);
 }
 
-/* â”€â”€ Brand â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__brand {
   display: flex;
   align-items: center;
@@ -103,7 +102,6 @@ pui-lib-sidebar {
   border-color: var(--pui-sb-active-brd);
 }
 
-/* â”€â”€ Search â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__search {
   padding: var(--pui-space-3) var(--pui-space-3) var(--pui-space-2);
   flex-shrink: 0;
@@ -114,7 +112,6 @@ pui-lib-sidebar {
   width: 100%;
 }
 
-/* â”€â”€ Nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__nav {
   flex: 1;
   overflow-y: auto;
@@ -133,7 +130,6 @@ pui-lib-sidebar {
   border-radius: var(--pui-radius-xs);
 }
 
-/* â”€â”€ Group â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__group {
   margin-bottom: var(--pui-space-1);
 }
@@ -165,7 +161,6 @@ pui-lib-sidebar {
   padding-bottom: var(--pui-space-2);
 }
 
-/* â”€â”€ Item â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__item {
   width: 100%;
   display: flex;
@@ -214,7 +209,7 @@ pui-lib-sidebar {
   cursor: not-allowed;
 }
 
- 
+
 .pui-sb--collapsed .pui-sb__item {
   padding: 0;
   justify-content: center;
@@ -224,7 +219,7 @@ pui-lib-sidebar {
   display: none;
 }
 
- 
+
 .pui-sb__item-icon {
   display: flex;
   align-items: center;
@@ -258,7 +253,6 @@ pui-lib-sidebar {
   height: 18px;
 }
 
-/* â”€â”€ Label â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__item-body {
   flex: 1;
   display: flex;
@@ -288,7 +282,6 @@ pui-lib-sidebar {
   padding: 0 var(--pui-space-px);
 }
 
-/* â”€â”€ Arrow â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__arrow {
   flex-shrink: 0;
   display: flex;
@@ -307,7 +300,6 @@ pui-lib-sidebar {
   opacity: 1;
 }
 
-/* â”€â”€ Badge â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__badge {
   flex-shrink: 0;
   font-size: var(--pui-text-2xs);
@@ -323,26 +315,25 @@ pui-lib-sidebar {
 }
 
 .pui-sb__badge--success {
-  background: rgba(34, 197, 94, .2);
+  background: var(--pui-success-tint-20);
   color: var(--pui-success);
 }
 
 .pui-sb__badge--warning {
-  background: rgba(245, 158, 11, .2);
+  background: var(--pui-warning-tint-20);
   color: var(--pui-warning);
 }
 
 .pui-sb__badge--danger {
-  background: rgba(239, 68, 68, .2);
+  background: var(--pui-error-tint-20);
   color: var(--pui-error);
 }
 
 .pui-sb__badge--info {
-  background: rgba(59, 130, 246, .2);
+  background: var(--pui-blue-tint-20);
   color: var(--pui-blue);
 }
 
-/* â”€â”€ Submenu â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__sub {
   list-style: none;
   margin: 0;
@@ -414,7 +405,6 @@ pui-lib-sidebar {
   text-overflow: ellipsis;
 }
 
-/* â”€â”€ Empty state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__empty {
   display: flex;
   flex-direction: column;
@@ -426,7 +416,6 @@ pui-lib-sidebar {
   text-align: center;
 }
 
-/* â”€â”€ User profile â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__user {
   flex-shrink: 0;
   display: flex;
@@ -468,7 +457,7 @@ pui-lib-sidebar {
 .pui-sb__user-initials {
   font-size: var(--pui-text-sm);
   font-weight: 700;
-  color: #fff;
+  color: var(--pui-white);
   line-height: 1;
 }
 
@@ -504,7 +493,6 @@ pui-lib-sidebar {
   opacity: .6;
 }
 
-/* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-sb__footer {
   flex-shrink: 0;
   padding: var(--pui-space-3);

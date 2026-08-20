@@ -9,7 +9,7 @@ export interface SelectOption {
   value:    any;
   disabled?: boolean;
   group?:   string;
-  icon?:    string;   // emoji, flag, or raw SVG string — rendered before label
+  icon?:    string;
 }
 
 export interface RadioOption {

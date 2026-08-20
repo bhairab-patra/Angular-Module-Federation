@@ -1,6 +1,7 @@
 import {
   Component, Input, Output, EventEmitter, NgZone, ElementRef, AfterViewInit,
-  OnDestroy, inject, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  OnDestroy, inject, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TableColumn, TableAction, SortState } from '../models/table.model';
@@ -242,8 +243,7 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   }
 
 
-  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method, @typescript-eslint/no-empty-function
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   hideCellTooltip(): void { this.cellTooltipVisible = false; }
 

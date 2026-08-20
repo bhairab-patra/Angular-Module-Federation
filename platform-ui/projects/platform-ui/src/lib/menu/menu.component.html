@@ -1,4 +1,3 @@
-<!-- Trigger button -->
 <button
   class="pui-menu-trigger"
   [class]="variantClass"
@@ -15,7 +14,6 @@
   </svg>
 </button>
 
-<!-- Dropdown panel -->
 <div *ngIf="open"
      class="pui-menu-panel"
      [class]="placementClass"
@@ -24,10 +22,8 @@
 
   <ng-container *ngFor="let item of items; trackBy: trackById">
 
-    <!-- Divider -->
     <div *ngIf="item.dividerBefore" class="pui-menu-divider" role="separator"></div>
 
-    <!-- Item with submenu -->
     <div *ngIf="item.children?.length; else flatItem"
          class="pui-menu-item pui-menu-item--parent"
          [class.pui-menu-item--disabled]="item.disabled"
@@ -45,7 +41,6 @@
               stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
 
-      <!-- Submenu panel -->
       <div *ngIf="hasActiveSubmenu(item)" class="pui-submenu-panel" role="menu">
         <ng-container *ngFor="let child of item.children; trackBy: trackById">
           <div *ngIf="child.dividerBefore" class="pui-menu-divider" role="separator"></div>
@@ -63,7 +58,6 @@
       </div>
     </div>
 
-    <!-- Flat item -->
     <ng-template #flatItem>
       <div class="pui-menu-item"
            [class.pui-menu-item--disabled]="item.disabled"

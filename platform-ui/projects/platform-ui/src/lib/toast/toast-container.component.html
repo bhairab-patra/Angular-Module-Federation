@@ -8,15 +8,12 @@
              (mouseenter)="pauseTimer(t)"
              (mouseleave)="resumeTimer(t)">
 
-          <!-- Left accent bar -->
           <span class="pui-toast__bar"></span>
 
-          <!-- Icon box -->
           <span class="pui-toast__icon">
             <pui-lib-icon [name]="typeIcon[t.type]" size="lg"></pui-lib-icon>
           </span>
 
-          <!-- Body -->
           <div class="pui-toast__body">
             <div *ngIf="t.title" class="pui-toast__title">{{ t.title }}</div>
             <div class="pui-toast__msg">{{ t.message }}</div>
@@ -25,7 +22,6 @@
             </button>
           </div>
 
-          <!-- Dismiss -->
           <button *ngIf="t.dismissible" class="pui-toast__dismiss" (click)="dismiss(t.id)" aria-label="Dismiss">
             <pui-lib-icon name="close" size="sm"></pui-lib-icon>
           </button>

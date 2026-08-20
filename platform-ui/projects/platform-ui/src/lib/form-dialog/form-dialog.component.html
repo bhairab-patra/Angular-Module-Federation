@@ -1,7 +1,6 @@
 <div *ngIf="_open" class="pui-fd-backdrop" (click)="onBackdropClick($event)">
   <div class="pui-fd pui-fd--{{ size }}" role="dialog" [attr.aria-label]="title">
 
-    <!-- ── Header ─────────────────────────── -->
     <div class="pui-fd__header">
       <h2 class="pui-fd__title">{{ title }}</h2>
       <button class="pui-fd__close" (click)="onCancel()" type="button" aria-label="Close dialog">
@@ -12,14 +11,12 @@
       </button>
     </div>
 
-    <!-- ── Body — form fields ─────────────── -->
     <div class="pui-fd__body">
       <div class="pui-fd__grid">
         <div *ngFor="let field of _fields"
              class="pui-fd__field"
              [class.pui-fd__field--full]="field.span === 'full'">
 
-          <!-- Textarea -->
           <pui-lib-textarea
             *ngIf="field.type === 'textarea'"
             [label]="field.label"
@@ -31,7 +28,6 @@
             [(ngModel)]="draft[field.key]" size="sm">
           </pui-lib-textarea>
 
-          <!-- Select -->
           <pui-lib-select
             *ngIf="field.type === 'select'"
             [label]="field.label"
@@ -43,7 +39,6 @@
             [(ngModel)]="draft[field.key]" size="sm">
           </pui-lib-select>
 
-          <!-- Input (text / number / email / password / default) -->
           <pui-lib-input
             *ngIf="!field.type || (field.type !== 'textarea' && field.type !== 'select')"
             [label]="field.label"
@@ -59,7 +54,6 @@
       </div>
     </div>
 
-    <!-- ── Footer — PUI buttons ───────────── -->
     <div class="pui-fd__footer">
       <pui-lib-button
         variant="secondary"

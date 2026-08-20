@@ -18,7 +18,6 @@ const DEFAULT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none
 })
 export class PuiSidebarComponent implements OnChanges {
 
-  // ── Core ──────────────────────────────────────────────────
   @Input() activeId  = '';
   @Input() brandName = '';
   @Input() logo      = '';
@@ -29,34 +28,30 @@ export class PuiSidebarComponent implements OnChanges {
   get groups(): SidebarGroup[] { return this._groups; }
   private _groups: SidebarGroup[] = [];
 
-  // ── Config ────────────────────────────────────────────────
   @Input() set config(v: SidebarConfig | string) {
     this._config = typeof v === 'string' ? (this._parseJson<SidebarConfig>(v) ?? {}) : (v || {});
   }
   get config(): SidebarConfig { return this._config; }
   private _config: SidebarConfig = {};
 
-  // ── Simple theming inputs (override individual tokens) ────
-  @Input() bgColor      = '';   // sidebar background
-  @Input() textColor    = '';   // nav item text
-  @Input() activeColor  = '';   // active item accent + text
-  @Input() hoverColor   = '';   // hover background
-  @Input() borderColor  = '';   // right border
-  @Input() width        = 0;    // px — overrides config.width
+  @Input() bgColor      = '';
+  @Input() textColor    = '';
+  @Input() activeColor  = '';
+  @Input() hoverColor   = '';
+  @Input() borderColor  = '';
+  @Input() width        = 0;
 
-  // ── Advanced theming (full object, overrides simple inputs) ──
   @Input() set theme(v: SidebarTheme | string) {
     this._theme = typeof v === 'string' ? (this._parseJson<SidebarTheme>(v) ?? {}) : (v || {});
   }
   get theme(): SidebarTheme { return this._theme; }
   private _theme: SidebarTheme = {};
 
-  // ── User profile (logged-in state) ────────────────────────
-  @Input() userName      = '';   // e.g. "Rosanne Doyle"
-  @Input() userEmail     = '';   // e.g. "rdoyle@solifi.com"
-  @Input() userInitials  = '';   // e.g. "R" or "RD" — auto-derived from userName if omitted
-  @Input() userAvatarUrl = '';   // optional photo; falls back to initials bubble
-  @Input() userAvatarBg  = '';   // avatar background colour (CSS value)
+  @Input() userName      = '';
+  @Input() userEmail     = '';
+  @Input() userInitials  = '';
+  @Input() userAvatarUrl = '';
+  @Input() userAvatarBg  = '';
 
   @Input() set showUser(v: boolean | string) {
     this._showUser = v === true || v === 'true' || (v as any) === '';
@@ -64,14 +59,12 @@ export class PuiSidebarComponent implements OnChanges {
   get showUser() { return this._showUser; }
   private _showUser = false;
 
-  // ── Icons ─────────────────────────────────────────────────
   @Input() set showIcons(v: boolean | string) {
     this._showIcons = v === true || v === 'true' || (v as any) === '';
   }
   get showIcons() { return this._showIcons; }
-  private _showIcons = false;   // Solifi design: text-only by default
+  private _showIcons = false;
 
-  // ── State ─────────────────────────────────────────────────
   @Input() set collapsed(v: boolean | string) {
     this._collapsed = v === true || v === 'true' || (v as any) === '';
   }
@@ -84,12 +77,11 @@ export class PuiSidebarComponent implements OnChanges {
   get showSidebar() { return this._showSidebar; }
   private _showSidebar = true;
 
-  // ── Outputs ───────────────────────────────────────────────
   @Output() collapsedChange = new EventEmitter<boolean>();
   @Output() itemSelect      = new EventEmitter<SidebarNavItem>();
 
   defaultIcon = DEFAULT_ICON;
-  defaultLogo = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="var(--pui-brand)"/><path d="M8 16h16M16 8l8 8-8 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  defaultLogo = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="var(--pui-brand)"/><path d="M8 16h16M16 8l8 8-8 8" stroke="var(--pui-white)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
   openIds      = new Set<string>();
   searchQuery  = '';
@@ -118,16 +110,16 @@ export class PuiSidebarComponent implements OnChanges {
   get cssVars(): Record<string, string> {
     const t = this.theme;
     return {
-      '--pui-sb-bg':          t.bg           || this.bgColor     || '#112C35',
-      '--pui-sb-text':        t.textColor    || this.textColor   || '#94a3b8',
-      '--pui-sb-active-txt':  t.activeText   || this.activeColor || '#ffffff',
-      '--pui-sb-active-bg':   t.activeBg     || (this.activeColor ? this.activeColor + '22' : 'rgba(255,255,255,.08)'),
+      '--pui-sb-bg':          t.bg           || this.bgColor     || 'var(--pui-solifi-sb-bg)',
+      '--pui-sb-text':        t.textColor    || this.textColor   || 'var(--pui-slate-400)',
+      '--pui-sb-active-txt':  t.activeText   || this.activeColor || 'var(--pui-white)',
+      '--pui-sb-active-bg':   t.activeBg     || (this.activeColor ? this.activeColor + '22' : 'var(--pui-overlay-white-08)'),
       '--pui-sb-active-brd':  t.activeBorder || this.activeColor || 'var(--pui-brand)',
-      '--pui-sb-hover-bg':    t.hoverBg      || this.hoverColor  || 'rgba(255,255,255,.06)',
-      '--pui-sb-hover-txt':   t.hoverText    || '#e2e8f0',
-      '--pui-sb-border':      t.borderColor  || this.borderColor || 'rgba(255,255,255,.08)',
-      '--pui-sb-group-txt':   t.groupTextColor                   || '#4a6080',
-      '--pui-sb-sub-bg':      t.subitemBg                        || 'rgba(0,0,0,.12)',
+      '--pui-sb-hover-bg':    t.hoverBg      || this.hoverColor  || 'var(--pui-overlay-white-06)',
+      '--pui-sb-hover-txt':   t.hoverText    || 'var(--pui-slate-200)',
+      '--pui-sb-border':      t.borderColor  || this.borderColor || 'var(--pui-overlay-white-08)',
+      '--pui-sb-group-txt':   t.groupTextColor                   || 'var(--pui-solifi-sb-group)',
+      '--pui-sb-sub-bg':      t.subitemBg                        || 'var(--pui-overlay-black-12)',
       '--pui-sb-avatar-bg':   this.userAvatarBg || t.avatarBg     || 'var(--pui-brand)',
       '--pui-sb-w':           `${this.cfg.width}px`,
       '--pui-sb-cw':          `${this.cfg.collapsedWidth}px`,

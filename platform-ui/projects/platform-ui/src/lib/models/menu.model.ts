@@ -1,12 +1,12 @@
 export interface MenuItem {
   id: string;
   label: string;
-  icon?: string;            // inline SVG string
+  icon?: string;
   disabled?: boolean;
-  danger?: boolean;         // renders in destructive red
-  dividerBefore?: boolean;  // horizontal rule before this item
-  shortcut?: string;        // keyboard shortcut label (display only)
-  children?: MenuItem[];    // nested submenu items
+  danger?: boolean;
+  dividerBefore?: boolean;
+  shortcut?: string;
+  children?: MenuItem[];
   data?: Record<string, unknown>;
 }
 

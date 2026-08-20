@@ -1,5 +1,4 @@
-﻿// â”€â”€ Design tokens â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-$radius: 999px; // pill shape
+﻿$radius: 999px;
 
 :host {
   display: inline-block;
@@ -121,7 +120,8 @@ $radius: 999px; // pill shape
       background: var(--pui-btn-ghost-bg);
       border-color: var(--pui-btn-ghost-bdr);
     }
-    @include focus(0 0 0 var(--pui-space-0-75) rgba(17, 24, 39, .2));
+
+    @include focus(var(--pui-shadow-focus-inverse));
   }
 
 

@@ -3,7 +3,6 @@
   font-family: inherit;
 }
 
-/* â”€â”€ Host wrapper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-etbl-host {
   position: relative;
   border: 1px solid var(--pui-neutral-200);
@@ -12,13 +11,11 @@
   background: var(--pui-white);
 }
 
-/* â”€â”€ Scroll container (sticky header lives here) */
 .pui-etbl-scroll {
   overflow-y: auto;
   overflow-x: auto;
 }
 
-/* â”€â”€ Table â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-etbl {
   width: 100%;
   border-collapse: collapse;
@@ -26,7 +23,6 @@
   font-size: var(--pui-text-sm);
 }
 
-/* â”€â”€ Header â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-etbl-head {
   position: sticky;
   top: 0;
@@ -52,7 +48,6 @@
   }
 }
 
-/* â”€â”€ Body â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-etbl-row {
   transition: background 0.12s;
 
@@ -100,7 +95,6 @@
   color: var(--pui-neutral-700);
 }
 
-/* â”€â”€ Inline edit input â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-etbl-input {
   width: 100%;
   padding: var(--pui-space-1) var(--pui-space-2);
@@ -119,7 +113,6 @@
   }
 }
 
-/* â”€â”€ Action buttons â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-etbl-actions {
   display: flex;
   align-items: center;
@@ -167,7 +160,7 @@
     color: var(--pui-success);
 
     &:hover:not(:disabled) {
-      background: rgba(34, 197, 94, 0.10);
+      background: var(--pui-success-tint-10);
     }
   }
 
@@ -181,7 +174,6 @@
   }
 }
 
-/* â”€â”€ Empty state â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-etbl-empty {
   text-align: center;
   padding: var(--pui-space-12) var(--pui-space-4);
@@ -200,12 +192,11 @@
   }
 }
 
-/* â”€â”€ Loading skeleton â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-etbl-loading {
   position: absolute;
   inset: 0;
   z-index: 10;
-  background: rgba(255, 255, 255, .7);
+  background: var(--pui-table-loading-overlay);
   display: flex;
   flex-direction: column;
   gap: var(--pui-space-px);
@@ -243,12 +234,11 @@
   }
 }
 
-/* â”€â”€ Confirm delete overlay â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 .pui-etbl-confirm-backdrop {
   position: absolute;
   inset: 0;
   z-index: 20;
-  background: rgba(15, 23, 42, 0.35);
+  background: var(--pui-backdrop-scrim);
   border-radius: var(--pui-radius-lg);
 }
 

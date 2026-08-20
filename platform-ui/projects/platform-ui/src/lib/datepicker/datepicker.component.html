@@ -1,6 +1,5 @@
 <div class="pui-dp-host" [class.pui-dp--disabled]="_disabled">
 
-  <!-- ── Trigger ──────────────────────────────────────── -->
   <div class="pui-dp-trigger"
        [class.pui-dp-trigger--open]="open"
        [class.pui-dp-trigger--focused]="open"
@@ -34,10 +33,8 @@
     </svg>
   </div>
 
-  <!-- ── Calendar popup ──────────────────────────────── -->
   <div *ngIf="open" class="pui-dp-popup" (click)="$event.stopPropagation()">
 
-    <!-- Navigation bar -->
     <div class="pui-dp-nav">
       <button class="pui-dp-nav-btn" type="button" (click)="prevMonth()" title="Previous month">
         <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
@@ -61,7 +58,6 @@
       </button>
     </div>
 
-    <!-- Month picker grid -->
     <div *ngIf="viewMode === 'months'" class="pui-dp-month-grid">
       <button *ngFor="let m of monthNames; let mi = index; trackBy: trackByIdx"
               class="pui-dp-month-cell"
@@ -72,7 +68,6 @@
       </button>
     </div>
 
-    <!-- Day picker grid -->
     <div *ngIf="viewMode === 'days'" class="pui-dp-grid">
       <div class="pui-dp-dayname" *ngFor="let d of dayNames; trackBy: trackByIdx">{{ d }}</div>
 
@@ -93,7 +88,6 @@
       </button>
     </div>
 
-    <!-- Footer -->
     <div class="pui-dp-footer">
       <button class="pui-dp-today-btn" type="button" (click)="goToday()">Today</button>
       <button *ngIf="_clearable" class="pui-dp-clear-btn" type="button" (click)="clear()">Clear</button>

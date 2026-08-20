@@ -3,7 +3,6 @@
        [class.pui-sb--hidden]="!showSidebar"
        [ngStyle]="cssVars">
 
-  <!-- Brand / Logo -->
   <div class="pui-sb__brand">
     <div class="pui-sb__logo-wrap">
       <span class="pui-sb__logo" [innerHTML]="logo || defaultLogo"></span>
@@ -17,7 +16,6 @@
     </button>
   </div>
 
-  <!-- Search -->
   <div class="pui-sb__search" *ngIf="cfg.showSearch && !collapsed">
     <pui-lib-search
       size="sm"
@@ -29,7 +27,6 @@
     </pui-lib-search>
   </div>
 
-  <!-- Navigation -->
   <nav class="pui-sb__nav">
     <div class="pui-sb__group" *ngFor="let group of displayGroups">
 
@@ -102,7 +99,6 @@
     </div>
   </nav>
 
-  <!-- User Profile (logged-in state) -->
   <div class="pui-sb__user" *ngIf="showUser && !collapsed">
     <div class="pui-sb__user-avatar">
       <img *ngIf="userAvatarUrl" [src]="userAvatarUrl" [alt]="userName" class="pui-sb__user-img" />
@@ -115,7 +111,6 @@
     <svg class="pui-sb__user-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
   </div>
 
-  <!-- Collapsed user avatar -->
   <div class="pui-sb__user pui-sb__user--collapsed" *ngIf="showUser && collapsed" title="{{ userName }}">
     <div class="pui-sb__user-avatar">
       <img *ngIf="userAvatarUrl" [src]="userAvatarUrl" [alt]="userName" class="pui-sb__user-img" />
@@ -123,7 +118,6 @@
     </div>
   </div>
 
-  <!-- Footer slot (expand button + custom content) -->
   <div class="pui-sb__footer" *ngIf="!showUser || cfg.collapsible">
     <button *ngIf="cfg.collapsible && collapsed"
             class="pui-sb__expand-btn"

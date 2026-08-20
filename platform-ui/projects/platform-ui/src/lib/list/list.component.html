@@ -9,16 +9,13 @@
             [attr.aria-selected]="selectable ? selectedId === item.id : null"
             (click)="!item.disabled && selectable && select(item)">
 
-          <!-- icon -->
           <span *ngIf="item.icon" class="pui-list__icon" [innerHTML]="item.icon"></span>
 
-          <!-- text -->
           <span class="pui-list__text">
             <span class="pui-list__label">{{ item.label }}</span>
             <span *ngIf="item.description" class="pui-list__desc">{{ item.description }}</span>
           </span>
 
-          <!-- right side -->
           <span class="pui-list__right">
             <span *ngIf="item.meta"  class="pui-list__meta">{{ item.meta }}</span>
             <span *ngIf="item.badge" class="pui-list__badge">{{ item.badge }}</span>

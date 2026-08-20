@@ -8,48 +8,81 @@
 
 :root {
 
-  /* ========================================
+   /* ========================================
      BRAND / PRIMARY
      ======================================== */
-  --pui-brand:           #0057B8;   /* primary button / active states   */
-  --pui-brand-hover:     #0046A0;   /* hover state                      */
-  --pui-brand-deep:      #003580;   /* pressed / dark text              */
-  --pui-brand-bg:        #f0f5ff;   /* light tint backgrounds           */
-  --pui-brand-light:     #c7d9f5;   /* subtle borders / chips           */
-  --pui-brand-muted:     #a0b8e0;   /* disabled tints                   */
-  --pui-brand-muted-bg:  #e8eef8;   /* hover on ghost/outline           */
-  --pui-brand-border:    #90aed8;   /* input focus border               */
-  --pui-brand-accent:    #0052B0;   /* sorted column, accent marks      */
-  --pui-brand-hover-2:   #004FA8;   /* secondary hover                  */
-  --pui-brand-pressed:   #003070;   /* active/pressed deep              */
-  --pui-brand-text-dark: #002F6C;   /* dark text on light brand bg      */
+   --pui-brand: #0057B8;
+   /* primary button / active states   */
+   --pui-brand-hover: #0046A0;
+   /* hover state                      */
+   --pui-brand-deep: #003580;
+   /* pressed / dark text              */
+   --pui-brand-bg: #f0f5ff;
+   /* light tint backgrounds           */
+   --pui-brand-light: #c7d9f5;
+   /* subtle borders / chips           */
+   --pui-brand-muted: #a0b8e0;
+   /* disabled tints                   */
+   --pui-brand-muted-bg: #e8eef8;
+   /* hover on ghost/outline           */
+   --pui-brand-border: #90aed8;
+   /* input focus border               */
+   --pui-brand-accent: #0052B0;
+   /* sorted column, accent marks      */
+   --pui-brand-hover-2: #004FA8;
+   /* secondary hover                  */
+   --pui-brand-pressed: #003070;
+   /* active/pressed deep              */
+   --pui-brand-text-dark: #002F6C;
+   /* dark text on light brand bg      */
+   --pui-brand-solid: #0046A0;
+   /* solid brand surface (e.g. sidebar) */
 
-  /* Brand color pre-mixed with alpha, as flat 8-digit hex (#RRGGBBAA) —
+   /* Brand color pre-mixed with alpha, as flat 8-digit hex (#RRGGBBAA) —
      used by components that need a translucent brand tint, so every
      value stays a plain hex code instead of rgba(). */
-  --pui-brand-tint-05:   #0057B80D;   /* 5%  */
-  --pui-brand-tint-08:   #0057B814;   /* 8%  */
-  --pui-brand-tint-12:   #0057B81F;   /* 12% */
-  --pui-brand-tint-14:   #0057B824;   /* 14% */
-  --pui-brand-tint-18:   #0057B82E;   /* 18% */
-  --pui-brand-tint-20:   #0057B833;   /* 20% */
-  --pui-brand-tint-22:   #0057B838;   /* 22% */
-  --pui-brand-tint-25:   #0057B840;   /* 25% */
-  --pui-brand-tint-35:   #0057B859;   /* 35% */
+   --pui-brand-tint-05: #0057B80D;
+   /* 5%  */
+   --pui-brand-tint-07: #0057B812;
+   /* 7%  */
+   --pui-brand-tint-08: #0057B814;
+   /* 8%  */
+   --pui-brand-tint-10: #0057B81A;
+   /* 10% */
+   --pui-brand-tint-12: #0057B81F;
+   /* 12% */
+   --pui-brand-tint-14: #0057B824;
+   /* 14% */
+   --pui-brand-tint-18: #0057B82E;
+   /* 18% */
+   --pui-brand-tint-20: #0057B833;
+   /* 20% */
+   --pui-brand-tint-22: #0057B838;
+   /* 22% */
+   --pui-brand-tint-25: #0057B840;
+   /* 25% */
+   --pui-brand-tint-35: #0057B859;
+   /* 35% */
 
-  /* ========================================
+   /* ========================================
+     LIST (brand-tinted)
+     ======================================== */
+   --pui-list-active-default: #0046A0;
+   --pui-list-hover-bg-default: #f0f5ff;
+
+   /* ========================================
      CARD GRADIENT (brand-tinted)
      ======================================== */
-  --pui-card-grad-start: #e6eeff;
+   --pui-card-grad-start: #e6eeff;
 
-  /* ========================================
+   /* ========================================
      FOCUS RINGS
      ======================================== */
-  --pui-focus-ring:       0 0 0 3px var(--pui-brand-tint-18);
-  --pui-focus-ring-error: 0 0 0 3px rgba(239, 68, 68, .14);
+   --pui-focus-ring: 0 0 0 3px var(--pui-brand-tint-18);
+   --pui-focus-ring-error: 0 0 0 3px rgba(239, 68, 68, .14);
 
-  --pui-shadow-focus:       0 0 0 3px var(--pui-brand-tint-18);
-  --pui-shadow-focus-sm:    0 0 0 3px var(--pui-brand-tint-12);
-  --pui-shadow-focus-brand: 0 0 0 3px var(--pui-brand-tint-25);
+   --pui-shadow-focus: 0 0 0 3px var(--pui-brand-tint-18);
+   --pui-shadow-focus-sm: 0 0 0 3px var(--pui-brand-tint-12);
+   --pui-shadow-focus-brand: 0 0 0 3px var(--pui-brand-tint-25);
 
 }

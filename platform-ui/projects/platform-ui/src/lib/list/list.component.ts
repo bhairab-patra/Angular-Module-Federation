@@ -5,11 +5,11 @@ export interface ListItem {
   id:          string | number;
   label:       string;
   description?: string;
-  icon?:       string;       // raw SVG or emoji
+  icon?:       string;
   badge?:      string;
   meta?:       string;
   disabled?:   boolean;
-  divider?:    boolean;      // renders a separator after this item
+  divider?:    boolean;
 }
 
 export type ListVariant = 'default' | 'bordered' | 'striped' | 'flush';
@@ -29,12 +29,9 @@ export class PuiListComponent {
   @Input() selectable  = false;
   @Input() selectedId: string | number | null = null;
 
-  /** Label text color for all items. Default: inherits neutral-900. */
   @Input() textColor    = '';
-  /** Text + accent color for the selected row. Default: teal (#0d9488). */
-  @Input() activeColor  = '#0d9488';
-  /** Background color on row hover. Default: teal-50 (#f0fdfa). */
-  @Input() hoverColor   = '#f0fdfa';
+  @Input() activeColor  = 'var(--pui-list-active-default)';
+  @Input() hoverColor   = 'var(--pui-list-hover-bg-default)';
 
   @Output() itemSelect = new EventEmitter<ListItem>();
 

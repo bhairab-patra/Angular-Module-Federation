@@ -4,10 +4,8 @@
      [class.pui-ms--open]="open"
      [class.pui-ms--error]="_error">
 
-  <!-- ── Trigger ─────────────────────────────── -->
   <div class="pui-ms-trigger" (click)="!_disabled && toggle()">
 
-    <!-- Chips / placeholder -->
     <div class="pui-ms-values">
       <ng-container *ngIf="selected.length === 0">
         <span class="pui-ms-placeholder">{{ _placeholder }}</span>
@@ -39,10 +37,8 @@
     </svg>
   </div>
 
-  <!-- ── Dropdown ─────────────────────────────── -->
   <div *ngIf="open" class="pui-ms-dropdown" (click)="$event.stopPropagation()">
 
-    <!-- Search -->
     <div class="pui-ms-search-wrap" *ngIf="_searchable">
       <svg class="pui-ms-search-icon" viewBox="0 0 20 20" fill="none">
         <circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.5"/>
@@ -59,14 +55,12 @@
               (click)="query=''">✕</button>
     </div>
 
-    <!-- Select all / Clear all -->
     <div class="pui-ms-actions" *ngIf="_showSelectAll && filteredOptions.length > 0">
       <button class="pui-ms-action-btn" (click)="selectAll()">Select all</button>
       <span class="pui-ms-action-sep">·</span>
       <button class="pui-ms-action-btn" (click)="clearAll()">Clear</button>
     </div>
 
-    <!-- Options list -->
     <div class="pui-ms-list" role="listbox" [attr.aria-multiselectable]="true">
       <ng-container *ngIf="filteredOptions.length === 0">
         <div class="pui-ms-empty">No options found</div>
@@ -74,7 +68,6 @@
 
       <ng-container *ngFor="let group of groupedOptions">
 
-        <!-- Group label -->
         <div *ngIf="group.name" class="pui-ms-group-label">{{ group.name }}</div>
 
         <button *ngFor="let opt of group.items"
@@ -86,10 +79,9 @@
                 [attr.aria-selected]="isSelected(opt.value)"
                 (click)="toggle_option(opt)">
 
-          <!-- Checkbox -->
           <span class="pui-ms-checkbox" [class.pui-ms-checkbox--checked]="isSelected(opt.value)">
             <svg *ngIf="isSelected(opt.value)" viewBox="0 0 12 12" fill="none" width="10" height="10">
-              <path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="1.8"
+              <path d="M2 6l3 3 5-5" stroke="var(--pui-white)" stroke-width="1.8"
                     stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </span>
@@ -101,7 +93,6 @@
     </div>
   </div>
 
-  <!-- Error / hint -->
   <div *ngIf="_error" class="pui-ms-error-msg">{{ _error }}</div>
   <div *ngIf="_hint && !_error" class="pui-ms-hint">{{ _hint }}</div>
 

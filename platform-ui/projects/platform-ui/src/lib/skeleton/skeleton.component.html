@@ -2,25 +2,21 @@
     <div class="pui-sk-wrap" [class.pui-sk--animated]="animated">
 
       <ng-container *ngFor="let _ of _rows">
-        <!-- circle -->
         <div *ngIf="variant === 'circle'"
              class="pui-sk pui-sk--circle"
              [ngStyle]="{ width: width, height: width }">
         </div>
 
-        <!-- text line -->
         <div *ngIf="variant === 'text'"
              class="pui-sk pui-sk--text"
              [ngStyle]="{ width: width, height: height }">
         </div>
 
-        <!-- rect block -->
         <div *ngIf="variant === 'rect'"
              class="pui-sk pui-sk--rect"
              [ngStyle]="{ width: width, height: height }">
         </div>
 
-        <!-- card: avatar + 3 lines -->
         <div *ngIf="variant === 'card'" class="pui-sk--card">
           <div class="pui-sk pui-sk--circle pui-sk--card-avatar"></div>
           <div class="pui-sk--card-lines">

@@ -10,7 +10,6 @@ const POSITIONS: ToastPosition[] = [
   'bottom-right', 'bottom-left', 'bottom-center',
 ];
 
-/* Maps toast type → icon name in ICON_REGISTRY */
 const TYPE_ICON: Record<string, string> = {
   success: 'check-circle',
   error:   'close-circle',

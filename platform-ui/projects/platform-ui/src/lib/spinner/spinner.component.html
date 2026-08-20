@@ -1,5 +1,4 @@
 
-    <!-- Full-screen overlay -->
     <div *ngIf="overlay"
          class="pui-sp-overlay"
          [style.background]="overlayColor"
@@ -7,20 +6,17 @@
          [style.z-index]="zIndex">
     </div>
 
-    <!-- Spinner container -->
     <div class="pui-sp-wrap"
          [class.pui-sp-wrap--overlay]="overlay"
          [style.z-index]="overlay ? zIndex + 1 : zIndex">
 
       <div class="pui-sp-box">
 
-        <!-- ── DASH: radiating lines ── -->
         <svg *ngIf="type === 'dash'"
              class="pui-sp-dash"
              [style.width.px]="px" [style.height.px]="px"
              [style.animation-duration]="dur"
              viewBox="0 0 40 40">
-          <!-- 12 lines at 30° intervals, fading in opacity -->
           <line *ngFor="let l of dashLines; let i = index"
                 class="pui-sp-dash__line"
                 x1="20" [attr.y1]="dashY1" x2="20" [attr.y2]="dashY2"
@@ -31,13 +27,11 @@
                 [attr.transform]="'rotate(' + (i * 30) + ' 20 20)'"/>
         </svg>
 
-        <!-- ── DOTS: orbiting dot ring ── -->
         <svg *ngIf="type === 'dots'"
              class="pui-sp-dots"
              [style.width.px]="px" [style.height.px]="px"
              [style.animation-duration]="dur"
              viewBox="0 0 40 40">
-          <!-- 12 dots on a circle, one bright active dot -->
           <circle *ngFor="let d of dotPositions; let i = index"
                   [attr.cx]="d.cx" [attr.cy]="d.cy"
                   [attr.r]="dotR"
@@ -45,8 +39,6 @@
                   [attr.opacity]="dotOpacity(i)"/>
         </svg>
 
-        <!-- Label -->
         <span *ngIf="label" class="pui-sp-label" [style.color]="labelColor">{{ label }}</span>
       </div>
     </div>
-  

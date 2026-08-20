@@ -1,4 +1,6 @@
-:host { display: block; }
+:host {
+  display: block;
+}
 
 .pui-bc {
   display: block;
@@ -10,7 +12,9 @@
   align-items: center;
   flex-wrap: wrap;
   list-style: none;
-  margin: 0; padding: 0; gap: 0;
+  margin: 0;
+  padding: 0;
+  gap: 0;
 }
 
 .pui-bc__item {
@@ -19,7 +23,6 @@
   gap: 0;
 }
 
-/* ── Ancestor links ── */
 .pui-bc__link {
   display: inline-flex;
   align-items: center;
@@ -39,13 +42,15 @@
   background: var(--pui-bc-link-bg-hover, var(--pui-brand-tint-08));
 }
 
-.pui-bc__link--plain { cursor: default; }
+.pui-bc__link--plain {
+  cursor: default;
+}
+
 .pui-bc__link--plain:hover {
   color: var(--pui-bc-link-color, var(--pui-neutral-500));
   background: none;
 }
 
-/* ── Active / current page ── */
 .pui-bc__current {
   display: inline-flex;
   align-items: center;
@@ -59,7 +64,6 @@
   line-height: 1;
 }
 
-/* ── Separator ── */
 .pui-bc__sep {
   display: inline-flex;
   align-items: center;
@@ -75,12 +79,16 @@
   flex-shrink: 0;
 }
 
-/* ── Item icon (before label) ── */
 .pui-bc__icon {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
-  width: 14px; height: 14px;
+  width: 14px;
+  height: 14px;
   opacity: .85;
 }
-.pui-bc__icon svg { width: 14px; height: 14px; }
+
+.pui-bc__icon svg {
+  width: 14px;
+  height: 14px;
+}

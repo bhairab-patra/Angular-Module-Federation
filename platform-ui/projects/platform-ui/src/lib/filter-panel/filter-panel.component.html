@@ -1,7 +1,6 @@
 
     <div class="pui-fp" [class.pui-fp--inline]="inline">
 
-      <!-- Header -->
       <div class="pui-fp__head">
         <div class="pui-fp__title-row">
           <span class="pui-fp__title">{{ title }}</span>
@@ -10,7 +9,6 @@
         <button *ngIf="activeCount > 0" class="pui-fp__clear-all" (click)="clearAll()">Clear all</button>
       </div>
 
-      <!-- Active filter chips -->
       <div *ngIf="activeFilters.length" class="pui-fp__chips">
         <button *ngFor="let chip of activeFilters"
                 class="pui-fp__chip"
@@ -22,12 +20,10 @@
         </button>
       </div>
 
-      <!-- Filter groups -->
       <div class="pui-fp__groups">
         <div *ngFor="let f of filters" class="pui-fp__group"
              [class.pui-fp__group--collapsed]="collapsed[f.id]">
 
-          <!-- Group header -->
           <button class="pui-fp__group-head" (click)="toggleGroup(f.id)">
             <span class="pui-fp__group-label">{{ f.label }}</span>
             <span *ngIf="getGroupCount(f) > 0" class="pui-fp__group-count">{{ getGroupCount(f) }}</span>
@@ -38,10 +34,8 @@
             </svg>
           </button>
 
-          <!-- Group body -->
           <div class="pui-fp__group-body">
 
-            <!-- CHECKBOX -->
             <div *ngIf="f.type === 'checkbox'" class="pui-fp__opts">
               <label *ngFor="let opt of f.options" class="pui-fp__cb-row"
                      [class.pui-fp__cb-row--checked]="isChecked(f.id, opt.value)">
@@ -51,7 +45,7 @@
                          [checked]="isChecked(f.id, opt.value)"
                          (change)="onCheckbox(f, opt.value, $any($event.target).checked)"/>
                   <svg *ngIf="isChecked(f.id, opt.value)" width="9" height="9" viewBox="0 0 12 12" fill="none">
-                    <path d="M2 6l3 3 5-5" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 6l3 3 5-5" stroke="var(--pui-white)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
                 </span>
                 <span class="pui-fp__opt-label">{{ opt.label }}</span>
@@ -59,7 +53,6 @@
               </label>
             </div>
 
-            <!-- RADIO -->
             <div *ngIf="f.type === 'radio'" class="pui-fp__opts">
               <label *ngFor="let opt of f.options" class="pui-fp__cb-row"
                      [class.pui-fp__cb-row--checked]="values[f.id] === opt.value">
@@ -75,7 +68,6 @@
               </label>
             </div>
 
-            <!-- SELECT -->
             <div *ngIf="f.type === 'select'" class="pui-fp__select-wrap">
               <select class="pui-fp__select" [value]="values[f.id] || ''"
                       (change)="onSelect(f, $any($event.target).value)">
@@ -83,11 +75,10 @@
                 <option *ngFor="let opt of f.options" [value]="opt.value">{{ opt.label }}</option>
               </select>
               <svg class="pui-fp__select-arrow" width="12" height="12" viewBox="0 0 16 16" fill="none">
-                <path d="M4 6l4 4 4-4" stroke="#6b7280" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 6l4 4 4-4" stroke="var(--pui-neutral-500)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
 
-            <!-- TEXT -->
             <div *ngIf="f.type === 'text'" class="pui-fp__text-wrap">
               <input class="pui-fp__text" type="text"
                      [placeholder]="f.placeholder || 'Enter value…'"
@@ -95,7 +86,6 @@
                      (input)="onText(f, $any($event.target).value)"/>
             </div>
 
-            <!-- RANGE -->
             <div *ngIf="f.type === 'range'" class="pui-fp__range">
               <div class="pui-fp__range-labels">
                 <span>{{ getRangeMin(f) }}</span>
@@ -120,7 +110,6 @@
               </div>
             </div>
 
-            <!-- DATE RANGE -->
             <div *ngIf="f.type === 'date-range'" class="pui-fp__date-range">
               <div class="pui-fp__date-field">
                 <label class="pui-fp__date-label">From</label>
@@ -139,7 +128,6 @@
         </div>
       </div>
 
-      <!-- Footer actions -->
       <div *ngIf="showActions" class="pui-fp__footer">
         <button class="pui-fp__btn pui-fp__btn--ghost" (click)="onReset()">Reset</button>
         <button class="pui-fp__btn pui-fp__btn--primary" (click)="apply()">Apply filters</button>

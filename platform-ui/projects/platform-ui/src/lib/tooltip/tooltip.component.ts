@@ -14,13 +14,10 @@ export type TooltipVariant  = 'dark' | 'light' | 'teal';
   styleUrls: ['./tooltip.component.scss'],
 })
 export class TooltipComponent {
-  /** Text shown inside the tooltip bubble. */
   @Input() text = '';
 
-  /** Placement relative to the trigger element. */
   @Input() position: TooltipPosition = 'top';
 
-  /** Visual style. */
   @Input() variant: TooltipVariant = 'dark';
 
   get hostClass(): string {

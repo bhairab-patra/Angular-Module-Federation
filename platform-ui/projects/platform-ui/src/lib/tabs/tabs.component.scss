@@ -1,239 +1,276 @@
+:host {
+  display: block;
+}
 
-    :host { display: block; }
+.pui-tabs-host {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
 
-    /* ── Host layout ─────────────────── */
-    .pui-tabs-host {
-      display: flex;
-      flex-direction: column;
-      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    }
-    .pui-tabs--vertical {
-      flex-direction: row;
-      gap: 0;
-    }
+.pui-tabs--vertical {
+  flex-direction: row;
+  gap: 0;
+}
 
-    /* ── Strip ───────────────────────── */
-    .pui-tabs-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--pui-space-0-5);
-    }
-    .pui-tabs--vertical .pui-tabs-strip {
-      flex-direction: column;
-      flex-wrap: nowrap;
-      min-width: 160px;
-      border-right: 1px solid var(--pui-neutral-200);
-      padding-right: 0;
-    }
+.pui-tabs-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pui-space-0-5);
+}
 
-    /* ── Shared button base ──────────── */
-    .pui-tab-btn {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: var(--pui-space-1-5);
-      padding: var(--pui-space-2) var(--pui-space-4);
-      border: none;
-      background: transparent;
-      font-size: var(--pui-text-md);
-      font-weight: 500;
-      font-family: inherit;
-      color: var(--pui-neutral-500);
-      cursor: pointer;
-      border-radius: 0;
-      transition: color var(--pui-duration-base), background var(--pui-duration-base);
-      white-space: nowrap;
-      outline: none;
-      user-select: none;
-    }
-    .pui-tab-btn--sm { padding: var(--pui-space-1-5) var(--pui-space-3); font-size: var(--pui-text-sm); }
-    .pui-tab-btn--lg { padding: var(--pui-space-2) var(--pui-space-5); font-size: var(--pui-text-xl); }
+.pui-tabs--vertical .pui-tabs-strip {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  min-width: 160px;
+  border-right: 1px solid var(--pui-neutral-200);
+  padding-right: 0;
+}
 
-    .pui-tab-btn:focus-visible {
-      outline: 2px solid var(--pui-brand);
-      outline-offset: -2px;
-      border-radius: var(--pui-radius-sm);
-    }
-    .pui-tab-btn--disabled {
-      opacity: .45;
-      cursor: not-allowed;
-      pointer-events: none;
-    }
+.pui-tab-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pui-space-1-5);
+  padding: var(--pui-space-2) var(--pui-space-4);
+  border: none;
+  background: transparent;
+  font-size: var(--pui-text-md);
+  font-weight: 500;
+  font-family: inherit;
+  color: var(--pui-neutral-500);
+  cursor: pointer;
+  border-radius: 0;
+  transition: color var(--pui-duration-base), background var(--pui-duration-base);
+  white-space: nowrap;
+  outline: none;
+  user-select: none;
+}
 
-    /* ── LINE variant (default) ──────── */
-    [data-variant='line'] .pui-tabs-strip {
-      border-bottom: 1px solid var(--pui-neutral-200);
-      gap: 0;
-    }
-    [data-variant='line'] .pui-tabs--vertical .pui-tabs-strip {
-      border-bottom: none;
-      border-right: 1px solid var(--pui-neutral-200);
-    }
-    [data-variant='line'] .pui-tab-btn {
-      border-radius: 0;
-      padding-bottom: var(--pui-space-2);
-    }
-    [data-variant='line'] .pui-tab-btn:hover:not(.pui-tab-btn--disabled) {
-      color: var(--pui-brand-hover);
-      background: var(--pui-brand-tint-05);
-    }
-    [data-variant='line'] .pui-tab-btn--active {
-      color: var(--pui-brand);
-      font-weight: 600;
-    }
+.pui-tab-btn--sm {
+  padding: var(--pui-space-1-5) var(--pui-space-3);
+  font-size: var(--pui-text-sm);
+}
 
-    /* sliding indicator */
-    .pui-tab-indicator {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 2.5px;
-      background: var(--pui-brand);
-      border-radius: 2px 2px 0 0;
-      animation: pui-tab-slide-in var(--pui-duration-base) ease;
-    }
-    .pui-tabs--vertical .pui-tab-indicator {
-      top: 0; bottom: 0; right: 0; left: auto;
-      width: 2.5px;
-      height: auto;
-      border-radius: 2px 0 0 2px;
-    }
-    @keyframes pui-tab-slide-in {
-      from { opacity: 0; transform: scaleX(.4); }
-      to   { opacity: 1; transform: scaleX(1); }
-    }
+.pui-tab-btn--lg {
+  padding: var(--pui-space-2) var(--pui-space-5);
+  font-size: var(--pui-text-xl);
+}
 
-    /* ── PILL variant ────────────────── */
-    [data-variant='pill'] .pui-tabs-strip {
-      background: var(--pui-neutral-100);
-      border-radius: var(--pui-radius-lg);
-      padding: var(--pui-space-1);
-      border: none;
-      gap: var(--pui-space-0-5);
-      align-self: flex-start;
-    }
-    [data-variant='pill'] .pui-tab-btn {
-      border-radius: var(--pui-radius-sm);
-    }
-    [data-variant='pill'] .pui-tab-btn:hover:not(.pui-tab-btn--disabled) {
-      background: rgba(0,0,0,.06);
-      color: var(--pui-neutral-700);
-    }
-    [data-variant='pill'] .pui-tab-btn--active {
-      background: var(--pui-white);
-      color: var(--pui-neutral-900);
-      font-weight: 600;
-      box-shadow: 0 1px 4px rgba(0,0,0,.12), 0 0 0 1px rgba(0,0,0,.06);
-    }
+.pui-tab-btn:focus-visible {
+  outline: 2px solid var(--pui-brand);
+  outline-offset: -2px;
+  border-radius: var(--pui-radius-sm);
+}
 
-    /* ── CARD variant ────────────────── */
-    [data-variant='card'] .pui-tabs-strip {
-      gap: var(--pui-space-1);
-      border-bottom: 1px solid var(--pui-neutral-200);
-    }
-    [data-variant='card'] .pui-tab-btn {
-      border: 1px solid transparent;
-      border-bottom: none;
-      border-radius: var(--pui-radius-md) var(--pui-radius-md) 0 0;
-      background: transparent;
-      margin-bottom: -1px;
-    }
-    [data-variant='card'] .pui-tab-btn:hover:not(.pui-tab-btn--disabled) {
-      background: var(--pui-neutral-50);
-      border-color: var(--pui-neutral-200) var(--pui-neutral-200) transparent;
-      color: var(--pui-neutral-700);
-    }
-    [data-variant='card'] .pui-tab-btn--active {
-      background: var(--pui-white);
-      border-color: var(--pui-neutral-200) var(--pui-neutral-200) var(--pui-white);
-      color: var(--pui-neutral-900);
-      font-weight: 600;
-    }
+.pui-tab-btn--disabled {
+  opacity: .45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
-    /* ── No-panel mode (panel=false) ─── */
-    .pui-tabs--no-panel .pui-tabs-panel {
-      padding: 0 !important;
-      background: none !important;
-      border: none !important;
-      border-radius: 0 !important;
-      box-shadow: none !important;
-      margin-top: 0 !important;
-    }
+[data-variant='line'] .pui-tabs-strip {
+  border-bottom: 1px solid var(--pui-neutral-200);
+  gap: 0;
+}
 
-    /* ── Icon ────────────────────────── */
-    .pui-tab-icon {
-      display: inline-flex;
-      align-items: center;
-      width: 16px;
-      height: 16px;
-      flex-shrink: 0;
-    }
-    .pui-tab-icon :deep(svg) { width: 100%; height: 100%; }
+[data-variant='line'] .pui-tabs--vertical .pui-tabs-strip {
+  border-bottom: none;
+  border-right: 1px solid var(--pui-neutral-200);
+}
 
-    /* ── Badge ───────────────────────── */
-    .pui-tab-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 18px;
-      height: 18px;
-      padding: 0 var(--pui-space-1-5);
-      border-radius: var(--pui-radius-full);
-      font-size: var(--pui-text-xs);
-      font-weight: 600;
-      background: var(--pui-neutral-200);
-      color: var(--pui-neutral-700);
-      transition: background var(--pui-duration-base), color var(--pui-duration-base);
-    }
-    .pui-tab-badge--active {
-      background: var(--pui-brand-tint-18);
-      color: var(--pui-brand-hover);
-    }
+[data-variant='line'] .pui-tab-btn {
+  border-radius: 0;
+  padding-bottom: var(--pui-space-2);
+}
 
-    /* ── Panel ───────────────────────── */
-    .pui-tabs-panel {
-      flex: 1;
-      animation: pui-panel-in var(--pui-duration-base) ease;
-    }
-    .pui-tabs--vertical .pui-tabs-panel {
-      padding-left: var(--pui-space-5);
-    }
-    @keyframes pui-panel-in {
-      from { opacity: 0; transform: translateY(4px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+[data-variant='line'] .pui-tab-btn:hover:not(.pui-tab-btn--disabled) {
+  color: var(--pui-brand-hover);
+  background: var(--pui-brand-tint-05);
+}
 
-    /* LINE variant panel — subtle contained surface */
-    [data-variant='line'] .pui-tabs-panel {
-      padding: var(--pui-space-5);
-      margin-top: 0;
-      background: var(--pui-white);
-      border: 1px solid var(--pui-neutral-200);
-      border-top: none;
-      border-radius: 0 0 var(--pui-radius-lg) var(--pui-radius-lg);
-    }
-    [data-variant='line'].pui-tabs--vertical .pui-tabs-panel {
-      border: 1px solid var(--pui-neutral-200);
-      border-left: none;
-      border-radius: 0 var(--pui-radius-lg) var(--pui-radius-lg) 0;
-      padding: var(--pui-space-5);
-    }
+[data-variant='line'] .pui-tab-btn--active {
+  color: var(--pui-brand);
+  font-weight: 600;
+}
 
-    /* PILL variant panel — clean card below the pill row */
-    [data-variant='pill'] .pui-tabs-panel {
-      margin-top: var(--pui-space-3);
-      padding: var(--pui-space-5);
-      background: var(--pui-white);
-      border: 1px solid var(--pui-neutral-200);
-      border-radius: var(--pui-radius-lg);
-      box-shadow: 0 1px 3px rgba(0,0,0,.04);
-    }
+.pui-tab-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background: var(--pui-brand);
+  border-radius: 2px 2px 0 0;
+  animation: pui-tab-slide-in var(--pui-duration-base) ease;
+}
 
-    /* CARD variant panel — seamlessly attached below active tab */
-    [data-variant='card'] .pui-tabs-panel {
-      padding: var(--pui-space-5);
-      background: var(--pui-white);
-      border: 1px solid var(--pui-neutral-200);
-      border-top: none;
-      border-radius: 0 var(--pui-radius-md) var(--pui-radius-md) var(--pui-radius-md);
-      box-shadow: 0 1px 3px rgba(0,0,0,.04);
-    }
+.pui-tabs--vertical .pui-tab-indicator {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: auto;
+  width: 2.5px;
+  height: auto;
+  border-radius: 2px 0 0 2px;
+}
+
+@keyframes pui-tab-slide-in {
+  from {
+    opacity: 0;
+    transform: scaleX(.4);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+[data-variant='pill'] .pui-tabs-strip {
+  background: var(--pui-neutral-100);
+  border-radius: var(--pui-radius-lg);
+  padding: var(--pui-space-1);
+  border: none;
+  gap: var(--pui-space-0-5);
+  align-self: flex-start;
+}
+
+[data-variant='pill'] .pui-tab-btn {
+  border-radius: var(--pui-radius-sm);
+}
+
+[data-variant='pill'] .pui-tab-btn:hover:not(.pui-tab-btn--disabled) {
+  background: var(--pui-overlay-black-06);
+  color: var(--pui-neutral-700);
+}
+
+[data-variant='pill'] .pui-tab-btn--active {
+  background: var(--pui-white);
+  color: var(--pui-neutral-900);
+  font-weight: 600;
+  box-shadow: var(--pui-shadow-pill-active);
+}
+
+[data-variant='card'] .pui-tabs-strip {
+  gap: var(--pui-space-1);
+  border-bottom: 1px solid var(--pui-neutral-200);
+}
+
+[data-variant='card'] .pui-tab-btn {
+  border: 1px solid transparent;
+  border-bottom: none;
+  border-radius: var(--pui-radius-md) var(--pui-radius-md) 0 0;
+  background: transparent;
+  margin-bottom: -1px;
+}
+
+[data-variant='card'] .pui-tab-btn:hover:not(.pui-tab-btn--disabled) {
+  background: var(--pui-neutral-50);
+  border-color: var(--pui-neutral-200) var(--pui-neutral-200) transparent;
+  color: var(--pui-neutral-700);
+}
+
+[data-variant='card'] .pui-tab-btn--active {
+  background: var(--pui-white);
+  border-color: var(--pui-neutral-200) var(--pui-neutral-200) var(--pui-white);
+  color: var(--pui-neutral-900);
+  font-weight: 600;
+}
+
+.pui-tabs--no-panel .pui-tabs-panel {
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin-top: 0 !important;
+}
+
+.pui-tab-icon {
+  display: inline-flex;
+  align-items: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.pui-tab-icon :deep(svg) {
+  width: 100%;
+  height: 100%;
+}
+
+.pui-tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 var(--pui-space-1-5);
+  border-radius: var(--pui-radius-full);
+  font-size: var(--pui-text-xs);
+  font-weight: 600;
+  background: var(--pui-neutral-200);
+  color: var(--pui-neutral-700);
+  transition: background var(--pui-duration-base), color var(--pui-duration-base);
+}
+
+.pui-tab-badge--active {
+  background: var(--pui-brand-tint-18);
+  color: var(--pui-brand-hover);
+}
+
+.pui-tabs-panel {
+  flex: 1;
+  animation: pui-panel-in var(--pui-duration-base) ease;
+}
+
+.pui-tabs--vertical .pui-tabs-panel {
+  padding-left: var(--pui-space-5);
+}
+
+@keyframes pui-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-variant='line'] .pui-tabs-panel {
+  padding: var(--pui-space-5);
+  margin-top: 0;
+  background: var(--pui-white);
+  border: 1px solid var(--pui-neutral-200);
+  border-top: none;
+  border-radius: 0 0 var(--pui-radius-lg) var(--pui-radius-lg);
+}
+
+[data-variant='line'].pui-tabs--vertical .pui-tabs-panel {
+  border: 1px solid var(--pui-neutral-200);
+  border-left: none;
+  border-radius: 0 var(--pui-radius-lg) var(--pui-radius-lg) 0;
+  padding: var(--pui-space-5);
+}
+
+[data-variant='pill'] .pui-tabs-panel {
+  margin-top: var(--pui-space-3);
+  padding: var(--pui-space-5);
+  background: var(--pui-white);
+  border: 1px solid var(--pui-neutral-200);
+  border-radius: var(--pui-radius-lg);
+  box-shadow: var(--pui-shadow-tabs-panel);
+}
+
+[data-variant='card'] .pui-tabs-panel {
+  padding: var(--pui-space-5);
+  background: var(--pui-white);
+  border: 1px solid var(--pui-neutral-200);
+  border-top: none;
+  border-radius: 0 var(--pui-radius-md) var(--pui-radius-md) var(--pui-radius-md);
+  box-shadow: var(--pui-shadow-tabs-panel);
+}

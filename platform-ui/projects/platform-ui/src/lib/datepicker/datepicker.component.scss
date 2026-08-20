@@ -93,7 +93,7 @@
   background: var(--pui-white);
   border: 1px solid var(--pui-neutral-200);
   border-radius: var(--pui-radius-2xl);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, .12);
+  box-shadow: var(--pui-shadow-popup);
   padding: var(--pui-space-3-5);
   min-width: 280px;
   animation: pui-dp-in .16s ease;

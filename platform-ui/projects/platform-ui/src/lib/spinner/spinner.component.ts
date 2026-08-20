@@ -22,11 +22,11 @@ export class SpinnerComponent {
   @Input() color = 'var(--pui-brand)';
   @Input() speed = 800;
   @Input() overlay = false;
-  @Input() overlayColor = '#ffffff';
+  @Input() overlayColor = 'var(--pui-white)';
   @Input() overlayOpacity: number | string = 0.7;
   @Input() zIndex = 1000;
   @Input() label = '';
-  @Input() labelColor = '#6b7280';
+  @Input() labelColor = 'var(--pui-neutral-500)';
 
   readonly dashLines = Array(12).fill(0);
   readonly dotPositions = this.buildDotPositions();
@@ -34,12 +34,10 @@ export class SpinnerComponent {
   get px(): number { return this.sizePx ?? SIZE_MAP[this.size]; }
   get dur(): string { return `${this.speed}ms`; }
 
-  /* Dash line positions � inner 11, outer 18 (of 20 radius viewBox) */
   readonly dashY1 = 6;
   readonly dashY2 = 12;
 
   lineOpacity(i: number): number {
-    /* Step from dim (index 0 = top = trailing) to bright (index 11 = just before top) */
     const steps = 12;
     return parseFloat(((i + 1) / steps).toFixed(2));
   }
@@ -53,7 +51,7 @@ export class SpinnerComponent {
 
   private buildDotPositions(): { cx: number; cy: number }[] {
     const count = 12;
-    const r = 14; // orbit radius in viewBox units (centre = 20,20)
+    const r = 14;
     return Array.from({ length: count }, (_, i) => {
       const angle = (i / count) * 2 * Math.PI - Math.PI / 2;
       return {

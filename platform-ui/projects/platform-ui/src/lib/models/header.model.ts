@@ -6,13 +6,13 @@ export interface NavLink {
 
 export interface UserMenuItem {
   label:   string;
-  icon?:   string;   // SVG path string or full SVG markup
+  icon?:   string;
   danger?: boolean;
-  action:  string;   // event key emitted via menuAction output
+  action:  string;
 }
 
 export interface HeaderBadge {
   text:  string;
-  color: string;         // background colour
+  color: string;
   textColor?: string;
 }

@@ -2,28 +2,24 @@
   <ol class="pui-bc__list">
     <li *ngFor="let item of items; let last = last" class="pui-bc__item">
 
-      <!-- Ancestor with route -->
       <a *ngIf="!last && item.route" class="pui-bc__link" [routerLink]="item.route">
         <pui-lib-icon *ngIf="item.iconName" class="pui-bc__icon" [name]="item.iconName" size="xs"></pui-lib-icon>
         <span *ngIf="item.icon && !item.iconName" class="pui-bc__icon" [innerHTML]="safeIcon(item.icon)"></span>
         {{ item.label }}
       </a>
 
-      <!-- Ancestor without route -->
       <span *ngIf="!last && !item.route" class="pui-bc__link pui-bc__link--plain">
         <pui-lib-icon *ngIf="item.iconName" class="pui-bc__icon" [name]="item.iconName" size="xs"></pui-lib-icon>
         <span *ngIf="item.icon && !item.iconName" class="pui-bc__icon" [innerHTML]="safeIcon(item.icon)"></span>
         {{ item.label }}
       </span>
 
-      <!-- Current / active page -->
       <span *ngIf="last" class="pui-bc__current" aria-current="page">
         <pui-lib-icon *ngIf="item.iconName" class="pui-bc__icon" [name]="item.iconName" size="xs"></pui-lib-icon>
         <span *ngIf="item.icon && !item.iconName" class="pui-bc__icon" [innerHTML]="safeIcon(item.icon)"></span>
         {{ item.label }}
       </span>
 
-      <!-- Separator -->
       <span *ngIf="!last" class="pui-bc__sep" [innerHTML]="sep"></span>
 
     </li>

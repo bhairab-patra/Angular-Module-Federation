@@ -23,7 +23,6 @@
 
   <div class="pui-dt-scroll" [style.maxHeight]="_maxHeight ? _maxHeight + 'px' : null">
 
-    <!-- Skeleton overlay -->
     <div class="pui-dt-loading" *ngIf="_loading">
       <div class="pui-dt-skeleton" *ngFor="let r of skeletonRows">
         <div class="pui-dt-skeleton__cell" *ngIf="_selectable" style="flex:0 0 36px"></div>
@@ -33,7 +32,6 @@
     </div>
 
     <table class="pui-dt">
-      <!-- Header -->
       <thead class="pui-dt-head" [class.pui-dt-head--sticky]="_stickyHeader">
         <tr>
           <th *ngIf="_selectable" class="pui-dt-th pui-dt-th--sel">
@@ -65,29 +63,25 @@
         </tr>
       </thead>
 
-      <!-- Body -->
       <tbody class="pui-dt-body">
-        <!-- Empty -->
         <tr *ngIf="!_loading && displayRows.length === 0">
           <td [colSpan]="_columns.length + (_selectable ? 1 : 0) + (_actions.length > 0 ? 1 : 0)" class="pui-dt-empty">
             <div class="pui-dt-empty__inner">
               <svg viewBox="0 0 48 48" fill="none" width="40" height="40">
-                <rect x="6" y="8" width="36" height="32" rx="3" stroke="#d1d5db" stroke-width="2" />
-                <path d="M6 16h36" stroke="#d1d5db" stroke-width="2" />
-                <path d="M14 24h4M22 24h12M14 32h8" stroke="#d1d5db" stroke-width="2" stroke-linecap="round" />
+                <rect x="6" y="8" width="36" height="32" rx="3" stroke="var(--pui-neutral-300)" stroke-width="2" />
+                <path d="M6 16h36" stroke="var(--pui-neutral-300)" stroke-width="2" />
+                <path d="M14 24h4M22 24h12M14 32h8" stroke="var(--pui-neutral-300)" stroke-width="2" stroke-linecap="round" />
               </svg>
               <p>{{ searchTerm ? 'No results for "' + searchTerm + '"' : 'No data available' }}</p>
             </div>
           </td>
         </tr>
 
-        <!-- Data rows -->
         <tr *ngFor="let row of displayRows; let i = index" class="pui-dt-row"
           [class.pui-dt-row--striped]="_striped && i % 2 !== 0"
           [class.pui-dt-row--selected]="selectedRows.has(getRowId(row, i))"
           [class.pui-dt-row--clickable]="rowClickEnabled" (click)="onRowClick(row)">
 
-          <!-- Checkbox -->
           <td *ngIf="_selectable" class="pui-dt-td pui-dt-td--sel"
             (click)="$event.stopPropagation(); toggleRow(row, i)">
             <label class="pui-dt-cb">
@@ -96,7 +90,6 @@
             </label>
           </td>
 
-          <!-- Data cells -->
           <td *ngFor="let col of _columns" class="pui-dt-td" [class.pui-dt-td--right]="col.align === 'right'"
             [class.pui-dt-td--center]="col.align === 'center'"
             (mouseenter)="showCellTooltip($event, row[col.key] ?? '')" (mouseleave)="hideCellTooltip()">

@@ -11,7 +11,7 @@ export interface DateRange { start: Date | null; end: Date | null; }
 
 export interface DpCell {
   date: Date;
-  ts: number;      // unique stable key for trackBy
+  ts: number;
   cur: boolean;
   today: boolean;
   disabled: boolean;
@@ -53,10 +53,6 @@ export class PuiDatepickerComponent {
   readonly dayNames   = DAYS;
   readonly monthNames = MONTHS;
 
-  // ── Memoised calendar cells ─────────────────────────────────────────────
-  // Recomputed only when viewYear / viewMonth / min / max changes.
-  // Prevents Angular from destroying and recreating all day buttons on every
-  // change-detection cycle (which broke click handling via mouseenter CD loops).
   private _cells: DpCell[]   = [];
   private _cellsCacheKey     = '';
 
@@ -72,7 +68,6 @@ export class PuiDatepickerComponent {
   trackByTs(_: number, cell: DpCell): number { return cell.ts; }
   trackByIdx(i: number): number { return i; }
 
-  // ── Inputs ───────────────────────────────────────────────────────────────
   @Input() set value(v: Date | string | null) {
     if (!v) { this._value = null; this.cdr.markForCheck(); return; }
     const d = v instanceof Date ? v : new Date(v as string);
@@ -93,12 +88,12 @@ export class PuiDatepickerComponent {
   @Input() set mode(v: DatePickerMode | string)   { this._mode     = v === 'range' ? 'range' : 'single'; }
   @Input() set min(v: Date | string | null)        {
     this._min = v ? new Date(v as string) : null;
-    this._cellsCacheKey = '';   // invalidate cell cache
+    this._cellsCacheKey = '';
     this.cdr.markForCheck();
   }
   @Input() set max(v: Date | string | null)        {
     this._max = v ? new Date(v as string) : null;
-    this._cellsCacheKey = '';   // invalidate cell cache
+    this._cellsCacheKey = '';
     this.cdr.markForCheck();
   }
   @Input() set disabled(v: boolean | string)       { this._disabled  = v === true || v === 'true' || (v as unknown) === ''; }
@@ -106,13 +101,10 @@ export class PuiDatepickerComponent {
   @Input() set placeholder(v: string)              { this._placeholder = v; }
   @Input() set format(v: string)                   { this._format = v; }
 
-  // ── Outputs ──────────────────────────────────────────────────────────────
   @Output() valueChange = new EventEmitter<Date | null>();
   @Output() rangeChange = new EventEmitter<DateRange>();
-  // eslint-disable-next-line @angular-eslint/no-output-native
   @Output() change      = new EventEmitter<Date | DateRange | null>();
 
-  // ── Host listener — close on outside click ───────────────────────────────
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
     const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
@@ -125,7 +117,6 @@ export class PuiDatepickerComponent {
     }
   }
 
-  // ── Computed ─────────────────────────────────────────────────────────────
   get monthName(): string { return MONTHS[this.viewMonth]; }
 
   get displayValue(): string {
@@ -139,7 +130,6 @@ export class PuiDatepickerComponent {
     return this._value ? this._fmt(this._value) : '';
   }
 
-  // ── Navigation ───────────────────────────────────────────────────────────
   toggle(): void {
     if (this._disabled) return;
     this.open = !this.open;
@@ -168,7 +158,6 @@ export class PuiDatepickerComponent {
     this.cdr.markForCheck();
   }
 
-  // ── Selection ────────────────────────────────────────────────────────────
   pickDay(d: Date): void {
     if (this._isDisabled(d)) return;
 
@@ -217,7 +206,6 @@ export class PuiDatepickerComponent {
     this.cdr.markForCheck();
   }
 
-  // ── State queries (used in template) ────────────────────────────────────
   isSelected(d: Date): boolean {
     return this._mode === 'single' && !!this._value && this._sameDay(d, this._value);
   }
@@ -240,7 +228,6 @@ export class PuiDatepickerComponent {
     return d > lo && d < hi;
   }
 
-  // ── Private helpers ──────────────────────────────────────────────────────
   private _buildCells(): DpCell[] {
     const today = new Date();
     const first = new Date(this.viewYear, this.viewMonth, 1);
@@ -257,7 +244,6 @@ export class PuiDatepickerComponent {
         disabled: this._isDisabled(d),
       });
     }
-    // trim last row if all other-month
     if (!cells.slice(35).some(c => c.cur)) cells.splice(35);
     return cells;
   }

@@ -9,15 +9,13 @@ $brand-dk: var(--pui-brand-hover);
   font-size:    13px;
   font-family:  inherit;
 
-  // ── Info label ──────────────────────────────────────────────────────────────
   &__info {
-    color:      #5a6a84;
+    color:      var(--pui-pagination-text-muted);
     font-size:  13px;
     white-space: nowrap;
     flex-shrink: 0;
   }
 
-  // ── Page size selector ───────────────────────────────────────────────────────
   &__size-wrap {
     display:     flex;
     align-items: center;
@@ -28,16 +26,16 @@ $brand-dk: var(--pui-brand-hover);
   &__size-label {
     font-size:   12px;
     font-weight: 600;
-    color:       #5a6a84;
+    color:       var(--pui-pagination-text-muted);
     white-space: nowrap;
   }
 
   &__size-select {
     font-family: inherit;
     font-size:   13px;
-    color:       #0d1422;
-    background:  #fff;
-    border:      1.5px solid #dde3ee;
+    color:       var(--pui-pagination-text);
+    background:  var(--pui-white);
+    border:      1.5px solid var(--pui-pagination-border);
     border-radius: 7px;
     padding:     4px 28px 4px 10px;
     appearance:  none;
@@ -48,27 +46,25 @@ $brand-dk: var(--pui-brand-hover);
     cursor:      pointer;
     transition:  border-color .15s;
 
-    &:hover       { border-color: #b0b9cc; }
+    &:hover       { border-color: var(--pui-pagination-border-hover); }
     &:focus       { outline: none; border-color: $brand; box-shadow: 0 0 0 2px var(--pui-brand-tint-18); }
   }
 
-  // ── Nav ──────────────────────────────────────────────────────────────────────
   &__nav {
     display:     flex;
     align-items: center;
     gap:         4px;
   }
 
-  // ── Shared button base ───────────────────────────────────────────────────────
   &__btn {
     font-family:  inherit;
     font-size:    13px;
     font-weight:  500;
     line-height:  1;
-    border:       1.5px solid #dde3ee;
+    border:       1.5px solid var(--pui-pagination-border);
     border-radius: 7px;
-    background:   #fff;
-    color:        #2d3a4e;
+    background:   var(--pui-white);
+    color:        var(--pui-pagination-btn-text);
     cursor:       pointer;
     display:      inline-flex;
     align-items:  center;
@@ -77,8 +73,8 @@ $brand-dk: var(--pui-brand-hover);
     user-select:  none;
 
     &:hover:not([disabled]) {
-      background:    #f0f4f9;
-      border-color:  #b0b9cc;
+      background:    var(--pui-pagination-hover-bg);
+      border-color:  var(--pui-pagination-border-hover);
     }
     &:focus-visible:not([disabled]) {
       outline:    none;
@@ -90,17 +86,14 @@ $brand-dk: var(--pui-brand-hover);
       cursor:  not-allowed;
     }
 
-    // Number buttons
     &--num  { min-width: 34px; height: 34px; padding: 0 4px; }
 
-    // Icon buttons (prev/next/first/last)
-    &--icon { width: 34px; height: 34px; padding: 0; color: #5a6a84; }
+    &--icon { width: 34px; height: 34px; padding: 0; color: var(--pui-pagination-text-muted); }
 
-    // Active page
     &--active {
       background:   $brand;
       border-color: $brand;
-      color:        #fff;
+      color:        var(--pui-white);
       font-weight:  700;
 
       &:hover:not([disabled]) {
@@ -110,19 +103,17 @@ $brand-dk: var(--pui-brand-hover);
     }
   }
 
-  // ── Ellipsis ─────────────────────────────────────────────────────────────────
   &__ellipsis {
     display:     inline-flex;
     align-items: center;
     justify-content: center;
     min-width:   34px;
     height:      34px;
-    color:       #7a90b0;
+    color:       var(--pui-pagination-ellipsis);
     font-size:   14px;
     user-select: none;
   }
 
-  // ── Compact mode ─────────────────────────────────────────────────────────────
   &--compact {
     gap: 3px;
 
