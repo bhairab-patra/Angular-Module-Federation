@@ -1,5 +1,5 @@
-$brand:    #12C6A8;
-$brand-dk: #0fa88d;
+$brand:    var(--pui-brand);
+$brand-dk: var(--pui-brand-hover);
 
 .pui-pg {
   display:      flex;
@@ -49,7 +49,7 @@ $brand-dk: #0fa88d;
     transition:  border-color .15s;
 
     &:hover       { border-color: #b0b9cc; }
-    &:focus       { outline: none; border-color: $brand; box-shadow: 0 0 0 2px rgba(18, 198, 168, .18); }
+    &:focus       { outline: none; border-color: $brand; box-shadow: 0 0 0 2px var(--pui-brand-tint-18); }
   }
 
   // ── Nav ──────────────────────────────────────────────────────────────────────
@@ -83,7 +83,7 @@ $brand-dk: #0fa88d;
     &:focus-visible:not([disabled]) {
       outline:    none;
       border-color: $brand;
-      box-shadow: 0 0 0 2px rgba(18, 198, 168, .2);
+      box-shadow: 0 0 0 2px var(--pui-brand-tint-20);
     }
     &[disabled] {
       opacity: .38;

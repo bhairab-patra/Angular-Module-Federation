@@ -19,14 +19,14 @@ export class HeaderComponent {
   @Input() appSubtitle = '';
   @Input() logoText    = '';
   @Input() logoUrl     = '';
-  @Input() bgColor     = '#12C6A8';
+  @Input() bgColor     = 'var(--pui-brand)';
   @Input() textColor   = '#ffffff';
   @Input() userName    = '';
   @Input() userEmail   = '';
   @Input() greeting    = 'Hi';
   @Input() userSubtext = 'Welcome back!';
   @Input() avatarUrl   = '';
-  @Input() avatarColor      = '#0d6e5f';
+  @Input() avatarColor      = 'var(--pui-brand-deep)';
   @Input() avatarTextColor  = '#ffffff';
   @Input() hasLogoSlot = false;
 

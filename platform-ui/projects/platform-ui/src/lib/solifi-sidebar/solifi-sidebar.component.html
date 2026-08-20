@@ -45,7 +45,7 @@
 
             <!-- Icon via platform-ui icon name -->
             <span class="ssb__icon" *ngIf="item.iconName">
-              <pui-lib-icon [name]="item.iconName" size="md" color="currentColor"></pui-lib-icon>
+              <pui-lib-icon [name]="item.iconName" size="sm" color="currentColor"></pui-lib-icon>
             </span>
             <!-- Icon via raw SVG string fallback -->
             <span class="ssb__icon" *ngIf="!item.iconName && item.icon" [innerHTML]="item.icon"></span>
@@ -53,7 +53,17 @@
             <span class="ssb__abbr" *ngIf="collapsed && !item.iconName && !item.icon">{{ itemAbbr(item) }}</span>
 
             <!-- Label: only in expanded -->
-            <span class="ssb__label" *ngIf="!collapsed">{{ item.label }}</span>
+            <ng-container *ngIf="!collapsed">
+              <pui-lib-tooltip *ngIf="needsEllipsis(item.label); else plainLabel"
+                                class="ssb__label-tt"
+                                [text]="item.label"
+                                position="right">
+                <span class="ssb__label">{{ item.label }}</span>
+              </pui-lib-tooltip>
+              <ng-template #plainLabel>
+                <span class="ssb__label">{{ item.label }}</span>
+              </ng-template>
+            </ng-container>
           </button>
         </li>
       </ul>

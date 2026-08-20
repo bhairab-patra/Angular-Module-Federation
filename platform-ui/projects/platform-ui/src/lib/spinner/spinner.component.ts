@@ -19,7 +19,7 @@ export class SpinnerComponent {
   @Input() type: SpinnerType = 'dash';
   @Input() size: SpinnerSize = 'md';
   @Input() sizePx: number | null = null;
-  @Input() color = '#12C6A8';
+  @Input() color = 'var(--pui-brand)';
   @Input() speed = 800;
   @Input() overlay = false;
   @Input() overlayColor = '#ffffff';

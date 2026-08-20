@@ -33,7 +33,7 @@
     background: transparent;
     border: 1.5px solid var(--pui-brand);
     color: var(--pui-brand);
-    &:hover { background: rgba(18, 198, 168, 0.08); }
+    &:hover { background: var(--pui-brand-tint-08); }
   }
 
   /* Ghost */

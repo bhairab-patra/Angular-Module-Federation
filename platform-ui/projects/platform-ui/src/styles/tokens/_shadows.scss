@@ -19,9 +19,8 @@
   --pui-shadow-switch:   0 1px 3px rgba(0, 0, 0, .18);
 
   // Focus rings (keyboard accessibility)
-  --pui-shadow-focus:         0 0 0 3px rgba(18, 198, 168, .18);
-  --pui-shadow-focus-sm:      0 0 0 3px rgba(18, 198, 168, .12);
-  --pui-shadow-focus-brand:   0 0 0 3px rgba(18, 198, 168, .25);
+  // --pui-shadow-focus / -sm / -brand are brand-tinted — defined per theme
+  // in styles/themes/theme-old.css and theme-new.css, not here.
   --pui-shadow-focus-error:   0 0 0 3px rgba(239, 68, 68, .1);
   --pui-shadow-focus-neutral: 0 0 0 3px rgba(168, 158, 149, .4);
 }

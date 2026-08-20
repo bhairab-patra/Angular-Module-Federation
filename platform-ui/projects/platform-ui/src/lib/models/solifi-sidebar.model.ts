@@ -27,22 +27,32 @@ export interface SolifiUserMenuItem {
 
 export interface SolifiSidebarTheme {
   bg?:          string;  // default: #112C35
-  textColor?:   string;  // default: #8fa3bc
-  activeColor?: string;  // default: #12C6A8
-  activeBg?:    string;  // default: rgba(18,198,168,.12)
+  /** Label text color. Always a light/near-white tone by default — the sidebar
+   *  background is dark regardless of which brand theme (old/new) is active,
+   *  so text intentionally does NOT follow the brand color (that would lose
+   *  contrast against a dark background whenever the brand color is itself dark,
+   *  e.g. the navy "old" theme). default: rgba(255,255,255,.72)
+   */
+  textColor?:   string;
+  /** Color of the active item's left accent bar. default: var(--pui-brand) */
+  activeColor?: string;
+  /** Background of the rounded icon chip shown on the active/hovered item's icon.
+   *  default: var(--pui-brand-tint-25)
+   */
+  activeBg?:    string;
   hoverBg?:     string;  // default: rgba(255,255,255,.06)
   borderColor?: string;  // default: rgba(255,255,255,.07)
   groupColor?:  string;  // default: #4a6080
-  avatarBg?:    string;  // default: #12C6A8
+  avatarBg?:    string;  // default: var(--pui-brand)
 }
 
 export const SOLIFI_THEME: SolifiSidebarTheme = {
   bg:          '#112C35',
-  textColor:   '#8fa3bc',
-  activeColor: '#12C6A8',
-  activeBg:    'rgba(18,198,168,.12)',
+  textColor:   'rgba(255,255,255,.72)',
+  activeColor: 'var(--pui-brand)',
+  activeBg:    'var(--pui-brand-tint-25)',
   hoverBg:     'rgba(255,255,255,.06)',
   borderColor: 'rgba(255,255,255,.07)',
   groupColor:  '#4a6080',
-  avatarBg:    '#12C6A8',
+  avatarBg:    'var(--pui-brand)',
 };

@@ -1,56 +1,103 @@
-:host, pui-lib-solifi-sidebar { display: block; height: 100%; }
+:host,
+pui-lib-solifi-sidebar {
+  display: block;
+  height: 100%;
+}
 
 /* ── Shell ─────────────────────────────────────────────────── */
 .ssb {
-  display: flex; flex-direction: column;
-  height: 100%; overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
   background: var(--ssb-bg, #112C35);
   width: var(--ssb-w, 240px);
   min-width: var(--ssb-w, 240px);
-  transition: width .22s cubic-bezier(.4,0,.2,1), min-width .22s cubic-bezier(.4,0,.2,1);
+  transition: width .22s cubic-bezier(.4, 0, .2, 1), min-width .22s cubic-bezier(.4, 0, .2, 1);
   font-family: 'Poppins', system-ui, sans-serif;
   position: relative;
 }
+
 .ssb--collapsed {
   width: var(--ssb-cw, 64px);
   min-width: var(--ssb-cw, 64px);
   overflow: visible;
 }
-.ssb--hidden { width: 0 !important; min-width: 0 !important; overflow: hidden; }
+
+.ssb--hidden {
+  width: 0 !important;
+  min-width: 0 !important;
+  overflow: hidden;
+}
 
 /* ── Header ────────────────────────────────────────────────── */
 .ssb__header {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 18px 14px 14px;
-  border-bottom: 1px solid var(--ssb-border, rgba(255,255,255,.07));
-  flex-shrink: 0; gap: 8px;
+  border-bottom: 1px solid var(--ssb-border, rgba(255, 255, 255, .07));
+  flex-shrink: 0;
+  gap: 8px;
 }
+
 .ssb__brand {
-  display: flex; align-items: center; gap: 10px;
-  overflow: hidden; min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden;
+  min-width: 0;
 }
+
 .ssb__logo {
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; width: 28px; height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
 }
-.ssb__logo svg, .ssb__logo img { width: 28px; height: 28px; }
-.ssb__logo-img { width: 28px; height: 28px; object-fit: contain; display: block; }
+
+.ssb__logo svg,
+.ssb__logo img {
+  width: 28px;
+  height: 28px;
+}
+
+.ssb__logo-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
 .ssb__brand-name {
-  font-size: 18px; font-weight: 700; letter-spacing: .02em;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: .02em;
   color: #fff;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ssb__toggle {
-  flex-shrink: 0; width: 32px; height: 32px;
-  border: none; background: transparent;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
   color: var(--ssb-text, #8fa3bc);
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer; border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: 6px;
   transition: background .13s, color .13s;
 }
+
 .ssb__toggle:hover {
-  background: var(--ssb-hover, rgba(255,255,255,.06));
+  background: var(--ssb-hover, rgba(255, 255, 255, .06));
   color: #fff;
 }
 
@@ -62,83 +109,147 @@
 
 /* ── Logo-only row (collapsed) ─────────────────────────────── */
 .ssb__logo-only {
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 12px 0 8px;
-  border-bottom: 1px solid var(--ssb-border, rgba(255,255,255,.07));
+  border-bottom: 1px solid var(--ssb-border, rgba(255, 255, 255, .07));
   flex-shrink: 0;
 }
 
 /* ── Nav ───────────────────────────────────────────────────── */
 .ssb__nav {
-  flex: 1; overflow-y: auto; overflow-x: hidden;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
   padding: 8px 0 12px;
   scrollbar-width: thin;
-  scrollbar-color: var(--ssb-border, rgba(255,255,255,.07)) transparent;
+  scrollbar-color: var(--ssb-border, rgba(255, 255, 255, .07)) transparent;
 }
+
 /* Collapsed: nav still scrolls; tooltip is rendered outside nav on the root */
-.ssb--collapsed .ssb__nav { overflow-y: auto; overflow-x: hidden; }
-.ssb__nav::-webkit-scrollbar { width: 3px; }
+.ssb--collapsed .ssb__nav {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ssb__nav::-webkit-scrollbar {
+  width: 3px;
+}
+
 .ssb__nav::-webkit-scrollbar-thumb {
-  background: var(--ssb-border, rgba(255,255,255,.07)); border-radius: 4px;
+  background: var(--ssb-border, rgba(255, 255, 255, .07));
+  border-radius: 4px;
 }
 
 /* ── Group ─────────────────────────────────────────────────── */
-.ssb__group { margin-bottom: 4px; }
+.ssb__group {
+  margin-bottom: 4px;
+}
+
 .ssb__group-label {
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
   letter-spacing: .1em;
   color: var(--ssb-group, #4a6080);
   padding: 14px 20px 4px;
   white-space: nowrap;
 }
-.ssb__list { list-style: none; margin: 0; padding: 0; }
+
+.ssb__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
 /* ── Item ──────────────────────────────────────────────────── */
 .ssb__item {
-  width: 100%; display: flex; align-items: center; gap: 12px;
-  padding: 0 20px; height: 42px;
-  border: none; background: transparent;
-  color: var(--ssb-text, #8fa3bc);
-  cursor: pointer; text-align: left;
-  font-family: inherit; font-size: 14px; font-weight: 400;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 20px;
+  height: 42px;
+  border: none;
+  background: transparent;
+  color: var(--ssb-text, rgba(255, 255, 255, .72));
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 400;
   transition: background .13s, color .13s;
   position: relative;
 }
+
 .ssb__item::before {
-  content: ''; position: absolute; left: 0;
-  top: 6px; bottom: 6px; width: 3px;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 3px;
   border-radius: 0 3px 3px 0;
-  background: transparent; transition: background .13s;
+  background: transparent;
+  transition: background .13s;
 }
+
 .ssb__item:hover:not(.ssb__item--disabled) {
-  background: var(--ssb-hover, rgba(255,255,255,.06));
+  background: var(--ssb-hover, rgba(255, 255, 255, .06));
   color: #fff;
 }
+
 .ssb__item--active {
-  background: var(--ssb-active-bg, rgba(18,198,168,.12)) !important;
-  color: var(--ssb-active, #12C6A8) !important;
+  color: #fff !important;
   font-weight: 500;
 }
-.ssb__item--active::before { background: var(--ssb-active, #12C6A8) !important; }
-.ssb__item--disabled { opacity: .4; cursor: not-allowed; }
+
+.ssb__item--active::before {
+  background: var(--ssb-active, var(--pui-brand)) !important;
+}
+
+.ssb__item--disabled {
+  opacity: .4;
+  cursor: not-allowed;
+}
+
+/* Deliberate, consistent focus indicator — without this, buttons fall back
+   to whichever native focus ring the browser/OS happens to draw, which
+   looks different per-browser and only appears on whichever item was last
+   focused (easy to mistake for a random inconsistent "shadow" on one icon). */
+.ssb__item:focus-visible {
+  outline: 2px solid var(--ssb-active, var(--pui-brand));
+  outline-offset: -2px;
+}
 
 /* Collapsed: center icon */
 .ssb--collapsed .ssb__item {
-  padding: 0; justify-content: center;
+  padding: 0;
+  justify-content: center;
   height: 48px;
 }
-.ssb--collapsed .ssb__item::before { display: none; }
+
+.ssb--collapsed .ssb__item::before {
+  display: none;
+}
 
 /* ── Collapsed tooltip bubble — matches pui-lib-tooltip exactly ─ */
 .ssb__nav-tooltip {
   position: absolute;
-  left: calc(100% + 8px);    /* same gap as pui-tt--right: calc(100% + var(--pui-space-2)) */
+  left: calc(100% + 8px);
+  /* same gap as pui-tt--right: calc(100% + var(--pui-space-2)) */
   transform: translateY(-50%);
-  background: #1e293b;       /* --pui-tooltip-bg */
-  color: #f8fafc;            /* --pui-tooltip-color */
-  padding: 6px 12px;         /* --pui-space-1-5 / --pui-space-3 */
-  border-radius: 6px;        /* --pui-radius-sm */
-  font-size: 12px;           /* --pui-text-sm */
+  background: #1e293b;
+  /* --pui-tooltip-bg */
+  color: #f8fafc;
+  /* --pui-tooltip-color */
+  padding: 6px 12px;
+  /* --pui-space-1-5 / --pui-space-3 */
+  border-radius: 6px;
+  /* --pui-radius-sm */
+  font-size: 12px;
+  /* --pui-text-sm */
   font-weight: 500;
   font-family: 'Poppins', system-ui, sans-serif;
   line-height: 1.4;
@@ -146,13 +257,23 @@
   pointer-events: none;
   user-select: none;
   z-index: 9999;
-  box-shadow: 0 4px 14px rgba(0,0,0,.22); /* --pui-shadow-tooltip */
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .22);
+  /* --pui-shadow-tooltip */
   animation: ssb-tt-in .15s ease;
 }
+
 @keyframes ssb-tt-in {
-  from { opacity: 0; transform: translateY(-50%) translateX(-4px); }
-  to   { opacity: 1; transform: translateY(-50%) translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
 }
+
 /* Left-pointing arrow — matches pui-tt--right .pui-tt__bubble::after */
 .ssb__nav-tooltip::after {
   content: '';
@@ -164,68 +285,135 @@
   border-right-color: #1e293b;
 }
 
-/* ── Abbr (text-only collapsed fallback) ───────────────────── */
+ 
 .ssb__abbr {
   flex-shrink: 0;
-  width: 28px; height: 28px;
+  width: 28px;
+  height: 28px;
   border-radius: 7px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; font-weight: 700; text-transform: uppercase;
-  background: rgba(255,255,255,.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, .10);
   color: currentColor;
   letter-spacing: .02em;
 }
-.ssb__item:hover .ssb__abbr  { background: rgba(255,255,255,.16); }
-.ssb__item--active .ssb__abbr { background: rgba(18,198,168,.22); }
 
-/* ── Icon ──────────────────────────────────────────────────── */
+.ssb__item:hover .ssb__abbr {
+  background: rgba(255, 255, 255, .16);
+}
+
+.ssb__item--active .ssb__abbr {
+  background: var(--pui-brand-tint-22);
+}
+
+ 
 .ssb__icon {
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; width: 20px; height: 20px;
-  /* Expanded: muted; Collapsed: prominent */
-  opacity: .55; transition: opacity .13s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--pui-radius-md, 8px);
+  background: #2f4c55;
+  color: #FFF;
+  border-radius: 100%;
+  transition: opacity .13s, background .13s;
+  font-size: 10px;
 }
-.ssb__item--active .ssb__icon { opacity: 1; }
-.ssb__item:hover .ssb__icon   { opacity: 1; }
-.ssb__icon svg { width: 20px; height: 20px; }
 
-/* In expanded mode, shrink icon slot slightly */
-.ssb:not(.ssb--collapsed) .ssb__icon {
-  width: 18px; height: 18px;
+.ssb__item--active .ssb__icon,
+.ssb__item:hover .ssb__icon {
+  opacity: 1;
+  background: var(--ssb-active-bg, var(--pui-brand-tint-25));
 }
-.ssb:not(.ssb--collapsed) .ssb__icon svg { width: 18px; height: 18px; }
+
+.ssb__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* In expanded mode, the chip box is slightly smaller to match the row height */
+.ssb:not(.ssb--collapsed) .ssb__icon {
+  width: 30px;
+  height: 30px;
+}
+
+.ssb:not(.ssb--collapsed) .ssb__icon svg {
+  width: 18px;
+  height: 18px;
+}
 
 /* ── Label ─────────────────────────────────────────────────── */
 .ssb__label {
-  flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ssb__label-tt {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+
+  ::ng-deep .pui-tt-host {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+  }
 }
 
 /* ── User wrap (positions the popup) ───────────────────────── */
 .ssb__user-wrap {
   flex-shrink: 0;
   position: relative;
-  border-top: 1px solid var(--ssb-border, rgba(255,255,255,.07));
+  border-top: 1px solid var(--ssb-border, rgba(255, 255, 255, .07));
 }
 
 /* ── User menu popup ────────────────────────────────────────── */
 .ssb__user-menu {
-  position: absolute; bottom: 100%; left: 8px; right: 8px;
+  position: absolute;
+  bottom: 100%;
+  left: 8px;
+  right: 8px;
   background: #1a3a47;
-  border: 1px solid rgba(255,255,255,.1);
+  border: 1px solid rgba(255, 255, 255, .1);
   border-radius: 10px;
   padding: 6px;
   margin-bottom: 6px;
-  box-shadow: 0 -8px 24px rgba(0,0,0,.35);
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, .35);
   z-index: 100;
-  animation: ssb-menu-in .14s cubic-bezier(.4,0,.2,1);
+  animation: ssb-menu-in .14s cubic-bezier(.4, 0, .2, 1);
 }
+
 @keyframes ssb-menu-in {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 @keyframes ssb-menu-in-right {
-  from { opacity: 0; transform: translateX(-6px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .ssb--collapsed .ssb__user-menu {
@@ -235,67 +423,143 @@
   bottom: 0;
   margin-bottom: 0;
   min-width: 180px;
-  box-shadow: 8px 0 24px rgba(0,0,0,.35);
-  animation: ssb-menu-in-right .14s cubic-bezier(.4,0,.2,1);
+  box-shadow: 8px 0 24px rgba(0, 0, 0, .35);
+  animation: ssb-menu-in-right .14s cubic-bezier(.4, 0, .2, 1);
 }
 
 .ssb__user-menu-divider {
-  height: 1px; background: rgba(255,255,255,.09); margin: 4px;
+  height: 1px;
+  background: rgba(255, 255, 255, .09);
+  margin: 4px;
 }
+
 .ssb__user-menu-item {
-  width: 100%; display: flex; align-items: center; gap: 10px;
-  padding: 8px 10px; border: none; background: transparent;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
   color: var(--ssb-text, #8fa3bc);
-  font-family: inherit; font-size: 13px; font-weight: 400;
-  cursor: pointer; border-radius: 6px; text-align: left;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: 6px;
+  text-align: left;
   transition: background .12s, color .12s;
 }
+
 .ssb__user-menu-item:hover:not(.ssb__user-menu-item--disabled) {
-  background: var(--ssb-hover, rgba(255,255,255,.07)); color: #fff;
+  background: var(--ssb-hover, rgba(255, 255, 255, .07));
+  color: #fff;
 }
-.ssb__user-menu-item--disabled { opacity: .38; cursor: not-allowed; }
+
+.ssb__user-menu-item--disabled {
+  opacity: .38;
+  cursor: not-allowed;
+}
+
 .ssb__user-menu-icon {
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0; width: 16px; height: 16px; opacity: .7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  opacity: .7;
 }
-.ssb__user-menu-item:hover .ssb__user-menu-icon { opacity: 1; }
-.ssb__user-menu-label { flex: 1; }
+
+.ssb__user-menu-item:hover .ssb__user-menu-icon {
+  opacity: 1;
+}
+
+.ssb__user-menu-label {
+  flex: 1;
+}
 
 /* ── User profile strip ─────────────────────────────────────── */
 .ssb__user {
-  display: flex; align-items: center; gap: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   padding: 14px 16px;
   transition: background .13s;
 }
-.ssb__user--clickable { cursor: pointer; }
+
+.ssb__user--clickable {
+  cursor: pointer;
+}
+
 .ssb__user--clickable:hover,
-.ssb__user--open { background: var(--ssb-hover, rgba(255,255,255,.06)); }
-.ssb--collapsed .ssb__user { justify-content: center; padding: 14px 0; }
+.ssb__user--open {
+  background: var(--ssb-hover, rgba(255, 255, 255, .06));
+}
+
+.ssb--collapsed .ssb__user {
+  justify-content: center;
+  padding: 14px 0;
+}
 
 .ssb__avatar {
-  flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
-  background: var(--ssb-avatar, #12C6A8);
-  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #207372;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
-.ssb__avatar-img { width: 100%; height: 100%; object-fit: cover; }
+
+.ssb__avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .ssb__avatar-initials {
-  font-size: 13px; font-weight: 700; color: #fff; line-height: 1;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1;
 }
 
 .ssb__user-info {
-  flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
+
 .ssb__user-name {
-  font-size: 13px; font-weight: 600; color: #fff;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 .ssb__user-email {
-  font-size: 11px; color: var(--ssb-text, #8fa3bc);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font-size: 11px;
+  color: var(--ssb-text, #8fa3bc);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 .ssb__user-arrow {
-  flex-shrink: 0; color: var(--ssb-text, #8fa3bc); opacity: .6;
+  flex-shrink: 0;
+  color: var(--ssb-text, #8fa3bc);
+  opacity: .6;
   transition: transform .2s;
 }
-.ssb__user-arrow--up { transform: rotate(180deg); opacity: 1; }
+
+.ssb__user-arrow--up {
+  transform: rotate(180deg);
+  opacity: 1;
+}

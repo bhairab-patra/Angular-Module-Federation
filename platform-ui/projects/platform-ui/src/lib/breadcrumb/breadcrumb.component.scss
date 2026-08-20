@@ -36,7 +36,7 @@
 
 .pui-bc__link:hover {
   color: var(--pui-bc-link-hover, var(--pui-brand));
-  background: var(--pui-bc-link-bg-hover, rgba(18, 198, 168, .08));
+  background: var(--pui-bc-link-bg-hover, var(--pui-brand-tint-08));
 }
 
 .pui-bc__link--plain { cursor: default; }
@@ -54,7 +54,7 @@
   font-weight: 700;
   color: var(--pui-bc-active-color, var(--pui-neutral-900));
   padding: var(--pui-space-1) var(--pui-space-1-5);
-  background: var(--pui-bc-active-bg, rgba(18, 198, 168, .07));
+  background: var(--pui-bc-active-bg, var(--pui-brand-tint-07));
   border-radius: var(--pui-radius-sm);
   line-height: 1;
 }

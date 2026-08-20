@@ -89,7 +89,7 @@ export class PuiSidebarComponent implements OnChanges {
   @Output() itemSelect      = new EventEmitter<SidebarNavItem>();
 
   defaultIcon = DEFAULT_ICON;
-  defaultLogo = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#12C6A8"/><path d="M8 16h16M16 8l8 8-8 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  defaultLogo = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="var(--pui-brand)"/><path d="M8 16h16M16 8l8 8-8 8" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
   openIds      = new Set<string>();
   searchQuery  = '';
@@ -122,13 +122,13 @@ export class PuiSidebarComponent implements OnChanges {
       '--pui-sb-text':        t.textColor    || this.textColor   || '#94a3b8',
       '--pui-sb-active-txt':  t.activeText   || this.activeColor || '#ffffff',
       '--pui-sb-active-bg':   t.activeBg     || (this.activeColor ? this.activeColor + '22' : 'rgba(255,255,255,.08)'),
-      '--pui-sb-active-brd':  t.activeBorder || this.activeColor || '#12C6A8',
+      '--pui-sb-active-brd':  t.activeBorder || this.activeColor || 'var(--pui-brand)',
       '--pui-sb-hover-bg':    t.hoverBg      || this.hoverColor  || 'rgba(255,255,255,.06)',
       '--pui-sb-hover-txt':   t.hoverText    || '#e2e8f0',
       '--pui-sb-border':      t.borderColor  || this.borderColor || 'rgba(255,255,255,.08)',
       '--pui-sb-group-txt':   t.groupTextColor                   || '#4a6080',
       '--pui-sb-sub-bg':      t.subitemBg                        || 'rgba(0,0,0,.12)',
-      '--pui-sb-avatar-bg':   this.userAvatarBg || t.avatarBg     || '#12C6A8',
+      '--pui-sb-avatar-bg':   this.userAvatarBg || t.avatarBg     || 'var(--pui-brand)',
       '--pui-sb-w':           `${this.cfg.width}px`,
       '--pui-sb-cw':          `${this.cfg.collapsedWidth}px`,
     };

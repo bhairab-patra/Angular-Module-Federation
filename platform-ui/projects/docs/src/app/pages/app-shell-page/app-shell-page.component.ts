@@ -14,7 +14,7 @@ const NAV_GROUPS: SolifiNavGroup[] = [
       { id: 'borrowing-base',   label: 'Borrowing Base Posting', iconName: 'dashboard'  },
       { id: 'upload-files',     label: 'Upload Files',           iconName: 'upload'     },
       { id: 'loan-ledger',      label: 'Loan Ledger',            iconName: 'file'       },
-      { id: 'ineligibles',      label: 'Indkg Due & Reserves',   iconName: 'inbox'      },
+      { id: 'ineligibles',      label: 'Ineligibles Due & Reserves', iconName: 'inbox'  },
       { id: 'statements',       label: 'Statements',             iconName: 'database'   },
       { id: 'reports',          label: 'Reports',                iconName: 'chart'      },
       { id: 'posting-history',  label: 'Posting History',        iconName: 'clock'      },

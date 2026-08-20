@@ -69,7 +69,7 @@
   }
 
   &--editing {
-    background: rgba(18, 198, 168, 0.05) !important;
+    background: var(--pui-brand-tint-05) !important;
     outline: 1.5px solid var(--pui-brand);
     outline-offset: -1px;
   }

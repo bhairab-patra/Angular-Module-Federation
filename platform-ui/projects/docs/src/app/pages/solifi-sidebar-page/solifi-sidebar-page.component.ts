@@ -19,7 +19,7 @@ const NAV_GROUPS: SolifiNavGroup[] = [
       { id: 'upload-files',    label: 'Upload Files',     iconName: 'upload'    },
       { id: 'loan-ledger',     label: 'Loan Ledger',      iconName: 'file'      },
       { id: 'posting-history', label: 'Posting History',  iconName: 'calendar'  },
-      { id: 'interest-history',label: 'Interest History', iconName: 'dollar'    },
+      { id: 'interest-history',label: 'Interest History & Reconciliation', iconName: 'dollar' },
       { id: 'statements',      label: 'Statements',       iconName: 'inbox'     },
     ],
   },

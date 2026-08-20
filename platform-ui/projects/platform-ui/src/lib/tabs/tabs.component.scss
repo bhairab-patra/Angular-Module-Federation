@@ -75,7 +75,7 @@
     }
     [data-variant='line'] .pui-tab-btn:hover:not(.pui-tab-btn--disabled) {
       color: var(--pui-brand-hover);
-      background: rgba(18,198,168,.05);
+      background: var(--pui-brand-tint-05);
     }
     [data-variant='line'] .pui-tab-btn--active {
       color: var(--pui-brand);
@@ -185,7 +185,7 @@
       transition: background var(--pui-duration-base), color var(--pui-duration-base);
     }
     .pui-tab-badge--active {
-      background: rgba(18,198,168,.18);
+      background: var(--pui-brand-tint-18);
       color: var(--pui-brand-hover);
     }
 

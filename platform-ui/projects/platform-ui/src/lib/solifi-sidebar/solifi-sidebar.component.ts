@@ -4,10 +4,14 @@ import {
 } from '@angular/core';
 import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
+import { TooltipComponent } from '../tooltip/tooltip.component';
 import { SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem } from '../models/solifi-sidebar.model';
 
+/** Labels longer than this get truncated with an ellipsis + hover tooltip. */
+const MAX_LABEL_LEN = 22;
+
 const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <polygon points="14,1 27,7.5 27,20.5 14,27 1,20.5 1,7.5" fill="#12C6A8"/>
+  <polygon points="14,1 27,7.5 27,20.5 14,27 1,20.5 1,7.5" fill="var(--pui-brand)"/>
   <text x="14" y="19" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#fff">S</text>
 </svg>`;
 
@@ -15,7 +19,7 @@ const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-solifi-sidebar',
   standalone: true,
-  imports: [NgFor, NgIf, NgStyle, IconComponent],
+  imports: [NgFor, NgIf, NgStyle, IconComponent, TooltipComponent],
   encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './solifi-sidebar.component.html',
   styleUrls: ['./solifi-sidebar.component.scss'],
@@ -116,6 +120,10 @@ export class PuiSolifiSidebarComponent {
     return item.label.charAt(0).toUpperCase();
   }
 
+  needsEllipsis(label: string): boolean {
+    return label.length > MAX_LABEL_LEN;
+  }
+
   // ── Outputs ───────────────────────────────────────────────
   @Output() itemSelect      = new EventEmitter<SolifiNavItem>();
   @Output() collapsedChange = new EventEmitter<boolean>();
@@ -142,12 +150,12 @@ export class PuiSolifiSidebarComponent {
     return {
       '--ssb-bg':      t.bg          || this.bgColor     || '#112C35',
       '--ssb-text':    t.textColor   || this.textColor   || '#8fa3bc',
-      '--ssb-active':  t.activeColor || this.activeColor || '#12C6A8',
-      '--ssb-active-bg': t.activeBg                      || 'rgba(18,198,168,.12)',
+      '--ssb-active':  t.activeColor || this.activeColor || 'var(--pui-brand)',
+      '--ssb-active-bg': t.activeBg                      || 'var(--pui-brand-tint-12)',
       '--ssb-hover':   t.hoverBg                         || 'rgba(255,255,255,.06)',
       '--ssb-border':  t.borderColor                     || 'rgba(255,255,255,.07)',
       '--ssb-group':   t.groupColor                      || '#4a6080',
-      '--ssb-avatar':  t.avatarBg                        || '#12C6A8',
+      '--ssb-avatar':  t.avatarBg                        || 'var(--pui-brand)',
       '--ssb-w':       `${this.width}px`,
       '--ssb-cw':      `${this.collapsedWidth}px`,
     };

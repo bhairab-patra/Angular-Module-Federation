@@ -278,7 +278,7 @@
 }
 
 .pui-dp-cell--in-range {
-  background: rgba(18, 198, 168, .12) !important;
+  background: var(--pui-brand-tint-12) !important;
   border-radius: 0;
   color: var(--pui-brand-hover);
 }

@@ -4,7 +4,7 @@ pui-lib-sidebar {
   height: 100%;
 }
 
-/* â”€â”€ Sidebar rail â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+ 
 .pui-sb {
   display: flex;
   flex-direction: column;
@@ -214,7 +214,7 @@ pui-lib-sidebar {
   cursor: not-allowed;
 }
 
-/* â”€â”€ Collapsed: center icon â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+ 
 .pui-sb--collapsed .pui-sb__item {
   padding: 0;
   justify-content: center;
@@ -224,7 +224,7 @@ pui-lib-sidebar {
   display: none;
 }
 
-/* â”€â”€ Icon â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+ 
 .pui-sb__item-icon {
   display: flex;
   align-items: center;
@@ -282,7 +282,7 @@ pui-lib-sidebar {
 }
 
 .pui-sb__item-label mark {
-  background: rgba(18, 198, 168, .35);
+  background: var(--pui-brand-tint-35);
   color: inherit;
   border-radius: var(--pui-radius-2);
   padding: 0 var(--pui-space-px);
@@ -318,7 +318,7 @@ pui-lib-sidebar {
 }
 
 .pui-sb__badge--primary {
-  background: rgba(18, 198, 168, .2);
+  background: var(--pui-brand-tint-20);
   color: var(--pui-brand);
 }
 
