@@ -91,21 +91,6 @@ customElements.whenDefined('pui-lib-breadcrumb').then(() => {
     { label: 'Profile' },
   ];
 
-  separators = [
-    { name: 'chevron' },
-    { name: 'slash'   },
-    { name: 'dot'     },
-    { name: 'arrow'   },
-  ];
-
-  deepPath: BreadcrumbItem[] = [
-    { label: 'Home',        route: '/'                   },
-    { label: 'Platform',    route: '/platform'           },
-    { label: 'Engineering', route: '/platform/eng'       },
-    { label: 'Services',    route: '/platform/eng/svc'   },
-    { label: 'Auth API'                                  },
-  ];
-
   withIcons: BreadcrumbItem[] = [
     { label: 'Home',       route: '/',          iconName: 'home'     },
     { label: 'Settings',   route: '/settings',  iconName: 'settings' },
@@ -119,18 +104,16 @@ customElements.whenDefined('pui-lib-breadcrumb').then(() => {
   ];
 
   cssTokenRows = [
-    { token: '--pui-bc-link-color',    default: 'var(--pui-neutral-500)', controls: 'Ancestor link text colour'         },
-    { token: '--pui-bc-link-hover',    default: 'var(--pui-brand)',       controls: 'Ancestor link hover colour'        },
-    { token: '--pui-bc-link-bg-hover', default: 'rgba(18,198,168,.08)',   controls: 'Ancestor link hover background'    },
-    { token: '--pui-bc-active-color',  default: 'var(--pui-neutral-900)', controls: 'Current page text colour'          },
-    { token: '--pui-bc-active-bg',     default: 'rgba(18,198,168,.07)',   controls: 'Current page background tint'      },
-    { token: '--pui-bc-sep-color',     default: 'var(--pui-neutral-300)', controls: 'Separator icon / glyph colour'     },
-    { token: '--pui-bc-size',          default: '13px',                   controls: 'Font size for all crumb items'     },
+    { token: '--pui-bc-link-color',    default: 'var(--pui-neutral-500)',           controls: 'Ancestor link text colour'         },
+    { token: '--pui-bc-active-color',  default: 'var(--pui-brand-text-dark)',       controls: 'Current page text colour — theme-aware' },
+    { token: '--pui-bc-active-bg',     default: 'var(--pui-brand-light)',           controls: 'Current page background tint — theme-aware' },
+    { token: '--pui-bc-sep-color',     default: 'var(--pui-neutral-300)',           controls: 'Separator icon / glyph colour'     },
+    { token: '--pui-bc-size',          default: '13px',                             controls: 'Font size for all crumb items'     },
   ];
 
   api: ApiRow[] = [
     { input: 'items',     type: 'BreadcrumbItem[]', default: '[]',        description: 'Navigation items. Each has a label, optional route, optional iconName (platform icon registry key), and optional icon (raw SVG fallback).' },
-    { input: 'separator', type: `'chevron'|'slash'|'dot'|'arrow'`, default: `'chevron'`, description: 'Visual separator rendered between breadcrumb items.' },
+    { input: 'separator', type: `'chevron'|'slash'`, default: `'chevron'`, description: 'Visual separator rendered between breadcrumb items.' },
     { input: 'ariaLabel', type: 'string',            default: `'Breadcrumb'`, description: 'Accessible label for the <nav> landmark element.' },
   ];
   trackByIndex(_i: number): number { return _i; }

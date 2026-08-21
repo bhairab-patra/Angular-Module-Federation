@@ -49,12 +49,12 @@
 }
 
 .pui-cb-input:focus {
-  border-color: var(--pui-brand);
+  border-color: var(--pui-form-accent, var(--pui-brand));
   box-shadow: var(--pui-focus-ring);
 }
 
 .pui-cb--open .pui-cb-input {
-  border-color: var(--pui-brand);
+  border-color: var(--pui-form-accent, var(--pui-brand));
   box-shadow: var(--pui-focus-ring);
 }
 
@@ -178,7 +178,7 @@
 }
 
 .pui-cb-option--freetext {
-  color: var(--pui-brand);
+  color: var(--pui-form-accent, var(--pui-brand));
   font-style: italic;
   gap: var(--pui-space-1-5);
 }

@@ -5,4 +5,4 @@ export interface BreadcrumbItem {
   icon?:     string;
 }
 
-export type BreadcrumbSeparator = 'chevron' | 'slash' | 'dot' | 'arrow';
+export type BreadcrumbSeparator = 'chevron' | 'slash';

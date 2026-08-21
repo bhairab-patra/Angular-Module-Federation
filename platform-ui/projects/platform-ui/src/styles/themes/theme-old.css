@@ -4,26 +4,35 @@
  *
  * To use: ng build docs --configuration=theme-old
  * Update the hex values below to match your organisation's legacy brand.
+ *
+ * The bare `:root` selector makes this the active theme for any consumer
+ * that loads only this file (the normal single-theme-per-app case).
+ * `:root[data-pui-theme="old"]` is additionally included so a page that
+ * loads BOTH theme-old.css and theme-new.css together (e.g. this docs
+ * site's live preview toggle) can select this theme explicitly at
+ * runtime via `<html data-pui-theme="old">` -- the attribute selector
+ * has higher specificity than a bare `:root` in the other file, so it
+ * always wins regardless of load order.
  */
 
-:root {
+:root, :root[data-pui-theme="old"] {
 
    /* ========================================
      BRAND / PRIMARY
      ======================================== */
-   --pui-brand: #0057B8;
+   --pui-brand: #12C6A8;
    /* primary button / active states   */
-   --pui-brand-hover: #0046A0;
+   --pui-brand-hover: #0E9E86;
    /* hover state                      */
-   --pui-brand-deep: #003580;
+   --pui-brand-deep: #12C6A8;
    /* pressed / dark text              */
    --pui-brand-bg: #f0f5ff;
    /* light tint backgrounds           */
-   --pui-brand-light: #c7d9f5;
+   --pui-brand-light: #D0F4EE;
    /* subtle borders / chips           */
-   --pui-brand-muted: #a0b8e0;
+   --pui-brand-muted: #12C6A8;
    /* disabled tints                   */
-   --pui-brand-muted-bg: #e8eef8;
+   --pui-brand-muted-bg: #D1FDE4;
    /* hover on ghost/outline           */
    --pui-brand-border: #90aed8;
    /* input focus border               */
@@ -31,12 +40,13 @@
    /* sorted column, accent marks      */
    --pui-brand-hover-2: #004FA8;
    /* secondary hover                  */
-   --pui-brand-pressed: #003070;
+   --pui-brand-pressed: #0E9E86;
    /* active/pressed deep              */
-   --pui-brand-text-dark: #002F6C;
+   --pui-brand-text-dark: #000000;
    /* dark text on light brand bg      */
    --pui-brand-solid: #0046A0;
    /* solid brand surface (e.g. sidebar) */
+   --pui-brand-tertary: #5A58F8;
 
    /* Brand color pre-mixed with alpha, as flat 8-digit hex (#RRGGBBAA) —
      used by components that need a translucent brand tint, so every
@@ -76,12 +86,38 @@
    --pui-card-grad-start: #e6eeff;
 
    /* ========================================
+     SHAPE
+     ======================================== */
+   --pui-btn-radius: 10px;
+
+   /* ========================================
+     BUTTON (secondary variant reads dark
+     charcoal in the old design, not warm grey)
+     ======================================== */
+   --pui-btn-secondary-bg: #1f2937;
+   --pui-btn-secondary-hover-bg: #374151;
+
+   /* ========================================
+     FORM CONTROLS (checkbox / radio / switch /
+     input & textarea focus border / select /
+     combobox / multiselect / password-input)
+     ======================================== */
+   --pui-form-accent: #12C6A8;
+   /* Foreground color for text/icons sitting on top of a solid accent
+     surface (checkbox tick, button Primary text) -- black here because
+     the old theme's accent colors (form-accent, brand-deep) are bright. */
+   --pui-accent-ink: #000000;
+   /* Text color for the multiselect chip/tag -- black, not the bright
+     accent color, since a colored border already communicates selection. */
+   --pui-form-tag-text: #000000;
+
+   /* ========================================
      FOCUS RINGS
      ======================================== */
    --pui-focus-ring: 0 0 0 3px var(--pui-brand-tint-18);
    --pui-focus-ring-error: 0 0 0 3px rgba(239, 68, 68, .14);
 
-   --pui-shadow-focus: 0 0 0 3px var(--pui-brand-tint-18);
+   --pui-shadow-focus: #D0F4EE;
    --pui-shadow-focus-sm: 0 0 0 3px var(--pui-brand-tint-12);
    --pui-shadow-focus-brand: 0 0 0 3px var(--pui-brand-tint-25);
 

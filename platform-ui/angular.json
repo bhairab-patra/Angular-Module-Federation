@@ -142,6 +142,7 @@
             ],
             "styles": [
               "projects/platform-ui/src/styles/tokens.css",
+              "projects/platform-ui/src/styles/themes/theme-old.css",
               "projects/platform-ui/src/styles/themes/theme-new.css",
               "projects/docs/src/styles.css"
             ]

@@ -77,21 +77,17 @@ export default function DeploymentList() {
 <pui-lib-badge variant="primary">New</pui-lib-badge>
 <pui-lib-badge variant="default">Draft</pui-lib-badge>`;
 
-  variants: { id: 'default'|'primary'|'success'|'warning'|'danger'|'info'; label: string }[] = [
+  variants: { id: 'default'|'primary'|'primary-light'|'primary-outline'|'secondary'|'secondary-light'|'success'|'warning'|'danger'|'info'; label: string }[] = [
     { id: 'default', label: 'Default' },
     { id: 'primary', label: 'Primary' },
+    { id: 'primary-light', label: 'Primary Light' },
+    { id: 'primary-outline', label: 'Primary Outline' },
+    { id: 'secondary', label: 'Secondary' },
+    { id: 'secondary-light', label: 'Secondary Light' },
     { id: 'success', label: 'Success' },
     { id: 'warning', label: 'Warning' },
     { id: 'danger', label: 'Danger' },
     { id: 'info', label: 'Info' },
-  ];
-
-  inlineDemo: { name: string; variant: 'default'|'primary'|'success'|'warning'|'danger'|'info'; label: string }[] = [
-    { name: 'Deployment #47', variant: 'success', label: 'Passed' },
-    { name: 'Deployment #46', variant: 'danger', label: 'Failed' },
-    { name: 'Deployment #45', variant: 'warning', label: 'In Progress' },
-    { name: 'Deployment #44', variant: 'info', label: 'Queued' },
-    { name: 'Deployment #43', variant: 'default', label: 'Draft' },
   ];
 
   xfwRows = [
@@ -102,7 +98,7 @@ export default function DeploymentList() {
   trackByIndex(_i: number): number { return _i; }
 
   api: ApiRow[] = [
-    { input: 'variant', type: `'default'|'primary'|'success'|'warning'|'danger'|'info'`, default: `'default'`, description: 'Colour variant. Semantically: success=active/passed, warning=pending, danger=error/failed, info=informational.' },
+    { input: 'variant', type: `'default'|'primary'|'primary-light'|'primary-outline'|'secondary'|'secondary-light'|'success'|'warning'|'danger'|'info'`, default: `'default'`, description: 'Colour variant. primary/primary-light/primary-outline/secondary/secondary-light follow the brand theme toggle (same palette as Button and Chip); success/warning/danger/info are fixed status colours: success=active/passed, warning=pending, danger=error/failed, info=informational.' },
     { input: 'size', type: `'sm'|'md'`, default: `'md'`, description: 'Badge size. sm fits inside table cells or inline with body text; md is suitable for standalone status labels.' },
   ];
 }

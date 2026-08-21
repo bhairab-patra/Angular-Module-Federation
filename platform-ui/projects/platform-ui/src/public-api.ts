@@ -52,8 +52,6 @@ export * from './lib/menu/menu.component';
 export * from './lib/editable-table/editable-table.component';
 export * from './lib/form-dialog/form-dialog.component';
 export * from './lib/confirm-dialog/confirm-dialog.component';
-export * from './lib/models/alert.model';
-export * from './lib/alert/alert.component';
 export * from './lib/models/pagination.model';
 export * from './lib/pagination/pagination.component';
 export * from './lib/models/accordion.model';

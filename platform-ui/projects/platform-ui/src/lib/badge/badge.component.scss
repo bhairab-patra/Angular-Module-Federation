@@ -19,14 +19,38 @@
 
 .pui-badge--default {
   background: var(--pui-slate-100);
-  color: var(--pui-indigo-mid);
-  border: 1px solid var(--pui-indigo-mid);
+  color: var(--pui-neutral-700);
+  border: 1px solid var(--pui-chip-default-bdr);
 }
 
 .pui-badge--primary {
-  background: var(--pui-info-light);
-  color: var(--pui-info);
-  border: 1px solid var(--pui-info);
+  background: var(--pui-form-accent, var(--pui-brand-deep));
+  color: var(--pui-accent-ink, var(--pui-white));
+  border: 1px solid var(--pui-form-accent, var(--pui-brand-deep));
+}
+
+.pui-badge--primary-light {
+  background: var(--pui-brand-light);
+  color: var(--pui-brand-text-dark);
+  border: 1px solid var(--pui-brand-light);
+}
+
+.pui-badge--primary-outline {
+  background: transparent;
+  color: var(--pui-brand-text-dark);
+  border: 1px solid var(--pui-form-accent, var(--pui-brand-deep));
+}
+
+.pui-badge--secondary {
+  background: var(--pui-btn-secondary-bg, var(--pui-btn-disabled-bg));
+  color: var(--pui-white);
+  border: 1px solid var(--pui-btn-secondary-bg, var(--pui-btn-disabled-bg));
+}
+
+.pui-badge--secondary-light {
+  background: var(--pui-btn-ghost-hover);
+  color: var(--pui-btn-neutral-text);
+  border: 1px solid var(--pui-btn-neutral-bdr);
 }
 
 .pui-badge--success {

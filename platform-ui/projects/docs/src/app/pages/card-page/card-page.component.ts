@@ -83,8 +83,6 @@ function SimpleCard() {
 </script>`;
 
   revenueCard = { title: 'Revenue',     value: '$48,200', trend: 'up'      as const, trendValue: '+12%',  subtitle: 'vs last month' };
-  usersCard   = { title: 'Active Users', value: '4,821',  trend: 'down'    as const, trendValue: '-2.1%', subtitle: 'vs last month' };
-  ordersCard  = { title: 'Orders',       value: '1,204',  trend: 'neutral' as const, trendValue: '0%',    subtitle: 'vs last month' };
 
   xfwRows = [
     { name: 'variant',   angular: 'variant="teal"',          attr: 'variant="teal"',   js: 'el.variant = "teal"'    },

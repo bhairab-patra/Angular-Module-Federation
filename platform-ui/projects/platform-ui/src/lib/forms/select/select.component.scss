@@ -76,13 +76,11 @@
 
 .pui-select-wrap:focus:not(.pui-select-wrap--error),
 .pui-select-wrap--open:not(.pui-select-wrap--error) {
-  border-color: var(--pui-brand);
-  box-shadow: var(--pui-focus-ring);
+  border-color: var(--pui-form-accent, var(--pui-brand));
 }
 
 .pui-select-wrap--error {
   border-color: var(--pui-error);
-  box-shadow: var(--pui-shadow-focus-error);
 }
 
 .pui-select-wrap--disabled {
@@ -234,7 +232,7 @@
 
 .pui-select-list__item--selected {
   background: var(--pui-brand-bg);
-  color: var(--pui-brand);
+  color: var(--pui-form-accent, var(--pui-brand));
   font-weight: 600;
 }
 
@@ -264,5 +262,5 @@
 .pui-select-list__check {
   margin-left: auto;
   flex-shrink: 0;
-  color: var(--pui-brand);
+  color: var(--pui-form-accent, var(--pui-brand));
 }

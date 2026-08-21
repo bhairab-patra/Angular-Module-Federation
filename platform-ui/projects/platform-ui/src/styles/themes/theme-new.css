@@ -3,9 +3,18 @@
  * Modern teal brand. Load this after tokens.css.
  *
  * To use: ng build docs --configuration=theme-new
+ *
+ * The bare `:root` selector makes this the active theme for any consumer
+ * that loads only this file (the normal single-theme-per-app case).
+ * `:root[data-pui-theme="new"]` is additionally included so a page that
+ * loads BOTH theme-old.css and theme-new.css together (e.g. this docs
+ * site's live preview toggle) can select this theme explicitly at
+ * runtime via `<html data-pui-theme="new">` -- the attribute selector
+ * has higher specificity than a bare `:root` in the other file, so it
+ * always wins regardless of load order.
  */
 
-:root {
+:root, :root[data-pui-theme="new"] {
 
    /* ========================================
      BRAND / PRIMARY
@@ -17,7 +26,7 @@
    --pui-brand-bg: #f0fdfb;
    --pui-brand-light: #c5e8e3;
    --pui-brand-muted: #a8d9d2;
-   --pui-brand-muted-bg: #e8f5f3;
+   --pui-brand-muted-bg: #D1FDE4;
    --pui-brand-border: #b5dbd6;
    --pui-brand-accent: #0fa78d;
    --pui-brand-hover-2: #0fb090;
@@ -61,6 +70,31 @@
      CARD GRADIENT (brand-tinted)
      ======================================== */
    --pui-card-grad-start: #e6faf7;
+
+   /* ========================================
+     SHAPE
+     ======================================== */
+   --pui-btn-radius: 999px;
+
+   /* ========================================
+     BUTTON
+     ======================================== */
+   --pui-btn-secondary-bg: var(--pui-btn-disabled-bg);
+   --pui-btn-secondary-hover-bg: var(--pui-btn-neutral-hover2);
+
+   /* ========================================
+     FORM CONTROLS (checkbox / radio / switch /
+     input & textarea focus border / select /
+     combobox / multiselect / password-input)
+     ======================================== */
+   --pui-form-accent: #0F5C5E;
+   /* Foreground color for text/icons sitting on top of a solid accent
+     surface (checkbox tick, button Primary text) -- white here because
+     the new theme's accent colors (form-accent, brand-deep) are dark. */
+   --pui-accent-ink: var(--pui-white);
+   /* Text color for the multiselect chip/tag -- keeps the existing teal
+     accent look for this theme, unchanged. */
+   --pui-form-tag-text: var(--pui-form-accent);
 
    /* ========================================
      FOCUS RINGS

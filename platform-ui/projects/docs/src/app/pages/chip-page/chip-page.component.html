@@ -9,29 +9,36 @@
 
     <!-- 1. Variants -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Colour Variants</h3>
-      <p class="demo-section__desc">Six semantic variants map to the design system colour palette.</p>
-      <div class="demo-row">
-        <pui-lib-chip variant="default">Default</pui-lib-chip>
-        <pui-lib-chip variant="primary">Primary</pui-lib-chip>
-        <pui-lib-chip variant="success">Success</pui-lib-chip>
-        <pui-lib-chip variant="warning">Warning</pui-lib-chip>
-        <pui-lib-chip variant="danger">Danger</pui-lib-chip>
-        <pui-lib-chip variant="info">Info</pui-lib-chip>
+      <h3 class="demo-section__title">Variants</h3>
+      <p class="demo-section__desc">Six variants — brand, secondary, and neutral — each available plain, with a leading icon, or with a close icon.</p>
+
+      <div class="chip-table">
+        <div class="chip-table__head">
+          <span>Variant</span>
+          <span>Chip</span>
+          <span>With Icon</span>
+          <span>With Close Icon</span>
+        </div>
+
+        <div class="chip-table__row" *ngFor="let v of variantRows; trackBy: trackByIndex">
+          <div class="chip-table__label">
+            <div class="chip-table__name">{{ v.name }}</div>
+            <div class="chip-table__desc">{{ v.desc }}</div>
+          </div>
+          <div class="chip-table__cell">
+            <pui-lib-chip [variant]="v.variant">{{ v.name }}</pui-lib-chip>
+          </div>
+          <div class="chip-table__cell">
+            <pui-lib-chip [variant]="v.variant" [icon]="tagIcon">{{ v.name }}</pui-lib-chip>
+          </div>
+          <div class="chip-table__cell">
+            <pui-lib-chip [variant]="v.variant" [removable]="true">{{ v.name }}</pui-lib-chip>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- 2. Sizes -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Sizes</h3>
-      <p class="demo-section__desc">Two sizes — <code>md</code> (default) and <code>sm</code> — for use in different density contexts.</p>
-      <div class="demo-row" style="align-items:center">
-        <pui-lib-chip variant="primary" size="md">Medium chip</pui-lib-chip>
-        <pui-lib-chip variant="primary" size="sm">Small chip</pui-lib-chip>
-      </div>
-    </div>
-
-    <!-- 3. Removable -->
+    <!-- 2. Removable -->
     <div class="demo-section">
       <h3 class="demo-section__title">Removable</h3>
       <p class="demo-section__desc">Add a remove (Ã—) button with <code>[removable]="true"</code>. Listen to the <code>(removed)</code> output to update your model.</p>
@@ -50,7 +57,7 @@
       <p class="demo-section__desc">Bind <code>[selected]</code> to create toggle chips. The ring highlight follows the active state.</p>
       <div class="demo-row">
         <pui-lib-chip *ngFor="let skill of skills; trackBy: trackByIndex"
-          variant="success"
+          variant="primary-light"
           [selected]="skill.active"
           (clicked)="toggleSkill(skill);cdr.markForCheck()">{{ skill.label }}</pui-lib-chip>
       </div>
@@ -62,10 +69,10 @@
       <h3 class="demo-section__title">Disabled State</h3>
       <p class="demo-section__desc">Set <code>[disabled]="true"</code> to prevent all interaction including removal.</p>
       <div class="demo-row">
-        <pui-lib-chip variant="default"  [disabled]="true">Disabled</pui-lib-chip>
-        <pui-lib-chip variant="primary"  [disabled]="true">Disabled</pui-lib-chip>
-        <pui-lib-chip variant="success"  [disabled]="true" [removable]="true">Non-removable</pui-lib-chip>
-        <pui-lib-chip variant="danger"   [disabled]="true">Disabled</pui-lib-chip>
+        <pui-lib-chip variant="default"        [disabled]="true">Disabled</pui-lib-chip>
+        <pui-lib-chip variant="primary"        [disabled]="true">Disabled</pui-lib-chip>
+        <pui-lib-chip variant="primary-light"  [disabled]="true" [removable]="true">Non-removable</pui-lib-chip>
+        <pui-lib-chip variant="secondary"      [disabled]="true">Disabled</pui-lib-chip>
       </div>
     </div>
 
@@ -82,9 +89,9 @@
       [htmlCode]="htmlCode">
       <div preview class="demo-row">
         <pui-lib-chip variant="primary">Primary</pui-lib-chip>
-        <pui-lib-chip variant="success">Success</pui-lib-chip>
-        <pui-lib-chip variant="warning">Warning</pui-lib-chip>
-        <pui-lib-chip variant="danger" [removable]="true">Removable</pui-lib-chip>
+        <pui-lib-chip variant="primary-light">Primary Light</pui-lib-chip>
+        <pui-lib-chip variant="primary-outline">Outline</pui-lib-chip>
+        <pui-lib-chip variant="secondary" [removable]="true">Removable</pui-lib-chip>
       </div>
       <div react-preview class="react-filter-bar">
         <span class="react-filter-label">Active filters:</span>

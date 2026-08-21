@@ -21,18 +21,17 @@ export class SpinnerPageComponent {
 @Component({
   imports: [NgIf, SpinnerComponent],
   template: \`
-    <!-- Inline -->
-    <pui-lib-spinner type="dash" size="md" color="#12C6A8"></pui-lib-spinner>
-    <pui-lib-spinner type="dots" size="md" color="#6366f1" label="Loading…"></pui-lib-spinner>
+    <!-- Inline — colour defaults to the theme brand accent -->
+    <pui-lib-spinner type="dash" size="md"></pui-lib-spinner>
+    <pui-lib-spinner type="dots" size="md" label="Loading…"></pui-lib-spinner>
 
     <!-- Custom size -->
-    <pui-lib-spinner type="dash" [sizePx]="48" color="#12C6A8"></pui-lib-spinner>
+    <pui-lib-spinner type="dash" [sizePx]="48"></pui-lib-spinner>
 
     <!-- Full-screen overlay -->
     <pui-lib-spinner *ngIf="isLoading"
       type="dash"
       size="xl"
-      color="#12C6A8"
       [overlay]="true"
       overlayColor="#ffffff"
       [overlayOpacity]="0.75"
@@ -57,7 +56,6 @@ function LoadingOverlay({ isLoading }) {
     <pui-lib-spinner
       type="dash"
       size="xl"
-      color="#12C6A8"
       overlay
       overlay-color="#ffffff"
       overlay-opacity="0.75"
@@ -68,19 +66,18 @@ function LoadingOverlay({ isLoading }) {
 }
 
 function InlineSpinner() {
-  return <pui-lib-spinner type="dots" size="md" color="#6366f1" label="Please wait"></pui-lib-spinner>;
+  return <pui-lib-spinner type="dots" size="md" label="Please wait"></pui-lib-spinner>;
 }`;
 
-  htmlCode = `<!-- Inline spinners -->
-<pui-lib-spinner type="dash" size="md" color="#12C6A8"></pui-lib-spinner>
-<pui-lib-spinner type="dots" size="lg" color="#6366f1" label="Loading…"></pui-lib-spinner>
+  htmlCode = `<!-- Inline spinners — colour defaults to the theme brand accent -->
+<pui-lib-spinner type="dash" size="md"></pui-lib-spinner>
+<pui-lib-spinner type="dots" size="lg" label="Loading…"></pui-lib-spinner>
 
 <!-- Full-page overlay -->
 <pui-lib-spinner
   id="page-spinner"
   type="dash"
   size="xl"
-  color="#12C6A8"
   overlay
   overlay-color="#ffffff"
   overlay-opacity="0.75"
@@ -106,20 +103,6 @@ function InlineSpinner() {
     { size: 'md', px: 40 },
     { size: 'lg', px: 56 },
     { size: 'xl', px: 80 },
-  ];
-
-  colors = [
-    { name: 'Teal',   color: '#12C6A8' },
-    { name: 'Indigo', color: '#6366f1' },
-    { name: 'Amber',  color: '#f59e0b' },
-    { name: 'Red',    color: '#ef4444' },
-    { name: 'Slate',  color: '#475569' },
-  ];
-
-  speeds = [
-    { label: 'Fast',   ms: 400  },
-    { label: 'Normal', ms: 800  },
-    { label: 'Slow',   ms: 1400 },
   ];
 
   overlayDemos = [
@@ -155,7 +138,7 @@ function InlineSpinner() {
     { input: 'type',           type: `'dash'|'dots'`,      default: `'dash'`,    description: 'dash = radiating lines Â· dots = orbiting dot ring.' },
     { input: 'size',           type: `'sm'|'md'|'lg'|'xl'`, default: `'md'`,   description: 'Size preset — sm 24px Â· md 40px Â· lg 56px Â· xl 80px.' },
     { input: 'sizePx',         type: 'number',             default: 'null',      description: 'Exact pixel size — overrides the size preset.' },
-    { input: 'color',          type: 'string',             default: `'#12C6A8'`, description: 'Spinner colour (any CSS colour value).' },
+    { input: 'color',          type: 'string',             default: `'var(--pui-form-accent, var(--pui-brand))'`, description: 'Spinner colour (any CSS colour value) — defaults to the theme brand accent, so it follows the New/Old theme toggle.' },
     { input: 'speed',          type: 'number',             default: '800',       description: 'Full-rotation duration in milliseconds.' },
     { input: 'overlay',        type: 'boolean',            default: 'false',     description: 'Render a fixed full-screen backdrop.' },
     { input: 'overlayColor',   type: 'string',             default: `'#ffffff'`, description: 'Overlay background colour.' },

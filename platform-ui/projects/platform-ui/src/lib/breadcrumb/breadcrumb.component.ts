@@ -8,8 +8,6 @@ import { IconComponent } from '../icon/icon.component';
 const SEPARATORS: Record<BreadcrumbSeparator, string> = {
   chevron: `<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5.5 3.5l5 4.5-5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   slash:   `<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><line x1="10" y1="2" x2="6" y2="14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>`,
-  dot:     `<svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="2.2"/></svg>`,
-  arrow:   `<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M10 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
 };
 
 @Component({

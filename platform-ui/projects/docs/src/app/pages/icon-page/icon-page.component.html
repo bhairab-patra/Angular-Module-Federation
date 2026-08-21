@@ -75,7 +75,7 @@
           <div class="color-swatch" *ngFor="let c of colorExamples; trackBy: trackByIndex">
             <pui-lib-icon name="check-circle" size="lg" [color]="c.hex"></pui-lib-icon>
             <span class="color-swatch__label">{{ c.label }}</span>
-            <span class="color-swatch__hex">{{ c.hex }}</span>
+            <span class="color-swatch__hex">{{ c.display || c.hex }}</span>
           </div>
         </div>
 

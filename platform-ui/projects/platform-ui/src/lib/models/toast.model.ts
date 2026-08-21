@@ -1,5 +1,7 @@
 export type ToastType = 'success' | 'error' | 'warning' | 'info';
 
+export type ToastVariant = 'soft' | 'filled';
+
 export type ToastPosition =
   | 'top-right' | 'top-left' | 'top-center'
   | 'bottom-right' | 'bottom-left' | 'bottom-center';
@@ -13,6 +15,7 @@ export interface ToastConfig {
   message: string;
   title?: string;
   type?: ToastType;
+  variant?: ToastVariant;
   duration?: number;
   showProgress?: boolean;
   dismissible?: boolean;
@@ -25,6 +28,7 @@ export interface Toast {
   message: string;
   title?: string;
   type: ToastType;
+  variant: ToastVariant;
   duration: number;
   showProgress: boolean;
   dismissible: boolean;

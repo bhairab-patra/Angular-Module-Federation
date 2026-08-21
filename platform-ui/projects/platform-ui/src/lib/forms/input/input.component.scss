@@ -49,13 +49,11 @@
 }
 
 .pui-input-wrap--focus:not(.pui-input-wrap--error) {
-  border-color: var(--pui-brand);
-  box-shadow: var(--pui-focus-ring);
+  border-color: var(--pui-form-accent, var(--pui-brand));
 }
 
 .pui-input-wrap--error {
   border-color: var(--pui-error);
-  box-shadow: var(--pui-shadow-focus-error);
 }
 
 .pui-input-wrap--disabled {

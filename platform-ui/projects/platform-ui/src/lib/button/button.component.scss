@@ -1,4 +1,4 @@
-﻿$radius: 999px;
+﻿$radius: var(--pui-btn-radius, 999px);
 
 :host {
   display: inline-block;
@@ -62,7 +62,7 @@
 
   &--primary {
     background: var(--pui-brand-deep);
-    color: var(--pui-white);
+    color: var(--pui-accent-ink, var(--pui-white));
     border-color: var(--pui-brand-deep);
     @include hover(var(--pui-brand-pressed));
     @include focus(var(--pui-shadow-focus));
@@ -78,7 +78,7 @@
 
   &--primary-outline {
     background: transparent;
-    color: var(--pui-brand-deep);
+    color: var(--pui-brand-text-dark);
     border-color: var(--pui-brand-deep);
 
     &:hover:not(:disabled),
@@ -90,10 +90,10 @@
   }
 
   &--secondary {
-    background: var(--pui-btn-disabled-bg);
+    background: var(--pui-btn-secondary-bg, var(--pui-btn-disabled-bg));
     color: var(--pui-white);
-    border-color: var(--pui-btn-disabled-bg);
-    @include hover(var(--pui-btn-neutral-hover2));
+    border-color: var(--pui-btn-secondary-bg, var(--pui-btn-disabled-bg));
+    @include hover(var(--pui-btn-secondary-hover-bg, var(--pui-btn-neutral-hover2)));
     @include focus(var(--pui-shadow-focus-neutral));
   }
 
@@ -128,7 +128,7 @@
   &--tertiary-outline {
     background: transparent;
     color: var(--pui-indigo);
-    border-color: var(--pui-indigo);
+    border-color: var(--pui-brand-tertary);
 
     &:hover:not(:disabled),
     &.pui-btn--state-hover {
@@ -165,7 +165,7 @@
 
   &--destructive-light {
     background: var(--pui-error-soft-bg);
-    color: var(--pui-error-text-dark);
+    color: var(--pui-brand-text-dark);
     border-color: var(--pui-error-soft-bg);
     @include hover(var(--pui-error-soft-bdr), var(--pui-error-soft-bdr));
     @include focus(var(--pui-shadow-focus-error));
@@ -173,7 +173,7 @@
 
   &--chip {
     background: var(--pui-brand-muted-bg);
-    color: var(--pui-brand-deep);
+    color: var(--pui-brand-text-dark);
     border-color: var(--pui-brand-border);
     border-radius: $radius;
     padding: var(--pui-space-0-75) var(--pui-space-3);

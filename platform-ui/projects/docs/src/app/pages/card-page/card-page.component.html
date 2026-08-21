@@ -28,31 +28,17 @@
           </div>
         </pui-lib-card>
 
-        <pui-lib-card variant="teal" [accent]="true" style="flex:1;min-width:0">
+        <pui-lib-card variant="teal" style="flex:1;min-width:0">
           <div card-header class="card-custom-header">
-            <span class="card-avatar card-avatar--teal">AK</span>
+            <span class="card-avatar">AK</span>
             <div>
               <div class="card-author">Alice Kim</div>
               <div class="card-meta">Engineering Lead Â· 5 min ago</div>
             </div>
           </div>
           <p class="card-body-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-          <div card-footer class="card-tags">
-            <span class="card-tag card-tag--teal">Angular</span>
-            <span class="card-tag card-tag--teal">TypeScript</span>
-          </div>
+    
         </pui-lib-card>
-      </div>
-    </div>
-
-    <!-- 2. Stat / metric cards -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Stat / Metric Cards</h3>
-      <p class="demo-section__desc">Pass a <code>[data]</code> object with <code>title</code>, <code>value</code>, <code>trend</code>, <code>trendValue</code>, and <code>subtitle</code> for an auto-rendered metric layout.</p>
-      <div class="card-row">
-        <pui-lib-card [data]="revenueCard" style="flex:1;min-width:0"></pui-lib-card>
-        <pui-lib-card [data]="usersCard"   style="flex:1;min-width:0"></pui-lib-card>
-        <pui-lib-card [data]="ordersCard"  style="flex:1;min-width:0"></pui-lib-card>
       </div>
     </div>
 
@@ -65,7 +51,7 @@
         <pui-lib-card variant="outlined" style="width:180px"><p class="variant-label">Outlined</p><p class="variant-desc">Border only</p></pui-lib-card>
         <pui-lib-card variant="flat"     style="width:180px"><p class="variant-label">Flat</p><p class="variant-desc">Gray bg, no border</p></pui-lib-card>
         <pui-lib-card variant="teal"     style="width:180px"><p class="variant-label">Teal</p><p class="variant-desc">Mint gradient</p></pui-lib-card>
-        <pui-lib-card variant="dark"     style="width:180px"><p class="variant-label" style="color:#f1f5f9">Dark</p><p class="variant-desc" style="color:#64748b">Dark surface</p></pui-lib-card>
+    
       </div>
     </div>
 
@@ -92,7 +78,7 @@
               <div class="bal-value-inline">$519.00 <span class="bal-sub">paid on 06/10/2022</span></div>
             </div>
             <div class="bal-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 17V9a2 2 0 012-2h8M7 17h10M12 7v10" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 17V9a2 2 0 012-2h8M7 17h10M12 7v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
             </div>
           </div>
         </pui-lib-card>
@@ -104,7 +90,7 @@
               <div class="bal-sub">paid on 06/10/2022</div>
             </div>
             <div class="bal-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 10h18M7 15h1m4 0h1M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 10h18M7 15h1m4 0h1M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
             </div>
           </div>
         </pui-lib-card>
@@ -114,14 +100,14 @@
             <div class="bal-sub">paid on 06/10/2022</div>
             <div class="bal-value">$519.00</div>
             <div class="bal-icon bal-icon--lg">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M12 3a9 9 0 100 18A9 9 0 0012 3z" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M12 3a9 9 0 100 18A9 9 0 0012 3z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </div>
           </div>
         </pui-lib-card>
         <pui-lib-card variant="flat" size="sm" [clickable]="true" cardClass="bal-card" style="flex:1;min-width:0">
           <div class="bal-col bal-col--icon-top">
             <div class="bal-icon bal-icon--lg">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </div>
             <div class="bal-label" style="margin-top:10px">Outstanding Balance</div>
             <div class="bal-sub">paid on 06/10/2022</div>

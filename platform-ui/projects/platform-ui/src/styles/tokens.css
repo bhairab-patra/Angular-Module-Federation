@@ -222,8 +222,8 @@
    --pui-error-light: #fca5a5;
    --pui-error-pressed: #c42222;
    --pui-error-pressed2: #a31c1c;
-   --pui-error-soft-bg: #fbd7d7;
-   --pui-error-soft-bdr: #f7b8b8;
+   --pui-error-soft-bg: #FAE8E8;
+   --pui-error-soft-bdr: rgba(203, 26, 21, 0.32);
    --pui-error-text-dark: #8b1a1a;
    --pui-error-hover-bg: #fef2f2;
    --pui-error-tint-10: rgba(239, 68, 68, .10);
@@ -316,6 +316,7 @@
    --pui-file-btn-disabled: #d0d0d8;
 
    --pui-card-stat-bg: #f8fafc;
+   --pui-card-tint-bg: rgba(21, 55, 66, 0.04);
    --pui-card-grad-end: #d7f5ee;
    --pui-card-selected-hover: #e6faf7;
    --pui-card-dark-bg: #0A0F1A;

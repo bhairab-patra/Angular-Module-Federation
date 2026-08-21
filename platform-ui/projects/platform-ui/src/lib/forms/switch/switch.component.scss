@@ -44,7 +44,7 @@
 }
 
 .pui-sw--on .pui-sw__track {
-  background: var(--pui-brand);
+  background: var(--pui-form-accent, var(--pui-brand));
 }
 
 .pui-sw--error .pui-sw__track {

@@ -1,7 +1,7 @@
 ﻿
 <docs-page
   title="Breadcrumb"
-  description="A navigational trail showing the user's location in the page hierarchy — four separator styles and full CSS variable theming."
+  description="A navigational trail showing the user's location in the page hierarchy — chevron and slash separator styles, theme-aware brand colours."
   [hasFramework]="true"
   [api]="api">
 
@@ -16,124 +16,12 @@
       </div>
     </div>
 
-    <!-- 2. Separator Styles — rich cards -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Separator Styles</h3>
-      <p class="demo-section__desc">Choose from four built-in separators via the <code>separator</code> input. Each exposes a <code>--pui-bc-sep-color</code> custom property for full colour control.</p>
-
-      <div class="sep-card-grid">
-
-        <div class="sep-card sep-card--chevron">
-          <div class="sep-card__header">
-            <span class="sep-card__icon-wrap">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5.5 3.5l5 4.5-5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <span class="sep-card__name">chevron</span>
-            <span class="sep-card__badge">default</span>
-          </div>
-          <div class="sep-card__preview">
-            <pui-lib-breadcrumb [items]="basic" separator="chevron"></pui-lib-breadcrumb>
-          </div>
-          <div class="sep-card__token"><code>separator="chevron"</code></div>
-        </div>
-
-        <div class="sep-card sep-card--slash">
-          <div class="sep-card__header">
-            <span class="sep-card__icon-wrap">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><line x1="10" y1="2" x2="6" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            </span>
-            <span class="sep-card__name">slash</span>
-          </div>
-          <div class="sep-card__preview">
-            <pui-lib-breadcrumb [items]="basic" separator="slash"></pui-lib-breadcrumb>
-          </div>
-          <div class="sep-card__token"><code>separator="slash"</code></div>
-        </div>
-
-        <div class="sep-card sep-card--dot">
-          <div class="sep-card__header">
-            <span class="sep-card__icon-wrap">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><circle cx="8" cy="8" r="3"/></svg>
-            </span>
-            <span class="sep-card__name">dot</span>
-          </div>
-          <div class="sep-card__preview">
-            <pui-lib-breadcrumb [items]="basic" separator="dot"></pui-lib-breadcrumb>
-          </div>
-          <div class="sep-card__token"><code>separator="dot"</code></div>
-        </div>
-
-        <div class="sep-card sep-card--arrow">
-          <div class="sep-card__header">
-            <span class="sep-card__icon-wrap">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 8h12M10 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <span class="sep-card__name">arrow</span>
-          </div>
-          <div class="sep-card__preview">
-            <pui-lib-breadcrumb [items]="basic" separator="arrow"></pui-lib-breadcrumb>
-          </div>
-          <div class="sep-card__token"><code>separator="arrow"</code></div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- 3. Deep path -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Deep Path</h3>
-      <p class="demo-section__desc">Works naturally with arbitrarily deep hierarchies. Items without a <code>route</code> are rendered as plain text.</p>
-      <div class="bc-preview">
-        <pui-lib-breadcrumb [items]="deepPath"></pui-lib-breadcrumb>
-      </div>
-    </div>
-
-    <!-- 4. With icons -->
+    <!-- 2. With icons -->
     <div class="demo-section">
       <h3 class="demo-section__title">Items with Icons</h3>
       <p class="demo-section__desc">Each <code>BreadcrumbItem</code> accepts an optional <code>icon</code> SVG string — rendered inline before the label using the platform icon size.</p>
       <div class="bc-preview">
         <pui-lib-breadcrumb [items]="withIcons"></pui-lib-breadcrumb>
-      </div>
-    </div>
-
-    <!-- 5. CSS Variable theming -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">CSS Variable Theming</h3>
-      <p class="demo-section__desc">Override any visual token directly on the host element — no component config required.</p>
-
-      <div class="theme-grid">
-
-        <div class="theme-card theme-card--teal">
-          <div class="theme-card__label">Brand teal</div>
-          <pui-lib-breadcrumb [items]="basic" class="bc-theme-teal"></pui-lib-breadcrumb>
-          <div class="theme-card__vars">
-            <span class="theme-var">--pui-bc-link-color: #0d9488</span>
-            <span class="theme-var">--pui-bc-sep-color: #5eead4</span>
-            <span class="theme-var">--pui-bc-active-color: #134e4a</span>
-          </div>
-        </div>
-
-        <div class="theme-card theme-card--violet">
-          <div class="theme-card__label">Violet</div>
-          <pui-lib-breadcrumb [items]="basic" class="bc-theme-violet"></pui-lib-breadcrumb>
-          <div class="theme-card__vars">
-            <span class="theme-var">--pui-bc-link-color: #7c3aed</span>
-            <span class="theme-var">--pui-bc-sep-color: #c4b5fd</span>
-            <span class="theme-var">--pui-bc-active-color: #4c1d95</span>
-          </div>
-        </div>
-
-        <div class="theme-card theme-card--amber">
-          <div class="theme-card__label">Amber</div>
-          <pui-lib-breadcrumb [items]="basic" class="bc-theme-amber" separator="dot"></pui-lib-breadcrumb>
-          <div class="theme-card__vars">
-            <span class="theme-var">--pui-bc-link-color: #d97706</span>
-            <span class="theme-var">--pui-bc-sep-color: #fcd34d</span>
-            <span class="theme-var">--pui-bc-active-color: #78350f</span>
-          </div>
-        </div>
-
       </div>
     </div>
 

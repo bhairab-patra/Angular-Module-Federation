@@ -31,43 +31,25 @@ $radius: 14px;
 
   &--outlined {
     background: transparent;
-    border: 2px solid var(--pui-slate-200);
+    border: 1px solid var(--pui-slate-200);
     box-shadow: none !important;
   }
 
   &--flat {
-    background: var(--pui-slate-050);
+    background: #f4f4f4;
     border-color: transparent;
     box-shadow: none !important;
   }
 
   &--teal {
-    background: linear-gradient(135deg, var(--pui-card-grad-start) 0%, var(--pui-card-grad-end) 100%);
-    border-color: var(--pui-brand-border);
+    background: #f4f4f4;
+    border-color: var(--pui-slate-200);
   }
 
-  &--dark {
-    background: var(--pui-card-dark-bg);
-    border-color: var(--pui-card-dark-bdr);
-    color: var(--pui-slate-100);
-
-    .pui-card__title {
-      color: var(--pui-slate-400);
-    }
-
-    .pui-card__value {
-      color: var(--pui-slate-050);
-    }
-
-    .pui-card__subtitle {
-      color: var(--pui-slate-600);
-    }
-  }
+ 
 
 
-  &--elevated {
-    box-shadow: var(--pui-shadow-card);
-  }
+ 
 
   &--clickable {
     cursor: pointer;
@@ -125,7 +107,7 @@ $radius: 14px;
   &__value {
     font-size: var(--pui-text-6xl);
     font-weight: 700;
-    color: var(--pui-slate-900);
+    color: var(--pui-slate-200);
     line-height: 1.2;
     margin-bottom: var(--pui-space-3);
   }
@@ -140,7 +122,7 @@ $radius: 14px;
 
   &__subtitle {
     font-size: var(--pui-text-sm);
-    color: var(--pui-slate-400);
+    color: var(--pui-slate-200);
   }
 
   &__trend {
@@ -164,7 +146,7 @@ $radius: 14px;
 
     &--neutral {
       color: var(--pui-slate-600);
-      background: var(--pui-slate-100);
+      background: var(--pui-slate-200);
     }
   }
 

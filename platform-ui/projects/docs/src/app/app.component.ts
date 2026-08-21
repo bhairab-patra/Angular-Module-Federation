@@ -45,7 +45,6 @@ export class AppComponent {
     { label: 'Search', route: '/search', category: 'Component', keywords: ['search', 'autocomplete', 'suggestions', 'debounce', 'filter', 'find'] },
     { label: 'Advanced Filters', route: '/filters', category: 'Component', keywords: ['filter', 'panel', 'checkbox', 'range', 'date', 'select', 'advanced'] },
     { label: 'Toast', route: '/toast', category: 'Component', keywords: ['notification', 'alert', 'snackbar', 'success', 'error', 'warning', 'info'] },
-    { label: 'Sidebar', route: '/sidebar', category: 'Component', keywords: ['sidebar', 'navigation', 'nav', 'menu', 'shell', 'layout', 'drawer', 'collapse'] },
     { label: 'Solifi Sidebar', route: '/solifi-sidebar', category: 'Component', keywords: ['solifi', 'sidebar', 'navigation', 'branded', 'dark', 'navy', 'icon rail', 'collapse', 'flat'] },
     { label: 'App Shell', route: '/app-shell', category: 'Component', keywords: ['app shell', 'shell', 'layout', 'header', 'sidebar', 'full page', 'navigation', 'frame'] },
     { label: 'Display Table', route: '/table/display', category: 'Component', keywords: ['table', 'display', 'sort', 'search', 'sticky', 'badge', 'action', 'menu', 'tooltip'] },
@@ -55,14 +54,12 @@ export class AppComponent {
     { label: 'Date Picker', route: '/datepicker', category: 'Component', keywords: ['date', 'datepicker', 'calendar', 'picker', 'range', 'input', 'schedule', 'time'] },
     { label: 'Multi Select', route: '/multi-select', category: 'Form', keywords: ['multiselect', 'multi', 'select', 'dropdown', 'chips', 'tags', 'checkbox', 'multiple', 'search'] },
     { label: 'Password Input', route: '/password-input', category: 'Form', keywords: ['password', 'input', 'strength', 'show', 'hide', 'reveal', 'toggle', 'copy', 'secure', 'validation'] },
-    { label: 'Combobox', route: '/combobox', category: 'Form', keywords: ['combobox', 'autocomplete', 'typeahead', 'search', 'filter', 'dropdown', 'select', 'freetext'] },
     { label: 'Skeleton Loader', route: '/skeleton', category: 'Component', keywords: ['skeleton', 'loader', 'loading', 'placeholder', 'shimmer', 'pulse', 'ghost', 'spinner'] },
     { label: 'Chip', route: '/chip', category: 'Component', keywords: ['chip', 'tag', 'filter', 'removable', 'selectable', 'pill', 'toggle', 'input'] },
     { label: 'Tag', route: '/tag', category: 'Component', keywords: ['tag', 'label', 'badge', 'status', 'category', 'pill', 'uppercase'] },
     { label: 'List', route: '/list', category: 'Component', keywords: ['list', 'items', 'selectable', 'bordered', 'striped', 'flush', 'menu', 'navigation'] },
     { label: 'Menu', route: '/menu', category: 'Component', keywords: ['menu', 'dropdown', 'submenu', 'context', 'actions', 'popover', 'trigger', 'select'] },
     { label: 'Data Grid', route: '/datagrid', category: 'Component', keywords: ['datagrid', 'grid', 'table', 'data', 'sort', 'pagination', 'selectable', 'rows', 'columns', 'badge'] },
-    { label: 'Alert', route: '/alert', category: 'Component', keywords: ['alert', 'notification', 'success', 'error', 'warning', 'info', 'dismissible', 'inline', 'feedback', 'message'] },
     { label: 'Pagination', route: '/pagination', category: 'Component', keywords: ['pagination', 'page', 'pager', 'pages', 'next', 'previous', 'navigate', 'records', 'total', 'ellipsis'] },
     { label: 'Accordion', route: '/accordion', category: 'Component', keywords: ['accordion', 'expand', 'collapse', 'faq', 'panel', 'toggle', 'disclosure', 'content', 'sections'] },
   ];
@@ -70,6 +67,29 @@ export class AppComponent {
   searchQuery = '';
   suggestions: SearchItem[] = [];
   focusedIndex = -1;
+
+  theme: 'new' | 'old' = 'new';
+
+  /** Applies the attribute only -- used on initial load, where a fresh
+   *  page always resolves the :root / :root[data-pui-theme] cascade
+   *  correctly. No reload needed here since nothing has rendered yet. */
+  private applyThemeAttribute(t: 'new' | 'old'): void {
+    this.theme = t;
+    document.documentElement.setAttribute('data-pui-theme', t);
+  }
+
+  /** User-facing toggle. Some browsers don't reliably re-invalidate
+   *  already-rendered descendants' inherited custom-property values when
+   *  the *winning* :root rule changes dynamically (theme-old.css and
+   *  theme-new.css declare the same token names, disambiguated only by
+   *  [data-pui-theme]) -- confirmed flaky even when copying values in as
+   *  inline styles. A fresh navigation always resolves correctly, so
+   *  persist the choice and reload rather than fight the live cascade. */
+  setTheme(t: 'new' | 'old'): void {
+    localStorage.setItem('pui-docs-theme', t);
+    if (t === this.theme) return;
+    window.location.reload();
+  }
 
   toggleSection(s: NavSection): void {
     s.collapsed = !s.collapsed;
@@ -194,10 +214,6 @@ export class AppComponent {
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="4" rx="1"/><rect x="2" y="7" width="12" height="4" rx="1" opacity=".5"/><rect x="2" y="12" width="12" height="2" rx="1" opacity=".25"/></svg>`)
           },
           {
-            label: 'Alert', route: '/alert',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l6 10H2L8 2z"/><path d="M8 7v3M8 11.5v.5"/></svg>`)
-          },
-          {
             label: 'Pagination', route: '/pagination',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="3" height="6" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="9" y="5" width="3" height="6" rx="1"/><rect x="13" y="5" width="2" height="6" rx="1"/></svg>`)
           },
@@ -222,10 +238,6 @@ export class AppComponent {
           {
             label: 'Checkbox', route: '/checkbox',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="10" height="10" rx="2"/><path d="M5.5 8l2 2 3-3"/></svg>`)
-          },
-          {
-            label: 'Combobox', route: '/combobox',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="8" rx="1.5"/><path d="M10 8l-2 2-2-2"/></svg>`)
           },
           {
             label: 'Input', route: '/input',
@@ -277,10 +289,8 @@ export class AppComponent {
             label: 'Search', route: '/search',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5l3 3"/></svg>`)
           },
-          // { label: 'Sidebar',          route: '/sidebar',
-          //   icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="1.5"/><path d="M6 2v12"/></svg>`) },
           {
-            label: 'Sidebar', route: '/solifi-sidebar',
+            label: 'Solifi Sidebar', route: '/solifi-sidebar',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="5" height="12" rx="1"/><path d="M8 5h6M8 8h6M8 11h4"/></svg>`)
           },
           {
@@ -290,6 +300,9 @@ export class AppComponent {
         ],
       },
     ];
+
+    const savedTheme = localStorage.getItem('pui-docs-theme');
+    this.applyThemeAttribute(savedTheme === 'old' ? 'old' : 'new');
 
     this.router.events.pipe(
       filter(e => e instanceof NavigationEnd)

@@ -4,58 +4,18 @@
 
   <ng-container demo>
 
-    <!-- 1. Variants -->
+    <!-- 1. Brand variants -->
     <div class="demo-section">
-      <h3 class="demo-section__title">Colour Variants</h3>
-      <p class="demo-section__desc">Six semantic variants map to common status meanings. All use a tinted background
-        with a matching border and text colour.</p>
+      <h3 class="demo-section__title">Brand Variants</h3>
+      <p class="demo-section__desc">Same brand palette as Button and Chip — theme-aware and driven by shared design
+        tokens, so they follow the New/Old theme toggle.</p>
       <div class="demo-row">
         <pui-lib-badge variant="default">Default</pui-lib-badge>
         <pui-lib-badge variant="primary">Primary</pui-lib-badge>
-        <pui-lib-badge variant="success">Success</pui-lib-badge>
-        <pui-lib-badge variant="warning">Warning</pui-lib-badge>
-        <pui-lib-badge variant="danger">Danger</pui-lib-badge>
-        <pui-lib-badge variant="info">Info</pui-lib-badge>
-      </div>
-    </div>
-
-    <!-- 2. Sizes -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Sizes</h3>
-      <p class="demo-section__desc"><code>md</code> is the default for standalone labels. Use <code>sm</code> inside
-        dense table cells or alongside body text.</p>
-      <div style="display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start">
-        <div>
-          <p class="demo-label">md (default)</p>
-          <div class="demo-row">
-            <pui-lib-badge variant="success" size="md">Active</pui-lib-badge>
-            <pui-lib-badge variant="warning" size="md">Pending</pui-lib-badge>
-            <pui-lib-badge variant="danger" size="md">Error</pui-lib-badge>
-            <pui-lib-badge variant="info" size="md">Info</pui-lib-badge>
-          </div>
-        </div>
-        <div>
-          <p class="demo-label">sm</p>
-          <div class="demo-row">
-            <pui-lib-badge variant="success" size="sm">Active</pui-lib-badge>
-            <pui-lib-badge variant="warning" size="sm">Pending</pui-lib-badge>
-            <pui-lib-badge variant="danger" size="sm">Error</pui-lib-badge>
-            <pui-lib-badge variant="info" size="sm">Info</pui-lib-badge>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. Inline usage -->
-    <div class="demo-section">
-      <h3 class="demo-section__title">Inline Usage</h3>
-      <p class="demo-section__desc">Badges are <code>inline-flex</code> elements — they sit naturally next to text,
-        inside table cells, or alongside item names.</p>
-      <div class="demo-list">
-        <div class="demo-list-row" *ngFor="let d of inlineDemo; trackBy: trackByIndex">
-          <span class="demo-list-name">{{ d.name }}</span>
-          <pui-lib-badge [variant]="d.variant" size="sm">{{ d.label }}</pui-lib-badge>
-        </div>
+        <pui-lib-badge variant="primary-light">Primary Light</pui-lib-badge>
+        <pui-lib-badge variant="primary-outline">Primary Outline</pui-lib-badge>
+        <pui-lib-badge variant="secondary">Secondary</pui-lib-badge>
+        <pui-lib-badge variant="secondary-light">Secondary Light</pui-lib-badge>
       </div>
     </div>
 
@@ -97,6 +57,7 @@
         <pui-lib-badge variant="danger">Error</pui-lib-badge>
         <pui-lib-badge variant="info">Informational</pui-lib-badge>
         <pui-lib-badge variant="primary">New</pui-lib-badge>
+        <pui-lib-badge variant="primary-light">Beta</pui-lib-badge>
         <pui-lib-badge variant="default">Draft</pui-lib-badge>
       </div>
       <!-- React preview — deployment list matching the DeploymentList component -->

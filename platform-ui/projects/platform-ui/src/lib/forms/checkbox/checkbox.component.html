@@ -14,12 +14,12 @@
                (change)="toggle($event)"/>
         <svg *ngIf="checked && !indeterminate" class="pui-cb__check"
              width="10" height="10" viewBox="0 0 12 12" fill="none">
-          <path d="M2 6l3 3 5-5" stroke="var(--pui-white)" stroke-width="1.8"
+          <path d="M2 6l3 3 5-5" stroke="var(--pui-accent-ink, var(--pui-white))" stroke-width="1.8"
                 stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
         <svg *ngIf="indeterminate && !checked" class="pui-cb__check"
              width="10" height="10" viewBox="0 0 12 12" fill="none">
-          <path d="M2.5 6h7" stroke="var(--pui-white)" stroke-width="2" stroke-linecap="round"/>
+          <path d="M2.5 6h7" stroke="var(--pui-accent-ink, var(--pui-white))" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </span>
 

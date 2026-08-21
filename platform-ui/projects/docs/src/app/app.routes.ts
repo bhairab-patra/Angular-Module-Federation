@@ -52,7 +52,6 @@ export const routes: Routes = [
   { path: 'datagrid', loadComponent: () => import('./pages/datagrid-page/datagrid-page.component').then(m => m.DataGridPageComponent) },
   { path: 'menu', loadComponent: () => import('./pages/menu-page/menu-page.component').then(m => m.MenuPageComponent) },
   { path: 'faq', loadComponent: () => import('./pages/faq-page/faq-page.component').then(m => m.FaqPageComponent) },
-  { path: 'alert', loadComponent: () => import('./pages/alert-page/alert-page.component').then(m => m.AlertPageComponent) },
   { path: 'pagination', loadComponent: () => import('./pages/pagination-page/pagination-page.component').then(m => m.PaginationPageComponent) },
   { path: 'accordion', loadComponent: () => import('./pages/accordion-page/accordion-page.component').then(m => m.AccordionPageComponent) },
 ];

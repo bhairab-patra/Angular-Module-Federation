@@ -10,7 +10,7 @@
       font-size: 13px; font-family: inherit; background: var(--pui-neutral-50);
       outline: none;
     }
-    .icon-search:focus { border-color: var(--pui-brand); box-shadow: 0 0 0 3px rgba(18,198,168,.15); background: var(--pui-white); }
+    .icon-search:focus { border-color: var(--pui-form-accent, var(--pui-brand)); box-shadow: var(--pui-shadow-focus-sm); background: var(--pui-white); }
     .icon-search-clear {
       position: absolute; right: 12px; background: none; border: none;
       color: var(--pui-neutral-400); cursor: pointer; font-size: 12px;
@@ -23,7 +23,7 @@
       font-size: 12px; font-weight: 600; font-family: inherit;
       background: var(--pui-white); color: var(--pui-neutral-500); cursor: pointer; text-transform: uppercase; letter-spacing: .05em;
     }
-    .size-tab--active { background: var(--pui-brand); color: var(--pui-white); border-color: var(--pui-brand); }
+    .size-tab--active { background: var(--pui-form-accent, var(--pui-brand)); color: var(--pui-accent-ink, var(--pui-white)); border-color: var(--pui-form-accent, var(--pui-brand)); }
 
     /* ── Icon grid ── */
     .icon-grid {
@@ -38,15 +38,15 @@
       background: var(--pui-neutral-150); cursor: pointer; position: relative;
       transition: border-color .12s, background .12s;
     }
-    .icon-cell:hover { border-color: var(--pui-brand); background: var(--pui-green-bg); }
-    .icon-cell--copied { border-color: var(--pui-brand); background: var(--pui-card-grad-start); }
+    .icon-cell:hover { border-color: var(--pui-form-accent, var(--pui-brand)); background: var(--pui-brand-light); }
+    .icon-cell--copied { border-color: var(--pui-form-accent, var(--pui-brand)); background: var(--pui-brand-light); }
     .icon-cell__name {
       font-size: 10px; color: var(--pui-neutral-500); text-align: center;
       word-break: break-all; line-height: 1.3;
     }
     .icon-cell__badge {
       position: absolute; top: 6px; right: 6px;
-      font-size: 9px; font-weight: 700; background: var(--pui-brand); color: var(--pui-white);
+      font-size: 9px; font-weight: 700; background: var(--pui-form-accent, var(--pui-brand)); color: var(--pui-accent-ink, var(--pui-white));
       padding: 1px 6px; border-radius: 999px;
     }
     .icon-empty { grid-column: 1/-1; padding: 32px; text-align: center; color: var(--pui-neutral-400); font-size: 13px; }

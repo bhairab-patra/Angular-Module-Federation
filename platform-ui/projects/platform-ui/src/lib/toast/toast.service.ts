@@ -1,5 +1,5 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { Toast, ToastConfig, ToastPosition } from '../models/toast.model';
+import { Toast, ToastConfig, ToastPosition, ToastVariant } from '../models/toast.model';
 
 @Injectable({ providedIn: 'root' })
 export class ToastService {
@@ -7,15 +7,18 @@ export class ToastService {
   readonly toasts = computed(() => this._toasts());
 
   private _defaultPosition: ToastPosition = 'top-right';
+  private _defaultVariant: ToastVariant   = 'soft';
   private _defaultDuration  = 4000;
   private _maxToasts        = 6;
 
   configure(opts: {
     position?: ToastPosition;
+    variant?: ToastVariant;
     duration?: number;
     maxToasts?: number;
   }): void {
     if (opts.position  !== undefined) this._defaultPosition = opts.position;
+    if (opts.variant   !== undefined) this._defaultVariant  = opts.variant;
     if (opts.duration  !== undefined) this._defaultDuration  = opts.duration;
     if (opts.maxToasts !== undefined) this._maxToasts        = opts.maxToasts;
   }
@@ -28,6 +31,7 @@ export class ToastService {
       ...(config.title    !== undefined && { title:    config.title }),
       ...(config.action   !== undefined && { action:   config.action }),
       type:         config.type         ?? 'info',
+      variant:      config.variant      ?? this._defaultVariant,
       duration:     config.duration     ?? this._defaultDuration,
       showProgress: config.showProgress ?? true,
       dismissible:  config.dismissible  ?? true,

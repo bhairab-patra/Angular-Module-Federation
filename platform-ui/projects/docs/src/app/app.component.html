@@ -44,6 +44,16 @@
         </div>
       </div>
       <div class="topbar-right">
+        <div class="theme-toggle" role="group" aria-label="Preview theme">
+          <button type="button"
+                  class="theme-toggle__btn"
+                  [class.theme-toggle__btn--active]="theme === 'new'"
+                  (click)="setTheme('new')">New</button>
+          <button type="button"
+                  class="theme-toggle__btn"
+                  [class.theme-toggle__btn--active]="theme === 'old'"
+                  (click)="setTheme('old')">Old</button>
+        </div>
         <a class="faq-btn" routerLink="/faq" routerLinkActive="faq-btn--active">
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor"
                stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">

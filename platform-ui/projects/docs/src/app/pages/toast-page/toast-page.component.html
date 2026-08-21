@@ -1,12 +1,22 @@
 
     <docs-page
       title="Toast"
-      description="Lightweight notification service — 4 types, 6 positions, hover-pause, action buttons, and configurable auto-dismiss. Add &lt;pui-lib-toast-container&gt; once in your app root. In React and plain HTML use the global window.puiToast API exposed by the elements bundle."
+      description="Lightweight notification service — 4 types, soft &amp; filled fill styles, 6 positions, hover-pause, action buttons, and configurable auto-dismiss. Add &lt;pui-lib-toast-container&gt; once in your app root. In React and plain HTML use the global window.puiToast API exposed by the elements bundle."
       [hasFramework]="true"
       [api]="api">
 
       <!-- ── DEMO ──────────────────────────────────────────────────── -->
       <ng-container demo>
+
+        <div class="demo-label"><span>Style</span></div>
+        <div class="action-row">
+          <button class="action-card" [class.action-card--active]="activeVariant === 'soft'" (click)="setVariant('soft')">
+            <span>Soft — tinted background</span>
+          </button>
+          <button class="action-card" [class.action-card--active]="activeVariant === 'filled'" (click)="setVariant('filled')">
+            <span>Filled — solid colour</span>
+          </button>
+        </div>
 
         <div class="demo-label"><span>Toast Types</span></div>
         <div class="type-grid">

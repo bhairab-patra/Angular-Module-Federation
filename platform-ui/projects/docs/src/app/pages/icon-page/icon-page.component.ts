@@ -23,7 +23,7 @@ export class IconPageComponent {
   previewIcons = ['arrow-right', 'check', 'search', 'user', 'bell', 'settings', 'trash', 'download'];
 
   colorExamples = [
-    { label: 'Teal',        hex: '#12C6A8' },
+    { label: 'Teal',        hex: 'var(--pui-form-accent)', display: 'brand' },
     { label: 'Dark',        hex: '#0A0F1A' },
     { label: 'Gray',        hex: '#6b7280' },
     { label: 'Success',     hex: '#16a34a' },

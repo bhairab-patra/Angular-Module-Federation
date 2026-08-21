@@ -37,11 +37,11 @@ pui-lib-menu {
 
   &.pui-menu-trigger--outline {
     background: transparent;
-    border: 1.5px solid var(--pui-brand);
-    color: var(--pui-brand);
+    border: 1.5px solid var(--pui-form-accent, var(--pui-brand));
+    color: var(--pui-brand-text-dark);
 
     &:hover {
-      background: var(--pui-brand-tint-08);
+      background: var(--pui-brand-light);
     }
   }
 
@@ -56,13 +56,13 @@ pui-lib-menu {
   }
 
   &.pui-menu-trigger--primary {
-    background: var(--pui-brand);
-    border: 1.5px solid var(--pui-brand);
-    color: var(--pui-white);
+    background: var(--pui-form-accent, var(--pui-brand));
+    border: 1.5px solid var(--pui-form-accent, var(--pui-brand));
+    color: var(--pui-accent-ink, var(--pui-white));
 
     &:hover {
-      background: var(--pui-brand-hover);
-      border-color: var(--pui-brand-hover);
+      background: var(--pui-form-accent, var(--pui-brand-hover));
+      border-color: var(--pui-form-accent, var(--pui-brand-hover));
     }
   }
 }

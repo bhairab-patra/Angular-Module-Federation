@@ -21,9 +21,9 @@
       border-color: var(--pui-neutral-400);
     }
     .pui-ta-wrap--focus:not(.pui-ta-wrap--error) {
-      border-color: var(--pui-brand); box-shadow: var(--pui-focus-ring);
+      border-color: var(--pui-form-accent, var(--pui-brand));
     }
-    .pui-ta-wrap--error { border-color: var(--pui-error); box-shadow: var(--pui-shadow-focus-error); }
+    .pui-ta-wrap--error { border-color: var(--pui-error); }
     .pui-ta-wrap--disabled { background: var(--pui-neutral-50); }
     .pui-ta-wrap--readonly  { background: var(--pui-input-readonly-bg); }
     .pui-ta-wrap--resize-none .pui-ta { resize: none; }

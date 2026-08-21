@@ -7,6 +7,8 @@
   align-items: center;
   gap: var(--pui-space-1-5);
   border-radius: var(--pui-radius-full);
+  padding: 4px 10px;
+  font-size: 10px;
   font-weight: 500;
   cursor: pointer;
   border: 1px solid transparent;
@@ -16,50 +18,40 @@
   user-select: none;
 }
 
-.pui-chip--sm {
-  padding: var(--pui-space-0-75) var(--pui-space-2-5);
-  font-size: var(--pui-text-sm);
-}
-
-.pui-chip--md {
-  padding: var(--pui-space-1-5) var(--pui-space-3-5);
-  font-size: var(--pui-text-base);
-}
-
 .pui-chip--default {
   background: var(--pui-slate-100);
-  color: var(--pui-indigo-mid);
+  color: var(--pui-neutral-700);
   border-color: var(--pui-chip-default-bdr);
 }
 
 .pui-chip--primary {
-  background: var(--pui-info-light);
-  color: var(--pui-info);
-  border-color: var(--pui-chip-primary-bdr);
+  background: var(--pui-form-accent, var(--pui-brand-deep));
+  color: var(--pui-accent-ink, var(--pui-white));
+  border-color: var(--pui-form-accent, var(--pui-brand-deep));
 }
 
-.pui-chip--success {
-  background: var(--pui-success-bg);
-  color: var(--pui-success-dark);
-  border-color: var(--pui-chip-success-bdr);
+.pui-chip--primary-light {
+  background: var(--pui-brand-light);
+  color: var(--pui-brand-text-dark);
+  border-color: var(--pui-brand-light);
 }
 
-.pui-chip--warning {
-  background: var(--pui-warning-bg);
-  color: var(--pui-warning-dark);
-  border-color: var(--pui-warning-border);
+.pui-chip--primary-outline {
+  background: transparent;
+  color: var(--pui-brand-text-dark);
+  border-color: var(--pui-form-accent, var(--pui-brand-deep));
 }
 
-.pui-chip--danger {
-  background: var(--pui-error-bg);
-  color: var(--pui-error-dark);
-  border-color: var(--pui-error-light);
+.pui-chip--secondary {
+  background: var(--pui-btn-secondary-bg, var(--pui-btn-disabled-bg));
+  color: var(--pui-white);
+  border-color: var(--pui-btn-secondary-bg, var(--pui-btn-disabled-bg));
 }
 
-.pui-chip--info {
-  background: var(--pui-info-bg);
-  color: var(--pui-info-dark);
-  border-color: var(--pui-chip-info-bdr);
+.pui-chip--secondary-light {
+  background: var(--pui-btn-ghost-hover);
+  color: var(--pui-btn-neutral-text);
+  border-color: var(--pui-btn-neutral-bdr);
 }
 
 .pui-chip--selected {
