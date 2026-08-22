@@ -1,6 +1,6 @@
 import {
   Component, Input, Output, EventEmitter,
-  HostListener, ElementRef, ViewEncapsulation, inject, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+  HostListener, ElementRef, ViewEncapsulation, inject, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
 
@@ -29,6 +29,27 @@ export class HeaderComponent {
   @Input() avatarTextColor  = 'var(--pui-white)';
   @Input() hasLogoSlot = false;
 
+  @Input() set showLogo(v: boolean | string) {
+    this._showLogo = v !== false && v !== 'false';
+  }
+  get showLogo() { return this._showLogo; }
+  private _showLogo = true;
+
+  @Input() set showHeading(v: boolean | string) {
+    this._showHeading = v !== false && v !== 'false';
+  }
+  get showHeading() { return this._showHeading; }
+  private _showHeading = true;
+
+  @Input() set showUser(v: boolean | string) {
+    this._showUser = v !== false && v !== 'false';
+  }
+  get showUser() { return this._showUser; }
+  private _showUser = true;
+
+  /** 'menu' = name/email + avatar + dropdown (default). 'plain' = round avatar only, no menu. */
+  @Input() avatarMode: 'menu' | 'plain' = 'menu';
+
   @Input() set showHamburger(v: boolean | string) {
     this._showHamburger = v === true || v === 'true' || (v as any) === '';
   }
@@ -48,6 +69,41 @@ export class HeaderComponent {
   }
   get showHelp() { return this._showHelp; }
   private _showHelp = false;
+
+  @Input() set showSearch(v: boolean | string) {
+    this._showSearch = v !== false && v !== 'false';
+  }
+  get showSearch() { return this._showSearch; }
+  private _showSearch = true;
+
+  @Output() searchClick = new EventEmitter<void>();
+  @Output() searchOpenChange = new EventEmitter<boolean>();
+  @Output() searchQuery = new EventEmitter<string>();
+
+  searchOpen = false;
+
+  @ViewChild('searchInput') private searchInputRef!: ElementRef<HTMLInputElement>;
+  private cdr = inject(ChangeDetectorRef);
+
+  toggleSearch(): void {
+    this.searchOpen = !this.searchOpen;
+    this.searchClick.emit();
+    this.searchOpenChange.emit(this.searchOpen);
+    if (this.searchOpen) {
+      setTimeout(() => this.searchInputRef?.nativeElement.focus());
+    }
+  }
+
+  closeSearch(): void {
+    if (!this.searchOpen) return;
+    this.searchOpen = false;
+    this.searchOpenChange.emit(false);
+    this.cdr.markForCheck();
+  }
+
+  onSearchInput(value: string): void {
+    this.searchQuery.emit(value);
+  }
 
   @Input() set badge(v: HeaderBadge | string | null) {
     this._badge = typeof v === 'string' ? this._parseJson<HeaderBadge>(v) : v;
@@ -120,6 +176,7 @@ export class HeaderComponent {
       if (this.menuOpen) {
         this.menuOpen = false;
       }
+      this.closeSearch();
     }
   }
 

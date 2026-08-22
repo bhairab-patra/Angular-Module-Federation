@@ -160,16 +160,16 @@ pui-lib-solifi-sidebar {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   padding: 0 20px;
-  height: 42px;
+  height: 38px;
   border: none;
   background: transparent;
   color: var(--ssb-text, rgba(255, 255, 255, .72));
   cursor: pointer;
   text-align: left;
   font-family: inherit;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 400;
   transition: background .13s, color .13s;
   position: relative;
@@ -214,7 +214,7 @@ pui-lib-solifi-sidebar {
 .ssb--collapsed .ssb__item {
   padding: 0;
   justify-content: center;
-  height: 48px;
+  height: 44px;
 }
 
 .ssb--collapsed .ssb__item::before {
@@ -265,13 +265,13 @@ pui-lib-solifi-sidebar {
 
 .ssb__abbr {
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  border-radius: 7px;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   background: var(--pui-overlay-white-10);
@@ -292,35 +292,35 @@ pui-lib-solifi-sidebar {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: var(--pui-radius-md, 8px);
   background: var(--pui-solifi-sb-icon-chip-bg);
   color: var(--pui-white);
-  border-radius: 100%;
   transition: opacity .13s, background .13s;
-  font-size: 10px;
+  font-size: 9px;
 }
 
 .ssb__item--active .ssb__icon,
 .ssb__item:hover .ssb__icon {
   opacity: 1;
   background: var(--ssb-active-bg, var(--pui-brand-tint-25));
+  color: var(--pui-solifi-sb-icon-active-color, var(--pui-white));
 }
 
 .ssb__icon svg {
-  width: 20px;
-  height: 20px;
+  width: 17px;
+  height: 17px;
 }
 
 .ssb:not(.ssb--collapsed) .ssb__icon {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
 }
 
 .ssb:not(.ssb--collapsed) .ssb__icon svg {
-  width: 18px;
-  height: 18px;
+  width: 15px;
+  height: 15px;
 }
 
 .ssb__label {

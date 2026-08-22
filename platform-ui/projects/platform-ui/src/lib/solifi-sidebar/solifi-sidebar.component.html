@@ -4,7 +4,7 @@
        [ngStyle]="cssVars">
 
   <div class="ssb__header">
-    <div class="ssb__brand" *ngIf="!collapsed">
+    <div class="ssb__brand" *ngIf="!collapsed && showBrand">
       <span class="ssb__logo">
         <img *ngIf="logoUrl" [src]="logoUrl" width="28" height="28" [alt]="brandName" class="ssb__logo-img" />
         <span *ngIf="!logoUrl" [innerHTML]="logo || defaultLogo"></span>
@@ -17,7 +17,7 @@
     </button>
   </div>
 
-  <div class="ssb__logo-only" *ngIf="collapsed">
+  <div class="ssb__logo-only" *ngIf="collapsed && showBrand">
     <span class="ssb__logo">
       <img *ngIf="logoUrl" [src]="logoUrl" width="28" height="28" [alt]="brandName" class="ssb__logo-img" />
       <span *ngIf="!logoUrl" [innerHTML]="logo || defaultLogo"></span>
@@ -41,7 +41,7 @@
                   (mouseleave)="onNavItemLeave()">
 
             <span class="ssb__icon" *ngIf="item.iconName">
-              <pui-lib-icon [name]="item.iconName" size="sm" color="currentColor"></pui-lib-icon>
+              <pui-lib-icon [name]="item.iconName" size="xs" color="currentColor"></pui-lib-icon>
             </span>
             <span class="ssb__icon" *ngIf="!item.iconName && item.icon" [innerHTML]="item.icon"></span>
             <span class="ssb__abbr" *ngIf="collapsed && !item.iconName && !item.icon">{{ itemAbbr(item) }}</span>

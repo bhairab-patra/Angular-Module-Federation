@@ -3,6 +3,7 @@
   <pui-lib-solifi-sidebar
     [brandName]="brandName"
     [logoUrl]="logoUrl"
+    [showBrand]="showBrand"
     [groups]="groups"
     [activeId]="activeId"
     [collapsed]="collapsed"
@@ -21,8 +22,32 @@
     (userMenuSelect)="userMenuSelect.emit($event)">
   </pui-lib-solifi-sidebar>
 
- 
+
   <div class="pas__panel">
+
+    <pui-lib-header
+      *ngIf="showHeader"
+      [appTitle]="headerAppTitle"
+      [appSubtitle]="headerAppSubtitle"
+      [logoUrl]="headerLogoUrl"
+      [logoText]="headerLogoText"
+      [bgColor]="headerBgColor"
+      [textColor]="headerTextColor"
+      [showLogo]="showHeaderLogo"
+      [showHeading]="showHeaderHeading"
+      [showSearch]="showHeaderSearch"
+      [showUser]="showHeaderUser"
+      [avatarMode]="headerAvatarMode"
+      [userName]="headerUserName"
+      [userEmail]="headerUserEmail"
+      [avatarUrl]="headerAvatarUrl"
+      [avatarColor]="headerAvatarColor"
+      [avatarTextColor]="headerAvatarTextColor"
+      [menuItems]="headerMenuItems"
+      [badge]="headerBadge"
+      (searchQuery)="headerSearchQuery.emit($event)"
+      (menuAction)="headerMenuAction.emit($event)">
+    </pui-lib-header>
 
     <div class="pas__titlebar" *ngIf="pageTitle">
       <span class="pas__titlebar-accent"></span>

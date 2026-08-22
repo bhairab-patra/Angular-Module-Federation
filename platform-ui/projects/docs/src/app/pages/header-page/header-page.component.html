@@ -1,69 +1,62 @@
 ﻿
     <docs-page
       title="Header"
-      description="Flexible top app bar. Supports logo, badge, nav links, user menu and help button. Works identically in Angular, React, and plain HTML — no consumer hacks needed."
+      description="Flexible top app bar built from four independent sections — Logo, Heading, Search, and Avatar — each toggled on/off. Works identically in Angular, React, and plain HTML — no consumer hacks needed."
       [hasFramework]="true"
       [api]="api">
 
       
       <ng-container demo>
 
-        <div class="demo-label"><span>Admin Portal UAT</span></div>
-        <pui-lib-header
-          appTitle="Admin Portal"
-          appSubtitle="PLATFORM MANAGEMENT"
-          bgColor="#12C6A8"
-          [badge]="uatBadge"
-          [showHelp]="true"
-          greeting="Hi"
-          userName="Bhairab Patra"
-          userEmail="bpatra@solifi.com"
-          userSubtext="Welcome back!"
-          avatarColor="#0d6e5f"
-          [menuItems]="fullMenuItems"
-          (menuAction)="onAction($event)">
-        </pui-lib-header>
-
-        <div class="demo-label"><span>Dark Theme + Nav Links</span></div>
-        <pui-lib-header
-          appTitle="DataHub"
-          appSubtitle="ANALYTICS"
-          bgColor="#0f172a"
-          [navLinks]="navLinks"
-          [showHelp]="true"
-          userName="Jane Smith"
-          userEmail="jane@company.com"
-          greeting="Hello"
-          avatarColor="#6366f1"
-          [menuItems]="fullMenuItems"
-          (menuAction)="onAction($event)">
-        </pui-lib-header>
-
-        <div class="demo-label"><span>With Logo Image</span></div>
-        <pui-lib-header
-          appTitle="Solifi"
-          appSubtitle="LENDING PLATFORM"
-          bgColor="#0d6e5f"
-          logoUrl="assets/logo.png"
-          [navLinks]="navLinks"
-          userName="Alex Johnson"
-          userEmail="alex@solifi.com"
-          avatarColor="#12C6A8"
-          avatarTextColor="#0d6e5f"
-          [badge]="prodBadge"
-          [menuItems]="menuItems"
-          (menuAction)="onAction($event)">
-        </pui-lib-header>
-
-        <div class="demo-label"><span>Minimal — No User</span></div>
-        <pui-lib-header appTitle="My App" bgColor="#1e293b"></pui-lib-header>
-
-        <div class="demo-label"><span>Last Menu Action</span></div>
-        <div class="action-log" *ngIf="lastAction">
-          menuAction emitted: <strong>{{ lastAction }}</strong>
-        </div>
-        <div class="action-log action-log--empty" *ngIf="!lastAction">
-          Click the user avatar â†’ a menu item to see the emitted action here.
+        <div class="demo-label"><span>Solifi Portal — Four-Section Configuration</span></div>
+        <p class="demo-section__desc" style="width:100%;font-size:13px;color:var(--pui-neutral-500);margin:0 0 12px">
+          The header is built from four independent sections — <strong>Logo</strong>, <strong>Heading</strong>, <strong>Search</strong>, and <strong>Avatar</strong> — each toggled on/off with <code>showLogo</code> / <code>showHeading</code> / <code>showSearch</code> / <code>showUser</code>. Avatar has two styles: <code>avatarMode="menu"</code> (name + email + dropdown) or <code>avatarMode="plain"</code> (round chip only, no menu). An optional <strong>Hamburger</strong> button (<code>showHamburger</code>) can also be shown before the logo, for toggling your own app sidebar — its open/close animation is driven by <code>hamburgerOpen</code> and it emits <code>(hamburgerToggle)</code> on click.
+        </p>
+        <div class="header-demo-wrap">
+          <div class="toggle-row">
+            <button class="toggle-btn" [class.toggle-btn--active]="demoShowLogo" (click)="demoShowLogo = !demoShowLogo">1. Logo: {{ demoShowLogo ? 'On' : 'Off' }}</button>
+            <button class="toggle-btn" [class.toggle-btn--active]="demoShowHeading" (click)="demoShowHeading = !demoShowHeading">2. Heading: {{ demoShowHeading ? 'On' : 'Off' }}</button>
+            <button class="toggle-btn" [class.toggle-btn--active]="demoShowSearch" (click)="demoShowSearch = !demoShowSearch">3. Search: {{ demoShowSearch ? 'On' : 'Off' }}</button>
+          </div>
+          <div class="toggle-row">
+            <button class="toggle-btn" [class.toggle-btn--active]="demoAvatarMode === 'off'" (click)="demoAvatarMode = 'off'">4. Avatar: Off</button>
+            <button class="toggle-btn" [class.toggle-btn--active]="demoAvatarMode === 'plain'" (click)="demoAvatarMode = 'plain'">4. Avatar: Plain (no menu)</button>
+            <button class="toggle-btn" [class.toggle-btn--active]="demoAvatarMode === 'menu'" (click)="demoAvatarMode = 'menu'">4. Avatar: With Menu</button>
+          </div>
+          <div class="toggle-row">
+            <button class="toggle-btn" [class.toggle-btn--active]="demoShowHamburger" (click)="demoShowHamburger = !demoShowHamburger">5. Hamburger: {{ demoShowHamburger ? 'On' : 'Off' }}</button>
+          </div>
+          <pui-lib-header
+            appTitle="Uptown Trucking Leasing"
+            appSubtitle="Digital Experience Portal"
+            bgColor="var(--pui-header-bg)"
+            textColor="var(--pui-header-text)"
+            logoUrl="assets/logo-full.png"
+            [showLogo]="demoShowLogo"
+            [showHeading]="demoShowHeading"
+            [showSearch]="demoShowSearch"
+            [showUser]="demoAvatarMode !== 'off'"
+            [avatarMode]="demoAvatarMode === 'off' ? 'menu' : demoAvatarMode"
+            [showHamburger]="demoShowHamburger"
+            [hamburgerOpen]="demoSidebarOpen"
+            userName="Marcus Reed"
+            userEmail="marcus@uptowntrucking.com"
+            avatarColor="var(--pui-form-accent)"
+            avatarTextColor="var(--pui-accent-ink)"
+            [menuItems]="menuItems"
+            (searchQuery)="onSearchQuery($event)"
+            (hamburgerToggle)="onHamburgerToggle()"
+            (menuAction)="onAction($event)">
+          </pui-lib-header>
+          <div class="action-log" *ngIf="demoShowHamburger">
+            hamburgerToggle emitted — sidebar open: <strong>{{ demoSidebarOpen }}</strong>
+          </div>
+          <div class="action-log" *ngIf="lastQuery">
+            searchQuery emitted: <strong>{{ lastQuery }}</strong>
+          </div>
+          <div class="action-log" *ngIf="lastAction">
+            menuAction emitted: <strong>{{ lastAction }}</strong>
+          </div>
         </div>
 
       </ng-container>
@@ -83,28 +76,32 @@
           [htmlCode]="htmlCode">
           <div preview class="demo-col">
             <pui-lib-header
-              appTitle="Admin Portal"
-              appSubtitle="PLATFORM MANAGEMENT"
-              bgColor="#12C6A8"
-              [badge]="uatBadge"
-              [showHelp]="true"
-              greeting="Hi"
-              userName="Bhairab Patra"
-              userEmail="bpatra@solifi.com"
+              appTitle="Uptown Trucking Leasing"
+              appSubtitle="Digital Experience Portal"
+              bgColor="var(--pui-header-bg)"
+              textColor="var(--pui-header-text)"
+              logoUrl="assets/logo-full.png"
+              [showSearch]="true"
+              userName="Marcus Reed"
+              userEmail="marcus@uptowntrucking.com"
+              avatarColor="var(--pui-form-accent)"
+              avatarTextColor="var(--pui-accent-ink)"
               [menuItems]="menuItems"
               (menuAction)="onAction($event)">
             </pui-lib-header>
           </div>
           <div react-preview class="demo-col">
             <pui-lib-header
-              appTitle="DataHub"
-              appSubtitle="ANALYTICS"
-              bgColor="#0f172a"
-              [navLinks]="navLinks"
-              userName="Jane Smith"
-              userEmail="jane@analytics.io"
-              greeting="Hello"
-              avatarColor="#6366f1"
+              appTitle="Uptown Trucking Leasing"
+              appSubtitle="Digital Experience Portal"
+              bgColor="var(--pui-header-bg)"
+              textColor="var(--pui-header-text)"
+              logoUrl="assets/logo-full.png"
+              [showSearch]="true"
+              userName="Marcus Reed"
+              userEmail="marcus@uptowntrucking.com"
+              avatarColor="var(--pui-form-accent)"
+              avatarTextColor="var(--pui-accent-ink)"
               [menuItems]="menuItems">
             </pui-lib-header>
           </div>

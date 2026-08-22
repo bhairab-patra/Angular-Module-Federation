@@ -11,10 +11,13 @@
           <span class="pui-header__bar pui-header__bar--mid"></span>
           <span class="pui-header__bar pui-header__bar--bot"></span>
         </button>
-        <img *ngIf="logoUrl" [src]="logoUrl" class="pui-header__logo-img" alt="logo">
-        <ng-content select="[logo]"></ng-content>
-        <div class="pui-header__brand-text">
+        <div *ngIf="showLogo" class="pui-header__logo-section">
+          <img *ngIf="logoUrl" [src]="logoUrl" class="pui-header__logo-img" alt="logo">
+          <ng-content select="[logo]"></ng-content>
           <span *ngIf="logoText" class="pui-header__logo-text">{{ logoText }}</span>
+        </div>
+         
+        <div *ngIf="showHeading" class="pui-header__brand-text">
           <div *ngIf="appTitle" class="pui-header__title-group">
             <span class="pui-header__title">{{ appTitle }}</span>
             <span *ngIf="appSubtitle" class="pui-header__subtitle">{{ appSubtitle }}</span>
@@ -41,9 +44,36 @@
 
       <div class="pui-header__spacer"></div>
 
+      <div *ngIf="showSearch" class="pui-header__search" [class.pui-header__search--open]="searchOpen" (click)="$event.stopPropagation()">
+        <svg class="pui-header__search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <input #searchInput
+               class="pui-header__search-input"
+               type="text"
+               placeholder="Search…"
+               [tabindex]="searchOpen ? 0 : -1"
+               (input)="onSearchInput($any($event.target).value)"
+               (keydown.escape)="closeSearch()">
+      </div>
+
       <div class="pui-header__actions">
         <ng-content select="[actions]"></ng-content>
       </div>
+
+      <button *ngIf="showSearch" class="pui-header__icon-btn pui-header__icon-btn--search" [class.pui-header__icon-btn--active]="searchOpen" (click)="toggleSearch()" [title]="searchOpen ? 'Close search' : 'Search'">
+        <svg *ngIf="!searchOpen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
+        <svg *ngIf="searchOpen" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
 
       <button *ngIf="showHelp" class="pui-header__icon-btn" (click)="helpClick.emit()" title="Help">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -53,60 +83,72 @@
         </svg>
       </button>
 
-      <div *ngIf="userName" class="pui-header__divider"></div>
+      <div *ngIf="showUser && userName" class="pui-header__divider"></div>
 
-      <div *ngIf="userName" #userArea class="pui-header__user" (click)="toggleMenu($event)">
-        <div class="pui-header__user-info">
-          <span class="pui-header__greeting" *ngIf="greeting">{{ greeting }}, {{ firstName }}</span>
-          <span class="pui-header__greeting" *ngIf="!greeting">{{ firstName }}</span>
-          <span class="pui-header__user-sub">{{ userSubtext || 'Welcome back!' }}</span>
-        </div>
-
-        <div class="pui-header__avatar"
-             [style.background]="avatarColor"
-             [style.color]="avatarTextColor">
-          <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-header__avatar-img" alt="">
-          <span *ngIf="!avatarUrl">{{ initials }}</span>
-        </div>
-
-        <svg class="pui-header__caret" [class.pui-header__caret--open]="menuOpen"
-             width="14" height="14" viewBox="0 0 16 16" fill="none">
-          <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-
+      <!-- Plain avatar mode — round chip only, no name/email, no dropdown -->
+      <div *ngIf="showUser && userName && avatarMode === 'plain'"
+           class="pui-header__avatar pui-header__avatar--plain"
+           [style.background]="avatarColor"
+           [style.color]="avatarTextColor"
+           [title]="userName">
+        <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-header__avatar-img" alt="">
+        <span *ngIf="!avatarUrl">{{ initials }}</span>
       </div>
 
-      <div *ngIf="userName"
-           class="pui-header__menu"
-           [class.pui-header__menu--open]="menuOpen"
-           [style.top]="menuTop"
-           [style.right]="menuRight"
-           (click)="$event.stopPropagation()">
+      <!-- Menu avatar mode — name/email + avatar + dropdown -->
+      <ng-container *ngIf="showUser && userName && avatarMode === 'menu'">
+        <div #userArea class="pui-header__user" (click)="toggleMenu($event)">
+          <div class="pui-header__user-info">
+            <span class="pui-header__greeting" *ngIf="greeting">{{ greeting }}, {{ firstName }}</span>
+            <span class="pui-header__greeting" *ngIf="!greeting">{{ firstName }}</span>
+            <span class="pui-header__user-sub">{{ userSubtext || 'Welcome back!' }}</span>
+          </div>
 
-        <div class="pui-header__menu-header">
-          <div class="pui-header__menu-avatar"
+          <div class="pui-header__avatar"
                [style.background]="avatarColor"
                [style.color]="avatarTextColor">
             <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-header__avatar-img" alt="">
             <span *ngIf="!avatarUrl">{{ initials }}</span>
           </div>
-          <div>
-            <div class="pui-header__menu-name">{{ userName }}</div>
-            <div class="pui-header__menu-email">{{ userEmail }}</div>
-          </div>
+
+          <svg class="pui-header__caret" [class.pui-header__caret--open]="menuOpen"
+               width="14" height="14" viewBox="0 0 16 16" fill="none">
+            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
         </div>
 
-        <div class="pui-header__menu-divider"></div>
+        <div class="pui-header__menu"
+             [class.pui-header__menu--open]="menuOpen"
+             [style.top]="menuTop"
+             [style.right]="menuRight"
+             (click)="$event.stopPropagation()">
 
-        <ng-container *ngFor="let item of menuItems">
-          <button class="pui-header__menu-item"
-                  [class.pui-header__menu-item--danger]="item.danger"
-                  (click)="onMenuAction(item)">
-            <span *ngIf="item.icon" class="pui-header__menu-item-icon" [innerHTML]="item.icon"></span>
-            {{ item.label }}
-          </button>
-        </ng-container>
-      </div>
+          <div class="pui-header__menu-header">
+            <div class="pui-header__menu-avatar"
+                 [style.background]="avatarColor"
+                 [style.color]="avatarTextColor">
+              <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-header__avatar-img" alt="">
+              <span *ngIf="!avatarUrl">{{ initials }}</span>
+            </div>
+            <div>
+              <div class="pui-header__menu-name">{{ userName }}</div>
+              <div class="pui-header__menu-email">{{ userEmail }}</div>
+            </div>
+          </div>
+
+          <div class="pui-header__menu-divider"></div>
+
+          <ng-container *ngFor="let item of menuItems">
+            <button class="pui-header__menu-item"
+                    [class.pui-header__menu-item--danger]="item.danger"
+                    (click)="onMenuAction(item)">
+              <span *ngIf="item.icon" class="pui-header__menu-item-icon" [innerHTML]="item.icon"></span>
+              {{ item.label }}
+            </button>
+          </ng-container>
+        </div>
+      </ng-container>
 
     </header>

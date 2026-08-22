@@ -1,6 +1,6 @@
 <docs-page
   title="App Shell"
-  description="Full application layout using PuiSolifiSidebarComponent — dark navy sidebar, flat navigation, user profile popup menu, icon or text-only mode, collapse to 64px rail. No header required."
+  description="Full application layout using PuiSolifiSidebarComponent — dark navy sidebar, flat navigation, user profile popup menu, icon or text-only mode, collapse to 64px rail — plus an optional theme-aware top header (logo, search, avatar). Set showHeader to false for a flat layout with no header."
   [code]="angularCode"
   [api]="api"
   [hasFramework]="true">
@@ -9,6 +9,10 @@
 
     <!-- Controls -->
     <div class="demo-controls">
+      <div class="ctrl-group">
+        <button class="ctrl-chip" [class.active]="demoShowHeader" (click)="demoShowHeader = true">Header: On</button>
+        <button class="ctrl-chip" [class.active]="!demoShowHeader" (click)="demoShowHeader = false">Header: Off (flat)</button>
+      </div>
       <div class="ctrl-group">
         <button class="ctrl-chip" [class.active]="iconMode==='with-icons'" (click)="setMode('with-icons')">Icon + text</button>
         <button class="ctrl-chip" [class.active]="iconMode==='no-icons'"   (click)="setMode('no-icons')">Text only</button>
@@ -19,12 +23,13 @@
         </button>
       </div>
       <span class="ctrl-tag" *ngIf="lastUserAction">User menu → {{ lastUserAction }}</span>
+      <span class="ctrl-tag" *ngIf="lastHeaderQuery">Header search → {{ lastHeaderQuery }}</span>
     </div>
 
-    <!-- Shell frame: sidebar + content side by side, no header -->
+    <!-- Shell frame: real pui-lib-app-shell — sidebar + optional header + content -->
     <div class="shell-frame">
 
-      <pui-lib-solifi-sidebar
+      <pui-lib-app-shell
         brandName="solifi"
         logoUrl="assets/logo.png"
         [groups]="displayGroups"
@@ -37,38 +42,38 @@
         [userMenuItems]="userMenuItems"
         [width]="210"
         [collapsedWidth]="56"
+        [pageTitle]="activeLabel"
+        footerText="Copyright © 2026 Solifi. All Rights Reserved."
+        [showHeader]="demoShowHeader"
+        headerAppTitle="Uptown Trucking Leasing"
+        headerAppSubtitle="Digital Experience Portal"
+        headerLogoUrl="assets/logo-full.png"
+        [showHeaderLogo]="true"
+        [showHeaderSearch]="true"
+        headerAvatarMode="menu"
+        headerUserName="Rosanna Doyle"
+        headerUserEmail="rdoyle@solifi.com"
+        [headerMenuItems]="headerMenuItems"
         (itemSelect)="onNav($event)"
         (collapsedChange)="onCollapsed($event)"
-        (userMenuSelect)="onUserMenu($event)">
-      </pui-lib-solifi-sidebar>
-
-      <!-- Main content area -->
-      <div class="shell-main">
-
-        <!-- Page title bar -->
-        <div class="shell-titlebar">
-          <span class="shell-titlebar__accent"></span>
-          <span class="shell-titlebar__title">{{ activeLabel }}</span>
-        </div>
+        (userMenuSelect)="onUserMenu($event)"
+        (headerSearchQuery)="onHeaderSearch($event)"
+        style="display:flex;height:520px;border-radius:12px;overflow:hidden;border:1px solid var(--pui-neutral-200)">
 
         <!-- Welcome card -->
-        <div class="shell-body">
-          <div class="welcome-card">
-            <div class="welcome-card__text">
-              <h2 class="welcome-card__heading">Welcome to<br>the borrower portal!</h2>
-              <p class="welcome-card__sub">
-                Your Account Manager is:
-                <a class="welcome-card__link" href="#">Alan Jasenovic</a>
-              </p>
-              <p class="welcome-card__meta">You last logged in on Monday, 11 December 2025 12:41</p>
-            </div>
-            <div class="welcome-card__img-area" aria-hidden="true"></div>
+        <div class="welcome-card">
+          <div class="welcome-card__text">
+            <h2 class="welcome-card__heading">Welcome to<br>the borrower portal!</h2>
+            <p class="welcome-card__sub">
+              Your Account Manager is:
+              <a class="welcome-card__link" href="#">Alan Jasenovic</a>
+            </p>
+            <p class="welcome-card__meta">You last logged in on Monday, 11 December 2025 12:41</p>
           </div>
+          <div class="welcome-card__img-area" aria-hidden="true"></div>
         </div>
 
-        <!-- Footer -->
-        <div class="shell-footer">Copyright &copy; 2026 Solifi. All Rights Reserved.</div>
-      </div>
+      </pui-lib-app-shell>
 
     </div>
 
@@ -109,9 +114,17 @@
         [userMenuItems]="userMenuItems"
         [width]="200"
         [collapsedWidth]="52"
+        [showHeader]="demoShowHeader"
+        headerAppTitle="Uptown Trucking Leasing"
+        headerAppSubtitle="Digital Experience Portal"
+        headerLogoUrl="assets/logo-full.png"
+        headerUserName="Rosanna Doyle"
+        headerUserEmail="rdoyle@solifi.com"
+        [headerMenuItems]="headerMenuItems"
         (itemSelect)="onNav($event)"
         (collapsedChange)="onCollapsed($event)"
         (userMenuSelect)="onUserMenu($event)"
+        (headerSearchQuery)="onHeaderSearch($event)"
         style="display:flex;height:340px;border-radius:10px;overflow:hidden;border:1px solid var(--pui-border,#e2e8f0)">
 
         <!-- Consumer's page content -->
@@ -142,6 +155,16 @@
           <tr><td><span class="tag-name">showUser</span></td><td><span class="tag-ng">[showUser]="true"</span></td><td><span class="tag-html">show-user</span></td><td><span class="tag-js">el.showUser = true</span></td></tr>
           <tr><td><span class="tag-name">userMenuItems</span></td><td><span class="tag-ng">[userMenuItems]="items"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.userMenuItems = [...]</span></td></tr>
           <tr><td><span class="tag-name">theme</span></td><td><span class="tag-ng">[theme]="SOLIFI_THEME"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.theme = SOLIFI_THEME</span></td></tr>
+          <tr><td><span class="tag-name">showHeader</span></td><td><span class="tag-ng">[showHeader]="false"</span></td><td><span class="tag-html">show-header="false"</span></td><td><span class="tag-js">el.showHeader = false</span></td></tr>
+          <tr><td><span class="tag-name">headerAppTitle</span></td><td><span class="tag-ng">headerAppTitle="..."</span></td><td><span class="tag-html">header-app-title="..."</span></td><td><span class="tag-js">el.headerAppTitle = '...'</span></td></tr>
+          <tr><td><span class="tag-name">headerAppSubtitle</span></td><td><span class="tag-ng">headerAppSubtitle="..."</span></td><td><span class="tag-html">header-app-subtitle="..."</span></td><td><span class="tag-js">el.headerAppSubtitle = '...'</span></td></tr>
+          <tr><td><span class="tag-name">headerLogoUrl</span></td><td><span class="tag-ng">headerLogoUrl="..."</span></td><td><span class="tag-html">header-logo-url="..."</span></td><td><span class="tag-js">el.headerLogoUrl = '...'</span></td></tr>
+          <tr><td><span class="tag-name">showHeaderSearch</span></td><td><span class="tag-ng">[showHeaderSearch]="false"</span></td><td><span class="tag-html">show-header-search="false"</span></td><td><span class="tag-js">el.showHeaderSearch = false</span></td></tr>
+          <tr><td><span class="tag-name">headerAvatarMode</span></td><td><span class="tag-ng">headerAvatarMode="plain"</span></td><td><span class="tag-html">header-avatar-mode="plain"</span></td><td><span class="tag-js">el.headerAvatarMode = 'plain'</span></td></tr>
+          <tr><td><span class="tag-name">headerUserName</span></td><td><span class="tag-ng">headerUserName="..."</span></td><td><span class="tag-html">header-user-name="..."</span></td><td><span class="tag-js">el.headerUserName = '...'</span></td></tr>
+          <tr><td><span class="tag-name">headerMenuItems</span></td><td><span class="tag-ng">[headerMenuItems]="items"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.headerMenuItems = [...]</span></td></tr>
+          <tr><td><span class="tag-name">headerSearchQuery</span></td><td><span class="tag-ng">(headerSearchQuery)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('headerSearchQuery', fn)</span></td></tr>
+          <tr><td><span class="tag-name">headerMenuAction</span></td><td><span class="tag-ng">(headerMenuAction)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('headerMenuAction', fn)</span></td></tr>
           <tr><td><span class="tag-name">itemSelect</span></td><td><span class="tag-ng">(itemSelect)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('itemSelect', fn)</span></td></tr>
           <tr><td><span class="tag-name">collapsedChange</span></td><td><span class="tag-ng">(collapsedChange)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('collapsedChange', fn)</span></td></tr>
           <tr><td><span class="tag-name">userMenuSelect</span></td><td><span class="tag-ng">(userMenuSelect)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('userMenuSelect', fn)</span></td></tr>

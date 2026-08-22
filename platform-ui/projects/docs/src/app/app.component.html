@@ -45,14 +45,23 @@
       </div>
       <div class="topbar-right">
         <div class="theme-toggle" role="group" aria-label="Preview theme">
+          <span class="theme-toggle__slider" [class.theme-toggle__slider--old]="theme === 'old'" aria-hidden="true"></span>
           <button type="button"
-                  class="theme-toggle__btn"
+                  class="theme-toggle__btn theme-toggle__btn--new"
                   [class.theme-toggle__btn--active]="theme === 'new'"
-                  (click)="setTheme('new')">New</button>
+                  [attr.aria-pressed]="theme === 'new'"
+                  (click)="setTheme('new')">
+            <svg *ngIf="theme === 'new'" class="theme-toggle__check" viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>
+            <span>solifi-26</span>
+          </button>
           <button type="button"
-                  class="theme-toggle__btn"
+                  class="theme-toggle__btn theme-toggle__btn--old"
                   [class.theme-toggle__btn--active]="theme === 'old'"
-                  (click)="setTheme('old')">Old</button>
+                  [attr.aria-pressed]="theme === 'old'"
+                  (click)="setTheme('old')">
+            <svg *ngIf="theme === 'old'" class="theme-toggle__check" viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>
+            <span>solifi-21</span>
+          </button>
         </div>
         <a class="faq-btn" routerLink="/faq" routerLinkActive="faq-btn--active">
           <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor"

@@ -8,6 +8,11 @@
       "input": "src/styles",
       "glob": "**/*",
       "output": "styles"
+    },
+    {
+      "input": "src/assets",
+      "glob": "**/*",
+      "output": "assets"
     }
   ],
   "dest": "../../dist/platform-ui"

@@ -48,6 +48,12 @@ export class PuiSolifiSidebarComponent {
   @Input() logo      = '';
   @Input() logoUrl   = '';
 
+  @Input() set showBrand(v: boolean | string) {
+    this._showBrand = v !== false && v !== 'false';
+  }
+  get showBrand(): boolean { return this._showBrand; }
+  private _showBrand = true;
+
   @Input() set showUser(v: boolean | string) {
     this._showUser = v === true || v === 'true' || (v as any) === '';
   }
@@ -141,7 +147,7 @@ export class PuiSolifiSidebarComponent {
       '--ssb-bg':      t.bg          || this.bgColor     || 'var(--pui-solifi-sb-bg)',
       '--ssb-text':    t.textColor   || this.textColor   || 'var(--pui-solifi-sb-text)',
       '--ssb-active':  t.activeColor || this.activeColor || 'var(--pui-brand)',
-      '--ssb-active-bg': t.activeBg                      || 'var(--pui-brand-tint-25)',
+      '--ssb-active-bg': t.activeBg                      || 'var(--pui-solifi-sb-icon-active-bg)',
       '--ssb-hover':   t.hoverBg                         || 'var(--pui-overlay-white-06)',
       '--ssb-border':  t.borderColor                     || 'var(--pui-overlay-white-07)',
       '--ssb-group':   t.groupColor                      || 'var(--pui-solifi-sb-group)',

@@ -1,0 +1,69 @@
+import {
+  Component, Input, Output, EventEmitter,
+  HostListener, ElementRef, inject, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { IconComponent } from '../icon/icon.component';
+import { AvatarMenuItem, AvatarSize } from '../models/avatar.model';
+
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'pui-lib-avatar',
+  standalone: true,
+  imports: [NgFor, NgIf, IconComponent],
+  encapsulation: ViewEncapsulation.Emulated,
+  templateUrl: './avatar.component.html',
+  styleUrls: ['./avatar.component.scss'],
+})
+export class PuiAvatarComponent {
+  @Input() name       = '';
+  @Input() email      = '';
+  @Input() avatarUrl  = '';
+  @Input() size: AvatarSize = 'md';
+
+  @Input() set collapsed(v: boolean | string) {
+    this._collapsed = v === true || v === 'true' || (v as any) === '';
+  }
+  get collapsed() { return this._collapsed; }
+  private _collapsed = false;
+
+  @Input() set menuItems(v: AvatarMenuItem[] | string) {
+    this._menuItems = typeof v === 'string' ? (this._parse<AvatarMenuItem[]>(v) ?? []) : (v ?? []);
+  }
+  get menuItems(): AvatarMenuItem[] { return this._menuItems; }
+  private _menuItems: AvatarMenuItem[] = [];
+
+  @Output() menuAction = new EventEmitter<string>();
+  @Output() openChange = new EventEmitter<boolean>();
+
+  open = false;
+
+  private el = inject(ElementRef);
+
+  get initials(): string {
+    return this.name.split(' ').map(p => p[0] ?? '').filter(Boolean).slice(0, 2).join('').toUpperCase();
+  }
+
+  toggle(): void {
+    if (!this.menuItems.length) return;
+    this.open = !this.open;
+    this.openChange.emit(this.open);
+  }
+
+  select(item: AvatarMenuItem): void {
+    this.menuAction.emit(item.action);
+    this.open = false;
+    this.openChange.emit(false);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocClick(e: MouseEvent): void {
+    if (this.open && !this.el.nativeElement.contains(e.target)) {
+      this.open = false;
+      this.openChange.emit(false);
+    }
+  }
+
+  private _parse<T>(s: string): T | null {
+    try { return JSON.parse(s) as T; } catch { return null; }
+  }
+}

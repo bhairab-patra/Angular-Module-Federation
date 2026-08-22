@@ -1,0 +1,48 @@
+
+<div class="pui-av" [class.pui-av--sm]="size === 'sm'" [class.pui-av--lg]="size === 'lg'">
+
+  <button *ngIf="collapsed"
+          type="button"
+          class="pui-av__chip"
+          [class.pui-av__chip--photo]="avatarUrl"
+          (click)="toggle()"
+          [title]="name">
+    <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-av__chip-img" alt="">
+    <span *ngIf="!avatarUrl">{{ initials }}</span>
+  </button>
+
+  <div *ngIf="!collapsed" class="pui-av__panel" [class.pui-av__panel--open]="open">
+
+    <button type="button" class="pui-av__row" (click)="toggle()">
+      <span class="pui-av__chip" [class.pui-av__chip--photo]="avatarUrl">
+        <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-av__chip-img" alt="">
+        <span *ngIf="!avatarUrl">{{ initials }}</span>
+      </span>
+
+      <span class="pui-av__info">
+        <span class="pui-av__name">{{ name }}</span>
+        <span class="pui-av__email">{{ email }}</span>
+      </span>
+
+      <svg *ngIf="menuItems.length" class="pui-av__chevron" [class.pui-av__chevron--open]="open"
+           width="18" height="18" viewBox="0 0 16 16" fill="none">
+        <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <ng-container *ngIf="open && menuItems.length">
+      <ng-container *ngFor="let item of menuItems">
+        <div *ngIf="item.dividerBefore" class="pui-av__divider"></div>
+        <button type="button"
+                class="pui-av__item"
+                [class.pui-av__item--danger]="item.danger"
+                (click)="select(item)">
+          <pui-lib-icon *ngIf="item.iconName" class="pui-av__item-icon" [name]="item.iconName" size="xs"></pui-lib-icon>
+          {{ item.label }}
+        </button>
+      </ng-container>
+    </ng-container>
+
+  </div>
+
+</div>

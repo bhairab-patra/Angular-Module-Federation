@@ -64,6 +64,7 @@ export class SolifiSidebarPageComponent { // v2
   theme: SolifiSidebarTheme = { ...SOLIFI_THEME };
   logoUrl   = 'assets/logo.png';
   brandName = 'insights hub';
+  showBrand = true;
 
   userMenuItems: SolifiUserMenuItem[] = [
     { id: 'profile',  label: 'My Profile',    iconName: 'user'     },
@@ -83,6 +84,7 @@ export class SolifiSidebarPageComponent { // v2
   }
   onCollapsed(v: boolean): void { this.collapsed = v; this.cdr.markForCheck(); }
   toggleUser(): void { this.showUser = !this.showUser; this.cdr.markForCheck(); }
+  toggleBrand(): void { this.showBrand = !this.showBrand; this.cdr.markForCheck(); }
   onUserMenu(item: SolifiUserMenuItem): void {
     this.lastUserMenuAction = item.label;
     this.cdr.markForCheck();
@@ -317,6 +319,7 @@ navGroups: SolifiNavGroup[] = [
     { input: 'activeId',       type: 'string',                  default: "''",             description: 'Currently active item id.' },
     { input: 'brandName',      type: 'string',                  default: "'solifi'",       description: 'Brand name shown next to logo in expanded state.' },
     { input: 'logo',           type: 'string (SVG/HTML)',        default: 'default',        description: 'Logo HTML. Defaults to hexagon Solifi mark.' },
+    { input: 'showBrand',      type: 'boolean|string',          default: 'true',           description: 'Show/hide the logo section at the top of the sidebar (both expanded and collapsed states).' },
     { input: 'collapsed',      type: 'boolean|string',          default: 'false',          description: 'Collapse to icon-only rail.' },
     { input: 'showSidebar',    type: 'boolean|string',          default: 'true',           description: 'Hide sidebar entirely (e.g. mobile).' },
     { input: 'width',          type: 'number',                  default: '240',            description: 'Expanded width in px.' },

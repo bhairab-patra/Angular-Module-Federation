@@ -29,45 +29,12 @@
 
 /* ── Shell frame ────────────────────────────────────────── */
 .shell-frame {
-  display: flex;
-  height: 580px;
-  border-radius: 14px;
-  overflow-x: visible;
-  overflow-y: clip;
-  border: 1px solid var(--pui-border, #e2e8f0);
+  border-radius: 12px;
+  overflow: hidden;
   box-shadow: 0 4px 24px rgba(0,0,0,.08);
-  background: #f4f5f7;
 }
 
-pui-lib-solifi-sidebar { display: block; height: 100%; flex-shrink: 0; }
-
-/* ── Main content ───────────────────────────────────────── */
-.shell-main {
-  flex: 1; display: flex; flex-direction: column; min-width: 0;
-  background: #f4f5f7;
-}
-
-/* Title bar */
-.shell-titlebar {
-  display: flex; align-items: center; gap: 12px;
-  padding: 18px 28px 14px;
-  flex-shrink: 0;
-}
-.shell-titlebar__accent {
-  width: 3px; height: 20px; border-radius: 2px;
-  background: #12C6A8; flex-shrink: 0;
-}
-.shell-titlebar__title {
-  font-size: 17px; font-weight: 700;
-  color: var(--pui-text, #1e293b);
-}
-
-/* Body */
-.shell-body {
-  flex: 1; padding: 0 24px 20px; overflow-y: auto;
-}
-
-/* Welcome card */
+/* Welcome card — the page content projected into pui-lib-app-shell */
 .welcome-card {
   background: #fff;
   border-radius: 12px;

@@ -121,4 +121,18 @@
    --pui-shadow-focus-sm: 0 0 0 3px var(--pui-brand-tint-12);
    --pui-shadow-focus-brand: 0 0 0 3px var(--pui-brand-tint-25);
 
+   /* ========================================
+     SOLIFI SIDEBAR
+     ======================================== */
+   --pui-solifi-sb-bg: #414746;
+   --pui-solifi-sb-icon-chip-bg: #505655;
+   --pui-solifi-sb-icon-active-bg: #12C6A8;
+   --pui-solifi-sb-icon-active-color: #000000;
+
+   /* ========================================
+     HEADER
+     ======================================== */
+   --pui-header-bg: var(--pui-form-accent);
+   --pui-header-text: var(--pui-neutral-900);
+
 }

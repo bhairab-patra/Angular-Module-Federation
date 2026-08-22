@@ -38,7 +38,7 @@ export const SOLIFI_THEME: SolifiSidebarTheme = {
   bg:          'var(--pui-solifi-sb-bg)',
   textColor:   'var(--pui-overlay-white-72)',
   activeColor: 'var(--pui-brand)',
-  activeBg:    'var(--pui-brand-tint-25)',
+  activeBg:    'var(--pui-solifi-sb-icon-active-bg)',
   hoverBg:     'var(--pui-overlay-white-06)',
   borderColor: 'var(--pui-overlay-white-07)',
   groupColor:  'var(--pui-solifi-sb-group)',

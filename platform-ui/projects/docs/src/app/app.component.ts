@@ -62,6 +62,7 @@ export class AppComponent {
     { label: 'Data Grid', route: '/datagrid', category: 'Component', keywords: ['datagrid', 'grid', 'table', 'data', 'sort', 'pagination', 'selectable', 'rows', 'columns', 'badge'] },
     { label: 'Pagination', route: '/pagination', category: 'Component', keywords: ['pagination', 'page', 'pager', 'pages', 'next', 'previous', 'navigate', 'records', 'total', 'ellipsis'] },
     { label: 'Accordion', route: '/accordion', category: 'Component', keywords: ['accordion', 'expand', 'collapse', 'faq', 'panel', 'toggle', 'disclosure', 'content', 'sections'] },
+    { label: 'Avatar', route: '/avatar', category: 'Component', keywords: ['avatar', 'user', 'profile', 'menu', 'dropdown', 'account', 'logout', 'sign out', 'card', 'initials', 'photo'] },
   ];
 
   searchQuery = '';
@@ -212,6 +213,10 @@ export class AppComponent {
           {
             label: 'Accordion', route: '/accordion',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="4" rx="1"/><rect x="2" y="7" width="12" height="4" rx="1" opacity=".5"/><rect x="2" y="12" width="12" height="2" rx="1" opacity=".25"/></svg>`)
+          },
+          {
+            label: 'Avatar', route: '/avatar',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="14" height="14" rx="3"/><path d="M4.5 8h7M4.5 5.5h4"/></svg>`)
           },
           {
             label: 'Pagination', route: '/pagination',

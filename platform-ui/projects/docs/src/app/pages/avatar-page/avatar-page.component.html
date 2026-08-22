@@ -1,0 +1,127 @@
+
+<docs-page
+  title="Avatar"
+  description="A user menu card — avatar chip, name/email, and a dropdown of account actions. Theme-aware brand colour (same tokens as Chip/Badge), collapsed mode for compact sidebars, and a circular photo variant."
+  [hasFramework]="true"
+  [api]="api">
+
+  <ng-container demo>
+
+    <!-- 1. User Menu Card -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">User Menu Card</h3>
+      <p class="demo-section__desc">Click the card to open the dropdown. The chevron rotates from <code>›</code> to <code>⌃</code>. <code>menuItems</code> accepts an optional <code>iconName</code> (platform icon registry), <code>danger</code> for destructive actions, and <code>dividerBefore</code> to insert a separator.</p>
+      <div class="demo-row">
+        <pui-lib-avatar
+          name="Rosanne Doyle"
+          email="rdoyle@solifi.com"
+          [menuItems]="menuItems"
+          (menuAction)="onAction($event)">
+        </pui-lib-avatar>
+      </div>
+      <div class="action-log" *ngIf="lastAction">
+        menuAction emitted: <strong>{{ lastAction }}</strong>
+      </div>
+    </div>
+
+    <!-- 2. Collapsed -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Collapsed</h3>
+      <p class="demo-section__desc">Set <code>[collapsed]="true"</code> to render only the avatar chip — for a collapsed sidebar rail. The dropdown still opens on click.</p>
+      <div class="demo-row">
+        <pui-lib-avatar
+          [collapsed]="true"
+          name="Rosanne Doyle"
+          email="rdoyle@solifi.com"
+          [menuItems]="menuItems"
+          (menuAction)="onAction($event)">
+        </pui-lib-avatar>
+      </div>
+    </div>
+
+    <!-- 3. Photo avatar -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Photo Avatar</h3>
+      <p class="demo-section__desc">Pass <code>avatarUrl</code> and the chip switches from a rounded-square initials tile to a circular photo.</p>
+      <div class="demo-row">
+        <pui-lib-avatar
+          name="Rosanne Doyle"
+          email="rdoyle@solifi.com"
+          avatarUrl="assets/logo.png"
+          [menuItems]="menuItems"
+          (menuAction)="onAction($event)">
+        </pui-lib-avatar>
+        <pui-lib-avatar
+          [collapsed]="true"
+          name="Rosanne Doyle"
+          avatarUrl="assets/logo.png">
+        </pui-lib-avatar>
+      </div>
+    </div>
+
+    <!-- 4. Sizes -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Sizes</h3>
+      <p class="demo-section__desc">Three chip sizes — <code>sm</code> 32px, <code>md</code> 40px (default), <code>lg</code> 48px.</p>
+      <div class="demo-row" style="align-items:flex-start">
+        <pui-lib-avatar size="sm" [collapsed]="true" name="Rosanne Doyle"></pui-lib-avatar>
+        <pui-lib-avatar size="md" [collapsed]="true" name="Rosanne Doyle"></pui-lib-avatar>
+        <pui-lib-avatar size="lg" [collapsed]="true" name="Rosanne Doyle"></pui-lib-avatar>
+      </div>
+    </div>
+
+    <!-- 5. No menu -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Without a Menu</h3>
+      <p class="demo-section__desc">When <code>menuItems</code> is empty, the card is static — no chevron, not clickable.</p>
+      <div class="demo-row">
+        <pui-lib-avatar name="Rosanne Doyle" email="rdoyle@solifi.com"></pui-lib-avatar>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead"><code>pui-lib-avatar</code> is a standalone Web Component. Use <code>(menuAction)</code> in Angular; listen to the <code>menuAction</code> custom event in React and plain HTML.</p>
+
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode">
+      <div preview class="demo-row">
+        <pui-lib-avatar
+          name="Rosanne Doyle"
+          email="rdoyle@solifi.com"
+          [menuItems]="menuItems"
+          (menuAction)="onAction($event)">
+        </pui-lib-avatar>
+      </div>
+      <div react-preview class="demo-row">
+        <pui-lib-avatar
+          [collapsed]="true"
+          name="Rosanne Doyle"
+          [menuItems]="menuItems">
+        </pui-lib-avatar>
+      </div>
+    </docs-framework-preview>
+
+    <h4 class="fw-ref-title">Avatar Quick Reference</h4>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
+            <td><span class="tag-name">{{ r.name }}</span></td>
+            <td><span class="tag-ng">{{ r.angular }}</span></td>
+            <td><span class="tag-html">{{ r.attr }}</span></td>
+            <td><span class="tag-js">{{ r.js }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+</docs-page>

@@ -23,6 +23,9 @@
         <button class="ctrl-btn" (click)="toggleUser()">
           {{ showUser ? 'Hide' : 'Show' }} user profile
         </button>
+        <button class="ctrl-btn" (click)="toggleBrand()">
+          {{ showBrand ? 'Hide' : 'Show' }} logo
+        </button>
       </div>
     </div>
 
@@ -31,6 +34,7 @@
       <pui-lib-solifi-sidebar
         [brandName]="brandName"
         [logoUrl]="logoUrl"
+        [showBrand]="showBrand"
         [groups]="navGroups"
         [activeId]="activeId"
         [collapsed]="collapsed"

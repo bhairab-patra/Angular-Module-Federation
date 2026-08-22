@@ -28,6 +28,19 @@ pui-lib-header {
   gap: var(--pui-space-2-5);
 }
 
+.pui-header__logo-section {
+  display: flex;
+  align-items: center;
+  gap: var(--pui-space-2);
+  flex-shrink: 0;
+  align-self: stretch;
+  height: 58px;
+  box-sizing: border-box;
+  background: var(--pui-white);
+  margin: 0 0 0 calc(-1 * var(--pui-space-6));
+  padding: 0 var(--pui-space-4) 0 var(--pui-space-6);
+}
+
 .pui-header__hamburger {
   display: flex;
   flex-direction: column;
@@ -181,6 +194,67 @@ pui-lib-header {
   color: var(--pui-white);
 }
 
+.pui-header__icon-btn--search {
+  background: var(--pui-white);
+  color: var(--pui-neutral-700);
+  border-radius: var(--pui-radius-lg);
+}
+
+.pui-header__icon-btn--search:hover {
+  background: var(--pui-white);
+  color: var(--pui-neutral-900);
+  opacity: .9;
+}
+
+.pui-header__icon-btn--active {
+  background: var(--pui-overlay-white-24);
+  color: currentColor;
+}
+
+.pui-header__search {
+  display: flex;
+  align-items: center;
+  gap: var(--pui-space-2);
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0;
+  border-radius: var(--pui-radius-lg);
+  background: var(--pui-white);
+  color: var(--pui-neutral-500);
+  flex-shrink: 1;
+  transition: width var(--pui-duration-slow, .22s) cubic-bezier(.4, 0, .2, 1),
+              opacity var(--pui-duration-base, .16s) ease,
+              padding var(--pui-duration-slow, .22s) ease;
+}
+
+.pui-header__search--open {
+  width: min(260px, 100%);
+  opacity: 1;
+  padding: var(--pui-space-1-5) var(--pui-space-3);
+  margin-right: var(--pui-space-2);
+}
+
+.pui-header__search-icon {
+  flex-shrink: 0;
+}
+
+.pui-header__search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: var(--pui-text-md, 14px);
+  color: var(--pui-neutral-900);
+  font-family: inherit;
+}
+
+.pui-header__search-input::placeholder {
+  color: var(--pui-neutral-400);
+}
+
 .pui-header__user {
   display: flex;
   align-items: center;
@@ -207,13 +281,13 @@ pui-lib-header {
 .pui-header__greeting {
   font-size: var(--pui-text-base);
   font-weight: 600;
-  color: var(--pui-white);
+  color: currentColor;
 }
 
 .pui-header__user-sub {
   font-size: var(--pui-text-2xs);
   opacity: .65;
-  color: var(--pui-white);
+  color: currentColor;
 }
 
 .pui-header__avatar {
@@ -230,6 +304,10 @@ pui-lib-header {
   border: 2px solid var(--pui-overlay-white-25);
 }
 
+.pui-header__avatar--plain {
+  cursor: default;
+}
+
 .pui-header__avatar-img {
   width: 100%;
   height: 100%;
@@ -237,7 +315,8 @@ pui-lib-header {
 }
 
 .pui-header__caret {
-  color: var(--pui-overlay-white-70);
+  color: currentColor;
+  opacity: .7;
   transition: transform .25s cubic-bezier(.4, 0, .2, 1);
 }
 

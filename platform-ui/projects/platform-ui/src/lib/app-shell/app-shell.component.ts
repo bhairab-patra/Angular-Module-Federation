@@ -4,21 +4,83 @@ import {
 } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { PuiSolifiSidebarComponent } from '../solifi-sidebar/solifi-sidebar.component';
+import { HeaderComponent } from '../header/header.component';
 import {
   SolifiNavGroup, SolifiNavItem, SolifiUserMenuItem,
   SolifiSidebarTheme, SOLIFI_THEME,
 } from '../models/solifi-sidebar.model';
+import { UserMenuItem, HeaderBadge } from '../models/header.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-app-shell',
   standalone: true,
-  imports: [NgIf, PuiSolifiSidebarComponent],
+  imports: [NgIf, PuiSolifiSidebarComponent, HeaderComponent],
   encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
 })
 export class PuiAppShellComponent {
+
+  /** Optional top header — set false for a flat layout (sidebar + content only, no header bar). */
+  @Input() set showHeader(v: boolean | string) {
+    this._showHeader = v !== false && v !== 'false';
+  }
+  get showHeader(): boolean { return this._showHeader; }
+  private _showHeader = true;
+
+  @Input() headerAppTitle    = '';
+  @Input() headerAppSubtitle = '';
+  @Input() headerLogoUrl     = '';
+  @Input() headerLogoText    = '';
+  @Input() headerBgColor     = 'var(--pui-header-bg, var(--pui-form-accent))';
+  @Input() headerTextColor   = 'var(--pui-header-text, var(--pui-neutral-900))';
+
+  @Input() set showHeaderLogo(v: boolean | string) {
+    this._showHeaderLogo = v !== false && v !== 'false';
+  }
+  get showHeaderLogo(): boolean { return this._showHeaderLogo; }
+  private _showHeaderLogo = true;
+
+  @Input() set showHeaderHeading(v: boolean | string) {
+    this._showHeaderHeading = v !== false && v !== 'false';
+  }
+  get showHeaderHeading(): boolean { return this._showHeaderHeading; }
+  private _showHeaderHeading = true;
+
+  @Input() set showHeaderSearch(v: boolean | string) {
+    this._showHeaderSearch = v !== false && v !== 'false';
+  }
+  get showHeaderSearch(): boolean { return this._showHeaderSearch; }
+  private _showHeaderSearch = true;
+
+  @Input() set showHeaderUser(v: boolean | string) {
+    this._showHeaderUser = v !== false && v !== 'false';
+  }
+  get showHeaderUser(): boolean { return this._showHeaderUser; }
+  private _showHeaderUser = true;
+
+  @Input() headerAvatarMode: 'menu' | 'plain' = 'menu';
+  @Input() headerUserName        = '';
+  @Input() headerUserEmail       = '';
+  @Input() headerAvatarUrl       = '';
+  @Input() headerAvatarColor     = 'var(--pui-form-accent)';
+  @Input() headerAvatarTextColor = 'var(--pui-accent-ink)';
+
+  @Input() set headerMenuItems(v: UserMenuItem[] | string) {
+    this._headerMenuItems = typeof v === 'string' ? (this._parse<UserMenuItem[]>(v) ?? []) : (v || []);
+  }
+  get headerMenuItems(): UserMenuItem[] { return this._headerMenuItems; }
+  private _headerMenuItems: UserMenuItem[] = [];
+
+  @Input() set headerBadge(v: HeaderBadge | string | null) {
+    this._headerBadge = typeof v === 'string' ? this._parse<HeaderBadge>(v) : v;
+  }
+  get headerBadge(): HeaderBadge | null { return this._headerBadge; }
+  private _headerBadge: HeaderBadge | null = null;
+
+  @Output() headerSearchQuery = new EventEmitter<string>();
+  @Output() headerMenuAction  = new EventEmitter<string>();
 
   @Input() set groups(v: SolifiNavGroup[] | SolifiNavItem[] | string) {
     if (typeof v === 'string') {
@@ -34,6 +96,12 @@ export class PuiAppShellComponent {
   @Input() activeId  = '';
   @Input() brandName = 'solifi';
   @Input() logoUrl   = '';
+
+  @Input() set showBrand(v: boolean | string) {
+    this._showBrand = v !== false && v !== 'false';
+  }
+  get showBrand(): boolean { return this._showBrand; }
+  private _showBrand = true;
 
   @Input() set collapsed(v: boolean | string) {
     this._collapsed = v === true || v === 'true' || (v as any) === '';
