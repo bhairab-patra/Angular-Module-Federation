@@ -1,0 +1,49 @@
+<div class="pui-dz"
+     [class.pui-dz--dragging]="dragging"
+     [class.pui-dz--disabled]="disabled"
+     (click)="openPicker()"
+     (dragover)="onDragOver($event)"
+     (dragleave)="onDragLeave($event)"
+     (drop)="onDrop($event)"
+     role="button"
+     tabindex="0"
+     [attr.aria-disabled]="disabled || null">
+
+  <input #fileInput type="file" class="pui-dz__input"
+         [attr.accept]="accept || null"
+         [multiple]="multiple"
+         [disabled]="disabled"
+         (click)="$event.stopPropagation()"
+         (change)="onFileInputChange($event)">
+
+  <div class="pui-dz__icon">
+    <pui-lib-icon name="upload" size="lg"></pui-lib-icon>
+  </div>
+  <p class="pui-dz__label">{{ label }}</p>
+  <p class="pui-dz__hint" *ngIf="hint">{{ hint }}</p>
+</div>
+
+<ul class="pui-dz__list" *ngIf="showFileList && files.length">
+  <li class="pui-dz__file" *ngFor="let f of files; trackBy: trackById" [class.pui-dz__file--error]="f.status === 'error'">
+    <span class="pui-dz__file-icon">
+      <pui-lib-icon name="file" size="sm"></pui-lib-icon>
+    </span>
+    <span class="pui-dz__file-info">
+      <span class="pui-dz__file-name">{{ f.name }}</span>
+      <span class="pui-dz__file-meta">
+        <ng-container [ngSwitch]="f.status">
+          <span *ngSwitchCase="'error'" class="pui-dz__file-error">{{ f.errorMessage || 'Upload failed' }}</span>
+          <span *ngSwitchCase="'uploading'">Uploading… {{ f.progress ?? 0 }}%</span>
+          <span *ngSwitchCase="'done'">{{ formatSize(f.size) }} · Uploaded</span>
+          <span *ngSwitchDefault>{{ formatSize(f.size) }}</span>
+        </ng-container>
+      </span>
+      <span class="pui-dz__progress-track" *ngIf="f.status === 'uploading'">
+        <span class="pui-dz__progress-fill" [style.width.%]="f.progress ?? 0"></span>
+      </span>
+    </span>
+    <button type="button" class="pui-dz__file-remove" (click)="removeFile(f)" aria-label="Remove file">
+      <pui-lib-icon name="close" size="xs"></pui-lib-icon>
+    </button>
+  </li>
+</ul>

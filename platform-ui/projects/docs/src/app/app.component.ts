@@ -32,6 +32,10 @@ export class AppComponent {
     { label: 'Confirm Dialog', route: '/confirm-dialog', category: 'Component', keywords: ['confirm', 'dialog', 'modal', 'delete', 'destructive', 'prompt', 'alert', 'warning'] },
     { label: 'Header', route: '/header', category: 'Component', keywords: ['navbar', 'topbar', 'navigation'] },
     { label: 'Footer', route: '/footer', category: 'Component', keywords: ['footer', 'bottom bar', 'copyright', 'disclaimer', 'contact', 'office hours'] },
+    { label: 'Popover', route: '/popover', category: 'Component', keywords: ['popover', 'floating', 'panel', 'anchor', 'card', 'flyout'] },
+    { label: 'Context Menu', route: '/context-menu', category: 'Component', keywords: ['context menu', 'right click', 'right-click', 'dropdown', 'contextmenu'] },
+    { label: 'Empty State', route: '/empty-state', category: 'Component', keywords: ['empty state', 'no data', 'no results', 'placeholder', 'blank'] },
+    { label: 'Dropzone', route: '/dropzone', category: 'Component', keywords: ['dropzone', 'file upload', 'drag and drop', 'drag drop', 'attachment', 'browse'] },
     { label: 'Icon', route: '/icon', category: 'Component', keywords: ['svg', 'glyph', 'symbol', 'figma', 'arrow', 'check', 'search'] },
     { label: 'Typography', route: '/typography', category: 'Foundation', keywords: ['poppins', 'font', 'type', 'scale', 'heading', 'body', 'weight', 'install'] },
     { label: 'Breadcrumb', route: '/breadcrumb', category: 'Component', keywords: ['nav', 'navigation', 'trail', 'crumb', 'path', 'location'] },
@@ -294,6 +298,22 @@ export class AppComponent {
           {
             label: 'Footer', route: '/footer',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 9h12"/></svg>`)
+          },
+          {
+            label: 'Popover', route: '/popover',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="10" height="7" rx="1.5"/><path d="M5 9l-1.5 3 3-1.5"/></svg>`)
+          },
+          {
+            label: 'Context Menu', route: '/context-menu',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="10" height="9" rx="1.5"/><path d="M7 5h4M7 7.5h4"/><circle cx="2.3" cy="13.5" r="1" fill="currentColor" stroke="none"/></svg>`)
+          },
+          {
+            label: 'Empty State', route: '/empty-state',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M6 9.5s.7-1 2-1 2 1 2 1" stroke-dasharray="1.5 1.8"/></svg>`)
+          },
+          {
+            label: 'Dropzone', route: '/dropzone',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11V3M5 6l3-3 3 3"/><path d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2"/></svg>`)
           },
           {
             label: 'Search', route: '/search',

@@ -1,0 +1,89 @@
+<docs-page title="Context Menu"
+  description="A right-click menu that appears at the cursor for any zone you wrap — files, table rows, cards, images. For a button-triggered dropdown menu instead, see the Menu component."
+  [code]="angularCode" [hasFramework]="true" [api]="api">
+
+  <ng-container demo>
+
+    <!-- 1. File card -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Right-Click a File Card</h3>
+      <p class="demo-section__desc">Right-click (or long-press on touch) anywhere inside the card below.</p>
+      <div class="demo-row">
+        <pui-lib-context-menu [items]="fileItems" (menuSelect)="onSelect($event)">
+          <div class="ctx-file-card">
+            <span class="ctx-file-card__icon">📄</span>
+            <span class="ctx-file-card__name">Q4-report.pdf</span>
+            <span class="ctx-file-card__hint">right-click</span>
+          </div>
+        </pui-lib-context-menu>
+        <span class="ctrl-tag" *ngIf="lastAction">Selected: <strong>{{ lastAction }}</strong></span>
+      </div>
+    </div>
+
+    <!-- 2. Table row -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Right-Click a Table Row</h3>
+      <p class="demo-section__desc">Disabled items (like "Archive" below) show but don't respond to clicks.</p>
+      <div class="demo-row">
+        <pui-lib-context-menu [items]="rowItems" (menuSelect)="onSelect($event)">
+          <table class="ctx-table">
+            <tbody>
+              <tr><td>Borrowing Base Posting</td><td>Active</td></tr>
+            </tbody>
+          </table>
+        </pui-lib-context-menu>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead">
+      <code>pui-lib-context-menu</code> is a Web Component — it works in Angular, React, and plain HTML
+      with no extra wrappers. Wrap any zone with it; <code>items</code> is an array, so set it as a JS
+      property (not an HTML attribute).
+    </p>
+
+    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
+      <div preview class="demo-col">
+        <pui-lib-context-menu [items]="fileItems" (menuSelect)="onSelect($event)">
+          <div class="ctx-file-card">
+            <span class="ctx-file-card__icon">📄</span>
+            <span class="ctx-file-card__name">report.pdf</span>
+            <span class="ctx-file-card__hint">right-click</span>
+          </div>
+        </pui-lib-context-menu>
+      </div>
+      <div react-preview class="demo-col">
+        <pui-lib-context-menu [items]="fileItems" (menuSelect)="onSelect($event)">
+          <div class="ctx-file-card">
+            <span class="ctx-file-card__icon">📄</span>
+            <span class="ctx-file-card__name">report.pdf</span>
+            <span class="ctx-file-card__hint">right-click</span>
+          </div>
+        </pui-lib-context-menu>
+      </div>
+    </docs-framework-preview>
+
+    <h4 class="fw-ref-title">Context Menu Quick Reference</h4>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead>
+          <tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
+            <td><code class="tag-name">{{ r.name }}</code></td>
+            <td><code class="tag-ng">{{ r.angular }}</code></td>
+            <td><code class="tag-html">{{ r.attr }}</code></td>
+            <td><code class="tag-js">{{ r.js }}</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+</docs-page>

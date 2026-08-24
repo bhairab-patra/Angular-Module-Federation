@@ -42,6 +42,10 @@ import { PuiSolifiSidebarComponent } from '../../platform-ui/src/lib/solifi-side
 import { PuiAvatarComponent } from '../../platform-ui/src/lib/avatar/avatar.component';
 import { PuiAccordionComponent } from '../../platform-ui/src/lib/accordion/accordion.component';
 import { PuiFooterComponent } from '../../platform-ui/src/lib/footer/footer.component';
+import { PuiPopoverComponent } from '../../platform-ui/src/lib/popover/popover.component';
+import { PuiContextMenuComponent } from '../../platform-ui/src/lib/context-menu/context-menu.component';
+import { PuiEmptyStateComponent } from '../../platform-ui/src/lib/empty-state/empty-state.component';
+import { PuiDropzoneComponent } from '../../platform-ui/src/lib/dropzone/dropzone.component';
 
 (async () => {
   const app = await createApplication({
@@ -110,6 +114,10 @@ import { PuiFooterComponent } from '../../platform-ui/src/lib/footer/footer.comp
   define(PuiAvatarComponent, 'pui-lib-avatar');
   define(PuiAccordionComponent, 'pui-lib-accordion');
   define(PuiFooterComponent, 'pui-lib-footer');
+  define(PuiPopoverComponent, 'pui-lib-popover');
+  define(PuiContextMenuComponent, 'pui-lib-context-menu');
+  define(PuiEmptyStateComponent, 'pui-lib-empty-state');
+  define(PuiDropzoneComponent, 'pui-lib-dropzone');
 
   // Expose tick helper — call after setting JS properties on custom elements from React
   // so Angular's change detection picks up the new values.

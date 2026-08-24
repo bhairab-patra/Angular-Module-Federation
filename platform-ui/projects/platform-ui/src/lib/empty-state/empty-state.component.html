@@ -1,0 +1,14 @@
+<div class="pui-es" [class]="'pui-es pui-es--' + size">
+  <div class="pui-es__icon">
+    <pui-lib-icon [name]="icon" size="xl"></pui-lib-icon>
+  </div>
+
+  <h3 class="pui-es__title" *ngIf="title">{{ title }}</h3>
+  <p class="pui-es__desc" *ngIf="description">{{ description }}</p>
+
+  <div class="pui-es__actions">
+    <ng-content select="[actions]"></ng-content>
+  </div>
+
+  <ng-content></ng-content>
+</div>

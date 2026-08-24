@@ -1,0 +1,18 @@
+<span class="pui-pop__trigger"
+      (click)="toggle()"
+      (mouseenter)="onTriggerEnter()"
+      (mouseleave)="onTriggerLeave()">
+  <ng-content select="[popoverTrigger]"></ng-content>
+</span>
+
+<div class="pui-pop__panel"
+     *ngIf="open"
+     [class]="placementClass"
+     (mouseenter)="onPanelEnter()"
+     (mouseleave)="onPanelLeave()"
+     (click)="$event.stopPropagation()">
+  <span class="pui-pop__arrow" *ngIf="showArrow" aria-hidden="true"></span>
+  <div class="pui-pop__body">
+    <ng-content></ng-content>
+  </div>
+</div>

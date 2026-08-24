@@ -77,7 +77,7 @@ export class AppShellPageComponent {
   iconMode: 'with-icons' | 'no-icons' = 'with-icons';
   theme: SolifiSidebarTheme = { ...SOLIFI_THEME };
 
-  userMenuItems: SolifiUserMenuItem[] = [
+  sidebarUserMenuItems: SolifiUserMenuItem[] = [
     { id: 'profile', label: 'My Profile', iconName: 'user' },
     { id: 'settings', label: 'Settings', iconName: 'settings' },
     { id: 'logout', label: 'Logout', iconName: 'logout', divider: true },
@@ -96,23 +96,25 @@ export class AppShellPageComponent {
   /** Full input/output reference, grouped by what each group is responsible
    * for, rendered as a table per category instead of one giant flat table
    * or a wall of prose. Rendered as a Default-variant, icon-less accordion
-   * below the demo. */
+   * below the demo. Property names match the prefixed API exactly:
+   * sidebarX only ever touches the sidebar, headerX only ever touches
+   * the header. */
   referenceItems: AccordionItem[] = [
     {
       id: 'ref-sidebar',
       title: 'Sidebar & Layout',
       content: '',
       contentHtml: refTable([
-        ['groups', 'SolifiNavGroup[]|SolifiNavItem[]', '[]', 'Nav items/groups in the sidebar — accepts a flat array or grouped array with section labels.'],
-        ['activeId', 'string', "''", 'Id of the currently highlighted nav item.'],
-        ['brandName / logoUrl', 'string', "'solifi' / ''", "Sidebar's brand text and logo image."],
-        ['showBrand', 'boolean|string', 'true', 'Show/hide the sidebar logo section entirely (expanded and collapsed).'],
-        ['collapsed', 'boolean|string', 'false', 'Collapses the sidebar to a 64px icon rail. Bind it two-way with (collapsedChange) to stay in sync.'],
+        ['sidebarGroups', 'SolifiNavGroup[]|SolifiNavItem[]', '[]', 'Nav items/groups in the sidebar — accepts a flat array or grouped array with section labels.'],
+        ['sidebarActiveId', 'string', "''", 'Id of the currently highlighted nav item.'],
+        ['sidebarBrandName / sidebarLogoUrl', 'string', "'solifi' / ''", "Sidebar's brand text and logo image."],
+        ['showSidebarBrand', 'boolean|string', 'true', 'Show/hide the sidebar logo section entirely (expanded and collapsed).'],
+        ['sidebarCollapsed', 'boolean|string', 'false', 'Collapses the sidebar to a 64px icon rail. Bind it two-way with (sidebarCollapsedChange) to stay in sync.'],
         ['showSidebar', 'boolean|string', 'true', 'Hides the sidebar completely, e.g. for a mobile flat layout.'],
-        ['width / collapsedWidth', 'number', '240 / 64', "Sidebar's expanded and collapsed pixel widths."],
-        ['theme', 'SolifiSidebarTheme|string', 'SOLIFI_THEME', 'Full sidebar colour-token object (background, text, active colours).'],
-        ['pageTitle', 'string', "''", 'Title shown in the bar under the header.'],
-        ['footerText', 'string', "''", 'Text for the bottom footer bar; only renders when non-empty.'],
+        ['sidebarWidth / sidebarCollapsedWidth', 'number', '240 / 64', "Sidebar's expanded and collapsed pixel widths."],
+        ['sidebarTheme', 'SolifiSidebarTheme|string', 'SOLIFI_THEME', 'Full sidebar colour-token object (background, text, active colours).'],
+        ['pageTitle', 'string', "''", 'Shell-level (not sidebar or header specific) — title shown in the bar under the header.'],
+        ['footerText', 'string', "''", 'Shell-level — text for the bottom footer bar; only renders when non-empty.'],
       ]),
     },
     {
@@ -120,11 +122,11 @@ export class AppShellPageComponent {
       title: 'Sidebar User Profile',
       content: '',
       contentHtml: refTable([
-        ['showUser', 'boolean|string', 'false', 'Shows the user-profile strip at the bottom of the sidebar.'],
-        ['userName / userEmail', 'string', "'' / ''", 'Name and email shown in that strip.'],
-        ['userInitials', 'string', "''", 'Avatar-bubble initials; auto-derived from userName if left unset.'],
-        ['userAvatarUrl', 'string', "''", 'Avatar photo URL — falls back to the initials bubble when unset.'],
-        ['userMenuItems', 'SolifiUserMenuItem[]|string', '[]', "Dropdown items shown when the sidebar's user strip is clicked."],
+        ['showSidebarUser', 'boolean|string', 'false', 'Shows the user-profile strip at the bottom of the sidebar.'],
+        ['sidebarUserName / sidebarUserEmail', 'string', "'' / ''", 'Name and email shown in that strip.'],
+        ['sidebarUserInitials', 'string', "''", 'Avatar-bubble initials; auto-derived from sidebarUserName if left unset.'],
+        ['sidebarUserAvatarUrl', 'string', "''", 'Avatar photo URL — falls back to the initials bubble when unset.'],
+        ['sidebarUserMenuItems', 'SolifiUserMenuItem[]|string', '[]', "Dropdown items shown when the sidebar's user strip is clicked."],
       ]),
     },
     {
@@ -138,9 +140,9 @@ export class AppShellPageComponent {
         ['headerBgColor / headerTextColor', 'string', 'theme tokens', 'Colour overrides — default to the current theme\'s header tokens.'],
         ['showHeaderLogo / showHeaderHeading / showHeaderSearch / showHeaderUser', 'boolean|string', 'true (each)', "Toggle each of the header's four sections on or off individually."],
         ['headerAvatarMode', `'menu'|'plain'`, "'menu'", '"menu" = name/email + dropdown, "plain" = round avatar chip only, no dropdown.'],
-        ['headerUserName / headerUserEmail / headerAvatarUrl', 'string', "'' / '' / ''", "Header avatar's own identity — separate from the sidebar's userName/userEmail."],
+        ['headerUserName / headerUserEmail / headerAvatarUrl', 'string', "'' / '' / ''", "Header avatar's own identity — separate from the sidebar's sidebarUserName/sidebarUserEmail."],
         ['headerAvatarColor / headerAvatarTextColor', 'string', 'theme tokens', "Avatar chip's background and initials colour."],
-        ['headerMenuItems', 'UserMenuItem[]|string', '[]', 'Header avatar dropdown items (menu mode only) — shape {label, icon, action}, not interchangeable with the sidebar\'s userMenuItems.'],
+        ['headerMenuItems', 'UserMenuItem[]|string', '[]', 'Header avatar dropdown items (menu mode only) — shape {label, icon, action}, not interchangeable with the sidebar\'s sidebarUserMenuItems.'],
         ['headerBadge', 'HeaderBadge|string|null', 'null', 'Optional environment badge (e.g. "UAT"/"PROD") shown in the header.'],
       ]),
     },
@@ -149,9 +151,9 @@ export class AppShellPageComponent {
       title: 'Events (Outputs)',
       content: '',
       contentHtml: refTable([
-        ['itemSelect', 'EventEmitter<SolifiNavItem>', '—', 'Fires when a sidebar nav item is clicked.'],
-        ['collapsedChange', 'EventEmitter<boolean>', '—', "Fires when the sidebar's collapse state toggles."],
-        ['userMenuSelect', 'EventEmitter<SolifiUserMenuItem>', '—', 'Fires when a sidebar user-menu item is clicked.'],
+        ['sidebarItemSelect', 'EventEmitter<SolifiNavItem>', '—', 'Fires when a sidebar nav item is clicked.'],
+        ['sidebarCollapsedChange', 'EventEmitter<boolean>', '—', "Fires when the sidebar's collapse state toggles."],
+        ['sidebarUserMenuSelect', 'EventEmitter<SolifiUserMenuItem>', '—', 'Fires when a sidebar user-menu item is clicked.'],
         ['headerSearchQuery', 'EventEmitter<string>', '—', "Fires as the user types in the header's inline search field."],
         ['headerMenuAction', 'EventEmitter<string>', '—', 'Fires when a header avatar dropdown item is clicked (only if headerMenuItems is set).'],
       ], ['Output', 'Emits', 'Default', 'What it does']),
@@ -193,19 +195,20 @@ import { RouterOutlet } from '@angular/router';
   imports: [PuiAppShellComponent, RouterOutlet],
   // pui-lib-app-shell owns the complete layout:
   //   sidebar | optional header + title bar + scrollable content + fixed footer
+  // Every input is prefixed by which part it controls: sidebarX vs headerX.
   template: \`
     <pui-lib-app-shell
-      brandName="solifi"
-      logoUrl="assets/logo.png"
-      [groups]="navGroups"
-      [activeId]="activeId"
+      sidebarBrandName="solifi"
+      sidebarLogoUrl="assets/logo.png"
+      [sidebarGroups]="navGroups"
+      [sidebarActiveId]="activeId"
       [pageTitle]="activeLabel"
       footerText="Copyright © 2026 Solifi. All Rights Reserved."
-      [theme]="theme"
-      [showUser]="true"
-      userName="Rosanna Doyle"
-      userEmail="adminhub@solifi.com"
-      [userMenuItems]="userMenu"
+      [sidebarTheme]="theme"
+      [showSidebarUser]="true"
+      sidebarUserName="Rosanna Doyle"
+      sidebarUserEmail="adminhub@solifi.com"
+      [sidebarUserMenuItems]="sidebarUserMenu"
       [showHeader]="true"
       headerAppTitle="Uptown Trucking Leasing"
       headerAppSubtitle="Digital Experience Portal"
@@ -213,9 +216,9 @@ import { RouterOutlet } from '@angular/router';
       headerUserName="Rosanna Doyle"
       headerUserEmail="adminhub@solifi.com"
       [headerMenuItems]="headerMenu"
-      (itemSelect)="onNav($event)"
-      (collapsedChange)="collapsed = $event"
-      (userMenuSelect)="onUserMenu($event)"
+      (sidebarItemSelect)="onNav($event)"
+      (sidebarCollapsedChange)="collapsed = $event"
+      (sidebarUserMenuSelect)="onUserMenu($event)"
       (headerSearchQuery)="onHeaderSearch($event)">
 
       <!-- Only YOUR page content goes here — shell handles the rest -->
@@ -246,7 +249,7 @@ export class AppComponent {
     ]},
   ];
 
-  userMenu: SolifiUserMenuItem[] = [
+  sidebarUserMenu: SolifiUserMenuItem[] = [
     { id: 'profile',  label: 'My Profile', iconName: 'user'                   },
     { id: 'settings', label: 'Settings',   iconName: 'settings'               },
     { id: 'logout',   label: 'Logout',     iconName: 'logout', divider: true  },
@@ -265,7 +268,7 @@ export class AppComponent {
   }
 
   onNav(item: SolifiNavItem)           { this.activeId = item.id; }
-  onUserMenu(item: SolifiUserMenuItem) { console.log('User menu:', item.label); }
+  onUserMenu(item: SolifiUserMenuItem) { console.log('Sidebar user menu:', item.label); }
   onHeaderSearch(query: string)        { console.log('Header search:', query); }
 }`;
 
@@ -287,7 +290,7 @@ const NAV_GROUPS = [
   ]},
 ];
 
-const USER_MENU = [
+const SIDEBAR_USER_MENU = [
   { id: 'profile',  label: 'My Profile', iconName: 'user'                   },
   { id: 'api-keys', label: 'API Keys',   iconName: 'settings'               },
   { id: 'logout',   label: 'Sign Out',   iconName: 'logout', divider: true  },
@@ -312,16 +315,16 @@ export function AppShell({ children }) {
   useEffect(() => {
     const el = shellRef.current;
     if (!el) return;
-    el.groups         = NAV_GROUPS;
-    el.theme          = SOLIFI_THEME;
-    el.userMenuItems  = USER_MENU;
-    el.headerMenuItems = HEADER_MENU;
+    el.sidebarGroups        = NAV_GROUPS;
+    el.sidebarTheme         = SOLIFI_THEME;
+    el.sidebarUserMenuItems = SIDEBAR_USER_MENU;
+    el.headerMenuItems      = HEADER_MENU;
     const onNav = (e) => setActiveId(e.detail.id);
     const onSearch = (e) => console.log('Header search:', e.detail);
-    el.addEventListener('itemSelect', onNav);
+    el.addEventListener('sidebarItemSelect', onNav);
     el.addEventListener('headerSearchQuery', onSearch);
     return () => {
-      el.removeEventListener('itemSelect', onNav);
+      el.removeEventListener('sidebarItemSelect', onNav);
       el.removeEventListener('headerSearchQuery', onSearch);
     };
   }, []);
@@ -334,14 +337,14 @@ export function AppShell({ children }) {
   return (
     <pui-lib-app-shell
       ref={shellRef}
-      brand-name="FlexFleet"
-      logo-url="/assets/logo.png"
-      active-id={activeId}
+      sidebar-brand-name="FlexFleet"
+      sidebar-logo-url="/assets/logo.png"
+      sidebar-active-id={activeId}
       page-title={pageTitle}
       footer-text="Copyright © 2026 FlexFleet. All Rights Reserved."
-      show-user
-      user-name="Jordan Wells"
-      user-email="jwells@flexfleet.io"
+      show-sidebar-user
+      sidebar-user-name="Jordan Wells"
+      sidebar-user-email="jwells@flexfleet.io"
       show-header
       header-app-title="FlexFleet"
       header-app-subtitle="Operations Portal"
@@ -359,16 +362,17 @@ export function AppShell({ children }) {
   fwHtmlCode = `<!-- 1. Load the Web Components bundle once -->
 <script src="pui-elements.js"></script>
 
-<!-- 2. App shell owns sidebar + optional header + title bar + scrollable content + footer -->
+<!-- 2. App shell owns sidebar + optional header + title bar + scrollable content + footer.
+     Every attribute is prefixed by which part it controls: sidebar-x vs header-x. -->
 <pui-lib-app-shell
   id="shell"
-  brand-name="Meridian"
-  logo-url="assets/logo.png"
+  sidebar-brand-name="Meridian"
+  sidebar-logo-url="assets/logo.png"
   page-title="Dashboard"
   footer-text="Copyright © 2026 Meridian Finance. All Rights Reserved."
-  show-user
-  user-name="Alex Morgan"
-  user-email="amorgan@meridian.com"
+  show-sidebar-user
+  sidebar-user-name="Alex Morgan"
+  sidebar-user-email="amorgan@meridian.com"
   show-header
   header-app-title="Meridian Finance"
   header-app-subtitle="Client Portal"
@@ -404,9 +408,9 @@ export function AppShell({ children }) {
 
     const ALL_ITEMS = NAV_GROUPS.flatMap(g => g.items);
 
-    shell.groups = NAV_GROUPS;
-    shell.theme  = { bg: '#112C35', textColor: '#8fa3bc', activeColor: '#12C6A8' };
-    shell.userMenuItems = [
+    shell.sidebarGroups = NAV_GROUPS;
+    shell.sidebarTheme  = { bg: '#112C35', textColor: '#8fa3bc', activeColor: '#12C6A8' };
+    shell.sidebarUserMenuItems = [
       { id: 'profile',  label: 'My Profile', iconName: 'user'                   },
       { id: 'settings', label: 'Settings',   iconName: 'settings'               },
       { id: 'logout',   label: 'Logout',     iconName: 'logout', divider: true  },
@@ -420,9 +424,9 @@ export function AppShell({ children }) {
     ];
 
     // Update title bar when nav item is clicked
-    shell.addEventListener('itemSelect', (e) => {
-      shell.activeId   = e.detail.id;
-      shell.pageTitle  = e.detail.label;
+    shell.addEventListener('sidebarItemSelect', (e) => {
+      shell.sidebarActiveId = e.detail.id;
+      shell.pageTitle       = e.detail.label;
     });
 
     shell.addEventListener('headerSearchQuery', (e) => {
@@ -438,18 +442,21 @@ export function AppShell({ children }) {
   imports: [PuiAppShellComponent],
   // pui-lib-app-shell owns the whole layout: sidebar + optional header +
   // title bar + scrollable content + footer. Set [showHeader]="false" for
-  // a flat layout with no header bar.
+  // a flat layout with no header bar. Every input name tells you which
+  // part it affects: sidebarX only touches the sidebar, headerX only
+  // touches the header — pageTitle/footerText are the only shell-level
+  // (unprefixed) properties.
   template: \`
     <pui-lib-app-shell
-      brandName="solifi"
-      logoUrl="assets/logo.png"
-      [groups]="navGroups"
-      [activeId]="activeId"
-      [theme]="SOLIFI_THEME"
-      [showUser]="true"
-      userName="Rosanna Doyle"
-      userEmail="adminhub@solifi.com"
-      [userMenuItems]="userMenu"
+      sidebarBrandName="solifi"
+      sidebarLogoUrl="assets/logo.png"
+      [sidebarGroups]="navGroups"
+      [sidebarActiveId]="activeId"
+      [sidebarTheme]="SOLIFI_THEME"
+      [showSidebarUser]="true"
+      sidebarUserName="Rosanna Doyle"
+      sidebarUserEmail="adminhub@solifi.com"
+      [sidebarUserMenuItems]="sidebarUserMenu"
       [showHeader]="true"
       headerAppTitle="Uptown Trucking Leasing"
       headerAppSubtitle="Digital Experience Portal"
@@ -457,8 +464,8 @@ export function AppShell({ children }) {
       headerUserName="Rosanna Doyle"
       headerUserEmail="adminhub@solifi.com"
       [headerMenuItems]="headerMenu"
-      (itemSelect)="onNav($event)"
-      (userMenuSelect)="onUserMenu($event)">
+      (sidebarItemSelect)="onNav($event)"
+      (sidebarUserMenuSelect)="onUserMenu($event)">
 
       <!-- Only YOUR page content goes here -->
       <router-outlet />
@@ -469,7 +476,7 @@ export function AppShell({ children }) {
 export class AppComponent {
   activeId = 'borrowing-base';
   navGroups: SolifiNavGroup[] = [...];
-  userMenu: SolifiUserMenuItem[] = [
+  sidebarUserMenu: SolifiUserMenuItem[] = [
     { id: 'profile',  label: 'My Profile', iconName: 'user'     },
     { id: 'settings', label: 'Settings',   iconName: 'settings' },
     { id: 'logout',   label: 'Logout',     iconName: 'logout', divider: true },
@@ -484,45 +491,52 @@ export class AppComponent {
 }`;
 
   api: ApiRow[] = [
-    { input: 'groups', type: 'SolifiNavGroup[]', default: '[]', description: 'Navigation groups. Items support iconName, icon (SVG), or text-only.' },
-    { input: 'activeId', type: 'string', default: "''", description: 'ID of the currently active nav item.' },
-    { input: 'brandName', type: 'string', default: "'solifi'", description: 'Brand name shown next to logo in expanded state.' },
-    { input: 'logoUrl', type: 'string', default: "''", description: 'Image URL for the logo (e.g. assets/logo.png).' },
-    { input: 'logo', type: 'string (SVG/HTML)', default: 'default', description: 'Raw HTML logo fallback when logoUrl is not set.' },
-    { input: 'showBrand', type: 'boolean | string', default: 'true', description: 'Show/hide the sidebar\'s own logo section (expanded and collapsed states). Independent of showHeader.' },
-    { input: 'collapsed', type: 'boolean', default: 'false', description: 'Collapse sidebar to 64px icon-only rail.' },
-    { input: 'showUser', type: 'boolean', default: 'false', description: 'Show user profile section at the bottom.' },
-    { input: 'userName', type: 'string', default: "''", description: 'Full name in user profile footer.' },
-    { input: 'userEmail', type: 'string', default: "''", description: 'Email shown under user name.' },
-    { input: 'userInitials', type: 'string', default: "''", description: 'Avatar initials — auto-derived from userName if empty.' },
-    { input: 'userAvatarUrl', type: 'string', default: "''", description: 'Avatar photo URL. Falls back to initials bubble.' },
-    { input: 'userMenuItems', type: 'SolifiUserMenuItem[]', default: '[]', description: 'Profile popup menu items. Shown when user profile strip is clicked.' },
-    { input: 'theme', type: 'SolifiSidebarTheme', default: 'SOLIFI_THEME', description: 'Full color token object. Use SOLIFI_THEME preset.' },
-    { input: 'width', type: 'number', default: '240', description: 'Expanded width in px.' },
-    { input: 'collapsedWidth', type: 'number', default: '64', description: 'Collapsed rail width in px.' },
-    { input: 'itemSelect', type: 'EventEmitter<SolifiNavItem>', default: '—', description: 'Fires on nav item click.' },
-    { input: 'collapsedChange', type: 'EventEmitter<boolean>', default: '—', description: 'Fires when collapsed state toggles.' },
-    { input: 'userMenuSelect', type: 'EventEmitter<SolifiUserMenuItem>', default: '—', description: 'Fires when a user profile menu item is selected.' },
+    // ── Sidebar — every input here affects only the left nav rail ────────
+    { input: 'sidebarGroups', type: 'SolifiNavGroup[]', default: '[]', description: 'Navigation groups. Items support iconName, icon (SVG), or text-only.' },
+    { input: 'sidebarActiveId', type: 'string', default: "''", description: 'ID of the currently active nav item.' },
+    { input: 'sidebarBrandName', type: 'string', default: "'solifi'", description: 'Brand name shown next to the sidebar logo in expanded state.' },
+    { input: 'sidebarLogoUrl', type: 'string', default: "''", description: 'Image URL for the sidebar logo (e.g. assets/logo.png).' },
+    { input: 'showSidebarBrand', type: 'boolean | string', default: 'true', description: 'Show/hide the sidebar\'s own logo section (expanded and collapsed states). Independent of showHeader.' },
+    { input: 'sidebarCollapsed', type: 'boolean | string', default: 'false', description: 'Collapse the sidebar to a 64px icon-only rail.' },
+    { input: 'showSidebar', type: 'boolean | string', default: 'true', description: 'Master switch for the whole sidebar — hide it entirely, e.g. for a mobile flat layout.' },
+    { input: 'sidebarWidth', type: 'number', default: '240', description: 'Sidebar expanded width in px.' },
+    { input: 'sidebarCollapsedWidth', type: 'number', default: '64', description: 'Sidebar collapsed rail width in px.' },
+    { input: 'sidebarTheme', type: 'SolifiSidebarTheme', default: 'SOLIFI_THEME', description: 'Full sidebar colour-token object. Use the SOLIFI_THEME preset.' },
+    { input: 'showSidebarUser', type: 'boolean | string', default: 'false', description: 'Show the user-profile section at the bottom of the sidebar.' },
+    { input: 'sidebarUserName', type: 'string', default: "''", description: 'Full name in the sidebar user-profile footer.' },
+    { input: 'sidebarUserEmail', type: 'string', default: "''", description: 'Email shown under the name in the sidebar user-profile footer.' },
+    { input: 'sidebarUserInitials', type: 'string', default: "''", description: 'Sidebar avatar initials — auto-derived from sidebarUserName if empty.' },
+    { input: 'sidebarUserAvatarUrl', type: 'string', default: "''", description: 'Sidebar avatar photo URL. Falls back to the initials bubble.' },
+    { input: 'sidebarUserMenuItems', type: 'SolifiUserMenuItem[]', default: '[]', description: 'Sidebar profile popup menu items. Shown when the sidebar user-profile strip is clicked.' },
+    { input: 'sidebarItemSelect', type: 'EventEmitter<SolifiNavItem>', default: '—', description: 'Fires on sidebar nav item click.' },
+    { input: 'sidebarCollapsedChange', type: 'EventEmitter<boolean>', default: '—', description: 'Fires when the sidebar\'s collapsed state toggles.' },
+    { input: 'sidebarUserMenuSelect', type: 'EventEmitter<SolifiUserMenuItem>', default: '—', description: 'Fires when a sidebar user-profile menu item is selected.' },
 
-    // ── Header (optional) ──────────────────────────────────────────────
-    { input: 'showHeader', type: 'boolean | string', default: 'true', description: 'Show the top header bar. Set false for a flat layout — sidebar + content only, no header.' },
+    // ── Header (optional) — every input here affects only the top bar ────
+    { input: 'showHeader', type: 'boolean | string', default: 'true', description: 'Master switch for the whole header. Set false for a flat layout — sidebar + content only, no header.' },
     { input: 'headerAppTitle', type: 'string', default: "''", description: 'Header title text.' },
     { input: 'headerAppSubtitle', type: 'string', default: "''", description: 'Header subtitle text, shown after a "|" separator.' },
-    { input: 'headerLogoUrl', type: 'string', default: "''", description: 'Header logo image URL — rendered in its own white panel.' },
+    { input: 'headerLogoUrl', type: 'string', default: "''", description: 'Header logo image URL — rendered in its own white panel, independent of the sidebar logo.' },
     { input: 'headerLogoText', type: 'string', default: "''", description: 'Text label shown next to the header logo image, if not baked into the image.' },
     { input: 'headerBgColor', type: 'string', default: "'var(--pui-header-bg)'", description: 'Header background colour — defaults to the theme token (teal old theme, tan new theme).' },
     { input: 'headerTextColor', type: 'string', default: "'var(--pui-header-text)'", description: 'Header text colour.' },
     { input: 'showHeaderLogo', type: 'boolean | string', default: 'true', description: 'Show/hide the header logo section.' },
     { input: 'showHeaderHeading', type: 'boolean | string', default: 'true', description: 'Show/hide the header title/subtitle section.' },
     { input: 'showHeaderSearch', type: 'boolean | string', default: 'true', description: 'Show/hide the header search button — expands inline in the header when clicked.' },
-    { input: 'showHeaderUser', type: 'boolean | string', default: 'true', description: 'Show/hide the header avatar area (independent of the sidebar’s own showUser).' },
+    { input: 'showHeaderUser', type: 'boolean | string', default: 'true', description: 'Show/hide the header avatar area (independent of the sidebar\'s own showSidebarUser).' },
     { input: 'headerAvatarMode', type: `'menu'|'plain'`, default: "'menu'", description: 'Header avatar style — menu = name/email + dropdown, plain = round chip only.' },
-    { input: 'headerUserName', type: 'string', default: "''", description: 'Name shown in the header avatar area.' },
-    { input: 'headerUserEmail', type: 'string', default: "''", description: 'Email shown in the header avatar dropdown (menu mode only).' },
+    { input: 'headerUserName', type: 'string', default: "''", description: 'Name shown in the header avatar area — separate from sidebarUserName.' },
+    { input: 'headerUserEmail', type: 'string', default: "''", description: 'Email shown in the header avatar dropdown (menu mode only) — separate from sidebarUserEmail.' },
     { input: 'headerAvatarUrl', type: 'string', default: "''", description: 'Header avatar photo URL — falls back to initials.' },
-    { input: 'headerMenuItems', type: 'UserMenuItem[] | string', default: '[]', description: 'Header avatar dropdown items (menu mode only).' },
+    { input: 'headerAvatarColor', type: 'string', default: "'var(--pui-form-accent)'", description: 'Header avatar chip background colour.' },
+    { input: 'headerAvatarTextColor', type: 'string', default: "'var(--pui-accent-ink)'", description: 'Header avatar initials text colour.' },
+    { input: 'headerMenuItems', type: 'UserMenuItem[] | string', default: '[]', description: 'Header avatar dropdown items (menu mode only) — shape {label, action, icon?, danger?}, not interchangeable with sidebarUserMenuItems.' },
     { input: 'headerBadge', type: 'HeaderBadge | string', default: 'null', description: 'Environment badge shown in the header (e.g. UAT/PROD).' },
-    { input: 'headerSearchQuery', type: 'EventEmitter<string>', default: '—', description: 'Fires as the user types in the header’s inline search field.' },
+    { input: 'headerSearchQuery', type: 'EventEmitter<string>', default: '—', description: 'Fires as the user types in the header\'s inline search field.' },
     { input: 'headerMenuAction', type: 'EventEmitter<string>', default: '—', description: 'Fires when a header avatar dropdown item is clicked.' },
+
+    // ── Shell — layout-level, not owned by either the sidebar or header ──
+    { input: 'pageTitle', type: 'string', default: "''", description: 'Title shown in the bar under the header.' },
+    { input: 'footerText', type: 'string', default: "''", description: 'Text for the bottom footer bar; the bar only renders when this is non-empty.' },
   ];
 }

@@ -56,4 +56,8 @@ export const routes: Routes = [
   { path: 'accordion', loadComponent: () => import('./pages/accordion-page/accordion-page.component').then(m => m.AccordionPageComponent) },
   { path: 'avatar', loadComponent: () => import('./pages/avatar-page/avatar-page.component').then(m => m.AvatarPageComponent) },
   { path: 'footer', loadComponent: () => import('./pages/footer-page/footer-page.component').then(m => m.FooterPageComponent) },
+  { path: 'popover', loadComponent: () => import('./pages/popover-page/popover-page.component').then(m => m.PopoverPageComponent) },
+  { path: 'context-menu', loadComponent: () => import('./pages/context-menu-page/context-menu-page.component').then(m => m.ContextMenuPageComponent) },
+  { path: 'empty-state', loadComponent: () => import('./pages/empty-state-page/empty-state-page.component').then(m => m.EmptyStatePageComponent) },
+  { path: 'dropzone', loadComponent: () => import('./pages/dropzone-page/dropzone-page.component').then(m => m.DropzonePageComponent) },
 ];

@@ -1,0 +1,26 @@
+<div class="pui-ctx__zone" (contextmenu)="onContextMenu($event)">
+  <ng-content></ng-content>
+</div>
+
+<div class="pui-ctx__menu"
+     *ngIf="open"
+     [style.top.px]="y"
+     [style.left.px]="x"
+     (click)="$event.stopPropagation()"
+     (contextmenu)="$event.preventDefault()"
+     role="menu">
+  <ng-container *ngFor="let item of items; trackBy: trackById">
+    <div class="pui-ctx__divider" *ngIf="item.dividerBefore"></div>
+    <button type="button"
+            class="pui-ctx__item"
+            role="menuitem"
+            [class.pui-ctx__item--danger]="item.danger"
+            [class.pui-ctx__item--disabled]="item.disabled"
+            [disabled]="item.disabled || null"
+            (click)="select(item)">
+      <pui-lib-icon *ngIf="item.icon" class="pui-ctx__item-icon" [name]="item.icon" size="sm"></pui-lib-icon>
+      <span class="pui-ctx__item-label">{{ item.label }}</span>
+      <span class="pui-ctx__item-shortcut" *ngIf="item.shortcut">{{ item.shortcut }}</span>
+    </button>
+  </ng-container>
+</div>

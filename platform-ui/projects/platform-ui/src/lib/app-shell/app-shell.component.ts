@@ -22,6 +22,8 @@ import { UserMenuItem, HeaderBadge } from '../models/header.model';
 })
 export class PuiAppShellComponent {
 
+  // ── HEADER — every input here affects only the top header bar ──────────
+
   /** Optional top header — set false for a flat layout (sidebar + content only, no header bar). */
   @Input() set showHeader(v: boolean | string) {
     this._showHeader = v !== false && v !== 'false';
@@ -79,78 +81,88 @@ export class PuiAppShellComponent {
   get headerBadge(): HeaderBadge | null { return this._headerBadge; }
   private _headerBadge: HeaderBadge | null = null;
 
+  /** Fires as the user types in the header's inline search field. */
   @Output() headerSearchQuery = new EventEmitter<string>();
+  /** Fires when a header avatar dropdown item is clicked (menu mode only). */
   @Output() headerMenuAction = new EventEmitter<string>();
 
-  @Input() set groups(v: SolifiNavGroup[] | SolifiNavItem[] | string) {
+  // ── SIDEBAR — every input here affects only the left navigation rail ───
+
+  @Input() set sidebarGroups(v: SolifiNavGroup[] | SolifiNavItem[] | string) {
     if (typeof v === 'string') {
       const parsed = this._parse<SolifiNavGroup[] | SolifiNavItem[]>(v) ?? [];
-      this._groups = this._normalize(parsed);
+      this._sidebarGroups = this._normalize(parsed);
     } else {
-      this._groups = this._normalize(v || []);
+      this._sidebarGroups = this._normalize(v || []);
     }
   }
-  get groups(): SolifiNavGroup[] { return this._groups; }
-  private _groups: SolifiNavGroup[] = [];
+  get sidebarGroups(): SolifiNavGroup[] { return this._sidebarGroups; }
+  private _sidebarGroups: SolifiNavGroup[] = [];
 
-  @Input() activeId = '';
-  @Input() brandName = 'solifi';
-  @Input() logoUrl = '';
+  @Input() sidebarActiveId = '';
+  @Input() sidebarBrandName = 'solifi';
+  @Input() sidebarLogoUrl = '';
 
-  @Input() set showBrand(v: boolean | string) {
-    this._showBrand = v !== false && v !== 'false';
+  @Input() set showSidebarBrand(v: boolean | string) {
+    this._showSidebarBrand = v !== false && v !== 'false';
   }
-  get showBrand(): boolean { return this._showBrand; }
-  private _showBrand = true;
+  get showSidebarBrand(): boolean { return this._showSidebarBrand; }
+  private _showSidebarBrand = true;
 
-  @Input() set collapsed(v: boolean | string) {
-    this._collapsed = v === true || v === 'true' || (v as any) === '';
+  @Input() set sidebarCollapsed(v: boolean | string) {
+    this._sidebarCollapsed = v === true || v === 'true' || (v as any) === '';
   }
-  get collapsed(): boolean { return this._collapsed; }
-  private _collapsed = false;
+  get sidebarCollapsed(): boolean { return this._sidebarCollapsed; }
+  private _sidebarCollapsed = false;
 
+  /** Master switch for the whole sidebar — set false to hide it entirely (e.g. a mobile flat layout). */
   @Input() set showSidebar(v: boolean | string) {
     this._showSidebar = v !== false && v !== 'false';
   }
   get showSidebar(): boolean { return this._showSidebar; }
   private _showSidebar = true;
 
-  @Input() width = 240;
-  @Input() collapsedWidth = 64;
+  @Input() sidebarWidth = 240;
+  @Input() sidebarCollapsedWidth = 64;
 
-  @Input() set theme(v: SolifiSidebarTheme | string) {
-    this._theme = typeof v === 'string' ? (this._parse<SolifiSidebarTheme>(v) ?? SOLIFI_THEME) : (v || SOLIFI_THEME);
+  @Input() set sidebarTheme(v: SolifiSidebarTheme | string) {
+    this._sidebarTheme = typeof v === 'string' ? (this._parse<SolifiSidebarTheme>(v) ?? SOLIFI_THEME) : (v || SOLIFI_THEME);
   }
-  get theme(): SolifiSidebarTheme { return this._theme; }
-  private _theme: SolifiSidebarTheme = { ...SOLIFI_THEME };
+  get sidebarTheme(): SolifiSidebarTheme { return this._sidebarTheme; }
+  private _sidebarTheme: SolifiSidebarTheme = { ...SOLIFI_THEME };
 
-  @Input() set showUser(v: boolean | string) {
-    this._showUser = v === true || v === 'true' || (v as any) === '';
+  @Input() set showSidebarUser(v: boolean | string) {
+    this._showSidebarUser = v === true || v === 'true' || (v as any) === '';
   }
-  get showUser(): boolean { return this._showUser; }
-  private _showUser = false;
+  get showSidebarUser(): boolean { return this._showSidebarUser; }
+  private _showSidebarUser = false;
 
-  @Input() userName = '';
-  @Input() userEmail = '';
-  @Input() userInitials = '';
-  @Input() userAvatarUrl = '';
+  @Input() sidebarUserName = '';
+  @Input() sidebarUserEmail = '';
+  @Input() sidebarUserInitials = '';
+  @Input() sidebarUserAvatarUrl = '';
 
-  @Input() set userMenuItems(v: SolifiUserMenuItem[] | string) {
-    this._userMenuItems = typeof v === 'string' ? (this._parse<SolifiUserMenuItem[]>(v) ?? []) : (v || []);
+  @Input() set sidebarUserMenuItems(v: SolifiUserMenuItem[] | string) {
+    this._sidebarUserMenuItems = typeof v === 'string' ? (this._parse<SolifiUserMenuItem[]>(v) ?? []) : (v || []);
   }
-  get userMenuItems(): SolifiUserMenuItem[] { return this._userMenuItems; }
-  private _userMenuItems: SolifiUserMenuItem[] = [];
+  get sidebarUserMenuItems(): SolifiUserMenuItem[] { return this._sidebarUserMenuItems; }
+  private _sidebarUserMenuItems: SolifiUserMenuItem[] = [];
+
+  /** Fires when a sidebar nav item is clicked. */
+  @Output() sidebarItemSelect = new EventEmitter<SolifiNavItem>();
+  /** Fires when the sidebar's collapse state toggles. */
+  @Output() sidebarCollapsedChange = new EventEmitter<boolean>();
+  /** Fires when a sidebar user-menu item is clicked. */
+  @Output() sidebarUserMenuSelect = new EventEmitter<SolifiUserMenuItem>();
+
+  // ── SHELL — layout-level, not owned by either the header or the sidebar ─
 
   @Input() pageTitle = '';
   @Input() footerText = '';
 
-  @Output() itemSelect = new EventEmitter<SolifiNavItem>();
-  @Output() collapsedChange = new EventEmitter<boolean>();
-  @Output() userMenuSelect = new EventEmitter<SolifiUserMenuItem>();
-
-  onCollapsedChange(v: boolean): void {
-    this._collapsed = v;
-    this.collapsedChange.emit(v);
+  onSidebarCollapsedChange(v: boolean): void {
+    this._sidebarCollapsed = v;
+    this.sidebarCollapsedChange.emit(v);
   }
 
   private _normalize(v: SolifiNavGroup[] | SolifiNavItem[]): SolifiNavGroup[] {

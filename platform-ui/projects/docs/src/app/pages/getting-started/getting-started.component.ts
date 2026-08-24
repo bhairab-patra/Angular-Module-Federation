@@ -142,7 +142,7 @@ type Framework = 'angular' | 'react' | 'html';
             Drop <code>pui-lib-app-shell</code> into your root component.
             Wire <code>provideRouter(routes)</code> in <code>app.config.ts</code> and place
             <code>&lt;router-outlet /&gt;</code> inside the shell tag — the sidebar navigation
-            drives Angular's router automatically via the <code>(itemSelect)</code> output:
+            drives Angular's router automatically via the <code>(sidebarItemSelect)</code> output:
           </p>
           <docs-code-block lang="app.config.ts" [id]="'ng-config'" [text]="code.ng.appConfig" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
           <docs-code-block lang="app.routes.ts" [id]="'ng-routes'" [text]="code.ng.routes" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)" style="margin-top:14px"></docs-code-block>
@@ -334,7 +334,7 @@ type Framework = 'angular' | 'react' | 'html';
               <div class="hiw-card__icon">⚡</div>
               <div class="hiw-card__title">Events</div>
               <div class="hiw-card__desc">Native CustomEvents — listen via <code>addEventListener</code> on a ref</div>
-              <code class="hiw-card__code">ref.addEventListener('itemSelect', fn)</code>
+              <code class="hiw-card__code">ref.addEventListener('sidebarItemSelect', fn)</code>
             </div>
           </div>
         </section>
@@ -651,7 +651,7 @@ type Framework = 'angular' | 'react' | 'html';
             <div class="hiw-card__icon">⚡</div>
             <div class="hiw-card__title">Events</div>
             <div class="hiw-card__desc">Native CustomEvents — listen with <code>addEventListener</code></div>
-            <code class="hiw-card__code">el.addEventListener('itemSelect', fn)</code>
+            <code class="hiw-card__code">el.addEventListener('sidebarItemSelect', fn)</code>
           </div>
         </div>
 
@@ -708,11 +708,11 @@ type Framework = 'angular' | 'react' | 'html';
             </div>
             <div class="rule-row">
               <span class="rule-badge rule-badge--ok">✓</span>
-              <div><strong>Object / Array inputs</strong> → set as JS property after element is defined: <code>el.groups = [...]</code></div>
+              <div><strong>Object / Array inputs</strong> → set as JS property after element is defined: <code>el.sidebarGroups = [...]</code></div>
             </div>
             <div class="rule-row">
               <span class="rule-badge rule-badge--ok">✓</span>
-              <div><strong>Events</strong> → native <code>addEventListener</code>: <code>el.addEventListener('itemSelect', fn)</code></div>
+              <div><strong>Events</strong> → native <code>addEventListener</code>: <code>el.addEventListener('sidebarItemSelect', fn)</code></div>
             </div>
             <div class="rule-row">
               <span class="rule-badge rule-badge--warn">✗</span>
@@ -755,15 +755,15 @@ type Framework = 'angular' | 'react' | 'html';
               </tr>
               <tr>
                 <td>Object / Array</td>
-                <td><code>[groups]="navGroups"</code></td>
+                <td><code>[sidebarGroups]="navGroups"</code></td>
                 <td><code>groups=&#123;JSON.stringify(data)&#125;</code></td>
-                <td><code>el.groups = data</code></td>
+                <td><code>el.sidebarGroups = data</code></td>
               </tr>
               <tr>
                 <td>Output / Event</td>
-                <td><code>(itemSelect)="onNav($event)"</code></td>
-                <td><code>el.addEventListener('itemSelect', fn)</code></td>
-                <td><code>el.addEventListener('itemSelect', fn)</code></td>
+                <td><code>(sidebarItemSelect)="onNav($event)"</code></td>
+                <td><code>el.addEventListener('sidebarItemSelect', fn)</code></td>
+                <td><code>el.addEventListener('sidebarItemSelect', fn)</code></td>
               </tr>
               <tr>
                 <td>Content slot</td>
@@ -1017,7 +1017,7 @@ type Framework = 'angular' | 'react' | 'html';
   `],
 })
 export class GettingStartedComponent implements OnInit {
-  copied        = '';
+  copied = '';
   active: Framework = 'angular';
   activeSection = '';
   ngMode: 'published' | 'local' = 'published';
@@ -1027,13 +1027,13 @@ export class GettingStartedComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private router: Router,
     private sanitizer: DomSanitizer,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const url = this.router.url;
-    if (url.includes('/react'))   this.active = 'react';
+    if (url.includes('/react')) this.active = 'react';
     else if (url.includes('/html')) this.active = 'html';
-    else                            this.active = 'angular';
+    else this.active = 'angular';
     this.cdr.markForCheck();
   }
 
@@ -1078,56 +1078,56 @@ export class GettingStartedComponent implements OnInit {
 
   sectionMap: Record<Framework, { id: string; label: string }[]> = {
     angular: [
-      { id: 'ng-prereq',          label: 'Prerequisites'      },
-      { id: 'ng-npmrc',           label: '.npmrc Setup'       },
-      { id: 'ng-install',         label: 'Install'            },
-      { id: 'ng-styles',          label: 'Global Styles'      },
-      { id: 'ng-import',          label: 'Import Components'  },
-      { id: 'ng-use',             label: 'App Shell + Router' },
-      { id: 'ng-verify',          label: 'Run & Verify'       },
-      { id: 'ng-local-prereq',    label: '— Local: Prerequisites' },
-      { id: 'ng-local-build',     label: '— Local: Build'     },
-      { id: 'ng-local-link1',     label: '— Local: npm link'  },
-      { id: 'ng-local-syms',      label: '— preserveSymlinks' },
-      { id: 'ng-local-styles',    label: '— Local: Styles'    },
-      { id: 'ng-local-blockers',  label: '— Blockers & Fixes' },
+      { id: 'ng-prereq', label: 'Prerequisites' },
+      { id: 'ng-npmrc', label: '.npmrc Setup' },
+      { id: 'ng-install', label: 'Install' },
+      { id: 'ng-styles', label: 'Global Styles' },
+      { id: 'ng-import', label: 'Import Components' },
+      { id: 'ng-use', label: 'App Shell + Router' },
+      { id: 'ng-verify', label: 'Run & Verify' },
+      { id: 'ng-local-prereq', label: '— Local: Prerequisites' },
+      { id: 'ng-local-build', label: '— Local: Build' },
+      { id: 'ng-local-link1', label: '— Local: npm link' },
+      { id: 'ng-local-syms', label: '— preserveSymlinks' },
+      { id: 'ng-local-styles', label: '— Local: Styles' },
+      { id: 'ng-local-blockers', label: '— Blockers & Fixes' },
     ],
     react: [
-      { id: 'rx-prereq',          label: 'Prerequisites'       },
-      { id: 'rx-create',          label: 'Create App'          },
-      { id: 'rx-npmrc',           label: '.npmrc Setup'        },
-      { id: 'rx-install',         label: 'Install'             },
-      { id: 'rx-bootstrap',       label: 'Load in index.html'  },
-      { id: 'rx-mainjs',          label: 'Wait for Elements'   },
-      { id: 'rx-types',           label: 'TypeScript Types'    },
-      { id: 'rx-use',             label: 'App Shell Example'   },
-      { id: 'rx-events',          label: 'Events'              },
-      { id: 'rx-verify',          label: 'Run & Verify'        },
-      { id: 'rx-local-prereq',    label: '— Local: Prerequisites' },
-      { id: 'rx-local-build',     label: '— Local: Build'      },
-      { id: 'rx-local-vite',      label: '— Local: vite.config'},
-      { id: 'rx-local-html',      label: '— Local: index.html' },
-      { id: 'rx-local-mainjs',    label: '— Local: main.jsx'   },
-      { id: 'rx-local-blockers',  label: '— Blockers & Fixes'  },
+      { id: 'rx-prereq', label: 'Prerequisites' },
+      { id: 'rx-create', label: 'Create App' },
+      { id: 'rx-npmrc', label: '.npmrc Setup' },
+      { id: 'rx-install', label: 'Install' },
+      { id: 'rx-bootstrap', label: 'Load in index.html' },
+      { id: 'rx-mainjs', label: 'Wait for Elements' },
+      { id: 'rx-types', label: 'TypeScript Types' },
+      { id: 'rx-use', label: 'App Shell Example' },
+      { id: 'rx-events', label: 'Events' },
+      { id: 'rx-verify', label: 'Run & Verify' },
+      { id: 'rx-local-prereq', label: '— Local: Prerequisites' },
+      { id: 'rx-local-build', label: '— Local: Build' },
+      { id: 'rx-local-vite', label: '— Local: vite.config' },
+      { id: 'rx-local-html', label: '— Local: index.html' },
+      { id: 'rx-local-mainjs', label: '— Local: main.jsx' },
+      { id: 'rx-local-blockers', label: '— Blockers & Fixes' },
     ],
     html: [
-      { id: 'html-npmrc',   label: '.npmrc Setup'    },
-      { id: 'html-install', label: 'Install'         },
-      { id: 'html-page',    label: 'Create HTML page'},
-      { id: 'html-serve',   label: 'Serve with HTTP' },
-      { id: 'html-events',  label: 'Key Rules'       },
+      { id: 'html-npmrc', label: '.npmrc Setup' },
+      { id: 'html-install', label: 'Install' },
+      { id: 'html-page', label: 'Create HTML page' },
+      { id: 'html-serve', label: 'Serve with HTTP' },
+      { id: 'html-events', label: 'Key Rules' },
     ],
   };
 
   nextSteps = [
-    { icon: '🧩', title: 'App Shell',  desc: 'Full layout shell with sidebar + header', route: '/app-shell' },
-    { icon: '📌', title: 'Header',     desc: 'Top bar with nav, avatar, badge',          route: '/header'    },
-    { icon: '🗂️', title: 'Sidebar',    desc: 'Collapsible nav rail with groups',         route: '/sidebar'   },
-    { icon: '🔘', title: 'Button',     desc: 'Variants, sizes, loading state',           route: '/button'    },
-    { icon: '🃏', title: 'Card',       desc: 'Stat cards and content layouts',           route: '/card'      },
-    { icon: '💬', title: 'Modal',      desc: 'Dialog overlays and confirmations',        route: '/modal'     },
-    { icon: '🏷️', title: 'Badge',      desc: 'Status labels and indicators',             route: '/badge'     },
-    { icon: '📋', title: 'Forms',      desc: 'Input, Select, Checkbox, Switch…',         route: '/input'     },
+    { icon: '🧩', title: 'App Shell', desc: 'Full layout shell with sidebar + header', route: '/app-shell' },
+    { icon: '📌', title: 'Header', desc: 'Top bar with nav, avatar, badge', route: '/header' },
+    { icon: '🗂️', title: 'Sidebar', desc: 'Collapsible nav rail with groups', route: '/sidebar' },
+    { icon: '🔘', title: 'Button', desc: 'Variants, sizes, loading state', route: '/button' },
+    { icon: '🃏', title: 'Card', desc: 'Stat cards and content layouts', route: '/card' },
+    { icon: '💬', title: 'Modal', desc: 'Dialog overlays and confirmations', route: '/modal' },
+    { icon: '🏷️', title: 'Badge', desc: 'Status labels and indicators', route: '/badge' },
+    { icon: '📋', title: 'Forms', desc: 'Input, Select, Checkbox, Switch…', route: '/input' },
   ];
 
   setFramework(fw: Framework): void {
@@ -1154,29 +1154,29 @@ export class GettingStartedComponent implements OnInit {
     // ─ Angular ─────────────────────────────────────────────────
     ng: {
       npmrc:
-`//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT_HERE
+        `//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT_HERE
 @bhairab-patra:registry=https://npm.pkg.github.com`,
 
       install: `npm install @bhairab-patra/platform-ui`,
 
       // ── Local dev snippets ──────────────────────────────────
       localBuild:
-`# Run inside the platform-ui library repo
+        `# Run inside the platform-ui library repo
 cd path/to/platform-ui
 ng build platform-ui --configuration development`,
 
       localLink1:
-`# Run inside dist/platform-ui (the built output folder)
+        `# Run inside dist/platform-ui (the built output folder)
 cd path/to/platform-ui/dist/platform-ui
 npm link`,
 
       localLink2:
-`# Run inside your Angular consumer app
+        `# Run inside your Angular consumer app
 cd path/to/your-angular-app
 npm link @bhairab-patra/platform-ui`,
 
       preserveSymlinks:
-`// angular.json  — add inside architect > build > options
+        `// angular.json  — add inside architect > build > options
 "options": {
   "preserveSymlinks": true,
   "outputPath": "dist/...",
@@ -1184,7 +1184,7 @@ npm link @bhairab-patra/platform-ui`,
 }`,
 
       stylesLocal:
-`// angular.json  — add TWO files to "styles" array
+        `// angular.json  — add TWO files to "styles" array
 "styles": [
   "node_modules/@bhairab-patra/platform-ui/styles/tokens.css",
   "node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css",
@@ -1192,33 +1192,33 @@ npm link @bhairab-patra/platform-ui`,
 ]`,
 
       localServe:
-`# Inside your Angular consumer app
+        `# Inside your Angular consumer app
 cd path/to/your-angular-app
 npm start`,
 
       localDaily:
-`# Inside the platform-ui library repo — rebuild after every change
+        `# Inside the platform-ui library repo — rebuild after every change
 ng build platform-ui --configuration development
 # Then just refresh the browser in your Angular app`,
 
       localWatch:
-`# Run in a separate terminal — rebuilds on every file save
+        `# Run in a separate terminal — rebuilds on every file save
 ng build platform-ui --configuration development --watch`,
 
       clearCache:
-`# Inside your Angular consumer app (use Git Bash)
+        `# Inside your Angular consumer app (use Git Bash)
 rm -rf .angular
 npm start`,
 
       federation:
-`// federation.config.js
+        `// federation.config.js
 skip: [
   'rxjs/ajax', 'rxjs/fetch', 'rxjs/testing', 'rxjs/webSocket',
   '@bhairab-patra/platform-ui',   // ← add this line
 ],`,
 
       styles:
-`// angular.json  — add TWO files to "styles" array
+        `// angular.json  — add TWO files to "styles" array
 "styles": [
   "node_modules/@bhairab-patra/platform-ui/styles/tokens.css",
   "node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css",
@@ -1226,7 +1226,7 @@ skip: [
 ]`,
 
       standalone:
-`// app.component.ts  (or any standalone component)
+        `// app.component.ts  (or any standalone component)
 import {
   PuiButtonComponent,
   PuiCardComponent,
@@ -1248,7 +1248,7 @@ import {
 export class AppComponent {}`,
 
       ngModule:
-`// app.module.ts  (NgModule-based app)
+        `// app.module.ts  (NgModule-based app)
 import {
   PuiButtonComponent,
   PuiCardComponent,
@@ -1268,7 +1268,7 @@ import {
 export class AppModule {}`,
 
       appConfig:
-`// app.config.ts
+        `// app.config.ts
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
@@ -1281,7 +1281,7 @@ export const appConfig: ApplicationConfig = {
 };`,
 
       routes:
-`// app.routes.ts  — lazy-load each page component
+        `// app.routes.ts  — lazy-load each page component
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -1293,12 +1293,14 @@ export const routes: Routes = [
 ];`,
 
       shell:
-`// app.component.ts
+        `// app.component.ts
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import {
   PuiAppShellComponent,
-  SidebarGroup,
+  SolifiNavGroup,
+  SolifiNavItem,
+  SolifiSidebarTheme,
   UserMenuItem,
 } from '@bhairab-patra/platform-ui';
 
@@ -1314,55 +1316,60 @@ export class AppComponent {
 
   activeId = 'dashboard';
 
-  menuItems: UserMenuItem[] = [
+  // Header avatar dropdown — its own item shape (label/action), separate
+  // from the sidebar's own user-menu items below.
+  headerMenuItems: UserMenuItem[] = [
     { label: 'My Profile', action: 'profile' },
     { label: 'Settings',   action: 'settings' },
     { label: 'Sign Out',   action: 'logout', danger: true },
   ];
 
-  navGroups: SidebarGroup[] = [
+  navGroups: SolifiNavGroup[] = [
     {
       id: 'main', label: 'Main',
       items: [
-        { id: 'dashboard', label: 'Dashboard', route: '/dashboard' },
-        { id: 'users',     label: 'Users',     route: '/users',    badge: 12 },
+        { id: 'dashboard', label: 'Dashboard', route: '/dashboard', iconName: 'dashboard' },
+        { id: 'users',     label: 'Users',     route: '/users',     iconName: 'users'     },
       ],
     },
     {
       id: 'config', label: 'Settings',
       items: [
-        { id: 'settings', label: 'Settings', route: '/settings' },
+        { id: 'settings', label: 'Settings', route: '/settings', iconName: 'settings' },
       ],
     },
   ];
 
-  onNavSelect(event: { id: string; route?: string }): void {
-    this.activeId = event.id;
-    if (event.route) this.router.navigateByUrl(event.route);
+  sidebarTheme: SolifiSidebarTheme = {
+    bg: '#0f172a', textColor: '#94a3b8', activeColor: '#12C6A8',
+  };
+
+  onNavSelect(item: SolifiNavItem): void {
+    this.activeId = item.id;
+    if (item.route) this.router.navigateByUrl(item.route);
   }
 
-  onAction(actionId: string): void {
+  onHeaderMenuAction(actionId: string): void {
     if (actionId === 'logout') console.log('Signing out…');
   }
 }`,
 
       shellHtml:
-`<!-- app.component.html -->
+        `<!-- app.component.html -->
+<!-- Every input is prefixed by which part of the shell it controls:
+     sidebarX for the left nav rail, headerX for the top bar. -->
 <pui-lib-app-shell
-  appTitle="Admin Portal"
-  appSubtitle="Management Console"
+  headerAppTitle="Admin Portal"
+  headerAppSubtitle="Management Console"
   headerBgColor="#12C6A8"
   headerUserName="Jane Doe"
   headerUserEmail="jane@example.com"
-  headerGreeting="Hi"
-  sidebarBgColor="#0f172a"
-  sidebarTextColor="#94a3b8"
-  sidebarActiveColor="#12C6A8"
-  [groups]="navGroups"
-  [headerMenuItems]="menuItems"
-  [activeId]="activeId"
-  (itemSelect)="onNavSelect($event)"
-  (headerMenuAction)="onAction($event)"
+  [headerMenuItems]="headerMenuItems"
+  (headerMenuAction)="onHeaderMenuAction($event)"
+  [sidebarTheme]="sidebarTheme"
+  [sidebarGroups]="navGroups"
+  [sidebarActiveId]="activeId"
+  (sidebarItemSelect)="onNavSelect($event)"
   style="height:100vh;display:block">
 
   <!-- Router outlet renders inside the shell's content area -->
@@ -1374,19 +1381,19 @@ export class AppComponent {
     // ─ React ───────────────────────────────────────────────────
     react: {
       create:
-`npm create vite@latest my-app -- --template react-ts
+        `npm create vite@latest my-app -- --template react-ts
 cd my-app
 npm install`,
 
       npmrc:
-`//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT_HERE
+        `//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT_HERE
 @bhairab-patra:registry=https://npm.pkg.github.com`,
 
       install: `npm install @bhairab-patra/platform-ui`,
 
       // ── Local dev snippets ──────────────────────────────────
       localBuild:
-`# Run inside the platform-ui library repo
+        `# Run inside the platform-ui library repo
 cd path/to/platform-ui
 
 # Build the web components (elements) bundle
@@ -1394,11 +1401,11 @@ cd path/to/platform-ui
 npx ng build elements --configuration production`,
 
       localElementsBuild:
-`# Inside the platform-ui library repo
+        `# Inside the platform-ui library repo
 npx ng build elements --configuration production`,
 
       localVite:
-`// vite.config.js — in your React app
+        `// vite.config.js — in your React app
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
@@ -1453,7 +1460,7 @@ export default defineConfig({
 })`,
 
       localHtml:
-`<!-- index.html — inside <head> -->
+        `<!-- index.html — inside <head> -->
 <!-- Design tokens (served from public/ by Vite) -->
 <link rel="stylesheet" href="/tokens.css" />
 <link rel="stylesheet" href="/themes/theme-new.css" />
@@ -1465,13 +1472,13 @@ export default defineConfig({
 <script src="/pui-elements.js"></script>`,
 
       propFix:
-`// ✅ Correct — pass arrays/objects as JSON string attributes
+        `// ✅ Correct — pass arrays/objects as JSON string attributes
 // Angular Elements parses them via attributeChangedCallback (zone-patched)
 const NAV_GROUPS  = JSON.stringify([{ id: 'main', label: 'Main', items: [...] }])
 const MENU_ITEMS  = JSON.stringify([{ label: 'Sign Out', action: 'logout', danger: true }])
 
 <pui-lib-app-shell
-  groups={NAV_GROUPS}
+  sidebar-groups={NAV_GROUPS}
   header-menu-items={MENU_ITEMS}
   app-title="My App"
 />
@@ -1479,11 +1486,11 @@ const MENU_ITEMS  = JSON.stringify([{ label: 'Sign Out', action: 'logout', dange
 // ⚠️ Unreliable — DOM property setting from outside Angular's zone
 // may not trigger change detection
 useEffect(() => {
-  shellRef.current.groups = navGroups  // might not update the UI
+  shellRef.current.sidebarGroups = navGroups  // might not update the UI
 }, [])`,
 
       main:
-`<!-- index.html — inside <head> -->
+        `<!-- index.html — inside <head> -->
 <!-- Design tokens: load before any component renders -->
 <link rel="stylesheet" href="node_modules/@bhairab-patra/platform-ui/styles/tokens.css" />
 <link rel="stylesheet" href="node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css" />
@@ -1494,7 +1501,7 @@ useEffect(() => {
 <script src="node_modules/@bhairab-patra/platform-ui/elements/main.js"></script>`,
 
       mainJsx:
-`// src/main.jsx  (or main.tsx)
+        `// src/main.jsx  (or main.tsx)
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
@@ -1510,7 +1517,7 @@ customElements.whenDefined('pui-lib-button').then(() => {
 })`,
 
       types:
-`// src/pui.d.ts
+        `// src/pui.d.ts
 import type { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 type PuiProps = DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
@@ -1544,13 +1551,13 @@ declare global {
 }`,
 
       tsconfig:
-`// tsconfig.json  — add pui.d.ts to include array
+        `// tsconfig.json  — add pui.d.ts to include array
 {
   "include": ["src", "src/pui.d.ts"]
 }`,
 
       app:
-`// src/App.jsx
+        `// src/App.jsx
 import { useRef, useEffect, useState } from 'react'
 
 // Serialize arrays/objects to JSON strings — Angular Elements
@@ -1584,7 +1591,7 @@ export default function App() {
     const el = shellRef.current
     if (!el) return
     const onNav = (e) => setActiveId(e.detail?.id ?? e.detail)
-    el.addEventListener('itemSelect',       onNav)
+    el.addEventListener('sidebarItemSelect',       onNav)
     el.addEventListener('headerMenuAction', (e) => console.log('menu:', e.detail))
     return () => el.removeEventListener('itemSelect', onNav)
   }, [])
@@ -1598,8 +1605,8 @@ export default function App() {
       header-user-name="Jane Doe"
       header-user-email="jane@example.com"
       header-show-help="true"
-      active-id={activeId}
-      groups={NAV_GROUPS}
+      sidebar-active-id={activeId}
+      sidebar-groups={NAV_GROUPS}
       header-menu-items={MENU_ITEMS}
       style={{ display: 'block', height: '100vh' }}>
 
@@ -1615,7 +1622,7 @@ export default function App() {
 }`,
 
       events:
-`// src/App.jsx — event handling via addEventListener inside useEffect
+        `// src/App.jsx — event handling via addEventListener inside useEffect
 import { useRef, useEffect, useState } from 'react'
 
 const NAV_GROUPS = JSON.stringify([
@@ -1636,7 +1643,7 @@ export default function App() {
     const onNav  = (e) => setActiveId(e.detail?.id ?? e.detail)
     const onMenu = (e) => { if (e.detail === 'logout') console.log('Signing out…') }
 
-    el.addEventListener('itemSelect',       onNav)
+    el.addEventListener('sidebarItemSelect',       onNav)
     el.addEventListener('headerMenuAction', onMenu)
     el.addEventListener('headerHelpClick',  () => console.log('help!'))
 
@@ -1650,8 +1657,8 @@ export default function App() {
     <pui-lib-app-shell
       ref={shellRef}
       app-title="React App"
-      groups={NAV_GROUPS}
-      active-id={activeId}
+      sidebar-groups={NAV_GROUPS}
+      sidebar-active-id={activeId}
       style={{ display: 'block', height: '100vh' }}>
       <p style={{ padding: 32 }}>Active page: <strong>{activeId}</strong></p>
     </pui-lib-app-shell>
@@ -1662,18 +1669,18 @@ export default function App() {
     // ─ Plain HTML ───────────────────────────────────────────────
     html: {
       npmrc:
-`//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT_HERE
+        `//npm.pkg.github.com/:_authToken=YOUR_GITHUB_PAT_HERE
 @bhairab-patra:registry=https://npm.pkg.github.com`,
 
       install:
-`# Initialise package.json (only needed once)
+        `# Initialise package.json (only needed once)
 npm init -y
 
 # Install the library
 npm install @bhairab-patra/platform-ui`,
 
       full:
-`<!doctype html>
+        `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -1728,7 +1735,7 @@ npm install @bhairab-patra/platform-ui`,
     customElements.whenDefined('pui-lib-app-shell').then(() => {
       const shell = document.getElementById('shell');
 
-      shell.groups = [
+      shell.sidebarGroups = [
         {
           id: 'grp-overview', label: 'Overview',
           items: [
@@ -1753,7 +1760,7 @@ npm install @bhairab-patra/platform-ui`,
 
       shell.headerBadge = { text: 'PROD', color: '#10b981', textColor: '#fff' };
 
-      shell.addEventListener('itemSelect', (e) => {
+      shell.addEventListener('sidebarItemSelect', (e) => {
         document.getElementById('activePage').textContent = e.detail.id;
       });
 

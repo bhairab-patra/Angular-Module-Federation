@@ -1,0 +1,10 @@
+.demo-block {
+  max-width: 480px;
+}
+
+.demo-state--error {
+  color: var(--pui-error, #dc2626);
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-top: 10px;
+}

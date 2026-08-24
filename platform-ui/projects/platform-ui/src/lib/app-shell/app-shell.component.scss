@@ -23,12 +23,12 @@
 
 .pas__titlebar {
   flex-shrink: 0;
-  height: 56px;
+  height: 50px;
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 0 28px;
-  background: var(--pui-bg, var(--pui-white));
+  // background: var(--pui-bg, var(--pui-white));
   border-bottom: 1px solid var(--pui-border, var(--pui-slate-200));
 }
 
