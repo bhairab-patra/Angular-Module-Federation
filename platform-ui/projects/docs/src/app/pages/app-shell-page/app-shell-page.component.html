@@ -38,7 +38,7 @@
         [theme]="theme"
         [showUser]="true"
         userName="Rosanna Doyle"
-        userEmail="rdoyle@solifi.com"
+        userEmail="adminhub@solifi.com"
         [userMenuItems]="userMenuItems"
         [width]="210"
         [collapsedWidth]="56"
@@ -52,7 +52,7 @@
         [showHeaderSearch]="true"
         headerAvatarMode="menu"
         headerUserName="Rosanna Doyle"
-        headerUserEmail="rdoyle@solifi.com"
+        headerUserEmail="adminhub@solifi.com"
         [headerMenuItems]="headerMenuItems"
         (itemSelect)="onNav($event)"
         (collapsedChange)="onCollapsed($event)"
@@ -83,6 +83,19 @@
       <pre class="code-block"><code>{{ angularCode }}</code></pre>
     </div>
 
+    <!-- Categorized input/output reference -->
+    <div class="demo-section">
+      <div class="demo-section__title">Understanding Every Input &amp; Output</div>
+      <p class="demo-section__desc">Every <code>pui-lib-app-shell</code> property, grouped by what it controls. Expand a category to read its explanation — nothing is mixed together.</p>
+      <div class="demo-block">
+        <pui-lib-accordion
+          [items]="referenceItems"
+          [openIds]="referenceOpen"
+          (openIdsChange)="onReferenceOpenChange($event)">
+        </pui-lib-accordion>
+      </div>
+    </div>
+
   </ng-container>
 
   <ng-container framework>
@@ -110,7 +123,7 @@
         footerText="Copyright © 2026 Solifi. All Rights Reserved."
         [showUser]="true"
         userName="Rosanna Doyle"
-        userEmail="rdoyle@solifi.com"
+        userEmail="adminhub@solifi.com"
         [userMenuItems]="userMenuItems"
         [width]="200"
         [collapsedWidth]="52"
@@ -119,7 +132,7 @@
         headerAppSubtitle="Digital Experience Portal"
         headerLogoUrl="assets/logo-full.png"
         headerUserName="Rosanna Doyle"
-        headerUserEmail="rdoyle@solifi.com"
+        headerUserEmail="adminhub@solifi.com"
         [headerMenuItems]="headerMenuItems"
         (itemSelect)="onNav($event)"
         (collapsedChange)="onCollapsed($event)"

@@ -31,6 +31,7 @@ export class AppComponent {
     { label: 'Form Dialog', route: '/form-dialog', category: 'Component', keywords: ['form', 'dialog', 'modal', 'add', 'edit', 'fields', 'input', 'select', 'textarea'] },
     { label: 'Confirm Dialog', route: '/confirm-dialog', category: 'Component', keywords: ['confirm', 'dialog', 'modal', 'delete', 'destructive', 'prompt', 'alert', 'warning'] },
     { label: 'Header', route: '/header', category: 'Component', keywords: ['navbar', 'topbar', 'navigation'] },
+    { label: 'Footer', route: '/footer', category: 'Component', keywords: ['footer', 'bottom bar', 'copyright', 'disclaimer', 'contact', 'office hours'] },
     { label: 'Icon', route: '/icon', category: 'Component', keywords: ['svg', 'glyph', 'symbol', 'figma', 'arrow', 'check', 'search'] },
     { label: 'Typography', route: '/typography', category: 'Foundation', keywords: ['poppins', 'font', 'type', 'scale', 'heading', 'body', 'weight', 'install'] },
     { label: 'Breadcrumb', route: '/breadcrumb', category: 'Component', keywords: ['nav', 'navigation', 'trail', 'crumb', 'path', 'location'] },
@@ -289,6 +290,10 @@ export class AppComponent {
           {
             label: 'Header', route: '/header',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 7h12"/></svg>`)
+          },
+          {
+            label: 'Footer', route: '/footer',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 9h12"/></svg>`)
           },
           {
             label: 'Search', route: '/search',

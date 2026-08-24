@@ -10,7 +10,7 @@ pui-lib-header {
   padding: 0 var(--pui-space-6);
   height: 58px;
   font-family: 'Poppins', system-ui, sans-serif;
-  box-shadow: var(--pui-shadow-header);
+  // box-shadow: var(--pui-shadow-header);
   position: relative;
   z-index: 100;
 }
@@ -38,7 +38,7 @@ pui-lib-header {
   box-sizing: border-box;
   background: var(--pui-white);
   margin: 0 0 0 calc(-1 * var(--pui-space-6));
-  padding: 0 var(--pui-space-4) 0 var(--pui-space-6);
+  padding: 0 var(--pui-space-4) 0 var(--pui-space-4);
 }
 
 .pui-header__hamburger {
@@ -57,6 +57,7 @@ pui-lib-header {
   transition: background var(--pui-duration-base);
   padding: 0;
   color: currentColor;
+  margin-right: 24px;
 }
 
 .pui-header__hamburger:hover {
@@ -225,8 +226,8 @@ pui-lib-header {
   color: var(--pui-neutral-500);
   flex-shrink: 1;
   transition: width var(--pui-duration-slow, .22s) cubic-bezier(.4, 0, .2, 1),
-              opacity var(--pui-duration-base, .16s) ease,
-              padding var(--pui-duration-slow, .22s) ease;
+    opacity var(--pui-duration-base, .16s) ease,
+    padding var(--pui-duration-slow, .22s) ease;
 }
 
 .pui-header__search--open {

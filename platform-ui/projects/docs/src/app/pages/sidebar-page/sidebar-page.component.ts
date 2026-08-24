@@ -95,8 +95,8 @@ export class SidebarPageComponent {
   [collapsed]="collapsed"
   [theme]="activeTheme"
   [showUser]="true"
-  userName="Rosanne Doyle"
-  userEmail="rdoyle@solifi.com"
+  userName="Admin hub"
+  userEmail="adminhub@solifi.com"
   [config]="{ collapsible: true, showSearch: false, width: 256 }"
   (collapsedChange)="collapsed = $event"
   (itemSelect)="onNav($event)">

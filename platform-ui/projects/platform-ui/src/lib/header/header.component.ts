@@ -1,6 +1,7 @@
 import {
   Component, Input, Output, EventEmitter,
-  HostListener, ElementRef, ViewEncapsulation, inject, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+  HostListener, ElementRef, ViewEncapsulation, inject, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
 
@@ -14,19 +15,19 @@ import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  @Input() appTitle    = 'My App';
+  @Input() appTitle = 'My App';
   @Input() appSubtitle = '';
-  @Input() logoText    = '';
-  @Input() logoUrl     = '';
-  @Input() bgColor     = 'var(--pui-brand)';
-  @Input() textColor   = 'var(--pui-white)';
-  @Input() userName    = '';
-  @Input() userEmail   = '';
-  @Input() greeting    = 'Hi';
+  @Input() logoText = '';
+  @Input() logoUrl = '';
+  @Input() bgColor = 'var(--pui-brand)';
+  @Input() textColor = 'var(--pui-white)';
+  @Input() userName = '';
+  @Input() userEmail = '';
+  @Input() greeting = 'Hi';
   @Input() userSubtext = 'Welcome back!';
-  @Input() avatarUrl   = '';
-  @Input() avatarColor      = 'var(--pui-brand-deep)';
-  @Input() avatarTextColor  = 'var(--pui-white)';
+  @Input() avatarUrl = '';
+  @Input() avatarColor = 'var(--pui-brand-deep)';
+  @Input() avatarTextColor = 'var(--pui-white)';
   @Input() hasLogoSlot = false;
 
   @Input() set showLogo(v: boolean | string) {
@@ -119,17 +120,17 @@ export class HeaderComponent {
 
   @Input() set menuItems(v: UserMenuItem[] | string) {
     this._menuItems = typeof v === 'string'
-      ? (this._parseJson<UserMenuItem[]>(v) ?? this._defaultMenuItems())
-      : (v ?? this._defaultMenuItems());
+      ? (this._parseJson<UserMenuItem[]>(v) ?? [])
+      : (v ?? []);
   }
   get menuItems(): UserMenuItem[] { return this._menuItems; }
-  private _menuItems: UserMenuItem[] = this._defaultMenuItems();
+  private _menuItems: UserMenuItem[] = [];
 
   @Output() menuAction = new EventEmitter<string>();
-  @Output() helpClick  = new EventEmitter<void>();
+  @Output() helpClick = new EventEmitter<void>();
 
   menuOpen = false;
-  menuTop  = '0px';
+  menuTop = '0px';
   menuRight = '0px';
 
   @ViewChild('userArea') private userAreaRef!: ElementRef<HTMLElement>;
@@ -138,13 +139,6 @@ export class HeaderComponent {
   private _parseJson<T>(s: string): T | null {
     if (!s) return null;
     try { return JSON.parse(s) as T; } catch { return null; }
-  }
-
-  private _defaultMenuItems(): UserMenuItem[] {
-    return [{
-      label: 'Sign out', action: 'signout', danger: true,
-      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>`,
-    }];
   }
 
   get initials(): string {
@@ -160,7 +154,7 @@ export class HeaderComponent {
     this.menuOpen = !this.menuOpen;
     if (this.menuOpen && this.userAreaRef) {
       const rect = this.userAreaRef.nativeElement.getBoundingClientRect();
-      this.menuTop   = `${rect.bottom + 8}px`;
+      this.menuTop = `${rect.bottom + 8}px`;
       this.menuRight = `${window.innerWidth - rect.right}px`;
     }
   }

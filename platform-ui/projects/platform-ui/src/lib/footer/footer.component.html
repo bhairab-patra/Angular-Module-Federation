@@ -1,0 +1,67 @@
+<footer class="pf" [class]="'pf pf--' + variant">
+
+  <ng-container *ngIf="variant !== 'simple' && noticeSlides.length">
+
+    <div class="pf__notice">
+
+      <button type="button" class="pf__nav pf__nav--prev" *ngIf="noticeSlides.length > 1"
+              (click)="prevSlide()" aria-label="Previous notice">
+        <pui-lib-icon name="chevron-left" size="sm"></pui-lib-icon>
+      </button>
+
+      <div class="pf__card">
+
+        <div class="pf__contact" *ngIf="variant === 'contact'">
+          <div class="pf__contact-info">
+            <p class="pf__notice-title" *ngIf="activeSlide?.title">{{ activeSlide?.title }}</p>
+            <p class="pf__contact-line" *ngFor="let line of activeSlide?.lines">{{ line }}</p>
+          </div>
+          <div class="pf__contact-cta" *ngIf="activeSlide?.contactLabel">
+            <p class="pf__contact-prompt" *ngIf="activeSlide?.contactPrompt">{{ activeSlide?.contactPrompt }}</p>
+            <a class="pf__contact-btn" [href]="activeSlide?.contactHref || null" (click)="onContactClick($event)">
+              <pui-lib-icon name="phone" size="sm"></pui-lib-icon>
+              <span>{{ activeSlide?.contactLabel }}</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="pf__disclaimer" *ngIf="variant === 'disclaimer'">
+          <p class="pf__notice-title" *ngIf="activeSlide?.title">{{ activeSlide?.title }}</p>
+          <p class="pf__disclaimer-text">
+            {{ activeSlide?.text }}
+            <a *ngIf="activeSlide?.readMoreText" class="pf__read-more" [href]="activeSlide?.readMoreHref || null">{{ activeSlide?.readMoreText }}</a>
+          </p>
+        </div>
+
+      </div>
+
+      <button type="button" class="pf__nav pf__nav--next" *ngIf="noticeSlides.length > 1"
+              (click)="nextSlide()" aria-label="Next notice">
+        <pui-lib-icon name="chevron-right" size="sm"></pui-lib-icon>
+      </button>
+
+    </div>
+
+    <div class="pf__dots" *ngIf="noticeSlides.length > 1" role="tablist" aria-label="Notice pagination">
+      <button type="button"
+              *ngFor="let s of noticeSlides; let i = index; trackBy: trackSlide"
+              class="pf__dot"
+              [class.pf__dot--active]="i === activeSlideIndex"
+              role="tab"
+              [attr.aria-selected]="i === activeSlideIndex"
+              [attr.aria-label]="'Go to notice ' + (i + 1)"
+              (click)="goToSlide(i)">
+      </button>
+    </div>
+
+  </ng-container>
+
+  <div class="pf__bottom">
+    <span class="pf__copyright">{{ copyrightText }}</span>
+    <div class="pf__links" *ngIf="links.length || (showPoweredBy && poweredByText)">
+      <a *ngFor="let l of links" class="pf__link" [href]="l.href || null" (click)="selectLink(l, $event)">{{ l.label }}</a>
+      <span class="pf__powered" *ngIf="showPoweredBy && poweredByText">{{ poweredByText }}</span>
+    </div>
+  </div>
+
+</footer>

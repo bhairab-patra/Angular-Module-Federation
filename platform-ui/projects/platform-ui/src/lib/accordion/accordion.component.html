@@ -13,21 +13,27 @@
             (click)="toggle(item)">
 
       <span class="pui-accordion__trigger-label">
-        <pui-lib-icon *ngIf="item.icon"
-                      [name]="item.icon"
-                      size="sm"
-                      class="pui-accordion__item-icon">
-        </pui-lib-icon>
-        <span class="pui-accordion__title">{{ item.title }}</span>
+        <span class="pui-accordion__icon-badge" *ngIf="item.icon" [class.pui-accordion__icon-badge--active]="isOpen(item.id)">
+          <pui-lib-icon [name]="item.icon" size="sm"></pui-lib-icon>
+        </span>
+        <span class="pui-accordion__text">
+          <span class="pui-accordion__title">{{ item.title }}</span>
+          <span class="pui-accordion__subtitle" *ngIf="item.subtitle">{{ item.subtitle }}</span>
+        </span>
       </span>
 
-      <span class="pui-accordion__chevron" aria-hidden="true">
+      <span class="pui-accordion__chevron" [class.pui-accordion__chevron--active]="isOpen(item.id)" aria-hidden="true">
         <pui-lib-icon name="chevron-down" size="sm"></pui-lib-icon>
       </span>
     </button>
 
     <div class="pui-accordion__panel" [class.pui-accordion__panel--open]="isOpen(item.id)">
-      <div class="pui-accordion__content">{{ item.content }}</div>
+      <div class="pui-accordion__content">
+        <div class="pui-accordion__content-text" *ngIf="item.contentHtml; else plainContent" [innerHTML]="trustHtml(item.contentHtml)"></div>
+        <ng-template #plainContent>
+          <div class="pui-accordion__content-text">{{ item.content }}</div>
+        </ng-template>
+      </div>
     </div>
 
   </div>

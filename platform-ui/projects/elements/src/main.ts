@@ -40,6 +40,8 @@ import { PuiComboboxComponent } from '../../platform-ui/src/lib/forms/combobox/c
 import { PuiMultiSelectComponent } from '../../platform-ui/src/lib/forms/multiselect/multiselect.component';
 import { PuiSolifiSidebarComponent } from '../../platform-ui/src/lib/solifi-sidebar/solifi-sidebar.component';
 import { PuiAvatarComponent } from '../../platform-ui/src/lib/avatar/avatar.component';
+import { PuiAccordionComponent } from '../../platform-ui/src/lib/accordion/accordion.component';
+import { PuiFooterComponent } from '../../platform-ui/src/lib/footer/footer.component';
 
 (async () => {
   const app = await createApplication({
@@ -106,6 +108,8 @@ import { PuiAvatarComponent } from '../../platform-ui/src/lib/avatar/avatar.comp
   define(PuiMultiSelectComponent, 'pui-lib-multiselect');
   define(PuiSolifiSidebarComponent, 'pui-lib-solifi-sidebar');
   define(PuiAvatarComponent, 'pui-lib-avatar');
+  define(PuiAccordionComponent, 'pui-lib-accordion');
+  define(PuiFooterComponent, 'pui-lib-footer');
 
   // Expose tick helper — call after setting JS properties on custom elements from React
   // so Angular's change detection picks up the new values.

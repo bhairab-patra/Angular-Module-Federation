@@ -1,0 +1,112 @@
+<docs-page title="Footer"
+  description="Application footer for FAQs-style contact info, legal disclaimers, or a plain copyright bar — three variants, rotating notice slides, and full link/copyright customisation."
+  [code]="angularCode" [hasFramework]="true" [api]="api">
+
+  <ng-container demo>
+
+    <!-- 1. Contact variant -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Contact Variant</h3>
+      <p class="demo-section__desc">Office hours / address card on the left, a call-to-action button on the right. Pass more than one <code>noticeSlides</code> entry to get pagination dots and prev/next arrows for free.</p>
+      <div class="demo-block">
+        <pui-lib-footer
+          variant="contact"
+          [noticeSlides]="contactSlides"
+          [activeSlideIndex]="contactSlideIndex"
+          (activeSlideIndexChange)="onContactSlideChange($event)"
+          [links]="links"
+          (linkClick)="onLinkClick($event)"
+          (contactClick)="onContactClick($event)">
+        </pui-lib-footer>
+        <p class="demo-state" *ngIf="lastContactAction">Called: <strong>{{ lastContactAction }}</strong></p>
+      </div>
+    </div>
+
+    <!-- 2. Disclaimer variant -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Disclaimer Variant</h3>
+      <p class="demo-section__desc">A legal/compliance notice card with a "Continue reading…" link. Same slide + pagination mechanics as the contact variant.</p>
+      <div class="demo-block">
+        <pui-lib-footer
+          variant="disclaimer"
+          [noticeSlides]="disclaimerSlides"
+          [activeSlideIndex]="disclaimerSlideIndex"
+          (activeSlideIndexChange)="onDisclaimerSlideChange($event)"
+          [links]="links"
+          (linkClick)="onLinkClick($event)">
+        </pui-lib-footer>
+      </div>
+    </div>
+
+    <!-- 3. Simple variant -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Simple Variant</h3>
+      <p class="demo-section__desc">No notice card — just the copyright line and links. Use this on internal/admin pages that don't need a contact or legal notice.</p>
+      <div class="demo-block">
+        <pui-lib-footer
+          variant="simple"
+          [links]="links"
+          (linkClick)="onLinkClick($event)">
+        </pui-lib-footer>
+        <p class="demo-state" *ngIf="lastLinkAction">Last link clicked: <strong>{{ lastLinkAction }}</strong></p>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead">
+      <code>pui-lib-footer</code> is a Web Component — it works in Angular, React, and plain HTML
+      with no extra wrappers. <code>noticeSlides</code> and <code>links</code> are arrays, so set them
+      as JS properties (not HTML attributes); <code>variant</code> and text props work as plain
+      attributes; events are standard DOM CustomEvents.
+    </p>
+
+    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
+      <div preview style="width:100%">
+        <pui-lib-footer
+          variant="contact"
+          [noticeSlides]="contactSlides"
+          [activeSlideIndex]="contactSlideIndex"
+          (activeSlideIndexChange)="onContactSlideChange($event)"
+          [links]="links">
+        </pui-lib-footer>
+      </div>
+      <div react-preview style="width:100%">
+        <pui-lib-footer
+          variant="contact"
+          [noticeSlides]="contactSlides"
+          [activeSlideIndex]="contactSlideIndex"
+          (activeSlideIndexChange)="onContactSlideChange($event)"
+          [links]="links">
+        </pui-lib-footer>
+      </div>
+    </docs-framework-preview>
+
+    <h4 class="fw-ref-title">Footer Quick Reference</h4>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
+            <td><span class="tag-name">{{ r.name }}</span></td>
+            <td><span class="tag-ng">{{ r.angular }}</span></td>
+            <td><span class="tag-html">{{ r.attr }}</span></td>
+            <td><span class="tag-js">{{ r.js }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+</docs-page>

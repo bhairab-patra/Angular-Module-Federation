@@ -1,0 +1,224 @@
+$fg: var(--pui-footer-text, var(--pui-neutral-900));
+
+.pf {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: var(--pui-footer-bg, var(--pui-neutral-100));
+  color: $fg;
+  font-family: var(--pui-font-family, 'Poppins', system-ui, sans-serif);
+  padding: 28px 32px 24px;
+  border-radius: var(--pui-radius-xl, 12px) var(--pui-radius-xl, 12px) 0 0;
+}
+
+/* ── Notice card (contact / disclaimer) ──────────────────────────── */
+.pf__notice {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.pf__nav {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background: var(--pui-form-accent);
+  color: var(--pui-accent-ink, var(--pui-white));
+  transition: filter .15s, transform .15s;
+}
+
+.pf__nav:hover {
+  filter: brightness(1.08);
+  transform: scale(1.05);
+}
+
+.pf__card {
+  flex: 1;
+  min-width: 0;
+  background: var(--pui-white);
+  border-radius: var(--pui-radius-lg, 10px);
+  box-shadow: var(--pui-shadow-card);
+  padding: 20px 28px;
+}
+
+.pf__notice-title {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--pui-neutral-900);
+}
+
+/* Contact variant */
+.pf__contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.pf__contact-info {
+  flex: 1;
+  min-width: 220px;
+}
+
+.pf__contact-line {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--pui-neutral-700);
+}
+
+.pf__contact-line strong {
+  color: var(--pui-neutral-900);
+}
+
+.pf__contact-cta {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.pf__contact-prompt {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+  color: var(--pui-neutral-900);
+  line-height: 1.4;
+}
+
+.pf__contact-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--pui-form-accent);
+  color: var(--pui-accent-ink, var(--pui-white));
+  font-size: 13.5px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: filter .15s;
+}
+
+.pf__contact-btn:hover {
+  filter: brightness(1.08);
+}
+
+/* Disclaimer variant */
+.pf__disclaimer-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--pui-neutral-700);
+}
+
+.pf__read-more {
+  color: var(--pui-form-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  margin-left: 4px;
+  white-space: nowrap;
+}
+
+/* Pagination dots */
+.pf__dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.pf__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: var(--pui-overlay-black-16, rgba(0, 0, 0, .16));
+  transition: background .15s, transform .15s;
+}
+
+.pf__dot:hover {
+  background: var(--pui-overlay-black-24, rgba(0, 0, 0, .24));
+}
+
+.pf__dot--active {
+  background: var(--pui-form-accent);
+  transform: scale(1.2);
+}
+
+/* ── Bottom row ───────────────────────────────────────────────────── */
+.pf__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pf__copyright {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--pui-neutral-900);
+}
+
+.pf__links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+.pf__link {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--pui-neutral-900);
+  text-decoration: none;
+}
+
+.pf__link:hover {
+  text-decoration: underline;
+}
+
+.pf__powered {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--pui-neutral-900);
+}
+
+@media (max-width: 640px) {
+  .pf {
+    padding: 20px 18px 18px;
+  }
+
+  .pf__contact {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pf__contact-cta {
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .pf__contact-prompt {
+    text-align: left;
+  }
+
+  .pf__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

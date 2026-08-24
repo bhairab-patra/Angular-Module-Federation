@@ -29,12 +29,12 @@ export class PuiAppShellComponent {
   get showHeader(): boolean { return this._showHeader; }
   private _showHeader = true;
 
-  @Input() headerAppTitle    = '';
+  @Input() headerAppTitle = '';
   @Input() headerAppSubtitle = '';
-  @Input() headerLogoUrl     = '';
-  @Input() headerLogoText    = '';
-  @Input() headerBgColor     = 'var(--pui-header-bg, var(--pui-form-accent))';
-  @Input() headerTextColor   = 'var(--pui-header-text, var(--pui-neutral-900))';
+  @Input() headerLogoUrl = '';
+  @Input() headerLogoText = '';
+  @Input() headerBgColor = 'var(--pui-header-bg, var(--pui-form-accent))';
+  @Input() headerTextColor = 'var(--pui-header-text, var(--pui-neutral-900))';
 
   @Input() set showHeaderLogo(v: boolean | string) {
     this._showHeaderLogo = v !== false && v !== 'false';
@@ -61,10 +61,10 @@ export class PuiAppShellComponent {
   private _showHeaderUser = true;
 
   @Input() headerAvatarMode: 'menu' | 'plain' = 'menu';
-  @Input() headerUserName        = '';
-  @Input() headerUserEmail       = '';
-  @Input() headerAvatarUrl       = '';
-  @Input() headerAvatarColor     = 'var(--pui-form-accent)';
+  @Input() headerUserName = '';
+  @Input() headerUserEmail = '';
+  @Input() headerAvatarUrl = '';
+  @Input() headerAvatarColor = 'var(--pui-form-accent)';
   @Input() headerAvatarTextColor = 'var(--pui-accent-ink)';
 
   @Input() set headerMenuItems(v: UserMenuItem[] | string) {
@@ -80,7 +80,7 @@ export class PuiAppShellComponent {
   private _headerBadge: HeaderBadge | null = null;
 
   @Output() headerSearchQuery = new EventEmitter<string>();
-  @Output() headerMenuAction  = new EventEmitter<string>();
+  @Output() headerMenuAction = new EventEmitter<string>();
 
   @Input() set groups(v: SolifiNavGroup[] | SolifiNavItem[] | string) {
     if (typeof v === 'string') {
@@ -93,9 +93,9 @@ export class PuiAppShellComponent {
   get groups(): SolifiNavGroup[] { return this._groups; }
   private _groups: SolifiNavGroup[] = [];
 
-  @Input() activeId  = '';
+  @Input() activeId = '';
   @Input() brandName = 'solifi';
-  @Input() logoUrl   = '';
+  @Input() logoUrl = '';
 
   @Input() set showBrand(v: boolean | string) {
     this._showBrand = v !== false && v !== 'false';
@@ -115,7 +115,7 @@ export class PuiAppShellComponent {
   get showSidebar(): boolean { return this._showSidebar; }
   private _showSidebar = true;
 
-  @Input() width         = 240;
+  @Input() width = 240;
   @Input() collapsedWidth = 64;
 
   @Input() set theme(v: SolifiSidebarTheme | string) {
@@ -130,9 +130,9 @@ export class PuiAppShellComponent {
   get showUser(): boolean { return this._showUser; }
   private _showUser = false;
 
-  @Input() userName      = '';
-  @Input() userEmail     = '';
-  @Input() userInitials  = '';
+  @Input() userName = '';
+  @Input() userEmail = '';
+  @Input() userInitials = '';
   @Input() userAvatarUrl = '';
 
   @Input() set userMenuItems(v: SolifiUserMenuItem[] | string) {
@@ -141,12 +141,12 @@ export class PuiAppShellComponent {
   get userMenuItems(): SolifiUserMenuItem[] { return this._userMenuItems; }
   private _userMenuItems: SolifiUserMenuItem[] = [];
 
-  @Input() pageTitle  = '';
+  @Input() pageTitle = '';
   @Input() footerText = '';
 
-  @Output() itemSelect        = new EventEmitter<SolifiNavItem>();
-  @Output() collapsedChange   = new EventEmitter<boolean>();
-  @Output() userMenuSelect    = new EventEmitter<SolifiUserMenuItem>();
+  @Output() itemSelect = new EventEmitter<SolifiNavItem>();
+  @Output() collapsedChange = new EventEmitter<boolean>();
+  @Output() userMenuSelect = new EventEmitter<SolifiUserMenuItem>();
 
   onCollapsedChange(v: boolean): void {
     this._collapsed = v;

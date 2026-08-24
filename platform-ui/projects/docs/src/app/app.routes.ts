@@ -55,4 +55,5 @@ export const routes: Routes = [
   { path: 'pagination', loadComponent: () => import('./pages/pagination-page/pagination-page.component').then(m => m.PaginationPageComponent) },
   { path: 'accordion', loadComponent: () => import('./pages/accordion-page/accordion-page.component').then(m => m.AccordionPageComponent) },
   { path: 'avatar', loadComponent: () => import('./pages/avatar-page/avatar-page.component').then(m => m.AvatarPageComponent) },
+  { path: 'footer', loadComponent: () => import('./pages/footer-page/footer-page.component').then(m => m.FooterPageComponent) },
 ];

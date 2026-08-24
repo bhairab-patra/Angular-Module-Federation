@@ -33,8 +33,8 @@ export class AvatarPageComponent {
   imports: [PuiAvatarComponent],
   template: \`
     <pui-lib-avatar
-      name="Rosanne Doyle"
-      email="rdoyle@solifi.com"
+      name="Admin hub"
+      email="adminhub@solifi.com"
       [menuItems]="menuItems"
       (menuAction)="onMenuAction($event)">
     </pui-lib-avatar>
@@ -76,8 +76,8 @@ export function UserMenu() {
   return (
     <pui-lib-avatar
       ref={ref}
-      name="Rosanne Doyle"
-      email="rdoyle@solifi.com"
+      name="Admin hub"
+      email="adminhub@solifi.com"
     />
   );
 }`;
@@ -87,7 +87,7 @@ export function UserMenu() {
 <link rel="stylesheet" href="node_modules/@bhairab-patra/platform-ui/elements/styles.css">
 
 <!-- 2. Declare the element -->
-<pui-lib-avatar id="userMenu" name="Rosanne Doyle" email="rdoyle@solifi.com"></pui-lib-avatar>
+<pui-lib-avatar id="userMenu" name="Admin hub" email="adminhub@solifi.com"></pui-lib-avatar>
 
 <!-- 3. Menu items and events via JavaScript -->
 <script>
@@ -109,22 +109,22 @@ export function UserMenu() {
   // ── API table ──────────────────────────────────────────────────────────
 
   api: ApiRow[] = [
-    { input: 'name',        type: 'string',                      default: `''`,    description: 'Full name — shown next to the avatar and used to derive initials.' },
-    { input: 'email',       type: 'string',                      default: `''`,    description: 'Email shown below the name.' },
-    { input: 'avatarUrl',   type: 'string',                      default: `''`,    description: 'Photo URL. When set, the avatar renders as a circle; otherwise a rounded-square initials chip.' },
-    { input: 'size',        type: `'sm'|'md'|'lg'`,               default: `'md'`,  description: 'Avatar chip size — sm 32px, md 40px, lg 48px.' },
-    { input: 'collapsed',   type: 'boolean | string',            default: 'false', description: 'Render only the avatar chip (no name/email card) — for collapsed sidebars. Accepts true / "true".' },
-    { input: 'menuItems',   type: 'AvatarMenuItem[] | string',   default: '[]',    description: '{ label, action, iconName?, danger?, dividerBefore? }[] or JSON string — dropdown items. Card is not clickable when empty.' },
-    { input: 'menuAction',  type: 'EventEmitter<string>',        default: '—',     description: 'Output — emits item.action string when a menu item is clicked.' },
-    { input: 'openChange',  type: 'EventEmitter<boolean>',       default: '—',     description: 'Output — emits true/false whenever the dropdown opens or closes.' },
+    { input: 'name', type: 'string', default: `''`, description: 'Full name — shown next to the avatar and used to derive initials.' },
+    { input: 'email', type: 'string', default: `''`, description: 'Email shown below the name.' },
+    { input: 'avatarUrl', type: 'string', default: `''`, description: 'Photo URL. When set, the avatar renders as a circle; otherwise a rounded-square initials chip.' },
+    { input: 'size', type: `'sm'|'md'|'lg'`, default: `'md'`, description: 'Avatar chip size — sm 32px, md 40px, lg 48px.' },
+    { input: 'collapsed', type: 'boolean | string', default: 'false', description: 'Render only the avatar chip (no name/email card) — for collapsed sidebars. Accepts true / "true".' },
+    { input: 'menuItems', type: 'AvatarMenuItem[] | string', default: '[]', description: '{ label, action, iconName?, danger?, dividerBefore? }[] or JSON string — dropdown items. Card is not clickable when empty.' },
+    { input: 'menuAction', type: 'EventEmitter<string>', default: '—', description: 'Output — emits item.action string when a menu item is clicked.' },
+    { input: 'openChange', type: 'EventEmitter<boolean>', default: '—', description: 'Output — emits true/false whenever the dropdown opens or closes.' },
   ];
 
   xfwRows = [
-    { name: 'name',       angular: 'name="Rosanne Doyle"',        attr: 'name="Rosanne Doyle"',        js: 'el.name = "Rosanne Doyle"' },
-    { name: 'email',      angular: 'email="rdoyle@solifi.com"',   attr: 'email="rdoyle@solifi.com"',   js: 'el.email = "rdoyle@solifi.com"' },
-    { name: 'avatarUrl',  angular: 'avatarUrl="/me.jpg"',         attr: 'avatar-url="/me.jpg"',        js: 'el.avatarUrl = "/me.jpg"' },
-    { name: 'collapsed',  angular: '[collapsed]="true"',          attr: 'collapsed="true"',            js: 'el.collapsed = true' },
-    { name: 'menuItems',  angular: '[menuItems]="items"',         attr: '— use JS property',           js: 'el.menuItems = [...]' },
-    { name: 'menuAction', angular: '(menuAction)="fn($event)"',   attr: '— use addEventListener',      js: 'el.addEventListener("menuAction", fn)' },
+    { name: 'name', angular: 'name="Admin hub"', attr: 'name="Admin hub"', js: 'el.name = "Admin hub"' },
+    { name: 'email', angular: 'email="adminhub@solifi.com"', attr: 'email="adminhub@solifi.com"', js: 'el.email = "adminhub@solifi.com"' },
+    { name: 'avatarUrl', angular: 'avatarUrl="/me.jpg"', attr: 'avatar-url="/me.jpg"', js: 'el.avatarUrl = "/me.jpg"' },
+    { name: 'collapsed', angular: '[collapsed]="true"', attr: 'collapsed="true"', js: 'el.collapsed = true' },
+    { name: 'menuItems', angular: '[menuItems]="items"', attr: '— use JS property', js: 'el.menuItems = [...]' },
+    { name: 'menuAction', angular: '(menuAction)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("menuAction", fn)' },
   ];
 }

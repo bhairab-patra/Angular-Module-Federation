@@ -60,3 +60,5 @@ export * from './lib/models/solifi-sidebar.model';
 export * from './lib/solifi-sidebar/solifi-sidebar.component';
 export * from './lib/models/avatar.model';
 export * from './lib/avatar/avatar.component';
+export * from './lib/models/footer.model';
+export * from './lib/footer/footer.component';

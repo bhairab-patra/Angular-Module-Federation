@@ -1,6 +1,6 @@
 $brand: var(--pui-brand);
 $border: var(--pui-slate-200);
-$radius: 10px;
+$radius: 14px;
 $dur: .26s;
 $ease: cubic-bezier(.4, 0, .2, 1);
 
@@ -21,24 +21,33 @@ $ease: cubic-bezier(.4, 0, .2, 1);
   }
 
   &__content {
+    /* overflow:hidden here is what lets grid-template-rows: 0fr collapse
+       this row to true 0px. Padding must NOT live on this element -- a
+       padded, overflow:hidden grid item doesn't shrink to 0 reliably in
+       every browser and leaves a residual sliver of text visible when
+       "closed" (this is the exact bug: padding kept ending up back on
+       __content instead of __content-text below -- if you're touching
+       this file again, keep the padding on __content-text). */
     overflow: hidden;
-    padding: 0;
-    transition: padding $dur $ease;
   }
 
-  &__panel--open &__content {
-    padding: 0 20px 18px;
+  &__content-text {
+    padding: 12px 24px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--pui-accordion-content-text);
   }
 
   &__chevron {
     display: flex;
     flex-shrink: 0;
-    transition: transform $dur $ease;
+    transition: transform $dur $ease, color .15s;
     color: var(--pui-pagination-ellipsis);
-  }
 
-  &__item--open>&__trigger &__chevron {
-    transform: rotate(180deg);
+    &--active {
+      color: var(--pui-brand-text-dark);
+      transform: rotate(180deg);
+    }
   }
 
   &__trigger {
@@ -47,7 +56,7 @@ $ease: cubic-bezier(.4, 0, .2, 1);
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    background: transparent;
+    // background: transparent;
     border: none;
     cursor: pointer;
     font-family: inherit;
@@ -55,8 +64,9 @@ $ease: cubic-bezier(.4, 0, .2, 1);
     font-weight: 600;
     color: var(--pui-pagination-text);
     text-align: left;
-    padding: 16px 20px;
-    transition: background $dur $ease, color .15s;
+    padding: 12px 18px;
+    transition: background .18s ease, color .18s ease;
+    border-bottom: 1px solid var(--pui-space-2);
 
     &:focus-visible {
       outline: none;
@@ -67,28 +77,43 @@ $ease: cubic-bezier(.4, 0, .2, 1);
   &__trigger-label {
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 12px;
     flex: 1;
     min-width: 0;
   }
 
-  &__item-icon {
-    color: var(--pui-pagination-text-muted);
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__icon-badge {
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    color: var(--pui-pagination-text-muted);
+    background: transparent;
+    transition: background .18s ease, color .18s ease;
   }
 
   &__title {
-    flex: 1;
-    min-width: 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  &__content {
-    font-size: 13.5px;
-    line-height: 1.65;
-    color: var(--pui-accordion-content-text);
+  &__subtitle {
+    font-size: 12.5px;
+    font-weight: 400;
+    line-height: 1.45;
+    color: var(--pui-neutral-500);
   }
 
   &__item--disabled>&__trigger {
@@ -96,8 +121,11 @@ $ease: cubic-bezier(.4, 0, .2, 1);
     cursor: not-allowed;
   }
 
+  /* ── Default variant -- FAQ-style cards. Closed rows stay plain; the
+     open row's header tints with the brand-light token and its icon
+     becomes a solid brand chip, matching the reference design. ── */
   &--default {
-    gap: 8px;
+    gap: 10px;
 
     .pui-accordion__item {
       background: var(--pui-white);
@@ -105,18 +133,36 @@ $ease: cubic-bezier(.4, 0, .2, 1);
       border-radius: $radius;
       overflow: hidden;
       box-shadow: var(--pui-shadow-accordion);
-      transition: box-shadow .15s;
+      transition: box-shadow .15s, border-color .15s;
+    }
 
-      &--open {
-        box-shadow: var(--pui-shadow-accordion-open);
-      }
+    .pui-accordion__item--open {
+      box-shadow: var(--pui-shadow-accordion-open);
+      border-color: var(--pui-brand-light);
+    }
+
+    .pui-accordion__item--open>.pui-accordion__trigger {
+      background: var(--pui-brand-light);
+      color: var(--pui-brand-text-dark);
+    }
+
+    .pui-accordion__item--open>.pui-accordion__trigger .pui-accordion__icon-badge {
+      background: $brand;
+      color: var(--pui-brand-text-dark, var(--pui-white));
     }
 
     .pui-accordion__trigger:hover:not([disabled]) {
       background: var(--pui-slate-050);
     }
+
+    .pui-accordion__item--open>.pui-accordion__trigger:hover:not([disabled]) {
+      filter: brightness(.98);
+    }
   }
 
+  /* ── Bordered variant -- flat settings-list rows. Icon is always a
+     tinted circular badge; header never tints, only the chevron and
+     text shift color on hover/open. ── */
   &--bordered {
     border: 1px solid $border;
     border-radius: $radius;
@@ -126,42 +172,16 @@ $ease: cubic-bezier(.4, 0, .2, 1);
       border-top: 1px solid $border;
     }
 
+    .pui-accordion__icon-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--pui-brand-light);
+      color: var(--pui-brand-text-dark);
+    }
+
     .pui-accordion__trigger:hover:not([disabled]) {
       background: var(--pui-slate-050);
-    }
-  }
-
-  &--ghost {
-    gap: 2px;
-
-    .pui-accordion__item {
-      border-radius: 8px;
-    }
-
-    .pui-accordion__trigger {
-      padding: 12px 14px;
-      border-radius: 8px;
-
-      &:hover:not([disabled]) {
-        background: var(--pui-overlay-black-04);
-      }
-    }
-
-    .pui-accordion__content {
-      padding-left: 14px;
-      padding-right: 14px;
-    }
-
-    .pui-accordion__panel--open .pui-accordion__content {
-      padding-bottom: 14px;
-    }
-
-    &.pui-accordion .pui-accordion__item--open>.pui-accordion__trigger {
-      color: $brand;
-
-      .pui-accordion__chevron {
-        color: $brand;
-      }
     }
   }
 }

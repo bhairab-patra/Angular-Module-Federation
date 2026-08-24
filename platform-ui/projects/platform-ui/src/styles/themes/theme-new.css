@@ -14,111 +14,118 @@
  * always wins regardless of load order.
  */
 
-:root, :root[data-pui-theme="new"] {
+:root,
+:root[data-pui-theme="new"] {
 
-   /* ========================================
+  /* ========================================
      BRAND / PRIMARY
      ======================================== */
-   --pui-brand: #12C6A8;
-   /* --pui-brand:           #112C35; */
-   --pui-brand-hover: #0d9e87;
-   --pui-brand-deep: #0d6e5f;
-   --pui-brand-bg: #f0fdfb;
-   --pui-brand-light: #c5e8e3;
-   --pui-brand-muted: #a8d9d2;
-   --pui-brand-muted-bg: #D1FDE4;
-   --pui-brand-border: #b5dbd6;
-   --pui-brand-accent: #0fa78d;
-   --pui-brand-hover-2: #0fb090;
-   --pui-brand-pressed: #0a5a4e;
-   --pui-brand-text-dark: #0d4f45;
-   --pui-brand-solid: #0d9d8a;
+  --pui-brand: #12C6A8;
+  /* --pui-brand:           #112C35; */
+  --pui-brand-hover: #0d9e87;
+  --pui-brand-deep: #0d6e5f;
+  --pui-brand-bg: #f0fdfb;
+  --pui-brand-light: #c5e8e3;
+  --pui-brand-muted: #a8d9d2;
+  --pui-brand-muted-bg: #D1FDE4;
+  --pui-brand-border: #b5dbd6;
+  --pui-brand-accent: #0fa78d;
+  --pui-brand-hover-2: #0fb090;
+  --pui-brand-pressed: #0a5a4e;
+  --pui-brand-text-dark: #0d4f45;
+  --pui-brand-solid: #0d9d8a;
 
-   /* Brand color pre-mixed with alpha, as flat 8-digit hex (#RRGGBBAA) —
+  /* Brand color pre-mixed with alpha, as flat 8-digit hex (#RRGGBBAA) —
      used by components that need a translucent brand tint, so every
      value stays a plain hex code instead of rgba(). */
-   --pui-brand-tint-05: #12C6A80D;
-   /* 5%  */
-   --pui-brand-tint-07: #12C6A812;
-   /* 7%  */
-   --pui-brand-tint-08: #12C6A814;
-   /* 8%  */
-   --pui-brand-tint-10: #12C6A81A;
-   /* 10% */
-   --pui-brand-tint-12: #12C6A81F;
-   /* 12% */
-   --pui-brand-tint-14: #12C6A824;
-   /* 14% */
-   --pui-brand-tint-18: #12C6A82E;
-   /* 18% */
-   --pui-brand-tint-20: #12C6A833;
-   /* 20% */
-   --pui-brand-tint-22: #12C6A838;
-   /* 22% */
-   --pui-brand-tint-25: #12C6A840;
-   /* 25% */
-   --pui-brand-tint-35: #12C6A859;
-   /* 35% */
+  --pui-brand-tint-05: #12C6A80D;
+  /* 5%  */
+  --pui-brand-tint-07: #12C6A812;
+  /* 7%  */
+  --pui-brand-tint-08: #12C6A814;
+  /* 8%  */
+  --pui-brand-tint-10: #12C6A81A;
+  /* 10% */
+  --pui-brand-tint-12: #12C6A81F;
+  /* 12% */
+  --pui-brand-tint-14: #12C6A824;
+  /* 14% */
+  --pui-brand-tint-18: #12C6A82E;
+  /* 18% */
+  --pui-brand-tint-20: #12C6A833;
+  /* 20% */
+  --pui-brand-tint-22: #12C6A838;
+  /* 22% */
+  --pui-brand-tint-25: #12C6A840;
+  /* 25% */
+  --pui-brand-tint-35: #12C6A859;
+  /* 35% */
 
-   /* ========================================
+  /* ========================================
      LIST (brand-tinted)
      ======================================== */
-   --pui-list-active-default: #0d9488;
-   --pui-list-hover-bg-default: #f0fdfa;
+  --pui-list-active-default: #0d9488;
+  --pui-list-hover-bg-default: #f0fdfa;
 
-   /* ========================================
+  /* ========================================
      CARD GRADIENT (brand-tinted)
      ======================================== */
-   --pui-card-grad-start: #e6faf7;
+  --pui-card-grad-start: #e6faf7;
 
-   /* ========================================
+  /* ========================================
      SHAPE
      ======================================== */
-   --pui-btn-radius: 999px;
+  --pui-btn-radius: 999px;
 
-   /* ========================================
+  /* ========================================
      BUTTON
      ======================================== */
-   --pui-btn-secondary-bg: var(--pui-btn-disabled-bg);
-   --pui-btn-secondary-hover-bg: var(--pui-btn-neutral-hover2);
+  --pui-btn-secondary-bg: var(--pui-btn-disabled-bg);
+  --pui-btn-secondary-hover-bg: var(--pui-btn-neutral-hover2);
 
-   /* ========================================
+  /* ========================================
      FORM CONTROLS (checkbox / radio / switch /
      input & textarea focus border / select /
      combobox / multiselect / password-input)
      ======================================== */
-   --pui-form-accent: #0F5C5E;
-   /* Foreground color for text/icons sitting on top of a solid accent
+  --pui-form-accent: #0F5C5E;
+  /* Foreground color for text/icons sitting on top of a solid accent
      surface (checkbox tick, button Primary text) -- white here because
      the new theme's accent colors (form-accent, brand-deep) are dark. */
-   --pui-accent-ink: var(--pui-white);
-   /* Text color for the multiselect chip/tag -- keeps the existing teal
+  --pui-accent-ink: var(--pui-white);
+  /* Text color for the multiselect chip/tag -- keeps the existing teal
      accent look for this theme, unchanged. */
-   --pui-form-tag-text: var(--pui-form-accent);
+  --pui-form-tag-text: var(--pui-form-accent);
 
-   /* ========================================
+  /* ========================================
      FOCUS RINGS
      ======================================== */
-   --pui-focus-ring: 0 0 0 3px var(--pui-brand-tint-14);
-   --pui-focus-ring-error: 0 0 0 3px rgba(239, 68, 68, .14);
+  --pui-focus-ring: 0 0 0 3px var(--pui-brand-tint-14);
+  --pui-focus-ring-error: 0 0 0 3px rgba(239, 68, 68, .14);
 
-   --pui-shadow-focus: 0 0 0 3px var(--pui-brand-tint-18);
-   --pui-shadow-focus-sm: 0 0 0 3px var(--pui-brand-tint-12);
-   --pui-shadow-focus-brand: 0 0 0 3px var(--pui-brand-tint-25);
+  --pui-shadow-focus: 0 0 0 3px var(--pui-brand-tint-18);
+  --pui-shadow-focus-sm: 0 0 0 3px var(--pui-brand-tint-12);
+  --pui-shadow-focus-brand: 0 0 0 3px var(--pui-brand-tint-25);
 
-   /* ========================================
+  /* ========================================
      SOLIFI SIDEBAR (unchanged for now -- old theme
      values pending, new theme keeps current look)
      ======================================== */
-   --pui-solifi-sb-bg: #112C35;
-   --pui-solifi-sb-icon-chip-bg: #2f4c55;
-   --pui-solifi-sb-icon-active-bg: var(--pui-brand-tint-25);
-   --pui-solifi-sb-icon-active-color: var(--pui-white);
+  --pui-solifi-sb-bg: #112C35;
+  --pui-solifi-sb-icon-chip-bg: #2f4c55;
+  --pui-solifi-sb-icon-active-bg: var(--pui-brand-tint-25);
+  --pui-solifi-sb-icon-active-color: var(--pui-white);
 
-   /* ========================================
+  /* ========================================
      HEADER
      ======================================== */
-   --pui-header-bg: #D8D1C8;
-   --pui-header-text: var(--pui-neutral-900);
+  --pui-header-bg: #D8D1C8;
+  --pui-header-text: var(--pui-neutral-900);
+
+  /* ========================================
+     FOOTER
+     ======================================== */
+  --pui-footer-bg: #CFDEDF;
+  --pui-footer-text: var(--pui-neutral-900);
 
 }

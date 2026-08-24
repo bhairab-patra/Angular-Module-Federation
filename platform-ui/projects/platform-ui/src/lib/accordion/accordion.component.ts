@@ -2,6 +2,7 @@ import {
   Component, Input, Output, EventEmitter,
   ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { IconComponent } from '../icon/icon.component';
 import { AccordionItem, AccordionVariant } from '../models/accordion.model';
 
@@ -22,6 +23,19 @@ export class PuiAccordionComponent {
 
   @Output() openIdsChange = new EventEmitter<(string | number)[]>();
   @Output() itemToggle    = new EventEmitter<{ id: string | number; open: boolean }>();
+
+  constructor(private _sanitizer: DomSanitizer) {}
+
+  private _trustedHtml = new Map<string, SafeHtml>();
+
+  trustHtml(html: string): SafeHtml {
+    let trusted = this._trustedHtml.get(html);
+    if (!trusted) {
+      trusted = this._sanitizer.bypassSecurityTrustHtml(html);
+      this._trustedHtml.set(html, trusted);
+    }
+    return trusted;
+  }
 
   isOpen(id: string | number): boolean {
     return this.openIds.includes(id);
