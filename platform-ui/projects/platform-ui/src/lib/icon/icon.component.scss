@@ -1,11 +1,12 @@
+:host {
+  display: inline-flex;
+}
 
-    :host { display: inline-flex; }
-
-    .pui-icon {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-      flex-shrink: 0;
-      user-select: none;
-    }
+.pui-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  flex-shrink: 0;
+  user-select: none;
+}

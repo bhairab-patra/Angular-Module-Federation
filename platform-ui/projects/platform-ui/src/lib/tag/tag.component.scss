@@ -1,20 +1,63 @@
-﻿
-    :host { display: inline-flex; }
+﻿:host {
+  display: inline-flex;
+}
 
-    .pui-tag {
-      display: inline-flex; align-items: center;
-      border-radius: var(--pui-radius-xs); font-weight: 600;
-      letter-spacing: .03em; white-space: nowrap;
-      text-transform: uppercase;
-    }
-    .pui-tag--sm { padding: var(--pui-space-px) var(--pui-space-1-5);  font-size: var(--pui-text-2xs); }
-    .pui-tag--md { padding: var(--pui-space-0-75) var(--pui-space-2);  font-size: var(--pui-text-xs); }
+.pui-tag {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--pui-radius-xs);
+  font-weight: 600;
+  letter-spacing: .03em;
+  white-space: nowrap;
+  text-transform: uppercase;
+}
 
-    .pui-tag--default { background: var(--pui-slate-100); color: var(--pui-indigo-mid); }
-    .pui-tag--primary { background: var(--pui-info-light); color: var(--pui-info); }
-    .pui-tag--success { background: var(--pui-success-bg); color: var(--pui-success-dark); }
-    .pui-tag--warning { background: var(--pui-warning-bg); color: var(--pui-warning-dark); }
-    .pui-tag--danger  { background: var(--pui-error-bg); color: var(--pui-error-dark); }
-    .pui-tag--info    { background: var(--pui-info-bg); color: var(--pui-info-dark); }
-    .pui-tag--purple  { background: var(--pui-purple-bg); color: var(--pui-purple); }
-    .pui-tag--pink    { background: var(--pui-pink-bg); color: var(--pui-pink); }
+.pui-tag--sm {
+  padding: var(--pui-space-px) var(--pui-space-1-5);
+  font-size: var(--pui-text-2xs);
+}
+
+.pui-tag--md {
+  padding: var(--pui-space-0-75) var(--pui-space-2);
+  font-size: var(--pui-text-xs);
+}
+
+.pui-tag--default {
+  background: var(--pui-slate-100);
+  color: var(--pui-indigo-mid);
+}
+
+.pui-tag--primary {
+  background: var(--pui-info-light);
+  color: var(--pui-info);
+}
+
+.pui-tag--success {
+  background: var(--pui-success-bg);
+  color: var(--pui-success-dark);
+}
+
+.pui-tag--warning {
+  background: var(--pui-warning-bg);
+  color: var(--pui-warning-dark);
+}
+
+.pui-tag--danger {
+  background: var(--pui-error-bg);
+  color: var(--pui-error-dark);
+}
+
+.pui-tag--info {
+  background: var(--pui-info-bg);
+  color: var(--pui-info-dark);
+}
+
+.pui-tag--purple {
+  background: var(--pui-purple-bg);
+  color: var(--pui-purple);
+}
+
+.pui-tag--pink {
+  background: var(--pui-pink-bg);
+  color: var(--pui-pink);
+}

@@ -1,9 +1,3 @@
-/*
- * Platform UI — Self-hosted Poppins font
- * Consumers: add this file to angular.json styles array
- *   "node_modules/@bhairab-patra/platform-ui/styles/fonts.css"
- * Or for React: import '@bhairab-patra/platform-ui/styles/fonts.css'
- */
 
 @font-face {
   font-family: 'Poppins';
