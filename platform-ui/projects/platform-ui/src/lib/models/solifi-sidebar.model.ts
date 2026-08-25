@@ -6,6 +6,10 @@ export interface SolifiNavItem {
   route?: string;
   disabled?: boolean;
   data?: Record<string, unknown>;
+  /** Nested items shown in an expand/collapse submenu. Single level only — children of children are not supported. */
+  children?: SolifiNavItem[];
+  /** Draws a divider line + extra spacing below this item, to visually separate menu categories. */
+  dividerAfter?: boolean;
 }
 
 export interface SolifiNavGroup {

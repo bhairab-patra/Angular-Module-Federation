@@ -43,10 +43,10 @@ export class PuiSolifiSidebarComponent {
       : [{ id: '__flat__', items: v as SolifiNavItem[] }];
   }
 
-  @Input() activeId  = '';
+  @Input() activeId = '';
   @Input() brandName = 'solifi';
-  @Input() logo      = '';
-  @Input() logoUrl   = '';
+  @Input() logo = '';
+  @Input() logoUrl = '';
 
   @Input() set showBrand(v: boolean | string) {
     this._showBrand = v !== false && v !== 'false';
@@ -60,8 +60,8 @@ export class PuiSolifiSidebarComponent {
   get showUser() { return this._showUser; }
   private _showUser = false;
 
-  @Input() userName     = '';
-  @Input() userEmail    = '';
+  @Input() userName = '';
+  @Input() userEmail = '';
   @Input() userInitials = '';
   @Input() userAvatarUrl = '';
 
@@ -77,7 +77,7 @@ export class PuiSolifiSidebarComponent {
   get showSidebar() { return this._showSidebar; }
   private _showSidebar = true;
 
-  @Input() width          = 240;
+  @Input() width = 240;
   @Input() collapsedWidth = 64;
 
   @Input() set theme(v: SolifiSidebarTheme | string) {
@@ -86,9 +86,9 @@ export class PuiSolifiSidebarComponent {
   get theme(): SolifiSidebarTheme { return this._theme; }
   private _theme: SolifiSidebarTheme = {};
 
-  @Input() bgColor      = '';
-  @Input() textColor    = '';
-  @Input() activeColor  = '';
+  @Input() bgColor = '';
+  @Input() textColor = '';
+  @Input() activeColor = '';
 
   @Input() set userMenuItems(v: SolifiUserMenuItem[] | string) {
     this._userMenuItems = typeof v === 'string' ? (this._parse<SolifiUserMenuItem[]>(v) ?? []) : (v || []);
@@ -97,6 +97,7 @@ export class PuiSolifiSidebarComponent {
   private _userMenuItems: SolifiUserMenuItem[] = [];
 
   userMenuOpen = false;
+  openIds = new Set<string>();
 
   hoveredItem: SolifiNavItem | null = null;
   tooltipTop = 0;
@@ -121,13 +122,13 @@ export class PuiSolifiSidebarComponent {
     return label.length > MAX_LABEL_LEN;
   }
 
-  @Output() itemSelect      = new EventEmitter<SolifiNavItem>();
+  @Output() itemSelect = new EventEmitter<SolifiNavItem>();
   @Output() collapsedChange = new EventEmitter<boolean>();
-  @Output() userMenuSelect  = new EventEmitter<SolifiUserMenuItem>();
+  @Output() userMenuSelect = new EventEmitter<SolifiUserMenuItem>();
 
   defaultLogo = DEFAULT_LOGO;
 
-  constructor(private _elRef: ElementRef) {}
+  constructor(private _elRef: ElementRef) { }
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
@@ -144,16 +145,16 @@ export class PuiSolifiSidebarComponent {
   get cssVars(): Record<string, string> {
     const t = this.theme;
     return {
-      '--ssb-bg':      t.bg          || this.bgColor     || 'var(--pui-solifi-sb-bg)',
-      '--ssb-text':    t.textColor   || this.textColor   || 'var(--pui-solifi-sb-text)',
-      '--ssb-active':  t.activeColor || this.activeColor || 'var(--pui-brand)',
-      '--ssb-active-bg': t.activeBg                      || 'var(--pui-solifi-sb-icon-active-bg)',
-      '--ssb-hover':   t.hoverBg                         || 'var(--pui-overlay-white-06)',
-      '--ssb-border':  t.borderColor                     || 'var(--pui-overlay-white-07)',
-      '--ssb-group':   t.groupColor                      || 'var(--pui-solifi-sb-group)',
-      '--ssb-avatar':  t.avatarBg                        || 'var(--pui-brand)',
-      '--ssb-w':       `${this.width}px`,
-      '--ssb-cw':      `${this.collapsedWidth}px`,
+      '--ssb-bg': t.bg || this.bgColor || 'var(--pui-solifi-sb-bg)',
+      '--ssb-text': t.textColor || this.textColor || 'var(--pui-solifi-sb-text)',
+      '--ssb-active': t.activeColor || this.activeColor || 'var(--pui-brand)',
+      '--ssb-active-bg': t.activeBg || 'var(--pui-solifi-sb-icon-active-bg)',
+      '--ssb-hover': t.hoverBg || 'var(--pui-overlay-white-06)',
+      '--ssb-border': t.borderColor || 'var(--pui-overlay-white-07)',
+      '--ssb-group': t.groupColor || 'var(--pui-solifi-sb-group)',
+      '--ssb-avatar': t.avatarBg || 'var(--pui-brand)',
+      '--ssb-w': `${this.width}px`,
+      '--ssb-cw': `${this.collapsedWidth}px`,
     };
   }
 
@@ -165,6 +166,12 @@ export class PuiSolifiSidebarComponent {
 
   select(item: SolifiNavItem): void {
     if (item.disabled) return;
+    if (item.children?.length) {
+      const wasOpen = this.openIds.has(item.id);
+      this.openIds.clear(); // accordion: only one submenu open at a time
+      if (!wasOpen) { this.openIds.add(item.id); }
+      return;
+    }
     this.itemSelect.emit(item);
   }
 

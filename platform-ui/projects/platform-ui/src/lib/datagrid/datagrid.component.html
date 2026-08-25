@@ -58,7 +58,8 @@
           <td *ngFor="let col of columns" class="pui-dg__td" [style.text-align]="col.align || 'left'">
 
             <ng-container *ngIf="col.type === 'badge' && col.badgeMap">
-              <span class="pui-dg__badge" [ngStyle]="getBadgeStyle(col, row)">
+              <span class="pui-dg__badge" [class.pui-dg__badge--default]="!getBadgeStyle(col, row)['background']"
+                [ngStyle]="getBadgeStyle(col, row)">
                 {{ getBadgeLabel(col, row) }}
               </span>
             </ng-container>

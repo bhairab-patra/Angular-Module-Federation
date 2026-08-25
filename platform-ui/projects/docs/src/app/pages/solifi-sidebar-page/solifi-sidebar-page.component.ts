@@ -13,27 +13,41 @@ const NAV_GROUPS: SolifiNavGroup[] = [
   {
     id: 'dashboard', label: 'Dashboard',
     items: [
-      { id: 'insights',        label: 'Insights',         iconName: 'search'    },
-      { id: 'recent',          label: 'Recent',           iconName: 'clock'     },
-      { id: 'reports',         label: 'Reports',          iconName: 'chart'     },
-      { id: 'upload-files',    label: 'Upload Files',     iconName: 'upload'    },
-      { id: 'loan-ledger',     label: 'Loan Ledger',      iconName: 'file'      },
-      { id: 'posting-history', label: 'Posting History',  iconName: 'calendar'  },
-      { id: 'interest-history',label: 'Interest History & Reconciliation', iconName: 'dollar' },
-      { id: 'statements',      label: 'Statements',       iconName: 'inbox'     },
+      { id: 'insights', label: 'Insights', iconName: 'search' },
+      { id: 'recent', label: 'Recent', iconName: 'clock' },
+      {
+        id: 'reports', label: 'Reports', iconName: 'chart',
+        children: [
+          { id: 'ineligible-report', label: 'Ineligible Report' },
+          { id: 'summary-aging-report', label: 'Summary Aging Report' },
+          { id: 'detail-aging-report', label: 'Detail Aging Report' },
+        ],
+      },
+      {
+        id: 'upload-files', label: 'Upload Files', iconName: 'upload',
+        children: [
+          { id: 'ineligible-report', label: 'Ineligible Report' },
+          { id: 'summary-aging-report', label: 'Summary Aging Report' },
+          { id: 'detail-aging-report', label: 'Detail Aging Report' },
+        ],
+      },
+      { id: 'loan-ledger', label: 'Loan Ledger', iconName: 'file' },
+      { id: 'posting-history', label: 'Posting History', iconName: 'calendar' },
+      { id: 'interest-history', label: 'Interest History & Reconciliation', iconName: 'dollar' },
+      { id: 'statements', label: 'Statements', iconName: 'inbox', dividerAfter: true },
     ],
   },
   {
     id: 'codat', label: 'Codat',
     items: [
       { id: 'posting-status', label: 'Posting Status', iconName: 'check-circle' },
-      { id: 'loan-status',    label: 'Loan Status',    iconName: 'database'     },
+      { id: 'loan-status', label: 'Loan Status', iconName: 'database' },
     ],
   },
   {
     id: 'user-setup', label: 'User Setup',
     items: [
-      { id: 'users',    label: 'Users',    iconName: 'users'    },
+      { id: 'users', label: 'Users', iconName: 'users' },
       { id: 'settings', label: 'Settings', iconName: 'settings' },
     ],
   },
@@ -57,19 +71,19 @@ export class SolifiSidebarPageComponent { // v2
 
   private cdr = inject(ChangeDetectorRef);
 
-  activeId   = 'insights';
-  collapsed  = false;
-  showUser   = true;
+  activeId = 'insights';
+  collapsed = false;
+  showUser = true;
   iconMode: 'with-icons' | 'no-icons' | 'icons-only' = 'with-icons';
   theme: SolifiSidebarTheme = { ...SOLIFI_THEME };
-  logoUrl   = 'assets/logo.png';
-  brandName = 'insights hub';
+  logoUrl = 'assets/logo.png';
+  brandName = 'Admin hub';
   showBrand = true;
 
   userMenuItems: SolifiUserMenuItem[] = [
-    { id: 'profile',  label: 'My Profile',    iconName: 'user'     },
-    { id: 'settings', label: 'Settings',       iconName: 'settings' },
-    { id: 'logout',   label: 'Logout',         iconName: 'logout',  divider: true },
+    { id: 'profile', label: 'My Profile', iconName: 'user' },
+    { id: 'settings', label: 'Settings', iconName: 'settings' },
+    { id: 'logout', label: 'Logout', iconName: 'logout', divider: true },
   ];
 
   lastUserMenuAction = '';
@@ -126,13 +140,13 @@ export class SolifiSidebarPageComponent { // v2
   \`
 })
 export class AppComponent {
-  brandName = 'insights hub';
+  brandName = 'Admin hub';
   logoUrl = 'assets/logo.png';
   activeId = 'insights';
   collapsed = false;
   theme = SOLIFI_THEME;
 
-  user = { name: 'Allen M. George', email: 'ageorge@meridian.com' };
+  user = { name: 'Bira', email: 'bpatra@solifi.comcom' };
 
   navGroups: SolifiNavGroup[] = [
     { id: 'dashboard', label: 'Dashboard', items: [
@@ -196,12 +210,12 @@ export function AppLayout() {
     <div style={{ display:'flex', height:'100vh' }}>
       <pui-lib-solifi-sidebar
         ref={sidebarRef}
-        brand-name="insights hub"
+        brand-name="Admin hub"
         logo-url="/assets/logo.png"
         active-id={activeId}
         show-user
-        user-name="Allen M. George"
-        user-email="ageorge@meridian.com"
+        user-name="Bira"
+        user-email="bpatra@solifi.comcom"
       />
       <main style={{ flex:1, overflow:'auto', padding:24 }}>
         {/* page content */}
@@ -217,11 +231,11 @@ export function AppLayout() {
 <div style="display:flex;height:100vh">
   <pui-lib-solifi-sidebar
     id="sidebar"
-    brand-name="insights hub"
+    brand-name="Admin hub"
     logo-url="assets/logo.png"
     show-user
-    user-name="Allen M. George"
-    user-email="ageorge@meridian.com">
+    user-name="Bira"
+    user-email="bpatra@solifi.comcom">
   </pui-lib-solifi-sidebar>
 
   <main style="flex:1;overflow:auto;padding:24px">
@@ -275,15 +289,15 @@ navGroups: SolifiNavGroup[] = [
 { id: 'home', label: 'Home' }`;
 
   angularTpl = `<pui-lib-solifi-sidebar
-  brandName="insights hub"
+  brandName="Admin hub"
   [logo]="logoSvg"
   [groups]="navGroups"
   [activeId]="activeId"
   [collapsed]="collapsed"
   [theme]="SOLIFI_THEME"
   [showUser]="true"
-  userName="Allen M. George"
-  userEmail="ageorge@meridian.com"
+  userName="Bira"
+  userEmail="bpatra@solifi.comcom"
   [width]="240"
   [collapsedWidth]="64"
   (itemSelect)="onNav($event)"
@@ -293,10 +307,10 @@ navGroups: SolifiNavGroup[] = [
   reactCode = `// After loading pui-elements.js bundle:
 <pui-lib-solifi-sidebar
   id="sb"
-  brand-name="insights hub"
+  brand-name="Admin hub"
   show-user
-  user-name="Allen M. George"
-  user-email="ageorge@meridian.com">
+  user-name="Bira"
+  user-email="bpatra@solifi.comcom">
 </pui-lib-solifi-sidebar>
 
 <script>
@@ -315,25 +329,25 @@ navGroups: SolifiNavGroup[] = [
 </script>`;
 
   api: ApiRow[] = [
-    { input: 'groups',         type: 'SolifiNavGroup[]|string', default: '[]',            description: 'Nav groups. Items can use iconName (platform-ui), icon (raw SVG), or neither (text-only).' },
-    { input: 'activeId',       type: 'string',                  default: "''",             description: 'Currently active item id.' },
-    { input: 'brandName',      type: 'string',                  default: "'solifi'",       description: 'Brand name shown next to logo in expanded state.' },
-    { input: 'logo',           type: 'string (SVG/HTML)',        default: 'default',        description: 'Logo HTML. Defaults to hexagon Solifi mark.' },
-    { input: 'showBrand',      type: 'boolean|string',          default: 'true',           description: 'Show/hide the logo section at the top of the sidebar (both expanded and collapsed states).' },
-    { input: 'collapsed',      type: 'boolean|string',          default: 'false',          description: 'Collapse to icon-only rail.' },
-    { input: 'showSidebar',    type: 'boolean|string',          default: 'true',           description: 'Hide sidebar entirely (e.g. mobile).' },
-    { input: 'width',          type: 'number',                  default: '240',            description: 'Expanded width in px.' },
-    { input: 'collapsedWidth', type: 'number',                  default: '64',             description: 'Collapsed icon-rail width in px.' },
-    { input: 'theme',          type: 'SolifiSidebarTheme|string', default: 'SOLIFI_THEME', description: 'Color token object. Use SOLIFI_THEME preset or provide custom values.' },
-    { input: 'bgColor',        type: 'string',                  default: '#112C35',        description: 'Quick background color override.' },
-    { input: 'textColor',      type: 'string',                  default: '#8fa3bc',        description: 'Quick text color override.' },
-    { input: 'activeColor',    type: 'string',                  default: '#12C6A8',        description: 'Quick active/accent color override.' },
-    { input: 'showUser',       type: 'boolean|string',          default: 'false',          description: 'Show user profile section at the bottom.' },
-    { input: 'userName',       type: 'string',                  default: "''",             description: 'Full name in user profile footer.' },
-    { input: 'userEmail',      type: 'string',                  default: "''",             description: 'Email shown under user name.' },
-    { input: 'userInitials',   type: 'string',                  default: "''",             description: 'Avatar initials (auto-derived from userName if empty).' },
-    { input: 'userAvatarUrl',  type: 'string',                  default: "''",             description: 'Avatar photo URL. Falls back to initials bubble.' },
-    { input: 'itemSelect',     type: 'EventEmitter<SolifiNavItem>', default: '—',          description: 'Fires on nav item click.' },
-    { input: 'collapsedChange',type: 'EventEmitter<boolean>',   default: '—',              description: 'Fires when collapsed state changes.' },
+    { input: 'groups', type: 'SolifiNavGroup[]|string', default: '[]', description: 'Nav groups. Items can use iconName (platform-ui), icon (raw SVG), or neither (text-only). An item can set children (single-level submenu, expand/collapse on click) and dividerAfter (divider line below it).' },
+    { input: 'activeId', type: 'string', default: "''", description: 'Currently active item id.' },
+    { input: 'brandName', type: 'string', default: "'solifi'", description: 'Brand name shown next to logo in expanded state.' },
+    { input: 'logo', type: 'string (SVG/HTML)', default: 'default', description: 'Logo HTML. Defaults to hexagon Solifi mark.' },
+    { input: 'showBrand', type: 'boolean|string', default: 'true', description: 'Show/hide the logo section at the top of the sidebar (both expanded and collapsed states).' },
+    { input: 'collapsed', type: 'boolean|string', default: 'false', description: 'Collapse to icon-only rail.' },
+    { input: 'showSidebar', type: 'boolean|string', default: 'true', description: 'Hide sidebar entirely (e.g. mobile).' },
+    { input: 'width', type: 'number', default: '240', description: 'Expanded width in px.' },
+    { input: 'collapsedWidth', type: 'number', default: '64', description: 'Collapsed icon-rail width in px.' },
+    { input: 'theme', type: 'SolifiSidebarTheme|string', default: 'SOLIFI_THEME', description: 'Color token object. Use SOLIFI_THEME preset or provide custom values.' },
+    { input: 'bgColor', type: 'string', default: '#112C35', description: 'Quick background color override.' },
+    { input: 'textColor', type: 'string', default: '#8fa3bc', description: 'Quick text color override.' },
+    { input: 'activeColor', type: 'string', default: '#12C6A8', description: 'Quick active/accent color override.' },
+    { input: 'showUser', type: 'boolean|string', default: 'false', description: 'Show user profile section at the bottom.' },
+    { input: 'userName', type: 'string', default: "''", description: 'Full name in user profile footer.' },
+    { input: 'userEmail', type: 'string', default: "''", description: 'Email shown under user name.' },
+    { input: 'userInitials', type: 'string', default: "''", description: 'Avatar initials (auto-derived from userName if empty).' },
+    { input: 'userAvatarUrl', type: 'string', default: "''", description: 'Avatar photo URL. Falls back to initials bubble.' },
+    { input: 'itemSelect', type: 'EventEmitter<SolifiNavItem>', default: '—', description: 'Fires on nav item click.' },
+    { input: 'collapsedChange', type: 'EventEmitter<boolean>', default: '—', description: 'Fires when collapsed state changes.' },
   ];
 }

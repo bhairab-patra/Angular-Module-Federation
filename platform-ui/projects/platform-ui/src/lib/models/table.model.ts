@@ -7,6 +7,8 @@ export interface TableColumn {
   align?:     'left' | 'center' | 'right';
   type?:      'text' | 'number' | 'date' | 'currency' | 'badge' | 'pills';
   badgeMap?:  Record<string, { label?: string; color?: string }>;
+  /** pui-lib-editable-table only: set false to keep this column read-only while the row is being edited. Defaults to editable (true). */
+  editable?:  boolean;
 }
 
 export interface TableAction {

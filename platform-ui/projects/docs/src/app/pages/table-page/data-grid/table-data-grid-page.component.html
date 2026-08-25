@@ -78,9 +78,29 @@
           {{ isLoading ? 'Stop Loading' : 'Show Loading' }}
         </button>
       </div>
-      <pui-lib-data-table [columns]="employeeCols" [data]="employees"
+      <pui-lib-data-table [columns]="employeeColsLoading" [data]="employees"
         [paginated]="t" [pageSize]="5" [loading]="isLoading">
       </pui-lib-data-table>
+    </div>
+
+    <!-- 4. Empty state -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Empty State</h3>
+      <p class="demo-section__desc">
+        When <code>[data]</code> is empty, the table shows a standardized empty state — icon, title,
+        optional description. Override the message with <code>[emptyTitle]</code> /
+        <code>[emptyDescription]</code>, and project an optional action button into the
+        <code>emptyActions</code> slot.
+      </p>
+      <pui-lib-data-table
+        [columns]="employeeCols"
+        [data]="emptyRows"
+        heading="Team Members"
+        emptyTitle="No team members yet"
+        emptyDescription="Add your first team member to get started.">
+        <button emptyActions class="demo-btn" (click)="onAddFromEmptyState()">+ Add Employee</button>
+      </pui-lib-data-table>
+      <p class="demo-desc" *ngIf="emptyActionLog">{{ emptyActionLog }}</p>
     </div>
 
   </ng-container>

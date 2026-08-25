@@ -141,11 +141,11 @@ pui-lib-solifi-sidebar {
 }
 
 .ssb__group-label {
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  color: var(--ssb-group, #4a6080);
+  font-size: 13px;
+  font-weight: 600;
+  // text-transform: uppercase;
+  // letter-spacing: .1em;
+  color: #FFF;
   padding: 14px 20px 4px;
   white-space: nowrap;
 }
@@ -162,7 +162,7 @@ pui-lib-solifi-sidebar {
   align-items: center;
   gap: 10px;
   padding: 0 20px;
-  height: 38px;
+  height: 35px;
   border: none;
   background: transparent;
   color: var(--ssb-text, rgba(255, 255, 255, .72));
@@ -175,17 +175,17 @@ pui-lib-solifi-sidebar {
   position: relative;
 }
 
-.ssb__item::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 6px;
-  bottom: 6px;
-  width: 3px;
-  border-radius: 0 3px 3px 0;
-  background: transparent;
-  transition: background .13s;
-}
+// .ssb__item::before {
+//   content: '';
+//   position: absolute;
+//   left: 0;
+//   top: 6px;
+//   bottom: 6px;
+//   width: 3px;
+//   border-radius: 0 3px 3px 0;
+//   background: transparent;
+//   transition: background .13s;
+// }
 
 .ssb__item:hover:not(.ssb__item--disabled) {
   background: var(--ssb-hover, rgba(255, 255, 255, .06));
@@ -219,6 +219,98 @@ pui-lib-solifi-sidebar {
 
 .ssb--collapsed .ssb__item::before {
   display: none;
+}
+
+.ssb__li--divider {
+  border-bottom: 1px solid var(--ssb-border, rgba(255, 255, 255, .07));
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+}
+
+.ssb__arrow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--ssb-text, #8fa3bc);
+  opacity: .6;
+  transition: transform .22s cubic-bezier(.4, 0, .2, 1), opacity .13s;
+}
+
+.ssb__arrow--open {
+  transform: rotate(90deg);
+  opacity: 1;
+}
+
+.ssb__item:hover .ssb__arrow {
+  opacity: 1;
+}
+
+/* max-height is set inline per item (children.length * 34px) so the
+   transition always animates to the sub-list's exact real height. */
+.ssb__sub {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  background: var(--pui-overlay-black-12);
+  transition: max-height .26s cubic-bezier(.4, 0, .2, 1);
+}
+
+.ssb__subitem {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px 0 54px;
+  height: 34px;
+  border: none;
+  background: transparent;
+  color: var(--ssb-text, rgba(255, 255, 255, .72));
+  opacity: .85;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  font-size: 12px;
+  transition: background .13s, color .13s, opacity .13s;
+}
+
+.ssb__subitem:hover:not(.ssb__subitem--disabled) {
+  background: var(--ssb-hover, rgba(255, 255, 255, .06));
+  color: var(--pui-white);
+  opacity: 1;
+}
+
+.ssb__subitem--active {
+  color: var(--pui-white) !important;
+  opacity: 1 !important;
+}
+
+.ssb__subitem--disabled {
+  opacity: .35;
+  cursor: not-allowed;
+}
+
+.ssb__subitem-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .5;
+  flex-shrink: 0;
+  transition: opacity .13s;
+}
+
+.ssb__subitem--active .ssb__subitem-dot,
+.ssb__subitem:hover .ssb__subitem-dot {
+  opacity: 1;
+}
+
+.ssb__subitem-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ssb__nav-tooltip {

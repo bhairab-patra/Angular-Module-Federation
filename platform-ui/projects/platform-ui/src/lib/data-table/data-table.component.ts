@@ -61,6 +61,10 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   /** Optional title shown on the left of the table toolbar (e.g. "Account Summary"). */
   @Input() heading = '';
 
+  /** Optional overrides for the built-in empty state (shown when there's no active search term). */
+  @Input() emptyTitle = '';
+  @Input() emptyDescription = '';
+
   _pageSize = 10;
   _maxHeight = 0;
 

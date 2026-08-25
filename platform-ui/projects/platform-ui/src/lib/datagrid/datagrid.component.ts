@@ -8,7 +8,8 @@ export interface DataGridColumn<T = any> {
   sortable?: boolean;
   type?:     'text' | 'number' | 'badge' | 'date';
   align?:    'left' | 'center' | 'right';
-  badgeMap?: Record<string, { label: string; color: string }>;
+  /** color is optional — omit it for a neutral default Chip/Badge instead of a status color. */
+  badgeMap?: Record<string, { label: string; color?: string }>;
 }
 
 export interface DataGridSort {
@@ -112,7 +113,7 @@ export class PuiDataGridComponent<T extends Record<string, any> = any> {
   getBadgeStyle(col: DataGridColumn<T>, row: T): Record<string, string> {
     const key = String(row[col.field]);
     const def = col.badgeMap?.[key];
-    return def ? { background: def.color + '22', color: def.color } : {};
+    return def?.color ? { background: def.color + '22', color: def.color } : {};
   }
 
   getBadgeLabel(col: DataGridColumn<T>, row: T): string {

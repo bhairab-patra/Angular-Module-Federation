@@ -32,9 +32,9 @@
       </div>
 
       <ul class="ssb__list">
-        <li *ngFor="let item of group.items">
+        <li *ngFor="let item of group.items" [class.ssb__li--divider]="item.dividerAfter">
           <button class="ssb__item"
-                  [class.ssb__item--active]="activeId === item.id"
+                  [class.ssb__item--active]="activeId === item.id || openIds.has(item.id)"
                   [class.ssb__item--disabled]="item.disabled"
                   (click)="select(item)"
                   (mouseenter)="onNavItemEnter(item, $event)"
@@ -56,8 +56,27 @@
               <ng-template #plainLabel>
                 <span class="ssb__label">{{ item.label }}</span>
               </ng-template>
+
+              <span *ngIf="item.children?.length" class="ssb__arrow" [class.ssb__arrow--open]="openIds.has(item.id)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+              </span>
             </ng-container>
           </button>
+
+          <ul class="ssb__sub"
+              *ngIf="item.children?.length && !collapsed"
+              [class.ssb__sub--open]="openIds.has(item.id)"
+              [style.maxHeight.px]="openIds.has(item.id) ? item.children!.length * 34 : 0">
+            <li *ngFor="let child of item.children">
+              <button class="ssb__subitem"
+                      [class.ssb__subitem--active]="activeId === child.id"
+                      [class.ssb__subitem--disabled]="child.disabled"
+                      (click)="select(child)">
+                <span class="ssb__subitem-dot"></span>
+                <span class="ssb__subitem-label">{{ child.label }}</span>
+              </button>
+            </li>
+          </ul>
         </li>
       </ul>
 

@@ -19,6 +19,7 @@ import { CodeBlockComponent } from '../../../shared/code-block.component';
 export class TableEditablePageComponent {
   private cdr = inject(ChangeDetectorRef);
 
+  fw = 'angular';
   copied = '';
   editableLog: string[] = [];
 
@@ -33,21 +34,23 @@ export class TableEditablePageComponent {
   trackByIndex(_i: number): number { return _i; }
 
   /* ── Editable table demo ────────────────────── */
+  /* `editable: false` keeps Department read-only while every other column
+     stays editable — set per column so each table controls its own mix. */
   editableCols: TableColumn[] = [
-    { key: 'name',       label: 'Name' },
-    { key: 'department', label: 'Department' },
-    { key: 'role',       label: 'Role' },
-    { key: 'salary',     label: 'Salary', type: 'currency', align: 'right' },
+    { key: 'name', label: 'Name' },
+    { key: 'department', label: 'Department', editable: false },
+    { key: 'role', label: 'Role' },
+    { key: 'salary', label: 'Salary', type: 'currency', align: 'right' },
   ];
 
   editableRows = [
-    { id: 1, name: 'Alice Johnson',  department: 'Engineering', role: 'Frontend Engineer', salary: 95000  },
-    { id: 2, name: 'Bob Martinez',   department: 'Product',     role: 'Product Manager',   salary: 110000 },
-    { id: 3, name: 'Carol Smith',    department: 'Design',      role: 'UX Designer',       salary: 85000  },
-    { id: 4, name: 'David Lee',      department: 'Engineering', role: 'Backend Engineer',  salary: 105000 },
-    { id: 5, name: 'Emma Wilson',    department: 'Engineering', role: 'QA Engineer',       salary: 80000  },
-    { id: 6, name: 'Frank Chen',     department: 'Operations',  role: 'DevOps Engineer',   salary: 92000  },
-    { id: 7, name: 'Grace Kim',      department: 'Analytics',   role: 'Data Analyst',      salary: 88000  },
+    { id: 1, name: 'Alice Johnson', department: 'Engineering', role: 'Frontend Engineer', salary: 95000 },
+    { id: 2, name: 'Bob Martinez', department: 'Product', role: 'Product Manager', salary: 110000 },
+    { id: 3, name: 'Carol Smith', department: 'Design', role: 'UX Designer', salary: 85000 },
+    { id: 4, name: 'David Lee', department: 'Engineering', role: 'Backend Engineer', salary: 105000 },
+    { id: 5, name: 'Emma Wilson', department: 'Engineering', role: 'QA Engineer', salary: 80000 },
+    { id: 6, name: 'Frank Chen', department: 'Operations', role: 'DevOps Engineer', salary: 92000 },
+    { id: 7, name: 'Grace Kim', department: 'Analytics', role: 'Data Analyst', salary: 88000 },
   ];
 
   onRowSave(e: EditableRowSaveEvent): void {
@@ -64,41 +67,44 @@ export class TableEditablePageComponent {
   }
 
   /* ── Form dialog demo ───────────────────────── */
-  formOpen      = false;
-  formTitle     = '';
+  formOpen = false;
+  formTitle = '';
   formData: Record<string, unknown> = {};
   formSaveLabel = 'Save';
   formLog: string[] = [];
 
-  confirmOpen     = false;
+  confirmOpen = false;
   confirmRow: Record<string, unknown> | null = null;
 
   employeeFields: FormDialogField[] = [
-    { key: 'name',       label: 'Full Name',   required: true, span: 'half' },
-    { key: 'department', label: 'Department',  type: 'select', required: true, span: 'half',
+    { key: 'name', label: 'Full Name', required: true, span: 'half' },
+    {
+      key: 'department', label: 'Department', type: 'select', required: true, span: 'half',
       options: [
         { label: 'Engineering', value: 'Engineering' },
-        { label: 'Product',     value: 'Product'     },
-        { label: 'Design',      value: 'Design'      },
-        { label: 'Operations',  value: 'Operations'  },
-        { label: 'Analytics',   value: 'Analytics'   },
-        { label: 'Marketing',   value: 'Marketing'   },
+        { label: 'Product', value: 'Product' },
+        { label: 'Design', value: 'Design' },
+        { label: 'Operations', value: 'Operations' },
+        { label: 'Analytics', value: 'Analytics' },
+        { label: 'Marketing', value: 'Marketing' },
       ]
     },
-    { key: 'role',   label: 'Job Title', placeholder: 'e.g. Frontend Engineer', span: 'half' },
-    { key: 'salary', label: 'Salary',    type: 'number', placeholder: '0', span: 'half' },
-    { key: 'notes',  label: 'Notes',     type: 'textarea', span: 'full',
-      placeholder: 'Any additional information...' },
+    { key: 'role', label: 'Job Title', placeholder: 'e.g. Frontend Engineer', span: 'half' },
+    { key: 'salary', label: 'Salary', type: 'number', placeholder: '0', span: 'half' },
+    {
+      key: 'notes', label: 'Notes', type: 'textarea', span: 'full',
+      placeholder: 'Any additional information...'
+    },
   ];
 
   openAddForm(): void {
     this.formTitle = 'Add Employee'; this.formSaveLabel = 'Add Employee';
-    this.formData  = {}; this.formOpen = true; this.cdr.markForCheck();
+    this.formData = {}; this.formOpen = true; this.cdr.markForCheck();
   }
 
   openEditForm(row: Record<string, unknown>): void {
     this.formTitle = 'Edit Employee'; this.formSaveLabel = 'Save Changes';
-    this.formData  = { ...row }; this.formOpen = true; this.cdr.markForCheck();
+    this.formData = { ...row }; this.formOpen = true; this.cdr.markForCheck();
   }
 
   openConfirm(row: Record<string, unknown>): void {
@@ -132,7 +138,7 @@ export class TableEditablePageComponent {
 export class MyComponent {
   columns: TableColumn[] = [
     { key: 'name',   label: 'Name' },
-    { key: 'dept',   label: 'Department' },
+    { key: 'dept',   label: 'Department', editable: false }, // read-only while editing
     { key: 'salary', label: 'Salary', type: 'currency', align: 'right' },
   ];
   rows = [
@@ -182,41 +188,52 @@ onSave(e: FormDialogSaveEvent) { console.log(e.data); this.formOpen = false; }`;
   (closed)="confirmOpen = false">
 </pui-lib-confirm-dialog>`;
 
+  xfwRows = [
+    { name: 'columns', angular: '[columns]="colsArray"', attr: '— use JS property', js: 'el.columns = [{key,label,editable,...}]' },
+    { name: 'data', angular: '[data]="rowsArray"', attr: '— use JS property', js: 'el.data = [{...},...]' },
+    { name: 'maxHeight', angular: '[maxHeight]="400"', attr: 'max-height="400"', js: 'el.maxHeight = 400' },
+    { name: 'loading', angular: '[loading]="bool"', attr: 'loading="true"', js: 'el.loading = true' },
+    { name: 'confirmDelete', angular: '[confirmDelete]="bool"', attr: 'confirm-delete="true"', js: 'el.confirmDelete = true' },
+    { name: 'rowSave', angular: '(rowSave)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("rowSave", fn)' },
+    { name: 'rowDelete', angular: '(rowDelete)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("rowDelete", fn)' },
+    { name: 'rowEdit', angular: '(rowEdit)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("rowEdit", fn)' },
+  ];
+
   api: ApiRow[] = [
-    { input: 'columns',       type: 'TableColumn[]',                  default: '[]',    description: 'Column definitions (same as pui-lib-table TableColumn)' },
-    { input: 'data',          type: 'any[]',                          default: '[]',    description: 'Row data array; mutated in-place on save' },
-    { input: 'maxHeight',     type: 'number',                         default: '480',   description: 'Max height (px) of the scroll container' },
-    { input: 'loading',       type: 'boolean',                        default: 'false', description: 'Shows a loading skeleton overlay' },
-    { input: 'confirmDelete', type: 'boolean',                        default: 'false', description: 'Shows a built-in confirm dialog before deleting a row' },
-    { input: 'rowSave',       type: 'EventEmitter<EditableRowSaveEvent>', default: '—', description: 'Emits {index, row, oldRow} when a row is saved' },
-    { input: 'rowDelete',     type: 'EventEmitter<EditableRowEvent>', default: '—',     description: 'Emits {index, row} after a row is deleted' },
-    { input: 'rowEdit',       type: 'EventEmitter<EditableRowEvent>', default: '—',     description: 'Emits {index, row} when a row enters edit mode' },
+    { input: 'columns', type: 'TableColumn[]', default: '[]', description: 'Column definitions (same as pui-lib-table TableColumn). Set editable: false on a column to keep it read-only while the row is being edited' },
+    { input: 'data', type: 'any[]', default: '[]', description: 'Row data array; mutated in-place on save' },
+    { input: 'maxHeight', type: 'number', default: '480', description: 'Max height (px) of the scroll container' },
+    { input: 'loading', type: 'boolean', default: 'false', description: 'Shows a loading skeleton overlay' },
+    { input: 'confirmDelete', type: 'boolean', default: 'false', description: 'Shows a built-in confirm dialog before deleting a row' },
+    { input: 'rowSave', type: 'EventEmitter<EditableRowSaveEvent>', default: '—', description: 'Emits {index, row, oldRow} when a row is saved' },
+    { input: 'rowDelete', type: 'EventEmitter<EditableRowEvent>', default: '—', description: 'Emits {index, row} after a row is deleted' },
+    { input: 'rowEdit', type: 'EventEmitter<EditableRowEvent>', default: '—', description: 'Emits {index, row} when a row enters edit mode' },
   ];
 
   formDialogApi: ApiRow[] = [
-    { input: 'open',            type: 'boolean',           default: 'false',     description: 'Controls dialog visibility' },
-    { input: 'title',           type: 'string',            default: "''",        description: 'Dialog heading text' },
-    { input: 'fields',          type: 'FormDialogField[]', default: '[]',        description: 'Field definitions: key, label, type, required, placeholder, options, span' },
-    { input: 'data',            type: 'Record<string,any>',default: '{}',        description: 'Pre-filled values for edit mode; empty for add' },
-    { input: 'saveLabel',       type: 'string',            default: "'Save'",    description: 'Save button label' },
-    { input: 'cancelLabel',     type: 'string',            default: "'Cancel'",  description: 'Cancel button label' },
-    { input: 'size',            type: "'sm'|'md'|'lg'",    default: "'md'",      description: 'Dialog width: sm=400px, md=560px, lg=720px' },
-    { input: 'closeOnBackdrop', type: 'boolean',           default: 'true',      description: 'Close when clicking the backdrop' },
-    { input: 'save',            type: 'EventEmitter<FormDialogSaveEvent>', default: '—', description: 'Emits {data} with all field values on save' },
-    { input: 'cancel',          type: 'EventEmitter<void>',default: '—',         description: 'Emits when cancel is clicked' },
-    { input: 'closed',          type: 'EventEmitter<void>',default: '—',         description: 'Emits when the dialog closes (any method)' },
+    { input: 'open', type: 'boolean', default: 'false', description: 'Controls dialog visibility' },
+    { input: 'title', type: 'string', default: "''", description: 'Dialog heading text' },
+    { input: 'fields', type: 'FormDialogField[]', default: '[]', description: 'Field definitions: key, label, type, required, placeholder, options, span' },
+    { input: 'data', type: 'Record<string,any>', default: '{}', description: 'Pre-filled values for edit mode; empty for add' },
+    { input: 'saveLabel', type: 'string', default: "'Save'", description: 'Save button label' },
+    { input: 'cancelLabel', type: 'string', default: "'Cancel'", description: 'Cancel button label' },
+    { input: 'size', type: "'sm'|'md'|'lg'", default: "'md'", description: 'Dialog width: sm=400px, md=560px, lg=720px' },
+    { input: 'closeOnBackdrop', type: 'boolean', default: 'true', description: 'Close when clicking the backdrop' },
+    { input: 'save', type: 'EventEmitter<FormDialogSaveEvent>', default: '—', description: 'Emits {data} with all field values on save' },
+    { input: 'cancel', type: 'EventEmitter<void>', default: '—', description: 'Emits when cancel is clicked' },
+    { input: 'closed', type: 'EventEmitter<void>', default: '—', description: 'Emits when the dialog closes (any method)' },
   ];
 
   confirmDialogApi: ApiRow[] = [
-    { input: 'open',            type: 'boolean',           default: 'false',        description: 'Controls dialog visibility' },
-    { input: 'title',           type: 'string',            default: "'Confirm?'",   description: 'Dialog heading' },
-    { input: 'message',         type: 'string',            default: "''",           description: 'Body message text' },
-    { input: 'confirmLabel',    type: 'string',            default: "'Confirm'",    description: 'Confirm button label' },
-    { input: 'cancelLabel',     type: 'string',            default: "'Cancel'",     description: 'Cancel button label' },
-    { input: 'confirmVariant',  type: 'ButtonVariant',     default: "'destructive'", description: 'Variant of the confirm button' },
-    { input: 'closeOnBackdrop', type: 'boolean',           default: 'true',         description: 'Close when clicking the backdrop' },
-    { input: 'confirmed',       type: 'EventEmitter<void>',default: '—',            description: 'Emits when the user confirms' },
-    { input: 'cancelled',       type: 'EventEmitter<void>',default: '—',            description: 'Emits when the user cancels' },
-    { input: 'closed',          type: 'EventEmitter<void>',default: '—',            description: 'Emits when the dialog closes' },
+    { input: 'open', type: 'boolean', default: 'false', description: 'Controls dialog visibility' },
+    { input: 'title', type: 'string', default: "'Confirm?'", description: 'Dialog heading' },
+    { input: 'message', type: 'string', default: "''", description: 'Body message text' },
+    { input: 'confirmLabel', type: 'string', default: "'Confirm'", description: 'Confirm button label' },
+    { input: 'cancelLabel', type: 'string', default: "'Cancel'", description: 'Cancel button label' },
+    { input: 'confirmVariant', type: 'ButtonVariant', default: "'destructive'", description: 'Variant of the confirm button' },
+    { input: 'closeOnBackdrop', type: 'boolean', default: 'true', description: 'Close when clicking the backdrop' },
+    { input: 'confirmed', type: 'EventEmitter<void>', default: '—', description: 'Emits when the user confirms' },
+    { input: 'cancelled', type: 'EventEmitter<void>', default: '—', description: 'Emits when the user cancels' },
+    { input: 'closed', type: 'EventEmitter<void>', default: '—', description: 'Emits when the dialog closes' },
   ];
 }

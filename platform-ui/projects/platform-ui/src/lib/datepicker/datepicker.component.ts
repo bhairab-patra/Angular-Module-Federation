@@ -189,11 +189,11 @@ export class PuiDatepickerComponent {
   }
 
   goToday(): void {
-    const t       = new Date();
+    const t        = new Date();
     this.viewYear  = t.getFullYear();
     this.viewMonth = t.getMonth();
     this.viewMode  = 'days';
-    this.cdr.markForCheck();
+    this.pickDay(t);
   }
 
   clear(): void {

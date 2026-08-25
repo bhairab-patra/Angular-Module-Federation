@@ -77,6 +77,12 @@
   width: 220px;
   transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
 
+  /* Hover only darkens the border — no ring — so it reads distinctly from
+     :focus below, which is the only state that gets the brand ring. */
+  &:hover:not(:focus) {
+    border-color: var(--pui-neutral-300);
+  }
+
   &:focus {
     border-color: var(--pui-brand);
     box-shadow: var(--pui-shadow-focus-sm);
@@ -164,7 +170,7 @@
 }
 
 .pui-tbl-th {
-  padding: var(--pui-space-4) var(--pui-space-3-5);
+  padding: var(--pui-space-3) var(--pui-space-3-5);
   text-align: left;
   font-size: var(--pui-text-base);
   font-weight: 600;

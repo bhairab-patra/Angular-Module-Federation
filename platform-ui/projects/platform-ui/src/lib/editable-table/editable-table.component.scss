@@ -66,7 +66,7 @@
 }
 
 .pui-etbl-th {
-  padding: var(--pui-space-4) var(--pui-space-3-5);
+  padding: var(--pui-space-3) var(--pui-space-3-5);
   text-align: left;
   font-size: var(--pui-text-base);
   font-weight: 600;
@@ -171,7 +171,7 @@
   border-radius: var(--pui-radius-sm);
   cursor: pointer;
   background: transparent;
-  transition: background 0.12s, color 0.12s, opacity 0.12s;
+  transition: background 0.12s, color 0.12s, opacity 0.12s, border-color 0.12s;
   padding: 0;
 
   &:disabled {
@@ -179,12 +179,15 @@
     cursor: not-allowed;
   }
 
+  /* Primary Outline: brand-bordered, transparent fill. --pui-brand is the
+     same hex in both the old and new theme, so this reads identically
+     across themes without any per-theme branching. */
   &--edit {
-    color: var(--pui-neutral-500);
+    border: 1.5px solid var(--pui-brand);
+    color: var(--pui-brand);
 
     &:hover:not(:disabled) {
-      background: var(--pui-neutral-100);
-      color: var(--pui-neutral-700);
+      background: var(--pui-brand-bg);
     }
   }
 

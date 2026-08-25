@@ -1,6 +1,6 @@
 ﻿<docs-page title="Editable Table"
   description="pui-lib-editable-table — inline row editing with edit/save/cancel/delete controls per row. Only one row can be edited at a time. Supports pui-lib-form-dialog for modal add/edit flows and pui-lib-confirm-dialog for delete confirmation."
-  [api]="api">
+  [api]="api" [hasFramework]="true">
 
   <ng-container demo>
 
@@ -9,10 +9,12 @@
       <h3 class="demo-section__title">Inline Row Editing</h3>
       <p class="demo-section__desc">
         Click the <strong>pencil</strong> icon to enter edit mode — all cells become inputs.
-        Click the <strong>checkmark</strong> to save or <strong>âœ•</strong> to cancel.
+        Click the <strong>checkmark</strong> to save or <strong>X</strong> to cancel.
         Only one row can be in edit mode at a time.
         With <code>[confirmDelete]="true"</code>, clicking the <strong>trash</strong> icon shows a
         built-in confirm dialog before deleting.
+        Set <code>editable: false</code> on a column to keep it read-only while editing — below,
+        <strong>Department</strong> stays plain text even in edit mode, while every other column becomes an input.
       </p>
       <pui-lib-editable-table
         [columns]="editableCols"
@@ -123,6 +125,45 @@
             <td><code>{{ row.type }}</code></td>
             <td><code>{{ row.default }}</code></td>
             <td>{{ row.description }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead">
+      <code>pui-lib-editable-table</code> is a Web Component. Array/object inputs (<code>columns</code>,
+      <code>data</code>) must be set as JS properties from React/HTML; Angular uses property binding directly.
+      Mark any column <code>editable: false</code> to keep it read-only while a row is being edited —
+      leave it unset (or <code>true</code>) for columns that should become inputs.
+    </p>
+
+    <div class="fw-tabs">
+      <button class="fw-tab" [class.fw-tab--active]="fw==='angular'" (click)="fw='angular'">Angular</button>
+    </div>
+
+    <div *ngIf="fw==='angular'" class="fw-panel">
+      <div class="fw-note fw-note--angular">Import <code>PuiEditableTableComponent</code>.</div>
+      <docs-code-block lang="html"       id="ang-editable-html" [text]="editableHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block lang="typescript" id="ang-editable-ts"   [text]="editableTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    </div>
+
+    <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead>
+          <tr><th>Input / Event</th><th>Angular</th><th>HTML attribute</th><th>JS property</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
+            <td><code class="tag-name">{{ r.name }}</code></td>
+            <td><code>{{ r.angular }}</code></td>
+            <td><code>{{ r.attr }}</code></td>
+            <td><code>{{ r.js }}</code></td>
           </tr>
         </tbody>
       </table>

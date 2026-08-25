@@ -47,7 +47,7 @@
 
           <td *ngFor="let col of _columns" class="pui-etbl-td">
 
-            <ng-container *ngIf="editingIndex === i; else readCell">
+            <ng-container *ngIf="editingIndex === i && col.editable !== false; else readCell">
               <input class="pui-etbl-input"
                 [type]="col.type === 'number' || col.type === 'currency' ? 'number' : 'text'"
                 [(ngModel)]="draft[col.key]" [placeholder]="col.label">

@@ -74,7 +74,11 @@
                 <path d="M6 16h36" stroke="var(--pui-neutral-300)" stroke-width="2" />
                 <path d="M14 24h4M22 24h12M14 32h8" stroke="var(--pui-neutral-300)" stroke-width="2" stroke-linecap="round" />
               </svg>
-              <p>{{ searchTerm ? 'No results for "' + searchTerm + '"' : 'No data available' }}</p>
+              <p class="pui-dt-empty__title">{{ searchTerm ? 'No results for "' + searchTerm + '"' : (emptyTitle || 'No data available') }}</p>
+              <p class="pui-dt-empty__desc" *ngIf="emptyDescription && !searchTerm">{{ emptyDescription }}</p>
+              <div class="pui-dt-empty__actions" *ngIf="!searchTerm">
+                <ng-content select="[emptyActions]"></ng-content>
+              </div>
             </div>
           </td>
         </tr>
@@ -171,6 +175,46 @@
 
 
   <div class="pui-dt-pager" *ngIf="_paginated && filteredRows.length > 0">
+    <span class="pui-dt-pager__info">
+      {{ rangeStart }}–{{ rangeEnd }} of {{ filteredRows.length }} rows
+    </span>
+
+    <div class="pui-dt-pager__controls-wrap">
+      <div class="pui-dt-pager__controls">
+        <button class="pui-dt-pager__nav" [disabled]="page <= 1" (click)="goPage(1)" title="First">
+          <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
+            <path d="M11 12L7 8l4-4M5 4v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button class="pui-dt-pager__nav" [disabled]="page <= 1" (click)="goPage(page - 1)" title="Previous">
+          <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
+            <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <span class="pui-dt-pager__pages">
+          <ng-container *ngFor="let p of pageItems">
+            <span *ngIf="p === '…'" class="pui-dt-pager__ellipsis">…</span>
+            <button *ngIf="p !== '…'" class="pui-dt-pager__page" [class.pui-dt-pager__page--active]="p === page"
+              (click)="goPage($any(p))">{{ p }}</button>
+          </ng-container>
+        </span>
+        <button class="pui-dt-pager__nav" [disabled]="page >= totalPages" (click)="goPage(page + 1)" title="Next">
+          <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
+            <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button class="pui-dt-pager__nav" [disabled]="page >= totalPages" (click)="goPage(totalPages)" title="Last">
+          <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
+            <path d="M5 12l4-4-4-4M11 4v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
     <div class="pui-dt-pager__size-group">
       <span class="pui-dt-pager__size-label">Rows per page</span>
       <div class="pui-dt-pager__size-wrap">
@@ -192,46 +236,5 @@
         </div>
       </div>
     </div>
-
- 
-
-    <div class="pui-dt-pager__controls">
-      <button class="pui-dt-pager__nav" [disabled]="page <= 1" (click)="goPage(1)" title="First">
-        <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-          <path d="M11 12L7 8l4-4M5 4v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-            stroke-linejoin="round" />
-        </svg>
-      </button>
-      <button class="pui-dt-pager__nav" [disabled]="page <= 1" (click)="goPage(page - 1)" title="Previous">
-        <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-          <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-            stroke-linejoin="round" />
-        </svg>
-      </button>
-      <span class="pui-dt-pager__pages">
-        <ng-container *ngFor="let p of pageItems">
-          <span *ngIf="p === '…'" class="pui-dt-pager__ellipsis">…</span>
-          <button *ngIf="p !== '…'" class="pui-dt-pager__page" [class.pui-dt-pager__page--active]="p === page"
-            (click)="goPage($any(p))">{{ p }}</button>
-        </ng-container>
-      </span>
-      <button class="pui-dt-pager__nav" [disabled]="page >= totalPages" (click)="goPage(page + 1)" title="Next">
-        <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-          <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-            stroke-linejoin="round" />
-        </svg>
-      </button>
-      <button class="pui-dt-pager__nav" [disabled]="page >= totalPages" (click)="goPage(totalPages)" title="Last">
-        <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-          <path d="M5 12l4-4-4-4M11 4v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-            stroke-linejoin="round" />
-        </svg>
-      </button>
-    </div>
-    <div class="">
-      <span class="pui-dt-pager__info">
-      {{ rangeStart }}–{{ rangeEnd }} of {{ filteredRows.length }} rows
-    </span></div>
-
   </div>
 </div>

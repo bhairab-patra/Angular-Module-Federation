@@ -89,6 +89,12 @@
   width: 220px;
   transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
 
+  /* Hover only darkens the border — no ring — so it reads distinctly from
+     :focus below, which is the only state that gets the brand ring. */
+  &:hover:not(:focus) {
+    border-color: var(--pui-neutral-300);
+  }
+
   &:focus {
     border-color: var(--pui-brand);
     box-shadow: var(--pui-shadow-focus-sm);
@@ -176,7 +182,7 @@
 }
 
 .pui-dt-th {
-  padding: var(--pui-space-4) var(--pui-space-3-5);
+  padding: var(--pui-space-3) var(--pui-space-3-5);
   text-align: left;
   font-size: var(--pui-text-base);
   font-weight: 600;
@@ -431,12 +437,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--pui-space-3);
+  gap: var(--pui-space-2);
 
   p {
-    font-size: var(--pui-text-md);
-    color: var(--pui-neutral-400);
     margin: 0;
+  }
+}
+
+.pui-dt-empty__title {
+  font-size: var(--pui-text-md);
+  font-weight: 600;
+  color: var(--pui-neutral-700);
+}
+
+.pui-dt-empty__desc {
+  font-size: var(--pui-text-sm);
+  color: var(--pui-neutral-400);
+  max-width: 320px;
+}
+
+.pui-dt-empty__actions {
+  margin-top: var(--pui-space-2);
+
+  &:empty {
+    display: none;
   }
 }
 
@@ -586,26 +610,30 @@
   background: var(--pui-table-bg, #FFFFFF);
   flex-wrap: wrap;
   gap: var(--pui-space-3);
-  justify-content: space-between;
 }
 
+/* Three-column bar: info (left), controls (visually centered), rows-per-page
+   (right). Equal flex-basis-0 on the outer two keeps the center group
+   centered against the bar regardless of how wide left/right content is. */
 .pui-dt-pager__info {
+  flex: 1 1 0;
   font-size: var(--pui-text-sm);
   color: var(--pui-neutral-500);
   white-space: nowrap;
-  margin-left: auto;
 }
 
-.pui-dt-pager__divider {
-  width: 1px;
-  height: 22px;
-  background: var(--pui-neutral-200);
-  flex: none;
+.pui-dt-pager__controls-wrap {
+  flex: 1 1 0;
+  display: flex;
+  justify-content: center;
+  min-width: 0;
 }
 
 .pui-dt-pager__size-group {
+  flex: 1 1 0;
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--pui-space-2);
 }
 
@@ -664,7 +692,7 @@
 .pui-dt-pager__size-menu {
   position: absolute;
   bottom: calc(100% + 6px);
-  left: 0;
+  right: 0;
   min-width: 110px;
   background: var(--pui-white);
   border: 1px solid var(--pui-neutral-200);

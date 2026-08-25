@@ -30,7 +30,7 @@
             (keydown.arrowup)="moveFocus(-1)"
             (keydown.enter)="selectFocused()"
             autocomplete="off">
-          <button *ngIf="searchQuery" class="search-clear" (click)="clearSearch()">âœ•</button>
+          <button *ngIf="searchQuery" class="search-clear" (click)="clearSearch()">X</button>
           <ul class="search-dropdown" *ngIf="suggestions.length > 0">
             <li *ngFor="let s of suggestions; let i = index; trackBy: trackByIndex"
                 class="search-item"
@@ -110,9 +110,9 @@
                    class="nav-link">
                   <span *ngIf="item.icon" class="nav-link__icon" [innerHTML]="item.icon"></span>
                   <span class="nav-link__label">{{ item.label }}</span>
-                  <svg class="nav-link__arrow" width="13" height="13" viewBox="0 0 16 16" fill="none">
+                  <!-- <svg class="nav-link__arrow" width="13" height="13" viewBox="0 0 16 16" fill="none">
                     <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
+                  </svg> -->
                 </a>
 
                 <!-- Expandable parent -->
@@ -120,11 +120,11 @@
                   <button class="nav-link nav-link--parent" (click)="toggleNavItem(item)">
                     <span *ngIf="item.icon" class="nav-link__icon" [innerHTML]="item.icon"></span>
                     <span class="nav-link__label">{{ item.label }}</span>
-                    <svg class="nav-parent__chevron" [class.nav-parent__chevron--open]="item.expanded"
+                    <!-- <svg class="nav-parent__chevron" [class.nav-parent__chevron--open]="item.expanded"
                          width="13" height="13" viewBox="0 0 16 16" fill="none">
                       <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8"
                             stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
+                    </svg> -->
                   </button>
                   <div class="nav-children" [class.nav-children--open]="item.expanded">
                     <a *ngFor="let child of item.children; trackBy: trackByIndex"
@@ -133,9 +133,9 @@
                        class="nav-link nav-link--child">
                       <span *ngIf="child.icon" class="nav-link__icon" [innerHTML]="child.icon"></span>
                       <span class="nav-link__label">{{ child.label }}</span>
-                      <svg class="nav-link__arrow" width="13" height="13" viewBox="0 0 16 16" fill="none">
+                      <!-- <svg class="nav-link__arrow" width="13" height="13" viewBox="0 0 16 16" fill="none">
                         <path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-                      </svg>
+                      </svg> -->
                     </a>
                   </div>
                 </div>

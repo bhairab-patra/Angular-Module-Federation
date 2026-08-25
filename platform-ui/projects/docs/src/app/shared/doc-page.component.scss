@@ -4,7 +4,7 @@
   align-items: flex-start;
   max-width: 1180px;
   margin: 0 auto;
-  padding: 50px;
+  padding: 50px 0px;
   gap: 50px;
   font-family: 'Poppins', system-ui, sans-serif;
 }
@@ -257,11 +257,11 @@ pre {
 }
 
 .otp-link.otp-link-active {
-  color: var(--pui-brand-accent);
-  border-left-color: var(--pui-brand);
+  color: var(--pui-brand-deep);
+  border-left-color: var(--pui-brand-deep);
   font-weight: 500;
 }
 
 .otp-link.otp-link-active:hover {
-  color: var(--pui-brand-accent);
+  color: var(--pui-brand-deep);
 }
