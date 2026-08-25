@@ -181,6 +181,7 @@ export function DisplayTable() {
   xfwRows = [
     { name: 'columns',     angular: '[columns]="colsArray"',           attr: '— use JS property',      js: 'el.columns = [{key,label,...}]' },
     { name: 'data',        angular: '[data]="rowsArray"',              attr: '— use JS property',      js: 'el.data = [{...},...]' },
+    { name: 'heading',     angular: '[heading]="\'Account Summary\'"', attr: 'heading="Account Summary"', js: 'el.heading = "Account Summary"' },
     { name: 'searchable',  angular: '[searchable]="bool"',             attr: 'searchable="true"',      js: 'el.searchable = true' },
     { name: 'sortable',    angular: '[sortable]="bool"',               attr: 'sortable="true"',        js: 'el.sortable = true' },
     { name: 'stickyHeader',angular: '[stickyHeader]="bool"',           attr: 'sticky-header="true"',   js: 'el.stickyHeader = true' },
@@ -197,7 +198,8 @@ export function DisplayTable() {
   api: ApiRow[] = [
     { input: 'columns',      type: 'TableColumn[]',          default: '[]',    description: 'Column definitions: key, label, sortable, width, align, type, badgeMap' },
     { input: 'data',         type: 'any[]',                  default: '[]',    description: 'Row data array; each key must match a column key' },
-    { input: 'searchable',   type: 'boolean',                default: 'false', description: 'Shows a global search/filter input in the toolbar' },
+    { input: 'heading',      type: 'string',                 default: "''",    description: 'Optional title on the left of the toolbar; omit to hide it' },
+    { input: 'searchable',   type: 'boolean',                default: 'false', description: 'Shows a global search/filter input in the toolbar; leave false to hide it' },
     { input: 'sortable',     type: 'boolean',                default: 'false', description: 'Enables column-level sort toggling (asc → desc → none)' },
     { input: 'stickyHeader', type: 'boolean',                default: 'false', description: 'Freezes the header row while the body scrolls' },
     { input: 'maxHeight',    type: 'number',                 default: '0',     description: 'Max height (px) of the scroll container; 0 = no limit' },

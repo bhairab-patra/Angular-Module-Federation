@@ -52,6 +52,27 @@
       </div>
     </div>
 
+    <!-- 4. Sticky bottom -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Sticky Bottom</h3>
+      <p class="demo-section__desc">Set <code>[stickyBottom]="true"</code> to pin the footer to the bottom of the viewport (full width, no side gaps) instead of it just flowing wherever it lands in the page — scroll the framed area below to see it stay put.</p>
+      <div class="sticky-demo-frame">
+        <div class="sticky-demo-scroll">
+          <p>Scroll this box — the footer below stays pinned to the bottom of the frame instead of scrolling away with the content.</p>
+          <p>In a real app, <code>stickyBottom</code> pins it to the actual browser viewport the same way — full width, no side gaps, since <code>position: fixed</code> escapes any ancestor padding.</p>
+          <p>Keep scrolling…</p>
+          <p>Still here.</p>
+          <p>One more paragraph of filler content to make this frame scrollable.</p>
+        </div>
+        <pui-lib-footer
+          variant="simple"
+          [stickyBottom]="true"
+          [links]="links"
+          (linkClick)="onLinkClick($event)">
+        </pui-lib-footer>
+      </div>
+    </div>
+
   </ng-container>
 
   <ng-container framework>

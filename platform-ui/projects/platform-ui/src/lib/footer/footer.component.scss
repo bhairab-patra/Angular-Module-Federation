@@ -8,7 +8,20 @@ $fg: var(--pui-footer-text, var(--pui-neutral-900));
   color: $fg;
   font-family: var(--pui-font-family, 'Poppins', system-ui, sans-serif);
   padding: 28px 32px 24px;
-  border-radius: var(--pui-radius-xl, 12px) var(--pui-radius-xl, 12px) 0 0;
+  box-sizing: border-box;
+}
+
+/* Pins the footer to the very bottom of the viewport, full width --
+   position:fixed escapes any ancestor padding (e.g. the app shell's
+   content area), which is also what removes the left/right gaps that
+   show up when the footer is just flowed inside a padded container. */
+.pf--sticky-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  box-shadow: 0 -2px 12px rgba(0, 0, 0, .06);
 }
 
 /* ── Notice card (contact / disclaimer) ──────────────────────────── */

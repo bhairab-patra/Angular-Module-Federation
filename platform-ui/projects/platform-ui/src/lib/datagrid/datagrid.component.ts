@@ -38,6 +38,8 @@ export class PuiDataGridComponent<T extends Record<string, any> = any> {
   @Input() paginate    = false;
   @Input() pageSize    = 10;
   @Input() emptyText   = 'No data to display.';
+  /** Optional title shown on the left of the grid toolbar (e.g. "Account Summary"). */
+  @Input() heading     = '';
 
   @Output() rowClick      = new EventEmitter<T>();
   @Output() selectionChange = new EventEmitter<T[]>();

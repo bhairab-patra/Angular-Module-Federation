@@ -220,6 +220,7 @@ export class MyComponent {
   xfwRows = [
     { name: 'columns',         angular: '[columns]="colsArray"',           attr: '— use JS property',      js: 'el.columns = [{key,label,...}]' },
     { name: 'data',            angular: '[data]="rowsArray"',              attr: '— use JS property',      js: 'el.data = [{...},...]' },
+    { name: 'heading',         angular: '[heading]="\'Account Summary\'"', attr: 'heading="Account Summary"', js: 'el.heading = "Account Summary"' },
     { name: 'searchable',      angular: '[searchable]="bool"',             attr: 'searchable="true"',      js: 'el.searchable = true' },
     { name: 'sortable',        angular: '[sortable]="bool"',               attr: 'sortable="true"',        js: 'el.sortable = true' },
     { name: 'paginated',       angular: '[paginated]="bool"',              attr: 'paginated="true"',       js: 'el.paginated = true' },
@@ -239,7 +240,8 @@ export class MyComponent {
   api: ApiRow[] = [
     { input: 'columns',         type: 'TableColumn[]',            default: '[]',    description: 'Column definitions: key, label, sortable, width, align, type, badgeMap' },
     { input: 'data',            type: 'any[]',                    default: '[]',    description: 'Row data array' },
-    { input: 'searchable',      type: 'boolean',                  default: 'false', description: 'Shows a global search/filter input in the toolbar' },
+    { input: 'heading',         type: 'string',                   default: "''",    description: 'Optional title on the left of the toolbar; omit to hide it' },
+    { input: 'searchable',      type: 'boolean',                  default: 'false', description: 'Shows a global search/filter input in the toolbar; leave false to hide it' },
     { input: 'sortable',        type: 'boolean',                  default: 'false', description: 'Enables column-level sort toggling' },
     { input: 'paginated',       type: 'boolean',                  default: 'false', description: 'Enables pagination controls at the bottom' },
     { input: 'pageSize',        type: 'number',                   default: '10',    description: 'Initial rows per page' },

@@ -1,4 +1,14 @@
 <div class="pui-etbl-host">
+<div class="pui-etbl-inner">
+
+  <div class="pui-etbl-toolbar" *ngIf="heading">
+    <div class="pui-etbl-toolbar__left">
+      <span class="pui-etbl-toolbar__title">{{ heading }}</span>
+    </div>
+    <div class="pui-etbl-toolbar__right">
+      <ng-content select="[tableActions]"></ng-content>
+    </div>
+  </div>
 
   <div class="pui-etbl-loading" *ngIf="_loading">
     <div class="pui-etbl-skeleton" *ngFor="let r of skeletonRows">
@@ -91,6 +101,8 @@
       </tbody>
     </table>
   </div>
+
+</div>
 
   <div class="pui-etbl-confirm-backdrop" *ngIf="_pendingDeleteIndex !== null" (click)="cancelDeleteRow()"></div>
   <div class="pui-etbl-confirm" *ngIf="_pendingDeleteIndex !== null">

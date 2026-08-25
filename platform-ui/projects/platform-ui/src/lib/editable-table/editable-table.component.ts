@@ -36,6 +36,9 @@ export class PuiEditableTableComponent {
   _maxHeight = 480;
   @Input() set maxHeight(v: number | string) { this._maxHeight = Number(v) || 480; }
 
+  /** Optional title shown on the left of the table toolbar (e.g. "Account Summary"). */
+  @Input() heading = '';
+
   _loading = false;
   @Input() set loading(v: boolean | string) {
     this._loading = v === true || v === 'true' || (v as any) === '';

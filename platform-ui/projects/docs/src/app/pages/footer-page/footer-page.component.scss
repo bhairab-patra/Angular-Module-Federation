@@ -1,3 +1,31 @@
 .demo-block {
   max-width: 860px;
 }
+
+/* `transform` establishes a new containing block, so a position:fixed
+   descendant (the footer with [stickyBottom]="true") resolves relative
+   to this frame instead of the real browser viewport -- lets the demo
+   show "pinned to the bottom" behaviour without covering the rest of
+   this docs page. */
+.sticky-demo-frame {
+  position: relative;
+  height: 260px;
+  max-width: 860px;
+  overflow: hidden;
+  border: 1px solid var(--pui-neutral-200, #e5e7eb);
+  border-radius: var(--pui-radius-lg, 10px);
+  transform: translateZ(0);
+}
+
+.sticky-demo-scroll {
+  height: 100%;
+  overflow-y: auto;
+  padding: 16px 20px 90px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--pui-neutral-600, #4b5563);
+}
+
+.sticky-demo-scroll p {
+  margin: 0 0 12px;
+}

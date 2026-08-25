@@ -7,8 +7,44 @@
   position: relative;
   border: 1px solid var(--pui-neutral-200);
   border-radius: var(--pui-radius-lg);
+  background: var(--pui-table-bg, #FFFFFF);
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.pui-etbl-inner {
+  border-radius: var(--pui-radius-md);
   overflow: hidden;
-  background: var(--pui-white);
+}
+
+.pui-etbl-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--pui-space-3);
+  padding: var(--pui-space-2) var(--pui-space-1);
+  background: transparent;
+}
+
+.pui-etbl-toolbar__left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.pui-etbl-toolbar__title {
+  font-size: var(--pui-text-lg);
+  font-weight: 700;
+  color: var(--pui-neutral-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pui-etbl-toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--pui-space-2-5);
 }
 
 .pui-etbl-scroll {
@@ -30,16 +66,21 @@
 }
 
 .pui-etbl-th {
-  padding: var(--pui-space-2) var(--pui-space-3-5);
+  padding: var(--pui-space-4) var(--pui-space-3-5);
   text-align: left;
   font-size: var(--pui-text-base);
   font-weight: 600;
   color: var(--pui-neutral-900);
-  background: var(--pui-neutral-50);
+  background: var(--pui-table-header-bg, #EDEFF0);
   border-bottom: 1.5px solid var(--pui-neutral-200);
+  border-right: 1px solid var(--pui-white);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  &:last-child {
+    border-right: none;
+  }
 
   &--actions {
     width: 96px;
@@ -72,7 +113,7 @@
 
 .pui-etbl-td {
   padding: var(--pui-space-2) var(--pui-space-3-5);
-  border-bottom: 1px solid var(--pui-neutral-100);
+  border-bottom: 2px solid var(--pui-neutral-100);
   vertical-align: middle;
   overflow: hidden;
   white-space: nowrap;

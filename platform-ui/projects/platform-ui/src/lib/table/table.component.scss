@@ -6,21 +6,48 @@
   position: relative;
   border: 1px solid var(--pui-neutral-200);
   border-radius: var(--pui-radius-xl);
-  background: var(--pui-white);
+  background: var(--pui-table-bg, #FFFFFF);
   width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   font-size: var(--pui-text-md);
   color: var(--pui-neutral-900);
+}
+
+.pui-tbl-inner {
+  border-radius: var(--pui-radius-lg);
   overflow: hidden;
 }
 
 .pui-tbl-toolbar {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  padding: var(--pui-space-3) var(--pui-space-4);
-  border-bottom: 1px solid var(--pui-neutral-100);
-  background: var(--pui-neutral-150);
+  justify-content: space-between;
+  gap: var(--pui-space-3);
+  padding: var(--pui-space-2) var(--pui-space-1);
+  background: transparent;
+}
+
+.pui-tbl-toolbar__left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.pui-tbl-toolbar__title {
+  font-size: var(--pui-text-lg);
+  font-weight: 700;
+  color: var(--pui-neutral-900);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pui-tbl-toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--pui-space-2-5);
 }
 
 .pui-tbl-search {
@@ -127,7 +154,7 @@
 }
 
 .pui-tbl-head {
-  background: var(--pui-neutral-50);
+  background: var(--pui-table-header-bg, #EDEFF0);
 }
 
 .pui-tbl-head--sticky {
@@ -137,14 +164,19 @@
 }
 
 .pui-tbl-th {
-  padding: var(--pui-space-2) var(--pui-space-3-5);
+  padding: var(--pui-space-4) var(--pui-space-3-5);
   text-align: left;
   font-size: var(--pui-text-base);
   font-weight: 600;
   color: var(--pui-neutral-900);
   border-bottom: 2px solid var(--pui-neutral-200);
+  border-right: 1px solid var(--pui-white);
   white-space: nowrap;
   user-select: none;
+
+  &:last-child {
+    border-right: none;
+  }
 
   &--right {
     text-align: right;
@@ -230,7 +262,7 @@
 .pui-tbl-td {
   padding: var(--pui-space-3) var(--pui-space-3-5);
   color: var(--pui-neutral-700);
-  border-bottom: 1px solid var(--pui-neutral-100);
+  border-bottom: 2px solid var(--pui-neutral-100);
   font-size: var(--pui-text-sm);
   vertical-align: middle;
   overflow: hidden;

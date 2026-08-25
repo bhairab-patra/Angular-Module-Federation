@@ -58,6 +58,9 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   @Input() set selectable(v: boolean | string) { this._selectable = this._bool(v); }
   @Input() set loading(v: boolean | string) { this._loading = this._bool(v); }
 
+  /** Optional title shown on the left of the table toolbar (e.g. "Account Summary"). */
+  @Input() heading = '';
+
   _pageSize = 10;
   _maxHeight = 0;
 
@@ -91,6 +94,8 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   openActionRowData: any = null;
   actionMenuPos = { top: 0, left: 0 };
   private _closeMenuListener: (() => void) | null = null;
+  pageSizeMenuOpen = false;
+  private _closePageSizeListener: (() => void) | null = null;
   searchTerm = '';
   page = 1;
   pageSizeOptions = [5, 10, 20, 50, 100];
@@ -135,6 +140,22 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
     return pages;
   }
 
+  /** Windowed page list with '…' gap markers — always shows the first/last page plus a sibling window around the current page. */
+  get pageItems(): Array<number | '…'> {
+    const total = this.totalPages;
+    const cur = this.page;
+    const siblingCount = 2;
+    const left = Math.max(2, cur - siblingCount);
+    const right = Math.min(total - 1, cur + siblingCount);
+
+    const items: Array<number | '…'> = [1];
+    if (left > 2) items.push('…');
+    for (let i = left; i <= right; i++) items.push(i);
+    if (right < total - 1) items.push('…');
+    if (total > 1) items.push(total);
+    return items;
+  }
+
   get allSelected(): boolean {
     return this.displayRows.length > 0 &&
       this.displayRows.every((r, i) => this.selectedRows.has(this.getRowId(r, i)));
@@ -143,7 +164,7 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
     return this.displayRows.some((r, i) => this.selectedRows.has(this.getRowId(r, i)));
   }
 
-  ngOnDestroy(): void { this._detachCloseListener(); }
+  ngOnDestroy(): void { this._detachCloseListener(); this._closePageSizeMenu(); }
 
   onSort(key: string): void {
     if (this.sort.key === key) {
@@ -170,6 +191,32 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   onPageSizeChange(val: string): void {
     this._pageSize = Number(val) || 10;
     this.page = 1;
+  }
+
+  togglePageSizeMenu(event: Event): void {
+    event.stopPropagation();
+    if (this.pageSizeMenuOpen) { this._closePageSizeMenu(); return; }
+    this.pageSizeMenuOpen = true;
+    this.zone.runOutsideAngular(() => {
+      setTimeout(() => {
+        this._closePageSizeListener = () => this.zone.run(() => this._closePageSizeMenu());
+        document.addEventListener('click', this._closePageSizeListener, { once: true });
+      });
+    });
+  }
+
+  selectPageSize(size: number, event: Event): void {
+    event.stopPropagation();
+    this.onPageSizeChange(String(size));
+    this._closePageSizeMenu();
+  }
+
+  private _closePageSizeMenu(): void {
+    this.pageSizeMenuOpen = false;
+    if (this._closePageSizeListener) {
+      document.removeEventListener('click', this._closePageSizeListener);
+      this._closePageSizeListener = null;
+    }
   }
 
   onRowClick(row: any): void { this.rowClick.emit(row); }

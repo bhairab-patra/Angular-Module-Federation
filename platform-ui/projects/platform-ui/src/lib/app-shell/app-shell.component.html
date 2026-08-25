@@ -59,9 +59,24 @@
     </main>
 
 
-    <footer class="pas__footer" *ngIf="footerText">
+    <footer class="pas__footer" *ngIf="footerText && !showFooter">
       {{ footerText }}
     </footer>
+
+    <pui-lib-footer
+      *ngIf="showFooter"
+      [variant]="footerVariant"
+      [noticeSlides]="footerNoticeSlides"
+      [activeSlideIndex]="footerActiveSlideIndex"
+      [copyrightText]="footerCopyrightText"
+      [links]="footerLinks"
+      [poweredByText]="footerPoweredByText"
+      [showPoweredBy]="showFooterPoweredBy"
+      [stickyBottom]="footerStickyBottom"
+      (activeSlideIndexChange)="onFooterActiveSlideIndexChange($event)"
+      (linkClick)="footerLinkClick.emit($event)"
+      (contactClick)="footerContactClick.emit($event)">
+    </pui-lib-footer>
 
   </div>
 

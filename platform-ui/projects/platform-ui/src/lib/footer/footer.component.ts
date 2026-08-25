@@ -18,6 +18,15 @@ import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.m
 export class PuiFooterComponent {
   @Input() variant: FooterVariant = 'simple';
 
+  /** Pins the footer to the bottom of the viewport (position: fixed, full
+   * width) instead of flowing wherever it lands in the page content. Off
+   * by default so the footer behaves like a normal block by default. */
+  @Input() set stickyBottom(v: boolean | string) {
+    this._stickyBottom = v === true || v === 'true' || (v as any) === '';
+  }
+  get stickyBottom(): boolean { return this._stickyBottom; }
+  private _stickyBottom = false;
+
   @Input() set noticeSlides(v: FooterNoticeSlide[] | string) {
     this._noticeSlides = typeof v === 'string' ? (this._parse<FooterNoticeSlide[]>(v) ?? []) : (v || []);
     if (this._activeSlideIndex >= this._noticeSlides.length) this._activeSlideIndex = 0;
@@ -48,8 +57,8 @@ export class PuiFooterComponent {
   private _showPoweredBy = true;
 
   @Output() activeSlideIndexChange = new EventEmitter<number>();
-  @Output() linkClick              = new EventEmitter<FooterLink>();
-  @Output() contactClick           = new EventEmitter<FooterNoticeSlide>();
+  @Output() linkClick = new EventEmitter<FooterLink>();
+  @Output() contactClick = new EventEmitter<FooterNoticeSlide>();
 
   get activeSlide(): FooterNoticeSlide | null {
     return this._noticeSlides[this._activeSlideIndex] ?? null;

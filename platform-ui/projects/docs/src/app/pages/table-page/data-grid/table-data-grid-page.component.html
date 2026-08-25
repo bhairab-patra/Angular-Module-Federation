@@ -14,6 +14,7 @@
       <pui-lib-data-table
         [columns]="employeeCols"
         [data]="employees"
+        heading="Team Members"
         [searchable]="t" [sortable]="t" [paginated]="t"
         [striped]="t" [selectable]="t" [pageSize]="5"
         (rowClick)="lastRow = $event"

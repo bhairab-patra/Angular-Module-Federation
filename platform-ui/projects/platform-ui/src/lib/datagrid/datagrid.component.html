@@ -1,4 +1,14 @@
 <div class="pui-dg-wrap">
+<div class="pui-dg-inner">
+
+  <div class="pui-dg-toolbar" *ngIf="heading">
+    <div class="pui-dg-toolbar__left">
+      <span class="pui-dg-toolbar__title">{{ heading }}</span>
+    </div>
+    <div class="pui-dg-toolbar__right">
+      <ng-content select="[tableActions]"></ng-content>
+    </div>
+  </div>
 
   <div class="pui-dg-scroll">
     <table class="pui-dg">
@@ -70,6 +80,8 @@
       </tbody>
     </table>
   </div>
+
+</div>
 
   <div *ngIf="paginate" class="pui-dg-footer">
     <span class="pui-dg-footer__info">

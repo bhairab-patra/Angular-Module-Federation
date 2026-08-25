@@ -1,13 +1,15 @@
 <div class="pui-dt-host">
+<div class="pui-dt-inner">
 
-
-  <div class="pui-dt-toolbar" *ngIf="_searchable || _selectable">
+  <div class="pui-dt-toolbar" *ngIf="_searchable || _selectable || heading">
     <div class="pui-dt-toolbar__left">
+      <span *ngIf="heading" class="pui-dt-toolbar__title">{{ heading }}</span>
       <span *ngIf="_selectable && selectedRows.size > 0" class="pui-dt-sel-info">
         {{ selectedRows.size }} row{{ selectedRows.size === 1 ? '' : 's' }} selected
       </span>
     </div>
     <div class="pui-dt-toolbar__right">
+      <ng-content select="[tableActions]"></ng-content>
       <div class="pui-dt-search" *ngIf="_searchable">
         <svg class="pui-dt-search__icon" viewBox="0 0 20 20" fill="none">
           <circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.6" />
@@ -137,7 +139,11 @@
           <td *ngIf="_actions.length > 0" class="pui-dt-td pui-dt-td--actions">
             <button class="pui-dt-action-btn" [class.pui-dt-action-btn--open]="openActionRow === i"
               (click)="toggleActionMenu(i, $event)" title="Actions">
-              <span class="pui-dt-dots">•••</span>
+              <svg class="pui-dt-dots" viewBox="0 0 4 16" fill="currentColor" width="4" height="16">
+                <circle cx="2" cy="2" r="1.6"/>
+                <circle cx="2" cy="8" r="1.6"/>
+                <circle cx="2" cy="14" r="1.6"/>
+              </svg>
             </button>
           </td>
         </tr>
@@ -145,6 +151,7 @@
     </table>
   </div>
 
+</div>
 
   <div *ngIf="cellTooltipVisible" class="pui-cell-tooltip" [class]="'pui-cell-tooltip--' + _tooltipPos"
     [style.top.px]="cellTooltipCoords.top" [style.left.px]="cellTooltipCoords.left">
@@ -164,41 +171,67 @@
 
 
   <div class="pui-dt-pager" *ngIf="_paginated && filteredRows.length > 0">
-    <span class="pui-dt-pager__info">
-      {{ rangeStart }}–{{ rangeEnd }} of {{ filteredRows.length }} rows
-    </span>
+    <div class="pui-dt-pager__size-group">
+      <span class="pui-dt-pager__size-label">Rows per page</span>
+      <div class="pui-dt-pager__size-wrap">
+        <button type="button" class="pui-dt-pager__size-btn" [class.pui-dt-pager__size-btn--open]="pageSizeMenuOpen"
+          (click)="togglePageSizeMenu($event)">
+          <span class="pui-dt-pager__size-value">{{ _pageSize }}</span>
+          <svg class="pui-dt-pager__size-chevron" viewBox="0 0 10 6" width="10" height="6" fill="none">
+            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="pui-dt-pager__size-menu" *ngIf="pageSizeMenuOpen">
+          <button type="button" *ngFor="let s of pageSizeOptions" class="pui-dt-pager__size-opt"
+            [class.pui-dt-pager__size-opt--active]="s === _pageSize" (click)="selectPageSize(s, $event)">
+            <svg class="pui-dt-pager__size-check" viewBox="0 0 16 16" width="13" height="13" fill="none">
+              <path *ngIf="s === _pageSize" d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>{{ s }} rows</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+ 
+
     <div class="pui-dt-pager__controls">
-      <select class="pui-dt-pager__size" [value]="_pageSize" (change)="onPageSizeChange($any($event.target).value)">
-        <option *ngFor="let s of pageSizeOptions" [value]="s">{{ s }} / page</option>
-      </select>
-      <button class="pui-dt-pager__btn" [disabled]="page <= 1" (click)="goPage(1)" title="First">
+      <button class="pui-dt-pager__nav" [disabled]="page <= 1" (click)="goPage(1)" title="First">
         <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
           <path d="M11 12L7 8l4-4M5 4v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
             stroke-linejoin="round" />
         </svg>
       </button>
-      <button class="pui-dt-pager__btn" [disabled]="page <= 1" (click)="goPage(page - 1)" title="Previous">
+      <button class="pui-dt-pager__nav" [disabled]="page <= 1" (click)="goPage(page - 1)" title="Previous">
         <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
           <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
             stroke-linejoin="round" />
         </svg>
       </button>
       <span class="pui-dt-pager__pages">
-        <button *ngFor="let p of pageNumbers" class="pui-dt-pager__page" [class.pui-dt-pager__page--active]="p === page"
-          (click)="goPage(p)">{{ p }}</button>
+        <ng-container *ngFor="let p of pageItems">
+          <span *ngIf="p === '…'" class="pui-dt-pager__ellipsis">…</span>
+          <button *ngIf="p !== '…'" class="pui-dt-pager__page" [class.pui-dt-pager__page--active]="p === page"
+            (click)="goPage($any(p))">{{ p }}</button>
+        </ng-container>
       </span>
-      <button class="pui-dt-pager__btn" [disabled]="page >= totalPages" (click)="goPage(page + 1)" title="Next">
+      <button class="pui-dt-pager__nav" [disabled]="page >= totalPages" (click)="goPage(page + 1)" title="Next">
         <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
           <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
             stroke-linejoin="round" />
         </svg>
       </button>
-      <button class="pui-dt-pager__btn" [disabled]="page >= totalPages" (click)="goPage(totalPages)" title="Last">
+      <button class="pui-dt-pager__nav" [disabled]="page >= totalPages" (click)="goPage(totalPages)" title="Last">
         <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
           <path d="M5 12l4-4-4-4M11 4v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
             stroke-linejoin="round" />
         </svg>
       </button>
     </div>
+    <div class="">
+      <span class="pui-dt-pager__info">
+      {{ rangeStart }}–{{ rangeEnd }} of {{ filteredRows.length }} rows
+    </span></div>
+
   </div>
 </div>

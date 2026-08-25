@@ -142,4 +142,10 @@
   --pui-footer-bg: #D8D1C8;
   --pui-footer-text: var(--pui-neutral-900);
 
+  /* ========================================
+     TABLE / DATA GRID
+     ======================================== */
+  --pui-table-bg: #FFFFFF;
+  --pui-table-header-bg: #EDEFF0;
+
 }

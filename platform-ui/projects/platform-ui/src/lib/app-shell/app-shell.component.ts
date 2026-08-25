@@ -10,12 +10,14 @@ import {
   SolifiSidebarTheme, SOLIFI_THEME,
 } from '../models/solifi-sidebar.model';
 import { UserMenuItem, HeaderBadge } from '../models/header.model';
+import { PuiFooterComponent } from '../footer/footer.component';
+import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-app-shell',
   standalone: true,
-  imports: [NgIf, PuiSolifiSidebarComponent, HeaderComponent],
+  imports: [NgIf, PuiSolifiSidebarComponent, HeaderComponent, PuiFooterComponent],
   encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
@@ -155,14 +157,80 @@ export class PuiAppShellComponent {
   /** Fires when a sidebar user-menu item is clicked. */
   @Output() sidebarUserMenuSelect = new EventEmitter<SolifiUserMenuItem>();
 
-  // ── SHELL — layout-level, not owned by either the header or the sidebar ─
+  // ── FOOTER — every input here affects only the bottom footer bar ───────
+
+  /** Optional rich footer (contact/disclaimer/simple notice card + links
+   * row) rendered via pui-lib-footer. Separate from the plain footerText
+   * line below — when true, this replaces that simple bar so only one
+   * footer ever renders at once. Off by default; use footerText alone
+   * for a basic one-line copyright bar, or turn this on for the full
+   * component (variants, rotating notice slides, sticky-bottom, etc). */
+  @Input() set showFooter(v: boolean | string) {
+    this._showFooter = v === true || v === 'true' || (v as any) === '';
+  }
+  get showFooter(): boolean { return this._showFooter; }
+  private _showFooter = false;
+
+  @Input() footerVariant: FooterVariant = 'simple';
+
+  @Input() set footerNoticeSlides(v: FooterNoticeSlide[] | string) {
+    this._footerNoticeSlides = typeof v === 'string' ? (this._parse<FooterNoticeSlide[]>(v) ?? []) : (v || []);
+  }
+  get footerNoticeSlides(): FooterNoticeSlide[] { return this._footerNoticeSlides; }
+  private _footerNoticeSlides: FooterNoticeSlide[] = [];
+
+  @Input() set footerActiveSlideIndex(v: number | string) {
+    this._footerActiveSlideIndex = typeof v === 'string' ? (parseInt(v, 10) || 0) : (v ?? 0);
+  }
+  get footerActiveSlideIndex(): number { return this._footerActiveSlideIndex; }
+  private _footerActiveSlideIndex = 0;
+
+  @Input() footerCopyrightText = `Copyright © ${new Date().getFullYear()} Solifi. All Rights Reserved.`;
+
+  @Input() set footerLinks(v: FooterLink[] | string) {
+    this._footerLinks = typeof v === 'string' ? (this._parse<FooterLink[]>(v) ?? []) : (v || []);
+  }
+  get footerLinks(): FooterLink[] { return this._footerLinks; }
+  private _footerLinks: FooterLink[] = [];
+
+  @Input() footerPoweredByText = 'Powered by Solifi™';
+
+  @Input() set showFooterPoweredBy(v: boolean | string) {
+    this._showFooterPoweredBy = v !== false && v !== 'false';
+  }
+  get showFooterPoweredBy(): boolean { return this._showFooterPoweredBy; }
+  private _showFooterPoweredBy = true;
+
+  /** Pins the footer to the bottom of the viewport instead of it flowing
+   * wherever it lands after your page content. */
+  @Input() set footerStickyBottom(v: boolean | string) {
+    this._footerStickyBottom = v === true || v === 'true' || (v as any) === '';
+  }
+  get footerStickyBottom(): boolean { return this._footerStickyBottom; }
+  private _footerStickyBottom = false;
+
+  /** Fires when the active footer notice slide changes. */
+  @Output() footerActiveSlideIndexChange = new EventEmitter<number>();
+  /** Fires when a footer bottom-row link is clicked. */
+  @Output() footerLinkClick = new EventEmitter<FooterLink>();
+  /** Fires when the footer contact variant's call-to-action button is clicked. */
+  @Output() footerContactClick = new EventEmitter<FooterNoticeSlide>();
+
+  // ── SHELL — layout-level, not owned by the header, sidebar, or footer ──
 
   @Input() pageTitle = '';
+  /** Plain one-line copyright bar. Ignored while showFooter is true (the
+   * full pui-lib-footer replaces it so only one footer renders at once). */
   @Input() footerText = '';
 
   onSidebarCollapsedChange(v: boolean): void {
     this._sidebarCollapsed = v;
     this.sidebarCollapsedChange.emit(v);
+  }
+
+  onFooterActiveSlideIndexChange(v: number): void {
+    this._footerActiveSlideIndex = v;
+    this.footerActiveSlideIndexChange.emit(v);
   }
 
   private _normalize(v: SolifiNavGroup[] | SolifiNavItem[]): SolifiNavGroup[] {

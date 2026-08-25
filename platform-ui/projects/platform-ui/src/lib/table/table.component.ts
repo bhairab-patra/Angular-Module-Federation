@@ -49,6 +49,9 @@ export class PuiTableComponent implements AfterViewInit {
   @Input() set striped(v: boolean | string)      { this._striped      = this._bool(v); }
   @Input() set loading(v: boolean | string)      { this._loading      = this._bool(v); }
 
+  /** Optional title shown on the left of the table toolbar (e.g. "Account Summary"). */
+  @Input() heading = '';
+
   _maxHeight = 0;
   @Input() set maxHeight(v: number | string) { this._maxHeight = Number(v) || 0; }
 
