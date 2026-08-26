@@ -218,38 +218,82 @@ pre {
 
 /* ── On this page ───────────────────────── */
 .otp {
-  width: 196px;
+  width: 236px;
   flex-shrink: 0;
   position: sticky;
   top: 90px;
   align-self: flex-start;
+  background: var(--pui-white, #fff);
+  border: 1px solid var(--pui-neutral-100, #f1f5f9);
+  border-radius: 16px;
+  padding: 18px 16px;
+  // box-shadow: 0 4px 20px rgba(0,0,0,.04);
 }
 
 .otp-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.otp-label__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--pui-neutral-100, #f1f5f9);
+  color: var(--pui-neutral-400, #94a3b8);
+}
+
+.otp-label__text {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .09em;
-  color: var(--pui-neutral-400);
-  margin-bottom: 12px;
+  color: var(--pui-neutral-400, #94a3b8);
 }
 
 .otp-nav {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 
 .otp-link {
-  font-size: 13.5px;
-  color: var(--pui-neutral-500);
-  padding: 4px 0 4px 12px;
-  border-left: 2px solid transparent;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding:6px 8px;
+  border-radius: 10px;
+  color: var(--pui-neutral-700, #374151);
+  font-size: 12px;
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
-  transition: color .12s, border-color .12s;
-  display: block;
+  transition: background .13s, color .13s;
   user-select: none;
+
+  &:not(:last-child) {
+    // border-bottom: 1px solid var(--pui-neutral-100, #f1f5f9);
+  }
+}
+
+.otp-link__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 25px;
+  height: 25px;
+  border-radius: 9px;
+  background: var(--pui-neutral-100, #f1f5f9);
+  color: var(--pui-neutral-400, #94a3b8);
+  transition: background .13s, color .13s;
 }
 
 .otp-link:hover {
@@ -257,11 +301,26 @@ pre {
 }
 
 .otp-link.otp-link-active {
-  color: var(--pui-brand-deep);
-  border-left-color: var(--pui-brand-deep);
-  font-weight: 500;
+  color: #0F5C5E;
+  // background: rgba(15,92,94,.08);
+
+  .otp-link__icon {
+    background: rgba(15,92,94,.14);
+    color: #0F5C5E;
+  }
+
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   left: -16px;
+  //   top: 8px;
+  //   bottom: 8px;
+  //   width: 3px;
+  //   border-radius: 0 3px 3px 0;
+  //   background: #0F5C5E;
+  // }
 }
 
 .otp-link.otp-link-active:hover {
-  color: var(--pui-brand-deep);
+  color: #0F5C5E;
 }

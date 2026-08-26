@@ -70,31 +70,53 @@
 
     <!-- ── Right panel ── -->
     <aside class="otp">
-      <div class="otp-label">ON THIS PAGE</div>
+      <div class="otp-label">
+        <span class="otp-label__text">ON THIS PAGE</span>
+      </div>
       <nav class="otp-nav">
         <a class="otp-link" [class.otp-link-active]="active==='demo'"
            (click)="scrollTo('demo')"
            (keydown.enter)="scrollTo('demo')"
            (keydown.space)="scrollTo('demo')"
-           tabindex="0" role="button">Demo</a>
+           tabindex="0" role="button">
+          <span class="otp-link__icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M10.5 8.3v7.4l6-3.7-6-3.7z" fill="currentColor" stroke="none"/></svg>
+          </span>
+          <span class="otp-link__label">Demo</span>
+        </a>
         <a *ngIf="hasFramework"
            class="otp-link" [class.otp-link-active]="active==='framework'"
            (click)="scrollTo('framework')"
            (keydown.enter)="scrollTo('framework')"
            (keydown.space)="scrollTo('framework')"
-           tabindex="0" role="button">Framework Usage</a>
+           tabindex="0" role="button">
+          <span class="otp-link__icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5L12 12l8-4.5M12 12v9"/></svg>
+          </span>
+          <span class="otp-link__label">Framework Usage</span>
+        </a>
         <a *ngIf="code"
            class="otp-link" [class.otp-link-active]="active==='usage'"
            (click)="scrollTo('usage')"
            (keydown.enter)="scrollTo('usage')"
            (keydown.space)="scrollTo('usage')"
-           tabindex="0" role="button">Usage</a>
+           tabindex="0" role="button">
+          <span class="otp-link__icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z"/><path d="M4 7.5L12 12l8-4.5M12 12v9"/></svg>
+          </span>
+          <span class="otp-link__label">Usage</span>
+        </a>
         <a *ngIf="api.length"
            class="otp-link" [class.otp-link-active]="active==='api'"
            (click)="scrollTo('api')"
            (keydown.enter)="scrollTo('api')"
            (keydown.space)="scrollTo('api')"
-           tabindex="0" role="button">Component API</a>
+           tabindex="0" role="button">
+          <span class="otp-link__icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6L2 12l6 6M16 6l6 6-6 6"/></svg>
+          </span>
+          <span class="otp-link__label">Component API</span>
+        </a>
       </nav>
     </aside>
 

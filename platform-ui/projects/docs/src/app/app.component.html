@@ -30,7 +30,9 @@
             (keydown.arrowup)="moveFocus(-1)"
             (keydown.enter)="selectFocused()"
             autocomplete="off">
-          <button *ngIf="searchQuery" class="search-clear" (click)="clearSearch()">X</button>
+          <button *ngIf="searchQuery" class="search-clear" (click)="clearSearch()" aria-label="Clear search">
+            <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+          </button>
           <ul class="search-dropdown" *ngIf="suggestions.length > 0">
             <li *ngFor="let s of suggestions; let i = index; trackBy: trackByIndex"
                 class="search-item"

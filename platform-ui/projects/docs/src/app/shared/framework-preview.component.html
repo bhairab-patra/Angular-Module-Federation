@@ -1,6 +1,6 @@
 ﻿<div class="fp-wrap">
 
-  <!-- â”€â”€ Toolbar â”€â”€ -->
+  <!-- ── Toolbar ── -->
   <div class="fp-toolbar">
 
     <!-- Preview / Code toggle -->
@@ -46,7 +46,7 @@
     </div>
   </div>
 
-  <!-- â”€â”€ Preview pane â”€â”€ -->
+  <!-- ── Preview pane ── -->
   <div class="fp-preview" *ngIf="mode === 'preview'">
     <!-- Angular slot   hidden when React is active and a react-preview slot was provided -->
     <div [style.display]="activeFw === 'react' && hasReactPreview ? 'none' : 'contents'">
@@ -58,7 +58,7 @@
     </div>
   </div>
 
-  <!-- â”€â”€ Code pane â”€â”€ -->
+  <!-- ── Code pane ── -->
   <div class="fp-code" *ngIf="mode === 'code'">
     <pre class="fp-pre"><code>{{ currentCode }}</code></pre>
   </div>

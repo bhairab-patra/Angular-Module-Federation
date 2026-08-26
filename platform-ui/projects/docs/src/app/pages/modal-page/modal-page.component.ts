@@ -114,7 +114,7 @@ function Page() {
     { input: 'title',           type: 'string',              default: `'Dialog'`, description: 'Header title text.' },
     { input: 'size',            type: `'sm'|'md'|'lg'`,      default: `'md'`,     description: 'Dialog width — sm 360px Â· md 520px Â· lg 720px.' },
     { input: 'closeOnBackdrop', type: 'boolean',             default: 'true',     description: 'Click backdrop to close.' },
-    { input: '(closed)',        type: 'EventEmitter<void>',  default: '—',        description: 'Fires when backdrop or âœ• is clicked — sync your state here.' },
+    { input: '(closed)',        type: 'EventEmitter<void>',  default: '—',        description: 'Fires when backdrop or ✕ is clicked — sync your state here.' },
   ];
   trackByIndex(_i: number): number { return _i; }
 }
