@@ -1,6 +1,7 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
-  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf, NgClass, NgStyle } from '@angular/common';
 import { PuiSearchComponent } from '../search/search.component';
 import { SidebarGroup, SidebarNavItem, SidebarConfig, SidebarTheme } from '../models/sidebar.model';
@@ -12,15 +13,15 @@ const DEFAULT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none
   selector: 'pui-lib-sidebar',
   standalone: true,
   imports: [NgFor, NgIf, NgClass, NgStyle, PuiSearchComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
 export class PuiSidebarComponent implements OnChanges {
 
-  @Input() activeId  = '';
+  @Input() activeId = '';
   @Input() brandName = '';
-  @Input() logo      = '';
+  @Input() logo = '';
 
   @Input() set groups(v: SidebarGroup[] | string) {
     this._groups = typeof v === 'string' ? (this._parseJson<SidebarGroup[]>(v) ?? []) : (v || []);
@@ -34,12 +35,12 @@ export class PuiSidebarComponent implements OnChanges {
   get config(): SidebarConfig { return this._config; }
   private _config: SidebarConfig = {};
 
-  @Input() bgColor      = '';
-  @Input() textColor    = '';
-  @Input() activeColor  = '';
-  @Input() hoverColor   = '';
-  @Input() borderColor  = '';
-  @Input() width        = 0;
+  @Input() bgColor = '';
+  @Input() textColor = '';
+  @Input() activeColor = '';
+  @Input() hoverColor = '';
+  @Input() borderColor = '';
+  @Input() width = 0;
 
   @Input() set theme(v: SidebarTheme | string) {
     this._theme = typeof v === 'string' ? (this._parseJson<SidebarTheme>(v) ?? {}) : (v || {});
@@ -47,11 +48,11 @@ export class PuiSidebarComponent implements OnChanges {
   get theme(): SidebarTheme { return this._theme; }
   private _theme: SidebarTheme = {};
 
-  @Input() userName      = '';
-  @Input() userEmail     = '';
-  @Input() userInitials  = '';
+  @Input() userName = '';
+  @Input() userEmail = '';
+  @Input() userInitials = '';
   @Input() userAvatarUrl = '';
-  @Input() userAvatarBg  = '';
+  @Input() userAvatarBg = '';
 
   @Input() set showUser(v: boolean | string) {
     this._showUser = v === true || v === 'true' || (v as any) === '';
@@ -78,13 +79,13 @@ export class PuiSidebarComponent implements OnChanges {
   private _showSidebar = true;
 
   @Output() collapsedChange = new EventEmitter<boolean>();
-  @Output() itemSelect      = new EventEmitter<SidebarNavItem>();
+  @Output() itemSelect = new EventEmitter<SidebarNavItem>();
 
   defaultIcon = DEFAULT_ICON;
   defaultLogo = `<svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="var(--pui-brand)"/><path d="M8 16h16M16 8l8 8-8 8" stroke="var(--pui-white)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-  openIds      = new Set<string>();
-  searchQuery  = '';
+  openIds = new Set<string>();
+  searchQuery = '';
   displayGroups: SidebarGroup[] = [];
 
   private _parseJson<T>(s: string): T | null {
@@ -94,11 +95,11 @@ export class PuiSidebarComponent implements OnChanges {
 
   get cfg(): Required<SidebarConfig> {
     return {
-      width:          this.width || this.config.width          || 260,
-      collapsedWidth: this.config.collapsedWidth               || 64,
-      showSearch:     this.config.showSearch                   ?? true,
-      collapsible:    this.config.collapsible                  ?? true,
-      maxLabelLen:    this.config.maxLabelLen                  || 22,
+      width: this.width || this.config.width || 260,
+      collapsedWidth: this.config.collapsedWidth || 64,
+      showSearch: this.config.showSearch ?? true,
+      collapsible: this.config.collapsible ?? true,
+      maxLabelLen: this.config.maxLabelLen || 22,
     };
   }
 
@@ -110,26 +111,26 @@ export class PuiSidebarComponent implements OnChanges {
   get cssVars(): Record<string, string> {
     const t = this.theme;
     return {
-      '--pui-sb-bg':          t.bg           || this.bgColor     || 'var(--pui-solifi-sb-bg)',
-      '--pui-sb-text':        t.textColor    || this.textColor   || 'var(--pui-slate-400)',
-      '--pui-sb-active-txt':  t.activeText   || this.activeColor || 'var(--pui-white)',
-      '--pui-sb-active-bg':   t.activeBg     || (this.activeColor ? this.activeColor + '22' : 'var(--pui-overlay-white-08)'),
-      '--pui-sb-active-brd':  t.activeBorder || this.activeColor || 'var(--pui-brand)',
-      '--pui-sb-hover-bg':    t.hoverBg      || this.hoverColor  || 'var(--pui-overlay-white-06)',
-      '--pui-sb-hover-txt':   t.hoverText    || 'var(--pui-slate-200)',
-      '--pui-sb-border':      t.borderColor  || this.borderColor || 'var(--pui-overlay-white-08)',
-      '--pui-sb-group-txt':   t.groupTextColor                   || 'var(--pui-solifi-sb-group)',
-      '--pui-sb-sub-bg':      t.subitemBg                        || 'var(--pui-overlay-black-12)',
-      '--pui-sb-avatar-bg':   this.userAvatarBg || t.avatarBg     || 'var(--pui-brand)',
-      '--pui-sb-w':           `${this.cfg.width}px`,
-      '--pui-sb-cw':          `${this.cfg.collapsedWidth}px`,
+      '--pui-sb-bg': t.bg || this.bgColor || 'var(--pui-solifi-sb-bg)',
+      '--pui-sb-text': t.textColor || this.textColor || 'var(--pui-slate-400)',
+      '--pui-sb-active-txt': t.activeText || this.activeColor || 'var(--pui-white)',
+      '--pui-sb-active-bg': t.activeBg || (this.activeColor ? this.activeColor + '22' : 'var(--pui-overlay-white-08)'),
+      '--pui-sb-active-brd': t.activeBorder || this.activeColor || 'var(--pui-brand)',
+      '--pui-sb-hover-bg': t.hoverBg || this.hoverColor || 'var(--pui-overlay-white-06)',
+      '--pui-sb-hover-txt': t.hoverText || 'var(--pui-slate-200)',
+      '--pui-sb-border': t.borderColor || this.borderColor || 'var(--pui-overlay-white-08)',
+      '--pui-sb-group-txt': t.groupTextColor || 'var(--pui-solifi-sb-group)',
+      '--pui-sb-sub-bg': t.subitemBg || 'var(--pui-overlay-black-12)',
+      '--pui-sb-avatar-bg': this.userAvatarBg || t.avatarBg || 'var(--pui-brand)',
+      '--pui-sb-w': `${this.cfg.width}px`,
+      '--pui-sb-cw': `${this.cfg.collapsedWidth}px`,
     };
   }
 
   ngOnChanges(c: SimpleChanges): void {
     if (c['groups']) {
       this.displayGroups = this.groups;
-      this.searchQuery   = '';
+      this.searchQuery = '';
     }
   }
 
@@ -147,9 +148,9 @@ export class PuiSidebarComponent implements OnChanges {
   private filterItems(items: SidebarNavItem[]): SidebarNavItem[] {
     const q = this.searchQuery;
     return items.reduce<SidebarNavItem[]>((acc, item) => {
-      const selfMatch    = item.label.toLowerCase().includes(q);
+      const selfMatch = item.label.toLowerCase().includes(q);
       const filteredKids = item.children ? this.filterItems(item.children) : [];
-      if (selfMatch)           acc.push(item);
+      if (selfMatch) acc.push(item);
       else if (filteredKids.length) acc.push({ ...item, children: filteredKids });
       return acc;
     }, []);

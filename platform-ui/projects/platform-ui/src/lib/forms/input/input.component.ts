@@ -1,6 +1,7 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ViewChild, ElementRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  ViewChild, ElementRef, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormSize, InputType } from '../../models/form.model';
@@ -10,7 +11,7 @@ import { FormSize, InputType } from '../../models/form.model';
   selector: 'pui-lib-input',
   standalone: true,
   imports: [NgIf],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PuiInputComponent),
@@ -22,14 +23,14 @@ import { FormSize, InputType } from '../../models/form.model';
 export class PuiInputComponent implements ControlValueAccessor {
   @ViewChild('inputEl') inputEl!: ElementRef<HTMLInputElement>;
 
-  @Input() label        = '';
-  @Input() placeholder  = '';
+  @Input() label = '';
+  @Input() placeholder = '';
   @Input() type: InputType = 'text';
-  @Input() size: FormSize  = 'md';
-  @Input() error        = '';
-  @Input() hint         = '';
-  @Input() prefixIcon   = '';
-  @Input() suffixIcon   = '';
+  @Input() size: FormSize = 'md';
+  @Input() error = '';
+  @Input() hint = '';
+  @Input() prefixIcon = '';
+  @Input() suffixIcon = '';
   @Input() autocomplete = 'off';
 
   @Input() set disabled(v: boolean | string) { this._disabled = v === true || v === 'true' || (v as any) === ''; }
@@ -60,17 +61,17 @@ export class PuiInputComponent implements ControlValueAccessor {
 
   @Output() valueChange = new EventEmitter<string>();
   @Output() inputChange = new EventEmitter<string>();
-  @Output() blurred     = new EventEmitter<void>();
+  @Output() blurred = new EventEmitter<void>();
 
   innerValue = '';
-  isFocused  = false;
-  showPass   = false;
+  isFocused = false;
+  showPass = false;
 
-  private onChange: (v: any) => void = () => {};
-  private onTouched: () => void = () => {};
+  private onChange: (v: any) => void = () => { };
+  private onTouched: () => void = () => { };
 
   writeValue(val: any): void { this.innerValue = val ?? ''; }
-  registerOnChange(fn: any): void  { this.onChange = fn; }
+  registerOnChange(fn: any): void { this.onChange = fn; }
   registerOnTouched(fn: any): void { this.onTouched = fn; }
   setDisabledState(d: boolean): void { this.disabled = d; }
 

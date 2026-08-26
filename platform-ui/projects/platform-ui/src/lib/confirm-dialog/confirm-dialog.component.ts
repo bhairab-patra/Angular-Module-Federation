@@ -1,4 +1,4 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
@@ -9,7 +9,7 @@ import { ButtonVariant } from '../models/button.model';
   selector: 'pui-lib-confirm-dialog',
   standalone: true,
   imports: [NgIf, ButtonComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.scss'],
 })

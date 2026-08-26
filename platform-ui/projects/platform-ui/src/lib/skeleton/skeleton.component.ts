@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf, NgStyle } from '@angular/common';
 
 export type SkeletonVariant = 'text' | 'circle' | 'rect' | 'card';
@@ -8,15 +8,15 @@ export type SkeletonVariant = 'text' | 'circle' | 'rect' | 'card';
   selector: 'pui-lib-skeleton',
   standalone: true,
   imports: [NgFor, NgIf, NgStyle],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './skeleton.component.html',
   styleUrls: ['./skeleton.component.scss'],
 })
 export class PuiSkeletonComponent {
   @Input() variant: SkeletonVariant = 'text';
-  @Input() width  = '100%';
+  @Input() width = '100%';
   @Input() height = '16px';
-  @Input() rows   = 1;
+  @Input() rows = 1;
   @Input() animated = true;
 
   get _rows(): number[] { return Array.from({ length: this.rows }); }

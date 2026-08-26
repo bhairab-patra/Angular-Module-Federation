@@ -9,7 +9,7 @@ import { CardData, CardVariant, CardSize } from '../models/card.model';
   imports: [CommonModule],
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class CardComponent {
   

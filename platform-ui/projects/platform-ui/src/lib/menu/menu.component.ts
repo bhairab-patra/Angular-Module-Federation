@@ -1,5 +1,6 @@
-import {
-  Component, Input, Output, EventEmitter, HostListener, HostBinding, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import {
+  Component, Input, Output, EventEmitter, HostListener, HostBinding, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
 
@@ -8,14 +9,14 @@ import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
   selector: 'pui-lib-menu',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent {
 
-  @HostBinding('style.position') readonly _pos  = 'relative';
-  @HostBinding('style.display')  readonly _disp = 'inline-block';
+  @HostBinding('style.position') readonly _pos = 'relative';
+  @HostBinding('style.display') readonly _disp = 'inline-block';
 
   @Input() items: MenuItem[] = [];
 
@@ -63,7 +64,7 @@ export class MenuComponent {
   trackById(_: number, item: MenuItem): string { return item.id; }
 
   get placementClass(): string { return `pui-menu--${this.placement}`; }
-  get variantClass():   string { return `pui-menu-trigger--${this.variant}`; }
+  get variantClass(): string { return `pui-menu-trigger--${this.variant}`; }
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {

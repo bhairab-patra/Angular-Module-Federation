@@ -1,6 +1,7 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, ElementRef, AfterViewInit,
-  inject, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  inject, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TableColumn, SortState } from '../models/table.model';
@@ -12,12 +13,12 @@ export { TableColumn, SortDir, SortState } from '../models/table.model';
   selector: 'pui-lib-table',
   standalone: true,
   imports: [NgFor, NgIf, DecimalPipe, DatePipe],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
 export class PuiTableComponent implements AfterViewInit {
-  private el        = inject(ElementRef);
+  private el = inject(ElementRef);
   private sanitizer = inject(DomSanitizer);
 
   safeHtml(html: string): SafeHtml {
@@ -25,7 +26,7 @@ export class PuiTableComponent implements AfterViewInit {
   }
 
   _columns: TableColumn[] = [];
-  _data:    any[]         = [];
+  _data: any[] = [];
 
   @Input() set columns(v: TableColumn[] | string) {
     this._columns = typeof v === 'string' ? (this._parse<TableColumn[]>(v) ?? []) : (v || []);
@@ -37,17 +38,17 @@ export class PuiTableComponent implements AfterViewInit {
   }
   get data() { return this._data; }
 
-  _sortable     = false;
-  _searchable   = false;
+  _sortable = false;
+  _searchable = false;
   _stickyHeader = false;
-  _striped      = false;
-  _loading      = false;
+  _striped = false;
+  _loading = false;
 
-  @Input() set sortable(v: boolean | string)     { this._sortable     = this._bool(v); }
-  @Input() set searchable(v: boolean | string)   { this._searchable   = this._bool(v); }
+  @Input() set sortable(v: boolean | string) { this._sortable = this._bool(v); }
+  @Input() set searchable(v: boolean | string) { this._searchable = this._bool(v); }
   @Input() set stickyHeader(v: boolean | string) { this._stickyHeader = this._bool(v); }
-  @Input() set striped(v: boolean | string)      { this._striped      = this._bool(v); }
-  @Input() set loading(v: boolean | string)      { this._loading      = this._bool(v); }
+  @Input() set striped(v: boolean | string) { this._striped = this._bool(v); }
+  @Input() set loading(v: boolean | string) { this._loading = this._bool(v); }
 
   /** Optional title shown on the left of the table toolbar (e.g. "Account Summary"). */
   @Input() heading = '';
@@ -61,16 +62,16 @@ export class PuiTableComponent implements AfterViewInit {
   }
 
   cellTooltipVisible = false;
-  hoveredCellText    = '';
-  cellTooltipCoords  = { top: 0, left: 0 };
+  hoveredCellText = '';
+  cellTooltipCoords = { top: 0, left: 0 };
 
-  @Output() sortChange   = new EventEmitter<SortState>();
+  @Output() sortChange = new EventEmitter<SortState>();
   @Output() searchChange = new EventEmitter<string>();
-  @Output() rowClick     = new EventEmitter<any>();
+  @Output() rowClick = new EventEmitter<any>();
 
-  sort:           SortState = { key: '', dir: '' };
-  searchTerm      = '';
-  skeletonRows    = Array(5).fill(null);
+  sort: SortState = { key: '', dir: '' };
+  searchTerm = '';
+  skeletonRows = Array(5).fill(null);
   rowClickEnabled = false;
 
   get displayRows(): any[] {
@@ -116,19 +117,19 @@ export class PuiTableComponent implements AfterViewInit {
 
   showCellTooltip(event: MouseEvent, text: string): void {
     if (!text) return;
-    const td     = event.currentTarget as HTMLElement;
+    const td = event.currentTarget as HTMLElement;
     const textEl = td.querySelector('.pui-cell-text') as HTMLElement | null;
     if (!textEl || textEl.scrollWidth <= textEl.clientWidth) return;
     const hostRect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
-    const rect     = td.getBoundingClientRect();
+    const rect = td.getBoundingClientRect();
     let top = 0, left = 0;
     switch (this._tooltipPos) {
-      case 'top':    top = rect.top    - hostRect.top  - 8; left = rect.left - hostRect.left + rect.width / 2; break;
-      case 'bottom': top = rect.bottom - hostRect.top  + 8; left = rect.left - hostRect.left + rect.width / 2; break;
-      case 'left':   top = rect.top    - hostRect.top  + rect.height / 2; left = rect.left  - hostRect.left - 8; break;
-      case 'right':  top = rect.top    - hostRect.top  + rect.height / 2; left = rect.right - hostRect.left + 8; break;
+      case 'top': top = rect.top - hostRect.top - 8; left = rect.left - hostRect.left + rect.width / 2; break;
+      case 'bottom': top = rect.bottom - hostRect.top + 8; left = rect.left - hostRect.left + rect.width / 2; break;
+      case 'left': top = rect.top - hostRect.top + rect.height / 2; left = rect.left - hostRect.left - 8; break;
+      case 'right': top = rect.top - hostRect.top + rect.height / 2; left = rect.right - hostRect.left + 8; break;
     }
-    this.hoveredCellText   = text;
+    this.hoveredCellText = text;
     this.cellTooltipCoords = { top, left };
     this.cellTooltipVisible = true;
   }

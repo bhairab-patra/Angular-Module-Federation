@@ -1,22 +1,23 @@
-import {
-  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import {
+  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ButtonComponent }      from '../button/button.component';
-import { PuiInputComponent }    from '../forms/input/input.component';
-import { PuiSelectComponent }   from '../forms/select/select.component';
+import { ButtonComponent } from '../button/button.component';
+import { PuiInputComponent } from '../forms/input/input.component';
+import { PuiSelectComponent } from '../forms/select/select.component';
 import { PuiTextareaComponent } from '../forms/textarea/textarea.component';
 import { SelectOption } from '../models/form.model';
 
 export interface FormDialogField {
-  key:          string;
-  label:        string;
-  type?:        'text' | 'number' | 'email' | 'password' | 'textarea' | 'select';
+  key: string;
+  label: string;
+  type?: 'text' | 'number' | 'email' | 'password' | 'textarea' | 'select';
   placeholder?: string;
-  required?:    boolean;
-  readonly?:    boolean;
-  options?:     SelectOption[];
-  span?:        'full' | 'half';
+  required?: boolean;
+  readonly?: boolean;
+  options?: SelectOption[];
+  span?: 'full' | 'half';
 }
 
 export interface FormDialogSaveEvent { data: Record<string, any>; }
@@ -32,7 +33,7 @@ export interface FormDialogSaveEvent { data: Record<string, any>; }
     PuiSelectComponent,
     PuiTextareaComponent,
   ],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.scss'],
 })
@@ -44,8 +45,8 @@ export class PuiFormDialogComponent {
     if (this._open) this._initDraft();
   }
 
-  @Input() title       = 'Dialog';
-  @Input() saveLabel   = 'Save';
+  @Input() title = 'Dialog';
+  @Input() saveLabel = 'Save';
   @Input() cancelLabel = 'Cancel';
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
   @Input() closeOnBackdrop = true;
@@ -61,11 +62,11 @@ export class PuiFormDialogComponent {
     if (this._open) this._initDraft();
   }
 
-  @Output() save   = new EventEmitter<FormDialogSaveEvent>();
+  @Output() save = new EventEmitter<FormDialogSaveEvent>();
   @Output() cancel = new EventEmitter<void>();
   @Output() closed = new EventEmitter<void>();
 
-  draft:  Record<string, any>    = {};
+  draft: Record<string, any> = {};
   errors: Record<string, string> = {};
 
 
@@ -89,7 +90,7 @@ export class PuiFormDialogComponent {
   }
 
   private _initDraft(): void {
-    this.draft  = { ...this._data };
+    this.draft = { ...this._data };
     this.errors = {};
   }
 

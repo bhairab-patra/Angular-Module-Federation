@@ -124,6 +124,14 @@ type Framework = 'angular' | 'react' | 'html';
             Do <strong>not</strong> import from <code>elements/styles.css</code> — that path is for the Angular Elements / web-component build only.
             Angular consumers always import from <code>styles/tokens.css</code> and <code>styles/themes/theme-new.css</code>.
           </div>
+          <div class="note note--warn">
+            <strong>A common mistake:</strong> <code>angular.json</code> has a <em>separate</em> <code>"styles"</code> array for every
+            architect target — <code>build</code>, <code>test</code>, etc. Adding these two files to <code>architect &gt; test &gt; options &gt; styles</code>
+            does nothing for your running app — that array is only read by <code>ng test</code>. They must go in
+            <code>architect &gt; build &gt; options &gt; styles</code>, the one used by <code>ng serve</code> and <code>ng build</code>.
+            If your components render with no colours, no fonts, and no layout, this is almost always why —
+            double-check you edited the right block.
+          </div>
         </section>
 
         <section id="ng-import" class="gs-section">
@@ -215,6 +223,12 @@ type Framework = 'angular' | 'react' | 'html';
           <h2 class="gs-h2"><span class="step-badge">6</span> Add Global Styles</h2>
           <p class="gs-p">Add the two library CSS files to the <code>"styles"</code> array in <code>angular.json</code>. After linking, the symlink makes these resolve to your local <code>dist/platform-ui/styles/</code>:</p>
           <docs-code-block lang="angular.json" [id]="'ng-local-styles'" [text]="code.ng.stylesLocal" [copied]="copied" (copyClick)="doCopy($event.text,$event.id)"></docs-code-block>
+          <div class="note note--warn">
+            <strong>A common mistake:</strong> <code>angular.json</code> has a <em>separate</em> <code>"styles"</code> array per architect
+            target. These files must go in <code>architect &gt; build &gt; options &gt; styles</code> — the one <code>ng serve</code> reads.
+            Adding them only under <code>architect &gt; test &gt; options</code> has no effect on your running app and is the #1 cause of
+            "components render with no styling at all."
+          </div>
         </section>
 
         <section id="ng-local-import" class="gs-section">
@@ -1184,12 +1198,20 @@ npm link @bhairab-patra/platform-ui`,
 }`,
 
       stylesLocal:
-        `// angular.json  — add TWO files to "styles" array
-"styles": [
-  "node_modules/@bhairab-patra/platform-ui/styles/tokens.css",
-  "node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css",
-  "src/styles.scss"
-]`,
+        `// angular.json  — inside architect > build > options ONLY.
+// Do NOT add this to architect > test > options — that array only
+// affects "ng test" and has zero effect on "ng serve" / "ng build".
+"architect": {
+  "build": {
+    "options": {
+      "styles": [
+        "node_modules/@bhairab-patra/platform-ui/styles/tokens.css",
+        "node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css",
+        "src/styles.scss"
+      ]
+    }
+  }
+}`,
 
       localServe:
         `# Inside your Angular consumer app
@@ -1218,12 +1240,20 @@ skip: [
 ],`,
 
       styles:
-        `// angular.json  — add TWO files to "styles" array
-"styles": [
-  "node_modules/@bhairab-patra/platform-ui/styles/tokens.css",
-  "node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css",
-  "src/styles.scss"
-]`,
+        `// angular.json  — inside architect > build > options ONLY.
+// Do NOT add this to architect > test > options — that array only
+// affects "ng test" and has zero effect on "ng serve" / "ng build".
+"architect": {
+  "build": {
+    "options": {
+      "styles": [
+        "node_modules/@bhairab-patra/platform-ui/styles/tokens.css",
+        "node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css",
+        "src/styles.scss"
+      ]
+    }
+  }
+}`,
 
       standalone:
         `// app.component.ts  (or any standalone component)

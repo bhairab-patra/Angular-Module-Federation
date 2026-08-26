@@ -1,5 +1,6 @@
-import {
-  Component, inject, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import {
+  Component, inject, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { ToastService } from './toast.service';
 import { Toast, ToastPosition } from '../models/toast.model';
@@ -12,9 +13,9 @@ const POSITIONS: ToastPosition[] = [
 
 const TYPE_ICON: Record<string, string> = {
   success: 'check-circle',
-  error:   'close-circle',
+  error: 'close-circle',
   warning: 'warning',
-  info:    'info',
+  info: 'info',
 };
 
 @Component({
@@ -22,7 +23,7 @@ const TYPE_ICON: Record<string, string> = {
   selector: 'pui-lib-toast-container',
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './toast-container.component.html',
   styleUrls: ['./toast-container.component.scss'],
 })
@@ -31,7 +32,7 @@ export class PuiToastContainerComponent {
   typeIcon = TYPE_ICON;
   positions = POSITIONS;
   exiting = new Set<string>();
-  paused  = new Set<string>();
+  paused = new Set<string>();
 
   private timers = new Map<string, ReturnType<typeof setTimeout>>();
 
@@ -54,6 +55,6 @@ export class PuiToastContainerComponent {
     this.dismiss(t.id);
   }
 
-  pauseTimer(t: Toast): void  { this.paused.add(t.id); }
+  pauseTimer(t: Toast): void { this.paused.add(t.id); }
   resumeTimer(t: Toast): void { this.paused.delete(t.id); }
 }

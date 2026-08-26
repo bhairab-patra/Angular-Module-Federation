@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { EmptyStateSize } from '../models/empty-state.model';
@@ -8,7 +8,7 @@ import { EmptyStateSize } from '../models/empty-state.model';
   selector: 'pui-lib-empty-state',
   standalone: true,
   imports: [NgIf, IconComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './empty-state.component.html',
   styleUrls: ['./empty-state.component.scss'],
 })

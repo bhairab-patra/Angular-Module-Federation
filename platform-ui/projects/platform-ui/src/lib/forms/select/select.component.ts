@@ -1,6 +1,7 @@
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ViewEncapsulation, HostListener, ElementRef, inject, ChangeDetectionStrategy } from '@angular/core';
+  ViewEncapsulation, HostListener, ElementRef, inject, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormSize, SelectOption } from '../../models/form.model';
@@ -10,7 +11,7 @@ import { FormSize, SelectOption } from '../../models/form.model';
   selector: 'pui-lib-select',
   standalone: true,
   imports: [NgIf, NgFor],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PuiSelectComponent),
@@ -22,12 +23,12 @@ import { FormSize, SelectOption } from '../../models/form.model';
 export class PuiSelectComponent implements ControlValueAccessor {
   private el = inject(ElementRef);
 
-  @Input() label       = '';
+  @Input() label = '';
   @Input() placeholder = 'Select an option';
   @Input() size: FormSize = 'md';
-  @Input() error       = '';
-  @Input() hint        = '';
-  @Input() searchable  = false;
+  @Input() error = '';
+  @Input() hint = '';
+  @Input() searchable = false;
   @Input() searchPlaceholder = 'Search…';
 
   @Input() set options(v: SelectOption[] | string) {
@@ -49,11 +50,11 @@ export class PuiSelectComponent implements ControlValueAccessor {
   get required(): boolean { return this._required; }
   private _required = false;
 
-  @Output() valueChange     = new EventEmitter<unknown>();
+  @Output() valueChange = new EventEmitter<unknown>();
   @Output() selectionChange = new EventEmitter<unknown>();
 
   innerValue: unknown = '';
-  open       = false;
+  open = false;
   searchText = '';
   filtered: SelectOption[] = [];
 
@@ -65,12 +66,12 @@ export class PuiSelectComponent implements ControlValueAccessor {
     return this.selectedOption?.label ?? '';
   }
 
-  private _onChangeFn: (v: unknown) => void = () => {};
-  private _onTouchedFn: () => void          = () => {};
+  private _onChangeFn: (v: unknown) => void = () => { };
+  private _onTouchedFn: () => void = () => { };
 
   writeValue(val: unknown): void { this.innerValue = val ?? ''; }
-  registerOnChange(fn: (v: unknown) => void): void  { this._onChangeFn = fn; }
-  registerOnTouched(fn: () => void): void           { this._onTouchedFn = fn; }
+  registerOnChange(fn: (v: unknown) => void): void { this._onChangeFn = fn; }
+  registerOnTouched(fn: () => void): void { this._onTouchedFn = fn; }
 
   toggle(): void {
     if (this._disabled) return;
@@ -88,7 +89,7 @@ export class PuiSelectComponent implements ControlValueAccessor {
     e.stopPropagation();
     if (opt.disabled) return;
     this.innerValue = opt.value;
-    this.open       = false;
+    this.open = false;
     this._onChangeFn(opt.value);
     this._onTouchedFn();
     this.valueChange.emit(opt.value);

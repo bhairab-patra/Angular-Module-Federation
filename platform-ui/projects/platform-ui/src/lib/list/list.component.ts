@@ -1,15 +1,15 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter, ViewEncapsulation, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface ListItem {
-  id:          string | number;
-  label:       string;
+  id: string | number;
+  label: string;
   description?: string;
-  icon?:       string;
-  badge?:      string;
-  meta?:       string;
-  disabled?:   boolean;
-  divider?:    boolean;
+  icon?: string;
+  badge?: string;
+  meta?: string;
+  disabled?: boolean;
+  divider?: boolean;
 }
 
 export type ListVariant = 'default' | 'bordered' | 'striped' | 'flush';
@@ -19,19 +19,19 @@ export type ListVariant = 'default' | 'bordered' | 'striped' | 'flush';
   selector: 'pui-lib-list',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
 export class PuiListComponent {
-  @Input() items:      ListItem[]  = [];
-  @Input() variant:    ListVariant = 'bordered';
-  @Input() selectable  = false;
+  @Input() items: ListItem[] = [];
+  @Input() variant: ListVariant = 'bordered';
+  @Input() selectable = false;
   @Input() selectedId: string | number | null = null;
 
-  @Input() textColor    = '';
-  @Input() activeColor  = 'var(--pui-list-active-default)';
-  @Input() hoverColor   = 'var(--pui-list-hover-bg-default)';
+  @Input() textColor = '';
+  @Input() activeColor = 'var(--pui-list-active-default)';
+  @Input() hoverColor = 'var(--pui-list-hover-bg-default)';
 
   @Output() itemSelect = new EventEmitter<ListItem>();
 

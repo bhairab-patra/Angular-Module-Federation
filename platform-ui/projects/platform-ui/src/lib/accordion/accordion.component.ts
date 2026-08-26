@@ -1,6 +1,7 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter,
-  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { IconComponent } from '../icon/icon.component';
@@ -11,20 +12,20 @@ import { AccordionItem, AccordionVariant } from '../models/accordion.model';
   selector: 'pui-lib-accordion',
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './accordion.component.html',
-  styleUrls:   ['./accordion.component.scss'],
+  styleUrls: ['./accordion.component.scss'],
 })
 export class PuiAccordionComponent {
-  @Input() items:         AccordionItem[]      = [];
-  @Input() allowMultiple  = false;
-  @Input() variant:       AccordionVariant     = 'default';
-  @Input() openIds:       (string | number)[]  = [];
+  @Input() items: AccordionItem[] = [];
+  @Input() allowMultiple = false;
+  @Input() variant: AccordionVariant = 'default';
+  @Input() openIds: (string | number)[] = [];
 
   @Output() openIdsChange = new EventEmitter<(string | number)[]>();
-  @Output() itemToggle    = new EventEmitter<{ id: string | number; open: boolean }>();
+  @Output() itemToggle = new EventEmitter<{ id: string | number; open: boolean }>();
 
-  constructor(private _sanitizer: DomSanitizer) {}
+  constructor(private _sanitizer: DomSanitizer) { }
 
   private _trustedHtml = new Map<string, SafeHtml>();
 

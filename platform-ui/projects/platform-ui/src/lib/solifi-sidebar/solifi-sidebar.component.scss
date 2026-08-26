@@ -9,11 +9,13 @@ pui-lib-solifi-sidebar {
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-  background: var(--ssb-bg, #112C35);
+  background: var(--ssb-bg, #112c35);
   width: var(--ssb-w, 240px);
   min-width: var(--ssb-w, 240px);
-  transition: width .22s cubic-bezier(.4, 0, .2, 1), min-width .22s cubic-bezier(.4, 0, .2, 1);
-  font-family: 'Poppins', system-ui, sans-serif;
+  transition:
+    width 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    min-width 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: "Poppins", system-ui, sans-serif;
   position: relative;
 }
 
@@ -34,7 +36,7 @@ pui-lib-solifi-sidebar {
   align-items: center;
   justify-content: space-between;
   padding: 18px 14px 14px;
-  border-bottom: 1px solid var(--ssb-border, rgba(255, 255, 255, .07));
+  border-bottom: 1px solid var(--ssb-border, rgba(255, 255, 255, 0.07));
   flex-shrink: 0;
   gap: 8px;
 }
@@ -72,7 +74,7 @@ pui-lib-solifi-sidebar {
 .ssb__brand-name {
   font-size: 18px;
   font-weight: 700;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
   color: var(--pui-white);
   white-space: nowrap;
   overflow: hidden;
@@ -91,11 +93,13 @@ pui-lib-solifi-sidebar {
   justify-content: center;
   cursor: pointer;
   border-radius: 6px;
-  transition: background .13s, color .13s;
+  transition:
+    background 0.13s,
+    color 0.13s;
 }
 
 .ssb__toggle:hover {
-  background: var(--ssb-hover, rgba(255, 255, 255, .06));
+  background: var(--ssb-hover, rgba(255, 255, 255, 0.06));
   color: var(--pui-white);
 }
 
@@ -109,7 +113,7 @@ pui-lib-solifi-sidebar {
   align-items: center;
   justify-content: center;
   padding: 12px 0 8px;
-  border-bottom: 1px solid var(--ssb-border, rgba(255, 255, 255, .07));
+  border-bottom: 1px solid var(--ssb-border, rgba(255, 255, 255, 0.07));
   flex-shrink: 0;
 }
 
@@ -119,7 +123,7 @@ pui-lib-solifi-sidebar {
   overflow-x: hidden;
   padding: 8px 0 12px;
   scrollbar-width: thin;
-  scrollbar-color: var(--ssb-border, rgba(255, 255, 255, .07)) transparent;
+  scrollbar-color: var(--ssb-border, rgba(255, 255, 255, 0.07)) transparent;
 }
 
 .ssb--collapsed .ssb__nav {
@@ -132,7 +136,7 @@ pui-lib-solifi-sidebar {
 }
 
 .ssb__nav::-webkit-scrollbar-thumb {
-  background: var(--ssb-border, rgba(255, 255, 255, .07));
+  background: var(--ssb-border, rgba(255, 255, 255, 0.07));
   border-radius: 4px;
 }
 
@@ -145,7 +149,7 @@ pui-lib-solifi-sidebar {
   font-weight: 600;
   // text-transform: uppercase;
   // letter-spacing: .1em;
-  color: #FFF;
+  color: #fff;
   padding: 14px 20px 4px;
   white-space: nowrap;
 }
@@ -165,13 +169,15 @@ pui-lib-solifi-sidebar {
   height: 35px;
   border: none;
   background: transparent;
-  color: var(--ssb-text, rgba(255, 255, 255, .72));
+  color: var(--ssb-text, rgba(255, 255, 255, 0.72));
   cursor: pointer;
   text-align: left;
   font-family: inherit;
   font-size: 12px;
   font-weight: 400;
-  transition: background .13s, color .13s;
+  transition:
+    background 0.13s,
+    color 0.13s;
   position: relative;
 }
 
@@ -188,7 +194,7 @@ pui-lib-solifi-sidebar {
 // }
 
 .ssb__item:hover:not(.ssb__item--disabled) {
-  background: var(--ssb-hover, rgba(255, 255, 255, .06));
+  background: var(--ssb-hover, rgba(255, 255, 255, 0.06));
   color: var(--pui-white);
 }
 
@@ -202,7 +208,7 @@ pui-lib-solifi-sidebar {
 }
 
 .ssb__item--disabled {
-  opacity: .4;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -222,7 +228,7 @@ pui-lib-solifi-sidebar {
 }
 
 .ssb__li--divider {
-  border-bottom: 1px solid var(--ssb-border, rgba(255, 255, 255, .07));
+  border-bottom: 1px solid var(--ssb-border, rgba(255, 255, 255, 0.07));
   margin-bottom: 6px;
   padding-bottom: 6px;
 }
@@ -232,8 +238,10 @@ pui-lib-solifi-sidebar {
   display: flex;
   align-items: center;
   color: var(--ssb-text, #8fa3bc);
-  opacity: .6;
-  transition: transform .22s cubic-bezier(.4, 0, .2, 1), opacity .13s;
+  opacity: 0.6;
+  transition:
+    transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.13s;
 }
 
 .ssb__arrow--open {
@@ -254,7 +262,7 @@ pui-lib-solifi-sidebar {
   max-height: 0;
   overflow: hidden;
   background: var(--pui-overlay-black-12);
-  transition: max-height .26s cubic-bezier(.4, 0, .2, 1);
+  transition: max-height 0.26s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .ssb__subitem {
@@ -266,17 +274,20 @@ pui-lib-solifi-sidebar {
   height: 34px;
   border: none;
   background: transparent;
-  color: var(--ssb-text, rgba(255, 255, 255, .72));
-  opacity: .85;
+  color: var(--ssb-text, rgba(255, 255, 255, 0.72));
+  opacity: 0.85;
   cursor: pointer;
   text-align: left;
   font-family: inherit;
   font-size: 12px;
-  transition: background .13s, color .13s, opacity .13s;
+  transition:
+    background 0.13s,
+    color 0.13s,
+    opacity 0.13s;
 }
 
 .ssb__subitem:hover:not(.ssb__subitem--disabled) {
-  background: var(--ssb-hover, rgba(255, 255, 255, .06));
+  background: var(--ssb-hover, rgba(255, 255, 255, 0.06));
   color: var(--pui-white);
   opacity: 1;
 }
@@ -287,7 +298,7 @@ pui-lib-solifi-sidebar {
 }
 
 .ssb__subitem--disabled {
-  opacity: .35;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
@@ -296,9 +307,9 @@ pui-lib-solifi-sidebar {
   height: 4px;
   border-radius: 50%;
   background: currentColor;
-  opacity: .5;
+  opacity: 0.5;
   flex-shrink: 0;
-  transition: opacity .13s;
+  transition: opacity 0.13s;
 }
 
 .ssb__subitem--active .ssb__subitem-dot,
@@ -323,14 +334,14 @@ pui-lib-solifi-sidebar {
   border-radius: 6px;
   font-size: 12px;
   font-weight: 500;
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
   line-height: 1.4;
   white-space: nowrap;
   pointer-events: none;
   user-select: none;
   z-index: 9999;
   box-shadow: var(--pui-shadow-tooltip);
-  animation: ssb-tt-in .15s ease;
+  animation: ssb-tt-in 0.15s ease;
 }
 
 @keyframes ssb-tt-in {
@@ -346,7 +357,7 @@ pui-lib-solifi-sidebar {
 }
 
 .ssb__nav-tooltip::after {
-  content: '';
+  content: "";
   position: absolute;
   right: 100%;
   top: 50%;
@@ -368,7 +379,7 @@ pui-lib-solifi-sidebar {
   text-transform: uppercase;
   background: var(--pui-overlay-white-10);
   color: currentColor;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
 }
 
 .ssb__item:hover .ssb__abbr {
@@ -389,7 +400,9 @@ pui-lib-solifi-sidebar {
   border-radius: var(--pui-radius-md, 8px);
   background: var(--pui-solifi-sb-icon-chip-bg);
   color: var(--pui-white);
-  transition: opacity .13s, background .13s;
+  transition:
+    opacity 0.13s,
+    background 0.13s;
   font-size: 9px;
 }
 
@@ -426,7 +439,7 @@ pui-lib-solifi-sidebar {
 .ssb__user-wrap {
   flex-shrink: 0;
   position: relative;
-  border-top: 1px solid var(--ssb-border, rgba(255, 255, 255, .07));
+  border-top: 1px solid var(--ssb-border, rgba(255, 255, 255, 0.07));
 }
 
 .ssb__user-menu {
@@ -441,7 +454,7 @@ pui-lib-solifi-sidebar {
   margin-bottom: 6px;
   box-shadow: var(--pui-solifi-sb-menu-shadow-up);
   z-index: 100;
-  animation: ssb-menu-in .14s cubic-bezier(.4, 0, .2, 1);
+  animation: ssb-menu-in 0.14s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @keyframes ssb-menu-in {
@@ -475,7 +488,7 @@ pui-lib-solifi-sidebar {
   margin-bottom: 0;
   min-width: 180px;
   box-shadow: var(--pui-solifi-sb-menu-shadow-right);
-  animation: ssb-menu-in-right .14s cubic-bezier(.4, 0, .2, 1);
+  animation: ssb-menu-in-right 0.14s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .ssb__user-menu-divider {
@@ -499,16 +512,18 @@ pui-lib-solifi-sidebar {
   cursor: pointer;
   border-radius: 6px;
   text-align: left;
-  transition: background .12s, color .12s;
+  transition:
+    background 0.12s,
+    color 0.12s;
 }
 
 .ssb__user-menu-item:hover:not(.ssb__user-menu-item--disabled) {
-  background: var(--ssb-hover, rgba(255, 255, 255, .07));
+  background: var(--ssb-hover, rgba(255, 255, 255, 0.07));
   color: var(--pui-white);
 }
 
 .ssb__user-menu-item--disabled {
-  opacity: .38;
+  opacity: 0.38;
   cursor: not-allowed;
 }
 
@@ -519,7 +534,7 @@ pui-lib-solifi-sidebar {
   flex-shrink: 0;
   width: 16px;
   height: 16px;
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .ssb__user-menu-item:hover .ssb__user-menu-icon {
@@ -535,7 +550,7 @@ pui-lib-solifi-sidebar {
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  transition: background .13s;
+  transition: background 0.13s;
 }
 
 .ssb__user--clickable {
@@ -544,7 +559,7 @@ pui-lib-solifi-sidebar {
 
 .ssb__user--clickable:hover,
 .ssb__user--open {
-  background: var(--ssb-hover, rgba(255, 255, 255, .06));
+  background: var(--ssb-hover, rgba(255, 255, 255, 0.06));
 }
 
 .ssb--collapsed .ssb__user {
@@ -605,8 +620,8 @@ pui-lib-solifi-sidebar {
 .ssb__user-arrow {
   flex-shrink: 0;
   color: var(--ssb-text, #8fa3bc);
-  opacity: .6;
-  transition: transform .2s;
+  opacity: 0.6;
+  transition: transform 0.2s;
 }
 
 .ssb__user-arrow--up {

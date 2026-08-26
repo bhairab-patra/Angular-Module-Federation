@@ -1,6 +1,7 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
@@ -9,7 +10,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
   selector: 'pui-lib-checkbox',
   standalone: true,
   imports: [NgIf],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PuiCheckboxComponent),
@@ -21,7 +22,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 export class PuiCheckboxComponent implements ControlValueAccessor {
   @Input() label = '';
   @Input() error = '';
-  @Input() hint  = '';
+  @Input() hint = '';
 
   @Input() set checked(v: boolean | string) { this._checked = v === true || v === 'true' || (v as any) === ''; }
   get checked() { return this._checked; }
@@ -40,14 +41,14 @@ export class PuiCheckboxComponent implements ControlValueAccessor {
   private _required = false;
 
   @Output() checkedChange = new EventEmitter<boolean>();
-  @Output() changed       = new EventEmitter<boolean>();
+  @Output() changed = new EventEmitter<boolean>();
 
-  private onChangeFn: (v: any) => void = () => {};
-  private onTouchedFn: () => void = () => {};
+  private onChangeFn: (v: any) => void = () => { };
+  private onTouchedFn: () => void = () => { };
 
 
   writeValue(val: any): void { this._checked = !!val; }
-  registerOnChange(fn: any): void  { this.onChangeFn = fn; }
+  registerOnChange(fn: any): void { this.onChangeFn = fn; }
   registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
 
   toggle(e: Event): void {

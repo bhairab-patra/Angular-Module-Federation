@@ -452,7 +452,7 @@ export function AppShell({ children }) {
       sidebarLogoUrl="assets/logo.png"
       [sidebarGroups]="navGroups"
       [sidebarActiveId]="activeId"
-      [sidebarTheme]="SOLIFI_THEME"
+      [sidebarTheme]="theme"
       [showSidebarUser]="true"
       sidebarUserName="Rosanna Doyle"
       sidebarUserEmail="adminhub@solifi.com"
@@ -475,6 +475,7 @@ export function AppShell({ children }) {
 })
 export class AppComponent {
   activeId = 'borrowing-base';
+  theme = SOLIFI_THEME;
   navGroups: SolifiNavGroup[] = [...];
   sidebarUserMenu: SolifiUserMenuItem[] = [
     { id: 'profile',  label: 'My Profile', iconName: 'user'     },

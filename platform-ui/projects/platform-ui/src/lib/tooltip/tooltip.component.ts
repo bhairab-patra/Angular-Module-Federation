@@ -1,15 +1,15 @@
-import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
-export type TooltipVariant  = 'dark' | 'light' | 'teal';
+export type TooltipVariant = 'dark' | 'light' | 'teal';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-tooltip',
   standalone: true,
   imports: [CommonModule],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './tooltip.component.html',
   styleUrls: ['./tooltip.component.scss'],
 })

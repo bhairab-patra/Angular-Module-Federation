@@ -11,7 +11,7 @@ import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.m
   selector: 'pui-lib-footer',
   standalone: true,
   imports: [NgIf, NgFor, IconComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
 })

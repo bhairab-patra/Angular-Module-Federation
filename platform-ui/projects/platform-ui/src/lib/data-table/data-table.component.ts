@@ -14,7 +14,7 @@ export { TableColumn, TableAction, SortDir, SortState } from '../models/table.mo
   selector: 'pui-lib-data-table',
   standalone: true,
   imports: [NgFor, NgIf, DecimalPipe, DatePipe],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })

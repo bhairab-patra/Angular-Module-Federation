@@ -1,7 +1,8 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter,
   inject,
-  HostListener, ElementRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  HostListener, ElementRef, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface MultiSelectOption {
@@ -16,42 +17,42 @@ export interface MultiSelectOption {
   selector: 'pui-lib-multiselect',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './multiselect.component.html',
   styleUrls: ['./multiselect.component.scss'],
 })
 export class PuiMultiSelectComponent {
   private el = inject(ElementRef);
 
-  open      = false;
-  query     = '';
+  open = false;
+  query = '';
   selected: (string | number)[] = [];
 
-  _options:       MultiSelectOption[] = [];
-  _placeholder    = 'Select options�';
-  _searchable     = true;
-  _showSelectAll  = true;
-  _maxChips       = 3;
-  _disabled       = false;
-  _error          = '';
-  _hint           = '';
+  _options: MultiSelectOption[] = [];
+  _placeholder = 'Select optionsï¿½';
+  _searchable = true;
+  _showSelectAll = true;
+  _maxChips = 3;
+  _disabled = false;
+  _error = '';
+  _hint = '';
 
   @Input() set options(v: MultiSelectOption[] | string) {
     this._options = typeof v === 'string' ? (this._parse<MultiSelectOption[]>(v) ?? []) : (v || []);
   }
   @Input() set value(v: (string | number)[] | string) {
-    this.selected = typeof v === 'string' ? (this._parse<(string|number)[]>(v) ?? []) : (v || []);
+    this.selected = typeof v === 'string' ? (this._parse<(string | number)[]>(v) ?? []) : (v || []);
   }
-  @Input() set placeholder(v: string)      { this._placeholder   = v; }
-  @Input() set searchable(v: boolean | string)   { this._searchable   = this._bool(v); }
-  @Input() set showSelectAll(v: boolean | string){ this._showSelectAll = this._bool(v); }
-  @Input() set maxChips(v: number | string)      { this._maxChips     = Number(v) || 3; }
-  @Input() set disabled(v: boolean | string)     { this._disabled     = this._bool(v); }
-  @Input() set error(v: string)            { this._error = v; }
-  @Input() set hint(v: string)             { this._hint  = v; }
+  @Input() set placeholder(v: string) { this._placeholder = v; }
+  @Input() set searchable(v: boolean | string) { this._searchable = this._bool(v); }
+  @Input() set showSelectAll(v: boolean | string) { this._showSelectAll = this._bool(v); }
+  @Input() set maxChips(v: number | string) { this._maxChips = Number(v) || 3; }
+  @Input() set disabled(v: boolean | string) { this._disabled = this._bool(v); }
+  @Input() set error(v: string) { this._error = v; }
+  @Input() set hint(v: string) { this._hint = v; }
 
   @Output() valueChange = new EventEmitter<(string | number)[]>();
-  @Output() change      = new EventEmitter<(string | number)[]>();
+  @Output() change = new EventEmitter<(string | number)[]>();
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
@@ -83,7 +84,7 @@ export class PuiMultiSelectComponent {
     if (opt.disabled) return;
     const idx = this.selected.indexOf(opt.value);
     if (idx >= 0) this.selected = this.selected.filter(v => v !== opt.value);
-    else          this.selected = [...this.selected, opt.value];
+    else this.selected = [...this.selected, opt.value];
     this._emit();
   }
 

@@ -18,7 +18,7 @@ const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none
   selector: 'pui-lib-solifi-sidebar',
   standalone: true,
   imports: [NgFor, NgIf, NgStyle, IconComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './solifi-sidebar.component.html',
   styleUrls: ['./solifi-sidebar.component.scss'],
 })
@@ -107,7 +107,7 @@ export class PuiSolifiSidebarComponent {
     // below so it isn't clipped by that container's overflow:hidden.
     if (!this._collapsed && !this.needsEllipsis(item.label)) return;
     const btn = event.currentTarget as HTMLElement;
-    const ssbEl = (this._elRef.nativeElement as HTMLElement).querySelector('.ssb') as HTMLElement;
+    const ssbEl = (this._elRef.nativeElement as HTMLElement).shadowRoot!.querySelector('.ssb') as HTMLElement;
     const ssbRect = ssbEl.getBoundingClientRect();
     const btnRect = btn.getBoundingClientRect();
     this.tooltipTop = btnRect.top - ssbRect.top + btnRect.height / 2;

@@ -1,6 +1,7 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter,
-  HostListener, ElementRef, inject, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  HostListener, ElementRef, inject, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { AvatarMenuItem, AvatarSize } from '../models/avatar.model';
@@ -10,14 +11,14 @@ import { AvatarMenuItem, AvatarSize } from '../models/avatar.model';
   selector: 'pui-lib-avatar',
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.scss'],
 })
 export class PuiAvatarComponent {
-  @Input() name       = '';
-  @Input() email      = '';
-  @Input() avatarUrl  = '';
+  @Input() name = '';
+  @Input() email = '';
+  @Input() avatarUrl = '';
   @Input() size: AvatarSize = 'md';
 
   @Input() set collapsed(v: boolean | string) {

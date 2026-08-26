@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ModalSize } from '../models/modal.model';
 
@@ -7,12 +7,12 @@ import { ModalSize } from '../models/modal.model';
   selector: 'pui-lib-modal',
   standalone: true,
   imports: [NgIf],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })
 export class ModalComponent {
-  @Input() open  = false;
+  @Input() open = false;
   @Input() title = 'Dialog';
   @Input() size: ModalSize = 'md';
   @Input() closeOnBackdrop = true;

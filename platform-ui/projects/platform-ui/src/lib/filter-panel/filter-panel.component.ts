@@ -1,6 +1,7 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
-  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
 
@@ -9,7 +10,7 @@ import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
   selector: 'pui-lib-filter-panel',
   standalone: true,
   imports: [NgIf, NgFor],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './filter-panel.component.html',
   styleUrls: ['./filter-panel.component.scss'],
 })
@@ -46,9 +47,9 @@ export class PuiFilterPanelComponent implements OnChanges {
   }
 
   @Output() valuesChange = new EventEmitter<FilterValues>();
-  @Output() applied      = new EventEmitter<FilterValues>();
-  @Output() reset        = new EventEmitter<void>();
-  @Output() cleared      = new EventEmitter<void>();
+  @Output() applied = new EventEmitter<FilterValues>();
+  @Output() reset = new EventEmitter<void>();
+  @Output() cleared = new EventEmitter<void>();
 
   collapsed: Record<string, boolean> = {};
 
@@ -173,7 +174,7 @@ export class PuiFilterPanelComponent implements OnChanges {
     this.cleared.emit();
   }
 
-  apply(): void  { this.applied.emit({ ...this.values }); }
+  apply(): void { this.applied.emit({ ...this.values }); }
 
   onReset(): void {
     this.values = {};

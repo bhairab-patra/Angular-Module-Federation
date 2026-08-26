@@ -124,7 +124,7 @@ export class SolifiSidebarPageComponent { // v2
         [logoUrl]="logoUrl"
         [groups]="navGroups"
         [activeId]="activeId"
-        [theme]="SOLIFI_THEME"
+        [theme]="theme"
         [showUser]="true"
         [userName]="user.name"
         [userEmail]="user.email"
@@ -294,7 +294,7 @@ navGroups: SolifiNavGroup[] = [
   [groups]="navGroups"
   [activeId]="activeId"
   [collapsed]="collapsed"
-  [theme]="SOLIFI_THEME"
+  [theme]="theme"
   [showUser]="true"
   userName="Bira"
   userEmail="bpatra@solifi.comcom"
@@ -314,6 +314,10 @@ navGroups: SolifiNavGroup[] = [
 </pui-lib-solifi-sidebar>
 
 <script>
+  // Match the SOLIFI_THEME preset — or import it if you're bundling
+  // via a module loader instead of the plain <script> tag shown here.
+  const SOLIFI_THEME = { bg: '#112C35', textColor: '#8fa3bc', activeColor: '#12C6A8' };
+
   customElements.whenDefined('pui-lib-solifi-sidebar').then(() => {
     const el = document.getElementById('sb');
     el.groups = [

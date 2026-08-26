@@ -1,4 +1,4 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, ViewChild, ElementRef,
   ViewEncapsulation, ChangeDetectionStrategy,
 } from '@angular/core';
@@ -13,7 +13,7 @@ let uid = 0;
   selector: 'pui-lib-dropzone',
   standalone: true,
   imports: [NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, IconComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './dropzone.component.html',
   styleUrls: ['./dropzone.component.scss'],
 })
@@ -45,10 +45,10 @@ export class PuiDropzoneComponent {
   get files(): DropzoneFile[] { return this._files; }
   private _files: DropzoneFile[] = [];
 
-  @Output() filesChange  = new EventEmitter<DropzoneFile[]>();
-  @Output() filesAdded   = new EventEmitter<DropzoneFile[]>();
-  @Output() fileRemove   = new EventEmitter<DropzoneFile>();
-  @Output() rejected     = new EventEmitter<DropzoneRejection[]>();
+  @Output() filesChange = new EventEmitter<DropzoneFile[]>();
+  @Output() filesAdded = new EventEmitter<DropzoneFile[]>();
+  @Output() fileRemove = new EventEmitter<DropzoneFile>();
+  @Output() rejected = new EventEmitter<DropzoneRejection[]>();
 
   dragging = false;
 

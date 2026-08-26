@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 
@@ -9,7 +9,7 @@ export type ChipVariant = 'default' | 'primary' | 'primary-light' | 'primary-out
   selector: 'pui-lib-chip',
   standalone: true,
   imports: [NgIf, IconComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })

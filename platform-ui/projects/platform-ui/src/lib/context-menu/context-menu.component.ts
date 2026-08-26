@@ -1,4 +1,4 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter,
   HostListener, ElementRef, inject,
   ViewEncapsulation, ChangeDetectionStrategy,
@@ -12,7 +12,7 @@ import { MenuItem } from '../models/menu.model';
   selector: 'pui-lib-context-menu',
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './context-menu.component.html',
   styleUrls: ['./context-menu.component.scss'],
 })

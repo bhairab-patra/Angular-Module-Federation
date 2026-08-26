@@ -11,7 +11,7 @@ import { PopoverPlacement, PopoverTriggerMode } from '../models/popover.model';
   selector: 'pui-lib-popover',
   standalone: true,
   imports: [NgIf],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './popover.component.html',
   styleUrls: ['./popover.component.scss'],
 })

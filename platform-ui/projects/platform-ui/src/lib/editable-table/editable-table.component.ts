@@ -1,5 +1,6 @@
-import {
-  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import {
+  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableColumn } from '../table/table.component';
@@ -12,7 +13,7 @@ export interface EditableRowEvent { index: number; row: any; }
   selector: 'pui-lib-editable-table',
   standalone: true,
   imports: [NgFor, NgIf, FormsModule],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './editable-table.component.html',
   styleUrls: ['./editable-table.component.scss'],
 })

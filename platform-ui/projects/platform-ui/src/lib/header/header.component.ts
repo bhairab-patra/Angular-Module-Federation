@@ -1,4 +1,4 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter,
   HostListener, ElementRef, ViewEncapsulation, inject, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
@@ -10,7 +10,7 @@ import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
   selector: 'pui-lib-header',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })

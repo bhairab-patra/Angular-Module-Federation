@@ -2,23 +2,23 @@ import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetect
 import { NgFor, NgIf, NgStyle, DecimalPipe, DatePipe } from '@angular/common';
 
 export interface DataGridColumn<T = any> {
-  field:     keyof T;
-  header:    string;
-  width?:    string;
+  field: keyof T;
+  header: string;
+  width?: string;
   sortable?: boolean;
-  type?:     'text' | 'number' | 'badge' | 'date';
-  align?:    'left' | 'center' | 'right';
+  type?: 'text' | 'number' | 'badge' | 'date';
+  align?: 'left' | 'center' | 'right';
   /** color is optional — omit it for a neutral default Chip/Badge instead of a status color. */
   badgeMap?: Record<string, { label: string; color?: string }>;
 }
 
 export interface DataGridSort {
   field: string;
-  dir:   'asc' | 'desc';
+  dir: 'asc' | 'desc';
 }
 
 export interface DataGridPageEvent {
-  page:     number;
+  page: number;
   pageSize: number;
 }
 
@@ -27,28 +27,28 @@ export interface DataGridPageEvent {
   selector: 'pui-lib-datagrid',
   standalone: true,
   imports: [NgFor, NgIf, NgStyle, DecimalPipe, DatePipe],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './datagrid.component.html',
   styleUrls: ['./datagrid.component.scss'],
 })
 export class PuiDataGridComponent<T extends Record<string, any> = any> {
-  @Input() columns:   DataGridColumn<T>[] = [];
-  @Input() rows:      T[]                 = [];
-  @Input() rowKey:    keyof T             = 'id' as keyof T;
-  @Input() selectable  = false;
-  @Input() paginate    = false;
-  @Input() pageSize    = 10;
-  @Input() emptyText   = 'No data to display.';
+  @Input() columns: DataGridColumn<T>[] = [];
+  @Input() rows: T[] = [];
+  @Input() rowKey: keyof T = 'id' as keyof T;
+  @Input() selectable = false;
+  @Input() paginate = false;
+  @Input() pageSize = 10;
+  @Input() emptyText = 'No data to display.';
   /** Optional title shown on the left of the grid toolbar (e.g. "Account Summary"). */
-  @Input() heading     = '';
+  @Input() heading = '';
 
-  @Output() rowClick      = new EventEmitter<T>();
+  @Output() rowClick = new EventEmitter<T>();
   @Output() selectionChange = new EventEmitter<T[]>();
-  @Output() sortChange    = new EventEmitter<DataGridSort>();
-  @Output() pageChange    = new EventEmitter<DataGridPageEvent>();
+  @Output() sortChange = new EventEmitter<DataGridSort>();
+  @Output() pageChange = new EventEmitter<DataGridPageEvent>();
 
-  sort:        DataGridSort | null = null;
-  currentPage  = 1;
+  sort: DataGridSort | null = null;
+  currentPage = 1;
   selectedRows = new Set<any>();
 
   get sortedRows(): T[] {
@@ -65,8 +65,8 @@ export class PuiDataGridComponent<T extends Record<string, any> = any> {
   }
 
   get totalPages(): number { return Math.max(1, Math.ceil(this.sortedRows.length / this.pageSize)); }
-  get pageStart():  number { return (this.currentPage - 1) * this.pageSize + 1; }
-  get pageEnd():    number { return Math.min(this.currentPage * this.pageSize, this.sortedRows.length); }
+  get pageStart(): number { return (this.currentPage - 1) * this.pageSize + 1; }
+  get pageEnd(): number { return Math.min(this.currentPage * this.pageSize, this.sortedRows.length); }
 
   get pagedRows(): T[] {
     if (!this.paginate) return this.sortedRows;
@@ -82,7 +82,7 @@ export class PuiDataGridComponent<T extends Record<string, any> = any> {
   toggleRow(row: T, e: Event): void {
     const checked = (e.target as HTMLInputElement).checked;
     if (checked) this.selectedRows.add(row[this.rowKey]);
-    else         this.selectedRows.delete(row[this.rowKey]);
+    else this.selectedRows.delete(row[this.rowKey]);
     this.selectionChange.emit(this.rows.filter(r => this.selectedRows.has(r[this.rowKey])));
   }
 
@@ -90,7 +90,7 @@ export class PuiDataGridComponent<T extends Record<string, any> = any> {
     const checked = (e.target as HTMLInputElement).checked;
     this.pagedRows.forEach(r => {
       if (checked) this.selectedRows.add(r[this.rowKey]);
-      else         this.selectedRows.delete(r[this.rowKey]);
+      else this.selectedRows.delete(r[this.rowKey]);
     });
     this.selectionChange.emit(this.rows.filter(r => this.selectedRows.has(r[this.rowKey])));
   }

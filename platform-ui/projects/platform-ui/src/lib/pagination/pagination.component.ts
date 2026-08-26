@@ -1,6 +1,7 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter,
-  OnChanges, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  OnChanges, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 
@@ -9,22 +10,22 @@ import { IconComponent } from '../icon/icon.component';
   selector: 'pui-lib-pagination',
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './pagination.component.html',
-  styleUrls:   ['./pagination.component.scss'],
+  styleUrls: ['./pagination.component.scss'],
 })
 export class PuiPaginationComponent implements OnChanges {
-  @Input() total               = 0;
-  @Input() page                = 1;
-  @Input() pageSize            = 10;
+  @Input() total = 0;
+  @Input() page = 1;
+  @Input() pageSize = 10;
   @Input() pageSizeOptions: number[] = [10, 25, 50, 100];
   @Input() showPageSizeSelector = true;
-  @Input() showFirstLast       = true;
-  @Input() maxVisible          = 7;
-  @Input() itemLabel           = 'items';
-  @Input() compact             = false;
+  @Input() showFirstLast = true;
+  @Input() maxVisible = 7;
+  @Input() itemLabel = 'items';
+  @Input() compact = false;
 
-  @Output() pageChange     = new EventEmitter<number>();
+  @Output() pageChange = new EventEmitter<number>();
   @Output() pageSizeChange = new EventEmitter<number>();
 
   pages: (number | '...')[] = [];
@@ -36,7 +37,7 @@ export class PuiPaginationComponent implements OnChanges {
   }
 
   get startItem(): number { return this.total === 0 ? 0 : (this.page - 1) * this.pageSize + 1; }
-  get endItem():   number { return Math.min(this.page * this.pageSize, this.total); }
+  get endItem(): number { return Math.min(this.page * this.pageSize, this.total); }
 
   goTo(p: number): void {
     if (p < 1 || p > this.totalPages || p === this.page) return;
@@ -54,20 +55,20 @@ export class PuiPaginationComponent implements OnChanges {
 
   private _buildPages(): (number | '...')[] {
     const total = this.totalPages;
-    const cur   = this.page;
-    const max   = this.maxVisible;
+    const cur = this.page;
+    const max = this.maxVisible;
 
     if (total <= max) return Array.from({ length: total }, (_, i) => i + 1);
 
     const half = Math.floor(max / 2);
-    let start  = Math.max(2, cur - half);
-    let end    = Math.min(total - 1, cur + half);
+    let start = Math.max(2, cur - half);
+    let end = Math.min(total - 1, cur + half);
 
-    if (cur - half < 2)       end   = Math.min(total - 1, max - 2);
+    if (cur - half < 2) end = Math.min(total - 1, max - 2);
     if (cur + half > total - 1) start = Math.max(2, total - max + 2);
 
     const pages: (number | '...')[] = [1];
-    if (start > 2)       pages.push('...');
+    if (start > 2) pages.push('...');
     for (let i = start; i <= end; i++) pages.push(i);
     if (end < total - 1) pages.push('...');
     pages.push(total);

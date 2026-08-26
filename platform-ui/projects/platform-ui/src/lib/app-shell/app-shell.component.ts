@@ -19,7 +19,7 @@ import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.m
   selector: 'pui-lib-app-shell',
   standalone: true,
   imports: [NgIf, PuiSolifiSidebarComponent, HeaderComponent, PuiFooterComponent],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
 })

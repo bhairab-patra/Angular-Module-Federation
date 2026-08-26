@@ -1,6 +1,7 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, OnInit, OnDestroy,
-  HostListener, ElementRef, ViewChild, ViewEncapsulation, inject, ChangeDetectionStrategy } from '@angular/core';
+  HostListener, ElementRef, ViewChild, ViewEncapsulation, inject, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -11,21 +12,21 @@ import { SearchSuggestion, SearchSize } from '../models/search.model';
   selector: 'pui-lib-search',
   standalone: true,
   imports: [NgIf, NgFor],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
 export class PuiSearchComponent implements OnInit, OnDestroy {
   @ViewChild('inputEl') inputEl!: ElementRef<HTMLInputElement>;
 
-  @Input() placeholder  = 'Search�';
+  @Input() placeholder = 'Searchï¿½';
   @Input() size: SearchSize = 'md';
-  @Input() value        = '';
-  @Input() debounce     = 300;
-  @Input() minChars     = 1;
-  @Input() shortcut     = '';
-  @Input() emptyText    = 'No results found';
-  @Input() maxRecent    = 5;
+  @Input() value = '';
+  @Input() debounce = 300;
+  @Input() minChars = 1;
+  @Input() shortcut = '';
+  @Input() emptyText = 'No results found';
+  @Input() maxRecent = 5;
 
   @Input() set suggestions(v: SearchSuggestion[] | string) {
     this._suggestions = typeof v === 'string' ? (this._parseJson<SearchSuggestion[]>(v) ?? []) : (v || []);
@@ -62,15 +63,15 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
     try { return JSON.parse(s) as T; } catch { return null; }
   }
 
-  @Output() searchChange        = new EventEmitter<string>();
-  @Output() valueChange         = new EventEmitter<string>();
-  @Output() suggestionSelected  = new EventEmitter<SearchSuggestion>();
-  @Output() cleared             = new EventEmitter<void>();
-  @Output() submitted           = new EventEmitter<string>();
+  @Output() searchChange = new EventEmitter<string>();
+  @Output() valueChange = new EventEmitter<string>();
+  @Output() suggestionSelected = new EventEmitter<SearchSuggestion>();
+  @Output() cleared = new EventEmitter<void>();
+  @Output() submitted = new EventEmitter<string>();
 
-  isOpen    = false;
-  focused   = false;
-  focusIdx  = -1;
+  isOpen = false;
+  focused = false;
+  focusIdx = -1;
   recentItems: string[] = [];
 
   private input$ = new Subject<string>();
@@ -212,10 +213,10 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
 
   private openDropdown(): void {
     this.isOpen = (this.value.length > 0 && this.filteredSuggestions.length > 0)
-               || (!this.value && this.recentItems.length > 0);
+      || (!this.value && this.recentItems.length > 0);
   }
 
-  private closeDropdown(): void {}
+  private closeDropdown(): void { }
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {

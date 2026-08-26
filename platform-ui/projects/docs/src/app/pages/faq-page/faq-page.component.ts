@@ -155,41 +155,64 @@ input { border: 2px solid red; }   /* blocked */
         },
         {
           q: 'How do I override a library component\'s style (e.g. make the header taller) from my consumer app?',
-          a: 'The library uses ViewEncapsulation.Emulated, which means Angular scopes component styles using attribute selectors. A plain class override in your component stylesheet will not reach inside the library component because the attribute tokens won\'t match. Use ::ng-deep prefixed with :host to pierce the encapsulation boundary — this scopes the override to your component only so it does not bleed globally.\n\nFor overrides that should apply everywhere in the app, put them in your global styles.scss instead.',
-          code: `/* ── Option 1: Override in a specific component only ──────────
-   your-page.component.scss
-   :host scopes it to this component; ::ng-deep pierces the
-   library's Emulated encapsulation boundary              */
+          a: 'Every component uses ViewEncapsulation.ShadowDom — a real browser-level boundary. ::ng-deep, plain class selectors, and even !important cannot reach inside anymore (this used to be possible under the older Emulated encapsulation, but no longer works). The only supported way in is a CSS custom property. See the dedicated "Overriding Library Styles (Shadow DOM)" section below for the full explanation and examples.',
+          code: `/* ❌ None of these reach inside the component anymore */
+:host ::ng-deep .pui-header { height: 80px; }
+.pui-header { height: 80px; }
 
-:host ::ng-deep .pui-header {
-  height: 80px;   /* library default is 60px */
-}
-
-
-/* ── Option 2: Override globally (all pages in the app) ────
-   src/styles.scss — no scoping needed, reaches everywhere  */
-
-.pui-header {
-  height: 80px;
-}
-
-
-/* ── Option 3: Use a CSS custom property if available ──────
-   Cleanest — no ::ng-deep needed                           */
-
-:root {
-  --pui-header-height: 80px;
-}
-
-
-/* ── What NOT to do ────────────────────────────────────────
-   A plain class rule inside a component stylesheet gets
-   an Angular attribute token and will NEVER match the
-   library's DOM elements (which have a different token)    */
-
-/* ❌ This will not work inside a component .scss file */
-.pui-header { height: 80px; }`,
+/* ✅ Use the exposed CSS variable instead */
+pui-lib-header { --pui-header-height: 80px; }`,
           lang: 'css',
+        },
+      ],
+    },
+    {
+      title: 'Overriding Library Styles (Shadow DOM)',
+      icon: '🛡️',
+      open: false,
+      items: [
+        {
+          q: 'Can I override a component\'s internal CSS directly — a class selector, ::ng-deep, or !important?',
+          a: 'No, and this is intentional. Every component renders inside a real browser Shadow DOM boundary. No selector from your app\'s stylesheet — however specific, however many !important flags — can cross into it. This is what stops a global reset like * { color: red; background: aqua; } in a consumer app from bleeding into pui-lib-header or pui-lib-solifi-sidebar. Older advice that suggested :host ::ng-deep .pui-header { ... } no longer works; it was only ever valid under the previous Emulated encapsulation.',
+          code: `/* Your app's global CSS — NONE of this reaches inside a component,
+   not even with !important */
+* { color: red !important; background: aqua !important; }
+.pui-header { height: 80px; }
+:host ::ng-deep .pui-header { height: 80px; }`,
+          lang: 'css',
+        },
+        {
+          q: 'So how do I actually restyle a component then?',
+          a: 'CSS custom properties (--pui-*) are the one thing designed to cross the Shadow DOM boundary. Set them on the component\'s own tag, on any ancestor, or on :root for a global change — the component reads the variable from outside and applies it internally.',
+          code: `/* Change one instance only */
+pui-lib-header {
+  --pui-header-bg: #112C35;
+  --pui-header-text: #ffffff;
+}
+
+/* Change every instance inside a section */
+.admin-area pui-lib-solifi-sidebar {
+  --ssb-active: #E55B2D;
+}
+
+/* Change it everywhere in the app */
+:root {
+  --pui-brand: #7B2FBE;
+}`,
+          lang: 'css',
+        },
+        {
+          q: 'What if the thing I want to change has no CSS variable exposed?',
+          a: 'Check the component\'s @Input() props first — several components (Header, Solifi Sidebar, App Shell) accept direct styling inputs such as bgColor, textColor, activeColor, or a full theme object, precisely so you don\'t need a CSS override at all. If neither a variable nor an input covers your case, that\'s a genuine gap — request it rather than reaching for ::ng-deep, since it will not compile around the Shadow boundary.',
+          code: `<!-- Styling via component inputs instead of CSS -->
+<pui-lib-solifi-sidebar
+  [theme]="{ bg: '#112C35', textColor: '#8fa3bc', activeColor: '#12C6A8' }">
+</pui-lib-solifi-sidebar>`,
+          lang: 'html',
+        },
+        {
+          q: 'I have existing ::ng-deep overrides targeting pui-lib-* components from before we upgraded — will they still work?',
+          a: 'No, and they will fail silently — no console error, the rule just never applies once the target is inside a Shadow root. Search your app for ::ng-deep rules that target pui-lib-* elements or any of their internal classes (.pui-header, .ssb, etc.) and replace each one with the matching --pui-* variable or a component @Input(). Do this deliberately after upgrading rather than discovering it as a visual regression.',
         },
       ],
     },
@@ -270,6 +293,28 @@ this.toast.success('Saved!');
 this.toast.error('Something went wrong');
 this.toast.info('3 items updated');`,
           lang: 'typescript',
+        },
+      ],
+    },
+    {
+      title: 'Layout & App Shell',
+      icon: '🧭',
+      open: false,
+      items: [
+        {
+          q: 'I use pui-lib-header and pui-lib-solifi-sidebar separately (not pui-lib-app-shell) — why does the header render full-width instead of sitting next to the sidebar?',
+          a: 'pui-lib-header and pui-lib-solifi-sidebar are independent components with no shared layout wrapper between them, so without one the browser just stacks them as normal block elements — the header renders full-width, and the sidebar ends up below it on the left instead of beside it. pui-lib-app-shell exists to solve exactly this: internally it wraps both in a flex row so the sidebar and the rest of the page sit side by side. If you\'d rather not use App Shell, reproduce the same structure yourself with a two-level flex wrapper: an outer flex row (sidebar + "everything else"), and an inner flex column inside that second cell so the header stacks above the content instead of beside it.',
+          code: `<div style="display:flex; height:100vh;">
+  <pui-lib-solifi-sidebar ...></pui-lib-solifi-sidebar>  <!-- fixed width, full height -->
+
+  <div style="flex:1; display:flex; flex-direction:column; min-width:0; overflow:hidden;">
+    <pui-lib-header ...></pui-lib-header>                <!-- spans only the remaining width -->
+    <main style="flex:1; overflow-y:auto;">
+      <!-- your page content -->
+    </main>
+  </div>
+</div>`,
+          lang: 'html',
         },
       ],
     },
@@ -490,6 +535,62 @@ npm run build:watch   # fast, ~3-5 sec, auto on every save
 
 # Use build:full for → new component added, tokens.css changed
 npm run build:full    # slow, ~30-60 sec, run manually`,
+          lang: 'bash',
+        },
+      ],
+    },
+    {
+      title: 'Linking Two Apps Locally (npm link / symlink)',
+      icon: '🧷',
+      open: false,
+      items: [
+        {
+          q: 'How do I develop the library and a consumer Angular app side by side, with changes showing up live?',
+          a: 'Symlink the package inside the consumer app\'s node_modules to point at the library\'s dist folder, then run both projects at once: the library in watch mode in one terminal, the consumer app\'s dev server in another. Every library change rebuilds automatically and the consumer app picks it up on its next request — no publish, no reinstall.',
+          code: `# One-time: link the package (from the consumer app's node_modules/@bhairab-patra)
+# Windows example — mklink /D creates a directory symlink
+mklink /D node_modules\\@bhairab-patra\\platform-ui ..\\..\\ANGULR_ARCH\\platform-ui\\dist\\platform-ui
+
+# Or, equivalently: npm link
+cd platform-ui && npm link
+cd ../your-consumer-app && npm link @bhairab-patra/platform-ui
+
+# Terminal 1 — from platform-ui root, rebuilds dist/ on every save
+npm run build:watch
+
+# Terminal 2 — from your consumer app root
+ng serve`,
+          lang: 'bash',
+        },
+        {
+          q: 'My consumer app crashes on startup with "NG0203: The ElementRef token injection failed" — what causes this?',
+          a: 'This happens specifically with a symlinked/linked package, never with a normal npm install. Because the symlink\'s real path lives inside the library repo\'s own folder, the bundler resolves @angular/core from the library repo\'s node_modules instead of your app\'s — two separate copies of Angular end up loaded on the same page, and dependency injection breaks for some components. The fix is a single flag in your consumer app\'s angular.json.',
+          code: `// angular.json — your-app → architect → build → options
+{
+  "options": {
+    "preserveSymlinks": true
+  }
+}
+
+// After adding it, clear caches and restart so the fix takes effect:
+// rm -rf .angular/cache
+// ng serve`,
+          lang: 'json',
+        },
+        {
+          q: 'Do I need preserveSymlinks for a normal production consumer app too?',
+          a: 'No. This is only relevant when the package comes from a symlink — local npm link, a manually created symlink, or a pnpm/yarn workspace in monorepo mode. An app that installs the library normally from a registry (npm install @bhairab-patra/platform-ui) resolves @angular/core normally and never hits this issue, so no extra angular.json configuration is needed.',
+        },
+        {
+          q: 'I added preserveSymlinks but still see the error or stale behavior — what else should I check?',
+          a: 'Clear both projects\' caches, not just the consumer app\'s: rm -rf .angular/cache and dist/platform-ui on the library side, then rebuild; rm -rf .angular/cache on the consumer app side, then restart ng serve. Vite pre-bundles the linked package the first time it sees it — a stale pre-bundle from before the fix (or before a library rebuild) is a common cause of "I already added the flag but nothing changed."',
+          code: `# Library side (from platform-ui root)
+rm -rf .angular/cache dist/platform-ui
+npm run build:local
+
+# Consumer app side
+rm -rf .angular/cache
+ng serve`,
           lang: 'bash',
         },
       ],

@@ -1,7 +1,8 @@
 import {
   Component, Input, Output, EventEmitter,
   inject, ViewChild, ElementRef,
-  HostListener, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  HostListener, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 
 export interface ComboboxOption {
@@ -17,7 +18,7 @@ export interface ComboboxOption {
   selector: 'pui-lib-combobox',
   standalone: true,
   imports: [NgFor, NgIf],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   templateUrl: './combobox.component.html',
   styleUrls: ['./combobox.component.scss'],
 })
@@ -26,19 +27,19 @@ export class PuiComboboxComponent {
 
   @ViewChild('cbInput') cbInput?: ElementRef<HTMLInputElement>;
 
-  open         = false;
-  query        = '';
+  open = false;
+  query = '';
   focusedIndex = -1;
 
-  _options:      ComboboxOption[] = [];
-  _value:        string | number | null = null;
-  _placeholder   = 'Select or search…';
-  _searchable    = true;
-  _clearable     = true;
+  _options: ComboboxOption[] = [];
+  _value: string | number | null = null;
+  _placeholder = 'Select or search…';
+  _searchable = true;
+  _clearable = true;
   _allowFreeText = false;
-  _disabled      = false;
-  _error         = '';
-  _hint          = '';
+  _disabled = false;
+  _error = '';
+  _hint = '';
 
   @Input() set options(v: ComboboxOption[] | string) {
     this._options = typeof v === 'string' ? (this._parse<ComboboxOption[]>(v) ?? []) : (v || []);
@@ -46,19 +47,19 @@ export class PuiComboboxComponent {
   @Input() set value(v: string | number | null) {
     this._value = v;
     const lbl = this.labelFor(v) ?? '';
-    this.query  = lbl;
+    this.query = lbl;
     this._setInput(lbl);
   }
-  @Input() set placeholder(v: string)            { this._placeholder   = v; }
-  @Input() set searchable(v: boolean | string)   { this._searchable    = this._bool(v); }
-  @Input() set clearable(v: boolean | string)    { this._clearable     = this._bool(v); }
-  @Input() set allowFreeText(v: boolean | string){ this._allowFreeText = this._bool(v); }
-  @Input() set disabled(v: boolean | string)     { this._disabled      = this._bool(v); }
-  @Input() set error(v: string)                  { this._error = v; }
-  @Input() set hint(v: string)                   { this._hint  = v; }
+  @Input() set placeholder(v: string) { this._placeholder = v; }
+  @Input() set searchable(v: boolean | string) { this._searchable = this._bool(v); }
+  @Input() set clearable(v: boolean | string) { this._clearable = this._bool(v); }
+  @Input() set allowFreeText(v: boolean | string) { this._allowFreeText = this._bool(v); }
+  @Input() set disabled(v: boolean | string) { this._disabled = this._bool(v); }
+  @Input() set error(v: string) { this._error = v; }
+  @Input() set hint(v: string) { this._hint = v; }
 
   @Output() valueChange = new EventEmitter<string | number | null>();
-  @Output() change      = new EventEmitter<string | number | null>();
+  @Output() change = new EventEmitter<string | number | null>();
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
@@ -83,7 +84,7 @@ export class PuiComboboxComponent {
 
   get groupedOptions(): { name: string; items: ComboboxOption[] }[] {
     const opts = this.filteredOptions;
-    const map  = new Map<string, ComboboxOption[]>();
+    const map = new Map<string, ComboboxOption[]>();
     opts.forEach(o => {
       const g = o.group ?? '';
       if (!map.has(g)) map.set(g, []);
@@ -155,8 +156,8 @@ export class PuiComboboxComponent {
   selectOption(opt: ComboboxOption) {
     if (opt.disabled) return;
     this._value = opt.value;
-    this.query  = opt.label;
-    this.open   = false;
+    this.query = opt.label;
+    this.open = false;
     this.focusedIndex = -1;
     this._setInput(opt.label);
     this.valueChange.emit(opt.value);
@@ -165,7 +166,7 @@ export class PuiComboboxComponent {
 
   selectFreeText() {
     this._value = this.query;
-    this.open   = false;
+    this.open = false;
     this._setInput(this.query);
     this.valueChange.emit(this.query);
     this.change.emit(this.query);
@@ -173,8 +174,8 @@ export class PuiComboboxComponent {
 
   clear() {
     this._value = null;
-    this.query  = '';
-    this.open   = false;
+    this.query = '';
+    this.open = false;
     this._setInput('');
     this.valueChange.emit(null);
     this.change.emit(null);

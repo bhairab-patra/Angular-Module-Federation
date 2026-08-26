@@ -1,6 +1,7 @@
-import {
+﻿import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormSize } from '../../models/form.model';
@@ -10,7 +11,7 @@ import { FormSize } from '../../models/form.model';
   selector: 'pui-lib-textarea',
   standalone: true,
   imports: [NgIf],
-  encapsulation: ViewEncapsulation.Emulated,
+  encapsulation: ViewEncapsulation.ShadowDom,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PuiTextareaComponent),
@@ -20,11 +21,11 @@ import { FormSize } from '../../models/form.model';
   styleUrls: ['./textarea.component.scss'],
 })
 export class PuiTextareaComponent implements ControlValueAccessor {
-  @Input() label       = '';
+  @Input() label = '';
   @Input() placeholder = '';
   @Input() size: FormSize = 'md';
-  @Input() error       = '';
-  @Input() hint        = '';
+  @Input() error = '';
+  @Input() hint = '';
   @Input() resize: 'both' | 'vertical' | 'horizontal' | 'none' = 'vertical';
 
   @Input() set rows(v: number | string) { this._rows = Number(v) || 4; }
@@ -55,17 +56,17 @@ export class PuiTextareaComponent implements ControlValueAccessor {
 
   @Output() valueChange = new EventEmitter<string>();
   @Output() inputChange = new EventEmitter<string>();
-  @Output() blurred     = new EventEmitter<void>();
+  @Output() blurred = new EventEmitter<void>();
 
   innerValue = '';
-  isFocused  = false;
+  isFocused = false;
 
-  private onChangeFn: (v: any) => void = () => {};
-  private onTouchedFn: () => void = () => {};
+  private onChangeFn: (v: any) => void = () => { };
+  private onTouchedFn: () => void = () => { };
 
 
   writeValue(val: any): void { this.innerValue = val ?? ''; }
-  registerOnChange(fn: any): void  { this.onChangeFn = fn; }
+  registerOnChange(fn: any): void { this.onChangeFn = fn; }
   registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
 
   onInput(val: string): void {
