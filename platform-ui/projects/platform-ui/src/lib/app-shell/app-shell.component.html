@@ -54,7 +54,7 @@
       <ng-content select="[title-actions]"></ng-content>
     </div>
 
-    <main class="pas__content">
+    <main class="pas__content" [style.paddingBottom.px]="footerReservedHeight || null">
       <ng-content></ng-content>
     </main>
 
@@ -64,6 +64,7 @@
     </footer>
 
     <pui-lib-footer
+      #footerEl
       *ngIf="showFooter"
       [variant]="footerVariant"
       [noticeSlides]="footerNoticeSlides"

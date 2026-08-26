@@ -1,6 +1,7 @@
 import {
   Component, Input, Output, EventEmitter,
   ViewEncapsulation, ChangeDetectionStrategy,
+  ViewChild, ElementRef, AfterViewInit, OnDestroy, inject, ChangeDetectorRef,
 } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { PuiSolifiSidebarComponent } from '../solifi-sidebar/solifi-sidebar.component';
@@ -22,7 +23,15 @@ import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.m
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
 })
-export class PuiAppShellComponent {
+export class PuiAppShellComponent implements AfterViewInit, OnDestroy {
+  private _cdr = inject(ChangeDetectorRef);
+  @ViewChild('footerEl', { read: ElementRef }) private _footerEl?: ElementRef<HTMLElement>;
+  private _footerResizeObserver: ResizeObserver | undefined;
+  /** Reserved bottom padding on .pas__content so a fixed (stickyBottom) footer
+   * never overlaps the last bit of scrollable content — position:fixed takes
+   * the footer out of flex flow, so nothing else makes room for it. */
+  footerReservedHeight = 0;
+
 
   // ── HEADER — every input here affects only the top header bar ──────────
 
@@ -167,6 +176,7 @@ export class PuiAppShellComponent {
    * component (variants, rotating notice slides, sticky-bottom, etc). */
   @Input() set showFooter(v: boolean | string) {
     this._showFooter = v === true || v === 'true' || (v as any) === '';
+    this._scheduleFooterMeasure();
   }
   get showFooter(): boolean { return this._showFooter; }
   private _showFooter = false;
@@ -205,6 +215,7 @@ export class PuiAppShellComponent {
    * wherever it lands after your page content. */
   @Input() set footerStickyBottom(v: boolean | string) {
     this._footerStickyBottom = v === true || v === 'true' || (v as any) === '';
+    this._scheduleFooterMeasure();
   }
   get footerStickyBottom(): boolean { return this._footerStickyBottom; }
   private _footerStickyBottom = false;
@@ -242,5 +253,38 @@ export class PuiAppShellComponent {
 
   private _parse<T>(s: string): T | null {
     try { return JSON.parse(s) as T; } catch { return null; }
+  }
+
+  ngAfterViewInit(): void {
+    this._observeFooter();
+  }
+
+  ngOnDestroy(): void {
+    this._footerResizeObserver?.disconnect();
+  }
+
+  /** Input setters can fire before the view (and #footerEl) exists yet — defer one microtask so ViewChild is resolved. */
+  private _scheduleFooterMeasure(): void {
+    queueMicrotask(() => this._observeFooter());
+  }
+
+  private _observeFooter(): void {
+    this._footerResizeObserver?.disconnect();
+    this._footerResizeObserver = undefined;
+
+    if (!this._showFooter || !this._footerStickyBottom || !this._footerEl) {
+      this.footerReservedHeight = 0;
+      this._cdr.markForCheck();
+      return;
+    }
+
+    const el = this._footerEl.nativeElement;
+    const measure = () => {
+      this.footerReservedHeight = el.offsetHeight;
+      this._cdr.markForCheck();
+    };
+    measure();
+    this._footerResizeObserver = new ResizeObserver(measure);
+    this._footerResizeObserver.observe(el);
   }
 }

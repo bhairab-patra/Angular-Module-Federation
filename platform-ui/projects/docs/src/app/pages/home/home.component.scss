@@ -11,27 +11,40 @@
   position: relative;
 }
 
-/* ── Hero: two-column ─────────────────────────────── */
+/* ── Hero: single centered column ─────────────────── */
 .lp-hero {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 48px;
+  justify-content: center;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 72px 56px;
 
   @media (max-width: 900px) {
-    flex-direction: column;
     padding: 48px 24px;
   }
 }
 
-/* ── Left ─────────────────────────────────────────── */
+/* ── Left (now the only, centered column) ────────────*/
 .lp-left {
   flex: 0 0 auto;
-  max-width: 520px;
+  max-width: 720px;
+  text-align: center;
+}
+
+.lp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(15,92,94,.22);
+  background: rgba(15,92,94,.08);
+  color: #0F5C5E;
+  font-size: 12.5px;
+  font-weight: 600;
+  margin-bottom: 18px;
 }
 
 .lp-title {
@@ -42,7 +55,7 @@
   margin: 0 0 20px;
   letter-spacing: -.02em;
 }
-.lp-title-accent { color: #12C6A8; }
+.lp-title-accent { color: #0F5C5E; }
 
 .lp-sub {
   font-size: 14px;
@@ -54,6 +67,7 @@
 /* Buttons */
 .lp-actions {
   display: flex;
+  justify-content: center;
   gap: 14px;
   flex-wrap: wrap;
   margin-bottom: 40px;
@@ -72,219 +86,138 @@
   transition: all .18s;
 
   &--primary {
-    background: #12C6A8;
+    background: #0F5C5E;
     color: #fff;
-    &:hover { background: #0db397; box-shadow: 0 6px 18px rgba(18,198,168,.45); }
+    &:hover {
+      background: #0a4749;
+      // box-shadow: 0 6px 18px rgba(15,92,94,.45);
+    }
   }
 
   &--ghost {
     background: #fff;
     color: #0d6e5f;
-    border: 1.5px solid rgba(18,198,168,.4);
+    border: 1.5px solid rgba(15,92,94,.4);
     // box-shadow: 0 2px 8px rgba(0,0,0,.06);
-    &:hover { border-color: #12C6A8; background: #f0fdf9; }
+    &:hover { border-color: #0F5C5E; background: #f0fdf9; }
   }
 }
 
-/* Pills */
-.lp-pills {
+/* ── Feature highlights ───────────────────────────── */
+.lp-features {
   display: flex;
-  gap: 10px;
+  justify-content: center;
+  gap: 14px;
   flex-wrap: wrap;
+  margin-bottom: 36px;
 }
 
-.lp-pill {
-  display: inline-flex;
+.lp-feature {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 14px;
-  border-radius: 999px;
-  border: 1.5px solid rgba(18,198,168,.3);
-  background: rgba(18,198,168,.07);
-  color: #0d6e5f;
-  font-size: 13px;
-  font-weight: 600;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  text-align: left;
 }
 
-/* ── Right ────────────────────────────────────────── */
-.lp-right {
-  flex: 1;
+.lp-feature__icon {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  min-width: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(15,92,94,.08);
+  color: #0F5C5E;
 }
 
-.lp-deco {
-  position: absolute;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(18,198,168,.18) 0%, rgba(18,198,168,.0) 70%);
-  top: 50%;
-  right: -60px;
-  transform: translateY(-50%);
-  z-index: 0;
-  pointer-events: none;
-}
-
-.lp-dots {
-  position: absolute;
-  top: -24px;
-  right: -28px;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 1;
-}
-
-/* ── Mockup window ────────────────────────────────── */
-.lp-mockup {
-  position: relative;
-  z-index: 1;
-  background: #fff;
-  border-radius: 16px;
-  // box-shadow: 0 20px 60px rgba(0,0,0,.12), 0 4px 16px rgba(0,0,0,.06);
-  width: 100%;
-  max-width: 480px;
-  overflow: hidden;
-}
-
-.lp-mockup__bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 12px 16px;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
-}
-
-.lp-dot {
-  width: 11px; height: 11px;
-  border-radius: 50%;
-  &--red    { background: #ff5f57; }
-  &--yellow { background: #febc2e; }
-  &--green  { background: #28c840; }
-}
-
-.lp-mockup__body {
-  padding: 20px;
+.lp-feature__text {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  background: #f8fafc;
-}
+  gap: 1px;
 
-/* Rows */
-.lp-row {
-  display: flex;
-  gap: 14px;
+  strong {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #0f172a;
+  }
 
-  &--two { }
-}
-
-/* Widget cards */
-.lp-widget {
-  flex: 1;
-  background: #fff;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  padding: 14px 16px;
-
-  &--wide { flex: 1 1 100%; }
-
-  &--modal {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    padding: 0;
-    overflow: hidden;
+  small {
+    font-size: 11.5px;
+    color: #64748b;
   }
 }
 
-.mock-label {
-  font-size: 10px;
-  font-weight: 700;
-  color: #94a3b8;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  margin-bottom: 10px;
+/* ── Code sample ──────────────────────────────────── */
+.lp-code {
+  text-align: left;
+  background: #0b1220;
+  border-radius: 14px;
+  overflow: hidden;
+  max-width: 500px;
+  margin: 0px auto;
+  // box-shadow: 0 12px 32px rgba(0,0,0,.16);
 }
 
-/* Button mockup */
-.mock-btns {
+.lp-code__tabs {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
 }
 
-.mock-btn {
+.lp-code__tab {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  font-size: 12.5px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color .13s, background .13s;
+
+  &:hover { color: #e2e8f0; }
+
+  &--active {
+    color: #2dd9c4;
+    background: rgba(45,217,196,.1);
+  }
+}
+
+.lp-code__copy {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  border-radius: 7px;
-  font-size: 12px;
-  font-weight: 700;
-  font-family: 'Poppins', system-ui, sans-serif;
-  padding: 8px 18px;
-  cursor: default;
-
-  &--primary  { background: #12C6A8; color: #fff; }
-  &--outline  { background: #fff; color: #0f172a; border: 1.5px solid #e2e8f0; }
-  &--cancel   { background: #fff; color: #374151; border: 1.5px solid #e5e7eb; padding: 7px 14px; font-size: 11.5px; }
-  &--sm       { padding: 7px 14px; font-size: 11.5px; }
-}
-
-/* Card mockup */
-.mock-card-title { font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 5px; }
-.mock-card-sub   { font-size: 11px; color: #64748b; line-height: 1.5; margin-bottom: 8px; }
-.mock-card-link  { font-size: 11px; font-weight: 700; color: #12C6A8; }
-
-/* Badge mockup */
-.mock-badge-wrap { display: flex; align-items: center; margin-top: 10px; }
-.mock-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 700;
-
-  &--success { background: #12C6A8; color: #fff; }
-}
-
-/* Modal mockup */
-.mock-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 14px 10px;
-  border-bottom: 1px solid #e2e8f0;
-}
-.mock-modal-title { font-size: 12px; font-weight: 700; color: #0f172a; }
-.mock-modal-x     { font-size: 16px; color: #94a3b8; cursor: default; line-height: 1; }
-.mock-modal-body  { padding: 12px 14px; flex: 1; }
-.mock-modal-h     { font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
-.mock-modal-d     { font-size: 11px; color: #64748b; }
-.mock-modal-footer {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  padding: 10px 14px 12px;
-  border-top: 1px solid #e2e8f0;
-  background: #f8fafc;
-}
-
-/* Select mockup */
-.mock-select {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 7px;
-  padding: 8px 10px;
-  font-size: 12px;
+  gap: 6px;
+  margin-left: auto;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
   color: #94a3b8;
-  margin-top: 8px;
-  background: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: color .13s, background .13s;
+
+  &:hover { color: #e2e8f0; background: rgba(255,255,255,.06); }
 }
+
+.lp-code__body {
+  margin: 0;
+  padding: 18px 20px 22px;
+  color: #e2e8f0;
+  font-family: 'SF Mono', ui-monospace, Menlo, monospace;
+  font-size: 12.5px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+

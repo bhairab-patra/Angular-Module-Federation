@@ -14,9 +14,9 @@
     font-weight: 700;
     letter-spacing: .12em;
     text-transform: uppercase;
-    color: #12C6A8;
-    background: rgba(18, 198, 168, .12);
-    border: 1px solid rgba(18, 198, 168, .3);
+    color: #0F5C5E;
+    background: rgba(15, 92, 94, .12);
+    border: 1px solid rgba(15, 92, 94, .3);
     border-radius: 20px;
     padding: 4px 14px;
     margin-bottom: 20px;
@@ -55,9 +55,9 @@
   background: var(--pui-surface, #fff);
   transition: box-shadow .2s;
 
-  &:hover { box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+  // &:hover { box-shadow: 0 2px 12px rgba(0,0,0,.08); }
 
-  &--open { box-shadow: 0 2px 16px rgba(0,0,0,.1); }
+  // &--open { box-shadow: 0 2px 16px rgba(0,0,0,.1); }
 
   &__header {
     display: flex;
@@ -202,9 +202,9 @@
   cursor: pointer;
 
   &--primary {
-    background: #12C6A8;
+    background: #0F5C5E;
     color: #fff;
-    &:hover { background: #0db397; }
+    &:hover { background: #0a4749; }
   }
 
   &--ghost {

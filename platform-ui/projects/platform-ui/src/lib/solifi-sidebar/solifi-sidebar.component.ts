@@ -4,7 +4,6 @@ import {
 } from '@angular/core';
 import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
-import { TooltipComponent } from '../tooltip/tooltip.component';
 import { SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem } from '../models/solifi-sidebar.model';
 
 const MAX_LABEL_LEN = 22;
@@ -18,7 +17,7 @@ const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-solifi-sidebar',
   standalone: true,
-  imports: [NgFor, NgIf, NgStyle, IconComponent, TooltipComponent],
+  imports: [NgFor, NgIf, NgStyle, IconComponent],
   encapsulation: ViewEncapsulation.Emulated,
   templateUrl: './solifi-sidebar.component.html',
   styleUrls: ['./solifi-sidebar.component.scss'],
@@ -103,7 +102,10 @@ export class PuiSolifiSidebarComponent {
   tooltipTop = 0;
 
   onNavItemEnter(item: SolifiNavItem, event: MouseEvent): void {
-    if (!this._collapsed) return;
+    // Collapsed: every item needs a label preview. Expanded: only long,
+    // ellipsis-truncated labels need one. Positioned outside .ssb__nav
+    // below so it isn't clipped by that container's overflow:hidden.
+    if (!this._collapsed && !this.needsEllipsis(item.label)) return;
     const btn = event.currentTarget as HTMLElement;
     const ssbEl = (this._elRef.nativeElement as HTMLElement).querySelector('.ssb') as HTMLElement;
     const ssbRect = ssbEl.getBoundingClientRect();
@@ -164,7 +166,7 @@ export class PuiSolifiSidebarComponent {
     this.collapsedChange.emit(this._collapsed);
   }
 
-  select(item: SolifiNavItem): void {
+  select(item: SolifiNavItem, isChild = false): void {
     if (item.disabled) return;
     if (item.children?.length) {
       const wasOpen = this.openIds.has(item.id);
@@ -172,7 +174,18 @@ export class PuiSolifiSidebarComponent {
       if (!wasOpen) { this.openIds.add(item.id); }
       return;
     }
+    // Selecting a top-level leaf always clears any other open submenu, so
+    // exactly one item reads as "active" — never a stale previous one.
+    // A child click leaves its own parent submenu open (you're still in it).
+    if (!isChild) { this.openIds.clear(); }
     this.itemSelect.emit(item);
+  }
+
+  /** True if this item is the active leaf, its own submenu is open, or the active leaf lives inside it. */
+  isItemActive(item: SolifiNavItem): boolean {
+    if (this.activeId === item.id) return true;
+    if (this.openIds.has(item.id)) return true;
+    return !!item.children?.some(c => c.id === this.activeId);
   }
 
   toggleUserMenu(event: Event): void {

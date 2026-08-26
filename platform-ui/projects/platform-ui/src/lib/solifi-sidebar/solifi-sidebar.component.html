@@ -34,7 +34,7 @@
       <ul class="ssb__list">
         <li *ngFor="let item of group.items" [class.ssb__li--divider]="item.dividerAfter">
           <button class="ssb__item"
-                  [class.ssb__item--active]="activeId === item.id || openIds.has(item.id)"
+                  [class.ssb__item--active]="isItemActive(item)"
                   [class.ssb__item--disabled]="item.disabled"
                   (click)="select(item)"
                   (mouseenter)="onNavItemEnter(item, $event)"
@@ -47,15 +47,7 @@
             <span class="ssb__abbr" *ngIf="collapsed && !item.iconName && !item.icon">{{ itemAbbr(item) }}</span>
 
             <ng-container *ngIf="!collapsed">
-              <pui-lib-tooltip *ngIf="needsEllipsis(item.label); else plainLabel"
-                                class="ssb__label-tt"
-                                [text]="item.label"
-                                position="right">
-                <span class="ssb__label">{{ item.label }}</span>
-              </pui-lib-tooltip>
-              <ng-template #plainLabel>
-                <span class="ssb__label">{{ item.label }}</span>
-              </ng-template>
+              <span class="ssb__label">{{ item.label }}</span>
 
               <span *ngIf="item.children?.length" class="ssb__arrow" [class.ssb__arrow--open]="openIds.has(item.id)">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -71,7 +63,7 @@
               <button class="ssb__subitem"
                       [class.ssb__subitem--active]="activeId === child.id"
                       [class.ssb__subitem--disabled]="child.disabled"
-                      (click)="select(child)">
+                      (click)="select(child, true)">
                 <span class="ssb__subitem-dot"></span>
                 <span class="ssb__subitem-label">{{ child.label }}</span>
               </button>
@@ -126,7 +118,7 @@
 
   </div>
 
-  <div class="ssb__nav-tooltip" *ngIf="collapsed && hoveredItem" [style.top.px]="tooltipTop">
+  <div class="ssb__nav-tooltip" *ngIf="hoveredItem" [style.top.px]="tooltipTop">
     {{ hoveredItem!.label }}
   </div>
 

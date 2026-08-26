@@ -423,18 +423,6 @@ pui-lib-solifi-sidebar {
   text-overflow: ellipsis;
 }
 
-.ssb__label-tt {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-
-  ::ng-deep .pui-tt-host {
-    display: flex;
-    width: 100%;
-    min-width: 0;
-  }
-}
-
 .ssb__user-wrap {
   flex-shrink: 0;
   position: relative;
