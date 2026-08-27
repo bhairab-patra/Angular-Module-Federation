@@ -83,6 +83,44 @@
       <pre class="code-block"><code>{{ angularCode }}</code></pre>
     </div>
 
+    <!-- Grouped (navGroups) vs Flat (navItems) -->
+    <div class="demo-section">
+      <div class="demo-section__title">
+        Grouped vs flat navigation — navGroups vs navItems
+      </div>
+      <p class="demo-section__desc">
+        <code>sidebarGroups</code> accepts two shapes. Pass an array of
+        <code>SolifiNavGroup</code> objects (each with its own
+        <code>id</code>, <code>label</code>, and <code>items</code>) to get a
+        section label above every cluster — that's what "navGroups" means.
+        If you don't want section labels at all, skip the group wrapper and
+        pass a plain <code>SolifiNavItem[]</code> array instead — commonly
+        called "navItems". The shell checks whether the first array element
+        has an <code>items</code> key: if it doesn't, the whole array is
+        treated as one flat, ungrouped list and no label renders above it.
+        Same <code>[sidebarGroups]</code> input either way — nothing else in
+        your template changes.
+      </p>
+
+      <pui-lib-tabs
+        [tabs]="shellGroupsFlatTabs"
+        [activeTab]="shellGroupsFlatActive"
+        (tabChange)="setShellGroupsFlatTab($event.id)">
+        <div *ngIf="shellGroupsFlatActive === 'grouped'" class="tab-content-demo">
+          <div class="demo-section__title">HTML template</div>
+          <pre class="code-block"><code>{{ shellGroupedHtml }}</code></pre>
+          <div class="demo-section__title">Component TypeScript</div>
+          <pre class="code-block"><code>{{ shellGroupedTs }}</code></pre>
+        </div>
+        <div *ngIf="shellGroupsFlatActive === 'flat'" class="tab-content-demo">
+          <div class="demo-section__title">HTML template</div>
+          <pre class="code-block"><code>{{ shellFlatHtml }}</code></pre>
+          <div class="demo-section__title">Component TypeScript</div>
+          <pre class="code-block"><code>{{ shellFlatTs }}</code></pre>
+        </div>
+      </pui-lib-tabs>
+    </div>
+
     <!-- Categorized input/output reference -->
     <div class="demo-section">
       <div class="demo-section__title">Understanding Every Input &amp; Output</div>

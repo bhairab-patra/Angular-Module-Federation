@@ -166,14 +166,14 @@ pui-lib-solifi-sidebar {
   align-items: center;
   gap: 10px;
   padding: 0 20px;
-  height: 35px;
+  height: 50px;
   border: none;
   background: transparent;
   color: var(--ssb-text, rgba(255, 255, 255, 0.72));
   cursor: pointer;
   text-align: left;
   font-family: inherit;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   transition:
     background 0.13s,
@@ -397,7 +397,7 @@ pui-lib-solifi-sidebar {
   flex-shrink: 0;
   width: 28px;
   height: 28px;
-  border-radius: var(--pui-radius-md, 8px);
+  border-radius: 50%;
   background: var(--pui-solifi-sb-icon-chip-bg);
   color: var(--pui-white);
   transition:
@@ -419,13 +419,13 @@ pui-lib-solifi-sidebar {
 }
 
 .ssb:not(.ssb--collapsed) .ssb__icon {
-  width: 26px;
-  height: 26px;
+  width: 35px;
+  height: 35px;
 }
 
 .ssb:not(.ssb--collapsed) .ssb__icon svg {
-  width: 15px;
-  height: 15px;
+  width: 25px;
+  height: 25px;
 }
 
 .ssb__label {

@@ -21,13 +21,6 @@ $ease: cubic-bezier(.4, 0, .2, 1);
   }
 
   &__content {
-    /* overflow:hidden here is what lets grid-template-rows: 0fr collapse
-       this row to true 0px. Padding must NOT live on this element -- a
-       padded, overflow:hidden grid item doesn't shrink to 0 reliably in
-       every browser and leaves a residual sliver of text visible when
-       "closed" (this is the exact bug: padding kept ending up back on
-       __content instead of __content-text below -- if you're touching
-       this file again, keep the padding on __content-text). */
     overflow: hidden;
   }
 
@@ -36,6 +29,7 @@ $ease: cubic-bezier(.4, 0, .2, 1);
     font-size: 13.5px;
     line-height: 1.65;
     color: var(--pui-accordion-content-text);
+    text-align: left;
   }
 
   &__chevron {

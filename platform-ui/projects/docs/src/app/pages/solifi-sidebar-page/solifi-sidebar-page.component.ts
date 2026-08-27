@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgIf } from '@angular/common';
 import {
-  PuiSolifiSidebarComponent,
+  PuiSolifiSidebarComponent, PuiTabsComponent, TabItem,
   SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem, SOLIFI_THEME,
 } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
@@ -62,7 +62,7 @@ const NAV_GROUPS_TEXT_ONLY: SolifiNavGroup[] = NAV_GROUPS.map(g => ({
 @Component({
   selector: 'docs-solifi-sidebar-page',
   standalone: true,
-  imports: [NgIf, PuiSolifiSidebarComponent, DocPageComponent, FrameworkPreviewComponent],
+  imports: [NgIf, PuiSolifiSidebarComponent, PuiTabsComponent, DocPageComponent, FrameworkPreviewComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './solifi-sidebar-page.component.html',
   styleUrls: ['./solifi-sidebar-page.component.scss'],
@@ -271,6 +271,71 @@ export function AppLayout() {
   });
 </script>`;
 
+  /* ── Grouped (navGroups) vs Flat (navItems) ─────── */
+  groupsFlatTabs: TabItem[] = [
+    { id: 'grouped', label: 'With Groups (navGroups)' },
+    { id: 'flat',    label: 'Without Groups (navItems)' },
+  ];
+  groupsFlatActive = 'grouped';
+
+  setGroupsFlatTab(id: string): void {
+    this.groupsFlatActive = id;
+    this.cdr.markForCheck();
+  }
+
+  groupedHtml = `<!-- navGroups renders a label above each cluster of items -->
+<pui-lib-solifi-sidebar
+  [groups]="navGroups"
+  [activeId]="activeId"
+  (itemSelect)="onNav($event)">
+</pui-lib-solifi-sidebar>`;
+
+  groupedTs = `import { SolifiNavGroup, SolifiNavItem } from '@bhairab-patra/platform-ui';
+
+// Each group needs an id + label, and its own items array
+navGroups: SolifiNavGroup[] = [
+  {
+    id: 'dashboard', label: 'Dashboard',
+    items: [
+      { id: 'insights', label: 'Insights', iconName: 'search' },
+      { id: 'recent',   label: 'Recent',   iconName: 'clock'  },
+      { id: 'reports',  label: 'Reports',  iconName: 'chart'  },
+    ],
+  },
+  {
+    id: 'user-setup', label: 'User Setup',
+    items: [
+      { id: 'users',    label: 'Users',    iconName: 'users'    },
+      { id: 'settings', label: 'Settings', iconName: 'settings' },
+    ],
+  },
+];
+
+onNav(item: SolifiNavItem) { this.activeId = item.id; }`;
+
+  flatHtml = `<!-- Same [groups] input — just pass a flat item array, no wrapper -->
+<pui-lib-solifi-sidebar
+  [groups]="navItems"
+  [activeId]="activeId"
+  (itemSelect)="onNav($event)">
+</pui-lib-solifi-sidebar>`;
+
+  flatTs = `import { SolifiNavItem } from '@bhairab-patra/platform-ui';
+
+// No SolifiNavGroup wrapper, no group label rendered above them.
+// The sidebar auto-detects a flat array — it checks whether the first
+// element has an "items" key, and if not, treats the whole array as
+// one ungrouped list.
+navItems: SolifiNavItem[] = [
+  { id: 'insights', label: 'Insights', iconName: 'search' },
+  { id: 'recent',   label: 'Recent',   iconName: 'clock'  },
+  { id: 'reports',  label: 'Reports',  iconName: 'chart'  },
+  { id: 'users',    label: 'Users',    iconName: 'users'    },
+  { id: 'settings', label: 'Settings', iconName: 'settings' },
+];
+
+onNav(item: SolifiNavItem) { this.activeId = item.id; }`;
+
   angularCode = `import { PuiSolifiSidebarComponent, SolifiNavGroup, SOLIFI_THEME } from '@bhairab-patra/platform-ui';
 
 // With platform-ui icon names (recommended)
@@ -333,7 +398,7 @@ navGroups: SolifiNavGroup[] = [
 </script>`;
 
   api: ApiRow[] = [
-    { input: 'groups', type: 'SolifiNavGroup[]|string', default: '[]', description: 'Nav groups. Items can use iconName (platform-ui), icon (raw SVG), or neither (text-only). An item can set children (single-level submenu, expand/collapse on click) and dividerAfter (divider line below it).' },
+    { input: 'groups', type: 'SolifiNavGroup[]|SolifiNavItem[]|string', default: '[]', description: 'Nav groups OR a flat array of items — pass SolifiNavGroup[] to get a label above each cluster, or skip the wrapper and pass SolifiNavItem[] directly for one ungrouped list (auto-detected, no label rendered). See "Grouped vs flat navigation" below. Items can use iconName (platform-ui), icon (raw SVG), or neither (text-only). An item can set children (single-level submenu, expand/collapse on click) and dividerAfter (divider line below it).' },
     { input: 'activeId', type: 'string', default: "''", description: 'Currently active item id.' },
     { input: 'brandName', type: 'string', default: "'solifi'", description: 'Brand name shown next to logo in expanded state.' },
     { input: 'logo', type: 'string (SVG/HTML)', default: 'default', description: 'Logo HTML. Defaults to hexagon Solifi mark.' },

@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgIf } from '@angular/common';
 import {
-  PuiAppShellComponent,
+  PuiAppShellComponent, PuiTabsComponent, TabItem,
   SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem, SOLIFI_THEME,
   UserMenuItem,
   PuiAccordionComponent, AccordionItem,
@@ -64,7 +64,7 @@ const NAV_GROUPS: SolifiNavGroup[] = [
   selector: 'docs-app-shell-page',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgIf, PuiAppShellComponent, PuiAccordionComponent, DocPageComponent, FrameworkPreviewComponent],
+  imports: [NgIf, PuiAppShellComponent, PuiTabsComponent, PuiAccordionComponent, DocPageComponent, FrameworkPreviewComponent],
   templateUrl: './app-shell-page.component.html',
   styleUrls: ['./app-shell-page.component.scss'],
 })
@@ -130,6 +130,25 @@ export class AppShellPageComponent {
       ]),
     },
     {
+      id: 'ref-footer',
+      title: 'Footer (optional rich footer)',
+      content: '',
+      contentHtml: refTable([
+        ['showFooter', 'boolean|string', 'false', 'Renders the full pui-lib-footer component instead of the plain footerText bar. Only one footer ever renders at once — turning this on ignores footerText.'],
+        ['footerVariant', `'contact'|'disclaimer'|'simple'`, "'simple'", 'Which footer layout to render — contact shows office-hours/address + CTA, disclaimer shows body text + "read more" link, simple shows just the copyright/links bar.'],
+        ['footerNoticeSlides', 'FooterNoticeSlide[]|string', '[]', 'Rotating notice-card slides shown above the copyright bar (contact/disclaimer variants). Each slide only uses the fields its variant needs.'],
+        ['footerActiveSlideIndex', 'number|string', '0', 'Index of the currently visible notice slide. Bind two-way with (footerActiveSlideIndexChange) to sync rotation state.'],
+        ['footerCopyrightText', 'string', "'Copyright © {year} Solifi. All Rights Reserved.'", 'Copyright line shown in the footer bar. Independent of the shell-level footerText (that one is for the plain bar, this one is for the rich footer).'],
+        ['footerLinks', 'FooterLink[]|string', '[]', 'Bottom-row links (label + href or action) — e.g. Privacy Policy, Terms of Service.'],
+        ['footerPoweredByText', 'string', "'Powered by Solifi™'", 'Small "powered by" label shown alongside the copyright line.'],
+        ['showFooterPoweredBy', 'boolean|string', 'true', 'Show/hide the "powered by" label entirely.'],
+        ['footerStickyBottom', 'boolean|string', 'false', 'Pins the footer to the bottom of the viewport (position: fixed) instead of letting it flow after your page content. The shell auto-reserves space so content never sits underneath it.'],
+        ['footerActiveSlideIndexChange', 'EventEmitter<number>', '—', 'Fires when the active notice slide changes (auto-rotation or manual nav).'],
+        ['footerLinkClick', 'EventEmitter<FooterLink>', '—', 'Fires when a bottom-row footer link is clicked.'],
+        ['footerContactClick', 'EventEmitter<FooterNoticeSlide>', '—', "Fires when the contact variant's call-to-action button is clicked."],
+      ]),
+    },
+    {
       id: 'ref-header',
       title: 'Header (optional top bar)',
       content: '',
@@ -178,6 +197,72 @@ export class AppShellPageComponent {
     }
     return NAV_GROUPS;
   }
+
+  /* ── Grouped (navGroups) vs Flat (navItems) ─────── */
+  shellGroupsFlatTabs: TabItem[] = [
+    { id: 'grouped', label: 'With Groups (navGroups)' },
+    { id: 'flat',    label: 'Without Groups (navItems)' },
+  ];
+  shellGroupsFlatActive = 'grouped';
+
+  setShellGroupsFlatTab(id: string): void {
+    this.shellGroupsFlatActive = id;
+    this.cdr.markForCheck();
+  }
+
+  shellGroupedTs = `import { PuiAppShellComponent, SolifiNavGroup, SolifiNavItem } from '@bhairab-patra/platform-ui';
+
+// sidebarGroups renders a label above each cluster of items
+navGroups: SolifiNavGroup[] = [
+  {
+    id: 'lending', label: 'Lending',
+    items: [
+      { id: 'loan-ledger',  label: 'Loan Ledger',  iconName: 'file'   },
+      { id: 'repayments',   label: 'Repayments',   iconName: 'dollar' },
+      { id: 'statements',   label: 'Statements',   iconName: 'inbox'  },
+    ],
+  },
+  {
+    id: 'admin', label: 'Admin',
+    items: [
+      { id: 'users',    label: 'Users',    iconName: 'users'    },
+      { id: 'settings', label: 'Settings', iconName: 'settings' },
+    ],
+  },
+];
+
+onNav(item: SolifiNavItem) { this.activeId = item.id; }`;
+
+  shellGroupedHtml = `<pui-lib-app-shell
+  [sidebarGroups]="navGroups"
+  [sidebarActiveId]="activeId"
+  (sidebarItemSelect)="onNav($event)">
+  <router-outlet />
+</pui-lib-app-shell>`;
+
+  shellFlatTs = `import { PuiAppShellComponent, SolifiNavItem } from '@bhairab-patra/platform-ui';
+
+// Same sidebarGroups input — just pass a flat item array, no wrapper.
+// No SolifiNavGroup, no group label rendered above them. The sidebar
+// auto-detects a flat array (checks whether the first element has an
+// "items" key) and renders it as one ungrouped list.
+navItems: SolifiNavItem[] = [
+  { id: 'loan-ledger', label: 'Loan Ledger', iconName: 'file'   },
+  { id: 'repayments',  label: 'Repayments',  iconName: 'dollar' },
+  { id: 'statements',  label: 'Statements',  iconName: 'inbox'  },
+  { id: 'users',       label: 'Users',       iconName: 'users'    },
+  { id: 'settings',    label: 'Settings',    iconName: 'settings' },
+];
+
+onNav(item: SolifiNavItem) { this.activeId = item.id; }`;
+
+  shellFlatHtml = `<!-- Same [sidebarGroups] input — pass navItems instead of navGroups -->
+<pui-lib-app-shell
+  [sidebarGroups]="navItems"
+  [sidebarActiveId]="activeId"
+  (sidebarItemSelect)="onNav($event)">
+  <router-outlet />
+</pui-lib-app-shell>`;
 
   onNav(item: SolifiNavItem): void { this.activeId = item.id; this.cdr.markForCheck(); }
   onCollapsed(v: boolean): void { this.collapsed = v; this.cdr.markForCheck(); }
@@ -493,7 +578,7 @@ export class AppComponent {
 
   api: ApiRow[] = [
     // ── Sidebar — every input here affects only the left nav rail ────────
-    { input: 'sidebarGroups', type: 'SolifiNavGroup[]', default: '[]', description: 'Navigation groups. Items support iconName, icon (SVG), or text-only.' },
+    { input: 'sidebarGroups', type: 'SolifiNavGroup[]|SolifiNavItem[]', default: '[]', description: 'Nav groups OR a flat array of items — pass SolifiNavGroup[] (navGroups) for a label above each cluster, or skip the wrapper and pass SolifiNavItem[] (navItems) directly for one ungrouped list (auto-detected, no label rendered). See "Grouped vs flat navigation" below. Items support iconName, icon (SVG), or text-only.' },
     { input: 'sidebarActiveId', type: 'string', default: "''", description: 'ID of the currently active nav item.' },
     { input: 'sidebarBrandName', type: 'string', default: "'solifi'", description: 'Brand name shown next to the sidebar logo in expanded state.' },
     { input: 'sidebarLogoUrl', type: 'string', default: "''", description: 'Image URL for the sidebar logo (e.g. assets/logo.png).' },
@@ -536,8 +621,22 @@ export class AppComponent {
     { input: 'headerSearchQuery', type: 'EventEmitter<string>', default: '—', description: 'Fires as the user types in the header\'s inline search field.' },
     { input: 'headerMenuAction', type: 'EventEmitter<string>', default: '—', description: 'Fires when a header avatar dropdown item is clicked.' },
 
+    // ── Footer (optional) — every input here affects only the rich footer ─
+    { input: 'showFooter', type: 'boolean | string', default: 'false', description: 'Renders the full pui-lib-footer component instead of the plain footerText bar. Only one footer ever renders at once.' },
+    { input: 'footerVariant', type: `'contact'|'disclaimer'|'simple'`, default: "'simple'", description: 'Footer layout — contact (office-hours/address + CTA), disclaimer (body text + read-more link), or simple (copyright/links bar only).' },
+    { input: 'footerNoticeSlides', type: 'FooterNoticeSlide[] | string', default: '[]', description: 'Rotating notice-card slides shown above the copyright bar (contact/disclaimer variants).' },
+    { input: 'footerActiveSlideIndex', type: 'number | string', default: '0', description: 'Index of the currently visible notice slide.' },
+    { input: 'footerCopyrightText', type: 'string', default: "'Copyright © {year} Solifi...'", description: 'Copyright line in the rich footer — separate from the shell-level footerText.' },
+    { input: 'footerLinks', type: 'FooterLink[] | string', default: '[]', description: 'Bottom-row links (label + href or action).' },
+    { input: 'footerPoweredByText', type: 'string', default: "'Powered by Solifi™'", description: '"Powered by" label next to the copyright line.' },
+    { input: 'showFooterPoweredBy', type: 'boolean | string', default: 'true', description: 'Show/hide the "powered by" label.' },
+    { input: 'footerStickyBottom', type: 'boolean | string', default: 'false', description: 'Pins the footer to the bottom of the viewport instead of flowing after page content.' },
+    { input: 'footerActiveSlideIndexChange', type: 'EventEmitter<number>', default: '—', description: 'Fires when the active notice slide changes.' },
+    { input: 'footerLinkClick', type: 'EventEmitter<FooterLink>', default: '—', description: 'Fires when a bottom-row footer link is clicked.' },
+    { input: 'footerContactClick', type: 'EventEmitter<FooterNoticeSlide>', default: '—', description: "Fires when the contact variant's CTA button is clicked." },
+
     // ── Shell — layout-level, not owned by either the sidebar or header ──
     { input: 'pageTitle', type: 'string', default: "''", description: 'Title shown in the bar under the header.' },
-    { input: 'footerText', type: 'string', default: "''", description: 'Text for the bottom footer bar; the bar only renders when this is non-empty.' },
+    { input: 'footerText', type: 'string', default: "''", description: 'Plain one-line copyright bar. Ignored while showFooter is true (the rich footer replaces it).' },
   ];
 }

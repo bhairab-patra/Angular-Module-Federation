@@ -117,6 +117,45 @@
       <div class="demo-section__title">React / HTML (Web Component)</div>
       <pre class="code-block"><code>{{ reactCode }}</code></pre>
     </div>
+
+    <!-- Code: Grouped (navGroups) vs Flat (navItems) -->
+    <div class="demo-section">
+      <div class="demo-section__title">
+        Grouped vs flat navigation — navGroups vs navItems
+      </div>
+      <p class="fw-lead">
+        The <code>groups</code> input accepts two shapes. Pass an array of
+        <code>SolifiNavGroup</code> objects (each with its own
+        <code>id</code>, <code>label</code>, and <code>items</code>) to get a
+        section label above every cluster — that's what "navGroups" means.
+        If you don't want section labels at all, skip the group wrapper and
+        pass a plain <code>SolifiNavItem[]</code> array instead — commonly
+        called "navItems". The sidebar checks whether the first array element
+        has an <code>items</code> key: if it doesn't, the whole array is
+        treated as one flat, ungrouped list and no label is rendered above
+        it. Same <code>[groups]</code> input either way — nothing else in
+        your template changes.
+      </p>
+
+      <pui-lib-tabs
+        [tabs]="groupsFlatTabs"
+        [activeTab]="groupsFlatActive"
+        (tabChange)="setGroupsFlatTab($event.id)"
+      >
+        <div *ngIf="groupsFlatActive === 'grouped'" class="tab-content-demo">
+          <div class="demo-section__title">HTML template</div>
+          <pre class="code-block"><code>{{ groupedHtml }}</code></pre>
+          <div class="demo-section__title">Component TypeScript</div>
+          <pre class="code-block"><code>{{ groupedTs }}</code></pre>
+        </div>
+        <div *ngIf="groupsFlatActive === 'flat'" class="tab-content-demo">
+          <div class="demo-section__title">HTML template</div>
+          <pre class="code-block"><code>{{ flatHtml }}</code></pre>
+          <div class="demo-section__title">Component TypeScript</div>
+          <pre class="code-block"><code>{{ flatTs }}</code></pre>
+        </div>
+      </pui-lib-tabs>
+    </div>
   </ng-container>
 
   <ng-container framework>
