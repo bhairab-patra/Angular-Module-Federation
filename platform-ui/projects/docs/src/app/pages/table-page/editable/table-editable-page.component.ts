@@ -267,7 +267,7 @@ onSave(e: FormDialogSaveEvent) { console.log(e.data); this.formOpen = false; }`;
     { input: 'searchable', type: 'boolean', default: 'false', description: 'Shows a pui-lib-search box in the toolbar that filters rows by matching any column value, live as you type. Edit/delete/save/sort always act on the correct original row even while filtered.' },
     { input: 'striped', type: 'boolean', default: 'true', description: 'Alternating row background shading. Same input name/behavior as pui-lib-table and pui-lib-data-table.' },
     { input: 'stickyHeader', type: 'boolean', default: 'true', description: 'Keeps the header row pinned while the body scrolls. Set false to let it scroll away with the content.' },
-    { input: 'pagination', type: 'boolean', default: 'false', description: 'Paginates rows (after search/sort) using pui-lib-pagination in the footer, instead of showing every row in one scroll.' },
+    { input: 'pagination', type: 'boolean', default: 'false', description: 'Paginates rows (after search/sort) using pui-lib-simple-pagination in the footer, instead of showing every row in one scroll.' },
     { input: 'pageSize', type: 'number', default: '10', description: 'Rows per page when pagination is true.' },
     { input: 'pageSizeOptions', type: 'number[]', default: '[10, 25, 50, 100]', description: 'Options shown in the pagination page-size selector.' },
     { input: 'tooltipPosition', type: `'top'|'bottom'|'left'|'right'`, default: `'right'`, description: 'Placement of the tooltip that appears when a truncated header or cell is hovered.' },

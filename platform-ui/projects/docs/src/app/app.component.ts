@@ -65,8 +65,6 @@ export class AppComponent {
     { label: 'Tag', route: '/tag', category: 'Component', keywords: ['tag', 'label', 'badge', 'status', 'category', 'pill', 'uppercase'] },
     { label: 'List', route: '/list', category: 'Component', keywords: ['list', 'items', 'selectable', 'bordered', 'striped', 'flush', 'menu', 'navigation'] },
     { label: 'Menu', route: '/menu', category: 'Component', keywords: ['menu', 'dropdown', 'submenu', 'context', 'actions', 'popover', 'trigger', 'select'] },
-    { label: 'Data Grid', route: '/datagrid', category: 'Component', keywords: ['datagrid', 'grid', 'table', 'data', 'sort', 'pagination', 'selectable', 'rows', 'columns', 'badge'] },
-    { label: 'Pagination', route: '/pagination', category: 'Component', keywords: ['pagination', 'page', 'pager', 'pages', 'next', 'previous', 'navigate', 'records', 'total', 'ellipsis'] },
     { label: 'Simple Pagination', route: '/simple-pagination', category: 'Component', keywords: ['pagination', 'simple', 'page', 'pager', 'pages', 'next', 'previous', 'navigate', 'text', 'link', 'minimal', 'ellipsis'] },
     { label: 'Accordion', route: '/accordion', category: 'Component', keywords: ['accordion', 'expand', 'collapse', 'faq', 'panel', 'toggle', 'disclosure', 'content', 'sections'] },
     { label: 'Avatar', route: '/avatar', category: 'Component', keywords: ['avatar', 'user', 'profile', 'menu', 'dropdown', 'account', 'logout', 'sign out', 'card', 'initials', 'photo'] },
@@ -172,10 +170,6 @@ export class AppComponent {
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="12" height="6" rx="3"/></svg>`)
           },
           {
-            label: 'Data Grid', route: '/datagrid',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="1.5" width="5" height="5" rx="1"/><rect x="9.5" y="1.5" width="5" height="5" rx="1"/><rect x="1.5" y="9.5" width="5" height="5" rx="1"/><rect x="9.5" y="9.5" width="5" height="5" rx="1"/></svg>`)
-          },
-          {
             label: 'Date Picker', route: '/datepicker',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 7h12M5 2v2M11 2v2"/></svg>`)
           },
@@ -224,10 +218,6 @@ export class AppComponent {
           {
             label: 'Avatar', route: '/avatar',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="14" height="14" rx="3"/><path d="M4.5 8h7M4.5 5.5h4"/></svg>`)
-          },
-          {
-            label: 'Pagination', route: '/pagination',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="3" height="6" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="9" y="5" width="3" height="6" rx="1"/><rect x="13" y="5" width="2" height="6" rx="1"/></svg>`)
           },
           {
             label: 'Simple Pagination', route: '/simple-pagination',

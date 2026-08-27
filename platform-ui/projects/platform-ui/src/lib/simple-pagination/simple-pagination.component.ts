@@ -8,8 +8,6 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 /**
  * Minimal, text-link style pagination — "‹ Previous  1  2  3 … 10  Next ›".
- * Same total/page/pageSize contract as pui-lib-pagination, so it's a
- * drop-in swap wherever that component's numbered-button look isn't wanted.
  */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

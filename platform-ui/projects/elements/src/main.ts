@@ -32,13 +32,11 @@ import { PuiTabsComponent } from '../../platform-ui/src/lib/tabs/tabs.component'
 import { PuiChipComponent } from '../../platform-ui/src/lib/chip/chip.component';
 import { PuiTagComponent } from '../../platform-ui/src/lib/tag/tag.component';
 import { PuiSkeletonComponent } from '../../platform-ui/src/lib/skeleton/skeleton.component';
-import { PuiDataGridComponent } from '../../platform-ui/src/lib/datagrid/datagrid.component';
 import { PuiListComponent } from '../../platform-ui/src/lib/list/list.component';
 import { PuiDatepickerComponent } from '../../platform-ui/src/lib/datepicker/datepicker.component';
 import { PuiPasswordInputComponent } from '../../platform-ui/src/lib/forms/password/password-input.component';
 import { PuiComboboxComponent } from '../../platform-ui/src/lib/forms/combobox/combobox.component';
 import { PuiMultiSelectComponent } from '../../platform-ui/src/lib/forms/multiselect/multiselect.component';
-import { PuiSolifiSidebarComponent } from '../../platform-ui/src/lib/solifi-sidebar/solifi-sidebar.component';
 import { PuiAvatarComponent } from '../../platform-ui/src/lib/avatar/avatar.component';
 import { PuiAccordionComponent } from '../../platform-ui/src/lib/accordion/accordion.component';
 import { PuiFooterComponent } from '../../platform-ui/src/lib/footer/footer.component';
@@ -82,9 +80,12 @@ import { PuiDropzoneComponent } from '../../platform-ui/src/lib/dropzone/dropzon
   define(CardComponent, 'pui-lib-card');
   define(BadgeComponent, 'pui-lib-badge');
   define(ModalComponent, 'pui-lib-modal');
-  // pui-lib-header and pui-lib-sidebar are NOT registered as standalone custom elements.
-  // They are internal children of pui-lib-app-shell — Angular manages them via template
-  // binding. Registering them would cause a duplicate component bootstrap (double header).
+  // pui-lib-header, pui-lib-sidebar, and pui-lib-solifi-sidebar are NOT registered as
+  // standalone custom elements. They are internal children of pui-lib-app-shell — Angular
+  // manages them via template binding. Registering them under the same tag name the browser
+  // already recognizes causes the browser's native custom-element upgrade to attachShadow a
+  // second time on the same host Angular is rendering into (NotSupportedError: already hosts
+  // a shadow tree), crashing pui-lib-app-shell for every React/HTML consumer.
   define(IconComponent, 'pui-lib-icon');
   define(TooltipComponent, 'pui-lib-tooltip');
   define(SpinnerComponent, 'pui-lib-spinner');
@@ -104,13 +105,11 @@ import { PuiDropzoneComponent } from '../../platform-ui/src/lib/dropzone/dropzon
   define(PuiChipComponent, 'pui-lib-chip');
   define(PuiTagComponent, 'pui-lib-tag');
   define(PuiSkeletonComponent, 'pui-lib-skeleton');
-  define(PuiDataGridComponent, 'pui-lib-datagrid');
   define(PuiListComponent, 'pui-lib-list');
   define(PuiDatepickerComponent, 'pui-lib-datepicker');
   define(PuiPasswordInputComponent, 'pui-lib-password-input');
   define(PuiComboboxComponent, 'pui-lib-combobox');
   define(PuiMultiSelectComponent, 'pui-lib-multiselect');
-  define(PuiSolifiSidebarComponent, 'pui-lib-solifi-sidebar');
   define(PuiAvatarComponent, 'pui-lib-avatar');
   define(PuiAccordionComponent, 'pui-lib-accordion');
   define(PuiFooterComponent, 'pui-lib-footer');
