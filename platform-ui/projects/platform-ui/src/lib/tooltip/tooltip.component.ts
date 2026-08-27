@@ -1,5 +1,6 @@
 ﻿import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
 export type TooltipVariant = 'dark' | 'light' | 'teal';
@@ -10,6 +11,7 @@ export type TooltipVariant = 'dark' | 'light' | 'teal';
   standalone: true,
   imports: [CommonModule],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './tooltip.component.html',
   styleUrls: ['./tooltip.component.scss'],
 })

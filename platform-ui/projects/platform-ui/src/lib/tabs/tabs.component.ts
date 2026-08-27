@@ -5,6 +5,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { IconComponent } from '../icon/icon.component';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export interface TabItem {
   id: string;
@@ -25,6 +26,7 @@ export type TabsSize = 'sm' | 'md' | 'lg';
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
 })

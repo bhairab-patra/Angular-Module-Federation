@@ -5,6 +5,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { AvatarMenuItem, AvatarSize } from '../models/avatar.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,6 +13,7 @@ import { AvatarMenuItem, AvatarSize } from '../models/avatar.model';
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './avatar.component.html',
   styleUrls: ['./avatar.component.scss'],
 })
@@ -58,7 +60,11 @@ export class PuiAvatarComponent {
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
-    if (this.open && !this.el.nativeElement.contains(e.target)) {
+    const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
+    const inside = path.length
+      ? path.includes(this.el.nativeElement)
+      : this.el.nativeElement.contains(e.target as Node);
+    if (this.open && !inside) {
       this.open = false;
       this.openChange.emit(false);
     }

@@ -1,11 +1,13 @@
 ﻿import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { BadgeVariant, BadgeSize } from '../models/badge.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-badge',
   standalone: true,
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss'],
 })

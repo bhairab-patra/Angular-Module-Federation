@@ -5,6 +5,7 @@ import {
   ChangeDetectionStrategy
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export type DatePickerMode = 'single' | 'range';
 export interface DateRange { start: Date | null; end: Date | null; }
@@ -26,6 +27,7 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
   standalone: true,
   imports: [NgFor, NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss'],

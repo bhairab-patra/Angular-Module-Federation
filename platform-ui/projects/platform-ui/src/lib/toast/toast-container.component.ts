@@ -5,6 +5,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { ToastService } from './toast.service';
 import { Toast, ToastPosition } from '../models/toast.model';
 import { IconComponent } from '../icon/icon.component';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 const POSITIONS: ToastPosition[] = [
   'top-right', 'top-left', 'top-center',
@@ -24,6 +25,7 @@ const TYPE_ICON: Record<string, string> = {
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './toast-container.component.html',
   styleUrls: ['./toast-container.component.scss'],
 })

@@ -2,6 +2,7 @@
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ICON_REGISTRY } from './icon-registry';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export type IconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -19,6 +20,7 @@ const SIZE_MAP: Record<IconSize, number> = {
   standalone: true,
   imports: [CommonModule],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss'],
 })

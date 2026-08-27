@@ -4,6 +4,7 @@ import {
   HostListener, ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { PuiCustomCssDirective } from '../../pui-custom-css.directive';
 
 export interface ComboboxOption {
   value: string | number;
@@ -19,6 +20,7 @@ export interface ComboboxOption {
   standalone: true,
   imports: [NgFor, NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './combobox.component.html',
   styleUrls: ['./combobox.component.scss'],
 })
@@ -63,7 +65,11 @@ export class PuiComboboxComponent {
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
-    if (this.open && !this.host.nativeElement.contains(e.target as Node)) {
+    const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
+    const inside = path.length
+      ? path.includes(this.host.nativeElement)
+      : this.host.nativeElement.contains(e.target as Node);
+    if (this.open && !inside) {
       this.close();
     }
   }

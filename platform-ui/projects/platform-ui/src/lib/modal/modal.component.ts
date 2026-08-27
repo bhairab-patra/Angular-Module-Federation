@@ -1,6 +1,7 @@
 ﻿import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ModalSize } from '../models/modal.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -8,6 +9,7 @@ import { ModalSize } from '../models/modal.model';
   standalone: true,
   imports: [NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
 })

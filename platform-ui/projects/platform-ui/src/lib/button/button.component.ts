@@ -1,6 +1,7 @@
 ﻿import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonVariant, ButtonSize } from '../models/button.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,6 +11,7 @@ import { ButtonVariant, ButtonSize } from '../models/button.model';
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss'],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
 })
 export class ButtonComponent {
   @Input() variant: ButtonVariant = 'primary';

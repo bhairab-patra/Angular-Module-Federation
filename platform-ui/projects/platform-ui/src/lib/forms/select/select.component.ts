@@ -5,6 +5,7 @@ import {
 import { NgIf, NgFor } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { FormSize, SelectOption } from '../../models/form.model';
+import { PuiCustomCssDirective } from '../../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,6 +13,7 @@ import { FormSize, SelectOption } from '../../models/form.model';
   standalone: true,
   imports: [NgIf, NgFor],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => PuiSelectComponent),
@@ -106,7 +108,10 @@ export class PuiSelectComponent implements ControlValueAccessor {
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
     if (!this.open) return;
-    const inside = this.el.nativeElement.contains(e.target as Node);
+    const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
+    const inside = path.length
+      ? path.includes(this.el.nativeElement)
+      : this.el.nativeElement.contains(e.target as Node);
     if (!inside) this.close();
   }
 

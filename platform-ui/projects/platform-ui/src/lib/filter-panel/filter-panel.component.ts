@@ -4,6 +4,7 @@
 } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -11,6 +12,7 @@ import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
   standalone: true,
   imports: [NgIf, NgFor],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './filter-panel.component.html',
   styleUrls: ['./filter-panel.component.scss'],
 })

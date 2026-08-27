@@ -1,4 +1,5 @@
 ﻿import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export type TagVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'purple' | 'pink';
 export type TagSize = 'sm' | 'md';
@@ -8,6 +9,7 @@ export type TagSize = 'sm' | 'md';
   selector: 'pui-lib-tag',
   standalone: true,
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './tag.component.html',
   styleUrls: ['./tag.component.scss'],
 })

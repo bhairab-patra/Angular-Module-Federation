@@ -8,6 +8,7 @@ import { PuiInputComponent } from '../forms/input/input.component';
 import { PuiSelectComponent } from '../forms/select/select.component';
 import { PuiTextareaComponent } from '../forms/textarea/textarea.component';
 import { SelectOption } from '../models/form.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export interface FormDialogField {
   key: string;
@@ -34,6 +35,7 @@ export interface FormDialogSaveEvent { data: Record<string, any>; }
     PuiTextareaComponent,
   ],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './form-dialog.component.html',
   styleUrls: ['./form-dialog.component.scss'],
 })

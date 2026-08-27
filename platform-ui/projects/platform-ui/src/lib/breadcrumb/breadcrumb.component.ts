@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BreadcrumbItem, BreadcrumbSeparator } from '../models/breadcrumb.model';
 import { IconComponent } from '../icon/icon.component';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 const SEPARATORS: Record<BreadcrumbSeparator, string> = {
   chevron: `<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M5.5 3.5l5 4.5-5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
@@ -16,6 +17,7 @@ const SEPARATORS: Record<BreadcrumbSeparator, string> = {
   standalone: true,
   imports: [NgFor, NgIf, RouterLink, IconComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss'],
 })

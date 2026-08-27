@@ -4,6 +4,7 @@
   , ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
 import { NgIf } from '@angular/common';
+import { PuiCustomCssDirective } from '../../pui-custom-css.directive';
 
 export type PasswordStrength = 'weak' | 'fair' | 'strong' | 'very-strong';
 
@@ -13,6 +14,7 @@ export type PasswordStrength = 'weak' | 'fair' | 'strong' | 'very-strong';
   standalone: true,
   imports: [NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './password-input.component.html',
   styleUrls: ['./password-input.component.scss'],
 })

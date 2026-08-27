@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { PopoverPlacement, PopoverTriggerMode } from '../models/popover.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,6 +13,7 @@ import { PopoverPlacement, PopoverTriggerMode } from '../models/popover.model';
   standalone: true,
   imports: [NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './popover.component.html',
   styleUrls: ['./popover.component.scss'],
 })
@@ -89,7 +91,11 @@ export class PuiPopoverComponent {
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
     if (this.triggerMode === 'manual') return;
-    if (!this._el.nativeElement.contains(e.target as Node)) this._setOpen(false);
+    const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
+    const inside = path.length
+      ? path.includes(this._el.nativeElement)
+      : this._el.nativeElement.contains(e.target as Node);
+    if (!inside) this._setOpen(false);
   }
 
   @HostListener('document:keydown.escape')

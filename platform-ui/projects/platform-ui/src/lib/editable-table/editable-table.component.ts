@@ -4,6 +4,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TableColumn } from '../table/table.component';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export interface EditableRowSaveEvent { index: number; row: any; oldRow: any; }
 export interface EditableRowEvent { index: number; row: any; }
@@ -14,6 +15,7 @@ export interface EditableRowEvent { index: number; row: any; }
   standalone: true,
   imports: [NgFor, NgIf, FormsModule],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './editable-table.component.html',
   styleUrls: ['./editable-table.component.scss'],
 })

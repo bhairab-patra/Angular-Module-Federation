@@ -4,6 +4,7 @@
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -11,6 +12,7 @@ import { IconComponent } from '../icon/icon.component';
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './pagination.component.html',
   styleUrls: ['./pagination.component.scss'],
 })

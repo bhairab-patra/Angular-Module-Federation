@@ -5,6 +5,7 @@
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TableColumn, SortState } from '../models/table.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export { TableColumn, SortDir, SortState } from '../models/table.model';
 
@@ -14,6 +15,7 @@ export { TableColumn, SortDir, SortState } from '../models/table.model';
   standalone: true,
   imports: [NgFor, NgIf, DecimalPipe, DatePipe],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })

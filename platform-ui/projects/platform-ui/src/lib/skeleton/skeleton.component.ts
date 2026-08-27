@@ -1,5 +1,6 @@
 ﻿import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf, NgStyle } from '@angular/common';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export type SkeletonVariant = 'text' | 'circle' | 'rect' | 'card';
 
@@ -9,6 +10,7 @@ export type SkeletonVariant = 'text' | 'circle' | 'rect' | 'card';
   standalone: true,
   imports: [NgFor, NgIf, NgStyle],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './skeleton.component.html',
   styleUrls: ['./skeleton.component.scss'],
 })

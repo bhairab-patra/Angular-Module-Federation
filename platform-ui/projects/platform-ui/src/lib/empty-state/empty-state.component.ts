@@ -2,6 +2,7 @@
 import { NgIf } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { EmptyStateSize } from '../models/empty-state.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -9,6 +10,7 @@ import { EmptyStateSize } from '../models/empty-state.model';
   standalone: true,
   imports: [NgIf, IconComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './empty-state.component.html',
   styleUrls: ['./empty-state.component.scss'],
 })

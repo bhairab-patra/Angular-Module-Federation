@@ -1,6 +1,7 @@
 ﻿import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export type ChipVariant = 'default' | 'primary' | 'primary-light' | 'primary-outline' | 'secondary' | 'secondary-light';
 
@@ -10,6 +11,7 @@ export type ChipVariant = 'default' | 'primary' | 'primary-light' | 'primary-out
   standalone: true,
   imports: [NgIf, IconComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './chip.component.html',
   styleUrls: ['./chip.component.scss'],
 })

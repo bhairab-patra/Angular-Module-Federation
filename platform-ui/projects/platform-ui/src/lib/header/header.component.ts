@@ -4,6 +4,7 @@
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -11,6 +12,7 @@ import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
   standalone: true,
   imports: [NgFor, NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
@@ -166,7 +168,11 @@ export class HeaderComponent {
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
-    if (!this.el.nativeElement.contains(e.target)) {
+    const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
+    const inside = path.length
+      ? path.includes(this.el.nativeElement)
+      : this.el.nativeElement.contains(e.target as Node);
+    if (!inside) {
       if (this.menuOpen) {
         this.menuOpen = false;
       }

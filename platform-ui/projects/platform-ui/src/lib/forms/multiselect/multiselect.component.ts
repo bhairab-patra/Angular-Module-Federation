@@ -58,7 +58,11 @@ export class PuiMultiSelectComponent {
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent) {
-    if (!this.el.nativeElement.contains(e.target as Node)) {
+    const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
+    const inside = path.length
+      ? path.includes(this.el.nativeElement)
+      : this.el.nativeElement.contains(e.target as Node);
+    if (!inside) {
       this.open = false;
     }
   }

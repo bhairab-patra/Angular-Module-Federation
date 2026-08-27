@@ -6,6 +6,7 @@ import { NgIf, NgFor } from '@angular/common';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { SearchSuggestion, SearchSize } from '../models/search.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13,6 +14,7 @@ import { SearchSuggestion, SearchSize } from '../models/search.model';
   standalone: true,
   imports: [NgIf, NgFor],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
@@ -220,7 +222,11 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
-    if (!this.host.nativeElement.contains(e.target)) {
+    const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
+    const inside = path.length
+      ? path.includes(this.host.nativeElement)
+      : this.host.nativeElement.contains(e.target as Node);
+    if (!inside) {
       this.closeDropdown();
     }
   }

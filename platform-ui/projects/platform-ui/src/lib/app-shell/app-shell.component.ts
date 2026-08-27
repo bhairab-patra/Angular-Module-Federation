@@ -13,6 +13,7 @@ import {
 import { UserMenuItem, HeaderBadge } from '../models/header.model';
 import { PuiFooterComponent } from '../footer/footer.component';
 import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,6 +21,7 @@ import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.m
   standalone: true,
   imports: [NgIf, PuiSolifiSidebarComponent, HeaderComponent, PuiFooterComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './app-shell.component.html',
   styleUrls: ['./app-shell.component.scss'],
 })

@@ -1,5 +1,5 @@
 ﻿import {
-  Component, Input, Output, EventEmitter, HostListener, HostBinding, ViewEncapsulation, ChangeDetectionStrategy
+  Component, Input, Output, EventEmitter, HostListener, HostBinding, ElementRef, inject, ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
@@ -16,6 +16,7 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent {
+  private _el = inject(ElementRef);
 
   @HostBinding('style.position') readonly _pos = 'relative';
   @HostBinding('style.display') readonly _disp = 'inline-block';
@@ -70,8 +71,11 @@ export class MenuComponent {
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
-    const host = (e.target as HTMLElement).closest('pui-lib-menu');
-    if (!host) this.close();
+    const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
+    const inside = path.length
+      ? path.includes(this._el.nativeElement)
+      : !!(e.target as HTMLElement).closest?.('pui-lib-menu');
+    if (!inside) this.close();
   }
 
   @HostListener('keydown', ['$event'])

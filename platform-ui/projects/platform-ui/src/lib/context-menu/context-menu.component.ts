@@ -6,6 +6,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { MenuItem } from '../models/menu.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -13,6 +14,7 @@ import { MenuItem } from '../models/menu.model';
   standalone: true,
   imports: [NgFor, NgIf, IconComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './context-menu.component.html',
   styleUrls: ['./context-menu.component.scss'],
 })
@@ -70,7 +72,11 @@ export class PuiContextMenuComponent {
   onDocContextMenu(e: MouseEvent): void {
     // A second right-click outside this component's own zone should close
     // any menu this instance already opened, instead of leaving it stuck.
-    if (this.open && !this._el.nativeElement.contains(e.target as Node)) this.close();
+    const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
+    const inside = path.length
+      ? path.includes(this._el.nativeElement)
+      : this._el.nativeElement.contains(e.target as Node);
+    if (this.open && !inside) this.close();
   }
 
   @HostListener('document:keydown.escape')

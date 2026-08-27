@@ -22,6 +22,22 @@ export class DocPageComponent implements OnInit {
   copied = false;
   active  = 'demo';
 
+  private readonly customCssRow: ApiRow = {
+    input: 'customCss',
+    type: 'string',
+    default: 'undefined',
+    description: 'Escape hatch for styles no --pui-* variable covers. Pass a raw CSS string and it\'s injected as a <style> tag inside this component\'s own shadow root, so it can target any of the component\'s internal classes. See the "Overriding CSS With customCss" FAQ section for details and examples.',
+  };
+
+  /** Every component's API table gets a customCss row automatically, so
+   * consumers always see this escape hatch is available — without needing
+   * every page's own api array to list it by hand. */
+  get apiWithCustomCss(): ApiRow[] {
+    if (!this.api.length) return this.api;
+    if (this.api.some(r => r.input === 'customCss')) return this.api;
+    return [...this.api, this.customCssRow];
+  }
+
   ngOnInit(): void { this.active = 'demo'; }
 
   scrollTo(id: string): void {

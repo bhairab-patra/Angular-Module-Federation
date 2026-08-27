@@ -3,6 +3,7 @@
 import { NgIf } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { ButtonVariant } from '../models/button.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,6 +11,7 @@ import { ButtonVariant } from '../models/button.model';
   standalone: true,
   imports: [NgIf, ButtonComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './confirm-dialog.component.html',
   styleUrls: ['./confirm-dialog.component.scss'],
 })

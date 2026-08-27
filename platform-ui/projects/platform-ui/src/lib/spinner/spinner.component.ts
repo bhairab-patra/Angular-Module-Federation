@@ -1,6 +1,7 @@
 ﻿import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { SpinnerType, SpinnerSize } from '../models/spinner.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 const SIZE_MAP: Record<SpinnerSize, number> = {
   sm: 24, md: 40, lg: 56, xl: 80,
@@ -12,6 +13,7 @@ const SIZE_MAP: Record<SpinnerSize, number> = {
   standalone: true,
   imports: [NgIf, NgFor],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.scss'],
 })

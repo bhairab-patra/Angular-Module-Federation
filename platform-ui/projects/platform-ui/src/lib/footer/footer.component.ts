@@ -5,6 +5,7 @@ import {
 import { NgIf, NgFor } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,6 +13,7 @@ import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.m
   standalone: true,
   imports: [NgIf, NgFor, IconComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],
 })

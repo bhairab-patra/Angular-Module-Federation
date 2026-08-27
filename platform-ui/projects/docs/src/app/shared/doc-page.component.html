@@ -56,7 +56,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let row of api; let odd = odd; trackBy: trackByIndex" [class.row-odd]="odd">
+              <tr *ngFor="let row of apiWithCustomCss; let odd = odd; trackBy: trackByIndex" [class.row-odd]="odd">
                 <td><code class="tag-prop">{{ row.input }}</code></td>
                 <td><code class="tag-type">{{ row.type }}</code></td>
                 <td><code class="tag-def">{{ row.default }}</code></td>

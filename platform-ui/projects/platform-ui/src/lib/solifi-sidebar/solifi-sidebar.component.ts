@@ -5,6 +5,7 @@ import {
 import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { IconComponent } from '../icon/icon.component';
 import { SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem } from '../models/solifi-sidebar.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 const MAX_LABEL_LEN = 22;
 
@@ -19,6 +20,7 @@ const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none
   standalone: true,
   imports: [NgFor, NgIf, NgStyle, IconComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './solifi-sidebar.component.html',
   styleUrls: ['./solifi-sidebar.component.scss'],
 })
@@ -134,7 +136,11 @@ export class PuiSolifiSidebarComponent {
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
-    if (this.userMenuOpen && !this._elRef.nativeElement.contains(e.target)) {
+    const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
+    const inside = path.length
+      ? path.includes(this._elRef.nativeElement)
+      : this._elRef.nativeElement.contains(e.target as Node);
+    if (this.userMenuOpen && !inside) {
       this.userMenuOpen = false;
     }
   }
