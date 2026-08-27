@@ -1,173 +1,316 @@
 <div class="pui-dt-host">
-<div class="pui-dt-inner">
-
-  <div class="pui-dt-toolbar" *ngIf="_searchable || _selectable || heading">
-    <div class="pui-dt-toolbar__left">
-      <span *ngIf="heading" class="pui-dt-toolbar__title">{{ heading }}</span>
-      <span *ngIf="_selectable && selectedRows.size > 0" class="pui-dt-sel-info">
-        {{ selectedRows.size }} row{{ selectedRows.size === 1 ? '' : 's' }} selected
-      </span>
-    </div>
-    <div class="pui-dt-toolbar__right">
-      <ng-content select="[tableActions]"></ng-content>
-      <pui-lib-search *ngIf="_searchable" class="pui-dt-search" size="sm"
-        placeholder="Search…" [value]="searchTerm" [debounce]="0"
-        (valueChange)="onSearch($event)">
-      </pui-lib-search>
-    </div>
-  </div>
-
-
-  <div class="pui-dt-scroll" [style.maxHeight]="_maxHeight ? _maxHeight + 'px' : null">
-
-    <div class="pui-dt-loading" *ngIf="_loading">
-      <div class="pui-dt-skeleton" *ngFor="let r of skeletonRows">
-        <div class="pui-dt-skeleton__cell" *ngIf="_selectable" style="flex:0 0 36px"></div>
-        <div class="pui-dt-skeleton__cell" *ngFor="let c of _columns"></div>
-        <div class="pui-dt-skeleton__cell" *ngIf="_actions.length > 0" style="flex:0 0 48px"></div>
+  <div class="pui-dt-inner">
+    <div class="pui-dt-toolbar" *ngIf="_searchable || _selectable || heading">
+      <div class="pui-dt-toolbar__left">
+        <span *ngIf="heading" class="pui-dt-toolbar__title">{{ heading }}</span>
+        <span
+          *ngIf="_selectable && selectedRows.size > 0"
+          class="pui-dt-sel-info"
+        >
+          {{ selectedRows.size }} row{{
+            selectedRows.size === 1 ? "" : "s"
+          }}
+          selected
+        </span>
+      </div>
+      <div class="pui-dt-toolbar__right">
+        <ng-content select="[tableActions]"></ng-content>
+        <pui-lib-search
+          *ngIf="_searchable"
+          class="pui-dt-search"
+          size="sm"
+          placeholder="Search…"
+          [value]="searchTerm"
+          [debounce]="0"
+          (valueChange)="onSearch($event)"
+        >
+        </pui-lib-search>
       </div>
     </div>
 
-    <table class="pui-dt">
-      <thead class="pui-dt-head" [class.pui-dt-head--sticky]="_stickyHeader">
-        <tr>
-          <th *ngIf="_selectable" class="pui-dt-th pui-dt-th--sel">
-            <label class="pui-dt-cb">
-              <input type="checkbox" [checked]="allSelected" [indeterminate]="someSelected && !allSelected"
-                (change)="toggleAll($any($event.target).checked)">
-              <span class="pui-dt-cb__box"></span>
-            </label>
-          </th>
-          <th *ngFor="let col of _columns" class="pui-dt-th" [class.pui-dt-th--sortable]="col.sortable"
-            [class.pui-dt-th--sorted]="sort.key === col.key && sort.dir"
-            [class.pui-dt-th--right]="col.align === 'right'" [class.pui-dt-th--center]="col.align === 'center'"
-            [style.width]="col.width" [style.minWidth]="col.minWidth" (click)="col.sortable && onSort(col.key)">
-            <span class="pui-dt-th__label">{{ col.label }}</span>
-            <span *ngIf="col.sortable" class="pui-dt-sort-icon">
-              <svg viewBox="0 0 12 16" fill="none" width="10" height="13">
-                <path d="M6 1.5L6 7M6 1.5L3.5 4M6 1.5L8.5 4" stroke="currentColor" stroke-width="1.5"
-                  stroke-linecap="round" stroke-linejoin="round"
-                  [class.pui-sort--active]="sort.key === col.key && sort.dir === 'asc'"
-                  [class.pui-sort--dim]="!(sort.key === col.key && sort.dir === 'asc')" />
-                <path d="M6 14.5L6 9M6 14.5L3.5 12M6 14.5L8.5 12" stroke="currentColor" stroke-width="1.5"
-                  stroke-linecap="round" stroke-linejoin="round"
-                  [class.pui-sort--active]="sort.key === col.key && sort.dir === 'desc'"
-                  [class.pui-sort--dim]="!(sort.key === col.key && sort.dir === 'desc')" />
-              </svg>
-            </span>
-          </th>
-          <th *ngIf="_actions.length > 0" class="pui-dt-th pui-dt-th--actions">Actions</th>
-        </tr>
-      </thead>
+    <div
+      class="pui-dt-scroll"
+      [style.maxHeight]="_maxHeight ? _maxHeight + 'px' : null"
+    >
+      <div class="pui-dt-loading" *ngIf="_loading">
+        <div class="pui-dt-skeleton" *ngFor="let r of skeletonRows">
+          <div
+            class="pui-dt-skeleton__cell"
+            *ngIf="_selectable"
+            style="flex: 0 0 36px"
+          ></div>
+          <div class="pui-dt-skeleton__cell" *ngFor="let c of _columns"></div>
+          <div
+            class="pui-dt-skeleton__cell"
+            *ngIf="_actions.length > 0"
+            style="flex: 0 0 48px"
+          ></div>
+        </div>
+      </div>
 
-      <tbody class="pui-dt-body">
-        <tr *ngIf="!_loading && displayRows.length === 0">
-          <td [colSpan]="_columns.length + (_selectable ? 1 : 0) + (_actions.length > 0 ? 1 : 0)" class="pui-dt-empty">
-            <div class="pui-dt-empty__inner">
-              <svg viewBox="0 0 48 48" fill="none" width="40" height="40">
-                <rect x="6" y="8" width="36" height="32" rx="3" stroke="var(--pui-neutral-300)" stroke-width="2" />
-                <path d="M6 16h36" stroke="var(--pui-neutral-300)" stroke-width="2" />
-                <path d="M14 24h4M22 24h12M14 32h8" stroke="var(--pui-neutral-300)" stroke-width="2" stroke-linecap="round" />
-              </svg>
-              <p class="pui-dt-empty__title">{{ searchTerm ? 'No results for "' + searchTerm + '"' : (emptyTitle || 'No data available') }}</p>
-              <p class="pui-dt-empty__desc" *ngIf="emptyDescription && !searchTerm">{{ emptyDescription }}</p>
-              <div class="pui-dt-empty__actions" *ngIf="!searchTerm">
-                <ng-content select="[emptyActions]"></ng-content>
+      <table class="pui-dt">
+        <thead class="pui-dt-head" [class.pui-dt-head--sticky]="_stickyHeader">
+          <tr>
+            <th *ngIf="_selectable" class="pui-dt-th pui-dt-th--sel">
+              <label class="pui-dt-cb">
+                <input
+                  type="checkbox"
+                  [checked]="allSelected"
+                  [indeterminate]="someSelected && !allSelected"
+                  (change)="toggleAll($any($event.target).checked)"
+                />
+                <span class="pui-dt-cb__box"></span>
+              </label>
+            </th>
+            <th
+              *ngFor="let col of _columns"
+              class="pui-dt-th"
+              [class.pui-dt-th--sortable]="col.sortable"
+              [class.pui-dt-th--sorted]="sort.key === col.key && sort.dir"
+              [class.pui-dt-th--right]="col.align === 'right'"
+              [class.pui-dt-th--center]="col.align === 'center'"
+              [style.width]="col.width"
+              [style.minWidth]="col.minWidth"
+              (click)="col.sortable && onSort(col.key)"
+            >
+              <span class="pui-dt-th__label">{{ col.label }}</span>
+              <span *ngIf="col.sortable" class="pui-dt-sort-icon">
+                <svg viewBox="0 0 12 16" fill="none" width="10" height="13">
+                  <path
+                    d="M6 1.5L6 7M6 1.5L3.5 4M6 1.5L8.5 4"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    [class.pui-sort--active]="
+                      sort.key === col.key && sort.dir === 'asc'
+                    "
+                    [class.pui-sort--dim]="
+                      !(sort.key === col.key && sort.dir === 'asc')
+                    "
+                  />
+                  <path
+                    d="M6 14.5L6 9M6 14.5L3.5 12M6 14.5L8.5 12"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    [class.pui-sort--active]="
+                      sort.key === col.key && sort.dir === 'desc'
+                    "
+                    [class.pui-sort--dim]="
+                      !(sort.key === col.key && sort.dir === 'desc')
+                    "
+                  />
+                </svg>
+              </span>
+            </th>
+            <th
+              *ngIf="_actions.length > 0"
+              class="pui-dt-th pui-dt-th--actions"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="pui-dt-body">
+          <tr *ngIf="!_loading && displayRows.length === 0">
+            <td
+              [colSpan]="
+                _columns.length +
+                (_selectable ? 1 : 0) +
+                (_actions.length > 0 ? 1 : 0)
+              "
+              class="pui-dt-empty"
+            >
+              <div class="pui-dt-empty__inner">
+                <svg viewBox="0 0 48 48" fill="none" width="40" height="40">
+                  <rect
+                    x="6"
+                    y="8"
+                    width="36"
+                    height="32"
+                    rx="3"
+                    stroke="var(--pui-neutral-300)"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M6 16h36"
+                    stroke="var(--pui-neutral-300)"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M14 24h4M22 24h12M14 32h8"
+                    stroke="var(--pui-neutral-300)"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+                <p class="pui-dt-empty__title">
+                  {{
+                    searchTerm
+                      ? 'No results for "' + searchTerm + '"'
+                      : emptyTitle || "No data available"
+                  }}
+                </p>
+                <p
+                  class="pui-dt-empty__desc"
+                  *ngIf="emptyDescription && !searchTerm"
+                >
+                  {{ emptyDescription }}
+                </p>
+                <div class="pui-dt-empty__actions" *ngIf="!searchTerm">
+                  <ng-content select="[emptyActions]"></ng-content>
+                </div>
               </div>
-            </div>
-          </td>
-        </tr>
+            </td>
+          </tr>
 
-        <tr *ngFor="let row of displayRows; let i = index" class="pui-dt-row"
-          [class.pui-dt-row--striped]="_striped && i % 2 !== 0"
-          [class.pui-dt-row--selected]="selectedRows.has(getRowId(row, i))"
-          [class.pui-dt-row--clickable]="rowClickEnabled" (click)="onRowClick(row)">
+          <tr
+            *ngFor="let row of displayRows; let i = index"
+            class="pui-dt-row"
+            [class.pui-dt-row--striped]="_striped && i % 2 !== 0"
+            [class.pui-dt-row--selected]="selectedRows.has(getRowId(row, i))"
+            [class.pui-dt-row--clickable]="rowClickEnabled"
+            (click)="onRowClick(row)"
+          >
+            <td
+              *ngIf="_selectable"
+              class="pui-dt-td pui-dt-td--sel"
+              (click)="$event.stopPropagation(); toggleRow(row, i)"
+            >
+              <label class="pui-dt-cb">
+                <input
+                  type="checkbox"
+                  [checked]="selectedRows.has(getRowId(row, i))"
+                  (change)="toggleRow(row, i)"
+                />
+                <span class="pui-dt-cb__box"></span>
+              </label>
+            </td>
 
-          <td *ngIf="_selectable" class="pui-dt-td pui-dt-td--sel"
-            (click)="$event.stopPropagation(); toggleRow(row, i)">
-            <label class="pui-dt-cb">
-              <input type="checkbox" [checked]="selectedRows.has(getRowId(row, i))" (change)="toggleRow(row, i)">
-              <span class="pui-dt-cb__box"></span>
-            </label>
-          </td>
-
-          <td *ngFor="let col of _columns" class="pui-dt-td" [class.pui-dt-td--right]="col.align === 'right'"
-            [class.pui-dt-td--center]="col.align === 'center'"
-            (mouseenter)="showCellTooltip($event, row[col.key] ?? '')" (mouseleave)="hideCellTooltip()">
-
-            <ng-container *ngIf="col.type === 'badge'; else pills">
-              <ng-container *ngIf="col.badgeMap && col.badgeMap[row[col.key]]; let bm">
-                <span class="pui-dt-badge" [style.backgroundColor]="bm.color + '1a'" [style.color]="bm.color"
-                  [style.borderColor]="bm.color + '40'">
-                  {{ bm.label ?? row[col.key] }}
-                </span>
+            <td
+              *ngFor="let col of _columns"
+              class="pui-dt-td"
+              [class.pui-dt-td--right]="col.align === 'right'"
+              [class.pui-dt-td--center]="col.align === 'center'"
+              (mouseenter)="showCellTooltip($event, row[col.key] ?? '')"
+              (mouseleave)="hideCellTooltip()"
+            >
+              <ng-container *ngIf="col.type === 'badge'; else pills">
+                <ng-container
+                  *ngIf="col.badgeMap && col.badgeMap[row[col.key]]; let bm"
+                >
+                  <span
+                    class="pui-dt-badge"
+                    [style.backgroundColor]="bm.color + '1a'"
+                    [style.color]="bm.color"
+                    [style.borderColor]="bm.color + '40'"
+                  >
+                    {{ bm.label ?? row[col.key] }}
+                  </span>
+                </ng-container>
+                <ng-container
+                  *ngIf="!(col.badgeMap && col.badgeMap[row[col.key]])"
+                >
+                  <span class="pui-dt-badge pui-dt-badge--default">{{
+                    row[col.key]
+                  }}</span>
+                </ng-container>
               </ng-container>
-              <ng-container *ngIf="!(col.badgeMap && col.badgeMap[row[col.key]])">
-                <span class="pui-dt-badge pui-dt-badge--default">{{ row[col.key] }}</span>
-              </ng-container>
-            </ng-container>
-            <ng-template #pills>
-              <ng-container *ngIf="col.type === 'pills'; else currency">
-                <span class="pui-dt-pills">
-                  <span class="pui-dt-pill" *ngFor="let p of row[col.key]">{{ p }}</span>
-                </span>
-              </ng-container>
-            </ng-template>
-            <ng-template #currency>
-              <ng-container *ngIf="col.type === 'currency'; else number">
-                <span class="pui-dt-cell--mono">{{ row[col.key] | number:'1.2-2' }}</span>
-              </ng-container>
-            </ng-template>
-            <ng-template #number>
-              <ng-container *ngIf="col.type === 'number'; else date">
-                <span class="pui-dt-cell--mono">{{ row[col.key] | number }}</span>
-              </ng-container>
-            </ng-template>
-            <ng-template #date>
-              <ng-container *ngIf="col.type === 'date'; else text">
-                {{ row[col.key] | date:'mediumDate' }}
-              </ng-container>
-            </ng-template>
-            <ng-template #text>
-              <span class="pui-cell-text">{{ row[col.key] ?? '—' }}</span>
-            </ng-template>
+              <ng-template #pills>
+                <ng-container *ngIf="col.type === 'pills'; else currency">
+                  <span class="pui-dt-pills">
+                    <span class="pui-dt-pill" *ngFor="let p of row[col.key]">{{
+                      p
+                    }}</span>
+                  </span>
+                </ng-container>
+              </ng-template>
+              <ng-template #currency>
+                <ng-container *ngIf="col.type === 'currency'; else number">
+                  <span class="pui-dt-cell--mono">{{
+                    row[col.key] | number: "1.2-2"
+                  }}</span>
+                </ng-container>
+              </ng-template>
+              <ng-template #number>
+                <ng-container *ngIf="col.type === 'number'; else date">
+                  <span class="pui-dt-cell--mono">{{
+                    row[col.key] | number
+                  }}</span>
+                </ng-container>
+              </ng-template>
+              <ng-template #date>
+                <ng-container *ngIf="col.type === 'date'; else text">
+                  {{ row[col.key] | date: "mediumDate" }}
+                </ng-container>
+              </ng-template>
+              <ng-template #text>
+                <span class="pui-cell-text">{{ row[col.key] ?? "—" }}</span>
+              </ng-template>
+            </td>
 
-          </td>
-
-
-          <td *ngIf="_actions.length > 0" class="pui-dt-td pui-dt-td--actions">
-            <button class="pui-dt-action-btn" [class.pui-dt-action-btn--open]="openActionRow === i"
-              (click)="toggleActionMenu(i, $event)" title="Actions">
-              <svg class="pui-dt-dots" viewBox="0 0 4 16" fill="currentColor" width="4" height="16">
-                <circle cx="2" cy="2" r="1.6"/>
-                <circle cx="2" cy="8" r="1.6"/>
-                <circle cx="2" cy="14" r="1.6"/>
-              </svg>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td
+              *ngIf="_actions.length > 0"
+              class="pui-dt-td pui-dt-td--actions"
+            >
+              <button
+                class="pui-dt-action-btn"
+                [class.pui-dt-action-btn--open]="openActionRow === i"
+                (click)="toggleActionMenu(i, $event)"
+                title="Actions"
+              >
+                <svg
+                  class="pui-dt-dots"
+                  viewBox="0 0 4 16"
+                  fill="currentColor"
+                  width="4"
+                  height="16"
+                >
+                  <circle cx="2" cy="2" r="1.6" />
+                  <circle cx="2" cy="8" r="1.6" />
+                  <circle cx="2" cy="14" r="1.6" />
+                </svg>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-</div>
-
-  <div *ngIf="cellTooltipVisible" class="pui-cell-tooltip" [class]="'pui-cell-tooltip--' + _tooltipPos"
-    [style.top.px]="cellTooltipCoords.top" [style.left.px]="cellTooltipCoords.left">
+  <div
+    *ngIf="cellTooltipVisible"
+    class="pui-cell-tooltip"
+    [class]="'pui-cell-tooltip--' + _tooltipPos"
+    [style.top.px]="cellTooltipCoords.top"
+    [style.left.px]="cellTooltipCoords.left"
+  >
     {{ hoveredCellText }}
   </div>
 
-
-  <div *ngIf="openActionRow !== null && openActionRowData" class="pui-dt-action-menu" [style.top.px]="actionMenuPos.top"
-    [style.left.px]="actionMenuPos.left">
-    <button *ngFor="let act of _actions" class="pui-dt-action-item"
+  <div
+    *ngIf="openActionRow !== null && openActionRowData"
+    class="pui-dt-action-menu"
+    [style.top.px]="actionMenuPos.top"
+    [style.left.px]="actionMenuPos.left"
+  >
+    <button
+      *ngFor="let act of _actions"
+      class="pui-dt-action-item"
       [disabled]="act.disabled ? act.disabled(openActionRowData) : false"
-      (click)="onActionClick(act, openActionRowData, $event)">
-      <span *ngIf="act.icon" class="pui-dt-action-icon" [innerHTML]="safeHtml(act.icon)"></span>
+      (click)="onActionClick(act, openActionRowData, $event)"
+    >
+      <span
+        *ngIf="act.icon"
+        class="pui-dt-action-icon"
+        [innerHTML]="safeHtml(act.icon)"
+      ></span>
       {{ act.label }}
     </button>
   </div>
-
 
   <div class="pui-dt-pager" *ngIf="_paginated && filteredRows.length > 0">
     <span class="pui-dt-pager__info">
@@ -175,56 +318,64 @@
     </span>
 
     <div class="pui-dt-pager__controls-wrap">
-      <div class="pui-dt-pager__controls">
-        <button class="pui-dt-pager__nav" [disabled]="page <= 1" (click)="goPage(1)" title="First">
-          <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-            <path d="M11 12L7 8l4-4M5 4v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-        </button>
-        <button class="pui-dt-pager__nav" [disabled]="page <= 1" (click)="goPage(page - 1)" title="Previous">
-          <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-            <path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-        </button>
-        <span class="pui-dt-pager__pages">
-          <ng-container *ngFor="let p of pageItems">
-            <span *ngIf="p === '…'" class="pui-dt-pager__ellipsis">…</span>
-            <button *ngIf="p !== '…'" class="pui-dt-pager__page" [class.pui-dt-pager__page--active]="p === page"
-              (click)="goPage($any(p))">{{ p }}</button>
-          </ng-container>
-        </span>
-        <button class="pui-dt-pager__nav" [disabled]="page >= totalPages" (click)="goPage(page + 1)" title="Next">
-          <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-            <path d="M6 12l4-4-4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-        </button>
-        <button class="pui-dt-pager__nav" [disabled]="page >= totalPages" (click)="goPage(totalPages)" title="Last">
-          <svg viewBox="0 0 16 16" fill="none" width="14" height="14">
-            <path d="M5 12l4-4-4-4M11 4v8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-        </button>
-      </div>
+      <pui-lib-simple-pagination
+        [total]="filteredRows.length"
+        [page]="page"
+        [pageSize]="_pageSize"
+        (pageChange)="goPage($event)"
+      >
+      </pui-lib-simple-pagination>
     </div>
 
     <div class="pui-dt-pager__size-group">
       <span class="pui-dt-pager__size-label">Rows per page</span>
       <div class="pui-dt-pager__size-wrap">
-        <button type="button" class="pui-dt-pager__size-btn" [class.pui-dt-pager__size-btn--open]="pageSizeMenuOpen"
-          (click)="togglePageSizeMenu($event)">
+        <button
+          type="button"
+          class="pui-dt-pager__size-btn"
+          [class.pui-dt-pager__size-btn--open]="pageSizeMenuOpen"
+          (click)="togglePageSizeMenu($event)"
+        >
           <span class="pui-dt-pager__size-value">{{ _pageSize }}</span>
-          <svg class="pui-dt-pager__size-chevron" viewBox="0 0 10 6" width="10" height="6" fill="none">
-            <path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            class="pui-dt-pager__size-chevron"
+            viewBox="0 0 10 6"
+            width="10"
+            height="6"
+            fill="none"
+          >
+            <path
+              d="M1 1l4 4 4-4"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </button>
         <div class="pui-dt-pager__size-menu" *ngIf="pageSizeMenuOpen">
-          <button type="button" *ngFor="let s of pageSizeOptions" class="pui-dt-pager__size-opt"
-            [class.pui-dt-pager__size-opt--active]="s === _pageSize" (click)="selectPageSize(s, $event)">
-            <svg class="pui-dt-pager__size-check" viewBox="0 0 16 16" width="13" height="13" fill="none">
-              <path *ngIf="s === _pageSize" d="M3 8.5l3.2 3.2L13 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <button
+            type="button"
+            *ngFor="let s of pageSizeOptions"
+            class="pui-dt-pager__size-opt"
+            [class.pui-dt-pager__size-opt--active]="s === _pageSize"
+            (click)="selectPageSize(s, $event)"
+          >
+            <svg
+              class="pui-dt-pager__size-check"
+              viewBox="0 0 16 16"
+              width="13"
+              height="13"
+              fill="none"
+            >
+              <path
+                *ngIf="s === _pageSize"
+                d="M3 8.5l3.2 3.2L13 5"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
             </svg>
             <span>{{ s }} rows</span>
           </button>

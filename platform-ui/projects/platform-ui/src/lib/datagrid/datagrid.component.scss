@@ -6,7 +6,7 @@
 .pui-dg-wrap {
   border: 1px solid var(--pui-neutral-200);
   border-radius: var(--pui-radius-lg);
-  background: var(--pui-table-bg, #FFFFFF);
+  background: var(--pui-table-bg, #ffffff);
   padding: 10px;
   box-sizing: border-box;
 }
@@ -59,12 +59,12 @@
 .pui-dg__th {
   text-align: left;
   padding: var(--pui-space-3) var(--pui-space-4);
-  background: var(--pui-table-header-bg, #EDEFF0);
+  background: var(--pui-table-header-bg, #edeff0);
   color: var(--pui-neutral-500);
   font-size: var(--pui-text-xs);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   border-bottom: 1px solid var(--pui-neutral-200);
   border-right: 1px solid var(--pui-white);
   white-space: nowrap;
@@ -159,50 +159,11 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--pui-space-2-5) var(--pui-space-1);
-  background: var(--pui-table-bg, #FFFFFF);
+  background: var(--pui-table-bg, #ffffff);
   border-top: 1px solid var(--pui-neutral-200);
 }
 
 .pui-dg-footer__info {
   font-size: var(--pui-text-sm);
   color: var(--pui-neutral-500);
-}
-
-.pui-dg-footer__pages {
-  display: flex;
-  align-items: center;
-  gap: var(--pui-space-1-5);
-}
-
-.pui-dg-footer__num {
-  font-size: var(--pui-text-base);
-  color: var(--pui-neutral-700);
-  min-width: 48px;
-  text-align: center;
-}
-
-.pui-dg-footer__btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: var(--pui-radius-sm);
-  border: 1px solid var(--pui-neutral-800);
-  background: var(--pui-white);
-  color: var(--pui-neutral-900);
-  cursor: pointer;
-  transition: background var(--pui-duration-fast), border-color var(--pui-duration-fast), color var(--pui-duration-fast);
-}
-
-.pui-dg-footer__btn:disabled {
-  opacity: .35;
-  cursor: not-allowed;
-  border-color: var(--pui-neutral-300);
-  color: var(--pui-neutral-400);
-}
-
-.pui-dg-footer__btn:not(:disabled):hover {
-  background: var(--pui-neutral-100);
-  border-color: var(--pui-neutral-900);
 }

@@ -134,4 +134,9 @@
    --pui-table-bg: #FFFFFF;
    --pui-table-header-bg: #EDEFF0;
 
+   /* ========================================
+     PAGINATION
+     ======================================== */
+   --pui-pagination-accent: #445F68;
+
 }

@@ -2,17 +2,18 @@ import {
   Component, Input, Output, EventEmitter, ElementRef, inject,
   ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TableColumn, SortState } from '../models/table.model';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { TableColumn, TableAction, SortState } from '../models/table.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 import { IconComponent } from '../icon/icon.component';
-import { PuiPaginationComponent } from '../pagination/pagination.component';
+import { PuiSimplePaginationComponent } from '../simple-pagination/simple-pagination.component';
 import { PuiSearchComponent } from '../search/search.component';
 import { PuiEmptyStateComponent } from '../empty-state/empty-state.component';
 import { ToastService } from '../toast/toast.service';
 
-export { TableColumn, SortState } from '../models/table.model';
+export { TableColumn, TableAction, SortState } from '../models/table.model';
 export interface EditableRowSaveEvent { index: number; row: any; oldRow: any; }
 export interface EditableRowEvent { index: number; row: any; }
 
@@ -20,7 +21,7 @@ export interface EditableRowEvent { index: number; row: any; }
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-editable-table',
   standalone: true,
-  imports: [NgFor, NgIf, FormsModule, IconComponent, PuiPaginationComponent, PuiSearchComponent, PuiEmptyStateComponent],
+  imports: [NgFor, NgIf, DecimalPipe, DatePipe, FormsModule, IconComponent, PuiSimplePaginationComponent, PuiSearchComponent, PuiEmptyStateComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './editable-table.component.html',
@@ -29,6 +30,11 @@ export interface EditableRowEvent { index: number; row: any; }
 export class PuiEditableTableComponent {
   private el = inject(ElementRef);
   private toast = inject(ToastService);
+  private sanitizer = inject(DomSanitizer);
+
+  safeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
 
   _columns: TableColumn[] = [];
   @Input() set columns(v: TableColumn[] | string) {
@@ -58,6 +64,31 @@ export class PuiEditableTableComponent {
   _confirmDelete = false;
   @Input() set confirmDelete(v: boolean | string) { this._confirmDelete = this._bool(v); }
 
+  /** Show/hide the built-in Edit action independently — e.g. set false for a
+   * view-only or delete-only row toolbar. Both default to true. */
+  _showEditAction = true;
+  @Input() set showEditAction(v: boolean | string) { this._showEditAction = this._bool(v); }
+
+  _showDeleteAction = true;
+  @Input() set showDeleteAction(v: boolean | string) { this._showDeleteAction = this._bool(v); }
+
+  /** Extra per-row buttons shown alongside Edit/Delete (e.g. "View"). Same
+   * TableAction shape used by pui-lib-table / pui-lib-data-table:
+   * { label, icon?: rawSvgString, action(row), disabled?(row) }. */
+  _rowActions: TableAction[] = [];
+  @Input() set rowActions(v: TableAction[] | string) {
+    this._rowActions = typeof v === 'string' ? (this._parse<TableAction[]>(v) ?? []) : (v || []);
+  }
+  get rowActions() { return this._rowActions; }
+
+  /** The Actions column (header + cell) only renders when there's something
+   * to put in it — Edit, Delete, at least one custom rowActions button, or a
+   * row currently mid-edit (so Save/Cancel stay reachable even if the other
+   * three are toggled off while editing is in progress). */
+  get hasRowActions(): boolean {
+    return this._showEditAction || this._showDeleteAction || this._rowActions.length > 0 || this.editingIndex !== null;
+  }
+
   _searchable = false;
   @Input() set searchable(v: boolean | string) { this._searchable = this._bool(v); }
 
@@ -77,8 +108,8 @@ export class PuiEditableTableComponent {
   @Input() set pageSize(v: number | string) { this._pageSize = Number(v) || 10; this.page = 1; }
   @Input() pageSizeOptions: number[] = [10, 25, 50, 100];
 
-  _tooltipPos: 'top' | 'bottom' | 'left' | 'right' = 'top';
-  @Input() set tooltipPosition(v: 'top' | 'bottom' | 'left' | 'right') { this._tooltipPos = v || 'top'; }
+  _tooltipPos: 'top' | 'bottom' | 'left' | 'right' = 'right';
+  @Input() set tooltipPosition(v: 'top' | 'bottom' | 'left' | 'right') { this._tooltipPos = v || 'right'; }
 
   _showToast = true;
   @Input() set showToast(v: boolean | string) { this._showToast = this._bool(v); }
@@ -90,6 +121,7 @@ export class PuiEditableTableComponent {
   @Output() rowEdit = new EventEmitter<EditableRowEvent>();
   @Output() searchChange = new EventEmitter<string>();
   @Output() sortChange = new EventEmitter<SortState>();
+  @Output() actionClick = new EventEmitter<{ action: TableAction; row: any; index: number }>();
 
   editingIndex: number | null = null;
   draft: Record<string, any> = {};
@@ -157,7 +189,7 @@ export class PuiEditableTableComponent {
   }
 
   onPageChange(p: number): void { this.page = p; }
-  onPageSizeChange(size: number): void { this._pageSize = size; this.page = 1; }
+  onPageSizeChange(size: number | string): void { this._pageSize = Number(size) || 10; this.page = 1; }
 
   private _clampPage(): void {
     const totalPages = Math.max(1, Math.ceil(this.displayRows.length / this._pageSize));
@@ -191,6 +223,14 @@ export class PuiEditableTableComponent {
     this.draft = { ...this._rows[i] };
     this.fieldErrors = {};
     this.rowEdit.emit({ index: i, row: this._rows[i] });
+  }
+
+  onRowAction(act: TableAction, i: number): void {
+    if (this.editingIndex !== null) return;
+    if (act.disabled && act.disabled(this._rows[i])) return;
+    const row = this._rows[i];
+    act.action(row);
+    this.actionClick.emit({ action: act, row, index: i });
   }
 
   onFieldChange(col: TableColumn): void {

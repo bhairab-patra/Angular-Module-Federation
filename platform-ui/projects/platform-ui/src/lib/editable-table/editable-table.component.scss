@@ -1,13 +1,17 @@
 ﻿:host {
   display: block;
   font-family: inherit;
+  /* Positioned so the absolutely-positioned cell tooltip (a sibling of
+     .pui-etbl-host, not a descendant) anchors to this component instead of
+     falling through to the initial containing block. */
+  position: relative;
 }
 
 .pui-etbl-host {
   position: relative;
   border: 1px solid var(--pui-neutral-200);
   border-radius: var(--pui-radius-lg);
-  background: var(--pui-table-bg, #FFFFFF);
+  background: var(--pui-table-bg, #ffffff);
   padding: 12px;
   box-sizing: border-box;
 }
@@ -55,6 +59,26 @@
 .pui-etbl-scroll {
   overflow-y: auto;
   overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pui-neutral-300) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--pui-neutral-300);
+    border-radius: var(--pui-radius-full);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--pui-neutral-400);
+  }
 }
 
 .pui-etbl {
@@ -78,7 +102,7 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--pui-neutral-900);
-  background: var(--pui-table-header-bg, #EDEFF0);
+  background: var(--pui-table-header-bg, #edeff0);
   border-bottom: 1.5px solid var(--pui-neutral-200);
   border-right: 1px solid var(--pui-white);
   white-space: nowrap;
@@ -100,7 +124,9 @@
 
   &--sortable {
     cursor: pointer;
-    transition: background var(--pui-duration-fast), color var(--pui-duration-fast);
+    transition:
+      background var(--pui-duration-fast),
+      color var(--pui-duration-fast);
 
     &:hover {
       background: var(--pui-neutral-100);
@@ -120,6 +146,11 @@
 }
 
 .pui-etbl-th__label {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   vertical-align: middle;
 }
 
@@ -155,9 +186,11 @@
     }
   }
 
+  /* Uses outline (not border) since border on a <tr> in a border-collapse
+     table doesn't render — outline draws on top without affecting layout. */
   &--editing {
     background: var(--pui-brand-tint-05) !important;
-    outline: 1.5px solid var(--pui-brand);
+    outline: 1.5px solid var(--pui-form-border, var(--pui-neutral-300));
     outline-offset: -1px;
   }
 }
@@ -196,10 +229,48 @@
   color: #000000;
 }
 
+.pui-etbl-cell--mono {
+  font-family: "SF Mono", ui-monospace, monospace;
+}
+
+.pui-etbl-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--pui-space-0-5) var(--pui-space-2-5);
+  border-radius: var(--pui-radius-full);
+  font-size: var(--pui-text-xs);
+  font-weight: 600;
+  border: 1px solid transparent;
+  white-space: nowrap;
+
+  &--default {
+    background: var(--pui-neutral-100);
+    color: var(--pui-neutral-500);
+    border-color: var(--pui-neutral-200);
+  }
+}
+
+.pui-etbl-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--pui-space-1);
+}
+
+.pui-etbl-pill {
+  display: inline-block;
+  padding: var(--pui-space-px) var(--pui-space-2);
+  border-radius: var(--pui-radius-full);
+  font-size: var(--pui-text-xs);
+  font-weight: 600;
+  background: var(--pui-neutral-100);
+  color: var(--pui-neutral-600);
+  border: 1px solid var(--pui-neutral-200);
+}
+
 .pui-etbl-input {
   width: 100%;
   padding: var(--pui-space-1) var(--pui-space-2);
-  border: 1.5px solid var(--pui-brand);
+  border: 1.5px solid var(--pui-form-border, var(--pui-neutral-300));
   border-radius: var(--pui-radius-xs);
   font-size: var(--pui-text-sm);
   font-family: inherit;
@@ -207,7 +278,9 @@
   background: var(--pui-white);
   outline: none;
   box-sizing: border-box;
-  transition: box-shadow var(--pui-duration-base), border-color var(--pui-duration-base);
+  transition:
+    box-shadow var(--pui-duration-base),
+    border-color var(--pui-duration-base);
 
   &:focus {
     box-shadow: 0 0 0 var(--pui-space-0-75) var(--pui-brand-bg);
@@ -217,7 +290,7 @@
     border-color: var(--pui-error);
 
     &:focus {
-      box-shadow: 0 0 0 var(--pui-space-0-75) var(--pui-error-bg);
+      box-shadow: none;
     }
   }
 }
@@ -243,11 +316,13 @@
   justify-content: center;
   width: 28px;
   height: 28px;
-  border: none;
   border-radius: var(--pui-radius-sm);
   cursor: pointer;
-  background: transparent;
-  transition: background 0.12s, color 0.12s, opacity 0.12s, border-color 0.12s;
+  transition:
+    background 0.12s,
+    color 0.12s,
+    opacity 0.12s,
+    border-color 0.12s;
   padding: 0;
 
   &:disabled {
@@ -255,42 +330,35 @@
     cursor: not-allowed;
   }
 
-  /* Primary Outline: brand-bordered, transparent fill. --pui-brand is the
-     same hex in both the old and new theme, so this reads identically
-     across themes without any per-theme branching. */
-  &--edit {
-    border: 1.5px solid var(--pui-brand);
-    color: var(--pui-brand);
+  /* Primary Outline for every action (edit/delete/save/cancel) — same style
+     the button component uses for its primary-outline variant. --pui-brand-deep
+     and --pui-brand-text-dark are theme tokens, so this recolors automatically
+     between the old and new theme instead of being hardcoded per button. */
+  &--edit,
+  &--delete,
+  &--save,
+  &--cancel,
+  &--custom {
+    background: transparent;
+    color: var(--pui-brand-text-dark);
+    border: 1.5px solid var(--pui-brand-deep);
 
     &:hover:not(:disabled) {
-      background: var(--pui-brand-bg);
+      background: var(--pui-brand-muted-bg);
     }
   }
+}
 
-  &--delete {
-    color: var(--pui-neutral-500);
+.pui-etbl-btn__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
 
-    &:hover:not(:disabled) {
-      background: var(--pui-error-hover-bg);
-      color: var(--pui-error);
-    }
-  }
-
-  &--save {
-    color: var(--pui-success);
-
-    &:hover:not(:disabled) {
-      background: var(--pui-success-tint-10);
-    }
-  }
-
-  &--cancel {
-    color: var(--pui-neutral-500);
-
-    &:hover:not(:disabled) {
-      background: var(--pui-neutral-100);
-      color: var(--pui-neutral-700);
-    }
+  ::ng-deep svg {
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -329,14 +397,13 @@
 }
 
 @keyframes pui-shimmer {
-
   0%,
   100% {
     opacity: 1;
   }
 
   50% {
-    opacity: .45;
+    opacity: 0.45;
   }
 }
 
@@ -394,7 +461,10 @@
     font-family: inherit;
     cursor: pointer;
     border: 1px solid transparent;
-    transition: background var(--pui-duration-fast), border-color var(--pui-duration-fast), color var(--pui-duration-fast);
+    transition:
+      background var(--pui-duration-fast),
+      border-color var(--pui-duration-fast),
+      color var(--pui-duration-fast);
 
     &--cancel {
       background: var(--pui-neutral-100);
@@ -420,7 +490,7 @@
 @keyframes pui-confirm-in {
   from {
     opacity: 0;
-    transform: translate(-50%, -46%) scale(.96);
+    transform: translate(-50%, -46%) scale(0.96);
   }
 
   to {
@@ -429,10 +499,42 @@
   }
 }
 
-.pui-etbl-pagination {
-  display: block;
+.pui-etbl-pagination-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--pui-space-3);
   margin-top: var(--pui-space-2);
   padding: var(--pui-space-1) var(--pui-space-1) 0;
+}
+
+.pui-etbl-pagination {
+  display: block;
+}
+
+.pui-etbl-pagesize {
+  display: flex;
+  align-items: center;
+  gap: var(--pui-space-2);
+}
+
+.pui-etbl-pagesize__label {
+  font-size: var(--pui-text-xs);
+  font-weight: 600;
+  color: var(--pui-neutral-500);
+  white-space: nowrap;
+}
+
+.pui-etbl-pagesize__select {
+  font-family: inherit;
+  font-size: var(--pui-text-sm);
+  color: var(--pui-neutral-900);
+  background: var(--pui-white);
+  border: 1.5px solid var(--pui-form-border, var(--pui-neutral-300));
+  border-radius: var(--pui-radius-sm);
+  padding: var(--pui-space-1) var(--pui-space-2);
+  cursor: pointer;
 }
 
 .pui-etbl-cell-tooltip {
@@ -451,7 +553,7 @@
   line-height: 1.4;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     border: 5px solid transparent;
   }

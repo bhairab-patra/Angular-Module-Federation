@@ -59,9 +59,9 @@ export class PuiTableComponent implements AfterViewInit {
   _maxHeight = 0;
   @Input() set maxHeight(v: number | string) { this._maxHeight = Number(v) || 0; }
 
-  _tooltipPos: 'top' | 'bottom' | 'left' | 'right' = 'top';
+  _tooltipPos: 'top' | 'bottom' | 'left' | 'right' = 'right';
   @Input() set tooltipPosition(v: 'top' | 'bottom' | 'left' | 'right') {
-    this._tooltipPos = v || 'top';
+    this._tooltipPos = v || 'right';
   }
 
   cellTooltipVisible = false;

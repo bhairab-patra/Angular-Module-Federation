@@ -1,0 +1,133 @@
+<docs-page
+  title="Simple Pagination"
+  description="A minimal, text-link style pagination — '‹ Previous | 1 | 2 | 3 | Next ›'. Same total/page/pageSize contract as Pagination, so it drops in wherever the numbered-button look isn't wanted."
+  [code]="angularCode"
+  [api]="api"
+>
+  <ng-container demo>
+    <!-- 1. Basic -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Basic</h3>
+      <p class="demo-section__desc">
+        Bind <code>[total]</code>, <code>[page]</code>, and
+        <code>[pageSize]</code>. Listen to <code>(pageChange)</code> to update.
+        The component never mutates <code>page</code> itself.
+      </p>
+      <pui-lib-simple-pagination
+        [total]="245"
+        [page]="basicPage"
+        [pageSize]="10"
+        (pageChange)="onPageChange($event, 'basic')"
+      >
+      </pui-lib-simple-pagination>
+      <p class="demo-state">
+        Current page: <strong>{{ basicPage }}</strong>
+      </p>
+    </div>
+
+    <!-- 2. States -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">States</h3>
+      <p class="demo-section__desc">Active and disabled states.</p>
+
+      <p class="demo-state">Active</p>
+      <pui-lib-simple-pagination
+        [total]="100"
+        [page]="disabledPage"
+        [pageSize]="10"
+      >
+      </pui-lib-simple-pagination>
+
+      <p class="demo-state" style="margin-top: 20px">Disabled</p>
+      <pui-lib-simple-pagination
+        [total]="100"
+        [page]="disabledPage"
+        [pageSize]="10"
+        [disabled]="true"
+      >
+      </pui-lib-simple-pagination>
+    </div>
+
+    <!-- 3. Examples: ellipsis windowing across a 10-page total -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Examples</h3>
+      <p class="demo-section__desc">
+        When total pages exceed <code>[maxVisible]</code> (default 5), the
+        middle range collapses with an ellipsis. First and last page always stay
+        visible.
+      </p>
+
+      <div class="demo-examples">
+        <pui-lib-simple-pagination
+          [total]="100"
+          [pageSize]="10"
+          [page]="1"
+        ></pui-lib-simple-pagination>
+        <pui-lib-simple-pagination
+          [total]="100"
+          [pageSize]="10"
+          [page]="2"
+        ></pui-lib-simple-pagination>
+        <pui-lib-simple-pagination
+          [total]="100"
+          [pageSize]="10"
+          [page]="3"
+        ></pui-lib-simple-pagination>
+        <pui-lib-simple-pagination
+          [total]="100"
+          [pageSize]="10"
+          [page]="4"
+        ></pui-lib-simple-pagination>
+        <pui-lib-simple-pagination
+          [total]="100"
+          [pageSize]="10"
+          [page]="5"
+        ></pui-lib-simple-pagination>
+        <pui-lib-simple-pagination
+          [total]="100"
+          [pageSize]="10"
+          [page]="6"
+        ></pui-lib-simple-pagination>
+        <pui-lib-simple-pagination
+          [total]="100"
+          [pageSize]="10"
+          [page]="9"
+        ></pui-lib-simple-pagination>
+        <pui-lib-simple-pagination
+          [total]="100"
+          [pageSize]="10"
+          [page]="10"
+        ></pui-lib-simple-pagination>
+      </div>
+    </div>
+
+    <!-- 4. Single page -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Single Page</h3>
+      <p class="demo-section__desc">
+        When everything fits on one page, only that page renders — no ellipsis,
+        Previous/Next stay disabled.
+      </p>
+      <pui-lib-simple-pagination
+        [total]="8"
+        [page]="singlePage"
+        [pageSize]="10"
+        (pageChange)="onPageChange($event, 'single')"
+      >
+      </pui-lib-simple-pagination>
+    </div>
+
+    <!-- 5. Empty State -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Empty State</h3>
+      <p class="demo-section__desc">
+        When <code>[total]="0"</code>, a single disabled page renders.
+      </p>
+      <pui-lib-simple-pagination
+        [total]="0"
+        [page]="1"
+        [pageSize]="10"
+      ></pui-lib-simple-pagination>
+    </div>
+  </ng-container>
+</docs-page>

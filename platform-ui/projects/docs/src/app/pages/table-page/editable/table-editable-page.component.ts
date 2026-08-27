@@ -1,9 +1,9 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import {
-  PuiEditableTableComponent, TableColumn, SortState, EditableRowSaveEvent, EditableRowEvent,
+  PuiEditableTableComponent, TableColumn, TableAction, SortState, EditableRowSaveEvent, EditableRowEvent,
   PuiFormDialogComponent, FormDialogField, FormDialogSaveEvent,
-  PuiConfirmDialogComponent
+  PuiConfirmDialogComponent, ICON_REGISTRY
 } from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../../shared/code-block.component';
@@ -56,6 +56,20 @@ export class TableEditablePageComponent {
     { id: 5, name: 'Emma Wilson', department: 'Engineering', role: 'QA Engineer', salary: 80000 },
     { id: 6, name: 'Frank Chen', department: 'Operations', role: 'DevOps Engineer', salary: 92000 },
     { id: 7, name: 'Grace Kim', department: 'Analytics', role: 'Data Analyst', salary: 88000 },
+  ];
+
+  /* Edit/Delete each toggle independently; rowActions adds extra buttons
+     (here, "View") alongside them — reusing the same TableAction shape as
+     pui-lib-table / pui-lib-data-table. */
+  showEditAction = true;
+  showDeleteAction = true;
+  editableRowActions: TableAction[] = [
+    {
+      label: 'View', icon: ICON_REGISTRY['eye'], action: (row) => {
+        this.editableLog = [`Viewing: ${row.name}`, ...this.editableLog.slice(0, 4)];
+        this.cdr.markForCheck();
+      }
+    },
   ];
 
   onRowSave(e: EditableRowSaveEvent): void {
@@ -139,6 +153,9 @@ export class TableEditablePageComponent {
   [pagination]="true"
   [pageSize]="10"
   [striped]="true"
+  [showEditAction]="true"
+  [showDeleteAction]="true"
+  [rowActions]="rowActions"
   [columns]="columns"
   [data]="rows"
   [maxHeight]="400"
@@ -148,7 +165,7 @@ export class TableEditablePageComponent {
   (sortChange)="onSort($event)">
 </pui-lib-editable-table>`;
 
-  editableTs = `import { PuiEditableTableComponent, TableColumn, EditableRowSaveEvent } from '@bhairab-patra/platform-ui';
+  editableTs = `import { PuiEditableTableComponent, TableColumn, TableAction, EditableRowSaveEvent, ICON_REGISTRY } from '@bhairab-patra/platform-ui';
 
 @Component({ imports: [PuiEditableTableComponent] })
 export class MyComponent {
@@ -163,6 +180,13 @@ export class MyComponent {
   rows = [
     { name: 'Alice', dept: 'Engineering', email: 'alice@co.com', salary: 95000 },
     { name: 'Bob',   dept: 'Design',      email: 'bob@co.com',   salary: 85000 },
+  ];
+  // Only want Edit, or only Delete? Set [showEditAction]="false" or
+  // [showDeleteAction]="false" — each toggles independently. Need another
+  // button (e.g. "View")? Add it via rowActions instead of editing the
+  // library — same TableAction shape used by pui-lib-table / pui-lib-data-table.
+  rowActions: TableAction[] = [
+    { label: 'View', icon: ICON_REGISTRY['eye'], action: (row) => console.log('View', row) },
   ];
   onSave(e: EditableRowSaveEvent) {
     console.log('Saved:', e.row, 'was:', e.oldRow); // a toast fires automatically too
@@ -217,19 +241,27 @@ onSave(e: FormDialogSaveEvent) { console.log(e.data); this.formOpen = false; }`;
     { name: 'stickyHeader', angular: '[stickyHeader]="true"', attr: 'sticky-header', js: 'el.stickyHeader = true' },
     { name: 'pagination', angular: '[pagination]="true"', attr: 'pagination', js: 'el.pagination = true' },
     { name: 'pageSize', angular: '[pageSize]="10"', attr: 'page-size="10"', js: 'el.pageSize = 10' },
+    { name: 'pageSizeOptions', angular: '[pageSizeOptions]="[10,25,50]"', attr: '— use JS property', js: 'el.pageSizeOptions = [10,25,50]' },
     { name: 'maxHeight', angular: '[maxHeight]="400"', attr: 'max-height="400"', js: 'el.maxHeight = 400' },
+    { name: 'tooltipPosition', angular: '[tooltipPosition]="\'right\'"', attr: 'tooltip-position="right"', js: 'el.tooltipPosition = "right"' },
     { name: 'loading', angular: '[loading]="bool"', attr: 'loading="true"', js: 'el.loading = true' },
     { name: 'confirmDelete', angular: '[confirmDelete]="bool"', attr: 'confirm-delete="true"', js: 'el.confirmDelete = true' },
     { name: 'showToast', angular: '[showToast]="true"', attr: 'show-toast', js: 'el.showToast = true' },
+    { name: 'saveToastMessage', angular: '[saveToastMessage]="\'…\'"', attr: 'save-toast-message="…"', js: 'el.saveToastMessage = "…"' },
+    { name: 'deleteToastMessage', angular: '[deleteToastMessage]="\'…\'"', attr: 'delete-toast-message="…"', js: 'el.deleteToastMessage = "…"' },
+    { name: 'showEditAction', angular: '[showEditAction]="bool"', attr: 'show-edit-action', js: 'el.showEditAction = false' },
+    { name: 'showDeleteAction', angular: '[showDeleteAction]="bool"', attr: 'show-delete-action', js: 'el.showDeleteAction = false' },
+    { name: 'rowActions', angular: '[rowActions]="actionsArray"', attr: '— use JS property', js: 'el.rowActions = [{label,icon,action,disabled}]' },
     { name: 'rowSave', angular: '(rowSave)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("rowSave", fn)' },
     { name: 'rowDelete', angular: '(rowDelete)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("rowDelete", fn)' },
     { name: 'rowEdit', angular: '(rowEdit)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("rowEdit", fn)' },
     { name: 'searchChange', angular: '(searchChange)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("searchChange", fn)' },
     { name: 'sortChange', angular: '(sortChange)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("sortChange", fn)' },
+    { name: 'actionClick', angular: '(actionClick)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("actionClick", fn)' },
   ];
 
   api: ApiRow[] = [
-    { input: 'columns', type: 'TableColumn[]', default: '[]', description: 'Column definitions (same as pui-lib-table TableColumn). Set editable: false to keep a column read-only while editing, sortable: true to enable sorting on it, and required/minLength/maxLength/pattern/validationMessage for inline validation while editing.' },
+    { input: 'columns', type: 'TableColumn[]', default: '[]', description: 'Column definitions (same as pui-lib-table TableColumn). type: badge/pills/currency/number/date render the same way as pui-lib-table when the row isn\'t being edited — badge/pills need badgeMap for badge. Set editable: false to keep a column read-only while editing, sortable: true to enable sorting on it, and required/minLength/maxLength/pattern/validationMessage for inline validation while editing.' },
     { input: 'data', type: 'any[]', default: '[]', description: 'Row data array; mutated in-place on save' },
     { input: 'heading', type: 'string', default: "''", description: 'Optional title shown on the left of the toolbar. The toolbar also appears (title-less) whenever searchable is true.' },
     { input: 'searchable', type: 'boolean', default: 'false', description: 'Shows a pui-lib-search box in the toolbar that filters rows by matching any column value, live as you type. Edit/delete/save/sort always act on the correct original row even while filtered.' },
@@ -238,18 +270,22 @@ onSave(e: FormDialogSaveEvent) { console.log(e.data); this.formOpen = false; }`;
     { input: 'pagination', type: 'boolean', default: 'false', description: 'Paginates rows (after search/sort) using pui-lib-pagination in the footer, instead of showing every row in one scroll.' },
     { input: 'pageSize', type: 'number', default: '10', description: 'Rows per page when pagination is true.' },
     { input: 'pageSizeOptions', type: 'number[]', default: '[10, 25, 50, 100]', description: 'Options shown in the pagination page-size selector.' },
-    { input: 'tooltipPosition', type: `'top'|'bottom'|'left'|'right'`, default: `'top'`, description: 'Placement of the tooltip that appears when a truncated header or cell is hovered.' },
+    { input: 'tooltipPosition', type: `'top'|'bottom'|'left'|'right'`, default: `'right'`, description: 'Placement of the tooltip that appears when a truncated header or cell is hovered.' },
     { input: 'maxHeight', type: 'number', default: '480', description: 'Max height (px) of the scroll container' },
     { input: 'loading', type: 'boolean', default: 'false', description: 'Shows a loading skeleton overlay' },
     { input: 'confirmDelete', type: 'boolean', default: 'false', description: 'Shows a built-in confirm dialog before deleting a row' },
     { input: 'showToast', type: 'boolean', default: 'true', description: 'Shows a toast (via the shared ToastService) after a successful save or delete. Mount <pui-lib-toast-container> once at the app root for toasts to render.' },
     { input: 'saveToastMessage', type: 'string', default: "'Row saved successfully'", description: 'Toast message shown after a successful save.' },
     { input: 'deleteToastMessage', type: 'string', default: "'Row deleted successfully'", description: 'Toast message shown after a row is deleted.' },
+    { input: 'showEditAction', type: 'boolean', default: 'true', description: 'Shows/hides the built-in Edit (pencil) button independently of Delete — e.g. set false for a view/delete-only row toolbar.' },
+    { input: 'showDeleteAction', type: 'boolean', default: 'true', description: 'Shows/hides the built-in Delete (trash) button independently of Edit.' },
+    { input: 'rowActions', type: 'TableAction[]', default: '[]', description: 'Extra per-row buttons shown alongside Edit/Delete (e.g. "View") — same TableAction shape as pui-lib-table / pui-lib-data-table: { label, icon?: rawSvgString, action(row), disabled?(row) }. Hidden entirely while any row is being edited. The whole Actions column (header + cell) disappears automatically when showEditAction, showDeleteAction, and rowActions are all off/empty — nothing to configure separately for that.' },
     { input: 'rowSave', type: 'EventEmitter<EditableRowSaveEvent>', default: '—', description: 'Emits {index, row, oldRow} when a row is saved (only after all validation rules pass)' },
     { input: 'rowDelete', type: 'EventEmitter<EditableRowEvent>', default: '—', description: 'Emits {index, row} after a row is deleted' },
     { input: 'rowEdit', type: 'EventEmitter<EditableRowEvent>', default: '—', description: 'Emits {index, row} when a row enters edit mode' },
     { input: 'searchChange', type: 'EventEmitter<string>', default: '—', description: 'Emits the current search term on every keystroke' },
     { input: 'sortChange', type: 'EventEmitter<SortState>', default: '—', description: 'Emits {key, dir} whenever the sort column/direction changes (dir cycles asc → desc → none)' },
+    { input: 'actionClick', type: 'EventEmitter<{action,row,index}>', default: '—', description: 'Emits whenever a rowActions button is clicked, in addition to that action\'s own action(row) callback firing.' },
   ];
 
   formDialogApi: ApiRow[] = [

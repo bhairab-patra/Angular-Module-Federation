@@ -243,10 +243,15 @@ export class MyComponent {
     { name: 'striped', angular: '[striped]="bool"', attr: 'striped="true"', js: 'el.striped = true' },
     { name: 'loading', angular: '[loading]="bool"', attr: 'loading="true"', js: 'el.loading = true' },
     { name: 'actions', angular: '[actions]="actionsArray"', attr: '— use JS property', js: 'el.actions = [{label,action}]' },
+    { name: 'emptyTitle', angular: '[emptyTitle]="\'…\'"', attr: 'empty-title="…"', js: 'el.emptyTitle = "…"' },
+    { name: 'emptyDescription', angular: '[emptyDescription]="\'…\'"', attr: 'empty-description="…"', js: 'el.emptyDescription = "…"' },
+    { name: 'tooltipPosition', angular: '[tooltipPosition]="\'right\'"', attr: 'tooltip-position="right"', js: 'el.tooltipPosition = "right"' },
     { name: 'rowClick', angular: '(rowClick)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("rowClick", fn)' },
     { name: 'selectionChange', angular: '(selectionChange)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("selectionChange", fn)' },
     { name: 'pageChange', angular: '(pageChange)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("pageChange", fn)' },
     { name: 'sortChange', angular: '(sortChange)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("sortChange", fn)' },
+    { name: 'searchChange', angular: '(searchChange)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("searchChange", fn)' },
+    { name: 'actionClick', angular: '(actionClick)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("actionClick", fn)' },
   ];
 
   api: ApiRow[] = [
@@ -265,7 +270,7 @@ export class MyComponent {
     { input: 'emptyTitle', type: 'string', default: "''", description: 'Overrides the default "No data available" empty-state message' },
     { input: 'emptyDescription', type: 'string', default: "''", description: 'Optional supporting text under the empty-state title' },
     { input: 'actions', type: 'TableAction[]', default: '[]', description: 'Row-level actions shown in a 3-dot dropdown menu' },
-    { input: 'rowId', type: 'string', default: "'id'", description: 'Row identity key for stable selection across pages' },
+    { input: 'tooltipPosition', type: "'top'|'bottom'|'left'|'right'", default: "'right'", description: 'Direction of the cell overflow tooltip' },
     { input: 'rowClick', type: 'EventEmitter<any>', default: '—', description: 'Emits the clicked row object' },
     { input: 'selectionChange', type: 'EventEmitter<any[]>', default: '—', description: 'Emits the full array of currently selected rows' },
     { input: 'pageChange', type: 'EventEmitter<number>', default: '—', description: 'Emits the new page number' },

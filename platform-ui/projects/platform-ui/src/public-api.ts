@@ -55,6 +55,7 @@ export * from './lib/form-dialog/form-dialog.component';
 export * from './lib/confirm-dialog/confirm-dialog.component';
 export * from './lib/models/pagination.model';
 export * from './lib/pagination/pagination.component';
+export * from './lib/simple-pagination/simple-pagination.component';
 export * from './lib/models/accordion.model';
 export * from './lib/accordion/accordion.component';
 export * from './lib/models/solifi-sidebar.model';

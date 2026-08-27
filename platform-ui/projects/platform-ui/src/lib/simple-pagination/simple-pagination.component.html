@@ -1,0 +1,44 @@
+<nav
+  class="pui-spg"
+  [class.pui-spg--disabled]="_disabled"
+  aria-label="Pagination navigation"
+>
+  <button
+    type="button"
+    class="pui-spg__link pui-spg__prev"
+    [disabled]="_disabled || page <= 1"
+    aria-label="Previous page"
+    (click)="goTo(page - 1)"
+  >
+    <pui-lib-icon name="chevron-left" size="sm"></pui-lib-icon>
+    Previous
+  </button>
+
+  <ng-container *ngFor="let p of pages; trackBy: trackPage">
+    <span *ngIf="isEllipsis(p)" class="pui-spg__ellipsis" aria-hidden="true"
+      >&hellip;</span
+    >
+    <button
+      *ngIf="!isEllipsis(p)"
+      type="button"
+      class="pui-spg__link pui-spg__page"
+      [class.pui-spg__page--active]="p === page"
+      [disabled]="_disabled"
+      [attr.aria-current]="p === page ? 'page' : null"
+      (click)="goTo(+p)"
+    >
+      {{ p }}
+    </button>
+  </ng-container>
+
+  <button
+    type="button"
+    class="pui-spg__link pui-spg__next"
+    [disabled]="_disabled || page >= totalPages"
+    aria-label="Next page"
+    (click)="goTo(page + 1)"
+  >
+    Next
+    <pui-lib-icon name="chevron-right" size="sm"></pui-lib-icon>
+  </button>
+</nav>

@@ -1,16 +1,25 @@
 ﻿:host {
   display: block;
+  /* Positioned so the absolutely-positioned cell tooltip (a sibling of
+     .pui-tbl-host, not a descendant) anchors to this component instead of
+     falling through to the initial containing block. */
+  position: relative;
 }
 
 .pui-tbl-host {
   position: relative;
   border: 1px solid var(--pui-neutral-200);
   border-radius: var(--pui-radius-xl);
-  background: var(--pui-table-bg, #FFFFFF);
+  background: var(--pui-table-bg, #ffffff);
   width: 100%;
   padding: 12px;
   box-sizing: border-box;
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family:
+    "Poppins",
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
   font-size: var(--pui-text-md);
   color: var(--pui-neutral-900);
 }
@@ -58,6 +67,26 @@
 .pui-tbl-scroll {
   overflow-x: auto;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pui-neutral-300) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--pui-neutral-300);
+    border-radius: var(--pui-radius-full);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--pui-neutral-400);
+  }
 }
 
 .pui-tbl-loading {
@@ -83,7 +112,12 @@
   border-radius: var(--pui-radius-sm);
   flex: 1;
   min-width: 60px;
-  background: linear-gradient(90deg, var(--pui-neutral-100) 25%, var(--pui-skeleton-shimmer) 50%, var(--pui-neutral-100) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--pui-neutral-100) 25%,
+    var(--pui-skeleton-shimmer) 50%,
+    var(--pui-neutral-100) 75%
+  );
   background-size: 200% 100%;
   animation: pui-shimmer 1.4s infinite linear;
 }
@@ -106,7 +140,7 @@
 }
 
 .pui-tbl-head {
-  background: var(--pui-table-header-bg, #EDEFF0);
+  background: var(--pui-table-header-bg, #edeff0);
 }
 
 .pui-tbl-head--sticky {
@@ -140,7 +174,9 @@
 
   &--sortable {
     cursor: pointer;
-    transition: background var(--pui-duration-fast), color var(--pui-duration-fast);
+    transition:
+      background var(--pui-duration-fast),
+      color var(--pui-duration-fast);
 
     &:hover {
       background: var(--pui-neutral-100);
@@ -240,7 +276,7 @@
 }
 
 .pui-tbl-cell--mono {
-  font-family: 'SF Mono', ui-monospace, monospace;
+  font-family: "SF Mono", ui-monospace, monospace;
   font-size: var(--pui-text-sm);
 }
 
@@ -313,7 +349,7 @@
   line-height: 1.4;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     border: 5px solid transparent;
   }

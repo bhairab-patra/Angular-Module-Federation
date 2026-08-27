@@ -7,6 +7,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TableColumn, TableAction, SortState } from '../models/table.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 import { PuiSearchComponent } from '../search/search.component';
+import { PuiSimplePaginationComponent } from '../simple-pagination/simple-pagination.component';
 
 
 export { TableColumn, TableAction, SortDir, SortState } from '../models/table.model';
@@ -15,7 +16,7 @@ export { TableColumn, TableAction, SortDir, SortState } from '../models/table.mo
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-data-table',
   standalone: true,
-  imports: [NgFor, NgIf, DecimalPipe, DatePipe, PuiSearchComponent],
+  imports: [NgFor, NgIf, DecimalPipe, DatePipe, PuiSearchComponent, PuiSimplePaginationComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './data-table.component.html',
@@ -80,9 +81,9 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   }
   get actions() { return this._actions; }
 
-  _tooltipPos: 'top' | 'bottom' | 'left' | 'right' = 'top';
+  _tooltipPos: 'top' | 'bottom' | 'left' | 'right' = 'right';
   @Input() set tooltipPosition(v: 'top' | 'bottom' | 'left' | 'right') {
-    this._tooltipPos = v || 'top';
+    this._tooltipPos = v || 'right';
   }
 
   cellTooltipVisible = false;
@@ -145,22 +146,6 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
     const pages: number[] = [];
     for (let i = Math.max(1, cur - delta); i <= Math.min(total, cur + delta); i++) pages.push(i);
     return pages;
-  }
-
-  /** Windowed page list with '…' gap markers — always shows the first/last page plus a sibling window around the current page. */
-  get pageItems(): Array<number | '…'> {
-    const total = this.totalPages;
-    const cur = this.page;
-    const siblingCount = 2;
-    const left = Math.max(2, cur - siblingCount);
-    const right = Math.min(total - 1, cur + siblingCount);
-
-    const items: Array<number | '…'> = [1];
-    if (left > 2) items.push('…');
-    for (let i = left; i <= right; i++) items.push(i);
-    if (right < total - 1) items.push('…');
-    if (total > 1) items.push(total);
-    return items;
   }
 
   get allSelected(): boolean {

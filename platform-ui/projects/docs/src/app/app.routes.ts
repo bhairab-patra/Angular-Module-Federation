@@ -54,6 +54,7 @@ export const routes: Routes = [
   { path: 'menu', loadComponent: () => import('./pages/menu-page/menu-page.component').then(m => m.MenuPageComponent) },
   { path: 'faq', loadComponent: () => import('./pages/faq-page/faq-page.component').then(m => m.FaqPageComponent) },
   { path: 'pagination', loadComponent: () => import('./pages/pagination-page/pagination-page.component').then(m => m.PaginationPageComponent) },
+  { path: 'simple-pagination', loadComponent: () => import('./pages/simple-pagination-page/simple-pagination-page.component').then(m => m.SimplePaginationPageComponent) },
   { path: 'accordion', loadComponent: () => import('./pages/accordion-page/accordion-page.component').then(m => m.AccordionPageComponent) },
   { path: 'avatar', loadComponent: () => import('./pages/avatar-page/avatar-page.component').then(m => m.AvatarPageComponent) },
   { path: 'footer', loadComponent: () => import('./pages/footer-page/footer-page.component').then(m => m.FooterPageComponent) },

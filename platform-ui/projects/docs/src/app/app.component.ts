@@ -67,6 +67,7 @@ export class AppComponent {
     { label: 'Menu', route: '/menu', category: 'Component', keywords: ['menu', 'dropdown', 'submenu', 'context', 'actions', 'popover', 'trigger', 'select'] },
     { label: 'Data Grid', route: '/datagrid', category: 'Component', keywords: ['datagrid', 'grid', 'table', 'data', 'sort', 'pagination', 'selectable', 'rows', 'columns', 'badge'] },
     { label: 'Pagination', route: '/pagination', category: 'Component', keywords: ['pagination', 'page', 'pager', 'pages', 'next', 'previous', 'navigate', 'records', 'total', 'ellipsis'] },
+    { label: 'Simple Pagination', route: '/simple-pagination', category: 'Component', keywords: ['pagination', 'simple', 'page', 'pager', 'pages', 'next', 'previous', 'navigate', 'text', 'link', 'minimal', 'ellipsis'] },
     { label: 'Accordion', route: '/accordion', category: 'Component', keywords: ['accordion', 'expand', 'collapse', 'faq', 'panel', 'toggle', 'disclosure', 'content', 'sections'] },
     { label: 'Avatar', route: '/avatar', category: 'Component', keywords: ['avatar', 'user', 'profile', 'menu', 'dropdown', 'account', 'logout', 'sign out', 'card', 'initials', 'photo'] },
   ];
@@ -227,6 +228,10 @@ export class AppComponent {
           {
             label: 'Pagination', route: '/pagination',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="5" width="3" height="6" rx="1"/><rect x="5" y="5" width="3" height="6" rx="1"/><rect x="9" y="5" width="3" height="6" rx="1"/><rect x="13" y="5" width="2" height="6" rx="1"/></svg>`)
+          },
+          {
+            label: 'Simple Pagination', route: '/simple-pagination',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h2M12 8h2"/><path d="M4.5 5L2 8l2.5 3M11.5 5L14 8l-2.5 3"/></svg>`)
           },
           {
             label: 'Tabs', route: '/tabs',

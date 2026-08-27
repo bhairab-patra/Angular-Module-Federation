@@ -1,28 +1,39 @@
-﻿<docs-page title="Editable Table"
+﻿<docs-page
+  title="Editable Table"
   description="pui-lib-editable-table — inline row editing with edit/save/cancel/delete controls per row, a title (heading), live search (pui-lib-search — the same search component used by pui-lib-table and pui-lib-data-table), per-column sorting, optional pagination, sticky header, striping, truncated-cell tooltips, inline validation, and a save/delete toast — every feature is an independent input you can turn on or off. Header text is 14px, cell text is 13px/black, and header cell padding is var(--pui-space-3) var(--pui-space-3-5) — matching pui-lib-table and pui-lib-data-table exactly. Only one row can be edited at a time. Supports pui-lib-form-dialog for modal add/edit flows and pui-lib-confirm-dialog for delete confirmation."
-  [api]="api" [hasFramework]="true">
-
+  [api]="api"
+  [hasFramework]="true"
+>
   <ng-container demo>
-
     <!-- 1. Editable table inline editing -->
     <div class="demo-section">
       <h3 class="demo-section__title">Inline Row Editing</h3>
       <p class="demo-section__desc">
-        Click the <strong>pencil</strong> icon to enter edit mode — all cells become inputs.
-        Click the <strong>checkmark</strong> to save or <strong>X</strong> to cancel.
-        Only one row can be in edit mode at a time.
-        With <code>[confirmDelete]="true"</code>, clicking the <strong>trash</strong> icon shows a
-        built-in confirm dialog before deleting.
-        Set <code>editable: false</code> on a column to keep it read-only while editing — below,
-        <strong>Department</strong> stays plain text even in edit mode, while every other column becomes an input.
+        Click the <strong>pencil</strong> icon to enter edit mode — all cells
+        become inputs. Click the <strong>checkmark</strong> to save or
+        <strong>X</strong> to cancel. Only one row can be in edit mode at a
+        time. With <code>[confirmDelete]="true"</code>, clicking the
+        <strong>trash</strong> icon shows a built-in confirm dialog before
+        deleting. Set <code>editable: false</code> on a column to keep it
+        read-only while editing — below, <strong>Department</strong> stays plain
+        text even in edit mode, while every other column becomes an input.
       </p>
       <p class="demo-section__desc">
-        Every feature here is independently switchable: <code>sortable</code> is set per column (click Name,
-        Department, Role, or Salary to sort), <code>[pagination]</code> + <code>[pageSize]</code> page the rows,
-        <code>[stickyHeader]</code> pins the header, and <code>required</code>/<code>minLength</code>/<code>pattern</code>
-        on a column enforce inline validation (with an error message) before Save is allowed. A toast confirms every
-        save/delete — disable it with <code>[showToast]="false"</code>. Truncated header or cell text shows a
-        tooltip on hover.
+        Every feature here is independently switchable: <code>sortable</code> is
+        set per column (click Name, Department, Role, or Salary to sort),
+        <code>[pagination]</code> + <code>[pageSize]</code> page the rows,
+        <code>[stickyHeader]</code> pins the header, and
+        <code>required</code>/<code>minLength</code>/<code>pattern</code> on a
+        column enforce inline validation (with an error message) before Save is
+        allowed. A toast confirms every save/delete — disable it with
+        <code>[showToast]="false"</code>. Truncated header or cell text shows a
+        tooltip on hover. The built-in Edit and Delete buttons toggle
+        independently with <code>[showEditAction]</code>/<code
+          >[showDeleteAction]</code
+        >
+        — turn either off for an edit-only or delete-only row toolbar.
+        <code>[rowActions]</code> adds custom buttons (here, "View") alongside
+        them.
       </p>
       <pui-lib-editable-table
         heading="Team Members"
@@ -31,6 +42,9 @@
         [pagination]="true"
         [pageSize]="5"
         [striped]="true"
+        [showEditAction]="showEditAction"
+        [showDeleteAction]="showDeleteAction"
+        [rowActions]="editableRowActions"
         [columns]="editableCols"
         [data]="editableRows"
         [maxHeight]="400"
@@ -38,10 +52,16 @@
         (rowSave)="onRowSave($event)"
         (rowDelete)="onRowDelete($event)"
         (rowEdit)="onRowEdit($event)"
-        (sortChange)="onSortChange($event)">
+        (sortChange)="onSortChange($event)"
+      >
       </pui-lib-editable-table>
       <div class="demo-log" *ngIf="editableLog.length">
-        <p *ngFor="let entry of editableLog; trackBy: trackByIndex" class="demo-log__entry">{{ entry }}</p>
+        <p
+          *ngFor="let entry of editableLog; trackBy: trackByIndex"
+          class="demo-log__entry"
+        >
+          {{ entry }}
+        </p>
       </div>
     </div>
 
@@ -49,16 +69,24 @@
     <div class="demo-section">
       <h3 class="demo-section__title">Form Dialog — Add &amp; Edit</h3>
       <p class="demo-section__desc">
-        <code>pui-lib-form-dialog</code> is a reusable modal with fully configurable <code>[fields]</code>.
-        Set <code>[data]</code> to pre-fill values for an edit flow; leave empty for an add flow.
-        Use <code>size="sm|md|lg"</code> to control the dialog width.
+        <code>pui-lib-form-dialog</code> is a reusable modal with fully
+        configurable <code>[fields]</code>. Set <code>[data]</code> to pre-fill
+        values for an edit flow; leave empty for an add flow. Use
+        <code>size="sm|md|lg"</code> to control the dialog width.
       </p>
       <div class="demo-row" style="gap: 8px; margin-bottom: 14px">
         <button class="demo-btn" (click)="openAddForm()">Add Employee</button>
-        <button class="demo-btn" (click)="openEditForm(editableRows[0])">Edit First Row</button>
+        <button class="demo-btn" (click)="openEditForm(editableRows[0])">
+          Edit First Row
+        </button>
       </div>
       <div class="demo-log" *ngIf="formLog.length">
-        <p *ngFor="let entry of formLog; trackBy: trackByIndex" class="demo-log__entry">{{ entry }}</p>
+        <p
+          *ngFor="let entry of formLog; trackBy: trackByIndex"
+          class="demo-log__entry"
+        >
+          {{ entry }}
+        </p>
       </div>
 
       <pui-lib-form-dialog
@@ -70,23 +98,42 @@
         size="md"
         (save)="onFormSave($event)"
         (closed)="onFormClose()"
-        (cancel)="onFormClose()">
+        (cancel)="onFormClose()"
+      >
       </pui-lib-form-dialog>
 
-      <h4 style="margin: 20px 0 8px; font-size: 13px; color: #6b7280">Angular usage</h4>
-      <docs-code-block lang="html"       id="fd-html" [text]="formDialogHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <docs-code-block lang="typescript" id="fd-ts"   [text]="formDialogTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <h4 style="margin: 20px 0 8px; font-size: 13px; color: #6b7280">
+        Angular usage
+      </h4>
+      <docs-code-block
+        lang="html"
+        id="fd-html"
+        [text]="formDialogHtml"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
+      <docs-code-block
+        lang="typescript"
+        id="fd-ts"
+        [text]="formDialogTs"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
     </div>
 
     <!-- 3. Confirm Dialog -->
     <div class="demo-section">
       <h3 class="demo-section__title">Confirm Dialog — Delete Confirmation</h3>
       <p class="demo-section__desc">
-        <code>pui-lib-confirm-dialog</code> shows a simple confirmation prompt before a destructive action.
-        Customize the title, message, button labels, and confirm variant.
+        <code>pui-lib-confirm-dialog</code> shows a simple confirmation prompt
+        before a destructive action. Customize the title, message, button
+        labels, and confirm variant.
       </p>
       <div class="demo-row" style="gap: 8px; margin-bottom: 14px">
-        <button class="demo-btn demo-btn--danger" (click)="openConfirm(editableRows[0])">
+        <button
+          class="demo-btn demo-btn--danger"
+          (click)="openConfirm(editableRows[0])"
+        >
           Delete Alice Johnson
         </button>
       </div>
@@ -94,35 +141,80 @@
       <pui-lib-confirm-dialog
         [open]="confirmOpen"
         title="Delete Employee?"
-        [message]="'Are you sure you want to delete &quot;' + (confirmRow?.['name'] || '') + '&quot;? This action cannot be undone.'"
+        [message]="
+          'Are you sure you want to delete &quot;' +
+          (confirmRow?.['name'] || '') +
+          '&quot;? This action cannot be undone.'
+        "
         confirmLabel="Yes, Delete"
         cancelLabel="Cancel"
         confirmVariant="destructive"
         (confirmed)="onConfirmDelete()"
-        (closed)="onConfirmCancel()">
+        (closed)="onConfirmCancel()"
+      >
       </pui-lib-confirm-dialog>
 
-      <h4 style="margin: 20px 0 8px; font-size: 13px; color: #6b7280">Angular usage</h4>
-      <docs-code-block lang="html" id="cd-html" [text]="confirmDialogHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <h4 style="margin: 20px 0 8px; font-size: 13px; color: #6b7280">
+        Angular usage
+      </h4>
+      <docs-code-block
+        lang="html"
+        id="cd-html"
+        [text]="confirmDialogHtml"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
     </div>
 
     <!-- 4. Inline editable table code -->
     <div class="demo-section">
       <h3 class="demo-section__title">Editable Table Usage</h3>
-      <docs-code-block lang="html"       id="et-html" [text]="editableHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <docs-code-block lang="typescript" id="et-ts"   [text]="editableTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block
+        lang="html"
+        id="et-html"
+        [text]="editableHtml"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
+      <docs-code-block
+        lang="typescript"
+        id="et-ts"
+        [text]="editableTs"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
     </div>
 
     <!-- 5. pui-lib-form-dialog API -->
     <div class="demo-section">
       <h3 class="demo-section__title">pui-lib-form-dialog API</h3>
       <table class="pui-api-table">
-        <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Input / Output</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
         <tbody>
-          <tr *ngFor="let row of formDialogApi; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
-            <td><code class="tag-name">{{ row.input }}</code></td>
-            <td><code>{{ row.type }}</code></td>
-            <td><code>{{ row.default }}</code></td>
+          <tr
+            *ngFor="
+              let row of formDialogApi;
+              let odd = odd;
+              trackBy: trackByIndex
+            "
+            [class.xfw-odd]="odd"
+          >
+            <td>
+              <code class="tag-name">{{ row.input }}</code>
+            </td>
+            <td>
+              <code>{{ row.type }}</code>
+            </td>
+            <td>
+              <code>{{ row.default }}</code>
+            </td>
             <td>{{ row.description }}</td>
           </tr>
         </tbody>
@@ -133,58 +225,111 @@
     <div class="demo-section">
       <h3 class="demo-section__title">pui-lib-confirm-dialog API</h3>
       <table class="pui-api-table">
-        <thead><tr><th>Input / Output</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Input / Output</th>
+            <th>Type</th>
+            <th>Default</th>
+            <th>Description</th>
+          </tr>
+        </thead>
         <tbody>
-          <tr *ngFor="let row of confirmDialogApi; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
-            <td><code class="tag-name">{{ row.input }}</code></td>
-            <td><code>{{ row.type }}</code></td>
-            <td><code>{{ row.default }}</code></td>
+          <tr
+            *ngFor="
+              let row of confirmDialogApi;
+              let odd = odd;
+              trackBy: trackByIndex
+            "
+            [class.xfw-odd]="odd"
+          >
+            <td>
+              <code class="tag-name">{{ row.input }}</code>
+            </td>
+            <td>
+              <code>{{ row.type }}</code>
+            </td>
+            <td>
+              <code>{{ row.default }}</code>
+            </td>
             <td>{{ row.description }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
-      <code>pui-lib-editable-table</code> is a Web Component. Array/object inputs (<code>columns</code>,
-      <code>data</code>) must be set as JS properties from React/HTML; Angular uses property binding directly.
-      Mark any column <code>editable: false</code> to keep it read-only while a row is being edited —
-      leave it unset (or <code>true</code>) for columns that should become inputs.
+      <code>pui-lib-editable-table</code> is a Web Component. Array/object
+      inputs (<code>columns</code>, <code>data</code>) must be set as JS
+      properties from React/HTML; Angular uses property binding directly. Mark
+      any column <code>editable: false</code> to keep it read-only while a row
+      is being edited — leave it unset (or <code>true</code>) for columns that
+      should become inputs.
     </p>
 
     <div class="fw-tabs">
-      <button class="fw-tab" [class.fw-tab--active]="fw==='angular'" (click)="fw='angular'">Angular</button>
+      <button
+        class="fw-tab"
+        [class.fw-tab--active]="fw === 'angular'"
+        (click)="fw = 'angular'"
+      >
+        Angular
+      </button>
     </div>
 
-    <div *ngIf="fw==='angular'" class="fw-panel">
-      <div class="fw-note fw-note--angular">Import <code>PuiEditableTableComponent</code>.</div>
-      <docs-code-block lang="html"       id="ang-editable-html" [text]="editableHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <docs-code-block lang="typescript" id="ang-editable-ts"   [text]="editableTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    <div *ngIf="fw === 'angular'" class="fw-panel">
+      <div class="fw-note fw-note--angular">
+        Import <code>PuiEditableTableComponent</code>.
+      </div>
+      <docs-code-block
+        lang="html"
+        id="ang-editable-html"
+        [text]="editableHtml"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
+      <docs-code-block
+        lang="typescript"
+        id="ang-editable-ts"
+        [text]="editableTs"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
     </div>
 
     <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
     <div class="xfw-wrap">
       <table class="xfw-table">
         <thead>
-          <tr><th>Input / Event</th><th>Angular</th><th>HTML attribute</th><th>JS property</th></tr>
+          <tr>
+            <th>Input / Event</th>
+            <th>Angular</th>
+            <th>HTML attribute</th>
+            <th>JS property</th>
+          </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
-            <td><code class="tag-name">{{ r.name }}</code></td>
-            <td><code>{{ r.angular }}</code></td>
-            <td><code>{{ r.attr }}</code></td>
-            <td><code>{{ r.js }}</code></td>
+          <tr
+            *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex"
+            [class.xfw-odd]="odd"
+          >
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code>{{ r.angular }}</code>
+            </td>
+            <td>
+              <code>{{ r.attr }}</code>
+            </td>
+            <td>
+              <code>{{ r.js }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-

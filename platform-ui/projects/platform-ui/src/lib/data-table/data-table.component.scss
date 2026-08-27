@@ -1,16 +1,25 @@
 ﻿:host {
   display: block;
+  /* Positioned so the absolutely-positioned cell tooltip (a sibling of
+     .pui-dt-host, not a descendant) anchors to this component instead of
+     falling through to the initial containing block. */
+  position: relative;
 }
 
 .pui-dt-host {
   position: relative;
   border: 1px solid var(--pui-neutral-200);
   border-radius: var(--pui-radius-xl);
-  background: var(--pui-table-bg, #FFFFFF);
+  background: var(--pui-table-bg, #ffffff);
   width: 100%;
   padding: 10px;
   box-sizing: border-box;
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family:
+    "Poppins",
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
   font-size: var(--pui-text-md);
   color: var(--pui-neutral-900);
 }
@@ -70,6 +79,26 @@
 .pui-dt-scroll {
   overflow-x: auto;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pui-neutral-300) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--pui-neutral-300);
+    border-radius: var(--pui-radius-full);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--pui-neutral-400);
+  }
 }
 
 .pui-dt-loading {
@@ -95,7 +124,12 @@
   border-radius: var(--pui-radius-sm);
   flex: 1;
   min-width: 60px;
-  background: linear-gradient(90deg, var(--pui-neutral-100) 25%, var(--pui-skeleton-shimmer) 50%, var(--pui-neutral-100) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--pui-neutral-100) 25%,
+    var(--pui-skeleton-shimmer) 50%,
+    var(--pui-neutral-100) 75%
+  );
   background-size: 200% 100%;
   animation: pui-dt-shimmer 1.4s infinite linear;
 }
@@ -118,7 +152,7 @@
 }
 
 .pui-dt-head {
-  background: var(--pui-table-header-bg, #EDEFF0);
+  background: var(--pui-table-header-bg, #edeff0);
 }
 
 .pui-dt-head--sticky {
@@ -144,7 +178,8 @@
 
   &--sel {
     width: 44px;
-    padding: var(--pui-space-2) var(--pui-space-2-5) var(--pui-space-2) var(--pui-space-4);
+    padding: var(--pui-space-2) var(--pui-space-2-5) var(--pui-space-2)
+      var(--pui-space-4);
   }
 
   &--actions {
@@ -162,7 +197,9 @@
 
   &--sortable {
     cursor: pointer;
-    transition: background var(--pui-duration-fast), color var(--pui-duration-fast);
+    transition:
+      background var(--pui-duration-fast),
+      color var(--pui-duration-fast);
 
     &:hover {
       background: var(--pui-neutral-100);
@@ -252,7 +289,8 @@
   max-width: 0;
 
   &--sel {
-    padding: var(--pui-space-3) var(--pui-space-2-5) var(--pui-space-3) var(--pui-space-4);
+    padding: var(--pui-space-3) var(--pui-space-2-5) var(--pui-space-3)
+      var(--pui-space-4);
     width: 44px;
     overflow: visible;
   }
@@ -283,7 +321,7 @@
 }
 
 .pui-dt-cell--mono {
-  font-family: 'SF Mono', ui-monospace, monospace;
+  font-family: "SF Mono", ui-monospace, monospace;
   font-size: var(--pui-text-sm);
 }
 
@@ -309,17 +347,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: border-color var(--pui-duration-fast), background var(--pui-duration-fast);
+  transition:
+    border-color var(--pui-duration-fast),
+    background var(--pui-duration-fast);
   flex-shrink: 0;
 }
 
-.pui-dt-cb input:checked+.pui-dt-cb__box {
+.pui-dt-cb input:checked + .pui-dt-cb__box {
   background: var(--pui-brand);
   border-color: var(--pui-brand);
 }
 
-.pui-dt-cb input:checked+.pui-dt-cb__box::after {
-  content: '';
+.pui-dt-cb input:checked + .pui-dt-cb__box::after {
+  content: "";
   width: 4px;
   height: 7px;
   border: 1.5px solid var(--pui-white);
@@ -328,13 +368,13 @@
   transform: rotate(45deg) translate(-1px, -1px);
 }
 
-.pui-dt-cb input:indeterminate+.pui-dt-cb__box {
+.pui-dt-cb input:indeterminate + .pui-dt-cb__box {
   background: var(--pui-brand);
   border-color: var(--pui-brand);
 }
 
-.pui-dt-cb input:indeterminate+.pui-dt-cb__box::after {
-  content: '';
+.pui-dt-cb input:indeterminate + .pui-dt-cb__box::after {
+  content: "";
   width: 8px;
   height: 1.5px;
   background: var(--pui-white);
@@ -428,7 +468,7 @@
   line-height: 1.4;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     border: 5px solid transparent;
   }
@@ -490,7 +530,9 @@
   cursor: pointer;
   color: var(--pui-neutral-500);
   border-radius: var(--pui-radius-sm);
-  transition: background var(--pui-duration-base), color var(--pui-duration-base);
+  transition:
+    background var(--pui-duration-base),
+    color var(--pui-duration-base);
 
   &:hover,
   &--open {
@@ -530,7 +572,9 @@
   cursor: pointer;
   text-align: left;
   font-family: inherit;
-  transition: background var(--pui-duration-fast), color var(--pui-duration-fast);
+  transition:
+    background var(--pui-duration-fast),
+    color var(--pui-duration-fast);
 
   &:hover:not([disabled]) {
     background: var(--pui-neutral-50);
@@ -538,7 +582,7 @@
   }
 
   &[disabled] {
-    opacity: .45;
+    opacity: 0.45;
     cursor: not-allowed;
   }
 }
@@ -553,9 +597,10 @@
 .pui-dt-pager {
   display: flex;
   align-items: center;
-  padding: var(--pui-space-4) var(--pui-space-1) var(--pui-space-2) var(--pui-space-1);
+  padding: var(--pui-space-4) var(--pui-space-1) var(--pui-space-2)
+    var(--pui-space-1);
   border-top: 1px solid var(--pui-neutral-100);
-  background: var(--pui-table-bg, #FFFFFF);
+  background: var(--pui-table-bg, #ffffff);
   flex-wrap: wrap;
   gap: var(--pui-space-3);
 }
@@ -585,12 +630,6 @@
   gap: var(--pui-space-2);
 }
 
-.pui-dt-pager__controls {
-  display: flex;
-  align-items: center;
-  gap: var(--pui-space-1);
-}
-
 .pui-dt-pager__size-wrap {
   position: relative;
 }
@@ -609,7 +648,9 @@
   font-family: inherit;
   cursor: pointer;
   white-space: nowrap;
-  transition: background var(--pui-duration-fast), border-color var(--pui-duration-fast);
+  transition:
+    background var(--pui-duration-fast),
+    border-color var(--pui-duration-fast);
 
   &:hover,
   &--open {
@@ -664,7 +705,9 @@
   color: var(--pui-neutral-700);
   cursor: pointer;
   text-align: left;
-  transition: background var(--pui-duration-fast), color var(--pui-duration-fast);
+  transition:
+    background var(--pui-duration-fast),
+    color var(--pui-duration-fast);
 
   &:hover {
     background: var(--pui-neutral-50);
@@ -679,78 +722,4 @@
 .pui-dt-pager__size-check {
   flex: none;
   color: var(--pui-brand);
-}
-
-.pui-dt-pager__nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border: none;
-  border-radius: var(--pui-radius-full);
-  background: transparent;
-  cursor: pointer;
-  color: var(--pui-neutral-600);
-  transition: background var(--pui-duration-fast), color var(--pui-duration-fast);
-
-  &:hover:not([disabled]) {
-    background: var(--pui-neutral-100);
-    color: var(--pui-neutral-900);
-  }
-
-  &[disabled] {
-    opacity: .35;
-    cursor: not-allowed;
-  }
-}
-
-.pui-dt-pager__pages {
-  display: flex;
-  align-items: center;
-  gap: var(--pui-space-1);
-}
-
-.pui-dt-pager__ellipsis {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 22px;
-  color: var(--pui-neutral-400);
-  font-size: var(--pui-text-sm);
-  user-select: none;
-}
-
-.pui-dt-pager__page {
-  min-width: 25px;
-  height: 25px;
-  padding: 0 var(--pui-space-1-5);
-  border: 1px solid var(--pui-neutral-300);
-  border-radius: var(--pui-radius-sm);
-  background: var(--pui-white);
-  cursor: pointer;
-  color: var(--pui-neutral-700);
-  font-size: var(--pui-text-sm);
-  font-family: inherit;
-  transition: background var(--pui-duration-fast), border-color var(--pui-duration-fast), color var(--pui-duration-fast);
-
-  &:hover {
-    background: var(--pui-neutral-100);
-    border-color: var(--pui-neutral-400);
-  }
-
-  /* Selected page: fills with the theme's accent surface + matching ink —
-     teal/black on the old theme, dark teal/white on the new theme, per
-     the same pair used for checkbox ticks & primary buttons. */
-  &--active {
-    background: var(--pui-form-accent);
-    border-color: var(--pui-form-accent);
-    color: var(--pui-accent-ink);
-    font-weight: 700;
-
-    &:hover {
-      background: var(--pui-form-accent);
-      border-color: var(--pui-form-accent);
-    }
-  }
 }

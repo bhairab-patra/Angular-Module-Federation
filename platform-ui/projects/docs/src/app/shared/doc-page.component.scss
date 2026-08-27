@@ -6,7 +6,7 @@
   margin: 0 auto;
   padding: 50px 0px;
   gap: 50px;
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
 }
 
 .page-content {
@@ -36,7 +36,7 @@
   font-size: 38px;
   font-weight: 800;
   color: var(--pui-neutral-900);
-  letter-spacing: -.025em;
+  letter-spacing: -0.025em;
   line-height: 1.15;
   margin-bottom: 14px;
 }
@@ -45,7 +45,7 @@
   font-size: 16px;
   color: var(--pui-neutral-500);
   line-height: 1.75;
-  max-width: 600px;
+  max-width: 100%;
 }
 
 .page-hr {
@@ -115,7 +115,7 @@
   color: var(--pui-slate-600);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .07em;
+  letter-spacing: 0.07em;
 }
 
 .copy-btn {
@@ -160,7 +160,7 @@ pre {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   border-bottom: 1px solid var(--pui-neutral-200);
 }
 
@@ -253,7 +253,7 @@ pre {
   font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .09em;
+  letter-spacing: 0.09em;
   color: var(--pui-neutral-400, #94a3b8);
 }
 
@@ -268,14 +268,16 @@ pre {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding:6px 8px;
+  padding: 6px 8px;
   border-radius: 10px;
   color: var(--pui-neutral-700, #374151);
   font-size: 12px;
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
-  transition: background .13s, color .13s;
+  transition:
+    background 0.13s,
+    color 0.13s;
   user-select: none;
 
   &:not(:last-child) {
@@ -293,7 +295,9 @@ pre {
   border-radius: 9px;
   background: var(--pui-neutral-100, #f1f5f9);
   color: var(--pui-neutral-400, #94a3b8);
-  transition: background .13s, color .13s;
+  transition:
+    background 0.13s,
+    color 0.13s;
 }
 
 .otp-link:hover {
@@ -301,12 +305,12 @@ pre {
 }
 
 .otp-link.otp-link-active {
-  color: #0F5C5E;
+  color: #0f5c5e;
   // background: rgba(15,92,94,.08);
 
   .otp-link__icon {
-    background: rgba(15,92,94,.14);
-    color: #0F5C5E;
+    background: rgba(15, 92, 94, 0.14);
+    color: #0f5c5e;
   }
 
   // &::before {
@@ -322,5 +326,5 @@ pre {
 }
 
 .otp-link.otp-link-active:hover {
-  color: #0F5C5E;
+  color: #0f5c5e;
 }

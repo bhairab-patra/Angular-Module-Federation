@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf, NgStyle, DecimalPipe, DatePipe } from '@angular/common';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
+import { PuiSimplePaginationComponent } from '../simple-pagination/simple-pagination.component';
 
 export interface DataGridColumn<T = any> {
   field: keyof T;
@@ -27,7 +28,7 @@ export interface DataGridPageEvent {
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-datagrid',
   standalone: true,
-  imports: [NgFor, NgIf, NgStyle, DecimalPipe, DatePipe],
+  imports: [NgFor, NgIf, NgStyle, DecimalPipe, DatePipe, PuiSimplePaginationComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './datagrid.component.html',
