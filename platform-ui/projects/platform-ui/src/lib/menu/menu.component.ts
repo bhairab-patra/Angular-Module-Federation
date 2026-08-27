@@ -3,6 +3,7 @@
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
+import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -10,6 +11,7 @@ import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
   standalone: true,
   imports: [NgFor, NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })

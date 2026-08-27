@@ -41,7 +41,7 @@
                   (mouseleave)="onNavItemLeave()">
 
             <span class="ssb__icon" *ngIf="item.iconName">
-              <pui-lib-icon [name]="item.iconName" [size]="collapsed ? 'sm' : 'md'" color="currentColor"></pui-lib-icon>
+              <pui-lib-icon [name]="item.iconName" [size]="collapsed ? 'xs' : 'sm'" color="currentColor"></pui-lib-icon>
             </span>
             <span class="ssb__icon" *ngIf="!item.iconName && item.icon" [innerHTML]="item.icon"></span>
             <span class="ssb__abbr" *ngIf="collapsed && !item.iconName && !item.icon">{{ itemAbbr(item) }}</span>

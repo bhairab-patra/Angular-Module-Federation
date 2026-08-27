@@ -9,7 +9,7 @@ pui-lib-menu {
   align-items: center;
   gap: var(--pui-space-1-5);
   padding: 0 var(--pui-space-3-5);
-  height: 36px;
+  height: var(--pui-menu-trigger-height, 36px);
   border-radius: var(--pui-radius-sm);
   font-size: var(--pui-text-md);
   font-weight: 500;

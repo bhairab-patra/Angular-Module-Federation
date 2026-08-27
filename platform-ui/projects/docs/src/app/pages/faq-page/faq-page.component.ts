@@ -203,7 +203,7 @@ pui-lib-header {
         },
         {
           q: 'What if the thing I want to change has no CSS variable exposed?',
-          a: 'Check the component\'s @Input() props first — several components (Header, Solifi Sidebar, App Shell) accept direct styling inputs such as bgColor, textColor, activeColor, or a full theme object, precisely so you don\'t need a CSS override at all. If neither a variable nor an input covers your case, that\'s a genuine gap — request it rather than reaching for ::ng-deep, since it will not compile around the Shadow boundary.',
+          a: 'Check the component\'s @Input() props first — several components (Header, Solifi Sidebar, App Shell) accept direct styling inputs such as bgColor, textColor, activeColor, or a full theme object, precisely so you don\'t need a CSS override at all. If neither a variable nor an input covers your case, use the customCss input — see the dedicated "Overriding CSS With customCss" section below.',
           code: `<!-- Styling via component inputs instead of CSS -->
 <pui-lib-solifi-sidebar
   [theme]="{ bg: '#112C35', textColor: '#8fa3bc', activeColor: '#12C6A8' }">
@@ -213,6 +213,76 @@ pui-lib-header {
         {
           q: 'I have existing ::ng-deep overrides targeting pui-lib-* components from before we upgraded — will they still work?',
           a: 'No, and they will fail silently — no console error, the rule just never applies once the target is inside a Shadow root. Search your app for ::ng-deep rules that target pui-lib-* elements or any of their internal classes (.pui-header, .ssb, etc.) and replace each one with the matching --pui-* variable or a component @Input(). Do this deliberately after upgrading rather than discovering it as a visual regression.',
+        },
+      ],
+    },
+    {
+      title: 'Overriding CSS With customCss',
+      icon: '✏️',
+      open: false,
+      items: [
+        {
+          q: 'What is customCss and when should I use it instead of a --pui-* variable?',
+          a: 'customCss is an input available on pui-lib-* components. You pass it a raw CSS string, and the component injects it as a <style> tag inside its own shadow root — so it can target any internal class (.pui-ms-trigger, .pui-header, .ssb__item, etc.) with normal CSS, not just the specific properties a --pui-* variable happens to expose. Reach for a --pui-* variable first when one exists (it\'s documented, stable across versions, and usually all you need); reach for customCss when you need to change something no variable covers — layout, borders, spacing, a property combination, anything.\n\nThis does not reopen the original CSS-leak problem. The style tag is inserted by the component itself, from inside its own shadow root — your app\'s unrelated global CSS (e.g. * { color: red } in your global stylesheet) still cannot reach in from outside. customCss only ever affects the specific component instance you explicitly pass it to.',
+          code: `<!-- Without customCss: no way to reach .pui-ms-trigger from outside -->
+<pui-lib-multiselect [options]="options"></pui-lib-multiselect>
+
+<!-- With customCss: targets the real internal class directly -->
+<pui-lib-multiselect
+  [options]="options"
+  customCss=".pui-ms-trigger { min-height: 60px; }">
+</pui-lib-multiselect>`,
+          lang: 'html',
+        },
+        {
+          q: 'How do I change a single CSS property with customCss?',
+          a: 'For one quick rule, pass the CSS directly as a plain string attribute — no component property needed. Find the internal class name from the component\'s source or by inspecting it in devtools (open the element\'s shadow root in the Elements panel).',
+          code: `<pui-lib-menu
+  [items]="items"
+  customCss=".pui-menu-trigger { height: 48px; }">
+</pui-lib-menu>`,
+          lang: 'html',
+        },
+        {
+          q: 'How do I change multiple CSS classes / rules at once?',
+          a: 'Bind customCss to a component property instead of writing it inline, and use a template literal so you can lay out as many selectors and rules as you need in one string. It still compiles down to a single <style> tag inside the shadow root — write it exactly like a normal .scss file.',
+          code: `<!-- your-page.component.html -->
+<pui-lib-multiselect
+  [options]="options"
+  [customCss]="msCustomCss">
+</pui-lib-multiselect>
+
+// your-page.component.ts
+export class YourPageComponent {
+  msCustomCss = \`
+    .pui-ms-trigger {
+      min-height: 60px;
+      border-radius: 12px;
+    }
+    .pui-ms-values {
+      gap: 8px;
+    }
+    .pui-ms-panel {
+      border: 2px solid #7B2FBE;
+    }
+  \`;
+}`,
+          lang: 'typescript',
+        },
+        {
+          q: 'Can I make customCss respond to component state, like a hover or active class?',
+          a: 'Yes — since it\'s a normal Angular input, bind it to a getter or a computed property and it re-injects whenever the bound value changes, same as any other input.',
+          code: `// Recompute the CSS string based on app state
+get menuCustomCss(): string {
+  return this.isDarkMode
+    ? '.pui-menu-trigger { background: #1a1a1a; color: #fff; }'
+    : '.pui-menu-trigger { background: #fff; color: #1a1a1a; }';
+}`,
+          lang: 'typescript',
+        },
+        {
+          q: 'Which components support customCss right now?',
+          a: 'It is being rolled out across the library one component at a time, starting with Menu and Multi Select. If a component doesn\'t have it yet and you hit a styling wall a --pui-* variable can\'t solve, ask for it to be added — it\'s a one-line change per component (hostDirectives wiring a shared directive), not a rewrite.',
         },
       ],
     },

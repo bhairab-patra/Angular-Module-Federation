@@ -4,6 +4,7 @@
   HostListener, ElementRef, ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { PuiCustomCssDirective } from '../../pui-custom-css.directive';
 
 export interface MultiSelectOption {
   value: string | number;
@@ -18,6 +19,7 @@ export interface MultiSelectOption {
   standalone: true,
   imports: [NgFor, NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
+  hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './multiselect.component.html',
   styleUrls: ['./multiselect.component.scss'],
 })
@@ -29,7 +31,7 @@ export class PuiMultiSelectComponent {
   selected: (string | number)[] = [];
 
   _options: MultiSelectOption[] = [];
-  _placeholder = 'Select optionsï¿½';
+  _placeholder = 'Select options…';
   _searchable = true;
   _showSelectAll = true;
   _maxChips = 3;

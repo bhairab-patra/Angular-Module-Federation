@@ -19,7 +19,7 @@ import { SearchSuggestion, SearchSize } from '../models/search.model';
 export class PuiSearchComponent implements OnInit, OnDestroy {
   @ViewChild('inputEl') inputEl!: ElementRef<HTMLInputElement>;
 
-  @Input() placeholder = 'Searchï¿½';
+  @Input() placeholder = 'Search…';
   @Input() size: SearchSize = 'md';
   @Input() value = '';
   @Input() debounce = 300;

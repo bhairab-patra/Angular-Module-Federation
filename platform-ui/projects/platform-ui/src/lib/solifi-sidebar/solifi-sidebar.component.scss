@@ -8,7 +8,7 @@ pui-lib-solifi-sidebar {
   display: flex;
   flex-direction: column;
   height: 100%;
-  overflow: hidden;
+  overflow: visible;
   background: var(--ssb-bg, #112c35);
   width: var(--ssb-w, 240px);
   min-width: var(--ssb-w, 240px);
@@ -419,13 +419,13 @@ pui-lib-solifi-sidebar {
 }
 
 .ssb:not(.ssb--collapsed) .ssb__icon {
-  width: 35px;
-  height: 35px;
+  width: 30px;
+  height: 30px;
 }
 
 .ssb:not(.ssb--collapsed) .ssb__icon svg {
-  width: 25px;
-  height: 25px;
+  width: 22px;
+  height: 22px;
 }
 
 .ssb__label {
