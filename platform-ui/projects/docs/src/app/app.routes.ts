@@ -19,6 +19,7 @@ export const routes: Routes = [
   { path: 'breadcrumb', loadComponent: () => import('./pages/breadcrumb-page/breadcrumb-page.component').then(m => m.BreadcrumbPageComponent) },
   { path: 'typography', loadComponent: () => import('./pages/typography-page/typography-page.component').then(m => m.TypographyPageComponent) },
   { path: 'input', loadComponent: () => import('./pages/input-page/input-page.component').then(m => m.InputPageComponent) },
+  { path: 'label', loadComponent: () => import('./pages/label-page/label-page.component').then(m => m.LabelPageComponent) },
   { path: 'select', loadComponent: () => import('./pages/select-page/select-page.component').then(m => m.SelectPageComponent) },
   { path: 'checkbox', loadComponent: () => import('./pages/checkbox-page/checkbox-page.component').then(m => m.CheckboxPageComponent) },
   { path: 'radio', loadComponent: () => import('./pages/radio-page/radio-page.component').then(m => m.RadioPageComponent) },

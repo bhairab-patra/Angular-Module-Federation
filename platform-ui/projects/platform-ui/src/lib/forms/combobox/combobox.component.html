@@ -2,7 +2,9 @@
 <div class="pui-cb-host"
      [class.pui-cb--disabled]="_disabled"
      [class.pui-cb--open]="open"
-     [class.pui-cb--error]="_error">
+     [class.pui-cb--error]="_error"
+     [class.pui-cb--sm]="_size === 'sm'"
+     [class.pui-cb--lg]="_size === 'lg'">
 
   <div class="pui-cb-field">
     <input

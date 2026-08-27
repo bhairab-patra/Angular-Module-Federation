@@ -144,8 +144,9 @@ customElements.whenDefined('pui-lib-multiselect').then(() => {
 
   api: ApiRow[] = [
     { input: 'options', type: 'MultiSelectOption[]', default: '[]', description: 'Array of option objects. Each has value, label, and optional group and disabled.' },
-    { input: 'value', type: '(string|number)[]', default: '[]', description: 'Currently selected values. Supports two-way binding via (valueChange).' },
+    { input: 'value', type: '(string|number)[]', default: '[]', description: 'Currently selected values. Supports two-way binding via (valueChange), or bind with formControlName / [(ngModel)] — the component implements ControlValueAccessor.' },
     { input: 'placeholder', type: 'string', default: '"Select options…"', description: 'Placeholder shown when no items are selected.' },
+    { input: 'size', type: `'sm'|'md'|'lg'`, default: `'md'`, description: 'Trigger height — 34px / 44px / 50px, matching Input, Select, Combobox, and Password Input at the same size.' },
     { input: 'searchable', type: 'boolean', default: 'true', description: 'Shows a search input inside the dropdown.' },
     { input: 'showSelectAll', type: 'boolean', default: 'true', description: 'Shows Select all / Clear action links above the list.' },
     { input: 'maxChips', type: 'number', default: '3', description: 'Maximum chips shown before collapsing to a count badge.' },
@@ -154,6 +155,7 @@ customElements.whenDefined('pui-lib-multiselect').then(() => {
     { input: 'hint', type: 'string', default: '""', description: 'Helper text shown below the trigger (hidden when error is set).' },
     { input: 'valueChange', type: 'EventEmitter', default: '—', description: 'Emits the updated selected-values array on every change.' },
     { input: 'change', type: 'EventEmitter', default: '—', description: 'Alias for valueChange — useful in React / HTML event listeners.' },
+    { input: 'formControlName / ngModel', type: '—', default: '—', description: 'Implements ControlValueAccessor, so the component works directly with Reactive Forms and template-driven forms — no manual (valueChange) wiring needed.' },
   ];
   trackByIndex(_i: number): number { return _i; }
 }

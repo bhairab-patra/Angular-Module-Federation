@@ -22,13 +22,14 @@
   display: flex;
   align-items: center;
   gap: var(--pui-space-2);
-  padding: var(--pui-space-2) var(--pui-space-3);
-  border: 1.5px solid var(--pui-neutral-200);
+  padding: 0px var(--pui-space-3);
+  border: 1.5px solid var(--pui-form-border, var(--pui-neutral-200));
   border-radius: var(--pui-radius-lg);
   background: var(--pui-white);
   cursor: pointer;
   transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
   min-width: 200px;
+  height: 40px;
 }
 
 .pui-dp-trigger:hover {

@@ -144,7 +144,7 @@ customElements.whenDefined('pui-lib-combobox').then(() => {
 
   api: ApiRow[] = [
     { input: 'options', type: 'ComboboxOption[]', default: '[]', description: 'Option list. Each has value, label, and optional group, description, and disabled.' },
-    { input: 'value', type: 'string|number|null', default: 'null', description: 'Currently selected value. Supports two-way binding via (valueChange).' },
+    { input: 'value', type: 'string|number|null', default: 'null', description: 'Currently selected value. Supports two-way binding via (valueChange), or bind with formControlName / [(ngModel)] — the component implements ControlValueAccessor.' },
     { input: 'placeholder', type: 'string', default: '"Select or search…"', description: 'Input placeholder text.' },
     { input: 'searchable', type: 'boolean', default: 'true', description: 'Enables type-to-filter on the options list.' },
     { input: 'clearable', type: 'boolean', default: 'true', description: 'Shows an Ã— button to clear the current selection.' },
@@ -154,6 +154,7 @@ customElements.whenDefined('pui-lib-combobox').then(() => {
     { input: 'hint', type: 'string', default: '""', description: 'Helper text shown below the input (hidden when error is set).' },
     { input: 'valueChange', type: 'EventEmitter', default: '—', description: 'Emits the selected value (or free-text string) on selection.' },
     { input: 'change', type: 'EventEmitter', default: '—', description: 'Alias for valueChange — preferred in React / HTML event listeners.' },
+    { input: 'formControlName / ngModel', type: '—', default: '—', description: 'Implements ControlValueAccessor, so the component works directly with Reactive Forms and template-driven forms — no manual (valueChange) wiring needed.' },
   ];
   trackByIndex(_i: number): number { return _i; }
 }

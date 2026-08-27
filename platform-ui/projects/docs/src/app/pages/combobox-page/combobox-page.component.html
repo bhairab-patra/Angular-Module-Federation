@@ -111,7 +111,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-combobox</code> is a standalone Web Component with smart JSON-parse setters — pass arrays from Angular with <code>[options]</code> bindings, from React via ref, and from HTML via JS property assignment.</p>
+    <p class="fw-lead"><code>pui-lib-combobox</code> is a standalone Web Component with smart JSON-parse setters — pass arrays from Angular with <code>[options]</code> bindings, from React via ref, and from HTML via JS property assignment. It also implements <code>ControlValueAccessor</code>, so in Angular you can bind it with <code>formControlName</code> instead of manual <code>[value]</code>/<code>(valueChange)</code>.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"

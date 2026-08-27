@@ -1,0 +1,32 @@
+:host {
+  display: inline-flex;
+}
+
+.pui-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--pui-space-1-5, 6px);
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+.pui-label__text {
+  font-size: var(--pui-text-base);
+  font-weight: 600;
+  color: var(--pui-neutral-700);
+}
+
+.pui-label__req {
+  color: var(--pui-error);
+  margin-left: var(--pui-space-0-5);
+}
+
+.pui-label__info {
+  display: inline-flex;
+  align-items: center;
+  color: var(--pui-neutral-400);
+  cursor: help;
+}
+
+.pui-label__info:hover {
+  color: var(--pui-neutral-600);
+}

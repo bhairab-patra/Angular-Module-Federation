@@ -1,0 +1,106 @@
+
+<docs-page
+  title="Label"
+  description="A standalone field label with an optional required-asterisk and an optional info icon that shows a hover tooltip — for pairing with custom fields, or any time you want more control than a component's built-in label input gives you."
+  [hasFramework]="true"
+  [api]="api">
+
+  <ng-container demo>
+
+    <!-- 1. Basic -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Basic Label</h3>
+      <p class="demo-section__desc">Just text — nothing else on by default.</p>
+      <pui-lib-label text="Full Name"></pui-lib-label>
+    </div>
+
+    <!-- 2. Required -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Required Field</h3>
+      <p class="demo-section__desc"><code>[required]="true"</code> adds a red asterisk after the text. This is purely visual — wire your own form validation separately.</p>
+      <pui-lib-label text="Email Address" [required]="true"></pui-lib-label>
+    </div>
+
+    <!-- 3. Info tooltip -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Info Icon &amp; Tooltip</h3>
+      <p class="demo-section__desc">
+        <code>showInfo</code> is <strong>off by default</strong> — the info icon only renders when you explicitly turn it on
+        <em>and</em> supply <code>info</code> text. Hover the icon below to see the tooltip.
+      </p>
+      <div class="demo-row">
+        <pui-lib-label
+          text="API Key"
+          [required]="true"
+          [showInfo]="true"
+          info="Found under Settings → Developer → API Keys."
+          infoPosition="right">
+        </pui-lib-label>
+      </div>
+    </div>
+
+    <!-- 4. Tooltip positions -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Tooltip Position</h3>
+      <p class="demo-section__desc"><code>infoPosition</code> controls which side the tooltip bubble opens on — pick whichever won't get clipped by your layout.</p>
+      <div class="demo-row" style="gap:28px">
+        <pui-lib-label text="Top"    [showInfo]="true" info="Opens above the icon."  infoPosition="top"></pui-lib-label>
+        <pui-lib-label text="Bottom" [showInfo]="true" info="Opens below the icon."  infoPosition="bottom"></pui-lib-label>
+        <pui-lib-label text="Left"   [showInfo]="true" info="Opens to the left."     infoPosition="left"></pui-lib-label>
+        <pui-lib-label text="Right"  [showInfo]="true" info="Opens to the right."    infoPosition="right"></pui-lib-label>
+      </div>
+    </div>
+
+    <!-- 5. Paired with an input -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Paired With a Field</h3>
+      <p class="demo-section__desc">
+        Every <code>pui-lib-*</code> form control already accepts its own <code>label</code> input for the common case.
+        Reach for <code>pui-lib-label</code> instead when you need the info tooltip, or when you're labelling something
+        that isn't a single platform-ui component (a custom field, a group of radio buttons, a third-party widget).
+      </p>
+      <div class="demo-field-stack">
+        <pui-lib-label text="Country" [required]="true" [showInfo]="true" info="Used to determine your default currency and tax rate." infoPosition="right"></pui-lib-label>
+        <pui-lib-select placeholder="Select country" [options]="countryOptions"></pui-lib-select>
+      </div>
+    </div>
+
+  </ng-container>
+
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead">
+      <code>pui-lib-label</code> is a small presentational component — no form logic, no value binding. Place it directly
+      above (or beside) whatever it labels; it doesn't create an implicit <code>&lt;label for&gt;</code> association, so
+      pair it visually rather than relying on click-to-focus behaviour.
+    </p>
+
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode">
+      <div preview class="demo-field-stack">
+        <pui-lib-label text="API Key" [required]="true" [showInfo]="true" info="Found under Settings → Developer → API Keys." infoPosition="right"></pui-lib-label>
+        <pui-lib-input placeholder="sk_live_…"></pui-lib-input>
+      </div>
+    </docs-framework-preview>
+
+    <h4 class="fw-ref-title">Label Quick Reference</h4>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
+            <td><span class="tag-name">{{ r.name }}</span></td>
+            <td><span class="tag-ng">{{ r.angular }}</span></td>
+            <td><span class="tag-html">{{ r.attr }}</span></td>
+            <td><span class="tag-js">{{ r.js }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+</docs-page>

@@ -50,6 +50,40 @@
       </div>
     </div>
 
+    <div class="demo-section">
+      <h3 class="demo-section__title">Built-in Validation Rules</h3>
+      <p class="demo-desc">
+        Common per-character rules built right into the component — no hand-written regex needed for these.
+        Each one shows its own combined error message after blur (try typing below), and also registers as a
+        real Angular Validator, so <code>formControlName</code> sees the exact same errors in
+        <code>form.get('x').errors</code>.
+      </p>
+      <div class="demo-col">
+        <pui-lib-input
+          label="Username"
+          placeholder="e.g. johnathan"
+          [(ngModel)]="vUsername"
+          [minLength]="6"
+          [lettersOnly]="true"
+          hint="Letters only, no numbers or spaces, at least 6 characters" />
+
+        <pui-lib-input
+          label="Coupon code"
+          placeholder="e.g. SAVE20NOW"
+          [(ngModel)]="vCoupon"
+          [noSpaces]="true"
+          textCase="upper"
+          hint="Uppercase letters, no spaces" />
+
+        <pui-lib-input
+          label="Phone number"
+          placeholder="e.g. 9876543210"
+          [(ngModel)]="vPhone"
+          pattern="^[0-9]{10}$"
+          hint="Exactly 10 digits — pattern is the escape hatch for anything the flags above don't cover" />
+      </div>
+    </div>
+
   </ng-container>
 
   <ng-container framework>

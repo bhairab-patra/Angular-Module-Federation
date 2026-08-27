@@ -1,10 +1,12 @@
 import {
-  Component, Input, Output, EventEmitter,
+  Component, Input, Output, EventEmitter, forwardRef,
   inject, ViewChild, ElementRef,
   HostListener, ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { PuiCustomCssDirective } from '../../pui-custom-css.directive';
+import { FormSize } from '../../models/form.model';
 
 export interface ComboboxOption {
   value: string | number;
@@ -21,10 +23,15 @@ export interface ComboboxOption {
   imports: [NgFor, NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => PuiComboboxComponent),
+    multi: true,
+  }],
   templateUrl: './combobox.component.html',
   styleUrls: ['./combobox.component.scss'],
 })
-export class PuiComboboxComponent {
+export class PuiComboboxComponent implements ControlValueAccessor {
   private host = inject(ElementRef);
 
   @ViewChild('cbInput') cbInput?: ElementRef<HTMLInputElement>;
@@ -42,6 +49,7 @@ export class PuiComboboxComponent {
   _disabled = false;
   _error = '';
   _hint = '';
+  _size: FormSize = 'md';
 
   @Input() set options(v: ComboboxOption[] | string) {
     this._options = typeof v === 'string' ? (this._parse<ComboboxOption[]>(v) ?? []) : (v || []);
@@ -52,7 +60,24 @@ export class PuiComboboxComponent {
     this.query = lbl;
     this._setInput(lbl);
   }
+
+  private onChangeFn: (v: string | number | null) => void = () => { };
+  private onTouchedFn: () => void = () => { };
+
+  writeValue(v: string | number | null): void {
+    this._value = v;
+    const lbl = this.labelFor(v) ?? '';
+    this.query = lbl;
+    this._setInput(lbl);
+  }
+  registerOnChange(fn: any): void { this.onChangeFn = fn; }
+  registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
+  setDisabledState(d: boolean): void { this._disabled = d; }
   @Input() set placeholder(v: string) { this._placeholder = v; }
+  @Input() set size(v: FormSize | string) {
+    this._size = (['sm', 'md', 'lg'].includes(v as FormSize) ? v as FormSize : 'md');
+  }
+  get size(): FormSize { return this._size; }
   @Input() set searchable(v: boolean | string) { this._searchable = this._bool(v); }
   @Input() set clearable(v: boolean | string) { this._clearable = this._bool(v); }
   @Input() set allowFreeText(v: boolean | string) { this._allowFreeText = this._bool(v); }
@@ -168,6 +193,7 @@ export class PuiComboboxComponent {
     this._setInput(opt.label);
     this.valueChange.emit(opt.value);
     this.change.emit(opt.value);
+    this.onChangeFn(opt.value);
   }
 
   selectFreeText() {
@@ -176,6 +202,7 @@ export class PuiComboboxComponent {
     this._setInput(this.query);
     this.valueChange.emit(this.query);
     this.change.emit(this.query);
+    this.onChangeFn(this.query);
   }
 
   clear() {
@@ -185,10 +212,12 @@ export class PuiComboboxComponent {
     this._setInput('');
     this.valueChange.emit(null);
     this.change.emit(null);
+    this.onChangeFn(null);
   }
 
   close() {
     this.open = false;
+    this.onTouchedFn();
     if (this._value === null && !this._allowFreeText) {
       this.query = '';
       this._setInput('');

@@ -126,7 +126,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-multiselect</code> is a standalone Web Component — the same element tag works in Angular, React, and plain HTML. The <code>options</code> and <code>value</code> inputs accept typed arrays (Angular binding) or JSON strings (HTML attribute).</p>
+    <p class="fw-lead"><code>pui-lib-multiselect</code> is a standalone Web Component — the same element tag works in Angular, React, and plain HTML. The <code>options</code> and <code>value</code> inputs accept typed arrays (Angular binding) or JSON strings (HTML attribute). It also implements <code>ControlValueAccessor</code>, so in Angular you can bind it with <code>formControlName</code> instead of manual <code>[value]</code>/<code>(valueChange)</code>.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"

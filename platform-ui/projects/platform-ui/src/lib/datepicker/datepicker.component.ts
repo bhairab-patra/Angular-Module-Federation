@@ -1,10 +1,11 @@
 import {
-  Component, Input, Output, EventEmitter,
+  Component, Input, Output, EventEmitter, forwardRef,
   inject, ChangeDetectorRef,
   HostListener, ElementRef, ViewEncapsulation,
   ChangeDetectionStrategy
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export type DatePickerMode = 'single' | 'range';
@@ -29,10 +30,15 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => PuiDatepickerComponent),
+    multi: true,
+  }],
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss'],
 })
-export class PuiDatepickerComponent {
+export class PuiDatepickerComponent implements ControlValueAccessor {
   private el = inject(ElementRef);
   private cdr = inject(ChangeDetectorRef);
 
@@ -103,6 +109,32 @@ export class PuiDatepickerComponent {
   @Input() set placeholder(v: string) { this._placeholder = v; }
   @Input() set format(v: string) { this._format = v; }
 
+  private onChangeFn: (v: Date | DateRange | null) => void = () => { };
+  private onTouchedFn: () => void = () => { };
+
+  writeValue(v: Date | DateRange | string | null): void {
+    if (this._mode === 'range') {
+      if (!v) { this._range = { start: null, end: null }; }
+      else {
+        const r = typeof v === 'string' ? (this._parse<DateRange>(v) ?? { start: null, end: null }) : v as DateRange;
+        this._range = {
+          start: r.start ? new Date(r.start) : null,
+          end: r.end ? new Date(r.end) : null,
+        };
+      }
+    } else {
+      if (!v) { this._value = null; }
+      else {
+        const d = v instanceof Date ? v : new Date(v as string);
+        this._value = isNaN(d.getTime()) ? null : d;
+      }
+    }
+    this.cdr.markForCheck();
+  }
+  registerOnChange(fn: any): void { this.onChangeFn = fn; }
+  registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
+  setDisabledState(d: boolean): void { this._disabled = d; }
+
   @Output() valueChange = new EventEmitter<Date | null>();
   @Output() rangeChange = new EventEmitter<DateRange>();
   @Output() change = new EventEmitter<Date | DateRange | null>();
@@ -115,6 +147,7 @@ export class PuiDatepickerComponent {
       : this.el.nativeElement.contains(e.target as Node);
     if (!inside && this.open) {
       this.open = false;
+      this.onTouchedFn();
       this.cdr.markForCheck();
     }
   }
@@ -168,6 +201,7 @@ export class PuiDatepickerComponent {
       this.open = false;
       this.valueChange.emit(d);
       this.change.emit(d);
+      this.onChangeFn(d);
     } else {
       const { start, end } = this._range;
       if (!start || (start && end)) {
@@ -178,6 +212,7 @@ export class PuiDatepickerComponent {
         this.open = false;
         this.rangeChange.emit(ordered);
         this.change.emit(ordered);
+        this.onChangeFn(ordered);
       }
     }
     this.cdr.markForCheck();
@@ -205,6 +240,7 @@ export class PuiDatepickerComponent {
     this.valueChange.emit(null);
     this.rangeChange.emit({ start: null, end: null });
     this.change.emit(null);
+    this.onChangeFn(null);
     this.cdr.markForCheck();
   }
 

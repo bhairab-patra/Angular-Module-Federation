@@ -166,6 +166,16 @@
    --pui-neutral-700: #374151;
    --pui-neutral-800: #1f2937;
    --pui-neutral-900: #111827;
+
+   /* ════════════════════════════════════════════
+     FORM FIELD BORDER — shared, unthemed default.
+     Deliberately NOT overridden by theme-old.css or
+     theme-new.css, so every input-type field and form
+     control renders this exact border color regardless
+     of which theme is loaded.
+     ════════════════════════════════════════════ */
+   --pui-form-border: #A6A6A6;
+
    --pui-overlay-white-70: rgba(255, 255, 255, .7);
    --pui-overlay-white-85: rgba(255, 255, 255, .85);
    --pui-overlay-white-09: rgba(255, 255, 255, .09);

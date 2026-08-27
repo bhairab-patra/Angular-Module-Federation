@@ -24,24 +24,22 @@
   position: relative;
   display: flex;
   align-items: center;
-  border: 1.5px solid var(--pui-neutral-300);
+  border: 1.5px solid var(--pui-form-border, var(--pui-neutral-300));
   border-radius: var(--pui-radius-md);
   background: var(--pui-white);
   transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
   padding: 0 var(--pui-space-3);
-  height: 42px;
+  height: 40px;
 }
 
 .pui-input-wrap--sm {
   height: 34px;
   border-radius: var(--pui-radius-sm);
-  padding: 0 var(--pui-space-2-5);
 }
 
 .pui-input-wrap--lg {
   height: 50px;
   border-radius: var(--pui-radius-lg);
-  padding: 0 var(--pui-space-4);
 }
 
 .pui-input-wrap:hover:not(.pui-input-wrap--disabled):not(.pui-input-wrap--focus):not(.pui-input-wrap--error) {

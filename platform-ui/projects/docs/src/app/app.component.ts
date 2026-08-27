@@ -42,6 +42,7 @@ export class AppComponent {
     { label: 'Spinner', route: '/spinner', category: 'Component', keywords: ['loading', 'loader', 'progress', 'overlay', 'dash', 'dots'] },
     { label: 'Tooltip', route: '/tooltip', category: 'Component', keywords: ['hover', 'popover', 'hint', 'tip', 'label', 'position'] },
     { label: 'Input', route: '/input', category: 'Form', keywords: ['text', 'email', 'password', 'number', 'field', 'clearable', 'prefix', 'suffix'] },
+    { label: 'Label', route: '/label', category: 'Form', keywords: ['label', 'field', 'required', 'asterisk', 'info', 'tooltip', 'hint'] },
     { label: 'Select', route: '/select', category: 'Form', keywords: ['dropdown', 'option', 'choose', 'picker'] },
     { label: 'Checkbox', route: '/checkbox', category: 'Form', keywords: ['check', 'tick', 'indeterminate', 'agree', 'toggle'] },
     { label: 'Radio', route: '/radio', category: 'Form', keywords: ['radio', 'group', 'single', 'choose', 'option'] },
@@ -252,6 +253,10 @@ export class AppComponent {
           {
             label: 'Input', route: '/input',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="12" height="6" rx="1.5"/><path d="M5 8h.5"/></svg>`)
+          },
+          {
+            label: 'Label', route: '/label',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5A1.5 1.5 0 013.5 5H9l4.5 4.5-4.5 4.5H3.5A1.5 1.5 0 012 12.5v-6z"/><circle cx="6" cy="8" r="1" fill="currentColor" stroke="none"/></svg>`)
           },
           {
             label: 'Multi Select', route: '/multi-select',

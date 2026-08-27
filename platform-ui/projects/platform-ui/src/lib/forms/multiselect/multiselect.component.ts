@@ -1,10 +1,12 @@
 ﻿import {
-  Component, Input, Output, EventEmitter,
+  Component, Input, Output, EventEmitter, forwardRef,
   inject,
   HostListener, ElementRef, ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { PuiCustomCssDirective } from '../../pui-custom-css.directive';
+import { FormSize } from '../../models/form.model';
 
 export interface MultiSelectOption {
   value: string | number;
@@ -20,10 +22,15 @@ export interface MultiSelectOption {
   imports: [NgFor, NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => PuiMultiSelectComponent),
+    multi: true,
+  }],
   templateUrl: './multiselect.component.html',
   styleUrls: ['./multiselect.component.scss'],
 })
-export class PuiMultiSelectComponent {
+export class PuiMultiSelectComponent implements ControlValueAccessor {
   private el = inject(ElementRef);
 
   open = false;
@@ -38,6 +45,12 @@ export class PuiMultiSelectComponent {
   _disabled = false;
   _error = '';
   _hint = '';
+  _size: FormSize = 'md';
+
+  @Input() set size(v: FormSize | string) {
+    this._size = (['sm', 'md', 'lg'].includes(v as FormSize) ? v as FormSize : 'md');
+  }
+  get size(): FormSize { return this._size; }
 
   @Input() set options(v: MultiSelectOption[] | string) {
     this._options = typeof v === 'string' ? (this._parse<MultiSelectOption[]>(v) ?? []) : (v || []);
@@ -45,6 +58,16 @@ export class PuiMultiSelectComponent {
   @Input() set value(v: (string | number)[] | string) {
     this.selected = typeof v === 'string' ? (this._parse<(string | number)[]>(v) ?? []) : (v || []);
   }
+
+  private onChangeFn: (v: (string | number)[]) => void = () => { };
+  private onTouchedFn: () => void = () => { };
+
+  writeValue(v: (string | number)[] | string): void {
+    this.selected = typeof v === 'string' ? (this._parse<(string | number)[]>(v) ?? []) : (v || []);
+  }
+  registerOnChange(fn: any): void { this.onChangeFn = fn; }
+  registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
+  setDisabledState(d: boolean): void { this._disabled = d; }
   @Input() set placeholder(v: string) { this._placeholder = v; }
   @Input() set searchable(v: boolean | string) { this._searchable = this._bool(v); }
   @Input() set showSelectAll(v: boolean | string) { this._showSelectAll = this._bool(v); }
@@ -63,6 +86,7 @@ export class PuiMultiSelectComponent {
       ? path.includes(this.el.nativeElement)
       : this.el.nativeElement.contains(e.target as Node);
     if (!inside) {
+      if (this.open) this.onTouchedFn();
       this.open = false;
     }
   }
@@ -122,6 +146,7 @@ export class PuiMultiSelectComponent {
   private _emit() {
     this.valueChange.emit(this.selected);
     this.change.emit(this.selected);
+    this.onChangeFn(this.selected);
   }
 
   private _bool(v: boolean | string): boolean {

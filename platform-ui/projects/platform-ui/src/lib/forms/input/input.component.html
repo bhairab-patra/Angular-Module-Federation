@@ -1,5 +1,5 @@
 
-    <div class="pui-field" [class.pui-field--error]="error" [class.pui-field--disabled]="disabled">
+    <div class="pui-field" [class.pui-field--error]="displayError" [class.pui-field--disabled]="disabled">
 
       <label *ngIf="label" class="pui-field__label">
         {{ label }}
@@ -10,7 +10,7 @@
            [class.pui-input-wrap--sm]="size === 'sm'"
            [class.pui-input-wrap--lg]="size === 'lg'"
            [class.pui-input-wrap--focus]="isFocused"
-           [class.pui-input-wrap--error]="error"
+           [class.pui-input-wrap--error]="displayError"
            [class.pui-input-wrap--disabled]="disabled"
            [class.pui-input-wrap--readonly]="readonly">
 
@@ -65,7 +65,7 @@
         <span *ngIf="suffixIcon && type !== 'password'" class="pui-input-wrap__icon pui-input-wrap__icon--suf"
               [innerHTML]="suffixIcon"></span>
 
-        <span *ngIf="error" class="pui-input-wrap__icon pui-input-wrap__icon--err">
+        <span *ngIf="displayError" class="pui-input-wrap__icon pui-input-wrap__icon--err">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" fill="var(--pui-error)"/>
             <path d="M12 8v4M12 16h.01" stroke="var(--pui-white)" stroke-width="2" stroke-linecap="round"/>
@@ -73,14 +73,13 @@
         </span>
       </div>
 
-      <span *ngIf="hint && !error" class="pui-field__hint">{{ hint }}</span>
+      <span *ngIf="hint && !displayError" class="pui-field__hint">{{ hint }}</span>
 
-      <span *ngIf="error" class="pui-field__error">
+      <span *ngIf="displayError" class="pui-field__error">
         <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
           <circle cx="8" cy="8" r="7" fill="var(--pui-error)"/>
           <path d="M8 5v3M8 10.5h.01" stroke="var(--pui-white)" stroke-width="1.6" stroke-linecap="round"/>
         </svg>
-        {{ error }}
+        {{ displayError }}
       </span>
     </div>
-  

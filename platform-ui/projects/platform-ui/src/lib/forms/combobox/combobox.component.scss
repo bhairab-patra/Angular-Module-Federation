@@ -22,9 +22,9 @@
 
 .pui-cb-input {
   width: 100%;
-  height: 42px;
-  padding: 0 66px 0 var(--pui-space-3-5);
-  border: 1.5px solid var(--pui-neutral-200);
+  height: 40px;
+  padding: 0 66px 0 var(--pui-space-3);
+  border: 1.5px solid var(--pui-form-border, var(--pui-neutral-200));
   border-radius: var(--pui-radius-lg);
   font-size: var(--pui-text-md);
   font-family: inherit;
@@ -34,6 +34,30 @@
   cursor: pointer;
   transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
   box-sizing: border-box;
+}
+
+.pui-cb--sm .pui-cb-input {
+  height: 34px;
+  border-radius: var(--pui-radius-sm);
+  font-size: var(--pui-text-sm);
+  padding-left: var(--pui-space-3);
+}
+
+.pui-cb--lg .pui-cb-input {
+  height: 50px;
+  border-radius: var(--pui-radius-lg);
+  font-size: var(--pui-text-lg);
+  padding-left: var(--pui-space-3);
+}
+
+.pui-cb--sm .pui-cb-clear,
+.pui-cb--sm .pui-cb-chevron {
+  height: 34px;
+}
+
+.pui-cb--lg .pui-cb-clear,
+.pui-cb--lg .pui-cb-chevron {
+  height: 50px;
 }
 
 .pui-cb-input::placeholder {

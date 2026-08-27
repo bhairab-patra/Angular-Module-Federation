@@ -207,7 +207,7 @@ export function BookingPicker() {
 
   /* ── Component API ──────────────────────────────── */
   api: ApiRow[] = [
-    { input: 'value',       type: 'Date | null',        default: 'null',    description: 'Selected date for single mode — pass a JS Date or ISO string' },
+    { input: 'value',       type: 'Date | null',        default: 'null',    description: 'Selected date for single mode — pass a JS Date or ISO string. Supports formControlName / [(ngModel)] — the component implements ControlValueAccessor.' },
     { input: 'range',       type: 'DateRange',          default: 'start/end: null',  description: 'Selected range for range mode — start: Date, end: Date' },
     { input: 'mode',        type: '"single"|"range"',   default: '"single"', description: 'Single date or date range selection mode' },
     { input: 'min',         type: 'Date | null',        default: 'null',    description: 'Minimum selectable date — earlier dates are disabled and grayed' },
@@ -218,5 +218,6 @@ export function BookingPicker() {
     { input: 'valueChange', type: 'EventEmitter<Date|null>', default: '—',  description: 'Emits the selected Date on pick, or null on clear (single mode)' },
     { input: 'rangeChange', type: 'EventEmitter<DateRange>', default: '—',  description: 'Emits { start, end } when both dates are chosen (range mode)' },
     { input: 'change',      type: 'EventEmitter<Date|DateRange|null>', default: '—', description: 'Unified event emitted on every selection or clear in any mode' },
+    { input: 'formControlName / ngModel', type: '—', default: '—', description: 'Implements ControlValueAccessor, so the component works directly with Reactive Forms and template-driven forms — writes/reads a Date in single mode and a DateRange in range mode.' },
   ];
 }

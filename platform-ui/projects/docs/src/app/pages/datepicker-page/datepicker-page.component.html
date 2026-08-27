@@ -80,7 +80,7 @@
   <ng-container framework>
 
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-datepicker</code> works in Angular, React, and plain HTML. Pass <code>value</code> as a JS <code>Date</code> from Angular; use an ISO string from React/HTML. Listen to <code>(valueChange)</code> (single) or <code>(rangeChange)</code> (range) for selection events.</p>
+    <p class="fw-lead"><code>pui-lib-datepicker</code> works in Angular, React, and plain HTML. Pass <code>value</code> as a JS <code>Date</code> from Angular; use an ISO string from React/HTML. Listen to <code>(valueChange)</code> (single) or <code>(rangeChange)</code> (range) for selection events. It also implements <code>ControlValueAccessor</code>, so in Angular you can bind it with <code>formControlName</code> instead of manual <code>[value]</code>/<code>(valueChange)</code>.</p>
 
     <docs-framework-preview
       [angularCode]="angularCode"

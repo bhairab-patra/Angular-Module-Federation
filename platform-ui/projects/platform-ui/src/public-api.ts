@@ -70,3 +70,4 @@ export * from './lib/models/empty-state.model';
 export * from './lib/empty-state/empty-state.component';
 export * from './lib/models/dropzone.model';
 export * from './lib/dropzone/dropzone.component';
+export * from './lib/label/label.component';

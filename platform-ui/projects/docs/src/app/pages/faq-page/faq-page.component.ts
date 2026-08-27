@@ -90,6 +90,26 @@ input { border: 2px solid red; }   /* blocked */
           lang: 'css',
         },
         {
+          q: 'Do all form controls share the same sm/md/lg sizes, and what height does each one render at?',
+          a: 'Yes. Input, Select, Combobox, Multi Select, Password Input, and Textarea all accept the same size input — \'sm\' | \'md\' | \'lg\' — and every one of them defaults to \'md\' when size is left unset. The three sizes render at the same standardized height across all of them: sm is 34px, md is 44px, lg is 50px — and horizontal padding is the same var(--pui-space-3) at every size too, so nothing shifts internally as you switch sizes. This means you can freely mix, say, an Input and a Select in the same row at size="sm" and their heights will line up exactly — no more small per-component drift.\n\nThese three sizes are deliberately the only built-in options — they cover the vast majority of layouts (dense tables, standard forms, prominent hero forms). Width is intentionally not part of this — every field is width:100% of whatever wrapper you place it in, so your layout controls that independently of size. If a specific consumer needs a height that doesn\'t match sm/md/lg exactly, that\'s what customCss is for (see the "Overriding CSS With customCss" section below) rather than the library adding more size variants for one-off requests.',
+          code: `<!-- All four render at the exact same 34px height -->
+<pui-lib-input      size="sm" label="Name"></pui-lib-input>
+<pui-lib-select     size="sm" label="Country" [options]="opts"></pui-lib-select>
+<pui-lib-combobox   size="sm" label="Contact method" [options]="opts"></pui-lib-combobox>
+<pui-lib-password-input size="sm" label="Password"></pui-lib-password-input>
+
+<!-- Default — all render at 44px when size is omitted -->
+<pui-lib-input label="Name"></pui-lib-input>
+
+<!-- Need a height none of the three sizes cover? Use customCss -->
+<pui-lib-input
+  size="md"
+  label="Name"
+  customCss=".pui-input-wrap { height: 46px; }">
+</pui-lib-input>`,
+          lang: 'html',
+        },
+        {
           q: 'If Shadow DOM blocks CSS, how do I customize the component design?',
           a: 'CSS Custom Properties (variables) are the only thing that cross the Shadow DOM boundary by design. Override the library\'s token variables and every component that uses them updates automatically.',
           code: `/* Global brand change — affects ALL components */

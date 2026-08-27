@@ -1,0 +1,13 @@
+<span class="pui-label">
+  <span class="pui-label__text">
+    {{ text }}<span *ngIf="required" class="pui-label__req">*</span>
+  </span>
+
+  <pui-lib-tooltip
+    *ngIf="showInfo && info"
+    class="pui-label__info"
+    [text]="info"
+    [position]="infoPosition">
+    <pui-lib-icon name="info" size="xs"></pui-lib-icon>
+  </pui-lib-tooltip>
+</span>

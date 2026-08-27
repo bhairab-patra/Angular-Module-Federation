@@ -2,7 +2,9 @@
 <div class="pui-ms-host"
      [class.pui-ms--disabled]="_disabled"
      [class.pui-ms--open]="open"
-     [class.pui-ms--error]="_error">
+     [class.pui-ms--error]="_error"
+     [class.pui-ms--sm]="_size === 'sm'"
+     [class.pui-ms--lg]="_size === 'lg'">
 
   <div class="pui-ms-trigger" (click)="!_disabled && toggle()">
 

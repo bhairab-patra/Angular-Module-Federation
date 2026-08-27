@@ -101,8 +101,9 @@ document.getElementById('pw').addEventListener('valueChange', e => {
 </script>`;
 
   api: ApiRow[] = [
-    { input: 'value', type: 'string', default: '""', description: 'Current password value. Supports two-way binding via (valueChange).' },
+    { input: 'value', type: 'string', default: '""', description: 'Current password value. Supports two-way binding via (valueChange), or bind with formControlName / [(ngModel)] — the component implements ControlValueAccessor.' },
     { input: 'placeholder', type: 'string', default: '"Enter password"', description: 'Input placeholder text.' },
+    { input: 'size', type: `'sm'|'md'|'lg'`, default: `'md'`, description: 'Field height — 34px / 44px / 50px, matching Input, Select, Combobox, and Multi Select at the same size.' },
     { input: 'showStrength', type: 'boolean', default: 'false', description: 'Displays a 4-segment strength bar and label below the input.' },
     { input: 'showRules', type: 'boolean', default: 'false', description: 'Shows a live validation checklist when the input is focused.' },
     { input: 'minLength', type: 'number', default: '8', description: 'Minimum length rule shown in the checklist when showRules is true.' },
@@ -116,6 +117,8 @@ document.getElementById('pw').addEventListener('valueChange', e => {
     { input: 'hint', type: 'string', default: '""', description: 'Helper text shown below the input (hidden when error is set).' },
     { input: 'valueChange', type: 'EventEmitter<string>', default: '—', description: 'Emits the password string on every keystroke.' },
     { input: 'strengthChange', type: 'EventEmitter', default: '—', description: 'Emits the strength level: weak, fair, strong, or very-strong.' },
+    { input: 'formControlName / ngModel', type: '—', default: '—', description: 'Implements ControlValueAccessor, so the component works directly with Reactive Forms and template-driven forms — no manual (valueChange) wiring needed.' },
+    { input: 'Validator (NG_VALIDATORS)', type: '—', default: '—', description: 'When bound via Reactive Forms, minLength/requireUpper/requireNumber/requireSpecial are enforced as a real Angular validator — the control\'s .errors.passwordStrength carries the same message shown in the UI. No need to duplicate the rule in your own ValidatorFn.' },
   ];
   trackByIndex(_i: number): number { return _i; }
 }
