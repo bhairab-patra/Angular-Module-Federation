@@ -116,13 +116,21 @@ export class TableDisplayPageComponent {
   [stickyHeader]="true"
   [maxHeight]="400"
   [striped]="true"
-  [actions]="actions"
   (rowClick)="onRowClick($event)">
-</pui-lib-table>`;
+</pui-lib-table>
 
-  angTs = `import { PuiTableComponent, TableColumn, TableAction } from '@bhairab-patra/platform-ui';
+<!-- Need a per-row 3-dot action menu? Use pui-lib-data-table instead —
+     it has the same columns/data shape plus an [actions] input. -->
+<pui-lib-data-table
+  [columns]="columns"
+  [data]="rows"
+  [actions]="actions"
+  (actionClick)="onAction($event)">
+</pui-lib-data-table>`;
 
-@Component({ imports: [PuiTableComponent] })
+  angTs = `import { PuiTableComponent, PuiDataTableComponent, TableColumn, TableAction } from '@bhairab-patra/platform-ui';
+
+@Component({ imports: [PuiTableComponent, PuiDataTableComponent] })
 export class MyComponent {
   columns: TableColumn[] = [
     { key: 'name',   label: 'Name',   sortable: true },
@@ -134,11 +142,13 @@ export class MyComponent {
     { name: 'Alice', role: 'Engineer', status: 'Active'   },
     { name: 'Bob',   role: 'Designer', status: 'Inactive' },
   ];
+  // actions/actionClick only exist on pui-lib-data-table, not pui-lib-table
   actions: TableAction[] = [
     { label: 'Edit',   action: (row) => console.log('Edit', row)   },
     { label: 'Delete', action: (row) => console.log('Delete', row) },
   ];
   onRowClick(row: any) { console.log('Clicked', row); }
+  onAction(e: { action: TableAction; row: any }) { console.log('Action', e); }
 }`;
 
   reactCode = `import { useEffect, useRef } from 'react';
@@ -155,9 +165,10 @@ export function DisplayTable() {
     el.data    = [{ name: 'Alice', status: 'Active' }];
     el.sortable = true;
     el.striped  = true;
-    el.actions = [{ label: 'Edit', action: (r) => console.log(r) }];
     el.addEventListener('rowClick', e => console.log(e.detail));
   }, []);
+  // Need a 3-dot action menu per row? Swap the tag for pui-lib-data-table
+  // and set el.actions = [{ label: 'Edit', action: (r) => console.log(r) }]
   return <pui-lib-table ref={ref} />;
 }`;
 
@@ -170,10 +181,11 @@ export function DisplayTable() {
       { key: 'status', label: 'Status', type: 'badge',
         badgeMap: { Active: { color: '#10b981' } } },
     ];
-    el.data    = [{ name: 'Alice', status: 'Active' }];
-    el.actions = [{ label: 'Edit', action: r => console.log(r) }];
+    el.data = [{ name: 'Alice', status: 'Active' }];
     el.addEventListener('rowClick', e => console.log(e.detail));
   });
+  // Need a 3-dot action menu per row? Use <pui-lib-data-table> instead —
+  // same columns/data shape, plus el.actions = [{ label, action(row) }]
 </script>`;
 
   xfwRows = [
@@ -186,11 +198,9 @@ export function DisplayTable() {
     { name: 'maxHeight', angular: '[maxHeight]="400"', attr: 'max-height="400"', js: 'el.maxHeight = 400' },
     { name: 'striped', angular: '[striped]="bool"', attr: 'striped="true"', js: 'el.striped = true' },
     { name: 'loading', angular: '[loading]="bool"', attr: 'loading="true"', js: 'el.loading = true' },
-    { name: 'actions', angular: '[actions]="actionsArray"', attr: '— use JS property', js: 'el.actions = [{label,action}]' },
     { name: 'sortChange', angular: '(sortChange)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("sortChange", fn)' },
     { name: 'searchChange', angular: '(searchChange)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("searchChange", fn)' },
     { name: 'rowClick', angular: '(rowClick)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("rowClick", fn)' },
-    { name: 'actionClick', angular: '(actionClick)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("actionClick", fn)' },
   ];
 
   api: ApiRow[] = [
@@ -203,11 +213,10 @@ export function DisplayTable() {
     { input: 'maxHeight', type: 'number', default: '0', description: 'Max height (px) of the scroll container; 0 = no limit' },
     { input: 'striped', type: 'boolean', default: 'false', description: 'Alternating row background shading' },
     { input: 'loading', type: 'boolean', default: 'false', description: 'Overlays a shimmer skeleton while data is fetching' },
-    { input: 'actions', type: 'TableAction[]', default: '[]', description: 'Row-level actions shown in a 3-dot dropdown menu' },
     { input: 'tooltipPosition', type: "'top'|'bottom'|'left'|'right'", default: "'top'", description: 'Direction of the cell overflow tooltip' },
     { input: 'sortChange', type: 'EventEmitter<{key,dir}>', default: '—', description: 'Emits active sort key and direction on each toggle' },
     { input: 'searchChange', type: 'EventEmitter<string>', default: '—', description: 'Emits the current search term on every keystroke' },
     { input: 'rowClick', type: 'EventEmitter<any>', default: '—', description: 'Emits the clicked row object' },
-    { input: 'actionClick', type: 'EventEmitter<{action,row}>', default: '—', description: 'Emits when an action menu item is clicked' },
+    { input: 'note', type: '—', default: '—', description: 'pui-lib-table has no actions/actionClick — for a per-row 3-dot action menu, use pui-lib-data-table (same columns/data shape, plus [actions] and (actionClick)).' },
   ];
 }

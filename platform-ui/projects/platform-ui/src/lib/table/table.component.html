@@ -7,15 +7,10 @@
     </div>
     <div class="pui-tbl-toolbar__right">
       <ng-content select="[tableActions]"></ng-content>
-      <div class="pui-tbl-search" *ngIf="_searchable">
-        <svg class="pui-tbl-search__icon" viewBox="0 0 20 20" fill="none">
-          <circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.6"/>
-          <path d="M13.5 13.5L17 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>
-        <input class="pui-tbl-search__input" type="text" placeholder="Search…"
-               [value]="searchTerm" (input)="onSearch($any($event.target).value)">
-        <button *ngIf="searchTerm" class="pui-tbl-search__clear" (click)="onSearch('')">✕</button>
-      </div>
+      <pui-lib-search *ngIf="_searchable" class="pui-tbl-search" size="sm"
+        placeholder="Search…" [value]="searchTerm" [debounce]="0"
+        (valueChange)="onSearch($event)">
+      </pui-lib-search>
     </div>
   </div>
 

@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import {
-  PuiEditableTableComponent, TableColumn, EditableRowSaveEvent, EditableRowEvent,
+  PuiEditableTableComponent, TableColumn, SortState, EditableRowSaveEvent, EditableRowEvent,
   PuiFormDialogComponent, FormDialogField, FormDialogSaveEvent,
   PuiConfirmDialogComponent
 } from '@bhairab-patra/platform-ui';
@@ -35,12 +35,17 @@ export class TableEditablePageComponent {
 
   /* ── Editable table demo ────────────────────── */
   /* `editable: false` keeps Department read-only while every other column
-     stays editable — set per column so each table controls its own mix. */
+     stays editable — set per column so each table controls its own mix.
+     `sortable` and the validation fields (required/minLength/pattern) are
+     also per-column, so every table configures its own feature mix. */
   editableCols: TableColumn[] = [
-    { key: 'name', label: 'Name' },
-    { key: 'department', label: 'Department', editable: false },
-    { key: 'role', label: 'Role' },
-    { key: 'salary', label: 'Salary', type: 'currency', align: 'right' },
+    { key: 'name', label: 'Name', sortable: true, required: true, minLength: 2 },
+    { key: 'department', label: 'Department', editable: false, sortable: true },
+    { key: 'role', label: 'Role', sortable: true },
+    {
+      key: 'salary', label: 'Salary', type: 'currency', align: 'right', sortable: true,
+      required: true, validationMessage: 'Salary is required',
+    },
   ];
 
   editableRows = [
@@ -63,6 +68,10 @@ export class TableEditablePageComponent {
   }
   onRowEdit(e: EditableRowEvent): void {
     this.editableLog = [`Editing row ${e.index + 1}: ${e.row.name}`, ...this.editableLog.slice(0, 4)];
+    this.cdr.markForCheck();
+  }
+  onSortChange(sort: SortState): void {
+    this.editableLog = [`Sorted by ${sort.key || '—'} ${sort.dir || ''}`.trim(), ...this.editableLog.slice(0, 4)];
     this.cdr.markForCheck();
   }
 
@@ -124,12 +133,19 @@ export class TableEditablePageComponent {
 
   /* ── Code snippets ──────────────────────────── */
   editableHtml = `<pui-lib-editable-table
+  heading="Team Members"
+  [searchable]="true"
+  [stickyHeader]="true"
+  [pagination]="true"
+  [pageSize]="10"
+  [striped]="true"
   [columns]="columns"
   [data]="rows"
   [maxHeight]="400"
   (rowSave)="onSave($event)"
   (rowDelete)="onDelete($event)"
-  (rowEdit)="onEdit($event)">
+  (rowEdit)="onEdit($event)"
+  (sortChange)="onSort($event)">
 </pui-lib-editable-table>`;
 
   editableTs = `import { PuiEditableTableComponent, TableColumn, EditableRowSaveEvent } from '@bhairab-patra/platform-ui';
@@ -137,19 +153,23 @@ export class TableEditablePageComponent {
 @Component({ imports: [PuiEditableTableComponent] })
 export class MyComponent {
   columns: TableColumn[] = [
-    { key: 'name',   label: 'Name' },
-    { key: 'dept',   label: 'Department', editable: false }, // read-only while editing
-    { key: 'salary', label: 'Salary', type: 'currency', align: 'right' },
+    // sortable + validation are per-column — mix and match as needed
+    { key: 'name',   label: 'Name', sortable: true, required: true, minLength: 2 },
+    { key: 'dept',   label: 'Department', editable: false, sortable: true }, // read-only while editing
+    { key: 'email',  label: 'Email', pattern: '^[^@\\\\s]+@[^@\\\\s]+\\\\.[^@\\\\s]+$',
+      validationMessage: 'Enter a valid email address' },
+    { key: 'salary', label: 'Salary', type: 'currency', align: 'right', sortable: true, required: true },
   ];
   rows = [
-    { name: 'Alice', dept: 'Engineering', salary: 95000 },
-    { name: 'Bob',   dept: 'Design',      salary: 85000 },
+    { name: 'Alice', dept: 'Engineering', email: 'alice@co.com', salary: 95000 },
+    { name: 'Bob',   dept: 'Design',      email: 'bob@co.com',   salary: 85000 },
   ];
   onSave(e: EditableRowSaveEvent) {
-    console.log('Saved:', e.row, 'was:', e.oldRow);
+    console.log('Saved:', e.row, 'was:', e.oldRow); // a toast fires automatically too
   }
   onDelete(e: { index: number; row: any }) { console.log('Deleted:', e.row); }
   onEdit(e:   { index: number; row: any }) { console.log('Editing:', e.row); }
+  onSort(s: { key: string; dir: string }) { console.log('Sorted by', s.key, s.dir); }
 }`;
 
   formDialogHtml = `<pui-lib-form-dialog
@@ -189,25 +209,47 @@ onSave(e: FormDialogSaveEvent) { console.log(e.data); this.formOpen = false; }`;
 </pui-lib-confirm-dialog>`;
 
   xfwRows = [
-    { name: 'columns', angular: '[columns]="colsArray"', attr: '— use JS property', js: 'el.columns = [{key,label,editable,...}]' },
+    { name: 'columns', angular: '[columns]="colsArray"', attr: '— use JS property', js: 'el.columns = [{key,label,editable,sortable,...}]' },
     { name: 'data', angular: '[data]="rowsArray"', attr: '— use JS property', js: 'el.data = [{...},...]' },
+    { name: 'heading', angular: 'heading="Team Members"', attr: 'heading="…"', js: 'el.heading = "…"' },
+    { name: 'searchable', angular: '[searchable]="true"', attr: 'searchable', js: 'el.searchable = true' },
+    { name: 'striped', angular: '[striped]="bool"', attr: 'striped="true"', js: 'el.striped = true' },
+    { name: 'stickyHeader', angular: '[stickyHeader]="true"', attr: 'sticky-header', js: 'el.stickyHeader = true' },
+    { name: 'pagination', angular: '[pagination]="true"', attr: 'pagination', js: 'el.pagination = true' },
+    { name: 'pageSize', angular: '[pageSize]="10"', attr: 'page-size="10"', js: 'el.pageSize = 10' },
     { name: 'maxHeight', angular: '[maxHeight]="400"', attr: 'max-height="400"', js: 'el.maxHeight = 400' },
     { name: 'loading', angular: '[loading]="bool"', attr: 'loading="true"', js: 'el.loading = true' },
     { name: 'confirmDelete', angular: '[confirmDelete]="bool"', attr: 'confirm-delete="true"', js: 'el.confirmDelete = true' },
+    { name: 'showToast', angular: '[showToast]="true"', attr: 'show-toast', js: 'el.showToast = true' },
     { name: 'rowSave', angular: '(rowSave)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("rowSave", fn)' },
     { name: 'rowDelete', angular: '(rowDelete)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("rowDelete", fn)' },
     { name: 'rowEdit', angular: '(rowEdit)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("rowEdit", fn)' },
+    { name: 'searchChange', angular: '(searchChange)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("searchChange", fn)' },
+    { name: 'sortChange', angular: '(sortChange)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("sortChange", fn)' },
   ];
 
   api: ApiRow[] = [
-    { input: 'columns', type: 'TableColumn[]', default: '[]', description: 'Column definitions (same as pui-lib-table TableColumn). Set editable: false on a column to keep it read-only while the row is being edited' },
+    { input: 'columns', type: 'TableColumn[]', default: '[]', description: 'Column definitions (same as pui-lib-table TableColumn). Set editable: false to keep a column read-only while editing, sortable: true to enable sorting on it, and required/minLength/maxLength/pattern/validationMessage for inline validation while editing.' },
     { input: 'data', type: 'any[]', default: '[]', description: 'Row data array; mutated in-place on save' },
+    { input: 'heading', type: 'string', default: "''", description: 'Optional title shown on the left of the toolbar. The toolbar also appears (title-less) whenever searchable is true.' },
+    { input: 'searchable', type: 'boolean', default: 'false', description: 'Shows a pui-lib-search box in the toolbar that filters rows by matching any column value, live as you type. Edit/delete/save/sort always act on the correct original row even while filtered.' },
+    { input: 'striped', type: 'boolean', default: 'true', description: 'Alternating row background shading. Same input name/behavior as pui-lib-table and pui-lib-data-table.' },
+    { input: 'stickyHeader', type: 'boolean', default: 'true', description: 'Keeps the header row pinned while the body scrolls. Set false to let it scroll away with the content.' },
+    { input: 'pagination', type: 'boolean', default: 'false', description: 'Paginates rows (after search/sort) using pui-lib-pagination in the footer, instead of showing every row in one scroll.' },
+    { input: 'pageSize', type: 'number', default: '10', description: 'Rows per page when pagination is true.' },
+    { input: 'pageSizeOptions', type: 'number[]', default: '[10, 25, 50, 100]', description: 'Options shown in the pagination page-size selector.' },
+    { input: 'tooltipPosition', type: `'top'|'bottom'|'left'|'right'`, default: `'top'`, description: 'Placement of the tooltip that appears when a truncated header or cell is hovered.' },
     { input: 'maxHeight', type: 'number', default: '480', description: 'Max height (px) of the scroll container' },
     { input: 'loading', type: 'boolean', default: 'false', description: 'Shows a loading skeleton overlay' },
     { input: 'confirmDelete', type: 'boolean', default: 'false', description: 'Shows a built-in confirm dialog before deleting a row' },
-    { input: 'rowSave', type: 'EventEmitter<EditableRowSaveEvent>', default: '—', description: 'Emits {index, row, oldRow} when a row is saved' },
+    { input: 'showToast', type: 'boolean', default: 'true', description: 'Shows a toast (via the shared ToastService) after a successful save or delete. Mount <pui-lib-toast-container> once at the app root for toasts to render.' },
+    { input: 'saveToastMessage', type: 'string', default: "'Row saved successfully'", description: 'Toast message shown after a successful save.' },
+    { input: 'deleteToastMessage', type: 'string', default: "'Row deleted successfully'", description: 'Toast message shown after a row is deleted.' },
+    { input: 'rowSave', type: 'EventEmitter<EditableRowSaveEvent>', default: '—', description: 'Emits {index, row, oldRow} when a row is saved (only after all validation rules pass)' },
     { input: 'rowDelete', type: 'EventEmitter<EditableRowEvent>', default: '—', description: 'Emits {index, row} after a row is deleted' },
     { input: 'rowEdit', type: 'EventEmitter<EditableRowEvent>', default: '—', description: 'Emits {index, row} when a row enters edit mode' },
+    { input: 'searchChange', type: 'EventEmitter<string>', default: '—', description: 'Emits the current search term on every keystroke' },
+    { input: 'sortChange', type: 'EventEmitter<SortState>', default: '—', description: 'Emits {key, dir} whenever the sort column/direction changes (dir cycles asc → desc → none)' },
   ];
 
   formDialogApi: ApiRow[] = [

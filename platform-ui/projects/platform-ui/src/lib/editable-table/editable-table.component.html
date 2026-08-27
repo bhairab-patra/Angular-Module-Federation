@@ -1,12 +1,16 @@
 <div class="pui-etbl-host">
 <div class="pui-etbl-inner">
 
-  <div class="pui-etbl-toolbar" *ngIf="heading">
+  <div class="pui-etbl-toolbar" *ngIf="heading || _searchable">
     <div class="pui-etbl-toolbar__left">
-      <span class="pui-etbl-toolbar__title">{{ heading }}</span>
+      <span *ngIf="heading" class="pui-etbl-toolbar__title">{{ heading }}</span>
     </div>
     <div class="pui-etbl-toolbar__right">
       <ng-content select="[tableActions]"></ng-content>
+      <pui-lib-search *ngIf="_searchable" class="pui-etbl-search" size="sm"
+        placeholder="Search…" [value]="searchTerm" [debounce]="0"
+        (valueChange)="onSearch($event)">
+      </pui-lib-search>
     </div>
   </div>
 
@@ -20,9 +24,31 @@
   <div class="pui-etbl-scroll" [style.maxHeight]="_maxHeight + 'px'">
     <table class="pui-etbl">
 
-      <thead class="pui-etbl-head">
+      <thead class="pui-etbl-head" [class.pui-etbl-head--sticky]="_stickyHeader">
         <tr>
-          <th *ngFor="let col of _columns" class="pui-etbl-th">{{ col.label }}</th>
+          <th *ngFor="let col of _columns" class="pui-etbl-th"
+              [class.pui-etbl-th--sortable]="col.sortable"
+              [class.pui-etbl-th--sorted]="sort.key === col.key && sort.dir"
+              [class.pui-etbl-th--right]="col.align === 'right'"
+              [class.pui-etbl-th--center]="col.align === 'center'"
+              [style.width]="col.width" [style.minWidth]="col.minWidth"
+              (click)="col.sortable && onSort(col.key)"
+              (mouseenter)="showCellTooltip($event, col.label)"
+              (mouseleave)="hideCellTooltip()">
+            <span class="pui-etbl-th__label">{{ col.label }}</span>
+            <span *ngIf="col.sortable" class="pui-etbl-sort-icon">
+              <svg viewBox="0 0 12 16" fill="none" width="10" height="13">
+                <path d="M6 1.5L6 7M6 1.5L3.5 4M6 1.5L8.5 4" stroke="currentColor" stroke-width="1.5"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      [class.pui-etbl-sort--active]="sort.key === col.key && sort.dir === 'asc'"
+                      [class.pui-etbl-sort--dim]="!(sort.key === col.key && sort.dir === 'asc')"/>
+                <path d="M6 14.5L6 9M6 14.5L3.5 12M6 14.5L8.5 12" stroke="currentColor" stroke-width="1.5"
+                      stroke-linecap="round" stroke-linejoin="round"
+                      [class.pui-etbl-sort--active]="sort.key === col.key && sort.dir === 'desc'"
+                      [class.pui-etbl-sort--dim]="!(sort.key === col.key && sort.dir === 'desc')"/>
+              </svg>
+            </span>
+          </th>
           <th class="pui-etbl-th pui-etbl-th--actions">Actions</th>
         </tr>
       </thead>
@@ -31,30 +57,36 @@
 
         <tr *ngIf="!_loading && _rows.length === 0">
           <td [colSpan]="_columns.length + 1" class="pui-etbl-empty">
-            <div class="pui-etbl-empty__inner">
-              <svg viewBox="0 0 48 48" fill="none" width="40" height="40">
-                <rect x="6" y="8" width="36" height="32" rx="3" stroke="var(--pui-neutral-300)" stroke-width="2" />
-                <path d="M6 16h36" stroke="var(--pui-neutral-300)" stroke-width="2" />
-                <path d="M14 24h4M22 24h12M14 32h8" stroke="var(--pui-neutral-300)" stroke-width="2" stroke-linecap="round" />
-              </svg>
-              <p>No data available</p>
-            </div>
+            <pui-lib-empty-state icon="inbox" title="No data available" size="sm"></pui-lib-empty-state>
           </td>
         </tr>
 
-        <tr *ngFor="let row of _rows; let i = index" class="pui-etbl-row"
-          [class.pui-etbl-row--editing]="editingIndex === i" [class.pui-etbl-row--striped]="i % 2 !== 0">
+        <tr *ngIf="!_loading && _rows.length > 0 && displayRows.length === 0">
+          <td [colSpan]="_columns.length + 1" class="pui-etbl-empty">
+            <pui-lib-empty-state icon="search-off" title="No results"
+              [description]="'No rows match &quot;' + searchTerm + '&quot;'" size="sm">
+            </pui-lib-empty-state>
+          </td>
+        </tr>
 
-          <td *ngFor="let col of _columns" class="pui-etbl-td">
+        <tr *ngFor="let item of pagedRows; let i = index; trackBy: trackByIdx" class="pui-etbl-row"
+          [class.pui-etbl-row--editing]="editingIndex === item.idx" [class.pui-etbl-row--striped]="_striped && i % 2 !== 0">
 
-            <ng-container *ngIf="editingIndex === i && col.editable !== false; else readCell">
-              <input class="pui-etbl-input"
+          <td *ngFor="let col of _columns" class="pui-etbl-td"
+              [class.pui-etbl-td--right]="col.align === 'right'"
+              [class.pui-etbl-td--center]="col.align === 'center'"
+              (mouseenter)="editingIndex !== item.idx && showCellTooltip($event, item.row[col.key] ?? '')"
+              (mouseleave)="hideCellTooltip()">
+
+            <ng-container *ngIf="editingIndex === item.idx && col.editable !== false; else readCell">
+              <input class="pui-etbl-input" [class.pui-etbl-input--error]="fieldErrors[col.key]"
                 [type]="col.type === 'number' || col.type === 'currency' ? 'number' : 'text'"
-                [(ngModel)]="draft[col.key]" [placeholder]="col.label">
+                [(ngModel)]="draft[col.key]" (ngModelChange)="onFieldChange(col)" [placeholder]="col.label">
+              <span *ngIf="fieldErrors[col.key]" class="pui-etbl-field-error">{{ fieldErrors[col.key] }}</span>
             </ng-container>
 
             <ng-template #readCell>
-              <span class="pui-etbl-cell-text">{{ row[col.key] ?? '—' }}</span>
+              <span class="pui-etbl-cell-text">{{ item.row[col.key] ?? '—' }}</span>
             </ng-template>
 
           </td>
@@ -62,35 +94,24 @@
           <td class="pui-etbl-td pui-etbl-td--actions">
             <div class="pui-etbl-actions">
 
-              <ng-container *ngIf="editingIndex !== i">
+              <ng-container *ngIf="editingIndex !== item.idx">
                 <button class="pui-etbl-btn pui-etbl-btn--edit" [disabled]="editingIndex !== null"
-                  (click)="startEdit(i)" title="Edit row">
-                  <svg viewBox="0 0 20 20" fill="none" width="15" height="15">
-                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-9.9 9.9-3.414.586.586-3.414 9.9-9.9z"
-                      stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
+                  (click)="startEdit(item.idx)" title="Edit row">
+                  <pui-lib-icon name="edit" size="sm"></pui-lib-icon>
                 </button>
                 <button class="pui-etbl-btn pui-etbl-btn--delete" [disabled]="editingIndex !== null"
-                  (click)="deleteRow(i)" title="Delete row">
-                  <svg viewBox="0 0 20 20" fill="none" width="15" height="15">
-                    <path d="M4 5h12M8 5V4a1 1 0 011-1h2a1 1 0 011 1v1M6 5l1 11h6l1-11" stroke="currentColor"
-                      stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-                  </svg>
+                  (click)="deleteRow(item.idx)" title="Delete row">
+                  <pui-lib-icon name="trash" size="sm"></pui-lib-icon>
                 </button>
               </ng-container>
 
-              <ng-container *ngIf="editingIndex === i">
-                <button class="pui-etbl-btn pui-etbl-btn--save" (click)="saveEdit()" title="Save row">
-                  <svg viewBox="0 0 20 20" fill="none" width="15" height="15">
-                    <path d="M4 10l4.5 4.5L16 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
+              <ng-container *ngIf="editingIndex === item.idx">
+                <button class="pui-etbl-btn pui-etbl-btn--save" [disabled]="hasFieldErrors"
+                  (click)="saveEdit()" title="Save row">
+                  <pui-lib-icon name="check" size="sm"></pui-lib-icon>
                 </button>
                 <button class="pui-etbl-btn pui-etbl-btn--cancel" (click)="cancelEdit()" title="Cancel edit">
-                  <svg viewBox="0 0 20 20" fill="none" width="15" height="15">
-                    <path d="M6 6l8 8M14 6l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                      stroke-linejoin="round" />
-                  </svg>
+                  <pui-lib-icon name="close" size="sm"></pui-lib-icon>
                 </button>
               </ng-container>
 
@@ -101,6 +122,13 @@
       </tbody>
     </table>
   </div>
+
+  <pui-lib-pagination *ngIf="_pagination && displayRows.length > 0"
+    class="pui-etbl-pagination"
+    [total]="displayRows.length" [page]="page" [pageSize]="_pageSize"
+    [pageSizeOptions]="pageSizeOptions" itemLabel="rows"
+    (pageChange)="onPageChange($event)" (pageSizeChange)="onPageSizeChange($event)">
+  </pui-lib-pagination>
 
 </div>
 
@@ -121,6 +149,13 @@
       <button class="pui-etbl-confirm__btn pui-etbl-confirm__btn--delete" (click)="confirmDeleteRow()">Yes,
         Delete</button>
     </div>
+  </div>
+
+  <div *ngIf="cellTooltipVisible" class="pui-etbl-cell-tooltip"
+       [class]="'pui-etbl-cell-tooltip--' + _tooltipPos"
+       [style.top.px]="cellTooltipCoords.top"
+       [style.left.px]="cellTooltipCoords.left">
+    {{ hoveredCellText }}
   </div>
 
 </div>

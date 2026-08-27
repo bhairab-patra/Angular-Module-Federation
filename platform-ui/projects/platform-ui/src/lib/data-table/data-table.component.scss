@@ -63,62 +63,8 @@
 }
 
 .pui-dt-search {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.pui-dt-search__icon {
-  position: absolute;
-  left: var(--pui-space-2);
-  width: 14px;
-  height: 14px;
-  color: var(--pui-neutral-400);
-  pointer-events: none;
-}
-
-.pui-dt-search__input {
-  padding: var(--pui-space-1-5) var(--pui-space-7) var(--pui-space-1-5) var(--pui-space-7);
-  border: 1px solid var(--pui-neutral-200);
-  border-radius: var(--pui-radius-md);
-  font-size: var(--pui-text-base);
-  font-family: inherit;
-  background: var(--pui-white);
-  color: var(--pui-neutral-900);
-  outline: none;
+  display: block;
   width: 220px;
-  transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
-
-  /* Hover only darkens the border — no ring — so it reads distinctly from
-     :focus below, which is the only state that gets the brand ring. */
-  &:hover:not(:focus) {
-    border-color: var(--pui-neutral-300);
-  }
-
-  &:focus {
-    border-color: var(--pui-brand);
-    box-shadow: var(--pui-shadow-focus-sm);
-  }
-
-  &::placeholder {
-    color: var(--pui-table-placeholder);
-  }
-}
-
-.pui-dt-search__clear {
-  position: absolute;
-  right: var(--pui-space-2);
-  background: none;
-  border: none;
-  color: var(--pui-neutral-400);
-  cursor: pointer;
-  font-size: var(--pui-text-xs);
-  padding: var(--pui-space-0-5);
-  line-height: 1;
-
-  &:hover {
-    color: var(--pui-neutral-700);
-  }
 }
 
 .pui-dt-scroll {
@@ -184,7 +130,7 @@
 .pui-dt-th {
   padding: var(--pui-space-3) var(--pui-space-3-5);
   text-align: left;
-  font-size: var(--pui-text-base);
+  font-size: 14px;
   font-weight: 600;
   color: var(--pui-neutral-900);
   border-bottom: 2px solid var(--pui-neutral-200);
@@ -332,6 +278,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 13px;
+  color: #000000;
 }
 
 .pui-dt-cell--mono {

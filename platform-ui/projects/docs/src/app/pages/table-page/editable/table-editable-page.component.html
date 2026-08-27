@@ -1,5 +1,5 @@
 ﻿<docs-page title="Editable Table"
-  description="pui-lib-editable-table — inline row editing with edit/save/cancel/delete controls per row. Only one row can be edited at a time. Supports pui-lib-form-dialog for modal add/edit flows and pui-lib-confirm-dialog for delete confirmation."
+  description="pui-lib-editable-table — inline row editing with edit/save/cancel/delete controls per row, a title (heading), live search (pui-lib-search — the same search component used by pui-lib-table and pui-lib-data-table), per-column sorting, optional pagination, sticky header, striping, truncated-cell tooltips, inline validation, and a save/delete toast — every feature is an independent input you can turn on or off. Header text is 14px, cell text is 13px/black, and header cell padding is var(--pui-space-3) var(--pui-space-3-5) — matching pui-lib-table and pui-lib-data-table exactly. Only one row can be edited at a time. Supports pui-lib-form-dialog for modal add/edit flows and pui-lib-confirm-dialog for delete confirmation."
   [api]="api" [hasFramework]="true">
 
   <ng-container demo>
@@ -16,14 +16,29 @@
         Set <code>editable: false</code> on a column to keep it read-only while editing — below,
         <strong>Department</strong> stays plain text even in edit mode, while every other column becomes an input.
       </p>
+      <p class="demo-section__desc">
+        Every feature here is independently switchable: <code>sortable</code> is set per column (click Name,
+        Department, Role, or Salary to sort), <code>[pagination]</code> + <code>[pageSize]</code> page the rows,
+        <code>[stickyHeader]</code> pins the header, and <code>required</code>/<code>minLength</code>/<code>pattern</code>
+        on a column enforce inline validation (with an error message) before Save is allowed. A toast confirms every
+        save/delete — disable it with <code>[showToast]="false"</code>. Truncated header or cell text shows a
+        tooltip on hover.
+      </p>
       <pui-lib-editable-table
+        heading="Team Members"
+        [searchable]="true"
+        [stickyHeader]="true"
+        [pagination]="true"
+        [pageSize]="5"
+        [striped]="true"
         [columns]="editableCols"
         [data]="editableRows"
         [maxHeight]="400"
         [confirmDelete]="true"
         (rowSave)="onRowSave($event)"
         (rowDelete)="onRowDelete($event)"
-        (rowEdit)="onRowEdit($event)">
+        (rowEdit)="onRowEdit($event)"
+        (sortChange)="onSortChange($event)">
       </pui-lib-editable-table>
       <div class="demo-log" *ngIf="editableLog.length">
         <p *ngFor="let entry of editableLog; trackBy: trackByIndex" class="demo-log__entry">{{ entry }}</p>
