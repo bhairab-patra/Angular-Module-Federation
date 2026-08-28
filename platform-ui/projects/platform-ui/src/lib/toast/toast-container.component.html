@@ -11,7 +11,7 @@
           <span class="pui-toast__bar"></span>
 
           <span class="pui-toast__icon">
-            <pui-lib-icon [name]="typeIcon[t.type]" size="md"></pui-lib-icon>
+            <pui-icon-internal [name]="typeIcon[t.type]" size="md"></pui-icon-internal>
           </span>
 
           <div class="pui-toast__body">
@@ -23,7 +23,7 @@
           </div>
 
           <button *ngIf="t.dismissible" class="pui-toast__dismiss" (click)="dismiss(t.id)" aria-label="Dismiss">
-            <pui-lib-icon name="close" size="sm"></pui-lib-icon>
+            <pui-icon-internal name="close" size="sm"></pui-icon-internal>
           </button>
 
         </div>

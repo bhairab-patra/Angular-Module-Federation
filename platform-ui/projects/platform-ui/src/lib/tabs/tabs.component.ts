@@ -4,7 +4,7 @@
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { IconComponent } from '../icon/icon.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export interface TabItem {
@@ -24,7 +24,7 @@ export type TabsSize = 'sm' | 'md' | 'lg';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-tabs',
   standalone: true,
-  imports: [NgFor, NgIf, IconComponent],
+  imports: [NgFor, NgIf, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './tabs.component.html',

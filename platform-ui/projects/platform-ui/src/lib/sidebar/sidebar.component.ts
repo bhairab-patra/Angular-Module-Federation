@@ -3,7 +3,7 @@
   ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
 import { NgFor, NgIf, NgClass, NgStyle } from '@angular/common';
-import { PuiSearchComponent } from '../search/search.component';
+import { PuiSearchInternalComponent } from '../search/search-internal.component';
 import { SidebarGroup, SidebarNavItem, SidebarConfig, SidebarTheme } from '../models/sidebar.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -13,7 +13,7 @@ const DEFAULT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-sidebar',
   standalone: true,
-  imports: [NgFor, NgIf, NgClass, NgStyle, PuiSearchComponent],
+  imports: [NgFor, NgIf, NgClass, NgStyle, PuiSearchInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './sidebar.component.html',

@@ -15,7 +15,7 @@
       </div>
       <div class="pui-dt-toolbar__right">
         <ng-content select="[tableActions]"></ng-content>
-        <pui-lib-search
+        <pui-search-internal
           *ngIf="_searchable"
           class="pui-dt-search"
           size="sm"
@@ -24,7 +24,7 @@
           [debounce]="0"
           (valueChange)="onSearch($event)"
         >
-        </pui-lib-search>
+        </pui-search-internal>
       </div>
     </div>
 
@@ -318,13 +318,13 @@
     </span>
 
     <div class="pui-dt-pager__controls-wrap">
-      <pui-lib-simple-pagination
+      <pui-simple-pagination-internal
         [total]="filteredRows.length"
         [page]="page"
         [pageSize]="_pageSize"
         (pageChange)="goPage($event)"
       >
-      </pui-lib-simple-pagination>
+      </pui-simple-pagination-internal>
     </div>
 
     <div class="pui-dt-pager__size-group">

@@ -4,7 +4,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { ToastService } from './toast.service';
 import { Toast, ToastPosition } from '../models/toast.model';
-import { IconComponent } from '../icon/icon.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 const POSITIONS: ToastPosition[] = [
@@ -23,7 +23,7 @@ const TYPE_ICON: Record<string, string> = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-toast-container',
   standalone: true,
-  imports: [NgFor, NgIf, IconComponent],
+  imports: [NgFor, NgIf, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './toast-container.component.html',

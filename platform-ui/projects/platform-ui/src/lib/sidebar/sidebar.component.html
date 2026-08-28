@@ -17,14 +17,14 @@
   </div>
 
   <div class="pui-sb__search" *ngIf="cfg.showSearch && !collapsed">
-    <pui-lib-search
+    <pui-search-internal
       size="sm"
       placeholder="Search menu…"
       [debounce]="200"
       [clearable]="true"
       (searchChange)="onSearch($event)"
       (cleared)="onSearch('')">
-    </pui-lib-search>
+    </pui-search-internal>
   </div>
 
   <nav class="pui-sb__nav">

@@ -3,10 +3,10 @@
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ButtonComponent } from '../button/button.component';
-import { PuiInputComponent } from '../forms/input/input.component';
-import { PuiSelectComponent } from '../forms/select/select.component';
-import { PuiTextareaComponent } from '../forms/textarea/textarea.component';
+import { ButtonInternalComponent } from '../button/button-internal.component';
+import { PuiInputInternalComponent } from '../forms/input/input-internal.component';
+import { PuiSelectInternalComponent } from '../forms/select/select-internal.component';
+import { PuiTextareaInternalComponent } from '../forms/textarea/textarea-internal.component';
 import { SelectOption } from '../models/form.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -29,10 +29,10 @@ export interface FormDialogSaveEvent { data: Record<string, any>; }
   standalone: true,
   imports: [
     NgFor, NgIf, FormsModule,
-    ButtonComponent,
-    PuiInputComponent,
-    PuiSelectComponent,
-    PuiTextareaComponent,
+    ButtonInternalComponent,
+    PuiInputInternalComponent,
+    PuiSelectInternalComponent,
+    PuiTextareaInternalComponent,
   ],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],

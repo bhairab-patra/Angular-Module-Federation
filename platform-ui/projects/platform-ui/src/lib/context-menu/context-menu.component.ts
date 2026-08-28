@@ -4,7 +4,7 @@
   ViewEncapsulation, ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { IconComponent } from '../icon/icon.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
 import { MenuItem } from '../models/menu.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -12,7 +12,7 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-context-menu',
   standalone: true,
-  imports: [NgFor, NgIf, IconComponent],
+  imports: [NgFor, NgIf, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './context-menu.component.html',

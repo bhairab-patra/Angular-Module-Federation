@@ -3,7 +3,7 @@ import {
   ViewEncapsulation, ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
-import { IconComponent } from '../icon/icon.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
 import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -11,7 +11,7 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-footer',
   standalone: true,
-  imports: [NgIf, NgFor, IconComponent],
+  imports: [NgIf, NgFor, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './footer.component.html',

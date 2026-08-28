@@ -19,6 +19,7 @@ out-tsc/
 
 # Local documents folder
 document/
+documentation/
 
 # Project documentation / local files
 PRD-confluence.md

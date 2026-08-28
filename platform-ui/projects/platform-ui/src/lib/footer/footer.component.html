@@ -6,7 +6,7 @@
 
       <button type="button" class="pf__nav pf__nav--prev" *ngIf="noticeSlides.length > 1"
               (click)="prevSlide()" aria-label="Previous notice">
-        <pui-lib-icon name="chevron-left" size="sm"></pui-lib-icon>
+        <pui-icon-internal name="chevron-left" size="sm"></pui-icon-internal>
       </button>
 
       <div class="pf__card">
@@ -19,7 +19,7 @@
           <div class="pf__contact-cta" *ngIf="activeSlide?.contactLabel">
             <p class="pf__contact-prompt" *ngIf="activeSlide?.contactPrompt">{{ activeSlide?.contactPrompt }}</p>
             <a class="pf__contact-btn" [href]="activeSlide?.contactHref || null" (click)="onContactClick($event)">
-              <pui-lib-icon name="phone" size="sm"></pui-lib-icon>
+              <pui-icon-internal name="phone" size="sm"></pui-icon-internal>
               <span>{{ activeSlide?.contactLabel }}</span>
             </a>
           </div>
@@ -37,7 +37,7 @@
 
       <button type="button" class="pf__nav pf__nav--next" *ngIf="noticeSlides.length > 1"
               (click)="nextSlide()" aria-label="Next notice">
-        <pui-lib-icon name="chevron-right" size="sm"></pui-lib-icon>
+        <pui-icon-internal name="chevron-right" size="sm"></pui-icon-internal>
       </button>
 
     </div>

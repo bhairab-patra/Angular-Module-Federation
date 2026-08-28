@@ -6,7 +6,7 @@ import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TableColumn, SortState } from '../models/table.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
-import { PuiSearchComponent } from '../search/search.component';
+import { PuiSearchInternalComponent } from '../search/search-internal.component';
 
 export { TableColumn, SortDir, SortState } from '../models/table.model';
 
@@ -14,7 +14,7 @@ export { TableColumn, SortDir, SortState } from '../models/table.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-table',
   standalone: true,
-  imports: [NgFor, NgIf, DecimalPipe, DatePipe, PuiSearchComponent],
+  imports: [NgFor, NgIf, DecimalPipe, DatePipe, PuiSearchInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './table.component.html',

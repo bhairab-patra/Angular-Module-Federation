@@ -17,7 +17,7 @@
          (change)="onFileInputChange($event)">
 
   <div class="pui-dz__icon">
-    <pui-lib-icon name="upload" size="lg"></pui-lib-icon>
+    <pui-icon-internal name="upload" size="lg"></pui-icon-internal>
   </div>
   <p class="pui-dz__label">{{ label }}</p>
   <p class="pui-dz__hint" *ngIf="hint">{{ hint }}</p>
@@ -26,7 +26,7 @@
 <ul class="pui-dz__list" *ngIf="showFileList && files.length">
   <li class="pui-dz__file" *ngFor="let f of files; trackBy: trackById" [class.pui-dz__file--error]="f.status === 'error'">
     <span class="pui-dz__file-icon">
-      <pui-lib-icon name="file" size="sm"></pui-lib-icon>
+      <pui-icon-internal name="file" size="sm"></pui-icon-internal>
     </span>
     <span class="pui-dz__file-info">
       <span class="pui-dz__file-name">{{ f.name }}</span>
@@ -43,7 +43,7 @@
       </span>
     </span>
     <button type="button" class="pui-dz__file-remove" (click)="removeFile(f)" aria-label="Remove file">
-      <pui-lib-icon name="close" size="xs"></pui-lib-icon>
+      <pui-icon-internal name="close" size="xs"></pui-icon-internal>
     </button>
   </li>
 </ul>

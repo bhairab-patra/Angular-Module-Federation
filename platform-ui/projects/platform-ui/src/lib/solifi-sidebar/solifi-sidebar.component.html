@@ -41,7 +41,7 @@
                   (mouseleave)="onNavItemLeave()">
 
             <span class="ssb__icon" *ngIf="item.iconName">
-              <pui-lib-icon [name]="item.iconName" [size]="collapsed ? 'xs' : 'sm'" color="currentColor"></pui-lib-icon>
+              <pui-icon-internal [name]="item.iconName" [size]="collapsed ? 'xs' : 'sm'" color="currentColor"></pui-icon-internal>
             </span>
             <span class="ssb__icon" *ngIf="!item.iconName && item.icon" [innerHTML]="item.icon"></span>
             <span class="ssb__abbr" *ngIf="collapsed && !item.iconName && !item.icon">{{ itemAbbr(item) }}</span>
@@ -84,7 +84,7 @@
                 [class.ssb__user-menu-item--disabled]="item.disabled"
                 (click)="selectUserMenuItem(item, $event)">
           <span class="ssb__user-menu-icon" *ngIf="item.iconName">
-            <pui-lib-icon [name]="item.iconName" size="sm" color="currentColor"></pui-lib-icon>
+            <pui-icon-internal [name]="item.iconName" size="sm" color="currentColor"></pui-icon-internal>
           </span>
           <span class="ssb__user-menu-icon" *ngIf="!item.iconName && item.icon" [innerHTML]="item.icon"></span>
           <span class="ssb__user-menu-label">{{ item.label }}</span>

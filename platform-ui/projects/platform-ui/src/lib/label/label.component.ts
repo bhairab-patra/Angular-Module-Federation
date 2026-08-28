@@ -1,14 +1,15 @@
 import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { TooltipComponent, TooltipPosition } from '../tooltip/tooltip.component';
-import { IconComponent } from '../icon/icon.component';
+import { TooltipPosition } from '../tooltip/tooltip.component';
+import { TooltipInternalComponent } from '../tooltip/tooltip-internal.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-label',
   standalone: true,
-  imports: [NgIf, TooltipComponent, IconComponent],
+  imports: [NgIf, TooltipInternalComponent, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './label.component.html',

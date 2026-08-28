@@ -4,7 +4,7 @@
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { IconComponent } from '../icon/icon.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
 import { AccordionItem, AccordionVariant } from '../models/accordion.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -12,7 +12,7 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-accordion',
   standalone: true,
-  imports: [NgFor, NgIf, IconComponent],
+  imports: [NgFor, NgIf, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './accordion.component.html',

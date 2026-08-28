@@ -4,14 +4,14 @@ import {
   ViewChild, ElementRef, AfterViewInit, OnDestroy, inject, ChangeDetectorRef,
 } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { PuiSolifiSidebarComponent } from '../solifi-sidebar/solifi-sidebar.component';
-import { HeaderComponent } from '../header/header.component';
+import { PuiSolifiSidebarInternalComponent } from '../solifi-sidebar/solifi-sidebar-internal.component';
+import { HeaderInternalComponent } from '../header/header-internal.component';
 import {
   SolifiNavGroup, SolifiNavItem, SolifiUserMenuItem,
   SolifiSidebarTheme, SOLIFI_THEME,
 } from '../models/solifi-sidebar.model';
 import { UserMenuItem, HeaderBadge } from '../models/header.model';
-import { PuiFooterComponent } from '../footer/footer.component';
+import { PuiFooterInternalComponent } from '../footer/footer-internal.component';
 import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -19,7 +19,7 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-app-shell',
   standalone: true,
-  imports: [NgIf, PuiSolifiSidebarComponent, HeaderComponent, PuiFooterComponent],
+  imports: [NgIf, PuiSolifiSidebarInternalComponent, HeaderInternalComponent, PuiFooterInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './app-shell.component.html',

@@ -3,7 +3,7 @@
   ViewEncapsulation, ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
-import { IconComponent } from '../icon/icon.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
 import { DropzoneFile, DropzoneRejection } from '../models/dropzone.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -13,7 +13,7 @@ let uid = 0;
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-dropzone',
   standalone: true,
-  imports: [NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, IconComponent],
+  imports: [NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './dropzone.component.html',

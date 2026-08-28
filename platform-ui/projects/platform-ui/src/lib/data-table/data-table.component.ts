@@ -6,8 +6,8 @@ import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TableColumn, TableAction, SortState } from '../models/table.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
-import { PuiSearchComponent } from '../search/search.component';
-import { PuiSimplePaginationComponent } from '../simple-pagination/simple-pagination.component';
+import { PuiSearchInternalComponent } from '../search/search-internal.component';
+import { PuiSimplePaginationInternalComponent } from '../simple-pagination/simple-pagination-internal.component';
 
 
 export { TableColumn, TableAction, SortDir, SortState } from '../models/table.model';
@@ -16,7 +16,7 @@ export { TableColumn, TableAction, SortDir, SortState } from '../models/table.mo
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-data-table',
   standalone: true,
-  imports: [NgFor, NgIf, DecimalPipe, DatePipe, PuiSearchComponent, PuiSimplePaginationComponent],
+  imports: [NgFor, NgIf, DecimalPipe, DatePipe, PuiSearchInternalComponent, PuiSimplePaginationInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './data-table.component.html',

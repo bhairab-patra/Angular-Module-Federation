@@ -3,11 +3,11 @@
     {{ text }}<span *ngIf="required" class="pui-label__req">*</span>
   </span>
 
-  <pui-lib-tooltip
+  <pui-tooltip-internal
     *ngIf="showInfo && info"
     class="pui-label__info"
     [text]="info"
     [position]="infoPosition">
-    <pui-lib-icon name="info" size="xs"></pui-lib-icon>
-  </pui-lib-tooltip>
+    <pui-icon-internal name="info" size="xs"></pui-icon-internal>
+  </pui-tooltip-internal>
 </span>

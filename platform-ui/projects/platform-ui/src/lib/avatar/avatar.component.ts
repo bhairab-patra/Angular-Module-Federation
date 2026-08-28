@@ -3,7 +3,7 @@
   HostListener, ElementRef, inject, ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { IconComponent } from '../icon/icon.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
 import { AvatarMenuItem, AvatarSize } from '../models/avatar.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -11,7 +11,7 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-avatar',
   standalone: true,
-  imports: [NgFor, NgIf, IconComponent],
+  imports: [NgFor, NgIf, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './avatar.component.html',

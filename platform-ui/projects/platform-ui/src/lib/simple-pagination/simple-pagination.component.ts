@@ -3,17 +3,15 @@ import {
   OnChanges, ViewEncapsulation, ChangeDetectionStrategy
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { IconComponent } from '../icon/icon.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
-/**
- * Minimal, text-link style pagination — "‹ Previous  1  2  3 … 10  Next ›".
- */
+
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-simple-pagination',
   standalone: true,
-  imports: [NgFor, NgIf, IconComponent],
+  imports: [NgFor, NgIf, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './simple-pagination.component.html',

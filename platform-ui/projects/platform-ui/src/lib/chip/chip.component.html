@@ -1,7 +1,7 @@
 <span [class]="hostClass" [class.pui-chip--selected]="selected" [class.pui-chip--disabled]="disabled"
   (click)="!disabled && clicked.emit()">
 
-  <pui-lib-icon *ngIf="icon" class="pui-chip__icon" [name]="icon" size="xs"></pui-lib-icon>
+  <pui-icon-internal *ngIf="icon" class="pui-chip__icon" [name]="icon" size="xs"></pui-icon-internal>
   <span class="pui-chip__label"><ng-content></ng-content></span>
 
   <button *ngIf="removable && !disabled" class="pui-chip__remove" (click)="$event.stopPropagation(); removed.emit()"

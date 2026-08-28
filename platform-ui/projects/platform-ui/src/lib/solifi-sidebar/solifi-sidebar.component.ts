@@ -3,7 +3,7 @@ import {
   ViewEncapsulation, ChangeDetectionStrategy, HostListener, ElementRef,
 } from '@angular/core';
 import { NgFor, NgIf, NgStyle } from '@angular/common';
-import { IconComponent } from '../icon/icon.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
 import { SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem } from '../models/solifi-sidebar.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -18,7 +18,7 @@ const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-solifi-sidebar',
   standalone: true,
-  imports: [NgFor, NgIf, NgStyle, IconComponent],
+  imports: [NgFor, NgIf, NgStyle, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './solifi-sidebar.component.html',

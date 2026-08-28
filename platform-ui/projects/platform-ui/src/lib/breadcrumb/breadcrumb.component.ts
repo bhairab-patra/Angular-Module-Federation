@@ -3,7 +3,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { BreadcrumbItem, BreadcrumbSeparator } from '../models/breadcrumb.model';
-import { IconComponent } from '../icon/icon.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 const SEPARATORS: Record<BreadcrumbSeparator, string> = {
@@ -15,7 +15,7 @@ const SEPARATORS: Record<BreadcrumbSeparator, string> = {
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-breadcrumb',
   standalone: true,
-  imports: [NgFor, NgIf, RouterLink, IconComponent],
+  imports: [NgFor, NgIf, RouterLink, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './breadcrumb.component.html',

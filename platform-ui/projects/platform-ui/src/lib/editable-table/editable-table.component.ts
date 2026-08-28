@@ -7,10 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TableColumn, TableAction, SortState } from '../models/table.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
-import { IconComponent } from '../icon/icon.component';
-import { PuiSimplePaginationComponent } from '../simple-pagination/simple-pagination.component';
-import { PuiSearchComponent } from '../search/search.component';
-import { PuiEmptyStateComponent } from '../empty-state/empty-state.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
+import { PuiSimplePaginationInternalComponent } from '../simple-pagination/simple-pagination-internal.component';
+import { PuiSearchInternalComponent } from '../search/search-internal.component';
+import { PuiEmptyStateInternalComponent } from '../empty-state/empty-state-internal.component';
 import { ToastService } from '../toast/toast.service';
 
 export { TableColumn, TableAction, SortState } from '../models/table.model';
@@ -21,7 +21,7 @@ export interface EditableRowEvent { index: number; row: any; }
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-editable-table',
   standalone: true,
-  imports: [NgFor, NgIf, DecimalPipe, DatePipe, FormsModule, IconComponent, PuiSimplePaginationComponent, PuiSearchComponent, PuiEmptyStateComponent],
+  imports: [NgFor, NgIf, DecimalPipe, DatePipe, FormsModule, IconInternalComponent, PuiSimplePaginationInternalComponent, PuiSearchInternalComponent, PuiEmptyStateInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './editable-table.component.html',

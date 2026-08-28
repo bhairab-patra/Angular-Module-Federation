@@ -18,7 +18,7 @@
             [class.pui-ctx__item--disabled]="item.disabled"
             [disabled]="item.disabled || null"
             (click)="select(item)">
-      <pui-lib-icon *ngIf="item.icon" class="pui-ctx__item-icon" [name]="item.icon" size="sm"></pui-lib-icon>
+      <pui-icon-internal *ngIf="item.icon" class="pui-ctx__item-icon" [name]="item.icon" size="sm"></pui-icon-internal>
       <span class="pui-ctx__item-label">{{ item.label }}</span>
       <span class="pui-ctx__item-shortcut" *ngIf="item.shortcut">{{ item.shortcut }}</span>
     </button>

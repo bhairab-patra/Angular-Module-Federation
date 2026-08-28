@@ -17,7 +17,7 @@
              class="pui-fd__field"
              [class.pui-fd__field--full]="field.span === 'full'">
 
-          <pui-lib-textarea
+          <pui-textarea-internal
             *ngIf="field.type === 'textarea'"
             [label]="field.label"
             [placeholder]="field.placeholder || ''"
@@ -26,9 +26,9 @@
             [error]="errors[field.key] || ''"
             [rows]="3"
             [(ngModel)]="draft[field.key]" size="sm">
-          </pui-lib-textarea>
+          </pui-textarea-internal>
 
-          <pui-lib-select
+          <pui-select-internal
             *ngIf="field.type === 'select'"
             [label]="field.label"
             [placeholder]="field.placeholder || 'Select…'"
@@ -37,9 +37,9 @@
             [disabled]="field.readonly || false"
             [error]="errors[field.key] || ''"
             [(ngModel)]="draft[field.key]" size="sm">
-          </pui-lib-select>
+          </pui-select-internal>
 
-          <pui-lib-input
+          <pui-input-internal
             *ngIf="!field.type || (field.type !== 'textarea' && field.type !== 'select')"
             [label]="field.label"
             [placeholder]="field.placeholder || ''"
@@ -48,25 +48,25 @@
             [readonly]="field.readonly || false"
             [error]="errors[field.key] || ''"
             [(ngModel)]="draft[field.key]" size="sm">
-          </pui-lib-input>
+          </pui-input-internal>
 
         </div>
       </div>
     </div>
 
     <div class="pui-fd__footer">
-      <pui-lib-button
+      <pui-button-internal
         variant="secondary"
         [label]="cancelLabel"
         size="sm"
         (buttonClick)="onCancel()">
-      </pui-lib-button>
-      <pui-lib-button
+      </pui-button-internal>
+      <pui-button-internal
         variant="primary"
         [label]="saveLabel"
         size="sm"
         (buttonClick)="onSave()">
-      </pui-lib-button>
+      </pui-button-internal>
     </div>
 
   </div>
