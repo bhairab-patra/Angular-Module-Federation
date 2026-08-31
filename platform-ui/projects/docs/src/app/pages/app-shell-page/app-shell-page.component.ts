@@ -77,6 +77,16 @@ export class AppShellPageComponent {
   iconMode: 'with-icons' | 'no-icons' = 'with-icons';
   theme: SolifiSidebarTheme = { ...SOLIFI_THEME };
 
+  /** Same items as navGroups, just without the group wrapper — proves
+   * [sidebarGroups] accepts a flat SolifiNavItem[] too, live, not just in
+   * a code sample. Own activeId so it doesn't interfere with the main demo. */
+  navItems: SolifiNavItem[] = NAV_GROUPS.flatMap(g => g.items);
+  shellFlatDemoActiveId = 'borrowing-base';
+  onShellFlatDemoNav(item: SolifiNavItem): void {
+    this.shellFlatDemoActiveId = item.id;
+    this.cdr.markForCheck();
+  }
+
   sidebarUserMenuItems: SolifiUserMenuItem[] = [
     { id: 'profile', label: 'My Profile', iconName: 'user' },
     { id: 'settings', label: 'Settings', iconName: 'settings' },
@@ -291,14 +301,14 @@ import { RouterOutlet } from '@angular/router';
       footerText="Copyright © 2026 Solifi. All Rights Reserved."
       [sidebarTheme]="theme"
       [showSidebarUser]="true"
-      sidebarUserName="Rosanna Doyle"
+      sidebarUserName="Admin hub"
       sidebarUserEmail="adminhub@solifi.com"
       [sidebarUserMenuItems]="sidebarUserMenu"
       [showHeader]="true"
       headerAppTitle="Uptown Trucking Leasing"
       headerAppSubtitle="Digital Experience Portal"
       headerLogoUrl="assets/logo-full.png"
-      headerUserName="Rosanna Doyle"
+      headerUserName="Admin hub"
       headerUserEmail="adminhub@solifi.com"
       [headerMenuItems]="headerMenu"
       (sidebarItemSelect)="onNav($event)"
@@ -539,14 +549,14 @@ export function AppShell({ children }) {
       [sidebarActiveId]="activeId"
       [sidebarTheme]="theme"
       [showSidebarUser]="true"
-      sidebarUserName="Rosanna Doyle"
+      sidebarUserName="Admin hub"
       sidebarUserEmail="adminhub@solifi.com"
       [sidebarUserMenuItems]="sidebarUserMenu"
       [showHeader]="true"
       headerAppTitle="Uptown Trucking Leasing"
       headerAppSubtitle="Digital Experience Portal"
       headerLogoUrl="assets/logo-full.png"
-      headerUserName="Rosanna Doyle"
+      headerUserName="Admin hub"
       headerUserEmail="adminhub@solifi.com"
       [headerMenuItems]="headerMenu"
       (sidebarItemSelect)="onNav($event)"

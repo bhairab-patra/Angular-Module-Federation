@@ -1,5 +1,6 @@
 ﻿import {
-  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy
+} from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ButtonInternalComponent } from '../button/button-internal.component';
 import { ButtonVariant } from '../models/button.model';
@@ -27,6 +28,7 @@ export class PuiConfirmDialogComponent {
   @Input() confirmLabel = 'Confirm';
   @Input() cancelLabel = 'Cancel';
   @Input() confirmVariant: ButtonVariant = 'destructive';
+  @Input() tone: 'danger' | 'warning' = 'danger';
   @Input() closeOnBackdrop = true;
 
   @Output() confirmed = new EventEmitter<void>();

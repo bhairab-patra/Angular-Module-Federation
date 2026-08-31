@@ -50,10 +50,10 @@ type Framework = 'angular' | 'react' | 'html';
         <!-- ── MODE TOGGLE ── -->
         <div class="mode-toggle">
           <button class="mode-btn" [class.mode-btn--active]="ngMode==='published'" (click)="ngMode='published'">
-            📦 Published npm (production)
+            Published npm (production)
           </button>
           <button class="mode-btn" [class.mode-btn--active]="ngMode==='local'" (click)="ngMode='local'">
-            🔧 Local Dev (without publishing)
+            Local Dev (without publishing)
           </button>
         </div>
 
@@ -74,19 +74,19 @@ type Framework = 'angular' | 'react' | 'html';
           </div>
           <div class="hiw-grid">
             <div class="hiw-card">
-              <div class="hiw-card__icon">📥</div>
+              
               <div class="hiw-card__title">Standalone import</div>
               <div class="hiw-card__desc">Add the component directly to your standalone component's <code>imports</code></div>
               <code class="hiw-card__code">imports: [PuiButtonComponent]</code>
             </div>
             <div class="hiw-card">
-              <div class="hiw-card__icon">🧩</div>
+             
               <div class="hiw-card__title">NgModule import</div>
               <div class="hiw-card__desc">Import in your <code>&#64;NgModule</code> — all its components become available in templates</div>
               <code class="hiw-card__code">imports: [PuiButtonComponent]</code>
             </div>
             <div class="hiw-card">
-              <div class="hiw-card__icon">🔗</div>
+              
               <div class="hiw-card__title">Template binding</div>
               <div class="hiw-card__desc">Use standard Angular <code>[input]</code> and <code>(event)</code> bindings</div>
               <code class="hiw-card__code">[label]="'Save'" (clicked)="onSave()"</code>
@@ -333,19 +333,19 @@ type Framework = 'angular' | 'react' | 'html';
           </div>
           <div class="hiw-grid">
             <div class="hiw-card">
-              <div class="hiw-card__icon">🔤</div>
+               
               <div class="hiw-card__title">String inputs</div>
               <div class="hiw-card__desc">Pass as kebab-case HTML attributes</div>
               <code class="hiw-card__code">app-title="My App"</code>
             </div>
             <div class="hiw-card">
-              <div class="hiw-card__icon">📦</div>
+              
               <div class="hiw-card__title">Array / Object inputs</div>
               <div class="hiw-card__desc">Stringify and pass as attribute — Angular parses via <code>attributeChangedCallback</code></div>
               <code class="hiw-card__code">groups='&#123;JSON.stringify(data)&#125;'</code>
             </div>
             <div class="hiw-card">
-              <div class="hiw-card__icon">⚡</div>
+             
               <div class="hiw-card__title">Events</div>
               <div class="hiw-card__desc">Native CustomEvents — listen via <code>addEventListener</code> on a ref</div>
               <code class="hiw-card__code">ref.addEventListener('sidebarItemSelect', fn)</code>
@@ -392,14 +392,14 @@ type Framework = 'angular' | 'react' | 'html';
               </div>
             </div>
             <div class="file-row">
-              <span class="file-icon">🎨</span>
+              <span class="file-icon">📄</span>
               <div>
                 <div class="file-name">node_modules/&#64;bhairab-patra/platform-ui/styles/tokens.css</div>
                 <div class="file-desc">CSS custom properties (design tokens) — load in &lt;head&gt;</div>
               </div>
             </div>
             <div class="file-row">
-              <span class="file-icon">🎨</span>
+              <span class="file-icon">📄</span>
               <div>
                 <div class="file-name">node_modules/&#64;bhairab-patra/platform-ui/styles/themes/theme-new.css</div>
                 <div class="file-desc">Default teal theme — load after tokens.css</div>
@@ -650,19 +650,19 @@ type Framework = 'angular' | 'react' | 'html';
         </div>
         <div class="hiw-grid" style="margin-bottom:28px">
           <div class="hiw-card">
-            <div class="hiw-card__icon">🏷️</div>
+        
             <div class="hiw-card__title">String inputs</div>
             <div class="hiw-card__desc">Pass as kebab-case HTML attributes directly on the element tag</div>
             <code class="hiw-card__code">app-title="My App"</code>
           </div>
           <div class="hiw-card">
-            <div class="hiw-card__icon">📦</div>
+            
             <div class="hiw-card__title">Array / Object inputs</div>
             <div class="hiw-card__desc">Set via <code>element.setAttribute()</code> with a <code>JSON.stringify()</code> value</div>
             <code class="hiw-card__code">el.setAttribute('items', JSON.stringify(arr))</code>
           </div>
           <div class="hiw-card">
-            <div class="hiw-card__icon">⚡</div>
+            
             <div class="hiw-card__title">Events</div>
             <div class="hiw-card__desc">Native CustomEvents — listen with <code>addEventListener</code></div>
             <code class="hiw-card__code">el.addEventListener('sidebarItemSelect', fn)</code>
@@ -682,14 +682,14 @@ type Framework = 'angular' | 'react' | 'html';
           <p class="gs-p" style="margin-top:12px">This creates <code>node_modules/&#64;bhairab-patra/platform-ui/elements/</code> with two files you need:</p>
           <div class="file-list">
             <div class="file-row">
-              <span class="file-icon">📄</span>
+              
               <div>
                 <div class="file-name">node_modules/&#64;bhairab-patra/platform-ui/elements/pui-elements.js</div>
                 <div class="file-desc">All 21 components — Angular runtime included</div>
               </div>
             </div>
             <div class="file-row">
-              <span class="file-icon">🎨</span>
+            
               <div>
                 <div class="file-name">node_modules/&#64;bhairab-patra/platform-ui/elements/styles.css</div>
                 <div class="file-desc">Poppins font + CSS custom properties</div>
@@ -795,7 +795,7 @@ type Framework = 'angular' | 'react' | 'html';
         <h2 class="gs-h2">Explore the Components</h2>
         <div class="next-grid">
           <a *ngFor="let n of nextSteps; trackBy: trackByIndex" [routerLink]="n.route" class="next-card">
-            <span class="next-icon">{{ n.icon }}</span>
+             
             <div>
               <div class="next-title">{{ n.title }}</div>
               <div class="next-desc">{{ n.desc }}</div>
@@ -857,8 +857,8 @@ type Framework = 'angular' | 'react' | 'html';
       font-size: 13.5px; font-weight: 500; color: #374151;
       cursor: pointer; font-family: inherit; transition: all .14s;
     }
-    .fw-tab:hover { border-color: #12C6A8; color: #0d9e87; background: #f0fdfb; }
-    .fw-tab--active { border-color: #12C6A8; background: #f0fdfb; color: #0d9e87; font-weight: 600; }
+    .fw-tab:hover { border-color: #0f5c5e; color: #0f5c5e; background: #f0fdfb; }
+    .fw-tab--active { border-color: #0f5c5e; background: #f0fdfb; color: #0f5c5e; font-weight: 600; }
     .fw-tab__icon { width: 22px; height: 22px; flex-shrink: 0; display: flex; align-items: center; }
     .fw-tab__icon svg { width: 22px; height: 22px; display: block; }
 
@@ -885,12 +885,12 @@ type Framework = 'angular' | 'react' | 'html';
     .step-badge {
       display: inline-flex; align-items: center; justify-content: center;
       width: 28px; height: 28px; border-radius: 50%;
-      background: #12c6a8; color: #fff;
+      background: #0f5c5e; color: #fff;
       font-size: 13px; font-weight: 700; flex-shrink: 0;
     }
 
     .note {
-      display: flex; align-items: flex-start; gap: 10px;
+      display: block;
       padding: 14px 18px; border-radius: 10px;
       font-size: 13.5px; line-height: 1.65; margin-bottom: 18px;
     }
@@ -968,7 +968,7 @@ type Framework = 'angular' | 'react' | 'html';
       text-decoration: none; color: inherit;
       transition: border-color .15s, box-shadow .15s;
     }
-    .next-card:hover { border-color: #93c5fd; box-shadow: 0 2px 12px rgba(37,99,235,.08); }
+ 
     .next-icon  { font-size: 22px; flex-shrink: 0; }
     .next-title { font-size: 14px; font-weight: 600; color: #111827; margin-bottom: 3px; }
     .next-desc  { font-size: 12px; color: #6b7280; line-height: 1.5; }
@@ -985,7 +985,7 @@ type Framework = 'angular' | 'react' | 'html';
       user-select: none; transition: color .12s, border-color .12s;
     }
     .otp-link:hover { color: #111827; }
-    .otp-link--active { color: #0fa78d; border-left-color: #12C6A8; font-weight: 500; }
+    .otp-link--active { color: #0fa78d; border-left-color: #0f5c5e; font-weight: 500; }
 
     .fw-mini-tabs  { margin-top: 28px; border-top: 1px solid #f3f4f6; padding-top: 16px; }
     .fw-mini-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: #9ca3af; margin-bottom: 8px; }
@@ -996,7 +996,7 @@ type Framework = 'angular' | 'react' | 'html';
       cursor: pointer; font-family: inherit; margin-bottom: 2px; transition: background .12s, color .12s;
     }
     .fw-mini-btn:hover { background: #f9fafb; color: #111827; }
-    .fw-mini-btn--active { background: #f0fdfb; color: #0d9e87; font-weight: 600; }
+    .fw-mini-btn--active { background: #f0fdfb; color: #0f5c5e; font-weight: 600; }
 
     /* ── Mode toggle ─────────────────────────────────────────── */
     .mode-toggle {
@@ -1010,8 +1010,8 @@ type Framework = 'angular' | 'react' | 'html';
       font-size: 13.5px; font-weight: 500; color: #374151;
       cursor: pointer; font-family: inherit; transition: all .14s;
     }
-    .mode-btn:hover { border-color: #12C6A8; color: #0d9e87; background: #f0fdfb; }
-    .mode-btn--active { border-color: #12C6A8; background: #f0fdfb; color: #0d9e87; font-weight: 700; }
+    .mode-btn:hover { border-color: #0f5c5e; color: #0f5c5e; background: #f0fdfb; }
+    .mode-btn--active { border-color: #0f5c5e; background: #f0fdfb; color: #0f5c5e; font-weight: 700; }
 
     /* ── Blocker list ────────────────────────────────────────── */
     .blocker-list { display: flex; flex-direction: column; gap: 16px; margin-top: 8px; }
@@ -1205,6 +1205,7 @@ npm link @bhairab-patra/platform-ui`,
   "build": {
     "options": {
       "styles": [
+        "node_modules/@bhairab-patra/platform-ui/styles/fonts.css",
         "node_modules/@bhairab-patra/platform-ui/styles/tokens.css",
         "node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css",
         "src/styles.scss"
@@ -1247,6 +1248,7 @@ skip: [
   "build": {
     "options": {
       "styles": [
+        "node_modules/@bhairab-patra/platform-ui/styles/fonts.css",
         "node_modules/@bhairab-patra/platform-ui/styles/tokens.css",
         "node_modules/@bhairab-patra/platform-ui/styles/themes/theme-new.css",
         "src/styles.scss"
@@ -1371,7 +1373,7 @@ export class AppComponent {
   ];
 
   sidebarTheme: SolifiSidebarTheme = {
-    bg: '#0f172a', textColor: '#94a3b8', activeColor: '#12C6A8',
+    bg: '#0f172a', textColor: '#94a3b8', activeColor: '#0f5c5e',
   };
 
   onNavSelect(item: SolifiNavItem): void {
@@ -1391,7 +1393,7 @@ export class AppComponent {
 <pui-lib-app-shell
   headerAppTitle="Admin Portal"
   headerAppSubtitle="Management Console"
-  headerBgColor="#12C6A8"
+  headerBgColor="#0f5c5e"
   headerUserName="Jane Doe"
   headerUserEmail="jane@example.com"
   [headerMenuItems]="headerMenuItems"
@@ -1631,7 +1633,7 @@ export default function App() {
       ref={shellRef}
       app-title="React App"
       app-subtitle="Powered by Platform UI"
-      header-bg-color="#12C6A8"
+      header-bg-color="#0f5c5e"
       header-user-name="Jane Doe"
       header-user-email="jane@example.com"
       header-show-help="true"
@@ -1737,7 +1739,7 @@ npm install @bhairab-patra/platform-ui`,
     id="shell"
     app-title="Admin Portal"
     app-subtitle="v2.0"
-    header-bg-color="#12C6A8"
+    header-bg-color="#0f5c5e"
     header-user-name="Jane Doe"
     header-user-email="jane@company.com"
     style="height:100%;display:block">

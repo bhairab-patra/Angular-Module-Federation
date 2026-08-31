@@ -40,6 +40,11 @@
   background: var(--pui-error-tint-10);
   color: var(--pui-error);
   flex-shrink: 0;
+
+  &--warning {
+    background: var(--pui-warning-tint-12);
+    color: var(--pui-warning);
+  }
 }
 
 .pui-cd__content {

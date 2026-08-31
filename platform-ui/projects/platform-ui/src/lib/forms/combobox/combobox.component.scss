@@ -140,6 +140,26 @@
   max-height: 260px;
   overflow-y: auto;
   animation: pui-cb-in var(--pui-duration-base) ease;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pui-neutral-300) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--pui-neutral-300);
+    border-radius: var(--pui-radius-full);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--pui-neutral-400);
+  }
 }
 
 @keyframes pui-cb-in {

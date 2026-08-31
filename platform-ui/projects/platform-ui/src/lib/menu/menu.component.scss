@@ -97,6 +97,26 @@ pui-lib-menu {
   overflow-y: auto;
   overflow-x: visible;
   animation: pui-menu-in var(--pui-duration-fast) ease;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pui-neutral-300) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--pui-neutral-300);
+    border-radius: var(--pui-radius-full);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--pui-neutral-400);
+  }
 
   &.pui-menu--bottom-start {
     top: calc(100% + 6px);

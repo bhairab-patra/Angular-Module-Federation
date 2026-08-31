@@ -12,6 +12,7 @@ export const routes: Routes = [
   { path: 'modal', loadComponent: () => import('./pages/modal-page/modal-page.component').then(m => m.ModalPageComponent) },
   { path: 'form-dialog', loadComponent: () => import('./pages/form-dialog-page/form-dialog-page.component').then(m => m.FormDialogPageComponent) },
   { path: 'confirm-dialog', loadComponent: () => import('./pages/confirm-dialog-page/confirm-dialog-page.component').then(m => m.ConfirmDialogPageComponent) },
+  { path: 'discard-dialog', loadComponent: () => import('./pages/discard-dialog-page/discard-dialog-page.component').then(m => m.DiscardDialogPageComponent) },
   { path: 'header', loadComponent: () => import('./pages/header-page/header-page.component').then(m => m.HeaderPageComponent) },
   { path: 'icon', loadComponent: () => import('./pages/icon-page/icon-page.component').then(m => m.IconPageComponent) },
   { path: 'tooltip', loadComponent: () => import('./pages/tooltip-page/tooltip-page.component').then(m => m.TooltipPageComponent) },
@@ -31,6 +32,8 @@ export const routes: Routes = [
   // { path: 'sidebar', loadComponent: () => import('./pages/sidebar-page/sidebar-page.component').then(m => m.SidebarPageComponent) },
   { path: 'solifi-sidebar', loadComponent: () => import('./pages/solifi-sidebar-page/solifi-sidebar-page.component').then(m => m.SolifiSidebarPageComponent) },
   { path: 'app-shell', loadComponent: () => import('./pages/app-shell-page/app-shell-page.component').then(m => m.AppShellPageComponent) },
+  { path: 'templates/primary-layout', loadComponent: () => import('./pages/primary-layout-page/primary-layout-page.component').then(m => m.PrimaryLayoutPageComponent) },
+  { path: 'templates/table-layout', loadComponent: () => import('./pages/table-layout-page/table-layout-page.component').then(m => m.TableLayoutPageComponent) },
   {
     path: 'table',
     loadComponent: () => import('./pages/table-page/table-layout.component').then(m => m.TableLayoutComponent),

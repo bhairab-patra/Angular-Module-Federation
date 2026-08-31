@@ -70,4 +70,17 @@
     </div>
 
   </div>
+
+  <pui-confirm-dialog-internal
+    [open]="discardPromptOpen"
+    [title]="discardTitle"
+    [message]="discardMessage"
+    [confirmLabel]="discardLabel"
+    [cancelLabel]="keepEditingLabel"
+    confirmVariant="destructive"
+    tone="warning"
+    (confirmed)="onConfirmDiscard()"
+    (cancelled)="onKeepEditing()">
+  </pui-confirm-dialog-internal>
+
 </div>

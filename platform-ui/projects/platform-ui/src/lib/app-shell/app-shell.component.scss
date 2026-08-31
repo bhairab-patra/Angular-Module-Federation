@@ -61,6 +61,26 @@
   overflow-x: hidden;
   padding: var(--pui-space-6, 24px) var(--pui-space-8, 32px);
   min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pui-neutral-300) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--pui-neutral-300);
+    border-radius: var(--pui-radius-full);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--pui-neutral-400);
+  }
 }
 
 .pas__footer {

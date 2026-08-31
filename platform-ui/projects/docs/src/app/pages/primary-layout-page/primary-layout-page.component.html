@@ -1,0 +1,119 @@
+<docs-page
+  title="Primary Layout"
+  description="A complete, ready-to-copy starter layout built on pui-lib-app-shell — sidebar navigation, header, user menus, and page-content wiring, all in one place. Copy the three files below straight into a new Angular app's app.component.*."
+>
+  <ng-container demo>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Live Preview</h3>
+      <p class="demo-section__desc">
+        Click a sidebar item — the active highlight, the title bar, and the
+        content below all update together.
+      </p>
+
+      <pui-lib-app-shell
+        [sidebarGroups]="navGroups"
+        [sidebarActiveId]="activeId"
+        sidebarBrandName="Solifi"
+        [showSidebarUser]="true"
+        sidebarUserName="Admin User"
+        sidebarUserEmail="admin@solifi.com"
+        [sidebarUserMenuItems]="sidebarUserMenu"
+        [showHeader]="true"
+        headerAppTitle="Solifi Platform"
+        headerAppSubtitle="Admin Portal"
+        headerUserName="Admin User"
+        headerUserEmail="admin@solifi.com"
+        [headerMenuItems]="headerMenu"
+        [pageTitle]="pageTitle"
+        footerText="Copyright © 2026 Solifi. All Rights Reserved."
+        (sidebarItemSelect)="onNav($event)"
+        (sidebarUserMenuSelect)="onUserMenu($event)"
+        (headerMenuAction)="onHeaderMenu($event)"
+        style="
+          display: flex;
+          height: 480px;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1px solid var(--pui-neutral-200);
+        "
+      >
+        <div style="padding: 24px">
+          <h2 style="margin: 0 0 8px">{{ pageTitle }}</h2>
+          <p style="margin: 0; color: var(--pui-neutral-500)">
+            This content area is where your
+            <code>&lt;router-outlet /&gt;</code> goes in a real app.
+          </p>
+        </div>
+      </pui-lib-app-shell>
+    </div>
+
+    <div class="demo-section">
+      <h3 class="demo-section__title">Template Files</h3>
+      <p class="demo-section__desc">
+        Copy these three files into a new Angular app's
+        <code>app.component.*</code> to get this exact layout.
+      </p>
+
+      <div class="file-tabs">
+        <button
+          type="button"
+          class="file-tab"
+          [class.file-tab--active]="activeTab === 'ts'"
+          (click)="setTab('ts')"
+        >
+          app.component.ts
+        </button>
+        <button
+          type="button"
+          class="file-tab"
+          [class.file-tab--active]="activeTab === 'html'"
+          (click)="setTab('html')"
+        >
+          app.component.html
+        </button>
+        <button
+          type="button"
+          class="file-tab"
+          [class.file-tab--active]="activeTab === 'scss'"
+          (click)="setTab('scss')"
+        >
+          app.component.scss
+        </button>
+      </div>
+
+      <docs-code-block
+        *ngIf="activeTab === 'ts'"
+        lang="typescript"
+        id="tpl-ts"
+        [text]="files.ts"
+        [copied]="copied"
+        (copyClick)="doCopy($event.text, $event.id)"
+      ></docs-code-block>
+      <docs-code-block
+        *ngIf="activeTab === 'html'"
+        lang="html"
+        id="tpl-html"
+        [text]="files.html"
+        [copied]="copied"
+        (copyClick)="doCopy($event.text, $event.id)"
+      ></docs-code-block>
+      <docs-code-block
+        *ngIf="activeTab === 'scss'"
+        lang="scss"
+        id="tpl-scss"
+        [text]="files.scss"
+        [copied]="copied"
+        (copyClick)="doCopy($event.text, $event.id)"
+      ></docs-code-block>
+    </div>
+
+    <div class="tip">
+      <strong>customCss note:</strong> <code>customCss</code> on
+      <code>pui-lib-app-shell</code> only reaches classes inside app-shell's own
+      shadow root (its <code>.pas*</code> classes). It can't style classes that
+      live inside the nested sidebar or header (e.g.
+      <code>.ssb__brand-name</code>) — those render in their own separate shadow
+      roots, which shadow DOM boundaries block CSS from crossing into.
+    </div>
+  </ng-container>
+</docs-page>

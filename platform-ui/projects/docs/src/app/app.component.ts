@@ -30,6 +30,7 @@ export class AppComponent {
     { label: 'Modal', route: '/modal', category: 'Component', keywords: ['dialog', 'popup', 'overlay', 'confirm'] },
     { label: 'Form Dialog', route: '/form-dialog', category: 'Component', keywords: ['form', 'dialog', 'modal', 'add', 'edit', 'fields', 'input', 'select', 'textarea'] },
     { label: 'Confirm Dialog', route: '/confirm-dialog', category: 'Component', keywords: ['confirm', 'dialog', 'modal', 'delete', 'destructive', 'prompt', 'alert', 'warning'] },
+    { label: 'Discard Dialog', route: '/discard-dialog', category: 'Component', keywords: ['discard', 'unsaved', 'changes', 'dirty', 'confirm', 'dialog', 'form', 'leave', 'cancel', 'close', 'lost'] },
     { label: 'Header', route: '/header', category: 'Component', keywords: ['navbar', 'topbar', 'navigation'] },
     { label: 'Footer', route: '/footer', category: 'Component', keywords: ['footer', 'bottom bar', 'copyright', 'disclaimer', 'contact', 'office hours'] },
     { label: 'Popover', route: '/popover', category: 'Component', keywords: ['popover', 'floating', 'panel', 'anchor', 'card', 'flyout'] },
@@ -53,6 +54,8 @@ export class AppComponent {
     { label: 'Toast', route: '/toast', category: 'Component', keywords: ['notification', 'alert', 'snackbar', 'success', 'error', 'warning', 'info'] },
     { label: 'Solifi Sidebar', route: '/solifi-sidebar', category: 'Component', keywords: ['solifi', 'sidebar', 'navigation', 'branded', 'dark', 'navy', 'icon rail', 'collapse', 'flat'] },
     { label: 'App Shell', route: '/app-shell', category: 'Component', keywords: ['app shell', 'shell', 'layout', 'header', 'sidebar', 'full page', 'navigation', 'frame'] },
+    { label: 'Primary Layout', route: '/templates/primary-layout', category: 'Template', keywords: ['template', 'starter', 'primary layout', 'app shell', 'layout', 'copy paste', 'boilerplate', 'app.component'] },
+    { label: 'Table Layout', route: '/templates/table-layout', category: 'Template', keywords: ['template', 'starter', 'table layout', 'data table', 'orders', 'sortable', 'searchable', 'paginated', 'selectable', 'actions', 'copy paste'] },
     { label: 'Display Table', route: '/table/display', category: 'Component', keywords: ['table', 'display', 'sort', 'search', 'sticky', 'badge', 'action', 'menu', 'tooltip'] },
     { label: 'Data Grid', route: '/table/data-grid', category: 'Component', keywords: ['datagrid', 'table', 'pagination', 'paginate', 'selection', 'selectable', 'data', 'grid', 'sort', 'search'] },
     { label: 'Editable Table', route: '/table/editable', category: 'Component', keywords: ['editable', 'table', 'inline', 'edit', 'row', 'form', 'dialog', 'confirm', 'delete'] },
@@ -136,6 +139,20 @@ export class AppComponent {
         ],
       },
       {
+        heading: 'Templates',
+        collapsed: false,
+        items: [
+          {
+            label: 'Primary Layout', route: '/templates/primary-layout',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="1.5" width="13" height="13" rx="1.5"/><path d="M5.5 1.5v13"/><path d="M5.5 5h9"/></svg>`)
+          },
+          {
+            label: 'Table Layout', route: '/templates/table-layout',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><path d="M1.5 6h13M6 6v7.5"/></svg>`)
+          },
+        ],
+      },
+      {
         heading: 'Foundation',
         collapsed: false,
         items: [
@@ -192,6 +209,7 @@ export class AppComponent {
               { label: 'Modal', route: '/modal' },
               { label: 'Form Dialog', route: '/form-dialog' },
               { label: 'Confirm Dialog', route: '/confirm-dialog' },
+              { label: 'Discard Dialog', route: '/discard-dialog' },
             ],
           },
           {

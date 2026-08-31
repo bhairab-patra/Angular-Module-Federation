@@ -217,6 +217,26 @@
   max-height: 220px;
   overflow-y: auto;
   padding: var(--pui-space-1) 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pui-neutral-300) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--pui-neutral-300);
+    border-radius: var(--pui-radius-full);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--pui-neutral-400);
+  }
 }
 
 .pui-ms-empty {

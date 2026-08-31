@@ -109,7 +109,7 @@ export class ProductsComponent {
 
   // Configure global defaults once (e.g. in AppComponent.ngOnInit)
   ngOnInit() {
-    this.toast.configure({ position: 'top-right', variant: 'soft', duration: 4000 });
+    this.toast.configure({ position: 'top-center', variant: 'soft', duration: 4000 });
   }
 }`;
 
@@ -217,7 +217,7 @@ function ProductCard({ product }) {
     { input: 'ToastConfig.type',            type: "'success'|'error'|'warning'|'info'", default: "'info'", description: 'Semantic type — controls icon, accent bar, and colour tint.' },
     { input: 'ToastConfig.variant',         type: "'soft'|'filled'",       default: "'soft'",     description: 'Fill style — soft is a tinted background with coloured text; filled is a solid colour block with white text.' },
     { input: 'ToastConfig.duration',        type: 'number (ms)',           default: '4000',       description: 'Auto-dismiss delay in milliseconds. 0 = persistent until dismissed.' },
-    { input: 'ToastConfig.position',        type: 'ToastPosition',         default: "'top-right'", description: '6 positions: top/bottom × left/center/right.' },
+    { input: 'ToastConfig.position',        type: 'ToastPosition',         default: "'top-center'", description: '6 positions: top/bottom × left/center/right.' },
     { input: 'ToastConfig.dismissible',     type: 'boolean',               default: 'true',       description: 'Show the × dismiss button on the toast.' },
     { input: 'ToastConfig.action',          type: '{ label, callback }',   default: '—',          description: 'Optional inline CTA button (e.g. Undo) with a click callback.' },
   ];

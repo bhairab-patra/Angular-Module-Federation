@@ -1,28 +1,47 @@
-<docs-page title="Popover"
+<docs-page
+  title="Popover"
   description="A floating panel anchored to a trigger element — any content, not just menus. Click or hover to open, 8 placements, works in Angular, React, and plain HTML with no consumer hacks needed."
-  [code]="angularCode" [hasFramework]="true" [api]="api">
-
+  [code]="angularCode"
+  [hasFramework]="true"
+  [api]="api"
+>
   <ng-container demo>
-
     <!-- 1. Trigger modes -->
     <div class="demo-section">
       <h3 class="demo-section__title">Trigger Modes</h3>
-      <p class="demo-section__desc">Set <code>triggerMode</code> to <code>click</code> (default) or <code>hover</code>. Content can be anything — here it's a small profile card and a settings form, not a menu list.</p>
+      <p class="demo-section__desc">
+        Set <code>triggerMode</code> to <code>click</code> (default) or
+        <code>hover</code>. Content can be anything — here it's a small profile
+        card and a settings form, not a menu list.
+      </p>
       <div class="demo-row">
-        <pui-lib-popover placement="bottom-start" triggerMode="click" [open]="clickOpen" (openChange)="onClickOpenChange($event)">
+        <pui-lib-popover
+          placement="bottom-start"
+          triggerMode="click"
+          [open]="clickOpen"
+          (openChange)="onClickOpenChange($event)"
+        >
           <button popoverTrigger class="pop-trigger-btn">Click me</button>
           <div class="pop-demo-card">
             <div class="pop-demo-card__avatar">RD</div>
             <div>
-              <div class="pop-demo-card__name">Rosanna Doyle</div>
+              <div class="pop-demo-card__name">Admin hub</div>
               <div class="pop-demo-card__email">rdoyle&#64;solifi.com</div>
             </div>
           </div>
         </pui-lib-popover>
 
-        <pui-lib-popover placement="bottom-start" triggerMode="hover" [open]="hoverOpen" (openChange)="onHoverOpenChange($event)">
+        <pui-lib-popover
+          placement="bottom-start"
+          triggerMode="hover"
+          [open]="hoverOpen"
+          (openChange)="onHoverOpenChange($event)"
+        >
           <button popoverTrigger class="pop-trigger-btn">Hover me</button>
-          <p class="pop-demo-text">Hovering the trigger opens this panel; moving the mouse onto the panel itself keeps it open.</p>
+          <p class="pop-demo-text">
+            Hovering the trigger opens this panel; moving the mouse onto the
+            panel itself keeps it open.
+          </p>
         </pui-lib-popover>
       </div>
     </div>
@@ -30,13 +49,20 @@
     <!-- 2. Placements -->
     <div class="demo-section">
       <h3 class="demo-section__title">All 8 Placements</h3>
-      <p class="demo-section__desc">The panel positions itself relative to the trigger using <code>placement</code>.</p>
+      <p class="demo-section__desc">
+        The panel positions itself relative to the trigger using
+        <code>placement</code>.
+      </p>
       <div class="placement-grid">
-        <pui-lib-popover *ngFor="let p of placements; trackBy: trackByIndex"
+        <pui-lib-popover
+          *ngFor="let p of placements; trackBy: trackByIndex"
           [placement]="p.id"
           [open]="!!placementOpen[p.id]"
-          (openChange)="onPlacementOpenChange(p.id, $event)">
-          <button popoverTrigger class="pop-trigger-btn pop-trigger-btn--sm">{{ p.label }}</button>
+          (openChange)="onPlacementOpenChange(p.id, $event)"
+        >
+          <button popoverTrigger class="pop-trigger-btn pop-trigger-btn--sm">
+            {{ p.label }}
+          </button>
           <p class="pop-demo-text">placement="{{ p.id }}"</p>
         </pui-lib-popover>
       </div>
@@ -45,30 +71,49 @@
     <!-- 3. Manual mode -->
     <div class="demo-section">
       <h3 class="demo-section__title">Manual Mode</h3>
-      <p class="demo-section__desc">With <code>triggerMode="manual"</code>, the popover ignores its own trigger's click/hover — you decide when it opens and closes from your own component logic.</p>
+      <p class="demo-section__desc">
+        With <code>triggerMode="manual"</code>, the popover ignores its own
+        trigger's click/hover — you decide when it opens and closes from your
+        own component logic.
+      </p>
       <div class="demo-row">
-        <button class="ctrl-btn" (click)="toggleManual()">{{ manualOpen ? 'Close' : 'Open' }} from outside</button>
-        <pui-lib-popover placement="right" triggerMode="manual" [open]="manualOpen">
+        <button class="ctrl-btn" (click)="toggleManual()">
+          {{ manualOpen ? "Close" : "Open" }} from outside
+        </button>
+        <pui-lib-popover
+          placement="right"
+          triggerMode="manual"
+          [open]="manualOpen"
+        >
           <span popoverTrigger class="pop-trigger-dot"></span>
-          <p class="pop-demo-text">Opened programmatically — the dot itself does nothing on click.</p>
+          <p class="pop-demo-text">
+            Opened programmatically — the dot itself does nothing on click.
+          </p>
         </pui-lib-popover>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
-      <code>pui-lib-popover</code> is a Web Component — it works in Angular, React, and plain HTML
-      with no extra wrappers. Project the trigger element with a <code>popoverTrigger</code> attribute;
-      everything else projected becomes the panel body.
+      <code>pui-lib-popover</code> is a Web Component — it works in Angular,
+      React, and plain HTML with no extra wrappers. Project the trigger element
+      with a <code>popoverTrigger</code> attribute; everything else projected
+      becomes the panel body.
     </p>
 
-    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-col">
-        <pui-lib-popover placement="bottom" [open]="fwOpen" (openChange)="onFwOpenChange($event)">
+        <pui-lib-popover
+          placement="bottom"
+          [open]="fwOpen"
+          (openChange)="onFwOpenChange($event)"
+        >
           <button popoverTrigger class="pop-trigger-btn">Open popover</button>
           <div class="pop-demo-card">
             <div class="pop-demo-card__avatar">RD</div>
@@ -80,7 +125,11 @@
         </pui-lib-popover>
       </div>
       <div react-preview class="demo-col">
-        <pui-lib-popover placement="bottom" [open]="fwOpen" (openChange)="onFwOpenChange($event)">
+        <pui-lib-popover
+          placement="bottom"
+          [open]="fwOpen"
+          (openChange)="onFwOpenChange($event)"
+        >
           <button popoverTrigger class="pop-trigger-btn">Open popover</button>
           <div class="pop-demo-card">
             <div class="pop-demo-card__avatar">RD</div>
@@ -97,19 +146,30 @@
     <div class="xfw-wrap">
       <table class="xfw-table">
         <thead>
-          <tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr>
+          <tr>
+            <th>Input / Event</th>
+            <th>Angular</th>
+            <th>React / HTML attribute</th>
+            <th>JS property</th>
+          </tr>
         </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><code class="tag-name">{{ r.name }}</code></td>
-            <td><code class="tag-ng">{{ r.angular }}</code></td>
-            <td><code class="tag-html">{{ r.attr }}</code></td>
-            <td><code class="tag-js">{{ r.js }}</code></td>
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code class="tag-ng">{{ r.angular }}</code>
+            </td>
+            <td>
+              <code class="tag-html">{{ r.attr }}</code>
+            </td>
+            <td>
+              <code class="tag-js">{{ r.js }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>

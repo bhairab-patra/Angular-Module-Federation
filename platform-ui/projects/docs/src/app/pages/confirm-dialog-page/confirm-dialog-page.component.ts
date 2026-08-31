@@ -89,6 +89,7 @@ export class MyComponent {
     { input: 'confirmLabel',    type: 'string',           default: "'Confirm'",      description: 'Primary (confirm) button label' },
     { input: 'cancelLabel',     type: 'string',           default: "'Cancel'",       description: 'Secondary (cancel) button label' },
     { input: 'confirmVariant',  type: 'ButtonVariant',    default: "'destructive'",  description: 'Variant applied to the confirm button: primary, primary-outline, secondary, destructive, etc.' },
+    { input: 'tone',            type: "'danger' | 'warning'", default: "'danger'",   description: 'Color of the icon badge — danger (red) for destructive actions like delete, warning (amber) for reversible-but-risky actions like discarding unsaved changes.' },
     { input: 'closeOnBackdrop', type: 'boolean',          default: 'true',           description: 'Close when the backdrop is clicked' },
     { input: 'confirmed',       type: 'EventEmitter<void>', default: '—',            description: 'Emits when the user clicks the confirm button' },
     { input: 'cancelled',       type: 'EventEmitter<void>', default: '—',            description: 'Emits when the user clicks cancel or presses Escape' },

@@ -1,7 +1,7 @@
 <div *ngIf="_open" class="pui-cd-backdrop" (click)="onBackdropClick($event)">
   <div class="pui-cd" role="alertdialog" [attr.aria-label]="title">
 
-    <div class="pui-cd__icon">
+    <div class="pui-cd__icon" [class.pui-cd__icon--warning]="tone === 'warning'">
       <svg viewBox="0 0 24 24" fill="none" width="28" height="28">
         <path d="M12 9v4M12 17h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"
           stroke-linejoin="round" />

@@ -1,0 +1,155 @@
+<docs-page
+  title="Table Layout"
+  description="A fully-configured pui-lib-data-table starter — sortable columns, search, pagination, row selection, a per-row action menu, and every column type (text, currency, date, badge, pills) in one place. Copy the three files below into a new component."
+>
+  <ng-container demo>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Live Preview</h3>
+      <p class="demo-section__desc">
+        Sort a column, search, select rows, page through results, or open a
+        row's action menu — every event fires below the table.
+      </p>
+
+      <pui-lib-data-table
+        heading="Orders"
+        [columns]="columns"
+        [data]="orders"
+        [actions]="actions"
+        [sortable]="true"
+        [searchable]="true"
+        [selectable]="false"
+        [paginated]="true"
+        [pageSize]="5"
+        [stickyHeader]="true"
+        [striped]="true"
+        [maxHeight]="420"
+        emptyTitle="No orders yet"
+        emptyDescription="Orders will show up here once customers start checking out."
+        (sortChange)="onSort($event)"
+        (pageChange)="onPage($event)"
+        (searchChange)="onSearch($event)"
+        (rowClick)="onRowClick($event)"
+        (selectionChange)="onSelectionChange($event)"
+        (actionClick)="onActionClick($event)"
+      >
+      </pui-lib-data-table>
+
+      <p class="demo-state">
+        Last event: <strong>{{ lastEvent }}</strong>
+      </p>
+    </div>
+
+    <div class="demo-section">
+      <h3 class="demo-section__title">Configuration Reference</h3>
+      <p class="demo-section__desc">
+        Every option used in this template, and what it does.
+      </p>
+
+      <div class="config-grid">
+        <div class="config-item">
+          <code>sortable</code><span>Click a column header to sort by it.</span>
+        </div>
+        <div class="config-item">
+          <code>searchable</code
+          ><span
+            >Adds the search box in the toolbar; filters client-side across all
+            columns.</span
+          >
+        </div>
+        <div class="config-item">
+          <code>selectable</code
+          ><span>Adds a checkbox column with select-all in the header.</span>
+        </div>
+        <div class="config-item">
+          <code>paginated</code> + <code>pageSize</code
+          ><span>Splits rows into pages of the given size.</span>
+        </div>
+        <div class="config-item">
+          <code>stickyHeader</code
+          ><span>Keeps the column headers visible while the body scrolls.</span>
+        </div>
+        <div class="config-item">
+          <code>striped</code
+          ><span>Alternating row background for readability.</span>
+        </div>
+        <div class="config-item">
+          <code>maxHeight</code
+          ><span
+            >Caps the table's height in pixels — the body scrolls internally
+            past that.</span
+          >
+        </div>
+        <div class="config-item">
+          <code>actions</code
+          ><span
+            >Per-row 3-dot menu; each action can be conditionally
+            <code>disabled</code> per row.</span
+          >
+        </div>
+        <div class="config-item">
+          <code>column type: 'currency' / 'date' / 'badge' / 'pills'</code
+          ><span>Built-in cell formatting — no custom template needed.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3 class="demo-section__title">Template Files</h3>
+      <p class="demo-section__desc">
+        Copy these into a new component to get this exact table.
+      </p>
+
+      <div class="file-tabs">
+        <button
+          type="button"
+          class="file-tab"
+          [class.file-tab--active]="activeTab === 'ts'"
+          (click)="setTab('ts')"
+        >
+          orders-table.component.ts
+        </button>
+        <button
+          type="button"
+          class="file-tab"
+          [class.file-tab--active]="activeTab === 'html'"
+          (click)="setTab('html')"
+        >
+          orders-table.component.html
+        </button>
+        <button
+          type="button"
+          class="file-tab"
+          [class.file-tab--active]="activeTab === 'scss'"
+          (click)="setTab('scss')"
+        >
+          orders-table.component.scss
+        </button>
+      </div>
+
+      <docs-code-block
+        *ngIf="activeTab === 'ts'"
+        lang="typescript"
+        id="tbl-ts"
+        [text]="files.ts"
+        [copied]="copied"
+        (copyClick)="doCopy($event.text, $event.id)"
+      ></docs-code-block>
+      <docs-code-block
+        *ngIf="activeTab === 'html'"
+        lang="html"
+        id="tbl-html"
+        [text]="files.html"
+        [copied]="copied"
+        (copyClick)="doCopy($event.text, $event.id)"
+      ></docs-code-block>
+      <docs-code-block
+        *ngIf="activeTab === 'scss'"
+        lang="scss"
+        id="tbl-scss"
+        [text]="files.scss"
+        [copied]="copied"
+        (copyClick)="doCopy($event.text, $event.id)"
+      ></docs-code-block>
+    </div>
+  </ng-container>
+</docs-page>

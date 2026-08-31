@@ -67,8 +67,8 @@
   box-shadow: var(--pui-shadow-toast-card);
   pointer-events: all;
   overflow: hidden;
-  animation: pui-toast-in 220ms cubic-bezier(.25, .8, .25, 1) both;
-  font-family: var(--pui-font-family, 'Poppins', system-ui, sans-serif);
+  animation: pui-toast-in 220ms cubic-bezier(0.25, 0.8, 0.25, 1) both;
+  font-family: var(--pui-font-family, "Poppins", system-ui, sans-serif);
   font-size: 14px;
   line-height: 1.55;
 
@@ -132,7 +132,7 @@
     }
 
     .pui-toast__icon {
-      color: var(--pui-overlay-white-90);
+      color: var(--pui-white);
     }
 
     .pui-toast__title {
@@ -140,11 +140,11 @@
     }
 
     .pui-toast__msg {
-      color: var(--pui-overlay-white-88);
+      color: var(--pui-white);
     }
 
     .pui-toast__dismiss {
-      color: var(--pui-overlay-white-70);
+      color: var(--pui-white);
 
       &:hover {
         color: var(--pui-white);
@@ -166,7 +166,7 @@
 @keyframes pui-toast-in {
   from {
     opacity: 0;
-    transform: translateY(-10px) scale(.97);
+    transform: translateY(-10px) scale(0.97);
   }
 
   to {
@@ -185,7 +185,7 @@
 
   to {
     opacity: 0;
-    transform: translateY(-8px) scale(.97);
+    transform: translateY(-8px) scale(0.97);
     max-height: 0;
     margin-bottom: 0;
   }
@@ -204,7 +204,7 @@
 
 .pui-toast__icon {
   flex-shrink: 0;
-  color: var(--_icon);
+  color: var(--pui-neutral-900);
   display: flex;
   margin-top: 1px;
 }
@@ -229,6 +229,7 @@
   font-size: 13.5px;
   line-height: 1.5;
   margin: 0;
+  color: var(--pui-neutral-900);
   word-break: break-word;
   overflow-wrap: break-word;
   white-space: normal;
@@ -243,14 +244,14 @@
   border: none;
   padding: 0;
   cursor: pointer;
-  color: var(--_title);
+  color: var(--pui-neutral-900);
   text-decoration: underline;
   text-underline-offset: 2px;
   display: block;
 }
 
 .pui-toast__action:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 .pui-toast__dismiss {
@@ -264,10 +265,12 @@
   padding: 3px;
   cursor: pointer;
   border-radius: 6px;
-  color: var(--_icon);
+  color: var(--pui-neutral-900);
   opacity: 0.6;
   margin-top: -1px;
-  transition: opacity 150ms, background 150ms;
+  transition:
+    opacity 150ms,
+    background 150ms;
 }
 
 .pui-toast__dismiss:hover {

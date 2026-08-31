@@ -7,6 +7,7 @@ import { ButtonInternalComponent } from '../button/button-internal.component';
 import { PuiInputInternalComponent } from '../forms/input/input-internal.component';
 import { PuiSelectInternalComponent } from '../forms/select/select-internal.component';
 import { PuiTextareaInternalComponent } from '../forms/textarea/textarea-internal.component';
+import { PuiConfirmDialogInternalComponent } from '../confirm-dialog/confirm-dialog-internal.component';
 import { SelectOption } from '../models/form.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -33,6 +34,7 @@ export interface FormDialogSaveEvent { data: Record<string, any>; }
     PuiInputInternalComponent,
     PuiSelectInternalComponent,
     PuiTextareaInternalComponent,
+    PuiConfirmDialogInternalComponent,
   ],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
@@ -53,6 +55,20 @@ export class PuiFormDialogComponent {
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
   @Input() closeOnBackdrop = true;
 
+  /** Ask "Discard changes?" before closing (Cancel or backdrop click) while
+   * the form has unsaved edits. On by default — set false to close
+   * immediately like before, with no confirmation step. */
+  @Input() set confirmDiscard(v: boolean | string) {
+    this._confirmDiscard = v !== false && v !== 'false';
+  }
+  get confirmDiscard(): boolean { return this._confirmDiscard; }
+  private _confirmDiscard = true;
+
+  @Input() discardTitle = 'Discard changes?';
+  @Input() discardMessage = 'You have unsaved changes that will be lost if you leave.';
+  @Input() discardLabel = 'Discard';
+  @Input() keepEditingLabel = 'Keep Editing';
+
   _fields: FormDialogField[] = [];
   @Input() set fields(v: FormDialogField[] | string) {
     this._fields = typeof v === 'string' ? (this._parse<FormDialogField[]>(v) ?? []) : (v || []);
@@ -70,10 +86,16 @@ export class PuiFormDialogComponent {
 
   draft: Record<string, any> = {};
   errors: Record<string, string> = {};
+  discardPromptOpen = false;
+  private _initialDraft: Record<string, any> = {};
 
+  /** True once the draft differs from what it was when the dialog opened. */
+  get isDirty(): boolean {
+    return JSON.stringify(this.draft) !== JSON.stringify(this._initialDraft);
+  }
 
   onBackdropClick(e: MouseEvent): void {
-    if (this.closeOnBackdrop && e.target === e.currentTarget) this._close();
+    if (this.closeOnBackdrop && e.target === e.currentTarget) this._requestClose();
   }
 
   onSave(): void {
@@ -82,8 +104,28 @@ export class PuiFormDialogComponent {
   }
 
   onCancel(): void {
+    this._requestClose();
+  }
+
+  /** Route every close attempt through here — opens the discard-confirm
+   * prompt if there are unsaved edits, otherwise closes immediately. */
+  private _requestClose(): void {
+    if (this._confirmDiscard && this.isDirty) {
+      this.discardPromptOpen = true;
+      return;
+    }
     this.cancel.emit();
     this._close();
+  }
+
+  onConfirmDiscard(): void {
+    this.discardPromptOpen = false;
+    this.cancel.emit();
+    this._close();
+  }
+
+  onKeepEditing(): void {
+    this.discardPromptOpen = false;
   }
 
   private _close(): void {
@@ -93,7 +135,9 @@ export class PuiFormDialogComponent {
 
   private _initDraft(): void {
     this.draft = { ...this._data };
+    this._initialDraft = { ...this._data };
     this.errors = {};
+    this.discardPromptOpen = false;
   }
 
   private _validate(): boolean {
