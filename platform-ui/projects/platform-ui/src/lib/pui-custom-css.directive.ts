@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, inject } from '@angular/core';
+import { Directive, ElementRef, Input } from '@angular/core';
 
 /**
  * Escape hatch for consumers who need to override a style this component
@@ -15,8 +15,9 @@ import { Directive, ElementRef, Input, inject } from '@angular/core';
   standalone: true,
 })
 export class PuiCustomCssDirective {
-  private _el = inject(ElementRef);
   private _styleEl: HTMLStyleElement | null = null;
+
+  constructor(private _el: ElementRef) {}
 
   @Input() set customCss(css: string | undefined | null) {
     const root = (this._el.nativeElement as HTMLElement).shadowRoot;

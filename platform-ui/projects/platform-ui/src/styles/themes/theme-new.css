@@ -115,6 +115,7 @@
    --pui-solifi-sb-icon-chip-bg: #2f4c55;
    --pui-solifi-sb-icon-active-bg: var(--pui-brand-tint-25);
    --pui-solifi-sb-icon-active-color: var(--pui-white);
+   --pui-solifi-sb-menu-bg: var(--pui-solifi-sb-icon-chip-bg);
 
    /* ========================================
      HEADER

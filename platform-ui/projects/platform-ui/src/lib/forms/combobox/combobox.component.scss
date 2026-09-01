@@ -74,12 +74,12 @@
 
 .pui-cb-input:focus {
   border-color: var(--pui-form-accent, var(--pui-brand));
-  box-shadow: var(--pui-focus-ring);
+  // box-shadow: var(--pui-focus-ring);
 }
 
 .pui-cb--open .pui-cb-input {
   border-color: var(--pui-form-accent, var(--pui-brand));
-  box-shadow: var(--pui-focus-ring);
+  // box-shadow: var(--pui-focus-ring);
 }
 
 .pui-cb--error .pui-cb-input {

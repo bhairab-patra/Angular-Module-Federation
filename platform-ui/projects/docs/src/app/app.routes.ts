@@ -34,6 +34,7 @@ export const routes: Routes = [
   { path: 'app-shell', loadComponent: () => import('./pages/app-shell-page/app-shell-page.component').then(m => m.AppShellPageComponent) },
   { path: 'templates/primary-layout', loadComponent: () => import('./pages/primary-layout-page/primary-layout-page.component').then(m => m.PrimaryLayoutPageComponent) },
   { path: 'templates/table-layout', loadComponent: () => import('./pages/table-layout-page/table-layout-page.component').then(m => m.TableLayoutPageComponent) },
+  { path: 'templates/form-layout', loadComponent: () => import('./pages/form-layout-page/form-layout-page.component').then(m => m.FormLayoutPageComponent) },
   {
     path: 'table',
     loadComponent: () => import('./pages/table-page/table-layout.component').then(m => m.TableLayoutComponent),

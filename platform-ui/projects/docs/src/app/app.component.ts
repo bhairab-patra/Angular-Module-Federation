@@ -56,6 +56,7 @@ export class AppComponent {
     { label: 'App Shell', route: '/app-shell', category: 'Component', keywords: ['app shell', 'shell', 'layout', 'header', 'sidebar', 'full page', 'navigation', 'frame'] },
     { label: 'Primary Layout', route: '/templates/primary-layout', category: 'Template', keywords: ['template', 'starter', 'primary layout', 'app shell', 'layout', 'copy paste', 'boilerplate', 'app.component'] },
     { label: 'Table Layout', route: '/templates/table-layout', category: 'Template', keywords: ['template', 'starter', 'table layout', 'data table', 'orders', 'sortable', 'searchable', 'paginated', 'selectable', 'actions', 'copy paste'] },
+    { label: 'Form Layout', route: '/templates/form-layout', category: 'Template', keywords: ['template', 'starter', 'form layout', 'reactive form', 'form group', 'validation', 'customer details', 'input', 'password', 'select', 'radio', 'datepicker', 'multiselect', 'combobox', 'textarea', 'switch', 'checkbox', 'copy paste'] },
     { label: 'Display Table', route: '/table/display', category: 'Component', keywords: ['table', 'display', 'sort', 'search', 'sticky', 'badge', 'action', 'menu', 'tooltip'] },
     { label: 'Data Grid', route: '/table/data-grid', category: 'Component', keywords: ['datagrid', 'table', 'pagination', 'paginate', 'selection', 'selectable', 'data', 'grid', 'sort', 'search'] },
     { label: 'Editable Table', route: '/table/editable', category: 'Component', keywords: ['editable', 'table', 'inline', 'edit', 'row', 'form', 'dialog', 'confirm', 'delete'] },
@@ -149,6 +150,10 @@ export class AppComponent {
           {
             label: 'Table Layout', route: '/templates/table-layout',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><path d="M1.5 6h13M6 6v7.5"/></svg>`)
+          },
+          {
+            label: 'Form Layout', route: '/templates/form-layout',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="1.5" width="13" height="13" rx="1.5"/><path d="M4 5h8M4 8h8M4 11h4"/></svg>`)
           },
         ],
       },

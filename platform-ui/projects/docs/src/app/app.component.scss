@@ -305,8 +305,8 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: .06em;
-  color: var(--pui-brand);
-  background: rgba(15, 92, 94, .1);
+  color: var(--pui-neutral-700);
+  background: #e5e7eb;
   padding: 2px 7px;
   border-radius: 999px;
   white-space: nowrap;
@@ -363,7 +363,7 @@
 .version-badge {
   font-size: 12px;
   font-weight: 700;
-  color: var(--pui-brand-deep);
+  color: var(--pui-neutral-700);
   letter-spacing: .01em;
   line-height: 1;
 }

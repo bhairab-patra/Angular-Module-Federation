@@ -1,0 +1,218 @@
+<docs-page
+  title="Form Layout"
+  description="A complete, ready-to-copy starter form — labels, validation messages, and every form control the library ships (input, password, select, radio group, datepicker, multi-select, combobox, textarea, switch, checkbox) wired to one Reactive Form. Copy the three files below into a new component."
+>
+  <ng-container demo>
+    <div class="demo-section">
+      <h3 class="demo-section__title">Live Preview</h3>
+      <p class="demo-section__desc">
+        Try submitting empty — every required field shows its own inline
+        error via <code>getFieldError()</code>. Fill it in and submit to see
+        the captured value below the form.
+      </p>
+
+      <div class="preview-frame">
+        <pui-lib-card>
+          <div card-header class="form-title">Customer Details</div>
+
+          <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <div class="field">
+              <pui-lib-label text="Full Name" [required]="true"></pui-lib-label>
+              <pui-lib-input
+                placeholder="Enter full name"
+                formControlName="fullName"
+                [required]="true"
+                [clearable]="true"
+                [error]="getFieldError('fullName', 'Full Name')">
+              </pui-lib-input>
+            </div>
+
+            <div class="field">
+              <pui-lib-label text="Email" [required]="true"></pui-lib-label>
+              <pui-lib-input
+                type="email"
+                placeholder="you@example.com"
+                formControlName="email"
+                [required]="true"
+                [error]="getFieldError('email', 'Email')">
+              </pui-lib-input>
+            </div>
+
+            <div class="field">
+              <pui-lib-label
+                text="Password"
+                [required]="true"
+                [showInfo]="true"
+                info="At least 8 characters, one uppercase letter and one number."
+                infoPosition="right">
+              </pui-lib-label>
+              <pui-lib-password-input
+                placeholder="Enter password"
+                formControlName="password"
+                [showStrength]="true"
+                [showRules]="true"
+                [minLength]="10"
+                [requireUpper]="true"
+                [requireNumber]="true"
+                [copyable]="true"
+                [error]="getFieldError('password', 'Password')">
+              </pui-lib-password-input>
+            </div>
+
+            <div class="field">
+              <pui-lib-label text="Date of Birth"></pui-lib-label>
+              <pui-lib-datepicker
+                placeholder="Select date of birth"
+                formControlName="dob"
+                [clearable]="true">
+              </pui-lib-datepicker>
+            </div>
+
+            <div class="field">
+              <pui-lib-label text="Gender" [required]="true"></pui-lib-label>
+              <pui-lib-radio-group
+                [options]="genderOptions"
+                formControlName="gender"
+                [error]="getFieldError('gender', 'Gender')">
+              </pui-lib-radio-group>
+            </div>
+
+            <div class="field">
+              <pui-lib-label text="Country" [required]="true"></pui-lib-label>
+              <pui-lib-select
+                placeholder="Select country"
+                [options]="countryOptions"
+                formControlName="country"
+                [error]="getFieldError('country', 'Country')">
+              </pui-lib-select>
+            </div>
+
+            <div class="field">
+              <pui-lib-label
+                text="Areas of Interest"
+                [showInfo]="true"
+                info="You can select more than one option."
+                infoPosition="right">
+              </pui-lib-label>
+              <pui-lib-multiselect
+                placeholder="Select interests…"
+                [options]="interestOptions"
+                formControlName="interests">
+              </pui-lib-multiselect>
+            </div>
+
+            <div class="field">
+              <pui-lib-label text="Preferred Contact Method"></pui-lib-label>
+              <pui-lib-combobox
+                placeholder="Select or type…"
+                [options]="contactMethodOptions"
+                formControlName="contactMethod">
+              </pui-lib-combobox>
+            </div>
+
+            <div class="field">
+              <pui-lib-label text="Bio / Notes"></pui-lib-label>
+              <pui-lib-textarea
+                placeholder="Tell us a bit about yourself…"
+                formControlName="bio">
+              </pui-lib-textarea>
+            </div>
+
+            <pui-lib-switch label="Subscribe to newsletter" formControlName="subscribe"></pui-lib-switch>
+
+            <pui-lib-checkbox
+              label="I accept the terms and conditions"
+              formControlName="acceptTerms"
+              [error]="getFieldError('acceptTerms', 'Accepting the terms')">
+            </pui-lib-checkbox>
+
+            <div class="form-actions">
+              <pui-lib-button variant="primary" size="md" type="button" label="Submit" (buttonClick)="onSubmit()"></pui-lib-button>
+              <pui-lib-button variant="ghost" type="button" label="Reset" (buttonClick)="onReset()"></pui-lib-button>
+            </div>
+
+            <p class="form-msg form-msg--error" *ngIf="submitted && form.invalid">
+              Please fill all required fields correctly.
+            </p>
+            <p class="form-msg form-msg--success" *ngIf="submitted && form.valid">
+              Submitted — captured value shown below.
+            </p>
+          </form>
+        </pui-lib-card>
+
+        <pre *ngIf="lastSubmitted" class="submitted-value"><code>{{ lastSubmitted }}</code></pre>
+      </div>
+    </div>
+
+    <div class="demo-section">
+      <h3 class="demo-section__title">Template Files</h3>
+      <p class="demo-section__desc">
+        Copy these three files into a new component to get this exact form.
+      </p>
+
+      <div class="file-tabs">
+        <button
+          type="button"
+          class="file-tab"
+          [class.file-tab--active]="activeTab === 'ts'"
+          (click)="setTab('ts')"
+        >
+          customer-details.component.ts
+        </button>
+        <button
+          type="button"
+          class="file-tab"
+          [class.file-tab--active]="activeTab === 'html'"
+          (click)="setTab('html')"
+        >
+          customer-details.component.html
+        </button>
+        <button
+          type="button"
+          class="file-tab"
+          [class.file-tab--active]="activeTab === 'scss'"
+          (click)="setTab('scss')"
+        >
+          customer-details.component.scss
+        </button>
+      </div>
+
+      <docs-code-block
+        *ngIf="activeTab === 'ts'"
+        lang="typescript"
+        id="frm-ts"
+        [text]="files.ts"
+        [copied]="copied"
+        (copyClick)="doCopy($event.text, $event.id)"
+      ></docs-code-block>
+      <docs-code-block
+        *ngIf="activeTab === 'html'"
+        lang="html"
+        id="frm-html"
+        [text]="files.html"
+        [copied]="copied"
+        (copyClick)="doCopy($event.text, $event.id)"
+      ></docs-code-block>
+      <docs-code-block
+        *ngIf="activeTab === 'scss'"
+        lang="scss"
+        id="frm-scss"
+        [text]="files.scss"
+        [copied]="copied"
+        (copyClick)="doCopy($event.text, $event.id)"
+      ></docs-code-block>
+    </div>
+
+    <div class="tip">
+      <strong>Validation note:</strong> <code>pui-lib-password-input</code>
+      ships its own built-in validators — pass <code>minLength</code>,
+      <code>requireUpper</code>, <code>requireNumber</code> (and
+      <code>requireSpecial</code>) as inputs and it produces a
+      <code>passwordStrength</code> form-control error automatically, wired
+      through <code>formControlName</code> like any other control. There's no
+      need to write a custom <code>Validators</code> function for password
+      rules — <code>getFieldError()</code> above just reads that error back
+      out.
+    </div>
+  </ng-container>
+</docs-page>

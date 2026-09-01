@@ -630,6 +630,49 @@ npm run build:full    # slow, ~30-60 sec, run manually`,
       ],
     },
     {
+      title: 'Testing a Local Library Build in a Consumer App (No npm link)',
+      icon: '📦',
+      open: false,
+      items: [
+        {
+          q: 'I used npm link to test a local build and my consumer app crashed with "NG0203: The ElementRef token injection failed" — why? It worked before.',
+          a: 'It worked before because you were installing the library normally (from npm, or as a plain copy) — that always resolves a single, shared copy of @angular/core. npm link does not preserve that. A linked package is a symlink, and its real path lives inside the library repo\'s own folder — which has its own node_modules with its own @angular/core (needed to build/serve the library repo itself). When your consumer app loads the linked package, its code resolves @angular/core from that repo\'s node_modules instead of your app\'s, so two separate, disconnected copies of Angular end up loaded on the same page. Angular\'s dependency injection relies on shared module-level state inside @angular/core to track "what\'s currently being constructed" — with two copies, the app\'s rendering engine sets that state in one copy while the library\'s code reads it from the other, finds nothing, and throws NG0203. This is not something a library code change can fix — it happens the same way regardless of how the library\'s own components request their dependencies. It is specific to how npm link works, and it reappears every single time you link this library into any consumer app.',
+        },
+        {
+          q: 'What should I do instead of npm link to test a local build?',
+          a: 'Build the library, pack it into a real npm tarball, then install that tarball in the consumer app exactly like any other dependency. This produces a real, physical copy inside the consumer app\'s node_modules — not a symlink — so there is only ever one copy of @angular/core in play, the same as installing the published package from the npm registry.',
+          code: `# ── Library side (from the platform-ui repo root) ───────────────
+npx ng build platform-ui --configuration production
+cd dist/platform-ui
+npm pack
+# → creates bhairab-patra-platform-ui-<version>.tgz in this folder
+
+# ── Consumer app side ────────────────────────────────────────────
+npm install <absolute-path-to-the-.tgz-file>
+# e.g. npm install "C:/JAVA_MS_2027/PLATFORM/ANGULR_ARCH/platform-ui/dist/platform-ui/bhairab-patra-platform-ui-1.1.13.tgz"`,
+          lang: 'bash',
+        },
+        {
+          q: 'How do I pick up a newer local build after I make more changes to the library?',
+          a: 'Repeat the same three build-side commands to produce a fresh tarball, then re-run npm install in the consumer app pointing at that new .tgz file. A running dev server does not notice a node_modules change on its own, so restart it (stop and re-run ng serve / npm start) afterward.',
+          code: `# Every time you change the library and want to test it locally:
+npx ng build platform-ui --configuration production
+cd dist/platform-ui && npm pack
+
+# then in the consumer app
+npm install <path-to-the-new-tgz>
+
+# restart the dev server so it re-reads node_modules
+# (Ctrl+C, then ng serve / npm start again)`,
+          lang: 'bash',
+        },
+        {
+          q: 'Should I ever use npm link for this library?',
+          a: 'Avoid it. It reintroduces the exact NG0203 crash described above, every time, in any consumer app, independent of anything in the library\'s code — the "Linking Two Apps Locally (npm link / symlink)" section further down documents a preserveSymlinks-based workaround for those who specifically need instant live-reload without repacking, but treat that as an advanced, more fragile fallback, not the default. The tarball method above is simpler, has no known failure mode, and behaves identically to what happens once the package is actually published — so there is nothing to reconfigure or undo later when you move from local testing to a real release.',
+        },
+      ],
+    },
+    {
       title: 'Linking Two Apps Locally (npm link / symlink)',
       icon: '🧷',
       open: false,
