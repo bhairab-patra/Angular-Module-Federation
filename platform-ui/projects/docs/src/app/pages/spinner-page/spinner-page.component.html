@@ -73,6 +73,50 @@
       </div>
     </div>
 
+    <!-- 5. Full-page overlay -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Full-Page Overlay</h3>
+      <p class="demo-section__desc">Set <code>[overlay]="true"</code> to render a fixed full-screen backdrop behind the spinner. <code>overlayColor</code> defaults to <code>var(--pui-overlay-black-45)</code> — the exact same scrim token <code>pui-lib-modal</code> and <code>pui-lib-form-dialog</code> use for their backdrop, so a loading state looks like part of the same design language instead of a plain white wash.</p>
+
+      <div class="overlay-row">
+        <div class="ov-card" *ngFor="let d of overlayDemos; trackBy: trackByIndex">
+          <div class="ov-frame">
+            <div class="ov-content">
+              <div class="ov-line"></div>
+              <div class="ov-line"></div>
+              <div class="ov-line ov-line--short"></div>
+            </div>
+            <div class="ov-backdrop" [style.background]="d.bg" [style.opacity]="d.opacity"></div>
+            <div class="ov-center">
+              <pui-lib-spinner [type]="d.type" size="md" [color]="d.color"></pui-lib-spinner>
+            </div>
+          </div>
+          <span class="ov-label">{{ d.label }}</span>
+        </div>
+      </div>
+
+      <p class="demo-section__desc">Click to trigger a real full-screen overlay (auto-dismisses after 2.5s):</p>
+      <div class="fp-row">
+        <button *ngFor="let d of overlayDemos; trackBy: trackByIndex"
+                class="fp-btn"
+                (click)="showOverlay(d.type, d.color, d.bg, d.opacity)">
+          <pui-lib-spinner [type]="d.type" size="sm" [color]="d.color"></pui-lib-spinner>
+          {{ d.label }}
+        </button>
+      </div>
+
+      <pui-lib-spinner *ngIf="overlayActive"
+        [type]="activeType"
+        size="xl"
+        [overlay]="true"
+        [overlayColor]="activeBg"
+        [overlayOpacity]="activeOpacity"
+        [color]="activeColor"
+        [zIndex]="2000"
+        label="Loading…">
+      </pui-lib-spinner>
+    </div>
+
   </ng-container>
 
   <ng-container framework>

@@ -1,0 +1,136 @@
+:host {
+  display: inline-block;
+}
+
+@mixin hover($bg, $border: $bg) {
+  &:hover:not(:disabled) {
+    background: $bg;
+    border-color: $border;
+  }
+}
+
+@mixin focus($shadow) {
+  &:focus-visible {
+    box-shadow: $shadow;
+    outline: none;
+  }
+}
+
+.pui-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background var(--pui-duration-base), border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
+
+  &--circle { border-radius: var(--pui-radius-full); }
+  &--square { border-radius: var(--pui-radius-md); }
+
+  &--sm { width: 32px; height: 32px; }
+  &--md { width: 40px; height: 40px; }
+  &--lg { width: 48px; height: 48px; }
+
+  &--primary {
+    background: var(--pui-brand-deep);
+    color: var(--pui-accent-ink, var(--pui-white));
+    border-color: var(--pui-brand-deep);
+    @include hover(var(--pui-brand-pressed));
+    @include focus(var(--pui-shadow-focus));
+  }
+
+  &--primary-light {
+    background: var(--pui-brand-light);
+    color: var(--pui-brand-text-dark);
+    border-color: var(--pui-brand-light);
+    @include hover(var(--pui-brand-muted), var(--pui-brand-muted));
+    @include focus(var(--pui-shadow-focus));
+  }
+
+  &--primary-outline {
+    background: transparent;
+    color: var(--pui-brand-text-dark);
+    border-color: var(--pui-brand-deep);
+    &:hover:not(:disabled) { background: var(--pui-brand-muted-bg); }
+    @include focus(var(--pui-shadow-focus));
+  }
+
+  &--secondary {
+    background: var(--pui-btn-secondary-bg, var(--pui-btn-disabled-bg));
+    color: var(--pui-white);
+    border-color: var(--pui-btn-secondary-bg, var(--pui-btn-disabled-bg));
+    @include hover(var(--pui-btn-secondary-hover-bg, var(--pui-btn-neutral-hover2)));
+    @include focus(var(--pui-shadow-focus-neutral));
+  }
+
+  &--secondary-light {
+    background: var(--pui-btn-ghost-hover);
+    color: var(--pui-btn-neutral-text);
+    border-color: var(--pui-btn-neutral-bdr);
+    &:hover:not(:disabled) { background: var(--pui-btn-neutral-hover); }
+    @include focus(var(--pui-shadow-focus-neutral));
+  }
+
+  &--inverse {
+    background: var(--pui-white);
+    color: var(--pui-neutral-900);
+    border-color: var(--pui-neutral-200);
+    &:hover:not(:disabled) {
+      background: var(--pui-btn-ghost-bg);
+      border-color: var(--pui-btn-ghost-bdr);
+    }
+    @include focus(var(--pui-shadow-focus-inverse));
+  }
+
+  &--tertiary-outline {
+    background: transparent;
+    color: var(--pui-indigo);
+    border-color: var(--pui-brand-tertary);
+    &:hover:not(:disabled) { background: var(--pui-btn-ghost-hover-2); }
+    @include focus(var(--pui-shadow-focus-neutral));
+  }
+
+  &--text {
+    background: transparent;
+    color: var(--pui-btn-link-color);
+    border-color: transparent;
+    &:hover:not(:disabled) { color: var(--pui-btn-link-hover); }
+    @include focus(var(--pui-shadow-focus-brand));
+  }
+
+  &--destructive {
+    background: var(--pui-error-pressed);
+    color: var(--pui-white);
+    border-color: var(--pui-error-pressed);
+    @include hover(var(--pui-error-pressed2));
+    @include focus(var(--pui-shadow-focus-error));
+  }
+
+  &--destructive-light {
+    background: var(--pui-error-soft-bg);
+    color: var(--pui-brand-text-dark);
+    border-color: var(--pui-error-soft-bg);
+    @include hover(var(--pui-error-soft-bdr), var(--pui-error-soft-bdr));
+    @include focus(var(--pui-shadow-focus-error));
+  }
+
+  &--danger {
+    @extend .pui-icon-btn--destructive;
+  }
+
+  &--ghost {
+    @extend .pui-icon-btn--primary-outline;
+  }
+
+  &--chip,
+  &--upload-progress {
+    @extend .pui-icon-btn--secondary-light;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}

@@ -135,7 +135,7 @@ export class PuiAppShellComponent implements AfterViewInit, OnDestroy {
   get showSidebar(): boolean { return this._showSidebar; }
   private _showSidebar = true;
 
-  @Input() sidebarWidth = 240;
+  @Input() sidebarWidth = 220;
   @Input() sidebarCollapsedWidth = 64;
 
   @Input() set sidebarTheme(v: SolifiSidebarTheme | string) {

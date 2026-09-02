@@ -97,7 +97,9 @@
 }
 
 .pui-etbl-th {
-  padding: var(--pui-space-3) var(--pui-space-3-5);
+  height: 55px;
+  box-sizing: border-box;
+  padding: 0 var(--pui-space-3-5);
   text-align: left;
   font-size: 14px;
   font-weight: 600;

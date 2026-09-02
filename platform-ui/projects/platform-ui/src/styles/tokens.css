@@ -86,32 +86,36 @@
    /* ════════════════════════════════════════════
      SHADOWS
      ════════════════════════════════════════════ */
-   --pui-shadow-sm: 0 1px 3px rgba(0, 0, 0, .08), 0 1px 2px rgba(0, 0, 0, .06);
-   --pui-shadow-card: 0 1px 3px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06);
-   --pui-shadow-card-hover: 0 6px 24px rgba(0, 0, 0, .12);
-   --pui-shadow-md: 0 4px 14px rgba(0, 0, 0, .12);
-   --pui-shadow-lg: 0 8px 24px rgba(0, 0, 0, .12), 0 2px 6px rgba(0, 0, 0, .06);
-   --pui-shadow-xl: 0 12px 32px rgba(0, 0, 0, .18);
-   --pui-shadow-2xl: 0 20px 60px rgba(0, 0, 0, .18);
-   --pui-shadow-3xl: 0 24px 64px rgba(0, 0, 0, .22);
-   --pui-shadow-panel: 0 8px 28px rgba(0, 0, 0, .11);
-   --pui-shadow-popup: 0 8px 30px rgba(0, 0, 0, .12);
-   --pui-shadow-dropdown: 0 8px 24px rgba(0, 0, 0, .12);
-   --pui-shadow-dropdown-dark: 0 8px 24px rgba(0, 0, 0, .4);
-   --pui-shadow-tooltip: 0 4px 14px rgba(0, 0, 0, .22);
-   --pui-shadow-toast: 0 8px 32px rgba(0, 0, 0, .12), 0 2px 8px rgba(0, 0, 0, .08);
-   --pui-shadow-modal: 0 20px 60px rgba(0, 0, 0, .18);
-   --pui-shadow-header: 0 2px 8px rgba(0, 0, 0, .18);
-   --pui-shadow-switch: 0 1px 3px rgba(0, 0, 0, .18);
-   --pui-shadow-pill-active: 0 1px 4px rgba(0, 0, 0, .12), 0 0 0 1px rgba(0, 0, 0, .06);
-   --pui-shadow-tabs-panel: 0 1px 3px rgba(0, 0, 0, .04);
-   --pui-shadow-accordion: 0 1px 3px rgba(0, 0, 0, .05);
-   --pui-shadow-accordion-open: 0 2px 8px rgba(0, 0, 0, .08);
-   --pui-shadow-toast-card: 0 4px 20px rgba(0, 0, 0, .10), 0 1px 4px rgba(0, 0, 0, .06);
-   --pui-shadow-tooltip-light: 0 4px 12px rgba(0, 0, 0, .10);
+   --pui-shadow-sm: none;
+   --pui-shadow-card: none;
+   --pui-shadow-card-hover: none;
+   --pui-shadow-md: none;
+   --pui-shadow-lg: none;
+   --pui-shadow-xl: none;
+   --pui-shadow-2xl: none;
+   --pui-shadow-3xl: none;
+   --pui-shadow-panel: none;
+   --pui-shadow-popup: none;
+   --pui-shadow-dropdown: none;
+   --pui-shadow-dropdown-dark: none;
+   --pui-shadow-tooltip: none;
+   --pui-shadow-toast: none;
+   --pui-shadow-modal: none;
+   --pui-shadow-header: none;
+   --pui-shadow-switch: none;
+   --pui-shadow-pill-active: none;
+   --pui-shadow-tabs-panel: none;
+   --pui-shadow-accordion: none;
+   --pui-shadow-accordion-open: none;
+   --pui-shadow-toast-card: none;
+   --pui-shadow-tooltip-light: none;
 
-   /* --pui-shadow-focus / -sm / -brand are brand-tinted — defined per theme
-     in themes/theme-old.css and themes/theme-new.css, not here. */
+   /* Decorative elevation shadows above are disabled (set to none) per
+     design direction. --pui-shadow-focus* below are keyboard focus-ring
+     indicators (accessibility), not decorative shadows, and are left
+     untouched. --pui-shadow-focus / -sm / -brand are brand-tinted —
+     defined per theme in themes/theme-old.css and themes/theme-new.css,
+     not here. */
    --pui-shadow-focus-error: 0 0 0 3px rgba(239, 68, 68, .1);
    --pui-shadow-focus-neutral: 0 0 0 3px rgba(168, 158, 149, .4);
    --pui-shadow-focus-inverse: 0 0 0 3px rgba(17, 24, 39, .2);
@@ -349,8 +353,8 @@
    --pui-solifi-sb-icon-chip-bg: #2f4c55;
    --pui-solifi-sb-menu-bg: #1a3a47;
    --pui-solifi-sb-avatar-bg: #207372;
-   --pui-solifi-sb-menu-shadow-up: 0 -8px 24px rgba(0, 0, 0, .35);
-   --pui-solifi-sb-menu-shadow-right: 8px 0 24px rgba(0, 0, 0, .35);
+   --pui-solifi-sb-menu-shadow-up: none;
+   --pui-solifi-sb-menu-shadow-right: none;
    --pui-solifi-sb-bg: #112C35;
    --pui-solifi-sb-text: #8fa3bc;
    --pui-solifi-sb-group: #4a6080;

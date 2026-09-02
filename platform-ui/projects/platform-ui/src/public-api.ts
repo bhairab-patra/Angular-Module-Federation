@@ -2,6 +2,7 @@ export * from './lib/platform-ui.module';
 export * from './lib/pui-custom-css.directive';
 export * from './lib/button/button.component';
 export * from './lib/button/file-upload-button.component';
+export * from './lib/icon-button/icon-button.component';
 export * from './lib/card/card.component';
 export * from './lib/badge/badge.component';
 export * from './lib/modal/modal.component';

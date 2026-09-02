@@ -7,6 +7,7 @@ export const routes: Routes = [
   { path: 'getting-started/react', loadComponent: () => import('./pages/getting-started/getting-started.component').then(m => m.GettingStartedComponent) },
   { path: 'getting-started/html', loadComponent: () => import('./pages/getting-started/getting-started.component').then(m => m.GettingStartedComponent) },
   { path: 'button', loadComponent: () => import('./pages/button-page/button-page.component').then(m => m.ButtonPageComponent) },
+  { path: 'icon-button', loadComponent: () => import('./pages/icon-button-page/icon-button-page.component').then(m => m.IconButtonPageComponent) },
   { path: 'card', loadComponent: () => import('./pages/card-page/card-page.component').then(m => m.CardPageComponent) },
   { path: 'badge', loadComponent: () => import('./pages/badge-page/badge-page.component').then(m => m.BadgePageComponent) },
   { path: 'modal', loadComponent: () => import('./pages/modal-page/modal-page.component').then(m => m.ModalPageComponent) },

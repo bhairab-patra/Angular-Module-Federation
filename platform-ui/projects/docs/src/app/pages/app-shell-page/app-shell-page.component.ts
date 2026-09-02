@@ -121,7 +121,7 @@ export class AppShellPageComponent {
         ['showSidebarBrand', 'boolean|string', 'true', 'Show/hide the sidebar logo section entirely (expanded and collapsed).'],
         ['sidebarCollapsed', 'boolean|string', 'false', 'Collapses the sidebar to a 64px icon rail. Bind it two-way with (sidebarCollapsedChange) to stay in sync.'],
         ['showSidebar', 'boolean|string', 'true', 'Hides the sidebar completely, e.g. for a mobile flat layout.'],
-        ['sidebarWidth / sidebarCollapsedWidth', 'number', '240 / 64', "Sidebar's expanded and collapsed pixel widths."],
+        ['sidebarWidth / sidebarCollapsedWidth', 'number', '220 / 64', "Sidebar's expanded and collapsed pixel widths."],
         ['sidebarTheme', 'SolifiSidebarTheme|string', 'SOLIFI_THEME', 'Full sidebar colour-token object (background, text, active colours).'],
         ['pageTitle', 'string', "''", 'Shell-level (not sidebar or header specific) — title shown in the bar under the header.'],
         ['footerText', 'string', "''", 'Shell-level — text for the bottom footer bar; only renders when non-empty.'],
@@ -211,7 +211,7 @@ export class AppShellPageComponent {
   /* ── Grouped (navGroups) vs Flat (navItems) ─────── */
   shellGroupsFlatTabs: TabItem[] = [
     { id: 'grouped', label: 'With Groups (navGroups)' },
-    { id: 'flat',    label: 'Without Groups (navItems)' },
+    { id: 'flat', label: 'Without Groups (navItems)' },
   ];
   shellGroupsFlatActive = 'grouped';
 
@@ -595,7 +595,7 @@ export class AppComponent {
     { input: 'showSidebarBrand', type: 'boolean | string', default: 'true', description: 'Show/hide the sidebar\'s own logo section (expanded and collapsed states). Independent of showHeader.' },
     { input: 'sidebarCollapsed', type: 'boolean | string', default: 'false', description: 'Collapse the sidebar to a 64px icon-only rail.' },
     { input: 'showSidebar', type: 'boolean | string', default: 'true', description: 'Master switch for the whole sidebar — hide it entirely, e.g. for a mobile flat layout.' },
-    { input: 'sidebarWidth', type: 'number', default: '240', description: 'Sidebar expanded width in px.' },
+    { input: 'sidebarWidth', type: 'number', default: '220', description: 'Sidebar expanded width in px.' },
     { input: 'sidebarCollapsedWidth', type: 'number', default: '64', description: 'Sidebar collapsed rail width in px.' },
     { input: 'sidebarTheme', type: 'SolifiSidebarTheme', default: 'SOLIFI_THEME', description: 'Full sidebar colour-token object. Use the SOLIFI_THEME preset.' },
     { input: 'showSidebarUser', type: 'boolean | string', default: 'false', description: 'Show the user-profile section at the bottom of the sidebar.' },

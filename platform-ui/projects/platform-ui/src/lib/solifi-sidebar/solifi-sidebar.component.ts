@@ -4,10 +4,9 @@ import {
 } from '@angular/core';
 import { NgFor, NgIf, NgStyle } from '@angular/common';
 import { IconInternalComponent } from '../icon/icon-internal.component';
+import { IconButtonInternalComponent } from '../icon-button/icon-button-internal.component';
 import { SolifiNavGroup, SolifiNavItem, SolifiSidebarTheme, SolifiUserMenuItem } from '../models/solifi-sidebar.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
-
-const MAX_LABEL_LEN = 22;
 
 const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
   <polygon points="14,1 27,7.5 27,20.5 14,27 1,20.5 1,7.5" fill="var(--pui-brand)"/>
@@ -18,7 +17,7 @@ const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-solifi-sidebar',
   standalone: true,
-  imports: [NgFor, NgIf, NgStyle, IconInternalComponent],
+  imports: [NgFor, NgIf, NgStyle, IconInternalComponent, IconButtonInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './solifi-sidebar.component.html',
@@ -78,7 +77,7 @@ export class PuiSolifiSidebarComponent {
   get showSidebar() { return this._showSidebar; }
   private _showSidebar = true;
 
-  @Input() width = 240;
+  @Input() width = 220;
   @Input() collapsedWidth = 64;
 
   @Input() set theme(v: SolifiSidebarTheme | string) {
@@ -104,11 +103,16 @@ export class PuiSolifiSidebarComponent {
   tooltipTop = 0;
 
   onNavItemEnter(item: SolifiNavItem, event: MouseEvent): void {
-    // Collapsed: every item needs a label preview. Expanded: only long,
-    // ellipsis-truncated labels need one. Positioned outside .ssb__nav
-    // below so it isn't clipped by that container's overflow:hidden.
-    if (!this._collapsed && !this.needsEllipsis(item.label)) return;
+    // Collapsed: every item needs a label preview. Expanded: only labels
+    // actually clipped by ellipsis need one — measured via real DOM overflow
+    // (scrollWidth vs clientWidth) rather than a character-count guess, so
+    // it stays correct regardless of font, zoom, or a customCss override.
     const btn = event.currentTarget as HTMLElement;
+    if (!this._collapsed) {
+      const labelEl = btn.querySelector('.ssb__label') as HTMLElement | null;
+      const overflowing = !!labelEl && labelEl.scrollWidth > labelEl.clientWidth;
+      if (!overflowing) return;
+    }
     const ssbEl = (this._elRef.nativeElement as HTMLElement).shadowRoot!.querySelector('.ssb') as HTMLElement;
     const ssbRect = ssbEl.getBoundingClientRect();
     const btnRect = btn.getBoundingClientRect();
@@ -122,8 +126,23 @@ export class PuiSolifiSidebarComponent {
     return item.label.charAt(0).toUpperCase();
   }
 
-  needsEllipsis(label: string): boolean {
-    return label.length > MAX_LABEL_LEN;
+  /** Collapsed-rail nav icon is a real pui-lib-icon-button — this feeds it
+   * the same theme-driven chip colors .ssb__icon already uses (default
+   * chip bg, or the active/hover accent), so swapping in the shared
+   * component doesn't regress the sidebar's own theme input. */
+  navIconButtonCss(item: SolifiNavItem): string {
+    const active = this.isItemActive(item);
+    return `
+      .pui-icon-btn {
+        background: ${active ? 'var(--ssb-active-bg, var(--pui-brand-tint-25))' : 'var(--pui-solifi-sb-icon-chip-bg)'};
+        border-color: transparent;
+        color: ${active ? 'var(--pui-solifi-sb-icon-active-color, var(--pui-white))' : 'var(--pui-white)'};
+      }
+      .pui-icon-btn:hover:not(:disabled) {
+        background: var(--ssb-active-bg, var(--pui-brand-tint-25));
+        color: var(--pui-solifi-sb-icon-active-color, var(--pui-white));
+      }
+    `;
   }
 
   @Output() itemSelect = new EventEmitter<SolifiNavItem>();

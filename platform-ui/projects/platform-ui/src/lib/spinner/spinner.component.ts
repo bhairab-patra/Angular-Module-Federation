@@ -24,8 +24,11 @@ export class SpinnerComponent {
   @Input() color = 'var(--pui-form-accent, var(--pui-brand))';
   @Input() speed = 800;
   @Input() overlay = false;
-  @Input() overlayColor = 'var(--pui-white)';
-  @Input() overlayOpacity: number | string = 0.7;
+  /** Same dark scrim token used by pui-lib-modal / pui-lib-confirm-dialog's
+   * backdrop, so a full-page loading overlay looks consistent with the
+   * rest of the library instead of washing the page out to white. */
+  @Input() overlayColor = 'var(--pui-overlay-black-45)';
+  @Input() overlayOpacity: number | string = 1;
   @Input() zIndex = 1000;
   @Input() label = '';
   @Input() labelColor = 'var(--pui-neutral-500)';

@@ -15,6 +15,7 @@
         [columns]="employeeCols"
         [data]="employees"
         heading="Team Members"
+        headingIcon="users"
         [searchable]="t" [sortable]="t" [paginated]="t"
         [striped]="t" [selectable]="t" [pageSize]="5"
         (rowClick)="lastRow = $event"
@@ -96,6 +97,7 @@
         [columns]="employeeCols"
         [data]="emptyRows"
         heading="Team Members"
+        headingIcon="users"
         emptyTitle="No team members yet"
         emptyDescription="Add your first team member to get started.">
         <button emptyActions class="demo-btn" (click)="onAddFromEmptyState()">+ Add Employee</button>

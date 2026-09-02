@@ -29,7 +29,7 @@ export class HeaderComponent {
   @Input() userSubtext = 'Welcome back!';
   @Input() avatarUrl = '';
   @Input() avatarColor = 'var(--pui-brand-deep)';
-  @Input() avatarTextColor = 'var(--pui-white)';
+  @Input() avatarTextColor = 'var(--pui-accent-ink)';
   @Input() hasLogoSlot = false;
 
   @Input() set showLogo(v: boolean | string) {

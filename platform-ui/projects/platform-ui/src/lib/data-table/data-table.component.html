@@ -2,14 +2,22 @@
   <div class="pui-dt-inner">
     <div class="pui-dt-toolbar" *ngIf="_searchable || _selectable || heading">
       <div class="pui-dt-toolbar__left">
-        <span *ngIf="heading" class="pui-dt-toolbar__title">{{ heading }}</span>
+        <div class="pui-dt-toolbar__title-group" *ngIf="heading">
+          <pui-icon-button-internal
+            *ngIf="headingIcon"
+            [icon]="headingIcon"
+            shape="square"
+            variant="secondary-light"
+            size="sm"
+            [ariaLabel]="heading"
+          ></pui-icon-button-internal>
+          <span class="pui-dt-toolbar__title">{{ heading }}</span>
+        </div>
         <span
           *ngIf="_selectable && selectedRows.size > 0"
           class="pui-dt-sel-info"
         >
-          {{ selectedRows.size }} row{{
-            selectedRows.size === 1 ? "" : "s"
-          }}
+          {{ selectedRows.size }} row{{ selectedRows.size === 1 ? "" : "s" }}
           selected
         </span>
       </div>
@@ -32,22 +40,6 @@
       class="pui-dt-scroll"
       [style.maxHeight]="_maxHeight ? _maxHeight + 'px' : null"
     >
-      <div class="pui-dt-loading" *ngIf="_loading">
-        <div class="pui-dt-skeleton" *ngFor="let r of skeletonRows">
-          <div
-            class="pui-dt-skeleton__cell"
-            *ngIf="_selectable"
-            style="flex: 0 0 36px"
-          ></div>
-          <div class="pui-dt-skeleton__cell" *ngFor="let c of _columns"></div>
-          <div
-            class="pui-dt-skeleton__cell"
-            *ngIf="_actions.length > 0"
-            style="flex: 0 0 48px"
-          ></div>
-        </div>
-      </div>
-
       <table class="pui-dt">
         <thead class="pui-dt-head" [class.pui-dt-head--sticky]="_stickyHeader">
           <tr>
@@ -115,6 +107,33 @@
         </thead>
 
         <tbody class="pui-dt-body">
+          <ng-container *ngIf="_loading">
+            <tr
+              class="pui-dt-row pui-dt-row--skeleton"
+              *ngFor="let r of skeletonRows"
+            >
+              <td *ngIf="_selectable" class="pui-dt-td pui-dt-td--sel">
+                <span
+                  class="pui-dt-skeleton__cell pui-dt-skeleton__cell--box"
+                ></span>
+              </td>
+              <td *ngFor="let c of _columns; let ci = index" class="pui-dt-td">
+                <span
+                  class="pui-dt-skeleton__cell"
+                  [style.width]="skeletonCellWidth(ci)"
+                ></span>
+              </td>
+              <td
+                *ngIf="_actions.length > 0"
+                class="pui-dt-td pui-dt-td--actions"
+              >
+                <span
+                  class="pui-dt-skeleton__cell pui-dt-skeleton__cell--box"
+                ></span>
+              </td>
+            </tr>
+          </ng-container>
+
           <tr *ngIf="!_loading && displayRows.length === 0">
             <td
               [colSpan]="
@@ -169,6 +188,7 @@
 
           <tr
             *ngFor="let row of displayRows; let i = index"
+            [hidden]="_loading"
             class="pui-dt-row"
             [class.pui-dt-row--striped]="_striped && i % 2 !== 0"
             [class.pui-dt-row--selected]="selectedRows.has(getRowId(row, i))"
@@ -303,8 +323,15 @@
       [disabled]="act.disabled ? act.disabled(openActionRowData) : false"
       (click)="onActionClick(act, openActionRowData, $event)"
     >
+      <span *ngIf="act.iconName" class="pui-dt-action-icon">
+        <pui-icon-internal
+          [name]="act.iconName"
+          size="sm"
+          color="currentColor"
+        ></pui-icon-internal>
+      </span>
       <span
-        *ngIf="act.icon"
+        *ngIf="!act.iconName && act.icon"
         class="pui-dt-action-icon"
         [innerHTML]="safeHtml(act.icon)"
       ></span>

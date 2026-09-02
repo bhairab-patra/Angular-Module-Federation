@@ -1,0 +1,105 @@
+<docs-page title="Icon Button"
+  description="A compact, icon-only button — same variant palette, tokens, and behavior as pui-lib-button, sized and shaped for toolbar and per-row actions where a text label doesn't fit."
+  [hasFramework]="true" [api]="api">
+
+  <ng-container demo>
+
+    <!-- 1. Shapes -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Shapes</h3>
+      <p class="demo-section__desc">Circle for floating/toolbar actions, square for a softer, table-friendly look.</p>
+      <div class="demo-row">
+        <pui-lib-icon-button icon="trash" variant="destructive" shape="circle" ariaLabel="Delete"></pui-lib-icon-button>
+        <pui-lib-icon-button icon="trash" variant="destructive" shape="square" ariaLabel="Delete"></pui-lib-icon-button>
+      </div>
+    </div>
+
+    <!-- 2. Sizes -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Sizes</h3>
+      <p class="demo-section__desc">sm = 32px, md = 40px, lg = 48px.</p>
+      <div class="demo-row">
+        <pui-lib-icon-button icon="settings" variant="primary" size="sm" ariaLabel="Settings"></pui-lib-icon-button>
+        <pui-lib-icon-button icon="settings" variant="primary" size="md" ariaLabel="Settings"></pui-lib-icon-button>
+        <pui-lib-icon-button icon="settings" variant="primary" size="lg" ariaLabel="Settings"></pui-lib-icon-button>
+      </div>
+    </div>
+
+    <!-- 3. Disabled -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Disabled</h3>
+      <div class="demo-row">
+        <pui-lib-icon-button icon="edit" variant="secondary-light" [disabled]="true" ariaLabel="Edit"></pui-lib-icon-button>
+      </div>
+    </div>
+
+    <!-- 4. Full palette -->
+    <div class="demo-section">
+      <h3 class="demo-section__title">Full Palette</h3>
+      <p class="demo-section__desc">Every variant, same tokens as pui-lib-button — theme-aware, follows the New/Old theme toggle.</p>
+      <table class="demo-table">
+        <thead>
+          <tr>
+            <th>Variant</th>
+            <th>Circle</th>
+            <th>Square</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let v of variants; trackBy: trackByIndex">
+            <td class="demo-table__name">{{ v.id }}</td>
+            <td><pui-lib-icon-button icon="chevron-left" [variant]="v.id" shape="circle" [ariaLabel]="v.label"></pui-lib-icon-button></td>
+            <td><pui-lib-icon-button icon="chevron-left" [variant]="v.id" shape="square" [ariaLabel]="v.label"></pui-lib-icon-button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+  <ng-container framework>
+
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead"><code>pui-lib-icon-button</code> takes an <code>icon</code> input (same registry names as
+      <code>pui-lib-icon</code>) instead of ng-content — there's no visible text, so always pass
+      <code>ariaLabel</code> for screen readers.</p>
+
+    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
+      <!-- Angular preview -->
+      <div preview class="demo-row">
+        <pui-lib-icon-button icon="edit" variant="secondary-light" ariaLabel="Edit"></pui-lib-icon-button>
+        <pui-lib-icon-button icon="trash" variant="destructive" ariaLabel="Delete"></pui-lib-icon-button>
+        <pui-lib-icon-button icon="settings" variant="primary" ariaLabel="Settings"></pui-lib-icon-button>
+      </div>
+      <!-- React preview -->
+      <div react-preview class="demo-row">
+        <pui-lib-icon-button icon="edit" variant="secondary-light" ariaLabel="Edit"></pui-lib-icon-button>
+        <pui-lib-icon-button icon="trash" variant="destructive" ariaLabel="Delete"></pui-lib-icon-button>
+      </div>
+    </docs-framework-preview>
+
+    <h4 class="fw-ref-title">Icon Button Quick Reference</h4>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
+            <td><span class="tag-name">{{ r.name }}</span></td>
+            <td><span class="tag-ng">{{ r.angular }}</span></td>
+            <td><span class="tag-html">{{ r.attr }}</span></td>
+            <td><span class="tag-js">{{ r.js }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </ng-container>
+
+</docs-page>

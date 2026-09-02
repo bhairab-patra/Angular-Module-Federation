@@ -25,6 +25,7 @@ export class AppComponent {
     { label: 'Introduction', route: '/', category: 'Getting Started', keywords: ['intro', 'overview', 'start'] },
     { label: 'Getting Started', route: '/getting-started', category: 'Getting Started', keywords: ['install', 'setup', 'guide'] },
     { label: 'Button', route: '/button', category: 'Component', keywords: ['btn', 'click', 'primary', 'secondary', 'outline', 'destructive', 'chip', 'upload'] },
+    { label: 'Icon Button', route: '/icon-button', category: 'Component', keywords: ['icon button', 'btn', 'icon-only', 'circle', 'square', 'toolbar', 'row action'] },
     { label: 'Card', route: '/card', category: 'Component', keywords: ['container', 'panel', 'box'] },
     { label: 'Badge', route: '/badge', category: 'Component', keywords: ['tag', 'label', 'status', 'pill'] },
     { label: 'Modal', route: '/modal', category: 'Component', keywords: ['dialog', 'popup', 'overlay', 'confirm'] },
@@ -182,6 +183,10 @@ export class AppComponent {
           {
             label: 'Button', route: '/button',
             icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="5" width="6" height="6" rx="1.5"/><rect x="9" y="5" width="5.5" height="6" rx="1.5"/></svg>`)
+          },
+          {
+            label: 'Icon Button', route: '/icon-button',
+            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M9.5 5.5L6.5 8l3 2.5"/></svg>`)
           },
           {
             label: 'Card', route: '/card',

@@ -12,8 +12,7 @@
       <span class="ssb__brand-name">{{ brandName }}</span>
     </div>
     <button class="ssb__toggle" (click)="toggle()" [title]="collapsed ? 'Expand' : 'Collapse'">
-      <svg *ngIf="!collapsed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      <svg *ngIf="collapsed" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
   </div>
 
@@ -33,7 +32,27 @@
 
       <ul class="ssb__list">
         <li *ngFor="let item of group.items" [class.ssb__li--divider]="item.dividerAfter">
+          <!-- Collapsed rail: a real pui-lib-icon-button per item — MD size,
+               themed via customCss to match the sidebar's own chip/active
+               colors instead of a plain icon inside a hand-styled button. -->
+          <pui-icon-button-internal
+            *ngIf="collapsed && item.iconName"
+            class="ssb__item ssb__item--icon-btn"
+            [class.ssb__item--active]="isItemActive(item)"
+            [class.ssb__item--disabled]="item.disabled"
+            [icon]="item.iconName"
+            shape="circle"
+            size="sm"
+            variant="ghost"
+            [customCss]="navIconButtonCss(item)"
+            [ariaLabel]="item.label"
+            (buttonClick)="select(item)"
+            (mouseenter)="onNavItemEnter(item, $event)"
+            (mouseleave)="onNavItemLeave()">
+          </pui-icon-button-internal>
+
           <button class="ssb__item"
+                  *ngIf="!(collapsed && item.iconName)"
                   [class.ssb__item--active]="isItemActive(item)"
                   [class.ssb__item--disabled]="item.disabled"
                   (click)="select(item)"
@@ -41,7 +60,7 @@
                   (mouseleave)="onNavItemLeave()">
 
             <span class="ssb__icon" *ngIf="item.iconName">
-              <pui-icon-internal [name]="item.iconName" [size]="collapsed ? 'xs' : 'sm'" color="currentColor"></pui-icon-internal>
+              <pui-icon-internal [name]="item.iconName" size="md" color="currentColor"></pui-icon-internal>
             </span>
             <span class="ssb__icon" *ngIf="!item.iconName && item.icon" [innerHTML]="item.icon"></span>
             <span class="ssb__abbr" *ngIf="collapsed && !item.iconName && !item.icon">{{ itemAbbr(item) }}</span>

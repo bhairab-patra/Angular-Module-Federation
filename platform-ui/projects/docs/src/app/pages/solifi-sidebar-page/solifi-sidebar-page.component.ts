@@ -274,7 +274,7 @@ export function AppLayout() {
   /* ── Grouped (navGroups) vs Flat (navItems) ─────── */
   groupsFlatTabs: TabItem[] = [
     { id: 'grouped', label: 'With Groups (navGroups)' },
-    { id: 'flat',    label: 'Without Groups (navItems)' },
+    { id: 'flat', label: 'Without Groups (navItems)' },
   ];
   groupsFlatActive = 'grouped';
 
@@ -363,7 +363,7 @@ navGroups: SolifiNavGroup[] = [
   [showUser]="true"
   userName="Bira"
   userEmail="bpatra@solifi.comcom"
-  [width]="240"
+  [width]="220"
   [collapsedWidth]="64"
   (itemSelect)="onNav($event)"
   (collapsedChange)="collapsed = $event">
@@ -405,7 +405,7 @@ navGroups: SolifiNavGroup[] = [
     { input: 'showBrand', type: 'boolean|string', default: 'true', description: 'Show/hide the logo section at the top of the sidebar (both expanded and collapsed states).' },
     { input: 'collapsed', type: 'boolean|string', default: 'false', description: 'Collapse to icon-only rail.' },
     { input: 'showSidebar', type: 'boolean|string', default: 'true', description: 'Hide sidebar entirely (e.g. mobile).' },
-    { input: 'width', type: 'number', default: '240', description: 'Expanded width in px.' },
+    { input: 'width', type: 'number', default: '220', description: 'Expanded width in px.' },
     { input: 'collapsedWidth', type: 'number', default: '64', description: 'Collapsed icon-rail width in px.' },
     { input: 'theme', type: 'SolifiSidebarTheme|string', default: 'SOLIFI_THEME', description: 'Color token object. Use SOLIFI_THEME preset or provide custom values.' },
     { input: 'bgColor', type: 'string', default: '#112C35', description: 'Quick background color override.' },

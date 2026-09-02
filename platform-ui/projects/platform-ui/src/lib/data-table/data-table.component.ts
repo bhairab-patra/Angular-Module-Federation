@@ -8,6 +8,8 @@ import { TableColumn, TableAction, SortState } from '../models/table.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 import { PuiSearchInternalComponent } from '../search/search-internal.component';
 import { PuiSimplePaginationInternalComponent } from '../simple-pagination/simple-pagination-internal.component';
+import { IconInternalComponent } from '../icon/icon-internal.component';
+import { IconButtonInternalComponent } from '../icon-button/icon-button-internal.component';
 
 
 export { TableColumn, TableAction, SortDir, SortState } from '../models/table.model';
@@ -16,7 +18,7 @@ export { TableColumn, TableAction, SortDir, SortState } from '../models/table.mo
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-data-table',
   standalone: true,
-  imports: [NgFor, NgIf, DecimalPipe, DatePipe, PuiSearchInternalComponent, PuiSimplePaginationInternalComponent],
+  imports: [NgFor, NgIf, DecimalPipe, DatePipe, PuiSearchInternalComponent, PuiSimplePaginationInternalComponent, IconInternalComponent, IconButtonInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './data-table.component.html',
@@ -65,6 +67,10 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   /** Optional title shown on the left of the table toolbar (e.g. "Account Summary"). */
   @Input() heading = '';
 
+  /** Optional icon name shown in a square icon-button before the heading.
+   * Omit it and no icon renders — the title looks exactly as before. */
+  @Input() headingIcon = '';
+
   /** Optional overrides for the built-in empty state (shown when there's no active search term). */
   @Input() emptyTitle = '';
   @Input() emptyDescription = '';
@@ -102,6 +108,7 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   openActionRowData: any = null;
   actionMenuPos = { top: 0, left: 0 };
   private _closeMenuListener: (() => void) | null = null;
+  private _closeMenuScrollListener: (() => void) | null = null;
   pageSizeMenuOpen = false;
   private _closePageSizeListener: (() => void) | null = null;
   searchTerm = '';
@@ -110,6 +117,13 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   selectedRows = new Set<string>();
   skeletonRows = Array(5).fill(null);
   rowClickEnabled = false;
+
+  /** Varied bar widths per column so skeleton rows read as realistic
+   * content placeholders instead of a uniform grid of equal-width bars. */
+  private readonly skeletonWidths = ['70%', '45%', '60%', '80%', '50%'];
+  skeletonCellWidth(colIndex: number): string {
+    return this.skeletonWidths[colIndex % this.skeletonWidths.length];
+  }
 
   get filteredRows(): any[] {
     let rows = [...this._data];
@@ -232,25 +246,38 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
     this._emitSelection();
   }
 
+  /** Positioned as position: fixed with raw viewport coordinates (not
+   * relative to the host) so the menu can never be clipped by an ancestor's
+   * overflow:hidden / max-height scroll region, and never gets clamped into
+   * the wrong spot (previously: flipping upward near the top of a short
+   * table could compute a negative top that got clamped to 0, pinning the
+   * menu over the table header instead of near the clicked row). */
   toggleActionMenu(rowIndex: number, event: Event): void {
     event.stopPropagation();
     if (this.openActionRow === rowIndex) { this._closeMenu(); return; }
     const btn = event.currentTarget as HTMLElement;
     const btnRect = btn.getBoundingClientRect();
-    const hostRect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
-    const menuW = 200; const menuH = 160;
+    const menuW = 200;
+    const menuH = this._actions.length * 40 + 12;
     const spaceBelow = window.innerHeight - btnRect.bottom;
-    const topRel = spaceBelow >= menuH + 8
-      ? btnRect.bottom - hostRect.top + 4
-      : btnRect.top - hostRect.top - menuH - 4;
-    const leftRel = Math.min(btnRect.right - menuW - hostRect.left, hostRect.width - menuW - 4);
-    this.actionMenuPos = { top: Math.max(0, topRel), left: Math.max(0, leftRel) };
+    const spaceAbove = btnRect.top;
+    const openUp = spaceBelow < menuH + 8 && spaceAbove > spaceBelow;
+    const top = openUp ? btnRect.top - menuH - 8 : btnRect.bottom + 8;
+    const left = Math.min(btnRect.right - menuW, window.innerWidth - menuW - 8);
+    this.actionMenuPos = { top: Math.max(8, top), left: Math.max(8, left) };
     this.openActionRow = rowIndex;
     this.openActionRowData = this.displayRows[rowIndex];
     this.zone.runOutsideAngular(() => {
       setTimeout(() => {
         this._closeMenuListener = () => this.zone.run(() => this._closeMenu());
         document.addEventListener('click', this._closeMenuListener, { once: true });
+        // Position is computed once at open time; rather than tracking every
+        // scrollable ancestor to keep it glued to the trigger, just close it
+        // on the first scroll (capture:true so this also fires for the
+        // table's own internal .pui-dt-scroll, not just window/page scroll).
+        // Clicking the trigger again reopens it at the correct new position.
+        this._closeMenuScrollListener = () => this.zone.run(() => this._closeMenu());
+        window.addEventListener('scroll', this._closeMenuScrollListener, { capture: true, once: true });
       });
     });
   }
@@ -295,6 +322,10 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
     if (this._closeMenuListener) {
       document.removeEventListener('click', this._closeMenuListener);
       this._closeMenuListener = null;
+    }
+    if (this._closeMenuScrollListener) {
+      window.removeEventListener('scroll', this._closeMenuScrollListener, true);
+      this._closeMenuScrollListener = null;
     }
   }
 

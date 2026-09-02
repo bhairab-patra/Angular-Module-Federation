@@ -21,7 +21,7 @@ $fg: var(--pui-footer-text, var(--pui-neutral-900));
   right: 0;
   bottom: 0;
   z-index: 100;
-  box-shadow: 0 -2px 12px rgba(0, 0, 0, .06);
+  box-shadow: none;
 }
 
 /* ── Notice card (contact / disclaimer) ──────────────────────────── */

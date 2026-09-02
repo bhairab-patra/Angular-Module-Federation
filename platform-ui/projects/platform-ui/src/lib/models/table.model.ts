@@ -23,6 +23,10 @@ export interface TableColumn {
 
 export interface TableAction {
   label:     string;
+  /** Name from the shared pui icon set (rendered via the same icon
+   * component used everywhere else in the library) — prefer this over `icon`. */
+  iconName?: string;
+  /** Raw SVG/HTML markup — escape hatch for a one-off icon not in the shared set. */
   icon?:     string;
   action:    (row: any) => void;
   disabled?: (row: any) => boolean;

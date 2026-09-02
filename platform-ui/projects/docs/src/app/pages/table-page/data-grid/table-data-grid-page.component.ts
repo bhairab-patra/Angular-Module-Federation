@@ -258,6 +258,7 @@ export class MyComponent {
     { input: 'columns', type: 'TableColumn[]', default: '[]', description: 'Column definitions: key, label, sortable, width, align, type, badgeMap' },
     { input: 'data', type: 'any[]', default: '[]', description: 'Row data array' },
     { input: 'heading', type: 'string', default: "''", description: 'Optional title on the left of the toolbar; omit to hide it' },
+    { input: 'headingIcon', type: 'string', default: "''", description: 'Optional icon name shown in a square icon-button before the heading; omit for no icon' },
     { input: 'searchable', type: 'boolean', default: 'false', description: 'Shows a global search/filter input in the toolbar; leave false to hide it' },
     { input: 'sortable', type: 'boolean', default: 'false', description: 'Enables column-level sort toggling' },
     { input: 'paginated', type: 'boolean', default: 'false', description: 'Enables pagination controls at the bottom' },
