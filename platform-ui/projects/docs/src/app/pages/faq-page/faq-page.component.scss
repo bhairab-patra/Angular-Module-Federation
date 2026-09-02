@@ -1,38 +1,34 @@
-:host { display: block; }
+:host {
+  display: block;
+}
 
 /* ── Hero ───────────────────────────────────────────────── */
+
 .faq-hero {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0d6e5f 100%);
-  padding: 64px 24px 56px;
+  background: #f6f6f6;
+  padding: 30px 10px;
   text-align: center;
 
-  &__inner { max-width: 680px; margin: 0 auto; }
+  &__inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
 
   &__eyebrow {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: #0F5C5E;
-    background: rgba(15, 92, 94, .12);
-    border: 1px solid rgba(15, 92, 94, .3);
-    border-radius: 20px;
-    padding: 4px 14px;
-    margin-bottom: 20px;
+    display: none;
   }
 
   &__title {
-    font-size: clamp(26px, 4vw, 40px);
+    font-size: clamp(26px, 3vw, 20px);
     font-weight: 800;
-    color: #fff;
-    margin: 0 0 16px;
+    color: var(--pui-neutral-900, #0f172a);
+    margin: 0 0 8px;
     line-height: 1.15;
   }
 
   &__sub {
-    font-size: 16px;
-    color: rgba(255,255,255,.65);
+    font-size: 15px;
+    color: var(--pui-neutral-600, #64748b);
     line-height: 1.7;
     margin: 0;
   }
@@ -46,14 +42,18 @@
 }
 
 /* ── Sections ───────────────────────────────────────────── */
-.faq-sections { display: flex; flex-direction: column; gap: 12px; }
+.faq-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
 .faq-section {
   border: 1px solid var(--pui-border, #e5e7eb);
   border-radius: 12px;
   overflow: hidden;
   background: var(--pui-surface, #fff);
-  transition: box-shadow .2s;
+  transition: box-shadow 0.2s;
 
   // &:hover { box-shadow: 0 2px 12px rgba(0,0,0,.08); }
 
@@ -70,9 +70,11 @@
     cursor: pointer;
     text-align: left;
     color: var(--pui-text-primary, #111827);
-    transition: background .15s;
+    transition: background 0.15s;
 
-    &:hover { background: var(--pui-gray-50, #f9fafb); }
+    &:hover {
+      background: var(--pui-gray-50, #f9fafb);
+    }
   }
 
   &__icon {
@@ -91,10 +93,12 @@
   &__chevron {
     color: var(--pui-text-secondary, #6b7280);
     flex-shrink: 0;
-    transition: transform .25s;
+    transition: transform 0.25s;
   }
 
-  &--open .faq-section__chevron { transform: rotate(180deg); }
+  &--open .faq-section__chevron {
+    transform: rotate(180deg);
+  }
 }
 
 /* ── Items ──────────────────────────────────────────────── */
@@ -145,7 +149,8 @@
     line-height: 1.65;
 
     code {
-      font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+      font-family:
+        "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
       color: #e2e8f0;
       white-space: pre;
       display: block;
@@ -162,7 +167,10 @@
   padding: 40px;
   text-align: center;
 
-  &__icon { font-size: 36px; margin-bottom: 12px; }
+  &__icon {
+    font-size: 36px;
+    margin-bottom: 12px;
+  }
 
   &__title {
     font-size: 20px;
@@ -198,20 +206,24 @@
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
-  transition: all .15s;
+  transition: all 0.15s;
   cursor: pointer;
 
   &--primary {
-    background: #0F5C5E;
+    background: #0f5c5e;
     color: #fff;
-    &:hover { background: #0a4749; }
+    &:hover {
+      background: #0a4749;
+    }
   }
 
   &--ghost {
     background: #fff;
     color: #064e3b;
     border: 1px solid #a7f3d0;
-    &:hover { background: #f0fdf9; }
+    &:hover {
+      background: #f0fdf9;
+    }
   }
 }
 
@@ -220,28 +232,46 @@
   .faq-section {
     background: #1e293b;
     border-color: #334155;
-    &__header:hover { background: #263549; }
+    &__header:hover {
+      background: #263549;
+    }
   }
 
-  .faq-items { border-top-color: #334155; }
+  .faq-items {
+    border-top-color: #334155;
+  }
   .faq-item {
-    & + & { border-top-color: #334155; }
-    &__q   { color: #f1f5f9; }
-    &__q-icon { color: #f1f5f9; }
-    &__a   { color: #94a3b8; }
+    & + & {
+      border-top-color: #334155;
+    }
+    &__q {
+      color: #f1f5f9;
+    }
+    &__q-icon {
+      color: #f1f5f9;
+    }
+    &__a {
+      color: #94a3b8;
+    }
   }
 
   .faq-still {
     background: linear-gradient(135deg, #0f2d26 0%, #0a1f1c 100%);
     border-color: #0d6e5f;
-    &__title { color: #a7f3d0; }
-    &__text  { color: #6ee7b7; }
+    &__title {
+      color: #a7f3d0;
+    }
+    &__text {
+      color: #6ee7b7;
+    }
   }
 
   .faq-btn--ghost {
     background: #1e293b;
     color: #a7f3d0;
     border-color: #0d6e5f;
-    &:hover { background: #263549; }
+    &:hover {
+      background: #263549;
+    }
   }
 }

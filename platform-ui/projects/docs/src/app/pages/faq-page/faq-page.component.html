@@ -1,33 +1,42 @@
 <div class="faq-root">
-
   <!-- Hero -->
   <div class="faq-hero">
     <div class="faq-hero__inner">
       <span class="faq-hero__eyebrow">Help Center</span>
       <h1 class="faq-hero__title">Frequently Asked Questions</h1>
       <p class="faq-hero__sub">
-        Everything a developer needs to know about integrating, customising,
-        and getting the most out of Platform UI.
+        Everything a developer needs to know about integrating, customising, and
+        getting the most out of Platform UI.
       </p>
     </div>
   </div>
 
   <!-- Content -->
   <div class="faq-body">
-
     <!-- Sections -->
     <div class="faq-sections">
       <section
         *ngFor="let section of sections; trackBy: trackByTitle"
         class="faq-section"
-        [class.faq-section--open]="section.open">
-
+        [class.faq-section--open]="section.open"
+      >
         <!-- Section header -->
         <button class="faq-section__header" (click)="toggle(section)">
           <span class="faq-section__title">{{ section.title }}</span>
-          <svg class="faq-section__chevron" width="18" height="18" viewBox="0 0 16 16" fill="none">
-            <path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.8"
-                  stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            class="faq-section__chevron"
+            width="18"
+            height="18"
+            viewBox="0 0 16 16"
+            fill="none"
+          >
+            <path
+              d="M4 6l4 4 4-4"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </button>
 
@@ -35,46 +44,76 @@
         <div class="faq-items" *ngIf="section.open">
           <div
             *ngFor="let item of section.items; trackBy: trackByQ"
-            class="faq-item">
-
+            class="faq-item"
+          >
             <div class="faq-item__q">
-              <svg class="faq-item__q-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.6"/>
-                <path d="M8 11v-1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M6.5 6.5a1.5 1.5 0 112 1.4V9" stroke="currentColor" stroke-width="1.5"
-                      stroke-linecap="round" stroke-linejoin="round"/>
+              <svg
+                class="faq-item__q-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+              >
+                <circle
+                  cx="8"
+                  cy="8"
+                  r="7"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                />
+                <path
+                  d="M8 11v-1"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M6.5 6.5a1.5 1.5 0 112 1.4V9"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
               </svg>
               {{ item.q }}
             </div>
 
             <div class="faq-item__a">{{ item.a }}</div>
 
-            <pre *ngIf="item.code" class="faq-item__code"><code>{{ item.code }}</code></pre>
-
+            <pre
+              *ngIf="item.code"
+              class="faq-item__code"
+            ><code>{{ item.code }}</code></pre>
           </div>
         </div>
-
       </section>
     </div>
 
     <!-- Still have questions -->
     <div class="faq-still">
-      <div class="faq-still__icon">💬</div>
       <h3 class="faq-still__title">Still have questions?</h3>
       <p class="faq-still__text">
-        Browse the component docs for detailed API references and live demos,
-        or open an issue on GitHub.
+        Browse the component docs for detailed API references and live demos, or
+        open an issue on GitHub.
       </p>
       <div class="faq-still__actions">
-        <a routerLink="/getting-started" class="faq-btn faq-btn--primary">Getting Started</a>
-        <a href="https://github.com" target="_blank" rel="noopener" class="faq-btn faq-btn--ghost">
+        <a routerLink="/getting-started" class="faq-btn faq-btn--primary"
+          >Getting Started</a
+        >
+        <a
+          href="https://github.com"
+          target="_blank"
+          rel="noopener"
+          class="faq-btn faq-btn--ghost"
+        >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            <path
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+            />
           </svg>
           Open an Issue
         </a>
       </div>
     </div>
-
   </div>
 </div>

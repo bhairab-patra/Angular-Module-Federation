@@ -896,7 +896,7 @@ type Framework = 'angular' | 'react' | 'html';
     }
     .note--info    { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e40af; }
     .note--success { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
-    .note--warn    { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+    .note--warn    { background: #f3f3f3; border: 1px solid #e7e7e7; color: #000000; margin-top: 30px; }
 
     /* How it works section */
     .hiw-header {

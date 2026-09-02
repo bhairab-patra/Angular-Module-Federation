@@ -1,12 +1,14 @@
-:host { display: block; }
+:host {
+  display: block;
+}
 
 /* ── Root ─────────────────────────────────────────── */
 .lp-root {
-  min-height: calc(100vh - 58px);
-  background: #F5F4F2;
+  min-height: 100vh;
+  background: #f5f4f2;
   display: flex;
   align-items: center;
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
   overflow: hidden;
   position: relative;
 }
@@ -39,23 +41,25 @@
   gap: 7px;
   padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid rgba(15,92,94,.22);
-  background: rgba(15,92,94,.08);
-  color: #0F5C5E;
+  border: 1px solid rgba(15, 92, 94, 0.22);
+  background: rgba(15, 92, 94, 0.08);
+  color: #0f5c5e;
   font-size: 12.5px;
   font-weight: 600;
   margin-bottom: 18px;
 }
 
 .lp-title {
-  font-size: clamp(32px, 4.5vw, 52px);
+  font-size: clamp(52px, 4.5vw, 72px);
   font-weight: 800;
   color: #0f172a;
   line-height: 1.15;
   margin: 0 0 20px;
-  letter-spacing: -.02em;
+  letter-spacing: -0.02em;
 }
-.lp-title-accent { color: #0F5C5E; }
+.lp-title-accent {
+  color: #0f5c5e;
+}
 
 .lp-sub {
   font-size: 14px;
@@ -76,17 +80,17 @@
 .lp-btn {
   display: inline-flex;
   align-items: center;
-  padding: 13px 28px;
+  padding: 12px 24px;
   border-radius: 30px;
   font-size: 15px;
   font-weight: 700;
   font-family: inherit;
   cursor: pointer;
   border: none;
-  transition: all .18s;
+  transition: all 0.18s;
 
   &--primary {
-    background: #0F5C5E;
+    background: #0f5c5e;
     color: #fff;
     &:hover {
       background: #0a4749;
@@ -97,9 +101,12 @@
   &--ghost {
     background: #fff;
     color: #0d6e5f;
-    border: 1.5px solid rgba(15,92,94,.4);
+    border: 1.5px solid rgba(15, 92, 94, 0.4);
     // box-shadow: 0 2px 8px rgba(0,0,0,.06);
-    &:hover { border-color: #0F5C5E; background: #f0fdf9; }
+    &:hover {
+      border-color: #0f5c5e;
+      background: #f0fdf9;
+    }
   }
 }
 
@@ -131,8 +138,8 @@
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: rgba(15,92,94,.08);
-  color: #0F5C5E;
+  background: rgba(15, 92, 94, 0.08);
+  color: #0f5c5e;
 }
 
 .lp-feature__text {
@@ -168,7 +175,7 @@
   align-items: center;
   gap: 4px;
   padding: 10px 14px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .lp-code__tab {
@@ -181,13 +188,17 @@
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: color .13s, background .13s;
+  transition:
+    color 0.13s,
+    background 0.13s;
 
-  &:hover { color: #e2e8f0; }
+  &:hover {
+    color: #e2e8f0;
+  }
 
   &--active {
     color: #2dd9c4;
-    background: rgba(45,217,196,.1);
+    background: rgba(45, 217, 196, 0.1);
   }
 }
 
@@ -205,19 +216,23 @@
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  transition: color .13s, background .13s;
+  transition:
+    color 0.13s,
+    background 0.13s;
 
-  &:hover { color: #e2e8f0; background: rgba(255,255,255,.06); }
+  &:hover {
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.06);
+  }
 }
 
 .lp-code__body {
   margin: 0;
   padding: 18px 20px 22px;
   color: #e2e8f0;
-  font-family: 'SF Mono', ui-monospace, Menlo, monospace;
+  font-family: "SF Mono", ui-monospace, Menlo, monospace;
   font-size: 12.5px;
   line-height: 1.7;
   white-space: pre-wrap;
   word-break: break-word;
 }
-

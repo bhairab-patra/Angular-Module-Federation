@@ -49,6 +49,10 @@ pui-lib-solifi-sidebar {
   min-width: 0;
 }
 
+.ssb__brand--clickable {
+  cursor: pointer;
+}
+
 .ssb__logo {
   display: flex;
   align-items: center;

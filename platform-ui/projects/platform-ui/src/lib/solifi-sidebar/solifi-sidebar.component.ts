@@ -148,10 +148,18 @@ export class PuiSolifiSidebarComponent {
   @Output() itemSelect = new EventEmitter<SolifiNavItem>();
   @Output() collapsedChange = new EventEmitter<boolean>();
   @Output() userMenuSelect = new EventEmitter<SolifiUserMenuItem>();
+  /** Emitted when the logo/brand area is clicked. Only wire this up if you
+   * want the logo to act as a link (e.g. back to a landing page) — the
+   * brand area only shows a pointer cursor once something is listening. */
+  @Output() logoClick = new EventEmitter<void>();
 
   defaultLogo = DEFAULT_LOGO;
 
   constructor(private _elRef: ElementRef) { }
+
+  onLogoClick(): void {
+    if (this.logoClick.observed) this.logoClick.emit();
+  }
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {

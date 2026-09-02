@@ -1,25 +1,55 @@
 ﻿import { Component, HostListener, ElementRef } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet, Router, NavigationEnd } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { NgFor, NgIf } from '@angular/common';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { filter } from 'rxjs/operators';
-import { PuiToastContainerComponent } from '@solifi/platform-ui';
+import {
+  PuiToastContainerComponent, PuiSolifiSidebarComponent, SolifiNavGroup, SolifiNavItem,
+} from '@solifi/platform-ui';
 
-interface NavItem { label: string; route?: string; icon?: SafeHtml; children?: NavItem[]; expanded?: boolean; }
-interface NavSection { heading: string; items: NavItem[]; collapsed: boolean; }
 interface SearchItem { label: string; route: string; category: string; keywords: string[]; }
 
 @Component({
   selector: 'docs-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgFor, NgIf, PuiToastContainerComponent],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, NgFor, NgIf, PuiToastContainerComponent, PuiSolifiSidebarComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   isHome = true;
+  sidebarCollapsed = false;
+  activeId = '';
 
-  sections: NavSection[] = [];
+  /** Cache-busts the logo image so replacing assets/logo.png on disk shows
+   * up on the next reload instead of serving the browser's cached bytes
+   * from the previous file at the same URL. Bump this when the file changes. */
+  readonly logoSrc = 'assets/logo.png';
+
+  /** The sidebar's own logo slot is a fixed 28x28 square (built for an
+   * icon-only mark) — our logo is a wide wordmark, so override its size
+   * here instead of letting it get squished into that square. Sized
+   * smaller in the collapsed rail (64px wide) than when expanded. */
+  readonly sidebarLogoCss = `
+    .ssb__logo {
+      width: auto !important;
+      justify-content: flex-start !important;
+    }
+    .ssb__logo-img {
+      width: auto !important;
+      height: 26px !important;
+      max-width: 44px;
+      object-fit: contain;
+    }
+    .ssb:not(.ssb--collapsed) .ssb__logo-img {
+      height: 36px !important;
+      max-width: 120px;
+    }
+    .ssb__brand-name {
+      font-size: 16px !important;
+    }
+  `;
+
+  groups: SolifiNavGroup[] = [];
 
   private allItems: SearchItem[] = [
     { label: 'Introduction', route: '/', category: 'Getting Started', keywords: ['intro', 'overview', 'start'] },
@@ -102,258 +132,258 @@ export class AppComponent {
     window.location.reload();
   }
 
-  toggleSection(s: NavSection): void {
-    s.collapsed = !s.collapsed;
+  toggleSidebar(): void {
+    this.sidebarCollapsed = !this.sidebarCollapsed;
   }
 
-  toggleNavItem(item: NavItem): void {
-    item.expanded = !item.expanded;
+  onNavSelect(item: SolifiNavItem): void {
+    if (item.route) this.navigate(item.route);
   }
 
-  private expandParentForRoute(url: string): void {
-    for (const section of this.sections) {
-      for (const item of section.items) {
-        if (item.children) {
-          const active = item.children.some(c => url.startsWith(c.route ?? ''));
-          if (active) item.expanded = true;
+  /** Walks every group's items (one level of children, matching
+   * SolifiNavItem's own single-level nesting) to find whichever id's route
+   * is the longest prefix match for the current url — so a child route
+   * (e.g. /table/data-grid) correctly activates over its parent group item. */
+  private deriveActiveId(url: string): string {
+    let best = '';
+    let bestLen = -1;
+    for (const group of this.groups) {
+      for (const item of group.items) {
+        for (const candidate of [item, ...(item.children ?? [])]) {
+          if (candidate.route && (url === candidate.route || url.startsWith(candidate.route + '/'))) {
+            if (candidate.route.length > bestLen) { best = candidate.id; bestLen = candidate.route.length; }
+          }
         }
       }
     }
+    return best;
   }
 
-  constructor(private router: Router, private el: ElementRef, private san: DomSanitizer) {
-    const i = (svg: string): SafeHtml => this.san.bypassSecurityTrustHtml(svg);
-    this.sections = [
+  constructor(private router: Router, private el: ElementRef) {
+    this.groups = [
       {
-        heading: 'Getting Started',
-        collapsed: false,
+        id: 'getting-started', label: 'Getting Started',
         items: [
           {
-            label: 'Getting Started',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l1.2 2.6 2.8.4-2 2 .5 2.8L8 8.5 5.5 9.8l.5-2.8-2-2 2.8-.4z"/></svg>`),
-            expanded: false,
+            id: 'getting-started-group', label: 'Getting Started',
+            iconName: 'sparkle',
             children: [
-              { label: 'Angular', route: '/getting-started/angular' },
-              { label: 'React', route: '/getting-started/react' },
-              { label: 'Plain HTML', route: '/getting-started/html' },
+              { id: 'getting-started-angular', label: 'Angular', route: '/getting-started/angular' },
+              { id: 'getting-started-react', label: 'React', route: '/getting-started/react' },
+              { id: 'getting-started-html', label: 'Plain HTML', route: '/getting-started/html' },
             ],
           },
         ],
       },
       {
-        heading: 'Templates',
-        collapsed: false,
+        id: 'templates', label: 'Templates',
         items: [
           {
-            label: 'Primary Layout', route: '/templates/primary-layout',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="1.5" width="13" height="13" rx="1.5"/><path d="M5.5 1.5v13"/><path d="M5.5 5h9"/></svg>`)
+            id: 'templates-primary-layout', label: 'Primary Layout', route: '/templates/primary-layout',
+            iconName: 'layout-primary'
           },
           {
-            label: 'Table Layout', route: '/templates/table-layout',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="2.5" width="13" height="11" rx="1.5"/><path d="M1.5 6h13M6 6v7.5"/></svg>`)
+            id: 'templates-table-layout', label: 'Table Layout', route: '/templates/table-layout',
+            iconName: 'table'
           },
           {
-            label: 'Form Layout', route: '/templates/form-layout',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="1.5" width="13" height="13" rx="1.5"/><path d="M4 5h8M4 8h8M4 11h4"/></svg>`)
+            id: 'templates-form-layout', label: 'Form Layout', route: '/templates/form-layout',
+            iconName: 'layout-form'
           },
         ],
       },
       {
-        heading: 'Foundation',
-        collapsed: false,
+        id: 'foundation', label: 'Foundation',
         items: [
           {
-            label: 'Typography', route: '/typography',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 4h10M8 4v8M5 12h6"/></svg>`)
+            id: 'typography', label: 'Typography', route: '/typography',
+            iconName: 'typography'
           },
         ],
       },
       {
-        heading: 'Components',
-        collapsed: false,
+        id: 'components', label: 'Components',
         items: [
           {
-            label: 'Badge', route: '/badge',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2L3 4.5v3.5c0 2.8 2 5 5 5.5 3-.5 5-2.7 5-5.5V4.5z"/></svg>`)
+            id: 'badge', label: 'Badge', route: '/badge',
+            iconName: 'badge'
           },
           {
-            label: 'Breadcrumb', route: '/breadcrumb',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="3" cy="8" r="1.5" fill="currentColor" stroke="none"/><circle cx="8" cy="8" r="1.5" fill="currentColor" stroke="none"/><circle cx="13" cy="8" r="1.5" fill="currentColor" stroke="none"/></svg>`)
+            id: 'breadcrumb', label: 'Breadcrumb', route: '/breadcrumb',
+            iconName: 'breadcrumb'
           },
           {
-            label: 'Button', route: '/button',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1.5" y="5" width="6" height="6" rx="1.5"/><rect x="9" y="5" width="5.5" height="6" rx="1.5"/></svg>`)
+            id: 'button', label: 'Button', route: '/button',
+            iconName: 'button-shape'
           },
           {
-            label: 'Icon Button', route: '/icon-button',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6.5"/><path d="M9.5 5.5L6.5 8l3 2.5"/></svg>`)
+            id: 'icon-button', label: 'Icon Button', route: '/icon-button',
+            iconName: 'icon-button'
           },
           {
-            label: 'Card', route: '/card',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 6.5h12"/></svg>`)
+            id: 'card', label: 'Card', route: '/card',
+            iconName: 'card'
           },
           {
-            label: 'Chip', route: '/chip',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="12" height="6" rx="3"/></svg>`)
+            id: 'chip', label: 'Chip', route: '/chip',
+            iconName: 'chip'
           },
           {
-            label: 'Date Picker', route: '/datepicker',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="11" rx="1.5"/><path d="M2 7h12M5 2v2M11 2v2"/></svg>`)
+            id: 'datepicker', label: 'Date Picker', route: '/datepicker',
+            iconName: 'calendar'
           },
           {
-            label: 'Icon', route: '/icon',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2l1.5 3.5 3.5.5-2.5 2.5.5 3.5L8 10.3l-3 1.7.5-3.5L3 6l3.5-.5z"/></svg>`)
+            id: 'icon', label: 'Icon', route: '/icon',
+            iconName: 'sparkle'
           },
           {
-            label: 'List', route: '/list',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h8M5 8h8M5 12h8"/><circle cx="2.5" cy="4" r=".8" fill="currentColor" stroke="none"/><circle cx="2.5" cy="8" r=".8" fill="currentColor" stroke="none"/><circle cx="2.5" cy="12" r=".8" fill="currentColor" stroke="none"/></svg>`)
+            id: 'list', label: 'List', route: '/list',
+            iconName: 'list'
           },
           {
-            label: 'Menu', route: '/menu',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="8" rx="1.5"/><path d="M5 7h6M5 9.5h4"/><path d="M11 8l2 0"/></svg>`)
+            id: 'menu', label: 'Menu', route: '/menu',
+            iconName: 'menu-box'
           },
           {
-            label: 'Modal', expanded: false,
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5l6-3 6 3-6 3z"/><path d="M2 8l6 3 6-3"/><path d="M2 11l6 3 6-3"/></svg>`),
+            id: 'modal-group', label: 'Modal',
+            iconName: 'modal',
             children: [
-              { label: 'Modal', route: '/modal' },
-              { label: 'Form Dialog', route: '/form-dialog' },
-              { label: 'Confirm Dialog', route: '/confirm-dialog' },
-              { label: 'Discard Dialog', route: '/discard-dialog' },
+              { id: 'modal', label: 'Modal', route: '/modal' },
+              { id: 'form-dialog', label: 'Form Dialog', route: '/form-dialog' },
+              { id: 'confirm-dialog', label: 'Confirm Dialog', route: '/confirm-dialog' },
+              { id: 'discard-dialog', label: 'Discard Dialog', route: '/discard-dialog' },
             ],
           },
           {
-            label: 'Skeleton Loader', route: '/skeleton',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2.5 2"><circle cx="8" cy="8" r="5.5"/></svg>`)
+            id: 'skeleton', label: 'Skeleton Loader', route: '/skeleton',
+            iconName: 'skeleton'
           },
           {
-            label: 'Spinner', route: '/spinner',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M8 2.5a5.5 5.5 0 110 11 5.5 5.5 0 010-11z" stroke-dasharray="10 8" stroke-dashoffset="-3"/></svg>`)
+            id: 'spinner', label: 'Spinner', route: '/spinner',
+            iconName: 'spinner-dashed'
           },
           {
-            label: 'Table', expanded: false,
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 6.5h12M6 6.5v6.5"/></svg>`),
+            id: 'table-group', label: 'Table',
+            iconName: 'table',
             children: [
-              { label: 'Display Table', route: '/table/display' },
-              { label: 'Data Grid', route: '/table/data-grid' },
-              { label: 'Editable Table', route: '/table/editable' },
+              { id: 'table-display', label: 'Display Table', route: '/table/display' },
+              { id: 'table-data-grid', label: 'Data Grid', route: '/table/data-grid' },
+              { id: 'table-editable', label: 'Editable Table', route: '/table/editable' },
             ],
           },
           {
-            label: 'Accordion', route: '/accordion',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="4" rx="1"/><rect x="2" y="7" width="12" height="4" rx="1" opacity=".5"/><rect x="2" y="12" width="12" height="2" rx="1" opacity=".25"/></svg>`)
+            id: 'accordion', label: 'Accordion', route: '/accordion',
+            iconName: 'accordion'
           },
           {
-            label: 'Avatar', route: '/avatar',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="1" width="14" height="14" rx="3"/><path d="M4.5 8h7M4.5 5.5h4"/></svg>`)
+            id: 'avatar', label: 'Avatar', route: '/avatar',
+            iconName: 'user'
           },
           {
-            label: 'Simple Pagination', route: '/simple-pagination',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8h2M12 8h2"/><path d="M4.5 5L2 8l2.5 3M11.5 5L14 8l-2.5 3"/></svg>`)
+            id: 'simple-pagination', label: 'Simple Pagination', route: '/simple-pagination',
+            iconName: 'pagination'
           },
           {
-            label: 'Tabs', route: '/tabs',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9h12M2 9V6a1 1 0 011-1h2.5a1 1 0 011 1v3"/><rect x="2" y="9" width="12" height="5" rx="1"/></svg>`)
+            id: 'tabs', label: 'Tabs', route: '/tabs',
+            iconName: 'tabs'
           },
           {
-            label: 'Tag', route: '/tag',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5a1 1 0 011-1h6l4 4-4 4H3a1 1 0 01-1-1V5z"/><circle cx="5.5" cy="8" r="1" fill="currentColor" stroke="none"/></svg>`)
+            id: 'tag', label: 'Tag', route: '/tag',
+            iconName: 'tag'
           },
           {
-            label: 'Tooltip', route: '/tooltip',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="7" rx="1.5"/><path d="M6 10l2 3 2-3"/></svg>`)
-          },
-        ],
-      },
-      {
-        heading: 'Forms',
-        collapsed: false,
-        items: [
-          {
-            label: 'Checkbox', route: '/checkbox',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="10" height="10" rx="2"/><path d="M5.5 8l2 2 3-3"/></svg>`)
-          },
-          {
-            label: 'Input', route: '/input',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="12" height="6" rx="1.5"/><path d="M5 8h.5"/></svg>`)
-          },
-          {
-            label: 'Label', route: '/label',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5A1.5 1.5 0 013.5 5H9l4.5 4.5-4.5 4.5H3.5A1.5 1.5 0 012 12.5v-6z"/><circle cx="6" cy="8" r="1" fill="currentColor" stroke="none"/></svg>`)
-          },
-          {
-            label: 'Multi Select', route: '/multi-select',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="8" rx="1.5"/><path d="M10 8l-2 2-2-2"/><path d="M5 7h3"/></svg>`)
-          },
-          {
-            label: 'Password Input', route: '/password-input',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="8" height="6" rx="1"/><path d="M6 7V5a2 2 0 014 0v2"/></svg>`)
-          },
-          {
-            label: 'Radio', route: '/radio',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="5.5"/><circle cx="8" cy="8" r="2.5" fill="currentColor" stroke="none"/></svg>`)
-          },
-          {
-            label: 'Select', route: '/select',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="8" rx="1.5"/><path d="M10 8l-2 2-2-2"/></svg>`)
-          },
-          {
-            label: 'Switch', route: '/switch',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="5" width="12" height="6" rx="3"/><circle cx="11" cy="8" r="2" fill="currentColor" stroke="none"/></svg>`)
-          },
-          {
-            label: 'Textarea', route: '/textarea',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M5 6h6M5 9h4"/></svg>`)
+            id: 'tooltip', label: 'Tooltip', route: '/tooltip',
+            iconName: 'tooltip'
           },
         ],
       },
       {
-        heading: 'Utilities',
-        collapsed: false,
+        id: 'forms', label: 'Forms',
         items: [
           {
-            label: 'Advanced Filters', route: '/filters',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h12M4 8h8M6 12h4"/></svg>`)
+            id: 'checkbox', label: 'Checkbox', route: '/checkbox',
+            iconName: 'checkbox'
           },
           {
-            label: 'App Shell', route: '/app-shell',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="1.5"/><path d="M2 6h12M6 6v8"/></svg>`)
+            id: 'input', label: 'Input', route: '/input',
+            iconName: 'input'
           },
           {
-            label: 'Header', route: '/header',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 7h12"/></svg>`)
+            id: 'label', label: 'Label', route: '/label',
+            iconName: 'tag'
           },
           {
-            label: 'Footer', route: '/footer',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M2 9h12"/></svg>`)
+            id: 'multi-select', label: 'Multi Select', route: '/multi-select',
+            iconName: 'multi-select'
           },
           {
-            label: 'Popover', route: '/popover',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="10" height="7" rx="1.5"/><path d="M5 9l-1.5 3 3-1.5"/></svg>`)
+            id: 'password-input', label: 'Password Input', route: '/password-input',
+            iconName: 'lock'
           },
           {
-            label: 'Context Menu', route: '/context-menu',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="10" height="9" rx="1.5"/><path d="M7 5h4M7 7.5h4"/><circle cx="2.3" cy="13.5" r="1" fill="currentColor" stroke="none"/></svg>`)
+            id: 'radio', label: 'Radio', route: '/radio',
+            iconName: 'radio'
           },
           {
-            label: 'Empty State', route: '/empty-state',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M6 9.5s.7-1 2-1 2 1 2 1" stroke-dasharray="1.5 1.8"/></svg>`)
+            id: 'select', label: 'Select', route: '/select',
+            iconName: 'select'
           },
           {
-            label: 'Dropzone', route: '/dropzone',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 11V3M5 6l3-3 3 3"/><path d="M2 11v2a1 1 0 001 1h10a1 1 0 001-1v-2"/></svg>`)
+            id: 'switch', label: 'Switch', route: '/switch',
+            iconName: 'switch'
           },
           {
-            label: 'Search', route: '/search',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5l3 3"/></svg>`)
+            id: 'textarea', label: 'Textarea', route: '/textarea',
+            iconName: 'textarea'
+          },
+        ],
+      },
+      {
+        id: 'utilities', label: 'Utilities',
+        items: [
+          {
+            id: 'filters', label: 'Advanced Filters', route: '/filters',
+            iconName: 'filter'
           },
           {
-            label: 'Solifi Sidebar', route: '/solifi-sidebar',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="2" width="5" height="12" rx="1"/><path d="M8 5h6M8 8h6M8 11h4"/></svg>`)
+            id: 'app-shell', label: 'App Shell', route: '/app-shell',
+            iconName: 'app-shell'
           },
           {
-            label: 'Toast', route: '/toast',
-            icon: i(`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="12" height="8" rx="1.5"/><path d="M5 5V4a3 3 0 016 0v1"/><path d="M6 9l1.5 1.5L11 8"/></svg>`)
+            id: 'header', label: 'Header', route: '/header',
+            iconName: 'header-bar'
+          },
+          {
+            id: 'footer', label: 'Footer', route: '/footer',
+            iconName: 'footer-bar'
+          },
+          {
+            id: 'popover', label: 'Popover', route: '/popover',
+            iconName: 'tooltip'
+          },
+          {
+            id: 'context-menu', label: 'Context Menu', route: '/context-menu',
+            iconName: 'context-menu'
+          },
+          {
+            id: 'empty-state', label: 'Empty State', route: '/empty-state',
+            iconName: 'empty-state'
+          },
+          {
+            id: 'dropzone', label: 'Dropzone', route: '/dropzone',
+            iconName: 'upload'
+          },
+          {
+            id: 'search', label: 'Search', route: '/search',
+            iconName: 'search'
+          },
+          {
+            id: 'solifi-sidebar', label: 'Solifi Sidebar', route: '/solifi-sidebar',
+            iconName: 'sidebar-nav'
+          },
+          {
+            id: 'toast', label: 'Toast', route: '/toast',
+            iconName: 'toast'
           },
         ],
       },
@@ -366,10 +396,10 @@ export class AppComponent {
       filter(e => e instanceof NavigationEnd)
     ).subscribe((e: NavigationEnd) => {
       this.isHome = e.urlAfterRedirects === '/';
-      this.expandParentForRoute(e.urlAfterRedirects);
+      this.activeId = this.deriveActiveId(e.urlAfterRedirects);
       this.clearSearch();
     });
-    this.expandParentForRoute(this.router.url);
+    this.activeId = this.deriveActiveId(this.router.url);
   }
 
   asInput(t: EventTarget | null): HTMLInputElement { return t as HTMLInputElement; }

@@ -1,19 +1,28 @@
 /* ── Top bar ──────────────────────────────────── */
+/* Starts to the right of the sidebar (not behind it) so the sidebar's own
+   header row (brand slot hidden, just its toggle) owns the top-left corner.
+   Left offset tracks the sidebar's own width/collapse transition timing so
+   the two move in lockstep instead of snapping at different speeds. */
 .topbar {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 220px;
   right: 0;
   z-index: 200;
   height: 58px;
-  background: var(--pui-white);
+  background: var(--pui-header-bg);
   border-bottom: 1px solid var(--pui-neutral-200);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 28px;
+  padding: 0 18px;
   // box-shadow: 0 1px 4px rgba(0, 0, 0, .06);
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
+  transition: left 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.topbar--collapsed {
+  left: 64px;
 }
 
 .topbar-left {
@@ -38,15 +47,20 @@
 }
 
 .brand-icon {
+  height: 32px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
   border-radius: 8px;
+  display: block;
 }
 
 .brand-name {
   font-size: 15px;
   font-weight: 500;
-  color: var(--pui-neutral-900);
-  font-family: 'Poppins', system-ui, sans-serif;
-  letter-spacing: -.01em;
+  color: var(--pui-header-text);
+  font-family: "Poppins", system-ui, sans-serif;
+  letter-spacing: -0.01em;
 }
 
 .brand-name strong {
@@ -67,9 +81,13 @@
   padding: 6px 13px;
   border-radius: 8px;
   border: 1px solid var(--pui-neutral-200);
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
   background: var(--pui-white);
-  transition: background .15s, border-color .15s, color .15s, box-shadow .15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
   white-space: nowrap;
 }
 
@@ -113,7 +131,9 @@
   border-radius: 999px;
   // box-shadow: 0 0 0 2.5px var(--pui-white), 0 0 0 4px rgba(17, 44, 53, .3), 0 3px 10px rgba(0, 0, 0, .18);
   transform: translateX(0);
-  transition: transform .32s cubic-bezier(.65, 0, .35, 1), box-shadow .32s ease;
+  transition:
+    transform 0.32s cubic-bezier(0.65, 0, 0.35, 1),
+    box-shadow 0.32s ease;
   pointer-events: none;
 }
 
@@ -131,22 +151,25 @@
   gap: 5px;
   font-size: 12.5px;
   font-weight: 700;
-  letter-spacing: .01em;
+  letter-spacing: 0.01em;
   line-height: 1;
   padding: 8px 16px;
   border-radius: 999px;
   border: none;
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
   cursor: pointer;
-  opacity: .48;
-  filter: saturate(.35);
-  transform: scale(.96);
-  transition: opacity .2s ease, filter .2s ease, transform .2s cubic-bezier(.34, 1.56, .64, 1);
+  opacity: 0.48;
+  filter: saturate(0.35);
+  transform: scale(0.96);
+  transition:
+    opacity 0.2s ease,
+    filter 0.2s ease,
+    transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .theme-toggle__btn:hover:not(.theme-toggle__btn--active) {
-  opacity: .75;
-  filter: saturate(.7);
+  opacity: 0.75;
+  filter: saturate(0.7);
 }
 
 .theme-toggle__btn--active {
@@ -162,13 +185,13 @@
 
 .theme-toggle__check {
   flex-shrink: 0;
-  animation: theme-toggle-check-in .22s cubic-bezier(.34, 1.56, .64, 1);
+  animation: theme-toggle-check-in 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 @keyframes theme-toggle-check-in {
   from {
     opacity: 0;
-    transform: scale(.4);
+    transform: scale(0.4);
   }
 
   to {
@@ -180,7 +203,7 @@
 /* solifi-26 — new theme identity */
 .theme-toggle__btn--new {
   background: #0f5c5e;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .theme-toggle__btn--new.theme-toggle__btn--active {
@@ -189,7 +212,7 @@
 
 /* solifi-21 — old theme identity */
 .theme-toggle__btn--old {
-  background: #12C6A8;
+  background: #12c6a8;
   color: #000000;
 }
 
@@ -227,11 +250,14 @@
   border: 1px solid var(--pui-neutral-200);
   border-radius: 10px;
   font-size: 13px;
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
   background: var(--pui-neutral-50);
   color: var(--pui-neutral-900);
   outline: none;
-  transition: border-color .15s, box-shadow .15s, background .15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s,
+    background 0.15s;
 }
 
 // .search-input:focus {
@@ -260,7 +286,9 @@
   color: var(--pui-neutral-400);
   cursor: pointer;
   padding: 0;
-  transition: background .13s, color .13s;
+  transition:
+    background 0.13s,
+    color 0.13s;
 }
 
 .search-clear:hover {
@@ -292,7 +320,7 @@
   padding: 9px 12px;
   border-radius: 8px;
   cursor: pointer;
-  transition: background .1s;
+  transition: background 0.1s;
 }
 
 .search-item:hover,
@@ -304,7 +332,7 @@
   font-size: 10px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   color: var(--pui-neutral-700);
   background: #e5e7eb;
   padding: 2px 7px;
@@ -320,33 +348,25 @@
 
 /* ── Global ───────────────────────────────────── */
 :host {
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
 }
 
 .shell {
   display: flex;
-  padding-top: 58px;
   min-height: 100vh;
-  font-family: 'Poppins', system-ui, sans-serif;
+  font-family: "Poppins", system-ui, sans-serif;
 }
 
 /* ── Sidebar ────────────────────────────────── */
-.sidebar {
+/* pui-lib-solifi-sidebar spans the full height (its own header row carries
+   the collapse toggle), so the topbar's height/border no longer applies
+   here — the sidebar owns the entire left column top-to-bottom. */
+.docs-sidebar {
   position: fixed;
-  top: 58px;
-  bottom: 0;
+  top: 0;
   left: 0;
-  width: 250px;
-  overflow-y: auto;
-  border-right: 1px solid var(--pui-neutral-200);
-  background: var(--pui-white);
-  display: flex;
-  flex-direction: column;
-}
-
-.sidebar-nav {
-  flex: 1;
-  padding: 16px 0 8px;
+  bottom: 0;
+  z-index: 210;
 }
 
 /* Version chip — beside brand in topbar-left */
@@ -364,7 +384,7 @@
   font-size: 12px;
   font-weight: 700;
   color: var(--pui-neutral-700);
-  letter-spacing: .01em;
+  letter-spacing: 0.01em;
   line-height: 1;
 }
 
@@ -399,179 +419,21 @@
   // box-shadow: 0 0 0 2px rgba(34, 197, 94, .25);
 }
 
-/* Section */
-.nav-section {
-  margin-bottom: 16px;
-}
-
-.nav-section__header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 16px 8px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-}
-
-.nav-section__heading {
-  flex: 1;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .07em;
-  color: var(--pui-neutral-800);
-  font-family: 'Poppins', system-ui, sans-serif;
-}
-
-.nav-section__chevron {
-  color: var(--pui-neutral-400);
-  flex-shrink: 0;
-  transition: transform .25s cubic-bezier(.4, 0, .2, 1);
-  transform: rotate(-90deg);
-}
-
-.nav-section__chevron--open {
-  transform: rotate(0deg);
-}
-
-/* Items panel */
-.nav-section__items {
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height .3s cubic-bezier(.4, 0, .2, 1), opacity .2s ease;
-  opacity: 0;
-}
-
-.nav-section__items--open {
-  max-height: 1400px;
-  opacity: 1;
-}
-
-
-.nav-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  font-size: 12px;
-  color: var(--pui-neutral-700);
-  text-decoration: none;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--pui-neutral-100);
-  // box-shadow: inset 3px 0 0 transparent;
-  transition: color .12s, background .12s, box-shadow .12s;
-  font-family: 'Poppins', system-ui, sans-serif;
-  font-weight: 500;
-}
-
-.nav-link__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
-  color: var(--pui-neutral-400);
-}
-
-.nav-link__icon svg {
-  width: 14px;
-  height: 14px;
-}
-
-.nav-link__label {
-  flex: 1;
-}
-
-.nav-link__arrow {
-  color: var(--pui-neutral-300);
-  flex-shrink: 0;
-}
-
-.nav-link:hover {
-  color: var(--pui-neutral-900);
-  background: var(--pui-neutral-50);
-  // box-shadow: inset 3px 0 0 var(--pui-neutral-300);
-}
-
-.nav-link:hover .nav-link__icon {
-  color: var(--pui-neutral-600);
-}
-
-.nav-link--active {
-  color: #0F5C5E !important;
-  background: rgba(15,92,94,.08) !important;
-  font-weight: 600;
-  // box-shadow: inset 3px 0 0 #0F5C5E !important;
-}
-
-.nav-link--active .nav-link__icon {
-  color: #0F5C5E !important;
-}
-
-.nav-link--active .nav-link__arrow {
-  color: #0F5C5E !important;
-}
-
-/* Expandable parent */
-.nav-link--parent {
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  font-family: 'Poppins', system-ui, sans-serif;
-}
-
-.nav-parent__chevron {
-  color: var(--pui-neutral-400);
-  flex-shrink: 0;
-  transition: transform .22s cubic-bezier(.4, 0, .2, 1);
-  transform: rotate(0deg);
-}
-
-.nav-parent__chevron--open {
-  transform: rotate(90deg);
-}
-
-.nav-children {
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition: max-height .28s cubic-bezier(.4, 0, .2, 1), opacity .22s ease;
-}
-
-.nav-children--open {
-  max-height: 500px;
-  opacity: 1;
-}
-
-.nav-link--child {
-  padding-left: 28px;
-  font-size: 12px;
-}
-
-/* Sidebar footer */
-.sidebar-footer {
-  padding: 12px 16px;
-  border-top: 1px solid var(--pui-neutral-100);
-}
-
-.sidebar-footer__text {
-  font-size: 11px;
-  color: var(--pui-neutral-400);
-}
-
 /* ── Main ─────────────────────────────────────── */
 .docs-main {
   flex: 1;
-  margin-left: 270px;
+  margin-left: 220px;
+  margin-top: 58px;
   min-width: 0;
   background: var(--pui-white);
+  transition: margin-left 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.docs-main--collapsed {
+  margin-left: 64px;
 }
 
 .docs-main--full {
   margin-left: 0;
+  margin-top: 0;
 }

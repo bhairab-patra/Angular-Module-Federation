@@ -1,37 +1,80 @@
-<aside class="ssb"
-       [class.ssb--collapsed]="collapsed"
-       [class.ssb--hidden]="!showSidebar"
-       [ngStyle]="cssVars">
-
+<aside
+  class="ssb"
+  [class.ssb--collapsed]="collapsed"
+  [class.ssb--hidden]="!showSidebar"
+  [ngStyle]="cssVars"
+>
   <div class="ssb__header">
-    <div class="ssb__brand" *ngIf="!collapsed && showBrand">
+    <div
+      class="ssb__brand"
+      *ngIf="!collapsed && showBrand"
+      [class.ssb__brand--clickable]="logoClick.observed"
+      (click)="onLogoClick()"
+    >
       <span class="ssb__logo">
-        <img *ngIf="logoUrl" [src]="logoUrl" width="28" height="28" [alt]="brandName" class="ssb__logo-img" />
+        <img
+          *ngIf="logoUrl"
+          [src]="logoUrl"
+          width="28"
+          height="28"
+          [alt]="brandName"
+          class="ssb__logo-img"
+        />
         <span *ngIf="!logoUrl" [innerHTML]="logo || defaultLogo"></span>
       </span>
       <span class="ssb__brand-name">{{ brandName }}</span>
     </div>
-    <button class="ssb__toggle" (click)="toggle()" [title]="collapsed ? 'Expand' : 'Collapse'">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    <button
+      class="ssb__toggle"
+      (click)="toggle()"
+      [title]="collapsed ? 'Expand' : 'Collapse'"
+    >
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      >
+        <line x1="3" y1="6" x2="21" y2="6" />
+        <line x1="3" y1="12" x2="21" y2="12" />
+        <line x1="3" y1="18" x2="21" y2="18" />
+      </svg>
     </button>
   </div>
 
-  <div class="ssb__logo-only" *ngIf="collapsed && showBrand">
+  <div
+    class="ssb__logo-only"
+    *ngIf="collapsed && showBrand"
+    [class.ssb__brand--clickable]="logoClick.observed"
+    (click)="onLogoClick()"
+  >
     <span class="ssb__logo">
-      <img *ngIf="logoUrl" [src]="logoUrl" width="28" height="28" [alt]="brandName" class="ssb__logo-img" />
+      <img
+        *ngIf="logoUrl"
+        [src]="logoUrl"
+        width="28"
+        height="28"
+        [alt]="brandName"
+        class="ssb__logo-img"
+      />
       <span *ngIf="!logoUrl" [innerHTML]="logo || defaultLogo"></span>
     </span>
   </div>
 
   <nav class="ssb__nav">
     <div class="ssb__group" *ngFor="let group of groups">
-
       <div class="ssb__group-label" *ngIf="group.label && !collapsed">
         {{ group.label }}
       </div>
 
       <ul class="ssb__list">
-        <li *ngFor="let item of group.items" [class.ssb__li--divider]="item.dividerAfter">
+        <li
+          *ngFor="let item of group.items"
+          [class.ssb__li--divider]="item.dividerAfter"
+        >
           <!-- Collapsed rail: a real pui-lib-icon-button per item — MD size,
                themed via customCss to match the sidebar's own chip/active
                colors instead of a plain icon inside a hand-styled button. -->
@@ -48,41 +91,75 @@
             [ariaLabel]="item.label"
             (buttonClick)="select(item)"
             (mouseenter)="onNavItemEnter(item, $event)"
-            (mouseleave)="onNavItemLeave()">
+            (mouseleave)="onNavItemLeave()"
+          >
           </pui-icon-button-internal>
 
-          <button class="ssb__item"
-                  *ngIf="!(collapsed && item.iconName)"
-                  [class.ssb__item--active]="isItemActive(item)"
-                  [class.ssb__item--disabled]="item.disabled"
-                  (click)="select(item)"
-                  (mouseenter)="onNavItemEnter(item, $event)"
-                  (mouseleave)="onNavItemLeave()">
-
+          <button
+            class="ssb__item"
+            *ngIf="!(collapsed && item.iconName)"
+            [class.ssb__item--active]="isItemActive(item)"
+            [class.ssb__item--disabled]="item.disabled"
+            (click)="select(item)"
+            (mouseenter)="onNavItemEnter(item, $event)"
+            (mouseleave)="onNavItemLeave()"
+          >
             <span class="ssb__icon" *ngIf="item.iconName">
-              <pui-icon-internal [name]="item.iconName" size="md" color="currentColor"></pui-icon-internal>
+              <pui-icon-internal
+                [name]="item.iconName"
+                size="sm"
+                color="currentColor"
+              ></pui-icon-internal>
             </span>
-            <span class="ssb__icon" *ngIf="!item.iconName && item.icon" [innerHTML]="item.icon"></span>
-            <span class="ssb__abbr" *ngIf="collapsed && !item.iconName && !item.icon">{{ itemAbbr(item) }}</span>
+            <span
+              class="ssb__icon"
+              *ngIf="!item.iconName && item.icon"
+              [innerHTML]="item.icon"
+            ></span>
+            <span
+              class="ssb__abbr"
+              *ngIf="collapsed && !item.iconName && !item.icon"
+              >{{ itemAbbr(item) }}</span
+            >
 
             <ng-container *ngIf="!collapsed">
               <span class="ssb__label">{{ item.label }}</span>
 
-              <span *ngIf="item.children?.length" class="ssb__arrow" [class.ssb__arrow--open]="openIds.has(item.id)">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 18l6-6-6-6"/></svg>
+              <span
+                *ngIf="item.children?.length"
+                class="ssb__arrow"
+                [class.ssb__arrow--open]="openIds.has(item.id)"
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                >
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
               </span>
             </ng-container>
           </button>
 
-          <ul class="ssb__sub"
-              *ngIf="item.children?.length && !collapsed"
-              [class.ssb__sub--open]="openIds.has(item.id)"
-              [style.maxHeight.px]="openIds.has(item.id) ? item.children!.length * 34 : 0">
+          <ul
+            class="ssb__sub"
+            *ngIf="item.children?.length && !collapsed"
+            [class.ssb__sub--open]="openIds.has(item.id)"
+            [style.maxHeight.px]="
+              openIds.has(item.id) ? item.children!.length * 34 : 0
+            "
+          >
             <li *ngFor="let child of item.children">
-              <button class="ssb__subitem"
-                      [class.ssb__subitem--active]="activeId === child.id"
-                      [class.ssb__subitem--disabled]="child.disabled"
-                      (click)="select(child, true)">
+              <button
+                class="ssb__subitem"
+                [class.ssb__subitem--active]="activeId === child.id"
+                [class.ssb__subitem--disabled]="child.disabled"
+                (click)="select(child, true)"
+              >
                 <span class="ssb__subitem-dot"></span>
                 <span class="ssb__subitem-label">{{ child.label }}</span>
               </button>
@@ -90,55 +167,87 @@
           </ul>
         </li>
       </ul>
-
     </div>
   </nav>
 
   <div class="ssb__user-wrap" *ngIf="showUser">
-
     <div class="ssb__user-menu" *ngIf="userMenuOpen && userMenuItems.length">
       <div *ngFor="let item of userMenuItems">
         <div class="ssb__user-menu-divider" *ngIf="item.divider"></div>
-        <button class="ssb__user-menu-item"
-                [class.ssb__user-menu-item--disabled]="item.disabled"
-                (click)="selectUserMenuItem(item, $event)">
+        <button
+          class="ssb__user-menu-item"
+          [class.ssb__user-menu-item--disabled]="item.disabled"
+          (click)="selectUserMenuItem(item, $event)"
+        >
           <span class="ssb__user-menu-icon" *ngIf="item.iconName">
-            <pui-icon-internal [name]="item.iconName" size="sm" color="currentColor"></pui-icon-internal>
+            <pui-icon-internal
+              [name]="item.iconName"
+              size="sm"
+              color="currentColor"
+            ></pui-icon-internal>
           </span>
-          <span class="ssb__user-menu-icon" *ngIf="!item.iconName && item.icon" [innerHTML]="item.icon"></span>
+          <span
+            class="ssb__user-menu-icon"
+            *ngIf="!item.iconName && item.icon"
+            [innerHTML]="item.icon"
+          ></span>
           <span class="ssb__user-menu-label">{{ item.label }}</span>
         </button>
       </div>
     </div>
 
-    <div class="ssb__user"
-         [class.ssb__user--clickable]="userMenuItems.length"
-         [class.ssb__user--open]="userMenuOpen"
-         (click)="toggleUserMenu($event)">
+    <div
+      class="ssb__user"
+      [class.ssb__user--clickable]="userMenuItems.length"
+      [class.ssb__user--open]="userMenuOpen"
+      (click)="toggleUserMenu($event)"
+    >
       <div class="ssb__avatar">
-        <img *ngIf="userAvatarUrl" [src]="userAvatarUrl" [alt]="userName" class="ssb__avatar-img" />
-        <span *ngIf="!userAvatarUrl" class="ssb__avatar-initials">{{ avatarInitials }}</span>
+        <img
+          *ngIf="userAvatarUrl"
+          [src]="userAvatarUrl"
+          [alt]="userName"
+          class="ssb__avatar-img"
+        />
+        <span *ngIf="!userAvatarUrl" class="ssb__avatar-initials">{{
+          avatarInitials
+        }}</span>
       </div>
       <div class="ssb__user-info" *ngIf="!collapsed">
         <span class="ssb__user-name">{{ userName }}</span>
         <span class="ssb__user-email">{{ userEmail }}</span>
       </div>
-      <svg *ngIf="!collapsed && userMenuItems.length"
-           class="ssb__user-arrow"
-           [class.ssb__user-arrow--up]="userMenuOpen"
-           width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <path d="M18 15l-6-6-6 6"/>
+      <svg
+        *ngIf="!collapsed && userMenuItems.length"
+        class="ssb__user-arrow"
+        [class.ssb__user-arrow--up]="userMenuOpen"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+      >
+        <path d="M18 15l-6-6-6 6" />
       </svg>
-      <svg *ngIf="!collapsed && !userMenuItems.length"
-           class="ssb__user-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <path d="M9 18l6-6-6-6"/>
+      <svg
+        *ngIf="!collapsed && !userMenuItems.length"
+        class="ssb__user-arrow"
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+      >
+        <path d="M9 18l6-6-6-6" />
       </svg>
     </div>
-
   </div>
 
   <div class="ssb__nav-tooltip" *ngIf="hoveredItem" [style.top.px]="tooltipTop">
     {{ hoveredItem!.label }}
   </div>
-
 </aside>

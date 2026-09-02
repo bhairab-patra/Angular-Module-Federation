@@ -223,9 +223,9 @@ pre {
   position: sticky;
   top: 90px;
   align-self: flex-start;
-  background: var(--pui-white, #fff);
+  background: #f8f8f8;
   border: 1px solid var(--pui-neutral-100, #f1f5f9);
-  border-radius: 16px;
+  border-radius: 8px;
   padding: 18px 16px;
   // box-shadow: 0 4px 20px rgba(0,0,0,.04);
 }
