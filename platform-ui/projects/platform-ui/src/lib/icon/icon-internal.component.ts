@@ -4,7 +4,7 @@ import { IconComponent } from './icon.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-icon-internal',
+  selector: 'pui-lib-icon-internal',
   standalone: true,
   imports: [CommonModule],
   encapsulation: ViewEncapsulation.ShadowDom,

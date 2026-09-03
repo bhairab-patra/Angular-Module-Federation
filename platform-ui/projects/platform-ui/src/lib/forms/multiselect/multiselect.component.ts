@@ -108,6 +108,7 @@ export class PuiMultiSelectComponent implements ControlValueAccessor {
   }
 
   @Output() valueChange = new EventEmitter<(string | number)[]>();
+  // eslint-disable-next-line @angular-eslint/no-output-native -- public API, renaming breaks consumers
   @Output() change = new EventEmitter<(string | number)[]>();
 
   @HostListener('document:click', ['$event'])

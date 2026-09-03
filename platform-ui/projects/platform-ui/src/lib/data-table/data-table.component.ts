@@ -5,7 +5,6 @@ import {
   EventEmitter,
   NgZone,
   ElementRef,
-  AfterViewInit,
   OnDestroy,
   inject,
   ViewEncapsulation,
@@ -41,7 +40,7 @@ export { TableColumn, TableAction, SortDir, SortState } from '../models/table.mo
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.scss'],
 })
-export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
+export class PuiDataTableComponent implements OnDestroy {
   private zone = inject(NgZone);
   private el = inject(ElementRef);
   private sanitizer = inject(DomSanitizer);
@@ -385,8 +384,6 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
     this.cellTooltipCoords = { top, left };
     this.cellTooltipVisible = true;
   }
-
-  ngAfterViewInit(): void {}
 
   hideCellTooltip(): void {
     this.cellTooltipVisible = false;

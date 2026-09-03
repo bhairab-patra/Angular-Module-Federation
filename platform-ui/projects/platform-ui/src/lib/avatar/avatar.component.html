@@ -51,12 +51,12 @@
           [class.pui-av__item--danger]="item.danger"
           (click)="select(item)"
         >
-          <pui-icon-internal
+          <pui-lib-icon-internal
             *ngIf="item.iconName"
             class="pui-av__item-icon"
             [name]="item.iconName"
             size="xs"
-          ></pui-icon-internal>
+          ></pui-lib-icon-internal>
           {{ item.label }}
         </button>
       </ng-container>

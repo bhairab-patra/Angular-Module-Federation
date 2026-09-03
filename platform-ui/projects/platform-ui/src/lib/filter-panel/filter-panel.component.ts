@@ -68,6 +68,7 @@ export class PuiFilterPanelComponent implements OnChanges {
 
   @Output() valuesChange = new EventEmitter<FilterValues>();
   @Output() applied = new EventEmitter<FilterValues>();
+  // eslint-disable-next-line @angular-eslint/no-output-native -- public API, renaming breaks consumers
   @Output() reset = new EventEmitter<void>();
   @Output() cleared = new EventEmitter<void>();
 

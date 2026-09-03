@@ -22,7 +22,7 @@
   />
 
   <div class="pui-dz__icon">
-    <pui-icon-internal name="upload" size="lg"></pui-icon-internal>
+    <pui-lib-icon-internal name="upload" size="lg"></pui-lib-icon-internal>
   </div>
   <p class="pui-dz__label">{{ label }}</p>
   <p class="pui-dz__hint" *ngIf="hint">{{ hint }}</p>
@@ -35,7 +35,7 @@
     [class.pui-dz__file--error]="f.status === 'error'"
   >
     <span class="pui-dz__file-icon">
-      <pui-icon-internal name="file" size="sm"></pui-icon-internal>
+      <pui-lib-icon-internal name="file" size="sm"></pui-lib-icon-internal>
     </span>
     <span class="pui-dz__file-info">
       <span class="pui-dz__file-name">{{ f.name }}</span>
@@ -59,7 +59,7 @@
       (click)="removeFile(f)"
       aria-label="Remove file"
     >
-      <pui-icon-internal name="close" size="xs"></pui-icon-internal>
+      <pui-lib-icon-internal name="close" size="xs"></pui-lib-icon-internal>
     </button>
   </li>
 </ul>

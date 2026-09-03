@@ -5,7 +5,7 @@ import { PuiFooterComponent } from './footer.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-footer-internal',
+  selector: 'pui-lib-footer-internal',
   standalone: true,
   imports: [NgIf, NgFor, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,

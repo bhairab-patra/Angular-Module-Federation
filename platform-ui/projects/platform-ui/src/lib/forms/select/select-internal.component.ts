@@ -5,7 +5,7 @@ import { PuiSelectComponent } from './select.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-select-internal',
+  selector: 'pui-lib-select-internal',
   standalone: true,
   imports: [NgIf, NgFor],
   encapsulation: ViewEncapsulation.ShadowDom,

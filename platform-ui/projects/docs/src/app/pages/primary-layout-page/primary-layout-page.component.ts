@@ -70,7 +70,9 @@ export class PrimaryLayoutPageComponent {
     this.cdr.markForCheck();
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function -- template stub for copy-paste starter code
   onUserMenu(_item: SolifiUserMenuItem): void {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function -- template stub for copy-paste starter code
   onHeaderMenu(_action: string): void {}
 
   activeTab: FileTab = 'ts';

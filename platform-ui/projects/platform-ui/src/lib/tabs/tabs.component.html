@@ -19,12 +19,12 @@
       (click)="select(tab)"
       (keydown)="onKey($event, i)"
     >
-      <pui-icon-internal
+      <pui-lib-icon-internal
         *ngIf="tab.iconName"
         class="pui-tab-icon"
         [name]="tab.iconName"
         size="sm"
-      ></pui-icon-internal>
+      ></pui-lib-icon-internal>
       <span
         *ngIf="tab.icon && !tab.iconName"
         class="pui-tab-icon"

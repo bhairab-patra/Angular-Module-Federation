@@ -6,7 +6,7 @@
       </div>
       <div class="pui-etbl-toolbar__right">
         <ng-content select="[tableActions]"></ng-content>
-        <pui-search-internal
+        <pui-lib-search-internal
           *ngIf="_searchable"
           class="pui-etbl-search"
           size="sm"
@@ -15,7 +15,7 @@
           [debounce]="0"
           (valueChange)="onSearch($event)"
         >
-        </pui-search-internal>
+        </pui-lib-search-internal>
       </div>
     </div>
 
@@ -77,23 +77,23 @@
         <tbody class="pui-etbl-body">
           <tr *ngIf="!_loading && _rows.length === 0">
             <td [colSpan]="_columns.length + (hasRowActions ? 1 : 0)" class="pui-etbl-empty">
-              <pui-empty-state-internal
+              <pui-lib-empty-state-internal
                 icon="inbox"
                 title="No data available"
                 size="sm"
-              ></pui-empty-state-internal>
+              ></pui-lib-empty-state-internal>
             </td>
           </tr>
 
           <tr *ngIf="!_loading && _rows.length > 0 && displayRows.length === 0">
             <td [colSpan]="_columns.length + (hasRowActions ? 1 : 0)" class="pui-etbl-empty">
-              <pui-empty-state-internal
+              <pui-lib-empty-state-internal
                 icon="search-off"
                 title="No results"
                 [description]="'No rows match &quot;' + searchTerm + '&quot;'"
                 size="sm"
               >
-              </pui-empty-state-internal>
+              </pui-lib-empty-state-internal>
             </td>
           </tr>
 
@@ -191,7 +191,7 @@
                     (click)="startEdit(item.idx)"
                     title="Edit row"
                   >
-                    <pui-icon-internal name="edit" size="sm"></pui-icon-internal>
+                    <pui-lib-icon-internal name="edit" size="sm"></pui-lib-icon-internal>
                   </button>
                   <button
                     *ngIf="_showDeleteAction"
@@ -200,7 +200,7 @@
                     (click)="deleteRow(item.idx)"
                     title="Delete row"
                   >
-                    <pui-icon-internal name="trash" size="sm"></pui-icon-internal>
+                    <pui-lib-icon-internal name="trash" size="sm"></pui-lib-icon-internal>
                   </button>
                   <button
                     *ngFor="let act of _rowActions"
@@ -226,14 +226,14 @@
                     (click)="saveEdit()"
                     title="Save row"
                   >
-                    <pui-icon-internal name="check" size="sm"></pui-icon-internal>
+                    <pui-lib-icon-internal name="check" size="sm"></pui-lib-icon-internal>
                   </button>
                   <button
                     class="pui-etbl-btn pui-etbl-btn--cancel"
                     (click)="cancelEdit()"
                     title="Cancel edit"
                   >
-                    <pui-icon-internal name="close" size="sm"></pui-icon-internal>
+                    <pui-lib-icon-internal name="close" size="sm"></pui-lib-icon-internal>
                   </button>
                 </ng-container>
               </div>
@@ -244,14 +244,14 @@
     </div>
 
     <div class="pui-etbl-pagination-row" *ngIf="_pagination && displayRows.length > 0">
-      <pui-simple-pagination-internal
+      <pui-lib-simple-pagination-internal
         class="pui-etbl-pagination"
         [total]="displayRows.length"
         [page]="page"
         [pageSize]="_pageSize"
         (pageChange)="onPageChange($event)"
       >
-      </pui-simple-pagination-internal>
+      </pui-lib-simple-pagination-internal>
       <div class="pui-etbl-pagesize" *ngIf="pageSizeOptions.length > 1">
         <label class="pui-etbl-pagesize__label">Rows per page</label>
         <select

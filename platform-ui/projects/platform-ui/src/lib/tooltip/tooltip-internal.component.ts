@@ -4,7 +4,7 @@ import { TooltipComponent } from './tooltip.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-tooltip-internal',
+  selector: 'pui-lib-tooltip-internal',
   standalone: true,
   imports: [CommonModule],
   encapsulation: ViewEncapsulation.ShadowDom,

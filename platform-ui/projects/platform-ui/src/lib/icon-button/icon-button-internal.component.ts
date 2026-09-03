@@ -4,7 +4,7 @@ import { IconButtonComponent } from './icon-button.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-icon-button-internal',
+  selector: 'pui-lib-icon-button-internal',
   standalone: true,
   imports: [IconInternalComponent],
   templateUrl: './icon-button.component.html',

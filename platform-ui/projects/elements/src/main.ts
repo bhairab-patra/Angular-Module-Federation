@@ -88,7 +88,7 @@ import { LabelComponent } from '../../platform-ui/src/lib/label/label.component'
   // context-menu, dropzone, table, data-table, editable-table, sidebar,
   // form-dialog, confirm-dialog, label, app-shell) each nest a dedicated
   // "-internal" duplicate class instead (e.g. IconInternalComponent under
-  // 'pui-icon-internal') so the browser never sees the SAME tag name both
+  // 'pui-lib-icon-internal') so the browser never sees the SAME tag name both
   // globally registered AND rendered as a plain nested Angular child in the
   // same document — that collision is what used to crash pui-lib-app-shell
   // and pui-lib-table with NotSupportedError: already hosts a shadow tree.

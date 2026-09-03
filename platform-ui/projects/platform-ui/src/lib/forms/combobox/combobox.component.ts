@@ -118,6 +118,7 @@ export class PuiComboboxComponent implements ControlValueAccessor {
   }
 
   @Output() valueChange = new EventEmitter<string | number | null>();
+  // eslint-disable-next-line @angular-eslint/no-output-native -- public API, renaming breaks consumers
   @Output() change = new EventEmitter<string | number | null>();
 
   @HostListener('document:click', ['$event'])

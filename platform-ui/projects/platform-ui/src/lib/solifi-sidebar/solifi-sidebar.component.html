@@ -68,7 +68,7 @@
 
       <ul class="ssb__list">
         <li *ngFor="let item of group.items" [class.ssb__li--divider]="item.dividerAfter">
-          <pui-icon-button-internal
+          <pui-lib-icon-button-internal
             *ngIf="collapsed && item.iconName"
             class="ssb__item ssb__item--icon-btn"
             [class.ssb__item--active]="isItemActive(item)"
@@ -83,7 +83,7 @@
             (mouseenter)="onNavItemEnter(item, $event)"
             (mouseleave)="onNavItemLeave()"
           >
-          </pui-icon-button-internal>
+          </pui-lib-icon-button-internal>
 
           <button
             class="ssb__item"
@@ -95,11 +95,11 @@
             (mouseleave)="onNavItemLeave()"
           >
             <span class="ssb__icon" *ngIf="item.iconName">
-              <pui-icon-internal
+              <pui-lib-icon-internal
                 [name]="item.iconName"
                 size="sm"
                 color="currentColor"
-              ></pui-icon-internal>
+              ></pui-lib-icon-internal>
             </span>
             <span
               class="ssb__icon"
@@ -166,11 +166,11 @@
           (click)="selectUserMenuItem(item, $event)"
         >
           <span class="ssb__user-menu-icon" *ngIf="item.iconName">
-            <pui-icon-internal
+            <pui-lib-icon-internal
               [name]="item.iconName"
               size="sm"
               color="currentColor"
-            ></pui-icon-internal>
+            ></pui-lib-icon-internal>
           </span>
           <span
             class="ssb__user-menu-icon"

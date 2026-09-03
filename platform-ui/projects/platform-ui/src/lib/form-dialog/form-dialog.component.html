@@ -22,7 +22,7 @@
           class="pui-fd__field"
           [class.pui-fd__field--full]="field.span === 'full'"
         >
-          <pui-textarea-internal
+          <pui-lib-textarea-internal
             *ngIf="field.type === 'textarea'"
             [label]="field.label"
             [placeholder]="field.placeholder || ''"
@@ -33,9 +33,9 @@
             [(ngModel)]="draft[field.key]"
             size="sm"
           >
-          </pui-textarea-internal>
+          </pui-lib-textarea-internal>
 
-          <pui-select-internal
+          <pui-lib-select-internal
             *ngIf="field.type === 'select'"
             [label]="field.label"
             [placeholder]="field.placeholder || 'Select…'"
@@ -46,9 +46,9 @@
             [(ngModel)]="draft[field.key]"
             size="sm"
           >
-          </pui-select-internal>
+          </pui-lib-select-internal>
 
-          <pui-input-internal
+          <pui-lib-input-internal
             *ngIf="!field.type || (field.type !== 'textarea' && field.type !== 'select')"
             [label]="field.label"
             [placeholder]="field.placeholder || ''"
@@ -59,25 +59,25 @@
             [(ngModel)]="draft[field.key]"
             size="sm"
           >
-          </pui-input-internal>
+          </pui-lib-input-internal>
         </div>
       </div>
     </div>
 
     <div class="pui-fd__footer">
-      <pui-button-internal
+      <pui-lib-button-internal
         variant="secondary"
         [label]="cancelLabel"
         size="sm"
         (buttonClick)="onCancel()"
       >
-      </pui-button-internal>
-      <pui-button-internal variant="primary" [label]="saveLabel" size="sm" (buttonClick)="onSave()">
-      </pui-button-internal>
+      </pui-lib-button-internal>
+      <pui-lib-button-internal variant="primary" [label]="saveLabel" size="sm" (buttonClick)="onSave()">
+      </pui-lib-button-internal>
     </div>
   </div>
 
-  <pui-confirm-dialog-internal
+  <pui-lib-confirm-dialog-internal
     [open]="discardPromptOpen"
     [title]="discardTitle"
     [message]="discardMessage"
@@ -88,5 +88,5 @@
     (confirmed)="onConfirmDiscard()"
     (cancelled)="onKeepEditing()"
   >
-  </pui-confirm-dialog-internal>
+  </pui-lib-confirm-dialog-internal>
 </div>

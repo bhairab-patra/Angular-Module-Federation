@@ -113,6 +113,7 @@ export class PuiPasswordInputComponent implements ControlValueAccessor, Validato
   }
 
   @Output() valueChange = new EventEmitter<string>();
+  // eslint-disable-next-line @angular-eslint/no-output-native -- public API, renaming breaks consumers
   @Output() change = new EventEmitter<string>();
   @Output() strengthChange = new EventEmitter<PasswordStrength>();
 

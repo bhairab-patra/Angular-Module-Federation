@@ -19,7 +19,7 @@
           *ngIf="item.icon"
           [class.pui-accordion__icon-badge--active]="isOpen(item.id)"
         >
-          <pui-icon-internal [name]="item.icon" size="sm"></pui-icon-internal>
+          <pui-lib-icon-internal [name]="item.icon" size="sm"></pui-lib-icon-internal>
         </span>
         <span class="pui-accordion__text">
           <span class="pui-accordion__title">{{ item.title }}</span>
@@ -32,7 +32,7 @@
         [class.pui-accordion__chevron--active]="isOpen(item.id)"
         aria-hidden="true"
       >
-        <pui-icon-internal name="chevron-down" size="sm"></pui-icon-internal>
+        <pui-lib-icon-internal name="chevron-down" size="sm"></pui-lib-icon-internal>
       </span>
     </button>
 

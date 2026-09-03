@@ -249,7 +249,9 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
       (!this.value && this.recentItems.length > 0);
   }
 
-  private closeDropdown(): void {}
+  private closeDropdown(): void {
+    this.isOpen = false;
+  }
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {

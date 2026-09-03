@@ -5,7 +5,7 @@ import { PuiConfirmDialogComponent } from './confirm-dialog.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-confirm-dialog-internal',
+  selector: 'pui-lib-confirm-dialog-internal',
   standalone: true,
   imports: [NgIf, ButtonInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,

@@ -5,7 +5,7 @@ import { PuiTextareaComponent } from './textarea.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-textarea-internal',
+  selector: 'pui-lib-textarea-internal',
   standalone: true,
   imports: [NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,

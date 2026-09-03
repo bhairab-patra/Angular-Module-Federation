@@ -3,14 +3,14 @@
     <div class="pui-dt-toolbar" *ngIf="_searchable || _selectable || heading">
       <div class="pui-dt-toolbar__left">
         <div class="pui-dt-toolbar__title-group" *ngIf="heading">
-          <pui-icon-button-internal
+          <pui-lib-icon-button-internal
             *ngIf="headingIcon"
             [icon]="headingIcon"
             shape="square"
             variant="secondary-light"
             size="sm"
             [ariaLabel]="heading"
-          ></pui-icon-button-internal>
+          ></pui-lib-icon-button-internal>
           <span class="pui-dt-toolbar__title">{{ heading }}</span>
         </div>
         <span *ngIf="_selectable && selectedRows.size > 0" class="pui-dt-sel-info">
@@ -20,7 +20,7 @@
       </div>
       <div class="pui-dt-toolbar__right">
         <ng-content select="[tableActions]"></ng-content>
-        <pui-search-internal
+        <pui-lib-search-internal
           *ngIf="_searchable"
           class="pui-dt-search"
           size="sm"
@@ -29,7 +29,7 @@
           [debounce]="0"
           (valueChange)="onSearch($event)"
         >
-        </pui-search-internal>
+        </pui-lib-search-internal>
       </div>
     </div>
 
@@ -266,7 +266,7 @@
       (click)="onActionClick(act, openActionRowData, $event)"
     >
       <span *ngIf="act.iconName" class="pui-dt-action-icon">
-        <pui-icon-internal [name]="act.iconName" size="sm" color="currentColor"></pui-icon-internal>
+        <pui-lib-icon-internal [name]="act.iconName" size="sm" color="currentColor"></pui-lib-icon-internal>
       </span>
       <span
         *ngIf="!act.iconName && act.icon"
@@ -283,13 +283,13 @@
     </span>
 
     <div class="pui-dt-pager__controls-wrap">
-      <pui-simple-pagination-internal
+      <pui-lib-simple-pagination-internal
         [total]="filteredRows.length"
         [page]="page"
         [pageSize]="_pageSize"
         (pageChange)="goPage($event)"
       >
-      </pui-simple-pagination-internal>
+      </pui-lib-simple-pagination-internal>
     </div>
 
     <div class="pui-dt-pager__size-group">

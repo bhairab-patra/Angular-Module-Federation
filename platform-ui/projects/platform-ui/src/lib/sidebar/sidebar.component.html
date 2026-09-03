@@ -30,7 +30,7 @@
   </div>
 
   <div class="pui-sb__search" *ngIf="cfg.showSearch && !collapsed">
-    <pui-search-internal
+    <pui-lib-search-internal
       size="sm"
       placeholder="Search menu…"
       [debounce]="200"
@@ -38,7 +38,7 @@
       (searchChange)="onSearch($event)"
       (cleared)="onSearch('')"
     >
-    </pui-search-internal>
+    </pui-lib-search-internal>
   </div>
 
   <nav class="pui-sb__nav">

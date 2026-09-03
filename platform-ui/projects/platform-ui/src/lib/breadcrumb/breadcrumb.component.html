@@ -2,12 +2,12 @@
   <ol class="pui-bc__list">
     <li *ngFor="let item of items; let last = last" class="pui-bc__item">
       <a *ngIf="!last && item.route" class="pui-bc__link" [routerLink]="item.route">
-        <pui-icon-internal
+        <pui-lib-icon-internal
           *ngIf="item.iconName"
           class="pui-bc__icon"
           [name]="item.iconName"
           size="xs"
-        ></pui-icon-internal>
+        ></pui-lib-icon-internal>
         <span
           *ngIf="item.icon && !item.iconName"
           class="pui-bc__icon"
@@ -17,12 +17,12 @@
       </a>
 
       <span *ngIf="!last && !item.route" class="pui-bc__link pui-bc__link--plain">
-        <pui-icon-internal
+        <pui-lib-icon-internal
           *ngIf="item.iconName"
           class="pui-bc__icon"
           [name]="item.iconName"
           size="xs"
-        ></pui-icon-internal>
+        ></pui-lib-icon-internal>
         <span
           *ngIf="item.icon && !item.iconName"
           class="pui-bc__icon"
@@ -32,12 +32,12 @@
       </span>
 
       <span *ngIf="last" class="pui-bc__current" aria-current="page">
-        <pui-icon-internal
+        <pui-lib-icon-internal
           *ngIf="item.iconName"
           class="pui-bc__icon"
           [name]="item.iconName"
           size="xs"
-        ></pui-icon-internal>
+        ></pui-lib-icon-internal>
         <span
           *ngIf="item.icon && !item.iconName"
           class="pui-bc__icon"

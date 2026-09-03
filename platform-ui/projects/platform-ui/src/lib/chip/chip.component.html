@@ -4,12 +4,12 @@
   [class.pui-chip--disabled]="disabled"
   (click)="!disabled && clicked.emit()"
 >
-  <pui-icon-internal
+  <pui-lib-icon-internal
     *ngIf="icon"
     class="pui-chip__icon"
     [name]="icon"
     size="xs"
-  ></pui-icon-internal>
+  ></pui-lib-icon-internal>
   <span class="pui-chip__label"><ng-content></ng-content></span>
 
   <button

@@ -5,7 +5,7 @@ import { PuiSimplePaginationComponent } from './simple-pagination.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-simple-pagination-internal',
+  selector: 'pui-lib-simple-pagination-internal',
   standalone: true,
   imports: [NgFor, NgIf, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,

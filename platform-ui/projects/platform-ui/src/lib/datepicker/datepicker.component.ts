@@ -194,6 +194,7 @@ export class PuiDatepickerComponent implements ControlValueAccessor {
 
   @Output() valueChange = new EventEmitter<Date | null>();
   @Output() rangeChange = new EventEmitter<DateRange>();
+  // eslint-disable-next-line @angular-eslint/no-output-native -- public API, renaming breaks consumers
   @Output() change = new EventEmitter<Date | DateRange | null>();
 
   @HostListener('document:click', ['$event'])

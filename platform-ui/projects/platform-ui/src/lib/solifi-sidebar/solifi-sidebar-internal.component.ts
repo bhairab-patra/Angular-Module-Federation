@@ -6,7 +6,7 @@ import { PuiSolifiSidebarComponent } from './solifi-sidebar.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-solifi-sidebar-internal',
+  selector: 'pui-lib-solifi-sidebar-internal',
   standalone: true,
   imports: [NgFor, NgIf, NgStyle, IconInternalComponent, IconButtonInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,

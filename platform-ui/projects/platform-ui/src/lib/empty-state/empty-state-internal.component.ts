@@ -5,7 +5,7 @@ import { PuiEmptyStateComponent } from './empty-state.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-empty-state-internal',
+  selector: 'pui-lib-empty-state-internal',
   standalone: true,
   imports: [NgIf, IconInternalComponent],
   encapsulation: ViewEncapsulation.ShadowDom,

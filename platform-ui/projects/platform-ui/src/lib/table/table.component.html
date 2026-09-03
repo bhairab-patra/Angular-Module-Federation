@@ -6,7 +6,7 @@
       </div>
       <div class="pui-tbl-toolbar__right">
         <ng-content select="[tableActions]"></ng-content>
-        <pui-search-internal
+        <pui-lib-search-internal
           *ngIf="_searchable"
           class="pui-tbl-search"
           size="sm"
@@ -15,7 +15,7 @@
           [debounce]="0"
           (valueChange)="onSearch($event)"
         >
-        </pui-search-internal>
+        </pui-lib-search-internal>
       </div>
     </div>
 

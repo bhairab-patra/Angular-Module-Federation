@@ -5,7 +5,7 @@ import { PuiInputComponent } from './input.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-input-internal',
+  selector: 'pui-lib-input-internal',
   standalone: true,
   imports: [NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,

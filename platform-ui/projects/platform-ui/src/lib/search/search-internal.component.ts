@@ -4,7 +4,7 @@ import { PuiSearchComponent } from './search.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-search-internal',
+  selector: 'pui-lib-search-internal',
   standalone: true,
   imports: [NgIf, NgFor],
   encapsulation: ViewEncapsulation.ShadowDom,

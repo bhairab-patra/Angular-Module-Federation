@@ -88,6 +88,7 @@ export class PuiFormDialogComponent {
   }
 
   @Output() save = new EventEmitter<FormDialogSaveEvent>();
+  // eslint-disable-next-line @angular-eslint/no-output-native -- public API, renaming breaks consumers
   @Output() cancel = new EventEmitter<void>();
   @Output() closed = new EventEmitter<void>();
 

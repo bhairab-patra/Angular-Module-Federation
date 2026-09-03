@@ -4,7 +4,7 @@ import { HeaderComponent } from './header.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-header-internal',
+  selector: 'pui-lib-header-internal',
   standalone: true,
   imports: [NgFor, NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,

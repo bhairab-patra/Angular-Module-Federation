@@ -57,6 +57,10 @@ module.exports = tseslint.config(
         varsIgnorePattern: '^_',
       }],
       '@typescript-eslint/no-non-null-assertion':     'warn',
+      // ControlValueAccessor onChange/onTouched/onValidatorChange fields are
+      // idiomatically initialized as no-op arrow functions, overwritten by
+      // registerOnChange/registerOnTouched at runtime.
+      '@typescript-eslint/no-empty-function': ['error', { allow: ['arrowFunctions'] }],
       // Migrate constructor injection → inject() as a separate dedicated task
       '@angular-eslint/prefer-inject':               'off',
       // Enable as a future clean-up pass; too noisy to enforce now
@@ -64,7 +68,9 @@ module.exports = tseslint.config(
 
       // ── General JS/TS ────────────────────────────────────────────────
       'no-console':   ['warn', { allow: ['warn', 'error'] }],
-      'eqeqeq':       ['error', 'always'],
+      // 'smart' still forbids == everywhere except x == null (catches both
+      // null and undefined in one check) and typeof comparisons.
+      'eqeqeq':       ['error', 'smart'],
       'no-debugger':  'error',
     },
   },

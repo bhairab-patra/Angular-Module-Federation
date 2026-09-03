@@ -4,7 +4,7 @@ import { ButtonComponent } from './button.component';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'pui-button-internal',
+  selector: 'pui-lib-button-internal',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './button.component.html',

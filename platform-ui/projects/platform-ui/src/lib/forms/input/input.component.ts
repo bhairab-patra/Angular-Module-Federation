@@ -58,7 +58,7 @@ export class PuiInputComponent implements ControlValueAccessor, Validator {
   @Input() suffixIcon = '';
   @Input() autocomplete = 'off';
 
-  @Input() pattern: string = '';
+  @Input() pattern = '';
 
   @Input() set validateEmail(v: boolean | string | undefined) {
     this._validateEmailExplicit =
