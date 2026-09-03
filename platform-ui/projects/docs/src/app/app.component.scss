@@ -114,7 +114,7 @@
   align-items: stretch;
   gap: var(--pui-tt-gap);
   padding: var(--pui-tt-pad);
-  border-radius: 999px;
+  border-radius: 8px;
   background: var(--pui-neutral-100);
   border: 1px solid var(--pui-neutral-200);
 }
@@ -128,7 +128,7 @@
   left: var(--pui-tt-pad);
   bottom: var(--pui-tt-pad);
   width: calc(50% - var(--pui-tt-pad) - var(--pui-tt-gap) / 2);
-  border-radius: 999px;
+  border-radius: 8px;
   // box-shadow: 0 0 0 2.5px var(--pui-white), 0 0 0 4px rgba(17, 44, 53, .3), 0 3px 10px rgba(0, 0, 0, .18);
   transform: translateX(0);
   transition:
@@ -154,7 +154,7 @@
   letter-spacing: 0.01em;
   line-height: 1;
   padding: 8px 16px;
-  border-radius: 999px;
+  border-radius: 8px;
   border: none;
   font-family: "Poppins", system-ui, sans-serif;
   cursor: pointer;
