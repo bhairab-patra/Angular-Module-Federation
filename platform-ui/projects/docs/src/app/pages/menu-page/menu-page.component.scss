@@ -29,7 +29,9 @@
   font-size: 13.5px;
   color: #374151;
 
-  strong { color: var(--pui-form-accent); }
+  strong {
+    color: var(--pui-form-accent);
+  }
 }
 
 .variant-row {

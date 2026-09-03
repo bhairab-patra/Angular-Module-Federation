@@ -1,11 +1,10 @@
-﻿$radius: var(--pui-btn-radius, 999px);
+$radius: var(--pui-btn-radius, 999px);
 
 :host {
   display: inline-block;
 }
 
 @mixin hover($bg, $border: $bg) {
-
   &:hover:not(:disabled),
   &.pui-btn--state-hover {
     background: $bg;
@@ -14,7 +13,6 @@
 }
 
 @mixin focus($shadow) {
-
   &:focus-visible,
   &.pui-btn--state-focus {
     box-shadow: $shadow;
@@ -36,7 +34,10 @@
   outline: none;
   box-sizing: border-box;
   text-decoration: none;
-  transition: background var(--pui-duration-base), border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
+  transition:
+    background var(--pui-duration-base),
+    border-color var(--pui-duration-base),
+    box-shadow var(--pui-duration-base);
 
   &--sm {
     padding: var(--pui-space-1-5) var(--pui-space-3-5);
@@ -124,7 +125,6 @@
     @include focus(var(--pui-shadow-focus-inverse));
   }
 
-
   &--tertiary-outline {
     background: transparent;
     color: var(--pui-indigo);
@@ -161,7 +161,6 @@
     @include hover(var(--pui-error-pressed2));
     @include focus(var(--pui-shadow-focus-error));
   }
-
 
   &--destructive-light {
     background: var(--pui-error-soft-bg);
@@ -244,7 +243,6 @@
   &--ghost {
     @extend .pui-btn--primary-outline;
   }
-
 
   &:disabled {
     opacity: 0.4;

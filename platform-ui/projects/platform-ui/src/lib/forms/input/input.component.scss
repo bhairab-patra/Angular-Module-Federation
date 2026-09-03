@@ -1,4 +1,4 @@
-﻿:host {
+:host {
   display: block;
 }
 
@@ -27,7 +27,9 @@
   border: 1.5px solid var(--pui-form-border, var(--pui-neutral-300));
   border-radius: var(--pui-radius-md);
   background: var(--pui-white);
-  transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
+  transition:
+    border-color var(--pui-duration-base),
+    box-shadow var(--pui-duration-base);
   padding: 0 var(--pui-space-3);
   height: 40px;
 }
@@ -42,7 +44,9 @@
   border-radius: var(--pui-radius-lg);
 }
 
-.pui-input-wrap:hover:not(.pui-input-wrap--disabled):not(.pui-input-wrap--focus):not(.pui-input-wrap--error) {
+.pui-input-wrap:hover:not(.pui-input-wrap--disabled):not(.pui-input-wrap--focus):not(
+    .pui-input-wrap--error
+  ) {
   border-color: var(--pui-neutral-400);
 }
 
@@ -125,7 +129,9 @@
   align-items: center;
   margin-left: var(--pui-space-1);
   border-radius: var(--pui-radius-xs);
-  transition: color var(--pui-duration-fast), background var(--pui-duration-fast);
+  transition:
+    color var(--pui-duration-fast),
+    background var(--pui-duration-fast);
 }
 
 .pui-input-wrap__action:hover {

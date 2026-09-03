@@ -46,14 +46,11 @@ $radius: 8px;
     border-color: var(--pui-slate-200);
   }
 
-
-
-
-
-
   &--clickable {
     cursor: pointer;
-    transition: transform var(--pui-duration-base) ease, box-shadow var(--pui-duration-base) ease;
+    transition:
+      transform var(--pui-duration-base) ease,
+      box-shadow var(--pui-duration-base) ease;
 
     &:hover {
       transform: translateY(-3px);
@@ -76,7 +73,6 @@ $radius: 8px;
     left: 0;
     right: 0;
   }
-
 
   &__header {
     display: flex;
@@ -149,8 +145,6 @@ $radius: 8px;
       background: var(--pui-slate-200);
     }
   }
-
-  &__body {}
 
   &__slot-header {
     padding-bottom: var(--pui-space-4);

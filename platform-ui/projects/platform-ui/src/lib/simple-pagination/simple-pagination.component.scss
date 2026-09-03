@@ -17,7 +17,7 @@
   margin-left: var(--pui-space-2);
 
   &::before {
-    content: "|";
+    content: '|';
     position: absolute;
     left: calc(-1 * var(--pui-space-2));
     transform: translateX(-50%);

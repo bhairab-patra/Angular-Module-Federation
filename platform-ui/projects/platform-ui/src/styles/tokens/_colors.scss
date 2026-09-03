@@ -1,120 +1,106 @@
-// Platform UI — Color Tokens
-// Structural colors only. Brand/primary tokens live in themes/theme-*.css
 :root {
-  /* ── Indigo / App-Shell ──────────────────────── */
-  --pui-indigo:         #2c2c52;
-  --pui-indigo-dark:    #0f172a;
-  --pui-indigo-mid:     #475569;
-  --pui-indigo-bg:      #ebebf5;
-  --pui-indigo-light:   #d8d8ee;
-  --pui-indigo-muted:   #6b6b9a;
+  --pui-indigo: #2c2c52;
+  --pui-indigo-dark: #0f172a;
+  --pui-indigo-mid: #475569;
+  --pui-indigo-bg: #ebebf5;
+  --pui-indigo-light: #d8d8ee;
+  --pui-indigo-muted: #6b6b9a;
 
-  /* ── Neutrals ────────────────────────────────── */
-  --pui-white:          #fff;
-  --pui-neutral-50:     #f9fafb;
-  --pui-neutral-100:    #f3f4f6;
-  --pui-neutral-150:    #fafafa;
-  --pui-neutral-200:    #e5e7eb;
-  --pui-neutral-300:    #d1d5db;
-  --pui-neutral-400:    #9ca3af;
-  --pui-neutral-500:    #6b7280;
-  --pui-neutral-600:    #4b5563;
-  --pui-neutral-700:    #374151;
-  --pui-neutral-800:    #1f2937;
-  --pui-neutral-900:    #111827;
+  --pui-white: #fff;
+  --pui-neutral-50: #f9fafb;
+  --pui-neutral-100: #f3f4f6;
+  --pui-neutral-150: #fafafa;
+  --pui-neutral-200: #e5e7eb;
+  --pui-neutral-300: #d1d5db;
+  --pui-neutral-400: #9ca3af;
+  --pui-neutral-500: #6b7280;
+  --pui-neutral-600: #4b5563;
+  --pui-neutral-700: #374151;
+  --pui-neutral-800: #1f2937;
+  --pui-neutral-900: #111827;
 
-  /* ── Slate ───────────────────────────────────── */
-  --pui-slate-050:      #f8fafc;
-  --pui-slate-100:      #f1f5f9;
-  --pui-slate-200:      #e2e8f0;
-  --pui-slate-300:      #334155;
-  --pui-slate-400:      #94a3b8;
-  --pui-slate-600:      #64748b;
-  --pui-slate-900:      #0f172a;
+  --pui-slate-050: #f8fafc;
+  --pui-slate-100: #f1f5f9;
+  --pui-slate-200: #e2e8f0;
+  --pui-slate-300: #334155;
+  --pui-slate-400: #94a3b8;
+  --pui-slate-600: #64748b;
+  --pui-slate-900: #0f172a;
   --pui-skeleton-shimmer: #e9eaec;
 
-  /* ── Error / Danger ──────────────────────────── */
-  --pui-error:           #ef4444;
-  --pui-error-hover:     #dc2626;
-  --pui-error-dark:      #b91c1c;
-  --pui-error-bg:        #fee2e2;
-  --pui-error-light:     #fca5a5;
-  --pui-error-pressed:   #c42222;
-  --pui-error-pressed2:  #a31c1c;
-  --pui-error-soft-bg:   #fbd7d7;
-  --pui-error-soft-bdr:  #f7b8b8;
+  --pui-error: #ef4444;
+  --pui-error-hover: #dc2626;
+  --pui-error-dark: #b91c1c;
+  --pui-error-bg: #fee2e2;
+  --pui-error-light: #fca5a5;
+  --pui-error-pressed: #c42222;
+  --pui-error-pressed2: #a31c1c;
+  --pui-error-soft-bg: #fbd7d7;
+  --pui-error-soft-bdr: #f7b8b8;
   --pui-error-text-dark: #8b1a1a;
-  --pui-error-hover-bg:  #fef2f2;
+  --pui-error-hover-bg: #fef2f2;
 
-  /* ── Success ─────────────────────────────────── */
-  --pui-success:         #22c55e;
-  --pui-success-dark:    #15803d;
-  --pui-success-bg:      #dcfce7;
-  --pui-green-dark:      #16a34a;
-  --pui-green-bg:        #f0fdf9;
-  --pui-green-light:     #ecfdf5;
-  --pui-green-border:    #a7f3d0;
+  --pui-success: #22c55e;
+  --pui-success-dark: #15803d;
+  --pui-success-bg: #dcfce7;
+  --pui-green-dark: #16a34a;
+  --pui-green-bg: #f0fdf9;
+  --pui-green-light: #ecfdf5;
+  --pui-green-border: #a7f3d0;
   --pui-filter-active-hover: #d1fae5;
 
-  /* ── Warning ─────────────────────────────────── */
-  --pui-warning:         #f59e0b;
-  --pui-warning-dark:    #a16207;
-  --pui-warning-bg:      #fef9c3;
-  --pui-warning-border:  #fde047;
-  --pui-warning-action:  #d97706;
-  --pui-yellow:          #eab308;
-  --pui-yellow-light:    #fde047;
+  --pui-warning: #f59e0b;
+  --pui-warning-dark: #a16207;
+  --pui-warning-bg: #fef9c3;
+  --pui-warning-border: #fde047;
+  --pui-warning-action: #d97706;
+  --pui-yellow: #eab308;
+  --pui-yellow-light: #fde047;
 
-  /* ── Info ────────────────────────────────────── */
-  --pui-info:            #1d4ed8;
-  --pui-info-dark:       #0369a1;
-  --pui-info-bg:         #e0f2fe;
-  --pui-info-light:      #dbeafe;
-  --pui-info-action:     #2563eb;
-  --pui-blue:            #3b82f6;
-  --pui-blue-bg:         #eff6ff;
-  --pui-sky:             #0ea5e9;
+  --pui-info: #1d4ed8;
+  --pui-info-dark: #0369a1;
+  --pui-info-bg: #e0f2fe;
+  --pui-info-light: #dbeafe;
+  --pui-info-action: #2563eb;
+  --pui-blue: #3b82f6;
+  --pui-blue-bg: #eff6ff;
+  --pui-sky: #0ea5e9;
 
-  /* ── Extended ────────────────────────────────── */
-  --pui-orange:          #f97316;
-  --pui-purple-bg:       #f3e8ff;
-  --pui-purple:          #7e22ce;
-  --pui-pink-bg:         #fce7f3;
-  --pui-pink:            #be185d;
+  --pui-orange: #f97316;
+  --pui-purple-bg: #f3e8ff;
+  --pui-purple: #7e22ce;
+  --pui-pink-bg: #fce7f3;
+  --pui-pink: #be185d;
 
-  /* ── Button ──────────────────────────────────── */
-  --pui-btn-neutral-text:   #4b4540;
-  --pui-btn-neutral-bdr:    #d8d2cc;
-  --pui-btn-neutral-hover:  #e8e4e0;
+  --pui-btn-neutral-text: #4b4540;
+  --pui-btn-neutral-bdr: #d8d2cc;
+  --pui-btn-neutral-hover: #e8e4e0;
   --pui-btn-neutral-hover2: #8e847b;
-  --pui-btn-disabled-bg:    #a89e95;
-  --pui-btn-ghost-bg:       #e5e5e5;
-  --pui-btn-ghost-bdr:      #ccc;
-  --pui-btn-ghost-hover:    #f4f2f0;
-  --pui-btn-ghost-hover-2:  #f0f0f8;
-  --pui-btn-link-color:     #5b5bd6;
-  --pui-btn-link-hover:     #4040b8;
-  --pui-btn-link-disabled:  #d0d0e8;
-  --pui-file-btn-disabled:  #d0d0d8;
+  --pui-btn-disabled-bg: #a89e95;
+  --pui-btn-ghost-bg: #e5e5e5;
+  --pui-btn-ghost-bdr: #ccc;
+  --pui-btn-ghost-hover: #f4f2f0;
+  --pui-btn-ghost-hover-2: #f0f0f8;
+  --pui-btn-link-color: #5b5bd6;
+  --pui-btn-link-hover: #4040b8;
+  --pui-btn-link-disabled: #d0d0e8;
+  --pui-file-btn-disabled: #d0d0d8;
 
-  /* ── Card ────────────────────────────────────── */
-  --pui-card-stat-bg:        #f8fafc;
-  --pui-card-grad-end:       #d7f5ee;
+  --pui-card-stat-bg: #f8fafc;
+  --pui-card-grad-end: #d7f5ee;
   --pui-card-selected-hover: #e6faf7;
-  --pui-card-dark-bg:        #0A0F1A;
-  --pui-card-dark-bdr:       #1e293b;
+  --pui-card-dark-bg: #0a0f1a;
+  --pui-card-dark-bdr: #1e293b;
 
-  /* ── Chip ────────────────────────────────────── */
   --pui-chip-default-bdr: #cbd5e1;
   --pui-chip-primary-bdr: #93c5fd;
   --pui-chip-success-bdr: #86efac;
-  --pui-chip-info-bdr:    #7dd3fc;
+  --pui-chip-info-bdr: #7dd3fc;
 
-  /* ── Misc component ──────────────────────────── */
   --pui-input-readonly-bg: #fafbfc;
   --pui-table-placeholder: #c4c9d4;
-  --pui-toast-msg-color:   #4b5563;
-  --pui-tooltip-bg:        #1e293b;
-  --pui-tooltip-color:     #f8fafc;
-  --pui-menu-dark-hover:   #263347;
+  --pui-toast-msg-color: #4b5563;
+  --pui-tooltip-bg: #1e293b;
+  --pui-tooltip-color: #f8fafc;
+  --pui-menu-dark-hover: #263347;
 }

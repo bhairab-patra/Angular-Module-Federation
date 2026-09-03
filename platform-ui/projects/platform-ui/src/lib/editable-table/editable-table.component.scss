@@ -1,9 +1,6 @@
-﻿:host {
+:host {
   display: block;
   font-family: inherit;
-  /* Positioned so the absolutely-positioned cell tooltip (a sibling of
-     .pui-etbl-host, not a descendant) anchors to this component instead of
-     falling through to the initial containing block. */
   position: relative;
 }
 
@@ -188,8 +185,6 @@
     }
   }
 
-  /* Uses outline (not border) since border on a <tr> in a border-collapse
-     table doesn't render — outline draws on top without affecting layout. */
   &--editing {
     background: var(--pui-brand-tint-05) !important;
     outline: 1.5px solid var(--pui-form-border, var(--pui-neutral-300));
@@ -232,7 +227,7 @@
 }
 
 .pui-etbl-cell--mono {
-  font-family: "SF Mono", ui-monospace, monospace;
+  font-family: 'SF Mono', ui-monospace, monospace;
 }
 
 .pui-etbl-badge {
@@ -332,10 +327,6 @@
     cursor: not-allowed;
   }
 
-  /* Primary Outline for every action (edit/delete/save/cancel) — same style
-     the button component uses for its primary-outline variant. --pui-brand-deep
-     and --pui-brand-text-dark are theme tokens, so this recolors automatically
-     between the old and new theme instead of being hardcoded per button. */
   &--edit,
   &--delete,
   &--save,
@@ -555,7 +546,7 @@
   line-height: 1.4;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     border: 5px solid transparent;
   }

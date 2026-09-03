@@ -5,7 +5,12 @@
 .pui-tabs-host {
   display: flex;
   flex-direction: column;
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family:
+    'Poppins',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
 }
 
 .pui-tabs--vertical {
@@ -41,7 +46,9 @@
   color: var(--pui-neutral-500);
   cursor: pointer;
   border-radius: 0;
-  transition: color var(--pui-duration-base), background var(--pui-duration-base);
+  transition:
+    color var(--pui-duration-base),
+    background var(--pui-duration-base);
   white-space: nowrap;
   outline: none;
   user-select: none;
@@ -64,7 +71,7 @@
 }
 
 .pui-tab-btn--disabled {
-  opacity: .45;
+  opacity: 0.45;
   cursor: not-allowed;
   pointer-events: none;
 }
@@ -118,7 +125,7 @@
 @keyframes pui-tab-slide-in {
   from {
     opacity: 0;
-    transform: scaleX(.4);
+    transform: scaleX(0.4);
   }
 
   to {
@@ -212,7 +219,9 @@
   font-weight: 600;
   background: var(--pui-neutral-200);
   color: var(--pui-neutral-700);
-  transition: background var(--pui-duration-base), color var(--pui-duration-base);
+  transition:
+    background var(--pui-duration-base),
+    color var(--pui-duration-base);
 }
 
 .pui-tab-badge--active {

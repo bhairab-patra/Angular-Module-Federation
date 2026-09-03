@@ -53,7 +53,9 @@
   padding: 0 40px 0 var(--pui-space-3);
   cursor: pointer;
   user-select: none;
-  transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
+  transition:
+    border-color var(--pui-duration-base),
+    box-shadow var(--pui-duration-base);
   font-family: 'Poppins', system-ui, sans-serif;
   outline: none;
 }
@@ -261,7 +263,7 @@
 }
 
 .pui-select-list__item--disabled {
-  opacity: .4;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 

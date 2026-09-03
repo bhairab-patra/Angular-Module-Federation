@@ -1,11 +1,15 @@
-﻿:host {
+:host {
   display: inline-block;
   position: relative;
 }
 
-
 .pui-dp-host {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family:
+    'Poppins',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
   font-size: var(--pui-text-md);
   position: relative;
   display: inline-block;
@@ -13,10 +17,9 @@
 }
 
 .pui-dp--disabled {
-  opacity: .5;
+  opacity: 0.5;
   pointer-events: none;
 }
-
 
 .pui-dp-trigger {
   display: flex;
@@ -27,7 +30,9 @@
   border-radius: var(--pui-radius-lg);
   background: var(--pui-white);
   cursor: pointer;
-  transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
+  transition:
+    border-color var(--pui-duration-base),
+    box-shadow var(--pui-duration-base);
   min-width: 200px;
   height: 40px;
 }
@@ -84,7 +89,6 @@
   color: var(--pui-neutral-700);
 }
 
-
 .pui-dp-popup {
   position: absolute;
   top: calc(100% + 6px);
@@ -96,13 +100,13 @@
   box-shadow: var(--pui-shadow-popup);
   padding: var(--pui-space-3-5);
   min-width: 280px;
-  animation: pui-dp-in .16s ease;
+  animation: pui-dp-in 0.16s ease;
 }
 
 @keyframes pui-dp-in {
   from {
     opacity: 0;
-    transform: translateY(-6px) scale(.97);
+    transform: translateY(-6px) scale(0.97);
   }
 
   to {
@@ -110,7 +114,6 @@
     transform: translateY(0) scale(1);
   }
 }
-
 
 .pui-dp-nav {
   display: flex;
@@ -161,7 +164,6 @@
   background: var(--pui-neutral-100);
 }
 
-
 .pui-dp-month-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -194,7 +196,6 @@
   font-weight: 600;
 }
 
-
 .pui-dp-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -208,9 +209,8 @@
   color: var(--pui-neutral-400);
   padding: var(--pui-space-0-75) 0 var(--pui-space-1-5);
   text-transform: uppercase;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
 }
-
 
 .pui-dp-cell {
   display: flex;
@@ -224,7 +224,9 @@
   font-family: inherit;
   color: var(--pui-neutral-700);
   cursor: pointer;
-  transition: background var(--pui-duration-fast), color var(--pui-duration-fast);
+  transition:
+    background var(--pui-duration-fast),
+    color var(--pui-duration-fast);
   position: relative;
 }
 
@@ -284,11 +286,10 @@
 }
 
 .pui-dp-cell--disabled {
-  opacity: .35;
+  opacity: 0.35;
   cursor: not-allowed;
   pointer-events: none;
 }
-
 
 .pui-dp-footer {
   display: flex;

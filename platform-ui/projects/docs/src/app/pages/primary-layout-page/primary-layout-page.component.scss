@@ -40,7 +40,9 @@
   font-family: monospace;
   color: var(--pui-neutral-500);
   cursor: pointer;
-  transition: color 150ms, border-color 150ms;
+  transition:
+    color 150ms,
+    border-color 150ms;
 }
 
 .file-tab:hover {
@@ -48,8 +50,8 @@
 }
 
 .file-tab--active {
-  color: var(--pui-brand, #12C6A8);
-  border-bottom-color: var(--pui-brand, #12C6A8);
+  color: var(--pui-brand, #12c6a8);
+  border-bottom-color: var(--pui-brand, #12c6a8);
 }
 
 .tip {

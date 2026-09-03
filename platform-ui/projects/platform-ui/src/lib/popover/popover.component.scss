@@ -16,10 +16,7 @@ $arrow-size: 8px;
   border: 1px solid $border;
   border-radius: var(--pui-radius-lg, 10px);
   box-shadow: var(--pui-shadow-dropdown);
-  /* Opacity-only animation -- the panel's own `transform` is already doing
-     placement centering (translateX/Y per placement below); animating
-     `transform` here too would overwrite that centering each frame. */
-  animation: pui-pop-fade-in .14s cubic-bezier(.4, 0, .2, 1);
+  animation: pui-pop-fade-in 0.14s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .pui-pop__body {
@@ -38,7 +35,6 @@ $arrow-size: 8px;
   transform: rotate(45deg);
 }
 
-/* ── Bottom placements ─────────────────────────────────────────── */
 .pui-pop__panel--bottom,
 .pui-pop__panel--bottom-start,
 .pui-pop__panel--bottom-end {
@@ -78,7 +74,6 @@ $arrow-size: 8px;
   right: 14px;
 }
 
-/* ── Top placements ────────────────────────────────────────────── */
 .pui-pop__panel--top,
 .pui-pop__panel--top-start,
 .pui-pop__panel--top-end {
@@ -118,7 +113,6 @@ $arrow-size: 8px;
   right: 14px;
 }
 
-/* ── Side placements ───────────────────────────────────────────── */
 .pui-pop__panel--left {
   right: calc(100% + #{$gap});
   top: 50%;

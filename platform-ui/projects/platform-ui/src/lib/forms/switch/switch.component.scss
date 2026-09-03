@@ -1,4 +1,4 @@
-﻿:host {
+:host {
   display: flex;
   flex-direction: column;
   gap: var(--pui-space-1);
@@ -29,7 +29,7 @@
   height: 0;
 }
 
-.pui-sw__native:focus-visible+.pui-sw__track {
+.pui-sw__native:focus-visible + .pui-sw__track {
   box-shadow: var(--pui-shadow-focus-brand);
 }
 
@@ -68,7 +68,7 @@
   border-radius: 50%;
   background: var(--pui-white);
   box-shadow: var(--pui-shadow-switch);
-  transition: transform var(--pui-duration-slow) cubic-bezier(.4, 0, .2, 1);
+  transition: transform var(--pui-duration-slow) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .pui-sw--on .pui-sw__thumb {
@@ -108,7 +108,7 @@
 }
 
 .pui-sw:not(.pui-sw--disabled):hover .pui-sw__track {
-  filter: brightness(.95);
+  filter: brightness(0.95);
 }
 
 .pui-sw__label {

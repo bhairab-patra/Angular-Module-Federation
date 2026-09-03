@@ -45,18 +45,24 @@
   color: #fff;
   transition: background 0.15s;
 
-  &:hover { background: var(--pui-primary-700); }
+  &:hover {
+    background: var(--pui-primary-700);
+  }
 
   &--secondary {
     background: var(--pui-neutral-100);
     color: var(--pui-neutral-800);
     border: 1px solid var(--pui-neutral-200);
-    &:hover { background: var(--pui-neutral-200); }
+    &:hover {
+      background: var(--pui-neutral-200);
+    }
   }
 
   &--danger {
     background: var(--pui-error-600, #dc2626);
-    &:hover { background: var(--pui-error-700, #b91c1c); }
+    &:hover {
+      background: var(--pui-error-700, #b91c1c);
+    }
   }
 }
 
@@ -75,7 +81,9 @@
   padding: 3px 0;
   border-bottom: 1px solid var(--pui-neutral-100);
 
-  &:last-child { border-bottom: none; }
+  &:last-child {
+    border-bottom: none;
+  }
 }
 
 .pui-api-table {
@@ -106,7 +114,9 @@
     }
   }
 
-  .xfw-odd td { background: var(--pui-neutral-50); }
+  .xfw-odd td {
+    background: var(--pui-neutral-50);
+  }
 }
 
 .tag-name {

@@ -1,21 +1,19 @@
-
-/* Content inside the panel — panel itself handles padding/border now */
 .tab-content-demo {
   font-size: 13.5px;
   color: var(--pui-neutral-700);
   line-height: 1.65;
   min-height: 40px;
 }
-/* Remove old manual card border — pui-tabs-panel handles this for card variant */
 .tab-content-demo--card {
   background: none;
   border: none;
   border-radius: 0;
   padding: 0;
 }
-.tab-content-demo p { margin: 0; }
+.tab-content-demo p {
+  margin: 0;
+}
 
-/* Framework Usage preview hint text */
 .fw-panel-hint {
   margin: 0;
   font-size: 13px;
@@ -31,6 +29,17 @@
   color: var(--pui-neutral-700);
 }
 
-.react-settings-page { display: flex; flex-direction: column; gap: 0; }
-.react-settings-page__header { padding: 0 0 14px; }
-.react-settings-page__title { font-size: 15px; font-weight: 700; color: var(--pui-neutral-900); margin: 0; }
+.react-settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.react-settings-page__header {
+  padding: 0 0 14px;
+}
+.react-settings-page__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--pui-neutral-900);
+  margin: 0;
+}

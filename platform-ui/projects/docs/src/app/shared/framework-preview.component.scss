@@ -1,14 +1,13 @@
 .fp-wrap {
   border: 1px solid var(--pui-neutral-200);
   border-radius: 12px;
-  overflow: visible;           /* must be visible so absolute popups (datepicker, select, menu) can escape */
+  overflow: visible;
   background: var(--pui-white);
   font-family: 'Poppins', system-ui, sans-serif;
   width: 100%;
   position: relative;
 }
 
-/* ── Toolbar ── */
 .fp-toolbar {
   display: flex;
   align-items: center;
@@ -18,7 +17,7 @@
   border-bottom: 1px solid var(--pui-neutral-200);
   gap: 12px;
   flex-wrap: wrap;
-  border-radius: 12px 12px 0 0;   /* clip top corners since wrap is overflow:visible */
+  border-radius: 12px 12px 0 0;
   overflow: hidden;
 }
 
@@ -28,7 +27,6 @@
   gap: 8px;
 }
 
-/* Preview / Code toggle */
 .fp-toggle {
   display: flex;
   align-items: center;
@@ -52,7 +50,9 @@
   color: var(--pui-neutral-500);
   cursor: pointer;
   font-family: inherit;
-  transition: background .12s, color .12s;
+  transition:
+    background 0.12s,
+    color 0.12s;
   white-space: nowrap;
 }
 
@@ -63,10 +63,8 @@
 .fp-toggle__btn--active {
   background: var(--pui-white);
   color: var(--pui-neutral-900);
-  // box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
 }
 
-/* Framework tabs */
 .fp-fw-tabs {
   display: flex;
   align-items: center;
@@ -90,7 +88,9 @@
   color: var(--pui-neutral-500);
   cursor: pointer;
   font-family: inherit;
-  transition: background .12s, color .12s;
+  transition:
+    background 0.12s,
+    color 0.12s;
   white-space: nowrap;
 }
 
@@ -109,15 +109,15 @@
   align-items: center;
   flex-shrink: 0;
 }
-.fp-fw-tab__icon svg { display: block; }
+.fp-fw-tab__icon svg {
+  display: block;
+}
 
 .fp-fw-tab--active {
   background: var(--pui-white);
   color: var(--pui-neutral-900);
-  // box-shadow: 0 1px 4px rgba(0, 0, 0, .08);
 }
 
-/* Copy button */
 .fp-copy {
   display: inline-flex;
   align-items: center;
@@ -129,7 +129,10 @@
   background: var(--pui-white);
   color: var(--pui-neutral-500);
   cursor: pointer;
-  transition: color .12s, border-color .12s, background .12s;
+  transition:
+    color 0.12s,
+    border-color 0.12s,
+    background 0.12s;
 }
 
 .fp-copy:hover {
@@ -138,7 +141,6 @@
   background: var(--pui-brand-bg);
 }
 
-/* ── Preview pane ── */
 .fp-preview {
   padding: 32px 28px;
   display: flex;
@@ -147,15 +149,14 @@
   gap: 10px;
   min-height: 80px;
   background: var(--pui-white);
-  overflow: visible;             /* allow absolute popups to escape */
-  border-radius: 0 0 12px 12px; /* clip bottom corners when preview is last */
+  overflow: visible;
+  border-radius: 0 0 12px 12px;
 }
 
-/* ── Code pane ── */
 .fp-code {
   background: var(--pui-slate-900, #1e293b);
   overflow-x: auto;
-  border-radius: 0 0 12px 12px; /* clip bottom corners */
+  border-radius: 0 0 12px 12px;
   overflow: hidden;
 }
 

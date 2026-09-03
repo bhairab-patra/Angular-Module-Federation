@@ -27,7 +27,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color var(--pui-duration-base), background var(--pui-duration-base), box-shadow var(--pui-duration-base);
+  transition:
+    border-color var(--pui-duration-base),
+    background var(--pui-duration-base),
+    box-shadow var(--pui-duration-base);
 }
 
 .pui-cb__box:hover:not(.pui-cb__box--disabled) {

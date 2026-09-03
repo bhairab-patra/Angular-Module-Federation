@@ -2,18 +2,16 @@
   display: block;
 }
 
-/* ── Root ─────────────────────────────────────────── */
 .lp-root {
   min-height: 100vh;
   background: #f5f4f2;
   display: flex;
   align-items: center;
-  font-family: "Poppins", system-ui, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   overflow: hidden;
   position: relative;
 }
 
-/* ── Hero: single centered column ─────────────────── */
 .lp-hero {
   display: flex;
   align-items: center;
@@ -28,7 +26,6 @@
   }
 }
 
-/* ── Left (now the only, centered column) ────────────*/
 .lp-left {
   flex: 0 0 auto;
   max-width: 720px;
@@ -68,7 +65,6 @@
   margin: 0 0 36px;
 }
 
-/* Buttons */
 .lp-actions {
   display: flex;
   justify-content: center;
@@ -94,7 +90,6 @@
     color: #fff;
     &:hover {
       background: #0a4749;
-      // box-shadow: 0 6px 18px rgba(15,92,94,.45);
     }
   }
 
@@ -102,7 +97,6 @@
     background: #fff;
     color: #0d6e5f;
     border: 1.5px solid rgba(15, 92, 94, 0.4);
-    // box-shadow: 0 2px 8px rgba(0,0,0,.06);
     &:hover {
       border-color: #0f5c5e;
       background: #f0fdf9;
@@ -110,7 +104,6 @@
   }
 }
 
-/* ── Feature highlights ───────────────────────────── */
 .lp-features {
   display: flex;
   justify-content: center;
@@ -159,7 +152,6 @@
   }
 }
 
-/* ── Code sample ──────────────────────────────────── */
 .lp-code {
   text-align: left;
   background: #0b1220;
@@ -167,7 +159,6 @@
   overflow: hidden;
   max-width: 500px;
   margin: 0px auto;
-  // box-shadow: 0 12px 32px rgba(0,0,0,.16);
 }
 
 .lp-code__tabs {
@@ -230,7 +221,7 @@
   margin: 0;
   padding: 18px 20px 22px;
   color: #e2e8f0;
-  font-family: "SF Mono", ui-monospace, Menlo, monospace;
+  font-family: 'SF Mono', ui-monospace, Menlo, monospace;
   font-size: 12.5px;
   line-height: 1.7;
   white-space: pre-wrap;

@@ -1,16 +1,21 @@
-﻿:host {
+:host {
   display: block;
   position: relative;
 }
 
 .pui-cb-host {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family:
+    'Poppins',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
   font-size: var(--pui-text-md);
   position: relative;
 }
 
 .pui-cb--disabled {
-  opacity: .5;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -32,7 +37,9 @@
   background: var(--pui-white);
   outline: none;
   cursor: pointer;
-  transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
+  transition:
+    border-color var(--pui-duration-base),
+    box-shadow var(--pui-duration-base);
   box-sizing: border-box;
 }
 
@@ -74,12 +81,10 @@
 
 .pui-cb-input:focus {
   border-color: var(--pui-form-accent, var(--pui-brand));
-  // box-shadow: var(--pui-focus-ring);
 }
 
 .pui-cb--open .pui-cb-input {
   border-color: var(--pui-form-accent, var(--pui-brand));
-  // box-shadow: var(--pui-focus-ring);
 }
 
 .pui-cb--error .pui-cb-input {
@@ -165,7 +170,7 @@
 @keyframes pui-cb-in {
   from {
     opacity: 0;
-    transform: translateY(-5px) scale(.98);
+    transform: translateY(-5px) scale(0.98);
   }
 
   to {
@@ -187,7 +192,7 @@
   font-weight: 700;
   color: var(--pui-neutral-400);
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
 }
 
 .pui-cb-option {
@@ -217,7 +222,7 @@
 }
 
 .pui-cb-option--disabled {
-  opacity: .4;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 

@@ -1,8 +1,3 @@
-/* ── Top bar ──────────────────────────────────── */
-/* Starts to the right of the sidebar (not behind it) so the sidebar's own
-   header row (brand slot hidden, just its toggle) owns the top-left corner.
-   Left offset tracks the sidebar's own width/collapse transition timing so
-   the two move in lockstep instead of snapping at different speeds. */
 .topbar {
   position: fixed;
   top: 0;
@@ -16,8 +11,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 18px;
-  // box-shadow: 0 1px 4px rgba(0, 0, 0, .06);
-  font-family: "Poppins", system-ui, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   transition: left 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -59,7 +53,7 @@
   font-size: 15px;
   font-weight: 500;
   color: var(--pui-header-text);
-  font-family: "Poppins", system-ui, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   letter-spacing: -0.01em;
 }
 
@@ -68,7 +62,6 @@
   color: var(--pui-brand);
 }
 
-/* Topbar action buttons (FAQ, GitHub) */
 .faq-btn,
 .gh-btn {
   display: flex;
@@ -81,7 +74,7 @@
   padding: 6px 13px;
   border-radius: 8px;
   border: 1px solid var(--pui-neutral-200);
-  font-family: "Poppins", system-ui, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   background: var(--pui-white);
   transition:
     background 0.15s,
@@ -96,14 +89,12 @@
   background: var(--pui-brand-bg);
   color: var(--pui-brand-deep);
   border-color: var(--pui-brand-light);
-  // box-shadow: 0 1px 4px rgba(15, 92, 94, .12);
 }
 
 .gh-btn:hover {
   background: var(--pui-neutral-100);
   color: var(--pui-neutral-900);
   border-color: var(--pui-neutral-300);
-  // box-shadow: 0 1px 4px rgba(0, 0, 0, .06);
 }
 
 .theme-toggle {
@@ -119,9 +110,6 @@
   border: 1px solid var(--pui-neutral-200);
 }
 
-/* Sliding selection ring — sits behind the active pill and glows out past
-   its edges, so "which one is picked" reads instantly and isn't carried by
-   color/opacity alone (contrast + motion + an explicit checkmark below). */
 .theme-toggle__slider {
   position: absolute;
   top: var(--pui-tt-pad);
@@ -129,7 +117,6 @@
   bottom: var(--pui-tt-pad);
   width: calc(50% - var(--pui-tt-pad) - var(--pui-tt-gap) / 2);
   border-radius: 8px;
-  // box-shadow: 0 0 0 2.5px var(--pui-white), 0 0 0 4px rgba(17, 44, 53, .3), 0 3px 10px rgba(0, 0, 0, .18);
   transform: translateX(0);
   transition:
     transform 0.32s cubic-bezier(0.65, 0, 0.35, 1),
@@ -139,7 +126,6 @@
 
 .theme-toggle__slider--old {
   transform: translateX(calc(100% + var(--pui-tt-gap)));
-  // box-shadow: 0 0 0 2.5px var(--pui-white), 0 0 0 4px rgba(18, 198, 168, .35), 0 3px 10px rgba(0, 0, 0, .18);
 }
 
 .theme-toggle__btn {
@@ -156,7 +142,7 @@
   padding: 8px 16px;
   border-radius: 8px;
   border: none;
-  font-family: "Poppins", system-ui, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   cursor: pointer;
   opacity: 0.48;
   filter: saturate(0.35);
@@ -200,27 +186,16 @@
   }
 }
 
-/* solifi-26 — new theme identity */
 .theme-toggle__btn--new {
   background: #0f5c5e;
   color: #ffffff;
 }
 
-.theme-toggle__btn--new.theme-toggle__btn--active {
-  // box-shadow: 0 2px 10px rgba(17, 44, 53, .35), 0 0 0 1px rgba(255, 255, 255, .06) inset;
-}
-
-/* solifi-21 — old theme identity */
 .theme-toggle__btn--old {
   background: #12c6a8;
   color: #000000;
 }
 
-.theme-toggle__btn--old.theme-toggle__btn--active {
-  // box-shadow: 0 2px 10px rgba(18, 198, 168, .4), 0 0 0 1px rgba(0, 0, 0, .06) inset;
-}
-
-/* ── Search ───────────────────────────────────── */
 .topbar-center {
   flex: 1;
   display: flex;
@@ -250,7 +225,7 @@
   border: 1px solid var(--pui-neutral-200);
   border-radius: 10px;
   font-size: 13px;
-  font-family: "Poppins", system-ui, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   background: var(--pui-neutral-50);
   color: var(--pui-neutral-900);
   outline: none;
@@ -259,12 +234,6 @@
     box-shadow 0.15s,
     background 0.15s;
 }
-
-// .search-input:focus {
-//   border-color: var(--pui-brand);
-//   box-shadow: 0 0 0 3px rgba(18, 198, 168, .12);
-//   background: var(--pui-white);
-// }
 
 .search-input::placeholder {
   color: var(--pui-neutral-400);
@@ -304,7 +273,6 @@
   background: var(--pui-white);
   border: 1px solid var(--pui-neutral-200);
   border-radius: 12px;
-  // box-shadow: 0 8px 28px rgba(0, 0, 0, .1);
   list-style: none;
   margin: 0;
   padding: 6px;
@@ -346,21 +314,16 @@
   font-weight: 500;
 }
 
-/* ── Global ───────────────────────────────────── */
 :host {
-  font-family: "Poppins", system-ui, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
 }
 
 .shell {
   display: flex;
   min-height: 100vh;
-  font-family: "Poppins", system-ui, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
 }
 
-/* ── Sidebar ────────────────────────────────── */
-/* pui-lib-solifi-sidebar spans the full height (its own header row carries
-   the collapse toggle), so the topbar's height/border no longer applies
-   here — the sidebar owns the entire left column top-to-bottom. */
 .docs-sidebar {
   position: fixed;
   top: 0;
@@ -369,7 +332,6 @@
   z-index: 210;
 }
 
-/* Version chip — beside brand in topbar-left */
 .topbar-version {
   display: flex;
   align-items: center;
@@ -416,10 +378,8 @@
   border-radius: 50%;
   background: #22c55e;
   flex-shrink: 0;
-  // box-shadow: 0 0 0 2px rgba(34, 197, 94, .25);
 }
 
-/* ── Main ─────────────────────────────────────── */
 .docs-main {
   flex: 1;
   margin-left: 220px;

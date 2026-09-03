@@ -1,8 +1,5 @@
-﻿:host {
+:host {
   display: block;
-  /* Positioned so the absolutely-positioned cell tooltip (a sibling of
-     .pui-dt-host, not a descendant) anchors to this component instead of
-     falling through to the initial containing block. */
   position: relative;
 }
 
@@ -15,7 +12,7 @@
   padding: 10px;
   box-sizing: border-box;
   font-family:
-    "Poppins",
+    'Poppins',
     -apple-system,
     BlinkMacSystemFont,
     system-ui,
@@ -289,8 +286,7 @@
   max-width: 0;
 
   &--sel {
-    padding: var(--pui-space-3) var(--pui-space-2-5) var(--pui-space-3)
-      var(--pui-space-4);
+    padding: var(--pui-space-3) var(--pui-space-2-5) var(--pui-space-3) var(--pui-space-4);
     width: 44px;
     overflow: visible;
   }
@@ -321,7 +317,7 @@
 }
 
 .pui-dt-cell--mono {
-  font-family: "SF Mono", ui-monospace, monospace;
+  font-family: 'SF Mono', ui-monospace, monospace;
   font-size: var(--pui-text-sm);
 }
 
@@ -359,7 +355,7 @@
 }
 
 .pui-dt-cb input:checked + .pui-dt-cb__box::after {
-  content: "";
+  content: '';
   width: 4px;
   height: 7px;
   border: 1.5px solid var(--pui-white);
@@ -374,7 +370,7 @@
 }
 
 .pui-dt-cb input:indeterminate + .pui-dt-cb__box::after {
-  content: "";
+  content: '';
   width: 8px;
   height: 1.5px;
   background: var(--pui-white);
@@ -468,7 +464,7 @@
   line-height: 1.4;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     border: 5px solid transparent;
   }
@@ -603,17 +599,13 @@
 .pui-dt-pager {
   display: flex;
   align-items: center;
-  padding: var(--pui-space-4) var(--pui-space-1) var(--pui-space-2)
-    var(--pui-space-1);
+  padding: var(--pui-space-4) var(--pui-space-1) var(--pui-space-2) var(--pui-space-1);
   border-top: 1px solid var(--pui-neutral-100);
   background: var(--pui-table-bg, #ffffff);
   flex-wrap: wrap;
   gap: var(--pui-space-3);
 }
 
-/* Three-column bar: info (left), controls (visually centered), rows-per-page
-   (right). Equal flex-basis-0 on the outer two keeps the center group
-   centered against the bar regardless of how wide left/right content is. */
 .pui-dt-pager__info {
   flex: 1 1 0;
   font-size: var(--pui-text-sm);

@@ -10,7 +10,9 @@
   border-radius: var(--pui-radius-lg, 10px);
   background: var(--pui-neutral-50, #f9fafb);
   cursor: pointer;
-  transition: border-color .15s, background .15s;
+  transition:
+    border-color 0.15s,
+    background 0.15s;
 }
 
 .pui-dz:hover:not(.pui-dz--disabled) {
@@ -30,7 +32,7 @@
 }
 
 .pui-dz--disabled {
-  opacity: .5;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -73,7 +75,6 @@
   color: var(--pui-neutral-500, #6b7280);
 }
 
-/* ── File list ────────────────────────────────────────────────────── */
 .pui-dz__list {
   list-style: none;
   margin: 12px 0 0;
@@ -148,7 +149,7 @@
   display: block;
   height: 100%;
   background: var(--pui-form-accent);
-  transition: width .2s ease;
+  transition: width 0.2s ease;
 }
 
 .pui-dz__file-remove {
@@ -163,7 +164,9 @@
   background: transparent;
   color: var(--pui-neutral-400, #9ca3af);
   cursor: pointer;
-  transition: background .12s, color .12s;
+  transition:
+    background 0.12s,
+    color 0.12s;
 }
 
 .pui-dz__file-remove:hover {

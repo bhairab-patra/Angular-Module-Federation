@@ -48,7 +48,6 @@
   font-weight: 700;
   color: var(--pui-bc-active-color, var(--pui-brand-text-dark));
   padding: var(--pui-space-1) var(--pui-space-1-5);
-  // background: var(--pui-bc-active-bg, var(--pui-brand-light));
   border-radius: var(--pui-radius-sm);
   line-height: 1;
 }
@@ -74,7 +73,7 @@
   flex-shrink: 0;
   width: 14px;
   height: 14px;
-  opacity: .85;
+  opacity: 0.85;
 }
 
 .pui-bc__icon svg {

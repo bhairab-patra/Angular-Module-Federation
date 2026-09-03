@@ -68,7 +68,7 @@
   pointer-events: all;
   overflow: hidden;
   animation: pui-toast-in 220ms cubic-bezier(0.25, 0.8, 0.25, 1) both;
-  font-family: var(--pui-font-family, "Poppins", system-ui, sans-serif);
+  font-family: var(--pui-font-family, 'Poppins', system-ui, sans-serif);
   font-size: 14px;
   line-height: 1.55;
 

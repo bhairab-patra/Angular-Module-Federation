@@ -11,10 +11,6 @@ $fg: var(--pui-footer-text, var(--pui-neutral-900));
   box-sizing: border-box;
 }
 
-/* Pins the footer to the very bottom of the viewport, full width --
-   position:fixed escapes any ancestor padding (e.g. the app shell's
-   content area), which is also what removes the left/right gaps that
-   show up when the footer is just flowed inside a padded container. */
 .pf--sticky-bottom {
   position: fixed;
   left: 0;
@@ -24,7 +20,6 @@ $fg: var(--pui-footer-text, var(--pui-neutral-900));
   box-shadow: none;
 }
 
-/* ── Notice card (contact / disclaimer) ──────────────────────────── */
 .pf__notice {
   display: flex;
   align-items: center;
@@ -43,7 +38,9 @@ $fg: var(--pui-footer-text, var(--pui-neutral-900));
   cursor: pointer;
   background: var(--pui-form-accent);
   color: var(--pui-accent-ink, var(--pui-white));
-  transition: filter .15s, transform .15s;
+  transition:
+    filter 0.15s,
+    transform 0.15s;
 }
 
 .pf__nav:hover {
@@ -67,7 +64,6 @@ $fg: var(--pui-footer-text, var(--pui-neutral-900));
   color: var(--pui-neutral-900);
 }
 
-/* Contact variant */
 .pf__contact {
   display: flex;
   align-items: center;
@@ -121,14 +117,13 @@ $fg: var(--pui-footer-text, var(--pui-neutral-900));
   font-weight: 700;
   text-decoration: none;
   white-space: nowrap;
-  transition: filter .15s;
+  transition: filter 0.15s;
 }
 
 .pf__contact-btn:hover {
   filter: brightness(1.08);
 }
 
-/* Disclaimer variant */
 .pf__disclaimer-text {
   margin: 0;
   font-size: 13px;
@@ -144,7 +139,6 @@ $fg: var(--pui-footer-text, var(--pui-neutral-900));
   white-space: nowrap;
 }
 
-/* Pagination dots */
 .pf__dots {
   display: flex;
   justify-content: center;
@@ -159,12 +153,14 @@ $fg: var(--pui-footer-text, var(--pui-neutral-900));
   border: none;
   padding: 0;
   cursor: pointer;
-  background: var(--pui-overlay-black-16, rgba(0, 0, 0, .16));
-  transition: background .15s, transform .15s;
+  background: var(--pui-overlay-black-16, rgba(0, 0, 0, 0.16));
+  transition:
+    background 0.15s,
+    transform 0.15s;
 }
 
 .pf__dot:hover {
-  background: var(--pui-overlay-black-24, rgba(0, 0, 0, .24));
+  background: var(--pui-overlay-black-24, rgba(0, 0, 0, 0.24));
 }
 
 .pf__dot--active {
@@ -172,7 +168,6 @@ $fg: var(--pui-footer-text, var(--pui-neutral-900));
   transform: scale(1.2);
 }
 
-/* ── Bottom row ───────────────────────────────────────────────────── */
 .pf__bottom {
   display: flex;
   align-items: center;

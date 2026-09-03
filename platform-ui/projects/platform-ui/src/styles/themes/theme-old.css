@@ -1,157 +1,67 @@
-/*
- * Platform UI -- Theme: OLD
- * Classic navy/blue brand. Load this after tokens.css.
- *
- * To use: ng build docs --configuration=theme-old
- * Update the hex values below to match your organisation's legacy brand.
- *
- * The bare `:root` selector makes this the active theme for any consumer
- * that loads only this file (the normal single-theme-per-app case).
- * `:root[data-pui-theme="old"]` is additionally included so a page that
- * loads BOTH theme-old.css and theme-new.css together (e.g. this docs
- * site's live preview toggle) can select this theme explicitly at
- * runtime via `<html data-pui-theme="old">` -- the attribute selector
- * has higher specificity than a bare `:root` in the other file, so it
- * always wins regardless of load order.
- */
-
 :root,
-:root[data-pui-theme="old"] {
-
-  /* ========================================
-     BRAND / PRIMARY
-     ======================================== */
-  --pui-brand: #12C6A8;
-  /* primary button / active states   */
-  --pui-brand-hover: #0E9E86;
-  /* hover state                      */
-  --pui-brand-deep: #12C6A8;
-  /* pressed / dark text              */
+:root[data-pui-theme='old'] {
+  --pui-brand: #12c6a8;
+  --pui-brand-hover: #0e9e86;
+  --pui-brand-deep: #12c6a8;
   --pui-brand-bg: #f0f5ff;
-  /* light tint backgrounds           */
-  --pui-brand-light: #D0F4EE;
-  /* subtle borders / chips           */
-  --pui-brand-muted: #12C6A8;
-  /* disabled tints                   */
-  --pui-brand-muted-bg: #D1FDE4;
-  /* hover on ghost/outline           */
+  --pui-brand-light: #d0f4ee;
+  --pui-brand-muted: #12c6a8;
+  --pui-brand-muted-bg: #d1fde4;
   --pui-brand-border: #90aed8;
-  /* input focus border               */
-  --pui-brand-accent: #0052B0;
-  /* sorted column, accent marks      */
-  --pui-brand-hover-2: #004FA8;
-  /* secondary hover                  */
-  --pui-brand-pressed: #0E9E86;
-  /* active/pressed deep              */
+  --pui-brand-accent: #0052b0;
+  --pui-brand-hover-2: #004fa8;
+  --pui-brand-pressed: #0e9e86;
   --pui-brand-text-dark: #000000;
-  /* dark text on light brand bg      */
-  --pui-brand-solid: #0046A0;
-  /* solid brand surface (e.g. sidebar) */
-  --pui-brand-tertary: #5A58F8;
+  --pui-brand-solid: #0046a0;
+  --pui-brand-tertary: #5a58f8;
 
-  /* Brand color pre-mixed with alpha, as flat 8-digit hex (#RRGGBBAA) —
-     used by components that need a translucent brand tint, so every
-     value stays a plain hex code instead of rgba(). */
-  --pui-brand-tint-05: #0057B80D;
-  /* 5%  */
-  --pui-brand-tint-07: #0057B812;
-  /* 7%  */
-  --pui-brand-tint-08: #0057B814;
-  /* 8%  */
-  --pui-brand-tint-10: #0057B81A;
-  /* 10% */
-  --pui-brand-tint-12: #0057B81F;
-  /* 12% */
-  --pui-brand-tint-14: #0057B824;
-  /* 14% */
-  --pui-brand-tint-18: #0057B82E;
-  /* 18% */
-  --pui-brand-tint-20: #0057B833;
-  /* 20% */
-  --pui-brand-tint-22: #0057B838;
-  /* 22% */
-  --pui-brand-tint-25: #0057B840;
-  /* 25% */
-  --pui-brand-tint-35: #0057B859;
-  /* 35% */
+  --pui-brand-tint-05: #0057b80d;
+  --pui-brand-tint-07: #0057b812;
+  --pui-brand-tint-08: #0057b814;
+  --pui-brand-tint-10: #0057b81a;
+  --pui-brand-tint-12: #0057b81f;
+  --pui-brand-tint-14: #0057b824;
+  --pui-brand-tint-18: #0057b82e;
+  --pui-brand-tint-20: #0057b833;
+  --pui-brand-tint-22: #0057b838;
+  --pui-brand-tint-25: #0057b840;
+  --pui-brand-tint-35: #0057b859;
 
-  /* ========================================
-     LIST (brand-tinted)
-     ======================================== */
-  --pui-list-active-default: #0046A0;
+  --pui-list-active-default: #0046a0;
   --pui-list-hover-bg-default: #f0f5ff;
 
-  /* ========================================
-     CARD GRADIENT (brand-tinted)
-     ======================================== */
   --pui-card-grad-start: #e6eeff;
 
-  /* ========================================
-     SHAPE
-     ======================================== */
   --pui-btn-radius: 10px;
 
-  /* ========================================
-     BUTTON (secondary variant reads dark
-     charcoal in the old design, not warm grey)
-     ======================================== */
   --pui-btn-secondary-bg: #1f2937;
   --pui-btn-secondary-hover-bg: #374151;
 
-  /* ========================================
-     FORM CONTROLS (checkbox / radio / switch /
-     input & textarea focus border / select /
-     combobox / multiselect / password-input)
-     ======================================== */
-  --pui-form-accent: #12C6A8;
-  /* Foreground color for text/icons sitting on top of a solid accent
-     surface (checkbox tick, button Primary text) -- black here because
-     the old theme's accent colors (form-accent, brand-deep) are bright. */
+  --pui-form-accent: #12c6a8;
   --pui-accent-ink: #000000;
-  /* Text color for the multiselect chip/tag -- black, not the bright
-     accent color, since a colored border already communicates selection. */
   --pui-form-tag-text: #000000;
 
-  /* ========================================
-     FOCUS RINGS
-     ======================================== */
   --pui-focus-ring: 0 0 0 3px var(--pui-brand-tint-18);
-  --pui-focus-ring-error: 0 0 0 3px rgba(239, 68, 68, .14);
+  --pui-focus-ring-error: 0 0 0 3px rgba(239, 68, 68, 0.14);
 
-  --pui-shadow-focus: #D0F4EE;
+  --pui-shadow-focus: #d0f4ee;
   --pui-shadow-focus-sm: 0 0 0 3px var(--pui-brand-tint-12);
   --pui-shadow-focus-brand: 0 0 0 3px var(--pui-brand-tint-25);
 
-  /* ========================================
-     SOLIFI SIDEBAR
-     ======================================== */
   --pui-solifi-sb-bg: #414746;
   --pui-solifi-sb-icon-chip-bg: #505655;
-  --pui-solifi-sb-icon-active-bg: #12C6A8;
+  --pui-solifi-sb-icon-active-bg: #12c6a8;
   --pui-solifi-sb-icon-active-color: #000000;
   --pui-solifi-sb-menu-bg: var(--pui-solifi-sb-icon-chip-bg);
 
-  /* ========================================
-     HEADER
-     ======================================== */
   --pui-header-bg: var(--pui-form-accent);
   --pui-header-text: var(--pui-neutral-900);
 
-  /* ========================================
-     FOOTER
-     ======================================== */
-  --pui-footer-bg: #D8D1C8;
+  --pui-footer-bg: #d8d1c8;
   --pui-footer-text: var(--pui-neutral-900);
 
-  /* ========================================
-     TABLE / DATA GRID
-     ======================================== */
-  --pui-table-bg: #FFFFFF;
-  --pui-table-header-bg: #EDEFF0;
+  --pui-table-bg: #ffffff;
+  --pui-table-header-bg: #edeff0;
 
-  /* ========================================
-     PAGINATION
-     ======================================== */
   --pui-pagination-accent: #414746;
-
 }

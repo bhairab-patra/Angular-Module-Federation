@@ -1,4 +1,4 @@
-﻿:host {
+:host {
   display: inline-flex;
 }
 
@@ -14,7 +14,9 @@
   border: 1px solid transparent;
   white-space: nowrap;
   font-family: inherit;
-  transition: opacity var(--pui-duration-base), box-shadow var(--pui-duration-base);
+  transition:
+    opacity var(--pui-duration-base),
+    box-shadow var(--pui-duration-base);
   user-select: none;
 }
 
@@ -59,12 +61,12 @@
 }
 
 .pui-chip--disabled {
-  opacity: .45;
+  opacity: 0.45;
   cursor: not-allowed;
 }
 
 .pui-chip:not(.pui-chip--disabled):hover {
-  opacity: .85;
+  opacity: 0.85;
 }
 
 .pui-chip__icon {
@@ -85,7 +87,7 @@
   color: inherit;
   cursor: pointer;
   padding: 0;
-  opacity: .7;
+  opacity: 0.7;
   margin-left: var(--pui-space-0-5);
 }
 

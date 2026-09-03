@@ -1,8 +1,8 @@
 $brand: var(--pui-brand);
 $border: var(--pui-slate-200);
 $radius: 14px;
-$dur: .26s;
-$ease: cubic-bezier(.4, 0, .2, 1);
+$dur: 0.26s;
+$ease: cubic-bezier(0.4, 0, 0.2, 1);
 
 .pui-accordion {
   display: flex;
@@ -35,7 +35,9 @@ $ease: cubic-bezier(.4, 0, .2, 1);
   &__chevron {
     display: flex;
     flex-shrink: 0;
-    transition: transform $dur $ease, color .15s;
+    transition:
+      transform $dur $ease,
+      color 0.15s;
     color: var(--pui-pagination-ellipsis);
 
     &--active {
@@ -50,7 +52,6 @@ $ease: cubic-bezier(.4, 0, .2, 1);
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    // background: transparent;
     border: none;
     cursor: pointer;
     font-family: inherit;
@@ -59,7 +60,9 @@ $ease: cubic-bezier(.4, 0, .2, 1);
     color: var(--pui-pagination-text);
     text-align: left;
     padding: 12px 18px;
-    transition: background .18s ease, color .18s ease;
+    transition:
+      background 0.18s ease,
+      color 0.18s ease;
     border-bottom: 1px solid var(--pui-space-2);
 
     &:focus-visible {
@@ -94,7 +97,9 @@ $ease: cubic-bezier(.4, 0, .2, 1);
     border-radius: 8px;
     color: var(--pui-pagination-text-muted);
     background: transparent;
-    transition: background .18s ease, color .18s ease;
+    transition:
+      background 0.18s ease,
+      color 0.18s ease;
   }
 
   &__title {
@@ -110,14 +115,11 @@ $ease: cubic-bezier(.4, 0, .2, 1);
     color: var(--pui-neutral-500);
   }
 
-  &__item--disabled>&__trigger {
-    opacity: .42;
+  &__item--disabled > &__trigger {
+    opacity: 0.42;
     cursor: not-allowed;
   }
 
-  /* ── Default variant -- FAQ-style cards. Closed rows stay plain; the
-     open row's header tints with the brand-light token and its icon
-     becomes a solid brand chip, matching the reference design. ── */
   &--default {
     gap: 10px;
 
@@ -127,7 +129,9 @@ $ease: cubic-bezier(.4, 0, .2, 1);
       border-radius: $radius;
       overflow: hidden;
       box-shadow: var(--pui-shadow-accordion);
-      transition: box-shadow .15s, border-color .15s;
+      transition:
+        box-shadow 0.15s,
+        border-color 0.15s;
     }
 
     .pui-accordion__item--open {
@@ -135,12 +139,12 @@ $ease: cubic-bezier(.4, 0, .2, 1);
       border-color: var(--pui-brand-light);
     }
 
-    .pui-accordion__item--open>.pui-accordion__trigger {
+    .pui-accordion__item--open > .pui-accordion__trigger {
       background: var(--pui-brand-light);
       color: var(--pui-brand-text-dark);
     }
 
-    .pui-accordion__item--open>.pui-accordion__trigger .pui-accordion__icon-badge {
+    .pui-accordion__item--open > .pui-accordion__trigger .pui-accordion__icon-badge {
       background: $brand;
       color: var(--pui-brand-text-dark, var(--pui-white));
     }
@@ -149,20 +153,17 @@ $ease: cubic-bezier(.4, 0, .2, 1);
       background: var(--pui-slate-050);
     }
 
-    .pui-accordion__item--open>.pui-accordion__trigger:hover:not([disabled]) {
-      filter: brightness(.98);
+    .pui-accordion__item--open > .pui-accordion__trigger:hover:not([disabled]) {
+      filter: brightness(0.98);
     }
   }
 
-  /* ── Bordered variant -- flat settings-list rows. Icon is always a
-     tinted circular badge; header never tints, only the chevron and
-     text shift color on hover/open. ── */
   &--bordered {
     border: 1px solid $border;
     border-radius: $radius;
     overflow: hidden;
 
-    .pui-accordion__item+.pui-accordion__item {
+    .pui-accordion__item + .pui-accordion__item {
       border-top: 1px solid $border;
     }
 

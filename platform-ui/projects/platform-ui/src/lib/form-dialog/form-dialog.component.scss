@@ -67,7 +67,9 @@
   color: var(--pui-neutral-400);
   cursor: pointer;
   padding: 0;
-  transition: background 0.12s, color 0.12s;
+  transition:
+    background 0.12s,
+    color 0.12s;
   flex-shrink: 0;
 
   &:hover {

@@ -1,9 +1,8 @@
-﻿:host,
+:host,
 pui-lib-sidebar {
   display: block;
   height: 100%;
 }
-
 
 .pui-sb {
   display: flex;
@@ -14,7 +13,9 @@ pui-lib-sidebar {
   border-right: 1px solid var(--pui-sb-border);
   width: var(--pui-sb-w);
   min-width: var(--pui-sb-w);
-  transition: width .22s cubic-bezier(.4, 0, .2, 1), min-width .22s cubic-bezier(.4, 0, .2, 1);
+  transition:
+    width 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    min-width 0.22s cubic-bezier(0.4, 0, 0.2, 1);
   font-family: 'Poppins', system-ui, sans-serif;
   position: relative;
 }
@@ -29,7 +30,7 @@ pui-lib-sidebar {
   min-width: 0 !important;
   overflow: hidden;
   border-right: none;
-  transition: width .22s cubic-bezier(.4, 0, .2, 1);
+  transition: width 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .pui-sb__brand {
@@ -93,7 +94,10 @@ pui-lib-sidebar {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background .14s, color .14s, border-color .14s;
+  transition:
+    background 0.14s,
+    color 0.14s,
+    border-color 0.14s;
 }
 
 .pui-sb__toggle:hover {
@@ -138,7 +142,7 @@ pui-lib-sidebar {
   font-size: var(--pui-text-2xs);
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   color: var(--pui-sb-group-txt);
   padding: var(--pui-space-3-5) var(--pui-space-4) var(--pui-space-1);
   white-space: nowrap;
@@ -173,7 +177,9 @@ pui-lib-sidebar {
   color: var(--pui-sb-text);
   cursor: pointer;
   text-align: left;
-  transition: background .13s, color .13s;
+  transition:
+    background 0.13s,
+    color 0.13s;
   position: relative;
   font-family: inherit;
 }
@@ -187,7 +193,7 @@ pui-lib-sidebar {
   width: var(--pui-space-0-75);
   border-radius: 0 var(--pui-space-0-75) var(--pui-space-0-75) 0;
   background: transparent;
-  transition: background .13s;
+  transition: background 0.13s;
 }
 
 .pui-sb__item:hover:not(.pui-sb__item--disabled) {
@@ -205,10 +211,9 @@ pui-lib-sidebar {
 }
 
 .pui-sb__item--disabled {
-  opacity: .42;
+  opacity: 0.42;
   cursor: not-allowed;
 }
-
 
 .pui-sb--collapsed .pui-sb__item {
   padding: 0;
@@ -219,7 +224,6 @@ pui-lib-sidebar {
   display: none;
 }
 
-
 .pui-sb__item-icon {
   display: flex;
   align-items: center;
@@ -227,8 +231,8 @@ pui-lib-sidebar {
   flex-shrink: 0;
   width: 20px;
   height: 20px;
-  opacity: .85;
-  transition: opacity .13s;
+  opacity: 0.85;
+  transition: opacity 0.13s;
 
   font-family: 'Material Symbols Rounded', sans-serif;
   font-weight: normal;
@@ -240,7 +244,11 @@ pui-lib-sidebar {
   white-space: nowrap;
   direction: ltr;
   -webkit-font-smoothing: antialiased;
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
 }
 
 .pui-sb__item--active .pui-sb__item-icon,
@@ -287,8 +295,10 @@ pui-lib-sidebar {
   display: flex;
   align-items: center;
   color: var(--pui-sb-text);
-  opacity: .6;
-  transition: transform var(--pui-duration-slow), opacity .13s;
+  opacity: 0.6;
+  transition:
+    transform var(--pui-duration-slow),
+    opacity 0.13s;
 }
 
 .pui-sb__arrow--open {
@@ -334,9 +344,6 @@ pui-lib-sidebar {
   color: var(--pui-blue);
 }
 
-/* max-height is set inline per item (children.length * 36px) so the
-   transition always animates to the sub-list's exact real height — no
-   snap/overshoot from guessing a flat cap regardless of item count. */
 .pui-sb__sub {
   list-style: none;
   margin: 0;
@@ -344,7 +351,7 @@ pui-lib-sidebar {
   max-height: 0;
   overflow: hidden;
   background: var(--pui-sb-sub-bg);
-  transition: max-height .26s cubic-bezier(.4, 0, .2, 1);
+  transition: max-height 0.26s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .pui-sb__subitem {
@@ -357,11 +364,14 @@ pui-lib-sidebar {
   border: none;
   background: transparent;
   color: var(--pui-sb-text);
-  opacity: .85;
+  opacity: 0.85;
   cursor: pointer;
   text-align: left;
   font-family: inherit;
-  transition: background .13s, color .13s, opacity .13s;
+  transition:
+    background 0.13s,
+    color 0.13s,
+    opacity 0.13s;
 }
 
 .pui-sb__subitem:hover:not(.pui-sb__subitem--disabled) {
@@ -376,7 +386,7 @@ pui-lib-sidebar {
 }
 
 .pui-sb__subitem--disabled {
-  opacity: .35;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
@@ -385,9 +395,9 @@ pui-lib-sidebar {
   height: 5px;
   border-radius: 50%;
   background: currentColor;
-  opacity: .5;
+  opacity: 0.5;
   flex-shrink: 0;
-  transition: opacity .13s;
+  transition: opacity 0.13s;
 }
 
 .pui-sb__subitem--active .pui-sb__subitem-dot,
@@ -423,7 +433,7 @@ pui-lib-sidebar {
   padding: var(--pui-space-3) var(--pui-space-4);
   border-top: 1px solid var(--pui-sb-border);
   cursor: pointer;
-  transition: background .13s;
+  transition: background 0.13s;
 }
 
 .pui-sb__user:hover {
@@ -489,7 +499,7 @@ pui-lib-sidebar {
 .pui-sb__user-arrow {
   flex-shrink: 0;
   color: var(--pui-sb-text);
-  opacity: .6;
+  opacity: 0.6;
 }
 
 .pui-sb__footer {
@@ -511,7 +521,9 @@ pui-lib-sidebar {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background .13s, color .13s;
+  transition:
+    background 0.13s,
+    color 0.13s;
 }
 
 .pui-sb__expand-btn:hover {

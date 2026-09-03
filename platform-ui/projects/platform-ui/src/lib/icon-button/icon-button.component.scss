@@ -24,14 +24,30 @@
   cursor: pointer;
   padding: 0;
   box-sizing: border-box;
-  transition: background var(--pui-duration-base), border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
+  transition:
+    background var(--pui-duration-base),
+    border-color var(--pui-duration-base),
+    box-shadow var(--pui-duration-base);
 
-  &--circle { border-radius: var(--pui-radius-full); }
-  &--square { border-radius: var(--pui-radius-md); }
+  &--circle {
+    border-radius: var(--pui-radius-full);
+  }
+  &--square {
+    border-radius: var(--pui-radius-md);
+  }
 
-  &--sm { width: 32px; height: 32px; }
-  &--md { width: 40px; height: 40px; }
-  &--lg { width: 48px; height: 48px; }
+  &--sm {
+    width: 32px;
+    height: 32px;
+  }
+  &--md {
+    width: 40px;
+    height: 40px;
+  }
+  &--lg {
+    width: 48px;
+    height: 48px;
+  }
 
   &--primary {
     background: var(--pui-brand-deep);
@@ -53,7 +69,9 @@
     background: transparent;
     color: var(--pui-brand-text-dark);
     border-color: var(--pui-brand-deep);
-    &:hover:not(:disabled) { background: var(--pui-brand-muted-bg); }
+    &:hover:not(:disabled) {
+      background: var(--pui-brand-muted-bg);
+    }
     @include focus(var(--pui-shadow-focus));
   }
 
@@ -69,7 +87,9 @@
     background: var(--pui-btn-ghost-hover);
     color: var(--pui-btn-neutral-text);
     border-color: var(--pui-btn-neutral-bdr);
-    &:hover:not(:disabled) { background: var(--pui-btn-neutral-hover); }
+    &:hover:not(:disabled) {
+      background: var(--pui-btn-neutral-hover);
+    }
     @include focus(var(--pui-shadow-focus-neutral));
   }
 
@@ -88,7 +108,9 @@
     background: transparent;
     color: var(--pui-indigo);
     border-color: var(--pui-brand-tertary);
-    &:hover:not(:disabled) { background: var(--pui-btn-ghost-hover-2); }
+    &:hover:not(:disabled) {
+      background: var(--pui-btn-ghost-hover-2);
+    }
     @include focus(var(--pui-shadow-focus-neutral));
   }
 
@@ -96,7 +118,9 @@
     background: transparent;
     color: var(--pui-btn-link-color);
     border-color: transparent;
-    &:hover:not(:disabled) { color: var(--pui-btn-link-hover); }
+    &:hover:not(:disabled) {
+      color: var(--pui-btn-link-hover);
+    }
     @include focus(var(--pui-shadow-focus-brand));
   }
 

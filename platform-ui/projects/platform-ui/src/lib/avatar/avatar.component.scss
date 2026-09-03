@@ -21,7 +21,7 @@
   color: var(--pui-accent-ink, var(--pui-white));
   font-size: 15px;
   font-weight: 800;
-  letter-spacing: .02em;
+  letter-spacing: 0.02em;
   cursor: pointer;
   overflow: hidden;
   font-family: inherit;
@@ -56,13 +56,13 @@
   min-width: 240px;
   background: var(--pui-white);
   border-radius: var(--pui-radius-2xl, 16px);
-  box-shadow: var(--pui-shadow-card, 0 2px 10px rgba(0, 0, 0, .08));
+  box-shadow: var(--pui-shadow-card, 0 2px 10px rgba(0, 0, 0, 0.08));
   padding: var(--pui-space-1-5, 8px);
-  transition: box-shadow var(--pui-duration-base, .15s);
+  transition: box-shadow var(--pui-duration-base, 0.15s);
 }
 
 .pui-av__panel--open {
-  box-shadow: var(--pui-shadow-xl, 0 8px 28px rgba(0, 0, 0, .14));
+  box-shadow: var(--pui-shadow-xl, 0 8px 28px rgba(0, 0, 0, 0.14));
 }
 
 .pui-av__row {
@@ -77,7 +77,7 @@
   cursor: pointer;
   font-family: inherit;
   text-align: left;
-  transition: background var(--pui-duration-fast, .12s);
+  transition: background var(--pui-duration-fast, 0.12s);
 }
 
 .pui-av__row:hover {
@@ -112,7 +112,7 @@
 .pui-av__chevron {
   flex-shrink: 0;
   color: var(--pui-neutral-400);
-  transition: transform var(--pui-duration-base, .18s) cubic-bezier(.4, 0, .2, 1);
+  transition: transform var(--pui-duration-base, 0.18s) cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .pui-av__chevron--open {
@@ -139,7 +139,7 @@
   font-size: 14px;
   color: var(--pui-neutral-800);
   text-align: left;
-  transition: background var(--pui-duration-fast, .12s);
+  transition: background var(--pui-duration-fast, 0.12s);
 }
 
 .pui-av__item:hover {

@@ -1,28 +1,49 @@
+.material-symbols-outlined,
+.material-symbols-rounded,
+.material-symbols-sharp {
+  font-family: 'Material Symbols Outlined', 'Material Symbols Rounded', 'Material Symbols Sharp';
+  font-weight: normal;
+  font-style: normal;
+  font-size: var(--pui-text-5xl);
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
 
-    .material-symbols-outlined,
-    .material-symbols-rounded,
-    .material-symbols-sharp {
-      font-family: 'Material Symbols Outlined', 'Material Symbols Rounded', 'Material Symbols Sharp';
-      font-weight: normal;
-      font-style: normal;
-      font-size: var(--pui-text-5xl);
-      line-height: 1;
-      letter-spacing: normal;
-      text-transform: none;
-      display: inline-block;
-      white-space: nowrap;
-      word-wrap: normal;
-      direction: ltr;
-      -webkit-font-feature-settings: 'liga';
-      font-feature-settings: 'liga';
-      -webkit-font-smoothing: antialiased;
-    }
+.pui-icon--xs {
+  font-size: var(--pui-text-xs);
+}
+.pui-icon--sm {
+  font-size: var(--pui-text-base);
+}
+.pui-icon--md {
+  font-size: var(--pui-text-5xl);
+}
+.pui-icon--lg {
+  font-size: var(--pui-text-4xl);
+}
+.pui-icon--xl {
+  font-size: var(--pui-text-6xl);
+}
 
-    .pui-icon--xs  { font-size: var(--pui-text-xs); }
-    .pui-icon--sm  { font-size: var(--pui-text-base); }
-    .pui-icon--md  { font-size: var(--pui-text-5xl); }
-    .pui-icon--lg  { font-size: var(--pui-text-4xl); }
-    .pui-icon--xl  { font-size: var(--pui-text-6xl); }
-
-    .pui-icon--fill   { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-    .pui-icon--outline { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+.pui-icon--fill {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+.pui-icon--outline {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}

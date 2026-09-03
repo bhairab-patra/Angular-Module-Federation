@@ -1,8 +1,5 @@
-﻿:host {
+:host {
   display: block;
-  /* Positioned so the absolutely-positioned cell tooltip (a sibling of
-     .pui-tbl-host, not a descendant) anchors to this component instead of
-     falling through to the initial containing block. */
   position: relative;
 }
 
@@ -15,7 +12,7 @@
   padding: 12px;
   box-sizing: border-box;
   font-family:
-    "Poppins",
+    'Poppins',
     -apple-system,
     BlinkMacSystemFont,
     system-ui,
@@ -278,7 +275,7 @@
 }
 
 .pui-tbl-cell--mono {
-  font-family: "SF Mono", ui-monospace, monospace;
+  font-family: 'SF Mono', ui-monospace, monospace;
   font-size: var(--pui-text-sm);
 }
 
@@ -351,7 +348,7 @@
   line-height: 1.4;
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     border: 5px solid transparent;
   }

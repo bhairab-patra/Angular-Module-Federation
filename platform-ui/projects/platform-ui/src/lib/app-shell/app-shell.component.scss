@@ -20,11 +20,6 @@
   min-height: 0;
   background: var(--pui-surface-2, var(--pui-neutral-125));
   overflow: hidden;
-  /* `transform` establishes a new containing block for descendants, so a
-     position:fixed footer (footerStickyBottom / stickyBottom) resolves
-     relative to THIS panel instead of the true browser viewport -- it
-     then spans exactly the same width as the header above it (content
-     area only), never extending under the sidebar. */
   transform: translateZ(0);
 }
 
@@ -35,7 +30,6 @@
   align-items: center;
   gap: 12px;
   padding: 0 28px;
-  // background: var(--pui-bg, var(--pui-white));
   border-bottom: 1px solid var(--pui-border, var(--pui-slate-200));
 }
 
@@ -51,7 +45,7 @@
   font-size: 16px;
   font-weight: 700;
   color: var(--pui-text, var(--pui-slate-800));
-  letter-spacing: -.01em;
+  letter-spacing: -0.01em;
   flex: 1;
 }
 
@@ -93,7 +87,7 @@
   color: var(--pui-muted, var(--pui-slate-400));
   background: var(--pui-bg, var(--pui-white));
   border-top: 1px solid var(--pui-border, var(--pui-slate-200));
-  letter-spacing: .01em;
+  letter-spacing: 0.01em;
 }
 
 @media (max-width: 768px) {

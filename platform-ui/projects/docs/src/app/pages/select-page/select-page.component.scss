@@ -34,7 +34,6 @@
   border: 1px solid var(--pui-neutral-200);
 }
 
-/* Responsive two-column grid */
 .sel-grid {
   display: flex;
   flex-wrap: wrap;
@@ -46,7 +45,6 @@
   flex: 1 1 220px;
 }
 
-/* Stack for sizes */
 .sel-stack {
   display: flex;
   flex-direction: column;
@@ -54,7 +52,6 @@
   max-width: 400px;
 }
 
-/* Size label chips */
 .sel-size-row {
   display: flex;
   align-items: flex-end;
@@ -74,11 +71,10 @@
   font-weight: 600;
   color: var(--pui-neutral-500);
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   margin: 0;
 }
 
-/* Result box */
 .sel-result {
   font-size: 13px;
   color: var(--pui-neutral-600);
@@ -95,12 +91,11 @@
   font-weight: 600;
 }
 
-/* Size badge pill beside label */
 .sel-size-badge {
   display: inline-block;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 2px 7px;
   border-radius: 99px;

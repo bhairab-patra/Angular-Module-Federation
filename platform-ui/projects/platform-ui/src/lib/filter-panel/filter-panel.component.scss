@@ -1,4 +1,4 @@
-﻿:host {
+:host {
   display: block;
 }
 
@@ -151,14 +151,14 @@
 .pui-fp__group-body {
   overflow: hidden;
   max-height: 0;
-  transition: max-height .25s cubic-bezier(.4, 0, .2, 1);
+  transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .pui-fp__group:not(.pui-fp__group--collapsed) .pui-fp__group-body {
   max-height: 600px;
 }
 
-.pui-fp__group-body>* {
+.pui-fp__group-body > * {
   padding: 0 var(--pui-space-4-5) var(--pui-space-3-5);
 }
 
@@ -187,7 +187,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: border-color var(--pui-duration-fast), background var(--pui-duration-fast);
+  transition:
+    border-color var(--pui-duration-fast),
+    background var(--pui-duration-fast);
 }
 
 .pui-fp__cb-box--checked {
@@ -405,7 +407,7 @@
   color: var(--pui-neutral-400);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: .05em;
+  letter-spacing: 0.05em;
 }
 
 .pui-fp__date-input {

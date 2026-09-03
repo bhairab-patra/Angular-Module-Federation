@@ -56,8 +56,12 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg,
-      transparent 0%, var(--pui-overlay-white-60) 50%, transparent 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--pui-overlay-white-60) 50%,
+    transparent 100%
+  );
   animation: pui-shimmer 1.4s infinite;
 }
 

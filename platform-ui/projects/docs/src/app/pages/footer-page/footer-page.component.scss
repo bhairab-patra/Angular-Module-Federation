@@ -2,11 +2,6 @@
   max-width: 860px;
 }
 
-/* `transform` establishes a new containing block, so a position:fixed
-   descendant (the footer with [stickyBottom]="true") resolves relative
-   to this frame instead of the real browser viewport -- lets the demo
-   show "pinned to the bottom" behaviour without covering the rest of
-   this docs page. */
 .sticky-demo-frame {
   position: relative;
   height: 260px;

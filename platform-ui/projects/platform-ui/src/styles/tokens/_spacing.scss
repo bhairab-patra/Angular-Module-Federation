@@ -1,28 +1,26 @@
-// Platform UI — Spacing Scale (4px base grid)
-// All values expressed as CSS custom properties so consumers can override.
 :root {
-  --pui-space-px:    1px;
-  --pui-space-0-5:   2px;
-  --pui-space-0-75:  3px;
-  --pui-space-1:    4px;
-  --pui-space-1-5:  6px;
+  --pui-space-px: 1px;
+  --pui-space-0-5: 2px;
+  --pui-space-0-75: 3px;
+  --pui-space-1: 4px;
+  --pui-space-1-5: 6px;
   --pui-space-1-75: 7px;
-  --pui-space-2:    8px;
-  --pui-space-2-5:  10px;
-  --pui-space-3:    12px;
-  --pui-space-3-5:  14px;
-  --pui-space-4:    16px;
-  --pui-space-4-5:  18px;
-  --pui-space-5:    20px;
-  --pui-space-5-5:  22px;
-  --pui-space-6:    24px;
-  --pui-space-7:    28px;
-  --pui-space-8:    32px;
-  --pui-space-9:    36px;
-  --pui-space-10:   40px;
-  --pui-space-11:   44px;
-  --pui-space-12:   48px;
-  --pui-space-13:   52px;
-  --pui-space-14:   56px;
-  --pui-space-16:   64px;
+  --pui-space-2: 8px;
+  --pui-space-2-5: 10px;
+  --pui-space-3: 12px;
+  --pui-space-3-5: 14px;
+  --pui-space-4: 16px;
+  --pui-space-4-5: 18px;
+  --pui-space-5: 20px;
+  --pui-space-5-5: 22px;
+  --pui-space-6: 24px;
+  --pui-space-7: 28px;
+  --pui-space-8: 32px;
+  --pui-space-9: 36px;
+  --pui-space-10: 40px;
+  --pui-space-11: 44px;
+  --pui-space-12: 48px;
+  --pui-space-13: 52px;
+  --pui-space-14: 56px;
+  --pui-space-16: 64px;
 }

@@ -15,7 +15,7 @@ pui-lib-solifi-sidebar {
   transition:
     width 0.22s cubic-bezier(0.4, 0, 0.2, 1),
     min-width 0.22s cubic-bezier(0.4, 0, 0.2, 1);
-  font-family: "Poppins", system-ui, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   position: relative;
 }
 
@@ -151,8 +151,6 @@ pui-lib-solifi-sidebar {
 .ssb__group-label {
   font-size: 13px;
   font-weight: 600;
-  // text-transform: uppercase;
-  // letter-spacing: .1em;
   color: #fff;
   padding: 14px 20px 4px;
   white-space: nowrap;
@@ -196,18 +194,6 @@ pui-lib-solifi-sidebar {
     color 0.13s;
   position: relative;
 }
-
-// .ssb__item::before {
-//   content: '';
-//   position: absolute;
-//   left: 0;
-//   top: 6px;
-//   bottom: 6px;
-//   width: 3px;
-//   border-radius: 0 3px 3px 0;
-//   background: transparent;
-//   transition: background .13s;
-// }
 
 .ssb__item:hover:not(.ssb__item--disabled) {
   background: var(--ssb-hover, rgba(255, 255, 255, 0.06));
@@ -278,8 +264,6 @@ pui-lib-solifi-sidebar {
   opacity: 1;
 }
 
-/* max-height is set inline per item (children.length * 34px) so the
-   transition always animates to the sub-list's exact real height. */
 .ssb__sub {
   list-style: none;
   margin: 0;
@@ -359,7 +343,7 @@ pui-lib-solifi-sidebar {
   border-radius: 6px;
   font-size: 12px;
   font-weight: 500;
-  font-family: "Poppins", system-ui, sans-serif;
+  font-family: 'Poppins', system-ui, sans-serif;
   line-height: 1.4;
   white-space: nowrap;
   pointer-events: none;
@@ -382,7 +366,7 @@ pui-lib-solifi-sidebar {
 }
 
 .ssb__nav-tooltip::after {
-  content: "";
+  content: '';
   position: absolute;
   right: 100%;
   top: 50%;

@@ -44,7 +44,9 @@
   border: 1.5px solid var(--pui-form-border, var(--pui-neutral-300));
   border-radius: var(--pui-radius-md);
   background: var(--pui-white);
-  transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
+  transition:
+    border-color var(--pui-duration-base),
+    box-shadow var(--pui-duration-base);
   overflow: hidden;
   display: flex;
 }

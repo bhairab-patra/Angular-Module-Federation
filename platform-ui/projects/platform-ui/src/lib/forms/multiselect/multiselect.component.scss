@@ -1,16 +1,21 @@
-﻿:host {
+:host {
   display: block;
   position: relative;
 }
 
 .pui-ms-host {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-family:
+    'Poppins',
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    sans-serif;
   font-size: var(--pui-text-md);
   position: relative;
 }
 
 .pui-ms--disabled {
-  opacity: .5;
+  opacity: 0.5;
   pointer-events: none;
 }
 
@@ -24,7 +29,9 @@
   border-radius: var(--pui-radius-lg);
   background: var(--pui-white);
   cursor: pointer;
-  transition: border-color var(--pui-duration-base), box-shadow var(--pui-duration-base);
+  transition:
+    border-color var(--pui-duration-base),
+    box-shadow var(--pui-duration-base);
   flex-wrap: wrap;
 }
 
@@ -51,8 +58,6 @@
 .pui-ms--error .pui-ms-trigger {
   border-color: var(--pui-error);
 }
-
-.pui-ms--error.pui-ms--open .pui-ms-trigger {}
 
 .pui-ms-values {
   display: flex;
@@ -99,7 +104,7 @@
 }
 
 .pui-ms-chip-rm:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .pui-ms-chevron {
@@ -129,7 +134,7 @@
 @keyframes pui-ms-in {
   from {
     opacity: 0;
-    transform: translateY(-5px) scale(.98);
+    transform: translateY(-5px) scale(0.98);
   }
 
   to {
@@ -252,7 +257,7 @@
   font-weight: 700;
   color: var(--pui-neutral-400);
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
 }
 
 .pui-ms-option {
@@ -281,7 +286,7 @@
 }
 
 .pui-ms-option--disabled {
-  opacity: .4;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
@@ -295,7 +300,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background var(--pui-duration-fast), border-color var(--pui-duration-fast);
+  transition:
+    background var(--pui-duration-fast),
+    border-color var(--pui-duration-fast);
 }
 
 .pui-ms-checkbox--checked {

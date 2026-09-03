@@ -46,13 +46,17 @@
   color: #fff;
   transition: background 0.15s;
 
-  &:hover { background: var(--pui-primary-700); }
+  &:hover {
+    background: var(--pui-primary-700);
+  }
 
   &--secondary {
     background: var(--pui-neutral-100);
     color: var(--pui-neutral-800);
     border: 1px solid var(--pui-neutral-200);
-    &:hover { background: var(--pui-neutral-200); }
+    &:hover {
+      background: var(--pui-neutral-200);
+    }
   }
 }
 
@@ -65,7 +69,7 @@
 
   &:focus {
     outline: none;
-    border-color: var(--pui-brand, #12C6A8);
+    border-color: var(--pui-brand, #12c6a8);
   }
 }
 
