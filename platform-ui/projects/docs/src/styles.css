@@ -34,6 +34,10 @@ pre {
   tab-size: 2;
 }
 
+code {
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
 p code,
 li code,
 td code {

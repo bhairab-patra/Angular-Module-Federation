@@ -106,7 +106,9 @@ export class PuiTabsComponent {
       this.select(target);
       const idx = this._tabs.findIndex((t) => t.id === target.id);
       const root = this.el.nativeElement.shadowRoot;
-      const buttons = root ? (Array.from(root.querySelectorAll('.pui-tab-btn')) as HTMLElement[]) : [];
+      const buttons = root
+        ? (Array.from(root.querySelectorAll('.pui-tab-btn')) as HTMLElement[])
+        : [];
       buttons[idx]?.focus();
     }
   }

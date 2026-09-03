@@ -9,6 +9,7 @@ import {
   inject,
   ViewEncapsulation,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -43,6 +44,7 @@ export { TableColumn, TableAction, SortDir, SortState } from '../models/table.mo
 })
 export class PuiDataTableComponent implements OnDestroy {
   private zone = inject(NgZone);
+  private cdr = inject(ChangeDetectorRef);
   private el = inject(ElementRef);
   private sanitizer = inject(DomSanitizer);
 
@@ -147,6 +149,8 @@ export class PuiDataTableComponent implements OnDestroy {
   actionMenuPos = { top: 0, left: 0 };
   private _closeMenuListener: (() => void) | null = null;
   private _closeMenuScrollListener: (() => void) | null = null;
+  private _closeMenuBlurListener: (() => void) | null = null;
+  private _scrollHostEl: HTMLElement | null = null;
   pageSizeMenuOpen = false;
   private _closePageSizeListener: (() => void) | null = null;
   searchTerm = '';
@@ -283,6 +287,7 @@ export class PuiDataTableComponent implements OnDestroy {
       document.removeEventListener('click', this._closePageSizeListener);
       this._closePageSizeListener = null;
     }
+    this.cdr.markForCheck();
   }
 
   onRowClick(row: any): void {
@@ -315,13 +320,7 @@ export class PuiDataTableComponent implements OnDestroy {
     this._emitSelection();
   }
 
-  toggleActionMenu(rowIndex: number, event: Event): void {
-    event.stopPropagation();
-    if (this.openActionRow === rowIndex) {
-      this._closeMenu();
-      return;
-    }
-    const btn = event.currentTarget as HTMLElement;
+  private _computeActionMenuPos(btn: HTMLElement): { top: number; left: number } {
     const btnRect = btn.getBoundingClientRect();
     const menuW = 200;
     const menuH = this._actions.length * 40 + 12;
@@ -330,7 +329,17 @@ export class PuiDataTableComponent implements OnDestroy {
     const openUp = spaceBelow < menuH + 8 && spaceAbove > spaceBelow;
     const top = openUp ? btnRect.top - menuH - 8 : btnRect.bottom + 8;
     const left = Math.min(btnRect.right - menuW, window.innerWidth - menuW - 8);
-    this.actionMenuPos = { top: Math.max(8, top), left: Math.max(8, left) };
+    return { top: Math.max(8, top), left: Math.max(8, left) };
+  }
+
+  toggleActionMenu(rowIndex: number, event: Event): void {
+    event.stopPropagation();
+    if (this.openActionRow === rowIndex) {
+      this._closeMenu();
+      return;
+    }
+    const btn = event.currentTarget as HTMLElement;
+    this.actionMenuPos = this._computeActionMenuPos(btn);
     this.openActionRow = rowIndex;
     this.openActionRowData = this.displayRows[rowIndex];
     this.zone.runOutsideAngular(() => {
@@ -339,17 +348,30 @@ export class PuiDataTableComponent implements OnDestroy {
         document.addEventListener('click', this._closeMenuListener, { once: true });
 
         this._closeMenuScrollListener = () => this.zone.run(() => this._closeMenu());
-        window.addEventListener('scroll', this._closeMenuScrollListener, {
+        window.addEventListener('scroll', this._closeMenuScrollListener, { capture: true });
+        window.addEventListener('resize', this._closeMenuScrollListener);
+
+        // The table's own internal scroll container (`.pui-dt-scroll`, used
+        // for [maxHeight]) lives inside this component's shadow root. The
+        // native `scroll` event is not `composed`, so it never crosses the
+        // shadow boundary — a window-level listener alone can never see it.
+        // This listener must live in the same shadow tree as the target.
+        this._scrollHostEl = this.el.nativeElement.shadowRoot?.querySelector(
+          '.pui-dt-scroll',
+        ) as HTMLElement | null;
+        this._scrollHostEl?.addEventListener('scroll', this._closeMenuScrollListener, {
           capture: true,
-          once: true,
         });
+
+        this._closeMenuBlurListener = () => this.zone.run(() => this._closeMenu());
+        window.addEventListener('blur', this._closeMenuBlurListener);
       });
     });
   }
 
   onActionClick(action: TableAction, row: any, event: Event): void {
     event.stopPropagation();
-    this.openActionRow = null;
+    this._closeMenu();
     action.action(row);
     this.actionClick.emit({ action, row });
   }
@@ -394,6 +416,7 @@ export class PuiDataTableComponent implements OnDestroy {
     this.openActionRow = null;
     this.openActionRowData = null;
     this._detachCloseListener();
+    this.cdr.markForCheck();
   }
 
   private _detachCloseListener(): void {
@@ -403,7 +426,14 @@ export class PuiDataTableComponent implements OnDestroy {
     }
     if (this._closeMenuScrollListener) {
       window.removeEventListener('scroll', this._closeMenuScrollListener, true);
+      window.removeEventListener('resize', this._closeMenuScrollListener);
+      this._scrollHostEl?.removeEventListener('scroll', this._closeMenuScrollListener, true);
+      this._scrollHostEl = null;
       this._closeMenuScrollListener = null;
+    }
+    if (this._closeMenuBlurListener) {
+      window.removeEventListener('blur', this._closeMenuBlurListener);
+      this._closeMenuBlurListener = null;
     }
   }
 

@@ -1,6 +1,6 @@
 ﻿<docs-page
   title="Header"
-  description="Flexible top app bar built from four independent sections — Logo, Heading, Search, and Avatar — each toggled on/off. Works identically in Angular, React, and plain HTML — no consumer hacks needed."
+  description="A flexible top app bar built from four independent sections: Logo, Heading, Search, and Avatar. Toggle each one on or off, and it behaves identically in Angular, React, and plain HTML with no extra wiring needed."
   [hasFramework]="true"
   [api]="api"
 >
@@ -10,14 +10,14 @@
       class="demo-section__desc"
       style="width: 100%; font-size: 13px; color: var(--pui-neutral-500); margin: 0 0 12px"
     >
-      The header is built from four independent sections — <strong>Logo</strong>,
-      <strong>Heading</strong>, <strong>Search</strong>, and <strong>Avatar</strong> — each toggled
-      on/off with <code>showLogo</code> / <code>showHeading</code> / <code>showSearch</code> /
-      <code>showUser</code>. Avatar has two styles: <code>avatarMode="menu"</code> (name + email +
-      dropdown) or <code>avatarMode="plain"</code> (round chip only, no menu). An optional
-      <strong>Hamburger</strong> button (<code>showHamburger</code>) can also be shown before the
-      logo, for toggling your own app sidebar — its open/close animation is driven by
-      <code>hamburgerOpen</code> and it emits <code>(hamburgerToggle)</code> on click.
+      The header is built from four independent sections: <strong>Logo</strong>,
+      <strong>Heading</strong>, <strong>Search</strong>, and <strong>Avatar</strong>. Toggle each
+      one with <code>showLogo</code>, <code>showHeading</code>, <code>showSearch</code>, and
+      <code>showUser</code>. Avatar has two styles: <code>avatarMode="menu"</code> shows a name,
+      email, and dropdown, while <code>avatarMode="plain"</code> shows just a round chip with no
+      menu. You can also add an optional <strong>Hamburger</strong> button before the logo
+      (<code>showHamburger</code>) to toggle your own app sidebar. Its open/close animation is
+      driven by <code>hamburgerOpen</code>, and it emits <code>(hamburgerToggle)</code> on click.
     </p>
     <div class="header-demo-wrap">
       <div class="toggle-row">

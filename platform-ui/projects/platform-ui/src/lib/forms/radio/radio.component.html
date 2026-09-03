@@ -39,9 +39,13 @@
     </span>
   </label>
 
-  <span *ngIf="hint && !error" id="pui-radio-hint" class="pui-field__hint" style="margin-top: 4px">{{
-    hint
-  }}</span>
+  <span
+    *ngIf="hint && !error"
+    id="pui-radio-hint"
+    class="pui-field__hint"
+    style="margin-top: 4px"
+    >{{ hint }}</span
+  >
   <span *ngIf="error" id="pui-radio-error" class="pui-field__error" style="margin-top: 4px">
     <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
       <circle cx="8" cy="8" r="7" fill="var(--pui-error)" />

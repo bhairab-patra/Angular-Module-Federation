@@ -196,25 +196,6 @@ customElements.whenDefined('pui-lib-list').then(() => {
     { id: 'delete', label: 'Delete account', disabled: true },
   ];
 
-  colorSelected: string | number | null = 'dashboard';
-  demoTextColor = '';
-  demoActiveColor = '#0d9488';
-  demoHoverColor = '#f0fdfa';
-
-  readonly colorPresets = [
-    { label: 'Teal (default)', active: '#0d9488', hover: '#f0fdfa' },
-    { label: 'Indigo', active: '#4f46e5', hover: '#eef2ff' },
-    { label: 'Rose', active: '#e11d48', hover: '#fff1f2' },
-    { label: 'Amber', active: '#d97706', hover: '#fffbeb' },
-    { label: 'Violet', active: '#7c3aed', hover: '#f5f3ff' },
-  ];
-
-  applyPreset(p: { active: string; hover: string }): void {
-    this.demoActiveColor = p.active;
-    this.demoHoverColor = p.hover;
-    this.cdr.markForCheck();
-  }
-
   xfwRows = [
     { name: 'items', angular: '[items]=”items”', attr: '—', js: 'el.items = [...]' },
     {

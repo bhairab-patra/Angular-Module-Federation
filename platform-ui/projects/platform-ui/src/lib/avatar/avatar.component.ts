@@ -30,6 +30,16 @@ export class PuiAvatarComponent {
   @Input() avatarUrl = '';
   @Input() size: AvatarSize = 'md';
 
+  // When set, the trigger shows this text (e.g. "Hi, bpatra") instead of
+  // name/email, with the avatar chip after it instead of before. The
+  // dropdown's own profile header still always shows the real name/email.
+  @Input() greeting = '';
+  @Input() greetingSubtitle = '';
+
+  get showGreeting(): boolean {
+    return !!this.greeting;
+  }
+
   @Input() set collapsed(v: boolean | string) {
     this._collapsed = v === true || v === 'true' || (v as any) === '';
   }

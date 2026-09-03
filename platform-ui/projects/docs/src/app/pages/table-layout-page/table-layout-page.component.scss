@@ -52,7 +52,7 @@
 .config-item code {
   font-size: 12px;
   font-weight: 700;
-  color: var(--pui-brand, #12c6a8);
+  color: #000000;
 }
 
 .config-item span {
@@ -75,7 +75,7 @@
   padding: 8px 14px;
   font-size: 13px;
   font-weight: 600;
-  font-family: monospace;
+  font-family: 'Poppins', system-ui, sans-serif;
   color: var(--pui-neutral-500);
   cursor: pointer;
   transition:
@@ -88,6 +88,7 @@
 }
 
 .file-tab--active {
-  color: var(--pui-brand, #12c6a8);
-  border-bottom-color: var(--pui-brand, #12c6a8);
+  color: var(--pui-neutral-800);
+  border-bottom-color: var(--pui-neutral-800);
+  font-size: 14px;
 }

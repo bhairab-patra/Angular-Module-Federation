@@ -1,6 +1,6 @@
 <docs-page
   title="List"
-  description="A structured vertical list with icons, descriptions, badges, metadata, dividers, and selectable rows — available in four layout variants."
+  description="A structured vertical list with icons, descriptions, badges, metadata, dividers, and selectable rows, available in four layout variants. Use it for a vertical list of records; for a wide dataset with columns, use Table instead."
   [hasFramework]="true"
   [api]="api"
 >
@@ -35,78 +35,6 @@
               [selectable]="true"
             ></pui-lib-list>
           </div>
-        </div>
-      </div>
-
-      <div class="lst-section">
-        <h3 class="lst-section__heading">Color Theming</h3>
-        <p class="lst-section__desc">
-          Three inputs control the color: <code>textColor</code> for all label text,
-          <code>activeColor</code> for the selected row (tinted background is derived
-          automatically), and <code>hoverColor</code> for the row hover background. By default all
-          three are <strong>teal</strong>.
-        </p>
-        <div class="lst-color-demo">
-          <div class="lst-color-presets">
-            <p class="lst-label" style="margin-bottom: 10px">Pick a theme preset</p>
-            <div class="lst-presets-row">
-              <button
-                *ngFor="let p of colorPresets; trackBy: trackByIndex"
-                class="lst-preset-btn"
-                [style.border-color]="p.active"
-                [class.lst-preset-btn--active]="demoActiveColor === p.active"
-                (click)="applyPreset(p)"
-              >
-                <span class="lst-preset-swatch" [style.background]="p.active"></span>
-                {{ p.label }}
-              </button>
-            </div>
-            <div class="lst-color-inputs">
-              <label class="lst-color-field">
-                <span class="lst-label">Active color</span>
-                <div class="lst-color-row">
-                  <input
-                    type="color"
-                    [value]="demoActiveColor"
-                    (input)="demoActiveColor = $any($event.target).value; cdr.markForCheck()"
-                  />
-                  <code>{{ demoActiveColor }}</code>
-                </div>
-              </label>
-              <label class="lst-color-field">
-                <span class="lst-label">Hover color</span>
-                <div class="lst-color-row">
-                  <input
-                    type="color"
-                    [value]="demoHoverColor"
-                    (input)="demoHoverColor = $any($event.target).value; cdr.markForCheck()"
-                  />
-                  <code>{{ demoHoverColor }}</code>
-                </div>
-              </label>
-            </div>
-          </div>
-
-          <div class="lst-color-preview" style="max-width: 280px">
-            <p class="lst-label" style="margin-bottom: 10px">Live preview</p>
-            <pui-lib-list
-              [items]="menuItems"
-              variant="bordered"
-              [selectable]="true"
-              [selectedId]="colorSelected"
-              [activeColor]="demoActiveColor"
-              [hoverColor]="demoHoverColor"
-              (itemSelect)="colorSelected = $event.id; cdr.markForCheck()"
-            >
-            </pui-lib-list>
-            <p class="lst-result" style="margin-top: 10px">
-              Selected: <strong>{{ colorSelected ?? '—' }}</strong>
-            </p>
-          </div>
-        </div>
-
-        <div class="lst-code-hint">
-          <code>[activeColor]="'{{ demoActiveColor }}'" [hoverColor]="'{{ demoHoverColor }}'"</code>
         </div>
       </div>
 

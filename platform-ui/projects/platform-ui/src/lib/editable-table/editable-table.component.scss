@@ -227,7 +227,7 @@
 }
 
 .pui-etbl-cell--mono {
-  font-family: 'SF Mono', ui-monospace, monospace;
+  font-family: var(--pui-font-mono);
 }
 
 .pui-etbl-badge {

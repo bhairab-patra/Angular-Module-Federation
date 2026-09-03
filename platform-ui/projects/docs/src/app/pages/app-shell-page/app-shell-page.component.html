@@ -1,6 +1,6 @@
 <docs-page
   title="App Shell"
-  description="Full application layout using PuiSolifiSidebarComponent — dark navy sidebar, flat navigation, user profile popup menu, icon or text-only mode, collapse to 64px rail — plus an optional theme-aware top header (logo, search, avatar). Every input is prefixed by which part of the shell it controls: sidebarX for the left nav rail, headerX for the top bar. Set showHeader to false for a flat layout with no header."
+  description="A complete application layout built around the Solifi sidebar: dark navy background, flat navigation, a user profile menu, and a rail that collapses to 64px. Add an optional top header with a logo, search, and avatar. Inputs are named by which part they control, sidebarX for the left nav and headerX for the top bar, so it's always clear what you're changing. Set showHeader to false for a layout with no header at all."
   [code]="angularCode"
   [api]="api"
   [hasFramework]="true"
@@ -101,13 +101,13 @@
       <div class="demo-section__title">Grouped vs flat navigation — navGroups vs navItems</div>
       <p class="demo-section__desc">
         <code>sidebarGroups</code> accepts two shapes. Pass an array of
-        <code>SolifiNavGroup</code> objects (each with its own <code>id</code>, <code>label</code>,
-        and <code>items</code>) to get a section label above every cluster — that's what "navGroups"
-        means. If you don't want section labels at all, skip the group wrapper and pass a plain
-        <code>SolifiNavItem[]</code> array instead — commonly called "navItems". The shell checks
-        whether the first array element has an <code>items</code> key: if it doesn't, the whole
-        array is treated as one flat, ungrouped list and no label renders above it. Same
-        <code>[sidebarGroups]</code> input either way — nothing else in your template changes.
+        <code>SolifiNavGroup</code> objects, each with its own <code>id</code>, <code>label</code>,
+        and <code>items</code>, to get a section label above every cluster (this is what people mean
+        by "navGroups"). If you don't want section labels, skip the group wrapper and pass a plain
+        <code>SolifiNavItem[]</code> array instead, usually called "navItems". The shell checks
+        whether the first array element has an <code>items</code> key: if it doesn't, it treats the
+        whole array as one flat, ungrouped list with no label above it. Either way you're setting
+        the same <code>[sidebarGroups]</code> input, and nothing else in your template changes.
       </p>
 
       <pui-lib-tabs
@@ -167,9 +167,9 @@
     <div class="demo-section">
       <div class="demo-section__title">Understanding Every Input &amp; Output</div>
       <p class="demo-section__desc">
-        Every <code>pui-lib-app-shell</code> property, grouped by what it controls —
-        <code>sidebarX</code> only ever touches the left nav rail, <code>headerX</code> only ever
-        touches the top bar. Expand a category to read its explanation — nothing is mixed together.
+        Every <code>pui-lib-app-shell</code> property, grouped by what it controls.
+        <code>sidebarX</code> properties only ever touch the left nav rail; <code>headerX</code>
+        properties only ever touch the top bar. Expand a category to read its explanation.
       </p>
       <div class="demo-block">
         <pui-lib-accordion

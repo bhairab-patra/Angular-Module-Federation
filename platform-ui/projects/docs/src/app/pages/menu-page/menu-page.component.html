@@ -1,6 +1,6 @@
 ﻿<docs-page
   title="Menu"
-  description="A dropdown menu component with support for nested submenus, keyboard shortcuts, dividers, danger actions, and four trigger variants. Works identically in Angular, React, and plain HTML."
+  description="A dropdown menu component with support for nested submenus, keyboard shortcuts, dividers, danger actions, and four trigger variants. Works identically in Angular, React, and plain HTML. It opens on a click, unlike Context Menu, which opens on right-click."
   [hasFramework]="true"
   [api]="api"
 >
@@ -24,14 +24,17 @@
 
     <h3 class="demo-section-title" style="margin-top: 32px">With Submenus</h3>
     <div class="demo-row">
-      <pui-lib-menu
-        trigger="File Actions"
-        variant="default"
-        placement="bottom-start"
-        [items]="submenuItems"
-        (menuSelect)="onSelect($event)"
-      >
-      </pui-lib-menu>
+      <div class="demo-cell">
+        <span class="demo-cell__label">Nested items</span>
+        <pui-lib-menu
+          trigger="File Actions"
+          variant="default"
+          placement="bottom-start"
+          [items]="submenuItems"
+          (menuSelect)="onSelect($event)"
+        >
+        </pui-lib-menu>
+      </div>
     </div>
 
     <h3 class="demo-section-title" style="margin-top: 32px">Trigger Variants</h3>

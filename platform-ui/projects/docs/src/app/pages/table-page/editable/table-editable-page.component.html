@@ -1,6 +1,6 @@
 ﻿<docs-page
   title="Editable Table"
-  description="pui-lib-editable-table — inline row editing with edit/save/cancel/delete controls per row, a title (heading), live search (pui-lib-search — the same search component used by pui-lib-table and pui-lib-data-table), per-column sorting, optional pagination, sticky header, striping, truncated-cell tooltips, inline validation, and a save/delete toast — every feature is an independent input you can turn on or off. Header text is 14px, cell text is 13px/black, and header cell padding is var(--pui-space-3) var(--pui-space-3-5) — matching pui-lib-table and pui-lib-data-table exactly. Only one row can be edited at a time. Supports pui-lib-form-dialog for modal add/edit flows and pui-lib-confirm-dialog for delete confirmation."
+  description="Inline row editing with edit, save, cancel, and delete controls on every row. Add a title, live search, per-column sorting, optional pagination, a sticky header, striping, tooltips for truncated cells, inline validation, and a save/delete toast: each one is an independent input you can turn on or off, and only one row can be in edit mode at a time. It shares its search component and table styling with Table and Data Table, so all three feel consistent. Pair it with Form Dialog for a modal add or edit flow, or Confirm Dialog to confirm deletes."
   [api]="api"
   [hasFramework]="true"
 >
@@ -8,25 +8,26 @@
     <div class="demo-section">
       <h3 class="demo-section__title">Inline Row Editing</h3>
       <p class="demo-section__desc">
-        Click the <strong>pencil</strong> icon to enter edit mode — all cells become inputs. Click
-        the <strong>checkmark</strong> to save or <strong>X</strong> to cancel. Only one row can be
-        in edit mode at a time. With <code>[confirmDelete]="true"</code>, clicking the
-        <strong>trash</strong> icon shows a built-in confirm dialog before deleting. Set
-        <code>editable: false</code> on a column to keep it read-only while editing — below,
+        Click the <strong>pencil</strong> icon to enter edit mode: every cell becomes an input.
+        Click the <strong>checkmark</strong> to save, or <strong>X</strong> to cancel. Only one row
+        can be in edit mode at a time. With <code>[confirmDelete]="true"</code>, clicking the
+        <strong>trash</strong> icon opens a built-in confirm dialog before deleting. Set
+        <code>editable: false</code> on a column to keep it read-only while editing. Below,
         <strong>Department</strong> stays plain text even in edit mode, while every other column
         becomes an input.
       </p>
       <p class="demo-section__desc">
-        Every feature here is independently switchable: <code>sortable</code> is set per column
-        (click Name, Department, Role, or Salary to sort), <code>[pagination]</code> +
-        <code>[pageSize]</code> page the rows, <code>[stickyHeader]</code> pins the header, and
-        <code>required</code>/<code>minLength</code>/<code>pattern</code> on a column enforce inline
-        validation (with an error message) before Save is allowed. A toast confirms every
-        save/delete — disable it with <code>[showToast]="false"</code>. Truncated header or cell
-        text shows a tooltip on hover. The built-in Edit and Delete buttons toggle independently
-        with <code>[showEditAction]</code>/<code>[showDeleteAction]</code>
-        — turn either off for an edit-only or delete-only row toolbar.
-        <code>[rowActions]</code> adds custom buttons (here, "View") alongside them.
+        Every feature here can be switched on or off independently. Set <code>sortable</code> on a
+        column to enable sorting (try Name, Department, Role, or Salary). Add
+        <code>[pagination]</code> and <code>[pageSize]</code> to page the rows, and
+        <code>[stickyHeader]</code> to pin the header. Add <code>required</code>,
+        <code>minLength</code>, or <code>pattern</code> to a column to enforce inline validation,
+        with an error message, before Save is allowed. A toast confirms every save or delete by
+        default; disable it with <code>[showToast]="false"</code>. Truncated header or cell text
+        shows a tooltip on hover. The built-in Edit and Delete buttons toggle independently with
+        <code>[showEditAction]</code> and <code>[showDeleteAction]</code>, so you can build an
+        edit-only or delete-only row toolbar. Use <code>[rowActions]</code> to add custom buttons
+        alongside them, like the "View" button here.
       </p>
       <pui-lib-editable-table
         heading="Team Members"

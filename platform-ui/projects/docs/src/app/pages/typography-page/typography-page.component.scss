@@ -2,7 +2,7 @@
   padding: 40px 48px 80px;
   max-width: 900px;
   font-family: 'Poppins', system-ui, sans-serif;
-  color: var(--pui-neutral-900);
+  color: var(--pui-neutral-800);
 }
 
 .tp-header {
@@ -22,7 +22,7 @@
   margin: 0;
 }
 .tp-header__desc strong {
-  color: var(--pui-brand);
+  color: #000;
   font-weight: 700;
 }
 
@@ -43,11 +43,16 @@
 .tp-section__num {
   font-size: 11px;
   font-weight: 800;
-  color: var(--pui-brand);
-  background: rgba(18, 198, 168, 0.1);
+  color: #FFF;
+  background: #0f5c5e;
   padding: 2px 8px;
   border-radius: 999px;
   letter-spacing: 0.06em;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tp-card {
@@ -75,7 +80,7 @@
 
 .tp-badge {
   font-size: 10px;
-  font-weight: 700;
+  font-weight: 500;
   padding: 2px 8px;
   border-radius: 999px;
   letter-spacing: 0.05em;
@@ -89,8 +94,8 @@
   color: var(--pui-info);
 }
 .tp-badge--teal {
-  background: rgba(18, 198, 168, 0.12);
-  color: var(--pui-brand-deep);
+  background: #efefef;
+  color: #010101;
 }
 
 .tp-code-block {
@@ -108,7 +113,7 @@
   font-weight: 600;
   color: var(--pui-neutral-500);
   border-bottom: 1px solid var(--pui-neutral-200);
-  font-family: monospace;
+  font-family: 'Poppins', system-ui, sans-serif;
 }
 .tp-code-block__pre {
   margin: 0;
@@ -120,7 +125,7 @@
 }
 .tp-code-block__pre code {
   color: var(--pui-slate-200);
-  font-family: 'Consolas', 'Courier New', monospace;
+  font-family: 'Poppins', system-ui, sans-serif;
   white-space: pre;
 }
 .tp-copy-btn {
@@ -170,14 +175,14 @@
 }
 .tp-scale-row__token {
   font-size: 12px;
-  color: var(--pui-brand);
-  font-family: monospace;
+  color: #000;
+  font-family: 'Poppins', system-ui, sans-serif;
 }
 .tp-scale-row__size,
 .tp-scale-row__weight,
 .tp-scale-row__lh {
   font-size: 12px;
-  color: var(--pui-neutral-500);
+  color: var(--pui-neutral-800);
 }
 .tp-scale-row__preview {
   font-family: 'Poppins', system-ui, sans-serif;
@@ -209,8 +214,8 @@
 }
 .tp-weight-item__num {
   font-size: 12px;
-  color: var(--pui-neutral-400);
-  font-family: monospace;
+  color: var(--pui-neutral-600);
+  font-family: 'Poppins', system-ui, sans-serif;
 }
 .tp-weight-item__sample {
   font-size: 16px;
@@ -284,7 +289,7 @@
 .tp-h6 {
   font-size: 12px;
   font-weight: 700;
-  color: var(--pui-neutral-500);
+  color: var(--pui-neutral-600);
   margin: 0;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -302,8 +307,8 @@
 }
 .tp-body-token {
   font-size: 10px;
-  color: var(--pui-brand);
-  font-family: monospace;
+  color: #000;
+  font-family: 'Poppins', system-ui, sans-serif;
   background: rgba(18, 198, 168, 0.08);
   padding: 2px 7px;
   border-radius: 4px;
@@ -377,11 +382,11 @@
   background: var(--pui-purple-bg);
   padding: 3px 8px;
   border-radius: 6px;
-  font-family: monospace;
+  font-family: 'Poppins', system-ui, sans-serif;
 }
 .tp-link {
   font-size: 13px;
-  color: var(--pui-brand);
+  color: #000;
   text-decoration: none;
   font-weight: 500;
 }
@@ -390,7 +395,7 @@
 }
 .tp-muted {
   font-size: 12px;
-  color: var(--pui-neutral-400);
+  color: var(--pui-neutral-600);
 }
 .tp-strong {
   font-size: 14px;

@@ -1,6 +1,6 @@
 ﻿<docs-page
   title="Data Grid"
-  description="pui-lib-data-table — a full-featured data grid extending the Display Table with pagination, row selection (with select-all), and action menus. Designed for large datasets with server-side or client-side paging. Search uses pui-lib-search (shared with pui-lib-table and pui-lib-editable-table); header text (14px), cell text (13px/black), and header cell padding (var(--pui-space-3) var(--pui-space-3-5)) follow the same standard across all three table components."
+  description="A full-featured data grid that extends the Display Table with pagination, row selection with select-all, and action menus, built for large datasets with either server-side or client-side paging. It shares its search component with Table and Editable Table, and all three tables use the same header and cell styling so they feel consistent side by side."
   [hasFramework]="true"
   [api]="api"
 >
@@ -28,7 +28,7 @@
       >
       </pui-lib-data-table>
       <p class="demo-desc" *ngIf="lastRow">
-        Last clicked: <strong>{{ lastRow['name'] }}</strong> Â· Selected:
+        Last clicked: <strong>{{ lastRow['name'] }}</strong> · Selected:
         <strong>{{ selectedCount }} row{{ selectedCount === 1 ? '' : 's' }}</strong>
       </p>
     </div>
@@ -40,7 +40,7 @@
       <p class="demo-section__desc">
         Click <strong>⋮</strong> on any row to Add, Edit, or Remove a product.
         <code>pui-lib-form-dialog</code> and <code>pui-lib-confirm-dialog</code> are shared reusable
-        components — fully customisable via <code>[fields]</code>, <code>[title]</code>, and
+        components, fully customisable via <code>[fields]</code>, <code>[title]</code>, and
         <code>[data]</code>.
       </p>
       <pui-lib-data-table
@@ -110,8 +110,8 @@
     <div class="demo-section">
       <h3 class="demo-section__title">Empty State</h3>
       <p class="demo-section__desc">
-        When <code>[data]</code> is empty, the table shows a standardized empty state — icon, title,
-        optional description. Override the message with <code>[emptyTitle]</code> /
+        When <code>[data]</code> is empty, the table shows a standardized empty state: an icon,
+        title, and optional description. Override the message with <code>[emptyTitle]</code> and
         <code>[emptyDescription]</code>, and project an optional action button into the
         <code>emptyActions</code> slot.
       </p>

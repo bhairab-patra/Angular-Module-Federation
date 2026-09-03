@@ -1,9 +1,4 @@
-<div
-  *ngIf="open"
-  class="pui-modal-backdrop"
-  (click)="onBackdropClick($event)"
-  role="presentation"
->
+<div *ngIf="open" class="pui-modal-backdrop" (click)="onBackdropClick($event)" role="presentation">
   <div
     class="pui-modal pui-modal--{{ size }}"
     role="dialog"

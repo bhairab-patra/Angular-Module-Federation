@@ -1,6 +1,6 @@
 ﻿<docs-page
   title="Display Table"
-  description="pui-lib-table — a lightweight display table with sorting, search (pui-lib-search — the same search component used across pui-lib-editable-table and pui-lib-data-table), sticky header, badge/pill cells, and cell overflow tooltips. No pagination or row selection, and no action menu (see pui-lib-data-table below for that). Header text is 14px, cell text is 13px/black, and header cell padding is var(--pui-space-3) var(--pui-space-3-5) — the same standard shared by all three table components."
+  description="A lightweight display table with sorting, search, a sticky header, badge and pill cells, and tooltips for overflowing text. It has no pagination, row selection, or action menu — for those, see Data Table below. All three table components share the same search component and the same header and cell styling, so they feel consistent side by side."
   [hasFramework]="true"
   [api]="api"
 >
@@ -51,7 +51,7 @@
       <h3 class="demo-section__title">Action Menu — 3-dot Dropdown per Row</h3>
       <p class="demo-section__desc">
         Action menus are part of <code>pui-lib-data-table</code>. Pass an
-        <code>[actions]</code> array — each item has a <code>label</code>, an
+        <code>[actions]</code> array where each item has a <code>label</code>, an
         <code>action(row)</code> callback, and an optional <code>disabled(row)</code> predicate. The
         "Remove Employee" action is disabled for <em>Inactive</em> rows.
       </p>

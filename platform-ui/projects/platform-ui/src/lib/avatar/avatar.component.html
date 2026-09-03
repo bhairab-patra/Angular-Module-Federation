@@ -12,15 +12,20 @@
   </button>
 
   <div *ngIf="!collapsed" class="pui-av__panel" [class.pui-av__panel--open]="open">
-    <button type="button" class="pui-av__row" (click)="toggle()">
+    <button
+      type="button"
+      class="pui-av__row"
+      [class.pui-av__row--greeting]="showGreeting"
+      (click)="toggle()"
+    >
       <span class="pui-av__chip" [class.pui-av__chip--photo]="avatarUrl">
         <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-av__chip-img" alt="" />
         <span *ngIf="!avatarUrl">{{ initials }}</span>
       </span>
 
-      <span class="pui-av__info">
-        <span class="pui-av__name">{{ name }}</span>
-        <span class="pui-av__email">{{ email }}</span>
+      <span class="pui-av__info" [class.pui-av__info--greeting]="showGreeting">
+        <span class="pui-av__name">{{ showGreeting ? greeting : name }}</span>
+        <span class="pui-av__email">{{ showGreeting ? greetingSubtitle : email }}</span>
       </span>
 
       <svg
@@ -43,6 +48,18 @@
     </button>
 
     <ng-container *ngIf="open && menuItems.length">
+      <div class="pui-av__profile" *ngIf="showGreeting">
+        <span class="pui-av__chip" [class.pui-av__chip--photo]="avatarUrl">
+          <img *ngIf="avatarUrl" [src]="avatarUrl" class="pui-av__chip-img" alt="" />
+          <span *ngIf="!avatarUrl">{{ initials }}</span>
+        </span>
+        <span class="pui-av__info">
+          <span class="pui-av__name">{{ name }}</span>
+          <span class="pui-av__email">{{ email }}</span>
+        </span>
+      </div>
+      <div class="pui-av__divider" *ngIf="showGreeting"></div>
+
       <ng-container *ngFor="let item of menuItems">
         <div *ngIf="item.dividerBefore" class="pui-av__divider"></div>
         <button

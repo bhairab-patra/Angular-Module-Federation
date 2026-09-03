@@ -1623,7 +1623,7 @@ type Framework = 'angular' | 'react' | 'html';
       .hiw-card__code {
         display: block;
         margin-top: 4px;
-        font-family: 'Fira Code', 'Cascadia Code', monospace;
+        font-family: 'Poppins', system-ui, sans-serif;
         font-size: 11.5px;
         background: #e5e7eb;
         color: #111827;
@@ -1653,7 +1653,7 @@ type Framework = 'angular' | 'react' | 'html';
         margin-top: 2px;
       }
       .file-name {
-        font-family: 'Fira Code', 'Cascadia Code', monospace;
+        font-family: 'Poppins', system-ui, sans-serif;
         font-size: 13px;
         color: #0ea5e9;
         margin-bottom: 4px;

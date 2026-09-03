@@ -317,7 +317,7 @@
 }
 
 .pui-dt-cell--mono {
-  font-family: 'SF Mono', ui-monospace, monospace;
+  font-family: var(--pui-font-mono);
   font-size: var(--pui-text-sm);
 }
 

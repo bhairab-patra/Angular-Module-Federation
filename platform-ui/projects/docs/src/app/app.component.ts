@@ -266,12 +266,6 @@ export class AppComponent {
       keywords: ['search', 'autocomplete', 'suggestions', 'debounce', 'filter', 'find'],
     },
     {
-      label: 'Advanced Filters',
-      route: '/filters',
-      category: 'Component',
-      keywords: ['filter', 'panel', 'checkbox', 'range', 'date', 'select', 'advanced'],
-    },
-    {
       label: 'Toast',
       route: '/toast',
       category: 'Component',
@@ -878,12 +872,6 @@ export class AppComponent {
         id: 'utilities',
         label: 'Utilities',
         items: [
-          {
-            id: 'filters',
-            label: 'Advanced Filters',
-            route: '/filters',
-            iconName: 'filter',
-          },
           {
             id: 'app-shell',
             label: 'App Shell',

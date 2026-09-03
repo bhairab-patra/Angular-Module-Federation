@@ -1,6 +1,6 @@
 ﻿<docs-page
   title="Radio Group"
-  description="A group of radio buttons for single-selection. Supports vertical and horizontal layouts, per-option hints, and disabled states. Works in Angular, React, and plain HTML."
+  description="A group of radio buttons for single-selection. Supports vertical and horizontal layouts, per-option hints, and disabled states. Works in Angular, React, and plain HTML. Best for a small, fully visible set of mutually exclusive options; once the list gets long, Select saves space."
   [hasFramework]="true"
   [api]="api"
 >
@@ -12,7 +12,7 @@
         <pui-lib-radio-group label="Contact via" [options]="contact" [(ngModel)]="vContact" />
       </div>
       <p class="demo-desc">
-        Plan: <strong>{{ vPlan || 'none' }}</strong> Â· Contact:
+        Plan: <strong>{{ vPlan || 'none' }}</strong> · Contact:
         <strong>{{ vContact || 'none' }}</strong>
       </p>
     </div>

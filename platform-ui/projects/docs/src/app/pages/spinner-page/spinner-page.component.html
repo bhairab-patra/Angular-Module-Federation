@@ -1,6 +1,6 @@
 ﻿<docs-page
   title="Spinner"
-  description="Two animation styles — dash (radiating lines) and dots (orbiting dot ring). Theme-aware brand colour, with overlay, size, and z-index support."
+  description="Two animation styles: dash (radiating lines) and dots (an orbiting dot ring), both in a theme-aware brand colour. Supports a full-screen overlay, adjustable size, and z-index control. Use it for a short, unpredictable wait; for a longer load where you already know the shape of the content, Skeleton feels faster to the user."
   [hasFramework]="true"
   [api]="api"
 >
@@ -97,10 +97,10 @@
       <h3 class="demo-section__title">Full-Page Overlay</h3>
       <p class="demo-section__desc">
         Set <code>[overlay]="true"</code> to render a fixed full-screen backdrop behind the spinner.
-        <code>overlayColor</code> defaults to <code>var(--pui-overlay-black-45)</code> — the exact
-        same scrim token <code>pui-lib-modal</code> and <code>pui-lib-form-dialog</code> use for
-        their backdrop, so a loading state looks like part of the same design language instead of a
-        plain white wash.
+        <code>overlayColor</code> defaults to <code>var(--pui-overlay-black-45)</code>, the same
+        scrim token <code>pui-lib-modal</code> and <code>pui-lib-form-dialog</code> use for their
+        own backdrops, so a loading state feels consistent with the rest of the design language
+        instead of a plain white wash.
       </p>
 
       <div class="overlay-row">
