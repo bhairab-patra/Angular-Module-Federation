@@ -26,6 +26,7 @@ import { UserMenuItem, HeaderBadge } from '../models/header.model';
 import { PuiFooterInternalComponent } from '../footer/footer-internal.component';
 import { FooterVariant, FooterLink, FooterNoticeSlide } from '../models/footer.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
+import { PUI_DEFAULT_SIDEBAR_WIDTH, PUI_DEFAULT_SIDEBAR_COLLAPSED_WIDTH } from '../constants';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -165,8 +166,8 @@ export class PuiAppShellComponent implements AfterViewInit, OnDestroy {
   }
   private _showSidebar = true;
 
-  @Input() sidebarWidth = 220;
-  @Input() sidebarCollapsedWidth = 64;
+  @Input() sidebarWidth = PUI_DEFAULT_SIDEBAR_WIDTH;
+  @Input() sidebarCollapsedWidth = PUI_DEFAULT_SIDEBAR_COLLAPSED_WIDTH;
 
   @Input() set sidebarTheme(v: SolifiSidebarTheme | string) {
     this._sidebarTheme =

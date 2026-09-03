@@ -85,4 +85,10 @@ export class PuiSwitchComponent implements ControlValueAccessor {
     this.checkedChange.emit(this.checked);
     this.changed.emit(this.checked);
   }
+
+  get describedBy(): string | null {
+    if (this.error) return 'pui-switch-error';
+    if (this.hint) return 'pui-switch-hint';
+    return null;
+  }
 }

@@ -266,7 +266,11 @@
       (click)="onActionClick(act, openActionRowData, $event)"
     >
       <span *ngIf="act.iconName" class="pui-dt-action-icon">
-        <pui-lib-icon-internal [name]="act.iconName" size="sm" color="currentColor"></pui-lib-icon-internal>
+        <pui-lib-icon-internal
+          [name]="act.iconName"
+          size="sm"
+          color="currentColor"
+        ></pui-lib-icon-internal>
       </span>
       <span
         *ngIf="!act.iconName && act.icon"

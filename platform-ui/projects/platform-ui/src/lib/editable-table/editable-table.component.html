@@ -270,9 +270,17 @@
   <div
     class="pui-etbl-confirm-backdrop"
     *ngIf="_pendingDeleteIndex !== null"
+    role="presentation"
     (click)="cancelDeleteRow()"
   ></div>
-  <div class="pui-etbl-confirm" *ngIf="_pendingDeleteIndex !== null">
+  <div
+    class="pui-etbl-confirm"
+    *ngIf="_pendingDeleteIndex !== null"
+    role="alertdialog"
+    aria-modal="true"
+    aria-label="Delete Row?"
+    tabindex="-1"
+  >
     <div class="pui-etbl-confirm__icon">
       <svg viewBox="0 0 24 24" fill="none" width="28" height="28">
         <circle cx="12" cy="12" r="10" stroke="var(--pui-error)" stroke-width="1.8" />

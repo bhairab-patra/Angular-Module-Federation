@@ -5,6 +5,8 @@
   EventEmitter,
   ViewEncapsulation,
   ChangeDetectionStrategy,
+  ElementRef,
+  HostListener,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -15,6 +17,7 @@ import { PuiTextareaInternalComponent } from '../forms/textarea/textarea-interna
 import { PuiConfirmDialogInternalComponent } from '../confirm-dialog/confirm-dialog-internal.component';
 import { SelectOption } from '../models/form.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
+import { getDeepActiveElement } from '../focus-utils';
 
 export interface FormDialogField {
   key: string;
@@ -51,10 +54,33 @@ export interface FormDialogSaveEvent {
   styleUrls: ['./form-dialog.component.scss'],
 })
 export class PuiFormDialogComponent {
+  private _previouslyFocused: HTMLElement | null = null;
+
+  constructor(private _elRef: ElementRef<HTMLElement>) {}
+
   _open = false;
   @Input() set open(v: boolean | string) {
-    this._open = v === true || v === 'true' || (v as any) === '';
+    const next = v === true || v === 'true' || (v as any) === '';
+    if (next && !this._open) {
+      this._previouslyFocused = getDeepActiveElement();
+      setTimeout(() => {
+        const panel = this._elRef.nativeElement.shadowRoot?.querySelector(
+          '.pui-fd',
+        ) as HTMLElement | null;
+        panel?.focus();
+      });
+    } else if (!next && this._open) {
+      const toFocus = this._previouslyFocused;
+      this._previouslyFocused = null;
+      setTimeout(() => toFocus?.focus());
+    }
+    this._open = next;
     if (this._open) this._initDraft();
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this._open && this.closeOnBackdrop) this.onCancel();
   }
 
   @Input() title = 'Dialog';

@@ -93,4 +93,10 @@ export class PuiRadioGroupComponent implements ControlValueAccessor {
     this.valueChange.emit(val);
     this.changed.emit(val);
   }
+
+  get describedBy(): string | null {
+    if (this.error) return 'pui-radio-error';
+    if (this.hint) return 'pui-radio-hint';
+    return null;
+  }
 }

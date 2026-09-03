@@ -10,6 +10,7 @@ import {
 import { NgFor, NgIf } from '@angular/common';
 import { IconInternalComponent } from '../icon/icon-internal.component';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
+import { PUI_DEFAULT_PAGE_SIZE } from '../constants';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,7 +25,7 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 export class PuiSimplePaginationComponent implements OnChanges {
   @Input() total = 0;
   @Input() page = 1;
-  @Input() pageSize = 10;
+  @Input() pageSize = PUI_DEFAULT_PAGE_SIZE;
   @Input() maxVisible = 5;
   _disabled = false;
   @Input() set disabled(v: boolean | string) {

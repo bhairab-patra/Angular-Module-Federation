@@ -5,11 +5,14 @@
   EventEmitter,
   ViewEncapsulation,
   ChangeDetectionStrategy,
+  ElementRef,
+  HostListener,
 } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ButtonInternalComponent } from '../button/button-internal.component';
 import { ButtonVariant } from '../models/button.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
+import { getDeepActiveElement } from '../focus-utils';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,9 +25,32 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
   styleUrls: ['./confirm-dialog.component.scss'],
 })
 export class PuiConfirmDialogComponent {
+  private _previouslyFocused: HTMLElement | null = null;
+
+  constructor(private _elRef: ElementRef<HTMLElement>) {}
+
   _open = false;
   @Input() set open(v: boolean | string) {
-    this._open = v === true || v === 'true' || (v as any) === '';
+    const next = v === true || v === 'true' || (v as any) === '';
+    if (next && !this._open) {
+      this._previouslyFocused = getDeepActiveElement();
+      setTimeout(() => {
+        const panel = this._elRef.nativeElement.shadowRoot?.querySelector(
+          '.pui-cd',
+        ) as HTMLElement | null;
+        panel?.focus();
+      });
+    } else if (!next && this._open) {
+      const toFocus = this._previouslyFocused;
+      this._previouslyFocused = null;
+      setTimeout(() => toFocus?.focus());
+    }
+    this._open = next;
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    if (this._open && this.closeOnBackdrop) this.onCancel();
   }
 
   @Input() title = 'Are you sure?';

@@ -3,7 +3,7 @@
   [class.pui-field--error]="displayError"
   [class.pui-field--disabled]="disabled"
 >
-  <label *ngIf="label" class="pui-field__label">
+  <label *ngIf="label" class="pui-field__label" for="pui-input-control">
     {{ label }}
     <span *ngIf="required" class="pui-field__req">*</span>
   </label>
@@ -25,6 +25,7 @@
 
     <input
       #inputEl
+      id="pui-input-control"
       class="pui-input"
       [type]="showPass ? 'text' : type"
       [placeholder]="placeholder"
@@ -33,6 +34,9 @@
       [value]="innerValue"
       [attr.maxlength]="maxLength || null"
       [attr.autocomplete]="autocomplete"
+      [attr.aria-describedby]="describedBy"
+      [attr.aria-invalid]="!!displayError"
+      [attr.aria-required]="required || null"
       (input)="onInput($any($event.target).value)"
       (blur)="onBlur()"
       (focus)="onFocus()"
@@ -117,9 +121,9 @@
     </span>
   </div>
 
-  <span *ngIf="hint && !displayError" class="pui-field__hint">{{ hint }}</span>
+  <span *ngIf="hint && !displayError" id="pui-input-hint" class="pui-field__hint">{{ hint }}</span>
 
-  <span *ngIf="displayError" class="pui-field__error">
+  <span *ngIf="displayError" id="pui-input-error" class="pui-field__error">
     <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
       <circle cx="8" cy="8" r="7" fill="var(--pui-error)" />
       <path

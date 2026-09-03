@@ -18,6 +18,7 @@ import {
   SolifiUserMenuItem,
 } from '../models/solifi-sidebar.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
+import { PUI_DEFAULT_SIDEBAR_WIDTH, PUI_DEFAULT_SIDEBAR_COLLAPSED_WIDTH } from '../constants';
 
 const DEFAULT_LOGO = `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
   <polygon points="14,1 27,7.5 27,20.5 14,27 1,20.5 1,7.5" fill="var(--pui-brand)"/>
@@ -97,8 +98,8 @@ export class PuiSolifiSidebarComponent {
   }
   private _showSidebar = true;
 
-  @Input() width = 220;
-  @Input() collapsedWidth = 64;
+  @Input() width = PUI_DEFAULT_SIDEBAR_WIDTH;
+  @Input() collapsedWidth = PUI_DEFAULT_SIDEBAR_COLLAPSED_WIDTH;
 
   @Input() set theme(v: SolifiSidebarTheme | string) {
     this._theme = typeof v === 'string' ? (this._parse<SolifiSidebarTheme>(v) ?? {}) : v || {};

@@ -14,6 +14,7 @@ import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TableColumn, TableAction, SortState } from '../models/table.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
+import { PUI_DEFAULT_PAGE_SIZE } from '../constants';
 import { PuiSearchInternalComponent } from '../search/search-internal.component';
 import { PuiSimplePaginationInternalComponent } from '../simple-pagination/simple-pagination-internal.component';
 import { IconInternalComponent } from '../icon/icon-internal.component';
@@ -105,11 +106,11 @@ export class PuiDataTableComponent implements OnDestroy {
   @Input() emptyTitle = '';
   @Input() emptyDescription = '';
 
-  _pageSize = 10;
+  _pageSize = PUI_DEFAULT_PAGE_SIZE;
   _maxHeight = 0;
 
   @Input() set pageSize(v: number | string) {
-    this._pageSize = Number(v) || 10;
+    this._pageSize = Number(v) || PUI_DEFAULT_PAGE_SIZE;
     this.page = 1;
   }
   @Input() set maxHeight(v: number | string) {
@@ -251,7 +252,7 @@ export class PuiDataTableComponent implements OnDestroy {
   }
 
   onPageSizeChange(val: string): void {
-    this._pageSize = Number(val) || 10;
+    this._pageSize = Number(val) || PUI_DEFAULT_PAGE_SIZE;
     this.page = 1;
   }
 

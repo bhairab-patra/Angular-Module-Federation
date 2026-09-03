@@ -1,5 +1,16 @@
-<div *ngIf="open" class="pui-modal-backdrop" (click)="onBackdropClick($event)">
-  <div class="pui-modal pui-modal--{{ size }}" role="dialog" [attr.aria-label]="title">
+<div
+  *ngIf="open"
+  class="pui-modal-backdrop"
+  (click)="onBackdropClick($event)"
+  role="presentation"
+>
+  <div
+    class="pui-modal pui-modal--{{ size }}"
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    [attr.aria-label]="title"
+  >
     <div class="pui-modal__header">
       <span class="pui-modal__title">{{ title }}</span>
       <button class="pui-modal__close" (click)="closed.emit()" aria-label="Close">✕</button>

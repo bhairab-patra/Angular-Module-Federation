@@ -30,7 +30,8 @@
   box-shadow: var(--pui-shadow-tooltip);
 }
 
-.pui-tt-host:hover .pui-tt__bubble {
+.pui-tt-host:hover .pui-tt__bubble,
+.pui-tt-host:focus-within .pui-tt__bubble {
   opacity: 1;
 }
 

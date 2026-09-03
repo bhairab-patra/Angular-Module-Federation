@@ -2,6 +2,7 @@
   <ng-content></ng-content>
 </div>
 
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- click only stops propagation; real interaction is on the focusable role="menuitem" buttons below -->
 <div
   class="pui-ctx__menu"
   *ngIf="open"

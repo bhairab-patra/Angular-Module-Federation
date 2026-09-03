@@ -36,4 +36,10 @@ export class PuiChipComponent {
   get hostClass(): string {
     return `pui-chip pui-chip--${this.variant}`;
   }
+
+  onActivateKey(e: Event): void {
+    if (this.disabled) return;
+    e.preventDefault();
+    this.clicked.emit();
+  }
 }

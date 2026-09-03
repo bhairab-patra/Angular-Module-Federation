@@ -49,6 +49,7 @@
 
   <div class="pui-header__spacer"></div>
 
+  <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- click only stops propagation; the actual search input inside is the focusable control -->
   <div
     *ngIf="showSearch"
     class="pui-header__search"
@@ -150,7 +151,17 @@
   </div>
 
   <ng-container *ngIf="showUser && userName && avatarMode === 'menu'">
-    <div #userArea class="pui-header__user" (click)="toggleMenu($event)">
+    <div
+      #userArea
+      class="pui-header__user"
+      role="button"
+      tabindex="0"
+      [attr.aria-haspopup]="'menu'"
+      [attr.aria-expanded]="menuOpen"
+      (click)="toggleMenu($event)"
+      (keydown.enter)="toggleMenu($event)"
+      (keydown.space)="$event.preventDefault(); toggleMenu($event)"
+    >
       <div class="pui-header__user-info">
         <span class="pui-header__greeting" *ngIf="greeting">{{ greeting }}, {{ firstName }}</span>
         <span class="pui-header__greeting" *ngIf="!greeting">{{ firstName }}</span>
@@ -184,6 +195,7 @@
       </svg>
     </div>
 
+    <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- click only stops propagation; menu items inside carry the real interaction -->
     <div
       class="pui-header__menu"
       [class.pui-header__menu--open]="menuOpen"

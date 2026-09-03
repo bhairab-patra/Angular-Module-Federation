@@ -59,6 +59,7 @@ export class PuiComboboxComponent implements ControlValueAccessor {
   _disabled = false;
   _error = '';
   _hint = '';
+  _label = '';
   _size: FormSize = 'md';
 
   @Input() set options(v: ComboboxOption[] | string) {
@@ -115,6 +116,15 @@ export class PuiComboboxComponent implements ControlValueAccessor {
   }
   @Input() set hint(v: string) {
     this._hint = v;
+  }
+  @Input() set label(v: string) {
+    this._label = v;
+  }
+
+  get describedBy(): string | null {
+    if (this._error) return 'pui-combobox-error';
+    if (this._hint) return 'pui-combobox-hint';
+    return null;
   }
 
   @Output() valueChange = new EventEmitter<string | number | null>();

@@ -6,7 +6,21 @@
   [class.pui-ms--sm]="_size === 'sm'"
   [class.pui-ms--lg]="_size === 'lg'"
 >
-  <div class="pui-ms-trigger" (click)="!_disabled && toggle()">
+  <label *ngIf="_label" id="pui-multiselect-label" class="pui-field__label">{{ _label }}</label>
+
+  <div
+    class="pui-ms-trigger"
+    [attr.role]="_disabled ? null : 'combobox'"
+    [attr.tabindex]="_disabled ? null : 0"
+    [attr.aria-expanded]="open"
+    [attr.aria-disabled]="_disabled ? true : null"
+    [attr.aria-labelledby]="_label ? 'pui-multiselect-label' : null"
+    [attr.aria-describedby]="describedBy"
+    [attr.aria-invalid]="!!_error"
+    (click)="!_disabled && toggle()"
+    (keydown.enter)="!_disabled && toggle()"
+    (keydown.space)="$event.preventDefault(); !_disabled && toggle()"
+  >
     <div class="pui-ms-values">
       <ng-container *ngIf="selected.length === 0">
         <span class="pui-ms-placeholder">{{ _placeholder }}</span>
@@ -57,6 +71,7 @@
     </svg>
   </div>
 
+  <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- click only stops propagation; the search input and option buttons inside carry the real interaction -->
   <div *ngIf="open" class="pui-ms-dropdown" (click)="$event.stopPropagation()">
     <div class="pui-ms-search-wrap" *ngIf="_searchable">
       <svg class="pui-ms-search-icon" viewBox="0 0 20 20" fill="none">
@@ -128,6 +143,6 @@
     </div>
   </div>
 
-  <div *ngIf="_error" class="pui-ms-error-msg">{{ _error }}</div>
-  <div *ngIf="_hint && !_error" class="pui-ms-hint">{{ _hint }}</div>
+  <div *ngIf="_error" id="pui-multiselect-error" class="pui-ms-error-msg">{{ _error }}</div>
+  <div *ngIf="_hint && !_error" id="pui-multiselect-hint" class="pui-ms-hint">{{ _hint }}</div>
 </div>

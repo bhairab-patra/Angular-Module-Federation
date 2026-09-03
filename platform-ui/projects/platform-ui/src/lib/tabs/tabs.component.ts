@@ -3,6 +3,7 @@
   Input,
   Output,
   EventEmitter,
+  ElementRef,
   inject,
   ViewEncapsulation,
   ChangeDetectionStrategy,
@@ -37,6 +38,7 @@ export type TabsSize = 'sm' | 'md' | 'lg';
 })
 export class PuiTabsComponent {
   private sanitizer = inject(DomSanitizer);
+  private el = inject(ElementRef<HTMLElement>);
 
   safeIcon(icon: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(icon);
@@ -100,7 +102,12 @@ export class PuiTabsComponent {
 
     if (next >= 0) {
       e.preventDefault();
-      this.select(enabled[next]);
+      const target = enabled[next];
+      this.select(target);
+      const idx = this._tabs.findIndex((t) => t.id === target.id);
+      const root = this.el.nativeElement.shadowRoot;
+      const buttons = root ? (Array.from(root.querySelectorAll('.pui-tab-btn')) as HTMLElement[]) : [];
+      buttons[idx]?.focus();
     }
   }
 

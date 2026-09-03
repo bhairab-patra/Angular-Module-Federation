@@ -1,5 +1,11 @@
-<div *ngIf="_open" class="pui-cd-backdrop" (click)="onBackdropClick($event)">
-  <div class="pui-cd" role="alertdialog" [attr.aria-label]="title">
+<div *ngIf="_open" class="pui-cd-backdrop" (click)="onBackdropClick($event)" role="presentation">
+  <div
+    class="pui-cd"
+    role="alertdialog"
+    aria-modal="true"
+    tabindex="-1"
+    [attr.aria-label]="title"
+  >
     <div class="pui-cd__icon" [class.pui-cd__icon--warning]="tone === 'warning'">
       <svg viewBox="0 0 24 24" fill="none" width="28" height="28">
         <path

@@ -54,6 +54,7 @@ export class PuiMultiSelectComponent implements ControlValueAccessor {
   _disabled = false;
   _error = '';
   _hint = '';
+  _label = '';
   _size: FormSize = 'md';
 
   @Input() set size(v: FormSize | string) {
@@ -106,6 +107,15 @@ export class PuiMultiSelectComponent implements ControlValueAccessor {
   @Input() set hint(v: string) {
     this._hint = v;
   }
+  @Input() set label(v: string) {
+    this._label = v;
+  }
+
+  get describedBy(): string | null {
+    if (this._error) return 'pui-multiselect-error';
+    if (this._hint) return 'pui-multiselect-hint';
+    return null;
+  }
 
   @Output() valueChange = new EventEmitter<(string | number)[]>();
   // eslint-disable-next-line @angular-eslint/no-output-native -- public API, renaming breaks consumers
@@ -142,6 +152,16 @@ export class PuiMultiSelectComponent implements ControlValueAccessor {
 
   toggle(): void {
     this.open = !this.open;
+  }
+
+  @HostListener('keydown.escape')
+  onEscape(): void {
+    if (!this.open) return;
+    this.open = false;
+    const trigger = this.el.nativeElement.shadowRoot?.querySelector(
+      '.pui-ms-trigger',
+    ) as HTMLElement | null;
+    trigger?.focus();
   }
 
   toggle_option(opt: MultiSelectOption) {

@@ -1,12 +1,20 @@
 <span
   class="pui-pop__trigger"
+  role="button"
+  [attr.tabindex]="disabled ? null : 0"
+  [attr.aria-expanded]="open"
   (click)="toggle()"
+  (keydown.enter)="toggle()"
+  (keydown.space)="$event.preventDefault(); toggle()"
   (mouseenter)="onTriggerEnter()"
   (mouseleave)="onTriggerLeave()"
+  (focus)="onTriggerEnter()"
+  (blur)="onTriggerLeave()"
 >
   <ng-content select="[popoverTrigger]"></ng-content>
 </span>
 
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- click only stops propagation; projected content carries its own interaction -->
 <div
   class="pui-pop__panel"
   *ngIf="open"

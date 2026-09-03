@@ -89,4 +89,10 @@ export class PuiCheckboxComponent implements ControlValueAccessor {
     this.checkedChange.emit(this._checked);
     this.changed.emit(this._checked);
   }
+
+  get describedBy(): string | null {
+    if (this.error) return 'pui-checkbox-error';
+    if (this.hint) return 'pui-checkbox-hint';
+    return null;
+  }
 }

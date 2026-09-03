@@ -188,7 +188,7 @@ export class HeaderComponent {
     return this.userName.split(' ')[0] || this.userName;
   }
 
-  toggleMenu(e: MouseEvent): void {
+  toggleMenu(e: Event): void {
     e.stopPropagation();
     this.menuOpen = !this.menuOpen;
     if (this.menuOpen && this.userAreaRef) {

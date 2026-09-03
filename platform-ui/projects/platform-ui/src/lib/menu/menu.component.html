@@ -45,7 +45,10 @@
       [attr.aria-haspopup]="'menu'"
       [attr.aria-expanded]="hasActiveSubmenu(item)"
       [attr.aria-disabled]="item.disabled || null"
+      [attr.tabindex]="item.disabled ? null : 0"
       (click)="select(item, $event)"
+      (keydown.enter)="select(item, $event)"
+      (keydown.space)="$event.preventDefault(); select(item, $event)"
     >
       <span *ngIf="item.icon" class="pui-menu-item__icon" [innerHTML]="item.icon"></span>
       <span class="pui-menu-item__label">{{ item.label }}</span>
@@ -68,7 +71,10 @@
             [class.pui-menu-item--danger]="child.danger"
             role="menuitem"
             [attr.aria-disabled]="child.disabled || null"
+            [attr.tabindex]="child.disabled ? null : 0"
             (click)="select(child, $event)"
+            (keydown.enter)="select(child, $event)"
+            (keydown.space)="$event.preventDefault(); select(child, $event)"
           >
             <span *ngIf="child.icon" class="pui-menu-item__icon" [innerHTML]="child.icon"></span>
             <span class="pui-menu-item__label">{{ child.label }}</span>
@@ -85,7 +91,10 @@
         [class.pui-menu-item--danger]="item.danger"
         role="menuitem"
         [attr.aria-disabled]="item.disabled || null"
+        [attr.tabindex]="item.disabled ? null : 0"
         (click)="select(item, $event)"
+        (keydown.enter)="select(item, $event)"
+        (keydown.space)="$event.preventDefault(); select(item, $event)"
       >
         <span *ngIf="item.icon" class="pui-menu-item__icon" [innerHTML]="item.icon"></span>
         <span class="pui-menu-item__label">{{ item.label }}</span>

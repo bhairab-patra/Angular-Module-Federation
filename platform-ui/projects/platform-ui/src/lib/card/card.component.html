@@ -1,4 +1,11 @@
-<div [class]="hostClasses" (click)="onClick($event)">
+<div
+  [class]="hostClasses"
+  (click)="onClick($event)"
+  [attr.role]="clickable ? 'button' : null"
+  [attr.tabindex]="clickable ? 0 : null"
+  (keydown.enter)="onActivateKey($event)"
+  (keydown.space)="onActivateKey($event)"
+>
   <ng-container *ngIf="data; else slotLayout">
     <div class="pui-card__header">
       <span class="pui-card__title">{{ data.title }}</span>

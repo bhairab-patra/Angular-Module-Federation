@@ -65,4 +65,10 @@ export class CardComponent {
   onClick(e: MouseEvent): void {
     if (this.clickable) this.cardClick.emit(e);
   }
+
+  onActivateKey(e: Event): void {
+    if (!this.clickable) return;
+    e.preventDefault();
+    this.cardClick.emit(e as unknown as MouseEvent);
+  }
 }

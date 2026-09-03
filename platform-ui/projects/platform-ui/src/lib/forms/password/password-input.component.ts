@@ -71,9 +71,13 @@ export class PuiPasswordInputComponent implements ControlValueAccessor, Validato
   _autocomplete = 'current-password';
   _error = '';
   _hint = '';
+  _label = '';
 
   @Input() set value(v: string) {
     this._value = v || '';
+  }
+  @Input() set label(v: string) {
+    this._label = v;
   }
   @Input() set placeholder(v: string) {
     this._placeholder = v;
@@ -192,6 +196,12 @@ export class PuiPasswordInputComponent implements ControlValueAccessor, Validato
     if (!this.hasBlurred) return '';
     const errs = this.computeErrors(this._value);
     return errs ? (errs['passwordStrength'] as string) : '';
+  }
+
+  get describedBy(): string | null {
+    if (this.displayError) return 'pui-password-error';
+    if (this._hint) return 'pui-password-hint';
+    return null;
   }
 
   onInput(v: string) {

@@ -6,9 +6,12 @@
   [class.pui-cb--sm]="_size === 'sm'"
   [class.pui-cb--lg]="_size === 'lg'"
 >
+  <label *ngIf="_label" class="pui-field__label" for="pui-combobox-control">{{ _label }}</label>
+
   <div class="pui-cb-field">
     <input
       #cbInput
+      id="pui-combobox-control"
       class="pui-cb-input"
       type="text"
       [value]="inputDisplay"
@@ -21,6 +24,8 @@
       (click)="!_disabled && !open && openDropdown()"
       [attr.aria-expanded]="open"
       [attr.aria-haspopup]="'listbox'"
+      [attr.aria-describedby]="describedBy"
+      [attr.aria-invalid]="!!_error"
       role="combobox"
     />
 
@@ -117,6 +122,6 @@
     </ng-container>
   </div>
 
-  <div *ngIf="_error" class="pui-cb-error-msg">{{ _error }}</div>
-  <div *ngIf="_hint && !_error" class="pui-cb-hint">{{ _hint }}</div>
+  <div *ngIf="_error" id="pui-combobox-error" class="pui-cb-error-msg">{{ _error }}</div>
+  <div *ngIf="_hint && !_error" id="pui-combobox-hint" class="pui-cb-hint">{{ _hint }}</div>
 </div>

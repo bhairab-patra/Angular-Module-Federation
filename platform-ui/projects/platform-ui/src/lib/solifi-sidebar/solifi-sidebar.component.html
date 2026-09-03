@@ -9,7 +9,11 @@
       class="ssb__brand"
       *ngIf="!collapsed && showBrand"
       [class.ssb__brand--clickable]="logoClick.observed"
+      [attr.role]="logoClick.observed ? 'button' : null"
+      [attr.tabindex]="logoClick.observed ? 0 : null"
       (click)="onLogoClick()"
+      (keydown.enter)="onLogoClick()"
+      (keydown.space)="$event.preventDefault(); onLogoClick()"
     >
       <span class="ssb__logo">
         <img
@@ -45,7 +49,11 @@
     class="ssb__logo-only"
     *ngIf="collapsed && showBrand"
     [class.ssb__brand--clickable]="logoClick.observed"
+    [attr.role]="logoClick.observed ? 'button' : null"
+    [attr.tabindex]="logoClick.observed ? 0 : null"
     (click)="onLogoClick()"
+    (keydown.enter)="onLogoClick()"
+    (keydown.space)="$event.preventDefault(); onLogoClick()"
   >
     <span class="ssb__logo">
       <img
@@ -186,7 +194,13 @@
       class="ssb__user"
       [class.ssb__user--clickable]="userMenuItems.length"
       [class.ssb__user--open]="userMenuOpen"
+      [attr.role]="userMenuItems.length ? 'button' : null"
+      [attr.tabindex]="userMenuItems.length ? 0 : null"
+      [attr.aria-haspopup]="userMenuItems.length ? 'menu' : null"
+      [attr.aria-expanded]="userMenuItems.length ? userMenuOpen : null"
       (click)="toggleUserMenu($event)"
+      (keydown.enter)="toggleUserMenu($event)"
+      (keydown.space)="$event.preventDefault(); toggleUserMenu($event)"
     >
       <div class="ssb__avatar">
         <img *ngIf="userAvatarUrl" [src]="userAvatarUrl" [alt]="userName" class="ssb__avatar-img" />

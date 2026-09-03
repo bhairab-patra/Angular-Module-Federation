@@ -12,6 +12,9 @@
       class="pui-sw__native"
       [checked]="checked"
       [disabled]="disabled"
+      [attr.aria-describedby]="describedBy"
+      [attr.aria-invalid]="!!error"
+      [attr.aria-required]="required || null"
       (change)="toggle($event)"
     />
 
@@ -28,8 +31,8 @@
     </span>
   </label>
 
-  <span *ngIf="hint && !error" class="pui-field__hint">{{ hint }}</span>
-  <span *ngIf="error" class="pui-field__error">
+  <span *ngIf="hint && !error" id="pui-switch-hint" class="pui-field__hint">{{ hint }}</span>
+  <span *ngIf="error" id="pui-switch-error" class="pui-field__error">
     <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
       <circle cx="8" cy="8" r="7" fill="var(--pui-error)" />
       <path

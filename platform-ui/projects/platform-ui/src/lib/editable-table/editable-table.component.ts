@@ -7,12 +7,15 @@ import {
   inject,
   ViewEncapsulation,
   ChangeDetectionStrategy,
+  HostListener,
 } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { TableColumn, TableAction, SortState } from '../models/table.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
+import { PUI_DEFAULT_PAGE_SIZE } from '../constants';
+import { getDeepActiveElement } from '../focus-utils';
 import { IconInternalComponent } from '../icon/icon-internal.component';
 import { PuiSimplePaginationInternalComponent } from '../simple-pagination/simple-pagination-internal.component';
 import { PuiSearchInternalComponent } from '../search/search-internal.component';
@@ -144,9 +147,9 @@ export class PuiEditableTableComponent {
     this._clampPage();
   }
 
-  _pageSize = 10;
+  _pageSize = PUI_DEFAULT_PAGE_SIZE;
   @Input() set pageSize(v: number | string) {
-    this._pageSize = Number(v) || 10;
+    this._pageSize = Number(v) || PUI_DEFAULT_PAGE_SIZE;
     this.page = 1;
   }
   @Input() pageSizeOptions: number[] = [10, 25, 50, 100];
@@ -247,7 +250,7 @@ export class PuiEditableTableComponent {
     this.page = p;
   }
   onPageSizeChange(size: number | string): void {
-    this._pageSize = Number(size) || 10;
+    this._pageSize = Number(size) || PUI_DEFAULT_PAGE_SIZE;
     this.page = 1;
   }
 
@@ -345,11 +348,20 @@ export class PuiEditableTableComponent {
     this._cancelEdit();
   }
 
+  private _previouslyFocusedForDelete: HTMLElement | null = null;
+
   deleteRow(i: number): void {
     if (this.editingIndex !== null) return;
     if (this._confirmDelete) {
       this._pendingDeleteIndex = i;
       this._pendingDeleteRow = this._rows[i];
+      this._previouslyFocusedForDelete = getDeepActiveElement();
+      setTimeout(() => {
+        const panel = this.el.nativeElement.shadowRoot?.querySelector(
+          '.pui-etbl-confirm',
+        ) as HTMLElement | null;
+        panel?.focus();
+      });
       return;
     }
     this._doDelete(i);
@@ -360,11 +372,22 @@ export class PuiEditableTableComponent {
     this._doDelete(this._pendingDeleteIndex);
     this._pendingDeleteIndex = null;
     this._pendingDeleteRow = null;
+    const toFocus = this._previouslyFocusedForDelete;
+    this._previouslyFocusedForDelete = null;
+    setTimeout(() => toFocus?.focus());
   }
 
   cancelDeleteRow(): void {
     this._pendingDeleteIndex = null;
     this._pendingDeleteRow = null;
+    const toFocus = this._previouslyFocusedForDelete;
+    this._previouslyFocusedForDelete = null;
+    setTimeout(() => toFocus?.focus());
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscapeDelete(): void {
+    if (this._pendingDeleteIndex !== null) this.cancelDeleteRow();
   }
 
   private _doDelete(i: number): void {

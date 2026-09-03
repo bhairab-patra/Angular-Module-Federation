@@ -1,5 +1,5 @@
 <div class="pui-field" [class.pui-field--error]="error" [class.pui-field--disabled]="disabled">
-  <label *ngIf="label" class="pui-field__label">
+  <label *ngIf="label" class="pui-field__label" for="pui-textarea-control">
     {{ label }}<span *ngIf="required" class="pui-field__req">*</span>
   </label>
 
@@ -15,6 +15,7 @@
     [class.pui-ta-wrap--resize-h]="resize === 'vertical'"
   >
     <textarea
+      id="pui-textarea-control"
       class="pui-ta"
       [placeholder]="placeholder"
       [disabled]="disabled"
@@ -22,6 +23,9 @@
       [rows]="rows"
       [attr.maxlength]="maxLength || null"
       [value]="innerValue"
+      [attr.aria-describedby]="describedBy"
+      [attr.aria-invalid]="!!error"
+      [attr.aria-required]="required || null"
       (input)="onInput($any($event.target).value)"
       (focus)="isFocused = true"
       (blur)="onBlur()"
@@ -30,8 +34,8 @@
   </div>
 
   <div class="pui-ta-footer">
-    <span *ngIf="hint && !error" class="pui-field__hint">{{ hint }}</span>
-    <span *ngIf="error" class="pui-field__error">
+    <span *ngIf="hint && !error" id="pui-textarea-hint" class="pui-field__hint">{{ hint }}</span>
+    <span *ngIf="error" id="pui-textarea-error" class="pui-field__error">
       <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
         <circle cx="8" cy="8" r="7" fill="var(--pui-error)" />
         <path

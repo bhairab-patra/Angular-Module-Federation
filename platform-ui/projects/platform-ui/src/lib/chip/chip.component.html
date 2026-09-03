@@ -3,6 +3,11 @@
   [class.pui-chip--selected]="selected"
   [class.pui-chip--disabled]="disabled"
   (click)="!disabled && clicked.emit()"
+  [attr.role]="disabled ? null : 'button'"
+  [attr.tabindex]="disabled ? null : 0"
+  [attr.aria-pressed]="disabled ? null : selected"
+  (keydown.enter)="onActivateKey($event)"
+  (keydown.space)="onActivateKey($event)"
 >
   <pui-lib-icon-internal
     *ngIf="icon"

@@ -1,4 +1,6 @@
 <div class="pui-dp-host" [class.pui-dp--disabled]="_disabled">
+  <label *ngIf="_label" id="pui-datepicker-label" class="pui-field__label">{{ _label }}</label>
+
   <div
     class="pui-dp-trigger"
     [class.pui-dp-trigger--open]="open"
@@ -7,6 +9,7 @@
     tabindex="0"
     [attr.aria-expanded]="open"
     [attr.aria-haspopup]="'dialog'"
+    [attr.aria-labelledby]="_label ? 'pui-datepicker-label' : null"
     (click)="toggle()"
     (keydown.enter)="toggle()"
     (keydown.space)="$event.preventDefault(); toggle()"
@@ -53,6 +56,7 @@
     </svg>
   </div>
 
+  <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -- click only stops propagation; nav/day buttons inside carry the real interaction -->
   <div *ngIf="open" class="pui-dp-popup" (click)="$event.stopPropagation()">
     <div class="pui-dp-nav">
       <button class="pui-dp-nav-btn" type="button" (click)="prevMonth()" title="Previous month">

@@ -247,6 +247,12 @@ export class PuiInputComponent implements ControlValueAccessor, Validator {
     return '';
   }
 
+  get describedBy(): string | null {
+    if (this.displayError) return 'pui-input-error';
+    if (this.hint) return 'pui-input-hint';
+    return null;
+  }
+
   private emitValidity(): void {
     const valid = !this.computeErrors(this.innerValue);
     if (valid !== this.lastEmittedValid) {

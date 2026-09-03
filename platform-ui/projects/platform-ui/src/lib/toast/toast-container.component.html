@@ -1,10 +1,17 @@
 <ng-container *ngFor="let pos of positions">
-  <div class="pui-tc" [class]="'pui-tc--' + pos" *ngIf="byPosition(pos).length > 0">
+  <div
+    class="pui-tc"
+    [class]="'pui-tc--' + pos"
+    *ngIf="byPosition(pos).length > 0"
+    aria-live="polite"
+    aria-atomic="false"
+  >
     <div
       *ngFor="let t of byPosition(pos); trackBy: trackById"
       class="pui-toast"
       [class]="'pui-toast pui-toast--' + t.type + ' pui-toast--' + t.variant"
       [class.pui-toast--exit]="exiting.has(t.id)"
+      [attr.role]="t.type === 'error' ? 'alert' : 'status'"
       (mouseenter)="pauseTimer(t)"
       (mouseleave)="resumeTimer(t)"
     >

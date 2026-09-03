@@ -63,4 +63,10 @@ export class PuiListComponent {
     this.selectedId = item.id;
     this.itemSelect.emit(item);
   }
+
+  onActivateKey(item: ListItem, e: Event): void {
+    if (item.disabled || !this.selectable) return;
+    e.preventDefault();
+    this.select(item);
+  }
 }

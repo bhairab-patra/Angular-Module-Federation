@@ -156,4 +156,10 @@ export class PuiSelectComponent implements ControlValueAccessor {
       return null;
     }
   }
+
+  get describedBy(): string | null {
+    if (this.error) return 'pui-select-error';
+    if (this.hint) return 'pui-select-hint';
+    return null;
+  }
 }

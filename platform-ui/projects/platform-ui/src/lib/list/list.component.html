@@ -1,12 +1,17 @@
-<ul [class]="hostClass" role="list">
+<ul [class]="hostClass" [attr.role]="selectable ? 'listbox' : 'list'">
   <ng-container *ngFor="let item of items">
     <li
       class="pui-list__item"
       [class.pui-list__item--clickable]="selectable && !item.disabled"
       [class.pui-list__item--selected]="selectedId === item.id"
       [class.pui-list__item--disabled]="item.disabled"
+      [attr.role]="selectable ? 'option' : null"
       [attr.aria-selected]="selectable ? selectedId === item.id : null"
+      [attr.aria-disabled]="item.disabled ? true : null"
+      [attr.tabindex]="selectable && !item.disabled ? 0 : null"
       (click)="!item.disabled && selectable && select(item)"
+      (keydown.enter)="onActivateKey(item, $event)"
+      (keydown.space)="onActivateKey(item, $event)"
     >
       <span *ngIf="item.icon" class="pui-list__icon" [innerHTML]="item.icon"></span>
 

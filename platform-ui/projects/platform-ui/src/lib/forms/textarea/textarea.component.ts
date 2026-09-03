@@ -117,4 +117,10 @@ export class PuiTextareaComponent implements ControlValueAccessor {
     this.onTouchedFn();
     this.blurred.emit();
   }
+
+  get describedBy(): string | null {
+    if (this.error) return 'pui-textarea-error';
+    if (this.hint) return 'pui-textarea-hint';
+    return null;
+  }
 }
