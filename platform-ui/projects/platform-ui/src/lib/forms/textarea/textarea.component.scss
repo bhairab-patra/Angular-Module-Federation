@@ -16,7 +16,7 @@
 }
 
 .pui-field__req {
-  color: var(--pui-error);
+  color: var(--pui-error-text-dark, var(--pui-error));
   margin-left: var(--pui-space-0-5);
 }
 
@@ -31,7 +31,7 @@
   align-items: center;
   gap: var(--pui-space-1-5);
   font-size: var(--pui-text-xs);
-  color: var(--pui-error);
+  color: var(--pui-error-text-dark, var(--pui-error));
   font-weight: 500;
   font-family: 'Poppins', system-ui, sans-serif;
 }
@@ -105,7 +105,7 @@
 }
 
 .pui-ta::placeholder {
-  color: var(--pui-neutral-400);
+  color: var(--pui-neutral-500);
 }
 
 .pui-ta:disabled {

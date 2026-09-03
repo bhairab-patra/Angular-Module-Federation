@@ -81,6 +81,7 @@ export class PuiDatepickerComponent implements ControlValueAccessor {
   _clearable = true;
   _placeholder = 'Select date…';
   _format = 'MMM d, yyyy';
+  _label = '';
 
   readonly dayNames = DAYS;
   readonly monthNames = MONTHS;
@@ -153,6 +154,9 @@ export class PuiDatepickerComponent implements ControlValueAccessor {
   }
   @Input() set format(v: string) {
     this._format = v;
+  }
+  @Input() set label(v: string) {
+    this._label = v;
   }
 
   private onChangeFn: (v: Date | DateRange | null) => void = () => {};

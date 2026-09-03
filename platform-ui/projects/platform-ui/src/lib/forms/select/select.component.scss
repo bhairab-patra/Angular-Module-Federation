@@ -17,7 +17,7 @@
 }
 
 .pui-field__req {
-  color: var(--pui-error);
+  color: var(--pui-error-text-dark, var(--pui-error));
   margin-left: var(--pui-space-0-5);
 }
 
@@ -32,7 +32,7 @@
   align-items: center;
   gap: var(--pui-space-1-5);
   font-size: var(--pui-text-xs);
-  color: var(--pui-error);
+  color: var(--pui-error-text-dark, var(--pui-error));
   font-weight: 500;
   font-family: 'Poppins', system-ui, sans-serif;
 }
@@ -110,7 +110,7 @@
 }
 
 .pui-select-wrap__value--placeholder {
-  color: var(--pui-neutral-400);
+  color: var(--pui-neutral-500);
 }
 
 .pui-select-wrap--sm .pui-select-wrap__value {
@@ -185,7 +185,7 @@
 }
 
 .pui-select-search__input::placeholder {
-  color: var(--pui-neutral-400);
+  color: var(--pui-neutral-500);
 }
 
 .pui-select-list {
@@ -233,7 +233,7 @@
   padding: 20px 12px;
   text-align: center;
   font-size: 13px;
-  color: var(--pui-neutral-400);
+  color: var(--pui-neutral-500);
 }
 
 .pui-select-list__item {

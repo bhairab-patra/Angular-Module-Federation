@@ -21,6 +21,15 @@
   pointer-events: none;
 }
 
+.pui-field__label {
+  display: block;
+  margin-bottom: var(--pui-space-1-5);
+  font-size: var(--pui-text-base);
+  font-weight: 600;
+  color: var(--pui-neutral-700);
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
 .pui-dp-trigger {
   display: flex;
   align-items: center;
