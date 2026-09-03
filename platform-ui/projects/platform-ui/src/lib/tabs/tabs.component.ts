@@ -1,6 +1,11 @@
 ﻿import {
-  Component, Input, Output, EventEmitter,
-  inject, ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  inject,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -31,7 +36,6 @@ export type TabsSize = 'sm' | 'md' | 'lg';
   styleUrls: ['./tabs.component.scss'],
 })
 export class PuiTabsComponent {
-
   private sanitizer = inject(DomSanitizer);
 
   safeIcon(icon: string): SafeHtml {
@@ -45,9 +49,9 @@ export class PuiTabsComponent {
   _size: TabsSize = 'md';
 
   @Input() set tabs(v: TabItem[] | string) {
-    this._tabs = typeof v === 'string' ? (this._parse<TabItem[]>(v) ?? []) : (v || []);
-    if (this._tabs.length && !this._tabs.find(t => t.id === this._active)) {
-      this._active = this._tabs.find(t => !t.disabled)?.id ?? '';
+    this._tabs = typeof v === 'string' ? (this._parse<TabItem[]>(v) ?? []) : v || [];
+    if (this._tabs.length && !this._tabs.find((t) => t.id === this._active)) {
+      this._active = this._tabs.find((t) => !t.disabled)?.id ?? '';
     }
   }
 
@@ -58,8 +62,9 @@ export class PuiTabsComponent {
   }
 
   @Input() set variant(v: TabsVariant | string) {
-    this._variant = (['line', 'pill', 'card'].includes(v as TabsVariant)
-      ? v as TabsVariant : 'line');
+    this._variant = ['line', 'pill', 'card'].includes(v as TabsVariant)
+      ? (v as TabsVariant)
+      : 'line';
   }
 
   @Input() set orientation(v: TabsOrientation | string) {
@@ -67,7 +72,7 @@ export class PuiTabsComponent {
   }
 
   @Input() set size(v: TabsSize | string) {
-    this._size = (['sm', 'md', 'lg'].includes(v as TabsSize) ? v as TabsSize : 'md');
+    this._size = ['sm', 'md', 'lg'].includes(v as TabsSize) ? (v as TabsSize) : 'md';
   }
 
   @Input() panel = true;
@@ -81,8 +86,8 @@ export class PuiTabsComponent {
   }
 
   onKey(e: KeyboardEvent, _i: number) {
-    const enabled = this._tabs.filter(t => !t.disabled);
-    const cur = enabled.findIndex(t => t.id === this._active);
+    const enabled = this._tabs.filter((t) => !t.disabled);
+    const cur = enabled.findIndex((t) => t.id === this._active);
     const isH = this._orientation === 'horizontal';
     let next = -1;
 
@@ -100,6 +105,10 @@ export class PuiTabsComponent {
   }
 
   private _parse<T>(s: string): T | null {
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 }

@@ -1,16 +1,15 @@
-﻿
-<docs-page
+﻿<docs-page
   title="Tag"
   description="Compact uppercase labels for categorisation, metadata, and status annotation — eight colour variants in two sizes with no interactive behaviour."
   [hasFramework]="true"
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. All variants -->
     <div class="demo-section">
       <h3 class="demo-section__title">Colour Variants</h3>
-      <p class="demo-section__desc">Eight variants covering the full semantic palette plus purple and pink for product taxonomy.</p>
+      <p class="demo-section__desc">
+        Eight variants covering the full semantic palette plus purple and pink for product taxonomy.
+      </p>
       <div class="demo-row">
         <pui-lib-tag variant="default">Default</pui-lib-tag>
         <pui-lib-tag variant="primary">Primary</pui-lib-tag>
@@ -23,33 +22,50 @@
       </div>
     </div>
 
-    <!-- 2. Sizes -->
     <div class="demo-section">
       <h3 class="demo-section__title">Sizes</h3>
-      <p class="demo-section__desc"><code>md</code> works inline with body text; <code>sm</code> suits dense tables and side-by-side labels.</p>
-      <div class="demo-row" style="align-items:center">
+      <p class="demo-section__desc">
+        <code>md</code> works inline with body text; <code>sm</code> suits dense tables and
+        side-by-side labels.
+      </p>
+      <div class="demo-row" style="align-items: center">
         <pui-lib-tag variant="primary" size="md">Medium</pui-lib-tag>
         <pui-lib-tag variant="primary" size="sm">Small</pui-lib-tag>
       </div>
     </div>
 
-    <!-- 3. Status usage -->
     <div class="demo-section">
       <h3 class="demo-section__title">Status Labels</h3>
       <p class="demo-section__desc">Tags are ideal for status columns in tables and data lists.</p>
-      <div style="display:flex;flex-direction:column;gap:12px;max-width:380px">
-        <div class="demo-row-between"><span class="demo-meta">Order #1042</span> <pui-lib-tag variant="success">Delivered</pui-lib-tag></div>
-        <div class="demo-row-between"><span class="demo-meta">Order #1041</span> <pui-lib-tag variant="warning">In Transit</pui-lib-tag></div>
-        <div class="demo-row-between"><span class="demo-meta">Order #1040</span> <pui-lib-tag variant="danger">Cancelled</pui-lib-tag></div>
-        <div class="demo-row-between"><span class="demo-meta">Order #1039</span> <pui-lib-tag variant="info">Processing</pui-lib-tag></div>
-        <div class="demo-row-between"><span class="demo-meta">Order #1038</span> <pui-lib-tag variant="default">Pending</pui-lib-tag></div>
+      <div style="display: flex; flex-direction: column; gap: 12px; max-width: 380px">
+        <div class="demo-row-between">
+          <span class="demo-meta">Order #1042</span>
+          <pui-lib-tag variant="success">Delivered</pui-lib-tag>
+        </div>
+        <div class="demo-row-between">
+          <span class="demo-meta">Order #1041</span>
+          <pui-lib-tag variant="warning">In Transit</pui-lib-tag>
+        </div>
+        <div class="demo-row-between">
+          <span class="demo-meta">Order #1040</span>
+          <pui-lib-tag variant="danger">Cancelled</pui-lib-tag>
+        </div>
+        <div class="demo-row-between">
+          <span class="demo-meta">Order #1039</span>
+          <pui-lib-tag variant="info">Processing</pui-lib-tag>
+        </div>
+        <div class="demo-row-between">
+          <span class="demo-meta">Order #1038</span>
+          <pui-lib-tag variant="default">Pending</pui-lib-tag>
+        </div>
       </div>
     </div>
 
-    <!-- 4. Category labels -->
     <div class="demo-section">
       <h3 class="demo-section__title">Category & Taxonomy</h3>
-      <p class="demo-section__desc">Use multiple tags together for article categories, product labels, or issue classification.</p>
+      <p class="demo-section__desc">
+        Use multiple tags together for article categories, product labels, or issue classification.
+      </p>
       <div class="demo-row">
         <pui-lib-tag variant="primary">Frontend</pui-lib-tag>
         <pui-lib-tag variant="purple">Design System</pui-lib-tag>
@@ -60,29 +76,35 @@
       </div>
     </div>
 
-    <!-- 5. Inside body text -->
     <div class="demo-section">
       <h3 class="demo-section__title">Inline with Text</h3>
-      <p class="demo-section__desc">Tags sit neatly inline thanks to <code>display: inline-flex</code> and consistent line-height.</p>
+      <p class="demo-section__desc">
+        Tags sit neatly inline thanks to <code>display: inline-flex</code> and consistent
+        line-height.
+      </p>
       <p class="demo-prose">
-        The <pui-lib-tag variant="success" size="sm">Stable</pui-lib-tag> release of Platform UI v1.3 introduces
-        <pui-lib-tag variant="primary" size="sm">Data Grid</pui-lib-tag> and <pui-lib-tag variant="primary" size="sm">Tag</pui-lib-tag>
-        components. The previous API is <pui-lib-tag variant="default" size="sm">Deprecated</pui-lib-tag> but still available
-        until v2.0, which is currently <pui-lib-tag variant="warning" size="sm">Beta</pui-lib-tag>.
+        The <pui-lib-tag variant="success" size="sm">Stable</pui-lib-tag> release of Platform UI
+        v1.3 introduces <pui-lib-tag variant="primary" size="sm">Data Grid</pui-lib-tag> and
+        <pui-lib-tag variant="primary" size="sm">Tag</pui-lib-tag> components. The previous API is
+        <pui-lib-tag variant="default" size="sm">Deprecated</pui-lib-tag> but still available until
+        v2.0, which is currently <pui-lib-tag variant="warning" size="sm">Beta</pui-lib-tag>.
       </p>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-tag</code> is a purely presentational Web Component — no events, no JS required. Pass <code>variant</code> and <code>size</code> as plain HTML attributes and put your label text as the slot content.</p>
+    <p class="fw-lead">
+      <code>pui-lib-tag</code> is a purely presentational Web Component — no events, no JS required.
+      Pass <code>variant</code> and <code>size</code> as plain HTML attributes and put your label
+      text as the slot content.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-row">
         <pui-lib-tag variant="success">Delivered</pui-lib-tag>
         <pui-lib-tag variant="warning">In Transit</pui-lib-tag>
@@ -105,19 +127,31 @@
     <h4 class="fw-ref-title">Tag Quick Reference</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><span class="tag-name">{{ r.name }}</span></td>
-            <td><span class="tag-ng">{{ r.angular }}</span></td>
-            <td><span class="tag-html">{{ r.attr }}</span></td>
-            <td><span class="tag-js">{{ r.js }}</span></td>
+            <td>
+              <span class="tag-name">{{ r.name }}</span>
+            </td>
+            <td>
+              <span class="tag-ng">{{ r.angular }}</span>
+            </td>
+            <td>
+              <span class="tag-html">{{ r.attr }}</span>
+            </td>
+            <td>
+              <span class="tag-js">{{ r.js }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-  

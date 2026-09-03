@@ -1,6 +1,12 @@
 import {
-  Component, Input, Output, EventEmitter, ElementRef, inject,
-  ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ElementRef,
+  inject,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,14 +20,31 @@ import { PuiEmptyStateInternalComponent } from '../empty-state/empty-state-inter
 import { ToastService } from '../toast/toast.service';
 
 export { TableColumn, TableAction, SortState } from '../models/table.model';
-export interface EditableRowSaveEvent { index: number; row: any; oldRow: any; }
-export interface EditableRowEvent { index: number; row: any; }
+export interface EditableRowSaveEvent {
+  index: number;
+  row: any;
+  oldRow: any;
+}
+export interface EditableRowEvent {
+  index: number;
+  row: any;
+}
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-editable-table',
   standalone: true,
-  imports: [NgFor, NgIf, DecimalPipe, DatePipe, FormsModule, IconInternalComponent, PuiSimplePaginationInternalComponent, PuiSearchInternalComponent, PuiEmptyStateInternalComponent],
+  imports: [
+    NgFor,
+    NgIf,
+    DecimalPipe,
+    DatePipe,
+    FormsModule,
+    IconInternalComponent,
+    PuiSimplePaginationInternalComponent,
+    PuiSearchInternalComponent,
+    PuiEmptyStateInternalComponent,
+  ],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './editable-table.component.html',
@@ -38,81 +61,105 @@ export class PuiEditableTableComponent {
 
   _columns: TableColumn[] = [];
   @Input() set columns(v: TableColumn[] | string) {
-    this._columns = typeof v === 'string' ? (this._parse<TableColumn[]>(v) ?? []) : (v || []);
+    this._columns = typeof v === 'string' ? (this._parse<TableColumn[]>(v) ?? []) : v || [];
   }
-  get columns() { return this._columns; }
+  get columns() {
+    return this._columns;
+  }
 
   _rows: any[] = [];
   @Input() set data(v: any[] | string) {
-    this._rows = typeof v === 'string' ? (this._parse<any[]>(v) ?? []) : ([...(v || [])]);
+    this._rows = typeof v === 'string' ? (this._parse<any[]>(v) ?? []) : [...(v || [])];
     if (this.editingIndex !== null && this.editingIndex >= this._rows.length) {
       this._cancelEdit();
     }
     this._clampPage();
   }
-  get data() { return this._rows; }
+  get data() {
+    return this._rows;
+  }
 
   _maxHeight = 480;
-  @Input() set maxHeight(v: number | string) { this._maxHeight = Number(v) || 480; }
+  @Input() set maxHeight(v: number | string) {
+    this._maxHeight = Number(v) || 480;
+  }
 
-  /** Optional title shown on the left of the table toolbar (e.g. "Account Summary"). */
   @Input() heading = '';
 
   _loading = false;
-  @Input() set loading(v: boolean | string) { this._loading = this._bool(v); }
+  @Input() set loading(v: boolean | string) {
+    this._loading = this._bool(v);
+  }
 
   _confirmDelete = false;
-  @Input() set confirmDelete(v: boolean | string) { this._confirmDelete = this._bool(v); }
+  @Input() set confirmDelete(v: boolean | string) {
+    this._confirmDelete = this._bool(v);
+  }
 
-  /** Show/hide the built-in Edit action independently — e.g. set false for a
-   * view-only or delete-only row toolbar. Both default to true. */
   _showEditAction = true;
-  @Input() set showEditAction(v: boolean | string) { this._showEditAction = this._bool(v); }
+  @Input() set showEditAction(v: boolean | string) {
+    this._showEditAction = this._bool(v);
+  }
 
   _showDeleteAction = true;
-  @Input() set showDeleteAction(v: boolean | string) { this._showDeleteAction = this._bool(v); }
+  @Input() set showDeleteAction(v: boolean | string) {
+    this._showDeleteAction = this._bool(v);
+  }
 
-  /** Extra per-row buttons shown alongside Edit/Delete (e.g. "View"). Same
-   * TableAction shape used by pui-lib-table / pui-lib-data-table:
-   * { label, icon?: rawSvgString, action(row), disabled?(row) }. */
   _rowActions: TableAction[] = [];
   @Input() set rowActions(v: TableAction[] | string) {
-    this._rowActions = typeof v === 'string' ? (this._parse<TableAction[]>(v) ?? []) : (v || []);
+    this._rowActions = typeof v === 'string' ? (this._parse<TableAction[]>(v) ?? []) : v || [];
   }
-  get rowActions() { return this._rowActions; }
+  get rowActions() {
+    return this._rowActions;
+  }
 
-  /** The Actions column (header + cell) only renders when there's something
-   * to put in it — Edit, Delete, at least one custom rowActions button, or a
-   * row currently mid-edit (so Save/Cancel stay reachable even if the other
-   * three are toggled off while editing is in progress). */
   get hasRowActions(): boolean {
-    return this._showEditAction || this._showDeleteAction || this._rowActions.length > 0 || this.editingIndex !== null;
+    return (
+      this._showEditAction ||
+      this._showDeleteAction ||
+      this._rowActions.length > 0 ||
+      this.editingIndex !== null
+    );
   }
 
   _searchable = false;
-  @Input() set searchable(v: boolean | string) { this._searchable = this._bool(v); }
+  @Input() set searchable(v: boolean | string) {
+    this._searchable = this._bool(v);
+  }
 
-  /** Alternating row background shading. Defaults to true — matches the
-   * always-on striping this component had before it became configurable. */
   _striped = true;
-  @Input() set striped(v: boolean | string) { this._striped = this._bool(v); }
+  @Input() set striped(v: boolean | string) {
+    this._striped = this._bool(v);
+  }
 
-  /** Sticky header is on by default; set false to let it scroll with the body. */
   _stickyHeader = true;
-  @Input() set stickyHeader(v: boolean | string) { this._stickyHeader = this._bool(v); }
+  @Input() set stickyHeader(v: boolean | string) {
+    this._stickyHeader = this._bool(v);
+  }
 
   _pagination = false;
-  @Input() set pagination(v: boolean | string) { this._pagination = this._bool(v); this._clampPage(); }
+  @Input() set pagination(v: boolean | string) {
+    this._pagination = this._bool(v);
+    this._clampPage();
+  }
 
   _pageSize = 10;
-  @Input() set pageSize(v: number | string) { this._pageSize = Number(v) || 10; this.page = 1; }
+  @Input() set pageSize(v: number | string) {
+    this._pageSize = Number(v) || 10;
+    this.page = 1;
+  }
   @Input() pageSizeOptions: number[] = [10, 25, 50, 100];
 
   _tooltipPos: 'top' | 'bottom' | 'left' | 'right' = 'right';
-  @Input() set tooltipPosition(v: 'top' | 'bottom' | 'left' | 'right') { this._tooltipPos = v || 'right'; }
+  @Input() set tooltipPosition(v: 'top' | 'bottom' | 'left' | 'right') {
+    this._tooltipPos = v || 'right';
+  }
 
   _showToast = true;
-  @Input() set showToast(v: boolean | string) { this._showToast = this._bool(v); }
+  @Input() set showToast(v: boolean | string) {
+    this._showToast = this._bool(v);
+  }
   @Input() saveToastMessage = 'Row saved successfully';
   @Input() deleteToastMessage = 'Row deleted successfully';
 
@@ -139,15 +186,17 @@ export class PuiEditableTableComponent {
 
   skeletonRows = Array(5).fill(null);
 
-  /** Rows paired with their real index into _rows, so edit/delete/save keep
-   * operating on the correct row even while filtered/sorted/paginated. */
   get displayRows(): { row: any; idx: number }[] {
     let paired = this._rows.map((row, idx) => ({ row, idx }));
 
     if (this.searchTerm) {
       const t = this.searchTerm.toLowerCase();
       paired = paired.filter(({ row }) =>
-        this._columns.some(c => String(row[c.key] ?? '').toLowerCase().includes(t))
+        this._columns.some((c) =>
+          String(row[c.key] ?? '')
+            .toLowerCase()
+            .includes(t),
+        ),
       );
     }
 
@@ -155,7 +204,8 @@ export class PuiEditableTableComponent {
       const { key } = this.sort;
       const mul = this.sort.dir === 'asc' ? 1 : -1;
       paired = paired.slice().sort((a, b) => {
-        const av = a.row[key] ?? ''; const bv = b.row[key] ?? '';
+        const av = a.row[key] ?? '';
+        const bv = b.row[key] ?? '';
         return av < bv ? -mul : av > bv ? mul : 0;
       });
     }
@@ -170,7 +220,9 @@ export class PuiEditableTableComponent {
     return rows.slice(start, start + this._pageSize);
   }
 
-  trackByIdx(_i: number, item: { idx: number }): number { return item.idx; }
+  trackByIdx(_i: number, item: { idx: number }): number {
+    return item.idx;
+  }
 
   onSearch(term: string): void {
     this.searchTerm = term;
@@ -180,7 +232,10 @@ export class PuiEditableTableComponent {
 
   onSort(key: string): void {
     if (this.sort.key === key) {
-      this.sort = { key, dir: this.sort.dir === 'asc' ? 'desc' : this.sort.dir === 'desc' ? '' : 'asc' };
+      this.sort = {
+        key,
+        dir: this.sort.dir === 'asc' ? 'desc' : this.sort.dir === 'desc' ? '' : 'asc',
+      };
     } else {
       this.sort = { key, dir: 'asc' };
     }
@@ -188,8 +243,13 @@ export class PuiEditableTableComponent {
     this.sortChange.emit(this.sort);
   }
 
-  onPageChange(p: number): void { this.page = p; }
-  onPageSizeChange(size: number | string): void { this._pageSize = Number(size) || 10; this.page = 1; }
+  onPageChange(p: number): void {
+    this.page = p;
+  }
+  onPageSizeChange(size: number | string): void {
+    this._pageSize = Number(size) || 10;
+    this.page = 1;
+  }
 
   private _clampPage(): void {
     const totalPages = Math.max(1, Math.ceil(this.displayRows.length / this._pageSize));
@@ -199,23 +259,40 @@ export class PuiEditableTableComponent {
   showCellTooltip(event: MouseEvent, text: string): void {
     if (!text) return;
     const td = event.currentTarget as HTMLElement;
-    const textEl = td.querySelector('.pui-etbl-cell-text, .pui-etbl-th__label') as HTMLElement | null;
+    const textEl = td.querySelector(
+      '.pui-etbl-cell-text, .pui-etbl-th__label',
+    ) as HTMLElement | null;
     if (!textEl || textEl.scrollWidth <= textEl.clientWidth) return;
     const hostRect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
     const rect = td.getBoundingClientRect();
-    let top = 0, left = 0;
+    let top = 0,
+      left = 0;
     switch (this._tooltipPos) {
-      case 'top': top = rect.top - hostRect.top - 8; left = rect.left - hostRect.left + rect.width / 2; break;
-      case 'bottom': top = rect.bottom - hostRect.top + 8; left = rect.left - hostRect.left + rect.width / 2; break;
-      case 'left': top = rect.top - hostRect.top + rect.height / 2; left = rect.left - hostRect.left - 8; break;
-      case 'right': top = rect.top - hostRect.top + rect.height / 2; left = rect.right - hostRect.left + 8; break;
+      case 'top':
+        top = rect.top - hostRect.top - 8;
+        left = rect.left - hostRect.left + rect.width / 2;
+        break;
+      case 'bottom':
+        top = rect.bottom - hostRect.top + 8;
+        left = rect.left - hostRect.left + rect.width / 2;
+        break;
+      case 'left':
+        top = rect.top - hostRect.top + rect.height / 2;
+        left = rect.left - hostRect.left - 8;
+        break;
+      case 'right':
+        top = rect.top - hostRect.top + rect.height / 2;
+        left = rect.right - hostRect.left + 8;
+        break;
     }
     this.hoveredCellText = text;
     this.cellTooltipCoords = { top, left };
     this.cellTooltipVisible = true;
   }
 
-  hideCellTooltip(): void { this.cellTooltipVisible = false; }
+  hideCellTooltip(): void {
+    this.cellTooltipVisible = false;
+  }
 
   startEdit(i: number): void {
     if (this.editingIndex !== null) return;
@@ -239,7 +316,9 @@ export class PuiEditableTableComponent {
     else delete this.fieldErrors[col.key];
   }
 
-  get hasFieldErrors(): boolean { return Object.keys(this.fieldErrors).length > 0; }
+  get hasFieldErrors(): boolean {
+    return Object.keys(this.fieldErrors).length > 0;
+  }
 
   saveEdit(): void {
     if (this.editingIndex === null) return;
@@ -256,13 +335,15 @@ export class PuiEditableTableComponent {
     const idx = this.editingIndex;
     const oldRow = this._rows[idx];
     const newRow = { ...oldRow, ...this.draft };
-    this._rows = this._rows.map((r, _i) => _i === idx ? newRow : r);
+    this._rows = this._rows.map((r, _i) => (_i === idx ? newRow : r));
     this.rowSave.emit({ index: idx, row: newRow, oldRow });
     if (this._showToast) this.toast.success(this.saveToastMessage);
     this._cancelEdit();
   }
 
-  cancelEdit(): void { this._cancelEdit(); }
+  cancelEdit(): void {
+    this._cancelEdit();
+  }
 
   deleteRow(i: number): void {
     if (this.editingIndex !== null) return;
@@ -309,7 +390,7 @@ export class PuiEditableTableComponent {
     if (col.maxLength && v.length > col.maxLength) {
       return col.validationMessage || `${col.label} must be at most ${col.maxLength} characters`;
     }
-    if (col.pattern && v && !(new RegExp(col.pattern)).test(v)) {
+    if (col.pattern && v && !new RegExp(col.pattern).test(v)) {
       return col.validationMessage || `${col.label} format is invalid`;
     }
     return null;
@@ -320,6 +401,10 @@ export class PuiEditableTableComponent {
   }
 
   private _parse<T>(s: string): T | null {
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 }

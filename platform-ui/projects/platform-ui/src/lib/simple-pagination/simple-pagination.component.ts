@@ -1,11 +1,15 @@
 import {
-  Component, Input, Output, EventEmitter,
-  OnChanges, ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { IconInternalComponent } from '../icon/icon-internal.component';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
-
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -42,8 +46,12 @@ export class PuiSimplePaginationComponent implements OnChanges {
     this.pageChange.emit(p);
   }
 
-  isEllipsis(p: number | '...'): p is '...' { return p === '...'; }
-  trackPage(_: number, p: number | '...'): string { return String(p); }
+  isEllipsis(p: number | '...'): p is '...' {
+    return p === '...';
+  }
+  trackPage(_: number, p: number | '...'): string {
+    return String(p);
+  }
 
   private _buildPages(): (number | '...')[] {
     const total = this.totalPages;

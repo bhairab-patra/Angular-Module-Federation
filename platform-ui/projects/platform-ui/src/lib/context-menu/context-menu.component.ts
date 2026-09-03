@@ -1,7 +1,13 @@
 ﻿import {
-  Component, Input, Output, EventEmitter,
-  HostListener, ElementRef, inject,
-  ViewEncapsulation, ChangeDetectionStrategy,
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  HostListener,
+  ElementRef,
+  inject,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { IconInternalComponent } from '../icon/icon-internal.component';
@@ -24,7 +30,9 @@ export class PuiContextMenuComponent {
   @Input() set disabled(v: boolean | string) {
     this._disabled = v === true || v === 'true' || (v as any) === '';
   }
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   private _disabled = false;
 
   @Output() menuSelect = new EventEmitter<MenuItem>();
@@ -63,15 +71,17 @@ export class PuiContextMenuComponent {
     this.openChange.emit(false);
   }
 
-  trackById(_: number, item: MenuItem): string { return item.id; }
+  trackById(_: number, item: MenuItem): string {
+    return item.id;
+  }
 
   @HostListener('document:click')
-  onDocClick(): void { this.close(); }
+  onDocClick(): void {
+    this.close();
+  }
 
   @HostListener('document:contextmenu', ['$event'])
   onDocContextMenu(e: MouseEvent): void {
-    // A second right-click outside this component's own zone should close
-    // any menu this instance already opened, instead of leaving it stuck.
     const path: EventTarget[] = e.composedPath ? e.composedPath() : [];
     const inside = path.length
       ? path.includes(this._el.nativeElement)
@@ -80,11 +90,17 @@ export class PuiContextMenuComponent {
   }
 
   @HostListener('document:keydown.escape')
-  onEscape(): void { this.close(); }
+  onEscape(): void {
+    this.close();
+  }
 
   @HostListener('window:scroll')
-  onScroll(): void { this.close(); }
+  onScroll(): void {
+    this.close();
+  }
 
   @HostListener('window:resize')
-  onResize(): void { this.close(); }
+  onResize(): void {
+    this.close();
+  }
 }

@@ -69,8 +69,7 @@ document.getElementById('c1').addEventListener('removed', () => {
 });
 </script>`;
 
-  readonly ngExample =
-`import { PuiChipComponent } from '@bhairab-patra/platform-ui';
+  readonly ngExample = `import { PuiChipComponent } from '@bhairab-patra/platform-ui';
 
 @Component({
   imports: [NgFor, PuiChipComponent],
@@ -100,47 +99,107 @@ export class MyComponent {
 }`;
 
   activeTags = ['Angular', 'TypeScript', 'RxJS', 'NgRx', 'Tailwind'];
-  removeTag(tag: string): void { this.activeTags = this.activeTags.filter(t => t !== tag); this.cdr.markForCheck(); }
+  removeTag(tag: string): void {
+    this.activeTags = this.activeTags.filter((t) => t !== tag);
+    this.cdr.markForCheck();
+  }
 
   skills = [
-    { label: 'Angular',     active: true  },
-    { label: 'React',       active: false },
-    { label: 'Vue',         active: false },
-    { label: 'TypeScript',  active: true  },
-    { label: 'Docker',      active: false },
+    { label: 'Angular', active: true },
+    { label: 'React', active: false },
+    { label: 'Vue', active: false },
+    { label: 'TypeScript', active: true },
+    { label: 'Docker', active: false },
   ];
-  get selectedSkills(): string[] { return this.skills.filter(s => s.active).map(s => s.label); }
-  toggleSkill(s: { label: string; active: boolean }): void { s.active = !s.active; }
+  get selectedSkills(): string[] {
+    return this.skills.filter((s) => s.active).map((s) => s.label);
+  }
+  toggleSkill(s: { label: string; active: boolean }): void {
+    s.active = !s.active;
+  }
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   tagIcon = 'filter';
 
-  variantRows: { name: string; desc: string; variant: 'default'|'primary'|'primary-light'|'primary-outline'|'secondary'|'secondary-light' }[] = [
-    { name: 'Default',        desc: 'Neutral / Default state', variant: 'default' },
-    { name: 'Primary',        desc: 'Primary brand action',     variant: 'primary' },
-    { name: 'Primary Light',  desc: 'Lighter brand action',     variant: 'primary-light' },
-    { name: 'Primary Outline',desc: 'Outline emphasis',         variant: 'primary-outline' },
-    { name: 'Secondary',      desc: 'Secondary action',         variant: 'secondary' },
-    { name: 'Secondary Light',desc: 'Lighter secondary action', variant: 'secondary-light' },
+  variantRows: {
+    name: string;
+    desc: string;
+    variant:
+      'default' | 'primary' | 'primary-light' | 'primary-outline' | 'secondary' | 'secondary-light';
+  }[] = [
+    { name: 'Default', desc: 'Neutral / Default state', variant: 'default' },
+    { name: 'Primary', desc: 'Primary brand action', variant: 'primary' },
+    { name: 'Primary Light', desc: 'Lighter brand action', variant: 'primary-light' },
+    { name: 'Primary Outline', desc: 'Outline emphasis', variant: 'primary-outline' },
+    { name: 'Secondary', desc: 'Secondary action', variant: 'secondary' },
+    { name: 'Secondary Light', desc: 'Lighter secondary action', variant: 'secondary-light' },
   ];
 
   xfwRows = [
-    { name: 'variant',   angular: 'variant="primary"',        attr: 'variant="primary"',   js: 'el.variant = "primary"'  },
-    { name: 'selected',  angular: '[selected]="true"',        attr: 'selected',             js: 'el.selected = true'      },
-    { name: 'removable', angular: '[removable]="true"',       attr: 'removable',            js: 'el.removable = true'     },
-    { name: 'disabled',  angular: '[disabled]="true"',        attr: 'disabled',             js: 'el.disabled = true'      },
-    { name: 'clicked',   angular: '(clicked)="fn()"',         attr: '—',                    js: 'el.addEventListener(…)'  },
-    { name: 'removed',   angular: '(removed)="fn()"',         attr: '—',                    js: 'el.addEventListener(…)'  },
+    {
+      name: 'variant',
+      angular: 'variant="primary"',
+      attr: 'variant="primary"',
+      js: 'el.variant = "primary"',
+    },
+    { name: 'selected', angular: '[selected]="true"', attr: 'selected', js: 'el.selected = true' },
+    {
+      name: 'removable',
+      angular: '[removable]="true"',
+      attr: 'removable',
+      js: 'el.removable = true',
+    },
+    { name: 'disabled', angular: '[disabled]="true"', attr: 'disabled', js: 'el.disabled = true' },
+    { name: 'clicked', angular: '(clicked)="fn()"', attr: '—', js: 'el.addEventListener(…)' },
+    { name: 'removed', angular: '(removed)="fn()"', attr: '—', js: 'el.addEventListener(…)' },
   ];
 
   api: ApiRow[] = [
-    { input: 'variant',   type: `'default'|'primary'|'primary-light'|'primary-outline'|'secondary'|'secondary-light'`, default: `'default'`, description: 'Colour variant.' },
-    { input: 'selected',  type: 'boolean',       default: 'false',  description: 'Renders a selection ring. Bind dynamically to create toggle filters.' },
-    { input: 'removable', type: 'boolean',       default: 'false',  description: 'Shows a × button. Disabled chips ignore this prop.' },
-    { input: 'disabled',  type: 'boolean',       default: 'false',  description: 'Prevents clicks and hides the remove button.' },
-    { input: 'icon',      type: 'string',        default: `''`,     description: 'Icon name from the platform icon registry (pui-lib-icon), rendered before the label.' },
-    { input: 'clicked',   type: 'EventEmitter',  default: '—',      description: 'Emits when the chip body is clicked (disabled state suppressed).' },
-    { input: 'removed',   type: 'EventEmitter',  default: '—',      description: 'Emits when the × button is clicked.' },
+    {
+      input: 'variant',
+      type: `'default'|'primary'|'primary-light'|'primary-outline'|'secondary'|'secondary-light'`,
+      default: `'default'`,
+      description: 'Colour variant.',
+    },
+    {
+      input: 'selected',
+      type: 'boolean',
+      default: 'false',
+      description: 'Renders a selection ring. Bind dynamically to create toggle filters.',
+    },
+    {
+      input: 'removable',
+      type: 'boolean',
+      default: 'false',
+      description: 'Shows a × button. Disabled chips ignore this prop.',
+    },
+    {
+      input: 'disabled',
+      type: 'boolean',
+      default: 'false',
+      description: 'Prevents clicks and hides the remove button.',
+    },
+    {
+      input: 'icon',
+      type: 'string',
+      default: `''`,
+      description:
+        'Icon name from the platform icon registry (pui-lib-icon), rendered before the label.',
+    },
+    {
+      input: 'clicked',
+      type: 'EventEmitter',
+      default: '—',
+      description: 'Emits when the chip body is clicked (disabled state suppressed).',
+    },
+    {
+      input: 'removed',
+      type: 'EventEmitter',
+      default: '—',
+      description: 'Emits when the × button is clicked.',
+    },
   ];
 }

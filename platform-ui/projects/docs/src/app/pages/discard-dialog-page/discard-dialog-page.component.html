@@ -1,15 +1,15 @@
-<docs-page title="Discard Dialog"
+<docs-page
+  title="Discard Dialog"
   description="Confirm before losing unsaved changes. Built into pui-lib-form-dialog by default — turn it off with confirmDiscard, or reuse pui-lib-confirm-dialog directly to build the same protection for any custom form or modal."
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Built into Form Dialog -->
     <div class="demo-section">
       <h3 class="demo-section__title">Built Into Form Dialog (default)</h3>
       <p class="demo-section__desc">
-        Type something into a field below, then click <strong>Cancel</strong> (or click outside the dialog) —
-        a "Discard changes?" prompt appears instead of closing right away. Click Cancel again <em>without</em>
+        Type something into a field below, then click <strong>Cancel</strong> (or click outside the
+        dialog) — a "Discard changes?" prompt appears instead of closing right away. Click Cancel
+        again <em>without</em>
         typing anything first, and it closes immediately — there's nothing to lose.
       </p>
       <div class="demo-row">
@@ -25,19 +25,22 @@
         [confirmDiscard]="true"
         (save)="onProtectedSave()"
         (cancel)="onProtectedCancel()"
-        (closed)="protectedOpen = false">
+        (closed)="protectedOpen = false"
+      >
       </pui-lib-form-dialog>
     </div>
 
-    <!-- 2. Opted out -->
     <div class="demo-section">
       <h3 class="demo-section__title">Opted Out — <code>[confirmDiscard]="false"</code></h3>
       <p class="demo-section__desc">
-        Same form, protection turned off. Type something and click Cancel — it closes immediately, no prompt,
-        matching how <code>pui-lib-form-dialog</code> behaved before this feature existed.
+        Same form, protection turned off. Type something and click Cancel — it closes immediately,
+        no prompt, matching how <code>pui-lib-form-dialog</code> behaved before this feature
+        existed.
       </p>
       <div class="demo-row">
-        <button class="demo-btn demo-btn--secondary" (click)="unprotectedOpen = true">New Note</button>
+        <button class="demo-btn demo-btn--secondary" (click)="unprotectedOpen = true">
+          New Note
+        </button>
       </div>
       <div class="demo-result" *ngIf="unprotectedResult">{{ unprotectedResult }}</div>
 
@@ -50,21 +53,28 @@
         saveLabel="Add Note"
         (save)="onUnprotectedSave()"
         (cancel)="onUnprotectedCancel()"
-        (closed)="unprotectedOpen = false">
+        (closed)="unprotectedOpen = false"
+      >
       </pui-lib-form-dialog>
     </div>
 
-    <!-- 3. Roll your own -->
     <div class="demo-section">
       <h3 class="demo-section__title">Roll Your Own, With <code>pui-lib-confirm-dialog</code></h3>
       <p class="demo-section__desc">
-        <code>pui-lib-form-dialog</code>'s protection only applies to itself. For any other custom form or modal,
-        wire up the same pattern yourself with the plain <code>pui-lib-confirm-dialog</code> component — track a
-        <code>isDirty</code> flag, and only close for real once the user confirms. Type in the field, then hit Cancel.
+        <code>pui-lib-form-dialog</code>'s protection only applies to itself. For any other custom
+        form or modal, wire up the same pattern yourself with the plain
+        <code>pui-lib-confirm-dialog</code> component — track a <code>isDirty</code> flag, and only
+        close for real once the user confirms. Type in the field, then hit Cancel.
       </p>
       <div class="demo-row">
-        <input class="demo-input" placeholder="Type to mark this dirty…" (input)="onCustomFieldChange()" />
-        <button class="demo-btn demo-btn--secondary" (click)="onCustomCloseAttempt()">Cancel</button>
+        <input
+          class="demo-input"
+          placeholder="Type to mark this dirty…"
+          (input)="onCustomFieldChange()"
+        />
+        <button class="demo-btn demo-btn--secondary" (click)="onCustomCloseAttempt()">
+          Cancel
+        </button>
       </div>
       <div class="demo-result" *ngIf="customResult">{{ customResult }}</div>
 
@@ -77,23 +87,45 @@
         confirmVariant="destructive"
         tone="warning"
         (confirmed)="onCustomDiscardConfirmed()"
-        (cancelled)="onCustomKeepEditing()">
+        (cancelled)="onCustomKeepEditing()"
+      >
       </pui-lib-confirm-dialog>
     </div>
 
-    <!-- Angular usage -->
     <div class="demo-section">
       <h3 class="demo-section__title">Usage — Form Dialog</h3>
-      <docs-code-block lang="html" id="dd-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"></docs-code-block>
-      <docs-code-block lang="typescript" id="dd-ts" [text]="angTs" [copied]="copied" (copyClick)="copy($event.id, $event.text)"></docs-code-block>
+      <docs-code-block
+        lang="html"
+        id="dd-html"
+        [text]="angHtml"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      ></docs-code-block>
+      <docs-code-block
+        lang="typescript"
+        id="dd-ts"
+        [text]="angTs"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      ></docs-code-block>
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">Usage — Custom Modal (Confirm Dialog)</h3>
-      <docs-code-block lang="html" id="dd-custom-html" [text]="customHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"></docs-code-block>
-      <docs-code-block lang="typescript" id="dd-custom-ts" [text]="customTs" [copied]="copied" (copyClick)="copy($event.id, $event.text)"></docs-code-block>
+      <docs-code-block
+        lang="html"
+        id="dd-custom-html"
+        [text]="customHtml"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      ></docs-code-block>
+      <docs-code-block
+        lang="typescript"
+        id="dd-custom-ts"
+        [text]="customTs"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      ></docs-code-block>
     </div>
-
   </ng-container>
-
 </docs-page>

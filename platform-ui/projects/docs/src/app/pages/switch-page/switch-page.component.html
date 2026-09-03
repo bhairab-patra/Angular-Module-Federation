@@ -1,85 +1,88 @@
-﻿
-<docs-page
+﻿<docs-page
   title="Switch"
   description="A toggle switch for binary on/off settings. Three sizes, dynamic labels per state, error state, and full form integration. Works in Angular, React, and plain HTML."
   [hasFramework]="true"
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
     <div class="demo-section">
       <h3 class="demo-section__title">Basic</h3>
       <div class="demo-col">
-        <pui-lib-switch label="Enable notifications" [(ngModel)]="v1"/>
-        <pui-lib-switch label="Dark mode"            [(ngModel)]="v2"/>
-        <pui-lib-switch label="Pre-enabled"          [checked]="preChecked"/>
+        <pui-lib-switch label="Enable notifications" [(ngModel)]="v1" />
+        <pui-lib-switch label="Dark mode" [(ngModel)]="v2" />
+        <pui-lib-switch label="Pre-enabled" [checked]="preChecked" />
       </div>
-      <p class="demo-desc">Notifications: <strong>{{ v1 ? 'On' : 'Off' }}</strong></p>
+      <p class="demo-desc">
+        Notifications: <strong>{{ v1 ? 'On' : 'Off' }}</strong>
+      </p>
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">Sizes</h3>
       <div class="demo-col">
-        <pui-lib-switch label="Small"  size="sm" [(ngModel)]="vSm"/>
-        <pui-lib-switch label="Medium" size="md" [(ngModel)]="vMd"/>
-        <pui-lib-switch label="Large"  size="lg" [(ngModel)]="vLg"/>
+        <pui-lib-switch label="Small" size="sm" [(ngModel)]="vSm" />
+        <pui-lib-switch label="Medium" size="md" [(ngModel)]="vMd" />
+        <pui-lib-switch label="Large" size="lg" [(ngModel)]="vLg" />
       </div>
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">Dynamic Labels</h3>
       <div class="demo-col">
-        <pui-lib-switch labelOn="Enabled"  labelOff="Disabled" [(ngModel)]="vDyn1"/>
-        <pui-lib-switch labelOn="Active"   labelOff="Inactive" [(ngModel)]="vDyn2"/>
-        <pui-lib-switch labelOn="Online"   labelOff="Offline"  [(ngModel)]="vDyn3"/>
+        <pui-lib-switch labelOn="Enabled" labelOff="Disabled" [(ngModel)]="vDyn1" />
+        <pui-lib-switch labelOn="Active" labelOff="Inactive" [(ngModel)]="vDyn2" />
+        <pui-lib-switch labelOn="Online" labelOff="Offline" [(ngModel)]="vDyn3" />
       </div>
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">States</h3>
       <div class="demo-col">
-        <pui-lib-switch label="Disabled (off)" [disabled]="disabledFlag"/>
-        <pui-lib-switch label="Disabled (on)"  [disabled]="disabledFlag" [checked]="preChecked"/>
-        <pui-lib-switch label="Error state"    error="This setting is required" [(ngModel)]="vErr"/>
-        <pui-lib-switch label="With hint"      hint="Restart required to apply" [(ngModel)]="vHint"/>
+        <pui-lib-switch label="Disabled (off)" [disabled]="disabledFlag" />
+        <pui-lib-switch label="Disabled (on)" [disabled]="disabledFlag" [checked]="preChecked" />
+        <pui-lib-switch label="Error state" error="This setting is required" [(ngModel)]="vErr" />
+        <pui-lib-switch label="With hint" hint="Restart required to apply" [(ngModel)]="vHint" />
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-switch</code> is a Web Component. Bind with <code>[(ngModel)]</code> or <code>[checked]</code>/<code>(checkedChange)</code> in Angular. In React and HTML set <code>checked</code> and listen to <code>checkedChange</code> CustomEvent.</p>
+    <p class="fw-lead">
+      <code>pui-lib-switch</code> is a Web Component. Bind with <code>[(ngModel)]</code> or
+      <code>[checked]</code>/<code>(checkedChange)</code> in Angular. In React and HTML set
+      <code>checked</code> and listen to <code>checkedChange</code> CustomEvent.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-col">
-        <pui-lib-switch label="Enable notifications" [(ngModel)]="v1"/>
-        <pui-lib-switch labelOn="Active" labelOff="Inactive" [(ngModel)]="vDyn1"/>
-        <pui-lib-switch label="Small" size="sm" [(ngModel)]="vSm"/>
-        <pui-lib-switch label="Large" size="lg" [(ngModel)]="vLg"/>
-        <pui-lib-switch label="Disabled" [disabled]="disabledFlag" [checked]="preChecked"/>
+        <pui-lib-switch label="Enable notifications" [(ngModel)]="v1" />
+        <pui-lib-switch labelOn="Active" labelOff="Inactive" [(ngModel)]="vDyn1" />
+        <pui-lib-switch label="Small" size="sm" [(ngModel)]="vSm" />
+        <pui-lib-switch label="Large" size="lg" [(ngModel)]="vLg" />
+        <pui-lib-switch label="Disabled" [disabled]="disabledFlag" [checked]="preChecked" />
       </div>
       <div react-preview class="react-settings-panel">
         <h4 class="react-form-title">App Settings</h4>
         <div class="react-setting-row">
           <span class="react-setting-label">Email notifications</span>
-          <pui-lib-switch [checked]="v1"/>
+          <pui-lib-switch [checked]="v1" />
         </div>
         <div class="react-setting-row">
           <span class="react-setting-label">Dark mode</span>
-          <pui-lib-switch [checked]="vDyn2"/>
+          <pui-lib-switch [checked]="vDyn2" />
         </div>
         <div class="react-setting-row">
           <span class="react-setting-label">Auto-save drafts</span>
-          <pui-lib-switch [checked]="vDyn3"/>
+          <pui-lib-switch [checked]="vDyn3" />
         </div>
         <div class="react-setting-row">
           <span class="react-setting-label">Two-factor auth</span>
-          <pui-lib-switch [checked]="preChecked"/>
+          <pui-lib-switch [checked]="preChecked" />
         </div>
       </div>
     </docs-framework-preview>
@@ -87,19 +90,31 @@
     <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Input / Event</th>
+            <th>Angular</th>
+            <th>React / HTML attribute</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
-            <td><code class="tag-name">{{ r.name }}</code></td>
-            <td><code class="tag-ng">{{ r.angular }}</code></td>
-            <td><code class="tag-html">{{ r.attr }}</code></td>
-            <td><code class="tag-js">{{ r.js }}</code></td>
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code class="tag-ng">{{ r.angular }}</code>
+            </td>
+            <td>
+              <code class="tag-html">{{ r.attr }}</code>
+            </td>
+            <td>
+              <code class="tag-js">{{ r.js }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-  

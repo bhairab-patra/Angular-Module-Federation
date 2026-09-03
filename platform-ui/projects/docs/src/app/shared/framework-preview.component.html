@@ -1,66 +1,99 @@
 ﻿<div class="fp-wrap">
-
-  <!-- ── Toolbar ── -->
   <div class="fp-toolbar">
-
-    <!-- Preview / Code toggle -->
     <div class="fp-toggle">
-      <button class="fp-toggle__btn" [class.fp-toggle__btn--active]="mode === 'preview'" (click)="setMode('preview')">
+      <button
+        class="fp-toggle__btn"
+        [class.fp-toggle__btn--active]="mode === 'preview'"
+        (click)="setMode('preview')"
+      >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-          <rect x="2" y="4" width="20" height="16" rx="2" stroke="currentColor" stroke-width="1.8" />
+          <rect
+            x="2"
+            y="4"
+            width="20"
+            height="16"
+            rx="2"
+            stroke="currentColor"
+            stroke-width="1.8"
+          />
           <path d="M9 9l6 3-6 3V9z" fill="currentColor" />
         </svg>
         Preview
       </button>
-      <button class="fp-toggle__btn" [class.fp-toggle__btn--active]="mode === 'code'" (click)="setMode('code')">
+      <button
+        class="fp-toggle__btn"
+        [class.fp-toggle__btn--active]="mode === 'code'"
+        (click)="setMode('code')"
+      >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-          <path d="M7 8L3 12l4 4M17 8l4 4-4 4M14 4l-4 16" stroke="currentColor" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M7 8L3 12l4 4M17 8l4 4-4 4M14 4l-4 16"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
         Code
       </button>
     </div>
 
     <div class="fp-toolbar__right">
-      <!-- Framework tabs -->
       <div class="fp-fw-tabs">
-        <button *ngFor="let fw of frameworks; trackBy: trackByIndex" class="fp-fw-tab"
-          [class.fp-fw-tab--active]="activeFw === fw.id" [class.fp-fw-tab--disabled]="fw.id === 'html'"
-          [disabled]="fw.id === 'html'" (click)="setFw(fw.id)">
+        <button
+          *ngFor="let fw of frameworks; trackBy: trackByIndex"
+          class="fp-fw-tab"
+          [class.fp-fw-tab--active]="activeFw === fw.id"
+          [class.fp-fw-tab--disabled]="fw.id === 'html'"
+          [disabled]="fw.id === 'html'"
+          (click)="setFw(fw.id)"
+        >
           <span class="fp-fw-tab__icon" [innerHTML]="safeHtml(fw.icon)"></span>
           <span>{{ fw.label }}</span>
         </button>
       </div>
 
-      <!-- Copy button -->
       <button class="fp-copy" (click)="copy()" [title]="copied ? 'Copied!' : 'Copy code'">
         <svg *ngIf="!copied" width="14" height="14" viewBox="0 0 24 24" fill="none">
-          <rect x="9" y="9" width="13" height="13" rx="2" stroke="currentColor" stroke-width="1.8" />
-          <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" stroke="currentColor" stroke-width="1.8" />
+          <rect
+            x="9"
+            y="9"
+            width="13"
+            height="13"
+            rx="2"
+            stroke="currentColor"
+            stroke-width="1.8"
+          />
+          <path
+            d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
+            stroke="currentColor"
+            stroke-width="1.8"
+          />
         </svg>
         <svg *ngIf="copied" width="14" height="14" viewBox="0 0 24 24" fill="none">
-          <path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" />
+          <path
+            d="M5 13l4 4L19 7"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </button>
     </div>
   </div>
 
-  <!-- ── Preview pane ── -->
   <div class="fp-preview" *ngIf="mode === 'preview'">
-    <!-- Angular slot   hidden when React is active and a react-preview slot was provided -->
     <div [style.display]="activeFw === 'react' && hasReactPreview ? 'none' : 'contents'">
       <ng-content select="[preview]"></ng-content>
     </div>
-    <!-- React slot  hidden unless React tab is active -->
+
     <div #reactSlot [style.display]="activeFw === 'react' && hasReactPreview ? 'contents' : 'none'">
       <ng-content select="[react-preview]"></ng-content>
     </div>
   </div>
 
-  <!-- ── Code pane ── -->
   <div class="fp-code" *ngIf="mode === 'code'">
     <pre class="fp-pre"><code>{{ currentCode }}</code></pre>
   </div>
-
 </div>

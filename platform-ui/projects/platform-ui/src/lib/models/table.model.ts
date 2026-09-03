@@ -1,36 +1,36 @@
 export interface TableColumn {
-  key:      string;
-  label:    string;
-  sortable?:  boolean;
-  width?:     string;
-  minWidth?:  string;
-  align?:     'left' | 'center' | 'right';
-  type?:      'text' | 'number' | 'date' | 'currency' | 'badge' | 'pills';
-  badgeMap?:  Record<string, { label?: string; color?: string }>;
-  /** pui-lib-editable-table only: set false to keep this column read-only while the row is being edited. Defaults to editable (true). */
-  editable?:  boolean;
-  /** pui-lib-editable-table only: below fields configure inline validation shown
-   * while this column is being edited. A row can't be saved until every
-   * editable column with a validation rule passes. */
-  required?:          boolean;
-  minLength?:         number;
-  maxLength?:         number;
-  /** Regex source (no slashes/flags), e.g. '^[^@]+@[^@]+\\.[^@]+$' for email. */
-  pattern?:           string;
-  /** Overrides the auto-generated message for any rule that fails on this column. */
+  key: string;
+  label: string;
+  sortable?: boolean;
+  width?: string;
+  minWidth?: string;
+  align?: 'left' | 'center' | 'right';
+  type?: 'text' | 'number' | 'date' | 'currency' | 'badge' | 'pills';
+  badgeMap?: Record<string, { label?: string; color?: string }>;
+
+  editable?: boolean;
+
+  required?: boolean;
+  minLength?: number;
+  maxLength?: number;
+
+  pattern?: string;
+
   validationMessage?: string;
 }
 
 export interface TableAction {
-  label:     string;
-  /** Name from the shared pui icon set (rendered via the same icon
-   * component used everywhere else in the library) — prefer this over `icon`. */
+  label: string;
+
   iconName?: string;
-  /** Raw SVG/HTML markup — escape hatch for a one-off icon not in the shared set. */
-  icon?:     string;
-  action:    (row: any) => void;
+
+  icon?: string;
+  action: (row: any) => void;
   disabled?: (row: any) => boolean;
 }
 
 export type SortDir = 'asc' | 'desc' | '';
-export interface SortState { key: string; dir: SortDir; }
+export interface SortState {
+  key: string;
+  dir: SortDir;
+}

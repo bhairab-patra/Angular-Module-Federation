@@ -21,5 +21,7 @@ export class PuiSkeletonComponent {
   @Input() rows = 1;
   @Input() animated = true;
 
-  get _rows(): number[] { return Array.from({ length: this.rows }); }
+  get _rows(): number[] {
+    return Array.from({ length: this.rows });
+  }
 }

@@ -1,9 +1,10 @@
-﻿<docs-page title="Checkbox"
+﻿<docs-page
+  title="Checkbox"
   description="A styled checkbox with checked, indeterminate, error, and disabled states. Works with Angular forms, React refs, and plain HTML via Web Component."
-  [hasFramework]="true" [api]="api">
-
+  [hasFramework]="true"
+  [api]="api"
+>
   <ng-container demo>
-
     <div class="demo-section">
       <h3 class="demo-section__title">Basic</h3>
       <div class="demo-col">
@@ -11,7 +12,9 @@
         <pui-lib-checkbox label="Subscribe to newsletter" [(ngModel)]="v2" />
         <pui-lib-checkbox label="Pre-checked" [checked]="preChecked" />
       </div>
-      <p class="demo-desc">Terms: <strong>{{ v1 ? 'Accepted' : 'Not accepted' }}</strong></p>
+      <p class="demo-desc">
+        Terms: <strong>{{ v1 ? 'Accepted' : 'Not accepted' }}</strong>
+      </p>
     </div>
 
     <div class="demo-section">
@@ -27,35 +30,61 @@
       <h3 class="demo-section__title">States</h3>
       <div class="demo-col">
         <pui-lib-checkbox label="Disabled (unchecked)" [disabled]="disabledFlag" />
-        <pui-lib-checkbox label="Disabled (checked)" [disabled]="disabledFlag" [checked]="preChecked" />
-        <pui-lib-checkbox label="Error state" error="You must accept the terms" [(ngModel)]="vErr" />
+        <pui-lib-checkbox
+          label="Disabled (checked)"
+          [disabled]="disabledFlag"
+          [checked]="preChecked"
+        />
+        <pui-lib-checkbox
+          label="Error state"
+          error="You must accept the terms"
+          [(ngModel)]="vErr"
+        />
         <pui-lib-checkbox label="With hint" hint="We'll never spam you" [(ngModel)]="vHint" />
         <pui-lib-checkbox label="Required" [required]="requiredFlag" />
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-checkbox</code> is a Web Component — works in Angular, React, and plain HTML with
-      no extra config. Boolean inputs (<code>checked</code>, <code>disabled</code>, <code>indeterminate</code>,
-      <code>required</code>) accept <code>true</code>/<code>false</code> JS properties or the string <code>"true"</code>
-      as an HTML attribute.</p>
+    <p class="fw-lead">
+      <code>pui-lib-checkbox</code> is a Web Component — works in Angular, React, and plain HTML
+      with no extra config. Boolean inputs (<code>checked</code>, <code>disabled</code>,
+      <code>indeterminate</code>, <code>required</code>) accept <code>true</code>/<code>false</code>
+      JS properties or the string <code>"true"</code> as an HTML attribute.
+    </p>
 
-    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-col">
         <pui-lib-checkbox label="Accept terms and conditions" [checked]="preChecked" />
         <pui-lib-checkbox label="Select all" [indeterminate]="indeterminate" />
-        <pui-lib-checkbox label="Disabled (checked)" [disabled]="disabledFlag" [checked]="preChecked" />
-        <pui-lib-checkbox label="Error state" error="You must accept the terms" [(ngModel)]="vErr" />
+        <pui-lib-checkbox
+          label="Disabled (checked)"
+          [disabled]="disabledFlag"
+          [checked]="preChecked"
+        />
+        <pui-lib-checkbox
+          label="Error state"
+          error="You must accept the terms"
+          [(ngModel)]="vErr"
+        />
       </div>
       <div react-preview class="react-signup-form">
         <h4 class="react-form-title">Create Account</h4>
-        <pui-lib-checkbox label="I agree to the Terms of Service and Privacy Policy" [checked]="preChecked" />
+        <pui-lib-checkbox
+          label="I agree to the Terms of Service and Privacy Policy"
+          [checked]="preChecked"
+        />
         <pui-lib-checkbox label="Subscribe to product updates and announcements" />
-        <pui-lib-checkbox label="Enable two-factor authentication (recommended)" [checked]="preChecked" />
+        <pui-lib-checkbox
+          label="Enable two-factor authentication (recommended)"
+          [checked]="preChecked"
+        />
       </div>
     </docs-framework-preview>
 
@@ -72,15 +101,21 @@
         </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
-            <td><code class="tag-name">{{ r.name }}</code></td>
-            <td><code class="tag-ng">{{ r.angular }}</code></td>
-            <td><code class="tag-html">{{ r.attr }}</code></td>
-            <td><code class="tag-js">{{ r.js }}</code></td>
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code class="tag-ng">{{ r.angular }}</code>
+            </td>
+            <td>
+              <code class="tag-html">{{ r.attr }}</code>
+            </td>
+            <td>
+              <code class="tag-js">{{ r.js }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>

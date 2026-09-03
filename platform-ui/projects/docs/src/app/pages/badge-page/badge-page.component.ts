@@ -77,7 +77,20 @@ export default function DeploymentList() {
 <pui-lib-badge variant="primary">New</pui-lib-badge>
 <pui-lib-badge variant="default">Draft</pui-lib-badge>`;
 
-  variants: { id: 'default'|'primary'|'primary-light'|'primary-outline'|'secondary'|'secondary-light'|'success'|'warning'|'danger'|'info'; label: string }[] = [
+  variants: {
+    id:
+      | 'default'
+      | 'primary'
+      | 'primary-light'
+      | 'primary-outline'
+      | 'secondary'
+      | 'secondary-light'
+      | 'success'
+      | 'warning'
+      | 'danger'
+      | 'info';
+    label: string;
+  }[] = [
     { id: 'default', label: 'Default' },
     { id: 'primary', label: 'Primary' },
     { id: 'primary-light', label: 'Primary Light' },
@@ -91,14 +104,33 @@ export default function DeploymentList() {
   ];
 
   xfwRows = [
-    { name: 'variant', angular: '[variant]="\'success\'"', attr: 'variant="success"', js: 'el.variant = "success"' },
+    {
+      name: 'variant',
+      angular: '[variant]="\'success\'"',
+      attr: 'variant="success"',
+      js: 'el.variant = "success"',
+    },
     { name: 'size', angular: 'size="sm"', attr: 'size="sm"', js: 'el.size = "sm"' },
   ];
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   api: ApiRow[] = [
-    { input: 'variant', type: `'default'|'primary'|'primary-light'|'primary-outline'|'secondary'|'secondary-light'|'success'|'warning'|'danger'|'info'`, default: `'default'`, description: 'Colour variant. primary/primary-light/primary-outline/secondary/secondary-light follow the brand theme toggle (same palette as Button and Chip); success/warning/danger/info are fixed status colours: success=active/passed, warning=pending, danger=error/failed, info=informational.' },
-    { input: 'size', type: `'sm'|'md'`, default: `'md'`, description: 'Badge size. sm fits inside table cells or inline with body text; md is suitable for standalone status labels.' },
+    {
+      input: 'variant',
+      type: `'default'|'primary'|'primary-light'|'primary-outline'|'secondary'|'secondary-light'|'success'|'warning'|'danger'|'info'`,
+      default: `'default'`,
+      description:
+        'Colour variant. primary/primary-light/primary-outline/secondary/secondary-light follow the brand theme toggle (same palette as Button and Chip); success/warning/danger/info are fixed status colours: success=active/passed, warning=pending, danger=error/failed, info=informational.',
+    },
+    {
+      input: 'size',
+      type: `'sm'|'md'`,
+      default: `'md'`,
+      description:
+        'Badge size. sm fits inside table cells or inline with body text; md is suitable for standalone status labels.',
+    },
   ];
 }

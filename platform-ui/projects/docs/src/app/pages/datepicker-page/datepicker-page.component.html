@@ -1,26 +1,23 @@
-
 <docs-page
   title="Date Picker"
   description="A fully interactive calendar date picker with single-date and date-range modes, min/max constraints, month-grid navigation, Today shortcut, and clear action. Works in Angular, React, and plain HTML."
   [hasFramework]="true"
-  [api]="api">
-
-  <!-- DEMO -->
+  [api]="api"
+>
   <ng-container demo>
-
     <div class="dp-demo-sections">
-
-      <!-- 1. Single date + Range side by side -->
       <div class="dp-section">
         <h3 class="dp-section__heading">Date Selection</h3>
-        <p class="dp-section__desc">Pick a single date or select a start and end date for a range.</p>
+        <p class="dp-section__desc">
+          Pick a single date or select a start and end date for a range.
+        </p>
         <div class="dp-grid">
-
           <div class="dp-grid__item">
             <p class="dp-label">Single date</p>
             <pui-lib-datepicker
               placeholder="Pick a date…"
-              (valueChange)="singleDate = $event; cdr.markForCheck()">
+              (valueChange)="singleDate = $event; cdr.markForCheck()"
+            >
             </pui-lib-datepicker>
             <div class="dp-result">
               Selected: <strong>{{ singleDate ? fmtDate(singleDate) : '—' }}</strong>
@@ -32,79 +29,125 @@
             <pui-lib-datepicker
               mode="range"
               placeholder="Select date range…"
-              (rangeChange)="dateRange = $event; cdr.markForCheck()">
+              (rangeChange)="dateRange = $event; cdr.markForCheck()"
+            >
             </pui-lib-datepicker>
             <div class="dp-result">
               <ng-container *ngIf="!dateRange.start">No range selected</ng-container>
-              <ng-container *ngIf="dateRange.start && !dateRange.end"><strong>{{ fmtDate(dateRange.start) }}</strong> &mdash; select end date</ng-container>
-              <ng-container *ngIf="dateRange.start && dateRange.end"><strong>{{ fmtDate(dateRange.start) }}</strong> to <strong>{{ fmtDate(dateRange.end) }}</strong> &mdash; {{ daysBetween(dateRange.start, dateRange.end) }} days</ng-container>
+              <ng-container *ngIf="dateRange.start && !dateRange.end"
+                ><strong>{{ fmtDate(dateRange.start) }}</strong> &mdash; select end
+                date</ng-container
+              >
+              <ng-container *ngIf="dateRange.start && dateRange.end"
+                ><strong>{{ fmtDate(dateRange.start) }}</strong> to
+                <strong>{{ fmtDate(dateRange.end) }}</strong> &mdash;
+                {{ daysBetween(dateRange.start, dateRange.end) }} days</ng-container
+              >
             </div>
           </div>
-
         </div>
       </div>
 
-      <!-- 2. States -->
       <div class="dp-section">
         <h3 class="dp-section__heading">States</h3>
-        <p class="dp-section__desc">Disabled picker prevents interaction. Pre-filled picker opens with an existing value.</p>
+        <p class="dp-section__desc">
+          Disabled picker prevents interaction. Pre-filled picker opens with an existing value.
+        </p>
         <div class="dp-grid">
-
           <div class="dp-grid__item">
             <p class="dp-label">Disabled</p>
-            <pui-lib-datepicker
-              disabled="true"
-              placeholder="Not available">
-            </pui-lib-datepicker>
+            <pui-lib-datepicker disabled="true" placeholder="Not available"> </pui-lib-datepicker>
           </div>
 
           <div class="dp-grid__item">
             <p class="dp-label">Pre-filled value</p>
             <pui-lib-datepicker
               [value]="prefilled"
-              (valueChange)="prefilled = $event; cdr.markForCheck()">
+              (valueChange)="prefilled = $event; cdr.markForCheck()"
+            >
             </pui-lib-datepicker>
             <div class="dp-result">
               Value: <strong>{{ prefilled ? fmtDate(prefilled) : '—' }}</strong>
             </div>
           </div>
-
         </div>
       </div>
-
     </div>
-
   </ng-container>
 
-  <!-- FRAMEWORK USAGE -->
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-datepicker</code> works in Angular, React, and plain HTML. Pass <code>value</code> as a JS <code>Date</code> from Angular; use an ISO string from React/HTML. Listen to <code>(valueChange)</code> (single) or <code>(rangeChange)</code> (range) for selection events. It also implements <code>ControlValueAccessor</code>, so in Angular you can bind it with <code>formControlName</code> instead of manual <code>[value]</code>/<code>(valueChange)</code>.</p>
+    <p class="fw-lead">
+      <code>pui-lib-datepicker</code> works in Angular, React, and plain HTML. Pass
+      <code>value</code> as a JS <code>Date</code> from Angular; use an ISO string from React/HTML.
+      Listen to <code>(valueChange)</code> (single) or <code>(rangeChange)</code> (range) for
+      selection events. It also implements <code>ControlValueAccessor</code>, so in Angular you can
+      bind it with <code>formControlName</code> instead of manual
+      <code>[value]</code>/<code>(valueChange)</code>.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
-      <div preview class="demo-row" style="gap:16px;flex-wrap:wrap;">
-        <pui-lib-datepicker
-          placeholder="Pick a date…"
-          style="max-width:240px;display:block;">
+      [htmlCode]="htmlCode"
+    >
+      <div preview class="demo-row" style="gap: 16px; flex-wrap: wrap">
+        <pui-lib-datepicker placeholder="Pick a date…" style="max-width: 240px; display: block">
         </pui-lib-datepicker>
         <pui-lib-datepicker
           mode="range"
           placeholder="Select date range…"
-          style="max-width:280px;display:block;">
+          style="max-width: 280px; display: block"
+        >
         </pui-lib-datepicker>
       </div>
-      <div react-preview style="display:flex;flex-direction:column;gap:16px;max-width:320px;padding:20px;background:var(--pui-neutral-50);border:1px solid var(--pui-neutral-200);border-radius:12px;">
-        <div style="font-size:15px;font-weight:700;color:var(--pui-neutral-900);margin-bottom:4px;">Hotel Booking</div>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <label style="font-size:12px;font-weight:600;color:var(--pui-neutral-600);text-transform:uppercase;letter-spacing:.05em;">Check-in Date</label>
+      <div
+        react-preview
+        style="
+          display: flex;
+          flex-direction: column;
+          gap: 16px;
+          max-width: 320px;
+          padding: 20px;
+          background: var(--pui-neutral-50);
+          border: 1px solid var(--pui-neutral-200);
+          border-radius: 12px;
+        "
+      >
+        <div
+          style="
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--pui-neutral-900);
+            margin-bottom: 4px;
+          "
+        >
+          Hotel Booking
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label
+            style="
+              font-size: 12px;
+              font-weight: 600;
+              color: var(--pui-neutral-600);
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+            "
+            >Check-in Date</label
+          >
           <pui-lib-datepicker placeholder="Select date"></pui-lib-datepicker>
         </div>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <label style="font-size:12px;font-weight:600;color:var(--pui-neutral-600);text-transform:uppercase;letter-spacing:.05em;">Check-out Date</label>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label
+            style="
+              font-size: 12px;
+              font-weight: 600;
+              color: var(--pui-neutral-600);
+              text-transform: uppercase;
+              letter-spacing: 0.05em;
+            "
+            >Check-out Date</label
+          >
           <pui-lib-datepicker placeholder="Select date"></pui-lib-datepicker>
         </div>
       </div>
@@ -113,18 +156,31 @@
     <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Input / Event</th>
+            <th>Angular</th>
+            <th>React / HTML attribute</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
-            <td><code class="tag-name">{{ r.name }}</code></td>
-            <td><code class="tag-ng">{{ r.angular }}</code></td>
-            <td><code class="tag-html">{{ r.attr }}</code></td>
-            <td><code class="tag-js">{{ r.js }}</code></td>
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code class="tag-ng">{{ r.angular }}</code>
+            </td>
+            <td>
+              <code class="tag-html">{{ r.attr }}</code>
+            </td>
+            <td>
+              <code class="tag-js">{{ r.js }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>

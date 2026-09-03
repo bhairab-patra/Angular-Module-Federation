@@ -3,7 +3,6 @@ import { NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { PuiInputComponent } from './input.component';
 
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-input-internal',

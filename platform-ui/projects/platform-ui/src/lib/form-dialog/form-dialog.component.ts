@@ -1,5 +1,10 @@
 ﻿import {
-  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -22,14 +27,18 @@ export interface FormDialogField {
   span?: 'full' | 'half';
 }
 
-export interface FormDialogSaveEvent { data: Record<string, any>; }
+export interface FormDialogSaveEvent {
+  data: Record<string, any>;
+}
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-form-dialog',
   standalone: true,
   imports: [
-    NgFor, NgIf, FormsModule,
+    NgFor,
+    NgIf,
+    FormsModule,
     ButtonInternalComponent,
     PuiInputInternalComponent,
     PuiSelectInternalComponent,
@@ -42,7 +51,6 @@ export interface FormDialogSaveEvent { data: Record<string, any>; }
   styleUrls: ['./form-dialog.component.scss'],
 })
 export class PuiFormDialogComponent {
-
   _open = false;
   @Input() set open(v: boolean | string) {
     this._open = v === true || v === 'true' || (v as any) === '';
@@ -55,13 +63,12 @@ export class PuiFormDialogComponent {
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
   @Input() closeOnBackdrop = true;
 
-  /** Ask "Discard changes?" before closing (Cancel or backdrop click) while
-   * the form has unsaved edits. On by default — set false to close
-   * immediately like before, with no confirmation step. */
   @Input() set confirmDiscard(v: boolean | string) {
     this._confirmDiscard = v !== false && v !== 'false';
   }
-  get confirmDiscard(): boolean { return this._confirmDiscard; }
+  get confirmDiscard(): boolean {
+    return this._confirmDiscard;
+  }
   private _confirmDiscard = true;
 
   @Input() discardTitle = 'Discard changes?';
@@ -71,7 +78,7 @@ export class PuiFormDialogComponent {
 
   _fields: FormDialogField[] = [];
   @Input() set fields(v: FormDialogField[] | string) {
-    this._fields = typeof v === 'string' ? (this._parse<FormDialogField[]>(v) ?? []) : (v || []);
+    this._fields = typeof v === 'string' ? (this._parse<FormDialogField[]>(v) ?? []) : v || [];
   }
 
   _data: Record<string, any> = {};
@@ -89,7 +96,6 @@ export class PuiFormDialogComponent {
   discardPromptOpen = false;
   private _initialDraft: Record<string, any> = {};
 
-  /** True once the draft differs from what it was when the dialog opened. */
   get isDirty(): boolean {
     return JSON.stringify(this.draft) !== JSON.stringify(this._initialDraft);
   }
@@ -107,8 +113,6 @@ export class PuiFormDialogComponent {
     this._requestClose();
   }
 
-  /** Route every close attempt through here — opens the discard-confirm
-   * prompt if there are unsaved edits, otherwise closes immediately. */
   private _requestClose(): void {
     if (this._confirmDiscard && this.isDirty) {
       this.discardPromptOpen = true;
@@ -154,6 +158,10 @@ export class PuiFormDialogComponent {
   }
 
   private _parse<T>(s: string): T | null {
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 }

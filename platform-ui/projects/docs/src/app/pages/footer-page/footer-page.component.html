@@ -1,13 +1,18 @@
-<docs-page title="Footer"
+<docs-page
+  title="Footer"
   description="Application footer for FAQs-style contact info, legal disclaimers, or a plain copyright bar — three variants, rotating notice slides, and full link/copyright customisation."
-  [code]="angularCode" [hasFramework]="true" [api]="api">
-
+  [code]="angularCode"
+  [hasFramework]="true"
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Contact variant -->
     <div class="demo-section">
       <h3 class="demo-section__title">Contact Variant</h3>
-      <p class="demo-section__desc">Office hours / address card on the left, a call-to-action button on the right. Pass more than one <code>noticeSlides</code> entry to get pagination dots and prev/next arrows for free.</p>
+      <p class="demo-section__desc">
+        Office hours / address card on the left, a call-to-action button on the right. Pass more
+        than one <code>noticeSlides</code> entry to get pagination dots and prev/next arrows for
+        free.
+      </p>
       <div class="demo-block">
         <pui-lib-footer
           variant="contact"
@@ -16,16 +21,21 @@
           (activeSlideIndexChange)="onContactSlideChange($event)"
           [links]="links"
           (linkClick)="onLinkClick($event)"
-          (contactClick)="onContactClick($event)">
+          (contactClick)="onContactClick($event)"
+        >
         </pui-lib-footer>
-        <p class="demo-state" *ngIf="lastContactAction">Called: <strong>{{ lastContactAction }}</strong></p>
+        <p class="demo-state" *ngIf="lastContactAction">
+          Called: <strong>{{ lastContactAction }}</strong>
+        </p>
       </div>
     </div>
 
-    <!-- 2. Disclaimer variant -->
     <div class="demo-section">
       <h3 class="demo-section__title">Disclaimer Variant</h3>
-      <p class="demo-section__desc">A legal/compliance notice card with a "Continue reading…" link. Same slide + pagination mechanics as the contact variant.</p>
+      <p class="demo-section__desc">
+        A legal/compliance notice card with a "Continue reading…" link. Same slide + pagination
+        mechanics as the contact variant.
+      </p>
       <div class="demo-block">
         <pui-lib-footer
           variant="disclaimer"
@@ -33,33 +43,45 @@
           [activeSlideIndex]="disclaimerSlideIndex"
           (activeSlideIndexChange)="onDisclaimerSlideChange($event)"
           [links]="links"
-          (linkClick)="onLinkClick($event)">
+          (linkClick)="onLinkClick($event)"
+        >
         </pui-lib-footer>
       </div>
     </div>
 
-    <!-- 3. Simple variant -->
     <div class="demo-section">
       <h3 class="demo-section__title">Simple Variant</h3>
-      <p class="demo-section__desc">No notice card — just the copyright line and links. Use this on internal/admin pages that don't need a contact or legal notice.</p>
+      <p class="demo-section__desc">
+        No notice card — just the copyright line and links. Use this on internal/admin pages that
+        don't need a contact or legal notice.
+      </p>
       <div class="demo-block">
-        <pui-lib-footer
-          variant="simple"
-          [links]="links"
-          (linkClick)="onLinkClick($event)">
+        <pui-lib-footer variant="simple" [links]="links" (linkClick)="onLinkClick($event)">
         </pui-lib-footer>
-        <p class="demo-state" *ngIf="lastLinkAction">Last link clicked: <strong>{{ lastLinkAction }}</strong></p>
+        <p class="demo-state" *ngIf="lastLinkAction">
+          Last link clicked: <strong>{{ lastLinkAction }}</strong>
+        </p>
       </div>
     </div>
 
-    <!-- 4. Sticky bottom -->
     <div class="demo-section">
       <h3 class="demo-section__title">Sticky Bottom</h3>
-      <p class="demo-section__desc">Set <code>[stickyBottom]="true"</code> to pin the footer to the bottom of the viewport (full width, no side gaps) instead of it just flowing wherever it lands in the page — scroll the framed area below to see it stay put.</p>
+      <p class="demo-section__desc">
+        Set <code>[stickyBottom]="true"</code> to pin the footer to the bottom of the viewport (full
+        width, no side gaps) instead of it just flowing wherever it lands in the page — scroll the
+        framed area below to see it stay put.
+      </p>
       <div class="sticky-demo-frame">
         <div class="sticky-demo-scroll">
-          <p>Scroll this box — the footer below stays pinned to the bottom of the frame instead of scrolling away with the content.</p>
-          <p>In a real app, <code>stickyBottom</code> pins it to the actual browser viewport the same way — full width, no side gaps, since <code>position: fixed</code> escapes any ancestor padding.</p>
+          <p>
+            Scroll this box — the footer below stays pinned to the bottom of the frame instead of
+            scrolling away with the content.
+          </p>
+          <p>
+            In a real app, <code>stickyBottom</code> pins it to the actual browser viewport the same
+            way — full width, no side gaps, since <code>position: fixed</code> escapes any ancestor
+            padding.
+          </p>
           <p>Keep scrolling…</p>
           <p>Still here.</p>
           <p>One more paragraph of filler content to make this frame scrollable.</p>
@@ -68,40 +90,45 @@
           variant="simple"
           [stickyBottom]="true"
           [links]="links"
-          (linkClick)="onLinkClick($event)">
+          (linkClick)="onLinkClick($event)"
+        >
         </pui-lib-footer>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
       <code>pui-lib-footer</code> is a Web Component — it works in Angular, React, and plain HTML
-      with no extra wrappers. <code>noticeSlides</code> and <code>links</code> are arrays, so set them
-      as JS properties (not HTML attributes); <code>variant</code> and text props work as plain
+      with no extra wrappers. <code>noticeSlides</code> and <code>links</code> are arrays, so set
+      them as JS properties (not HTML attributes); <code>variant</code> and text props work as plain
       attributes; events are standard DOM CustomEvents.
     </p>
 
-    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
-      <div preview style="width:100%">
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode"
+    >
+      <div preview style="width: 100%">
         <pui-lib-footer
           variant="contact"
           [noticeSlides]="contactSlides"
           [activeSlideIndex]="contactSlideIndex"
           (activeSlideIndexChange)="onContactSlideChange($event)"
-          [links]="links">
+          [links]="links"
+        >
         </pui-lib-footer>
       </div>
-      <div react-preview style="width:100%">
+      <div react-preview style="width: 100%">
         <pui-lib-footer
           variant="contact"
           [noticeSlides]="contactSlides"
           [activeSlideIndex]="contactSlideIndex"
           (activeSlideIndexChange)="onContactSlideChange($event)"
-          [links]="links">
+          [links]="links"
+        >
         </pui-lib-footer>
       </div>
     </docs-framework-preview>
@@ -119,15 +146,21 @@
         </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><span class="tag-name">{{ r.name }}</span></td>
-            <td><span class="tag-ng">{{ r.angular }}</span></td>
-            <td><span class="tag-html">{{ r.attr }}</span></td>
-            <td><span class="tag-js">{{ r.js }}</span></td>
+            <td>
+              <span class="tag-name">{{ r.name }}</span>
+            </td>
+            <td>
+              <span class="tag-ng">{{ r.angular }}</span>
+            </td>
+            <td>
+              <span class="tag-html">{{ r.attr }}</span>
+            </td>
+            <td>
+              <span class="tag-js">{{ r.js }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>

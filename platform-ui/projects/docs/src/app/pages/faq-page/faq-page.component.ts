@@ -32,7 +32,7 @@ export class FaqPageComponent {
       items: [
         {
           q: 'How do I install Platform UI in my project?',
-          a: 'Install the npm package, then import the tokens CSS once in your global stylesheet. That\'s all the setup you need — no module registration required.',
+          a: "Install the npm package, then import the tokens CSS once in your global stylesheet. That's all the setup you need — no module registration required.",
           code: `npm install @solifi/platform-ui
 
 # In your global CSS (styles.css / styles.scss):
@@ -42,7 +42,7 @@ export class FaqPageComponent {
         },
         {
           q: 'Do I need to import a module or register anything in Angular?',
-          a: 'No NgModule required. Every component is standalone. Just import the component class directly in your Angular component\'s imports array.',
+          a: "No NgModule required. Every component is standalone. Just import the component class directly in your Angular component's imports array.",
           code: `import { PuiButtonComponent } from '@solifi/platform-ui';
 
 @Component({
@@ -91,7 +91,7 @@ input { border: 2px solid red; }   /* blocked */
         },
         {
           q: 'Do all form controls share the same sm/md/lg sizes, and what height does each one render at?',
-          a: 'Yes. Input, Select, Combobox, Multi Select, Password Input, and Textarea all accept the same size input — \'sm\' | \'md\' | \'lg\' — and every one of them defaults to \'md\' when size is left unset. The three sizes render at the same standardized height across all of them: sm is 34px, md is 44px, lg is 50px — and horizontal padding is the same var(--pui-space-3) at every size too, so nothing shifts internally as you switch sizes. This means you can freely mix, say, an Input and a Select in the same row at size="sm" and their heights will line up exactly — no more small per-component drift.\n\nThese three sizes are deliberately the only built-in options — they cover the vast majority of layouts (dense tables, standard forms, prominent hero forms). Width is intentionally not part of this — every field is width:100% of whatever wrapper you place it in, so your layout controls that independently of size. If a specific consumer needs a height that doesn\'t match sm/md/lg exactly, that\'s what customCss is for (see the "Overriding CSS With customCss" section below) rather than the library adding more size variants for one-off requests.',
+          a: "Yes. Input, Select, Combobox, Multi Select, Password Input, and Textarea all accept the same size input — 'sm' | 'md' | 'lg' — and every one of them defaults to 'md' when size is left unset. The three sizes render at the same standardized height across all of them: sm is 34px, md is 44px, lg is 50px — and horizontal padding is the same var(--pui-space-3) at every size too, so nothing shifts internally as you switch sizes. This means you can freely mix, say, an Input and a Select in the same row at size=\"sm\" and their heights will line up exactly — no more small per-component drift.\n\nThese three sizes are deliberately the only built-in options — they cover the vast majority of layouts (dense tables, standard forms, prominent hero forms). Width is intentionally not part of this — every field is width:100% of whatever wrapper you place it in, so your layout controls that independently of size. If a specific consumer needs a height that doesn't match sm/md/lg exactly, that's what customCss is for (see the \"Overriding CSS With customCss\" section below) rather than the library adding more size variants for one-off requests.",
           code: `<!-- All four render at the exact same 34px height -->
 <pui-lib-input      size="sm" label="Name"></pui-lib-input>
 <pui-lib-select     size="sm" label="Country" [options]="opts"></pui-lib-select>
@@ -111,7 +111,7 @@ input { border: 2px solid red; }   /* blocked */
         },
         {
           q: 'If Shadow DOM blocks CSS, how do I customize the component design?',
-          a: 'CSS Custom Properties (variables) are the only thing that cross the Shadow DOM boundary by design. Override the library\'s token variables and every component that uses them updates automatically.',
+          a: "CSS Custom Properties (variables) are the only thing that cross the Shadow DOM boundary by design. Override the library's token variables and every component that uses them updates automatically.",
           code: `/* Global brand change — affects ALL components */
 :root {
   --pui-brand:     #7B2FBE;   /* changes teal → purple */
@@ -121,7 +121,7 @@ input { border: 2px solid red; }   /* blocked */
         },
         {
           q: 'Can I style just one specific component without affecting others?',
-          a: 'Yes. Set the CSS variable on the component\'s HTML element selector. It only applies to that component, not the rest of the library.',
+          a: "Yes. Set the CSS variable on the component's HTML element selector. It only applies to that component, not the rest of the library.",
           code: `/* Only the input field inside .my-form gets a gray background */
 .my-form pui-lib-input {
   --pui-input-bg:     #F5F5F5;
@@ -174,7 +174,7 @@ input { border: 2px solid red; }   /* blocked */
           lang: 'css',
         },
         {
-          q: 'How do I override a library component\'s style (e.g. make the header taller) from my consumer app?',
+          q: "How do I override a library component's style (e.g. make the header taller) from my consumer app?",
           a: 'Every component uses ViewEncapsulation.ShadowDom — a real browser-level boundary. ::ng-deep, plain class selectors, and even !important cannot reach inside anymore (this used to be possible under the older Emulated encapsulation, but no longer works). The only supported way in is a CSS custom property. See the dedicated "Overriding Library Styles (Shadow DOM)" section below for the full explanation and examples.',
           code: `/* ❌ None of these reach inside the component anymore */
 :host ::ng-deep .pui-header { height: 80px; }
@@ -192,8 +192,8 @@ pui-lib-header { --pui-header-height: 80px; }`,
       open: false,
       items: [
         {
-          q: 'Can I override a component\'s internal CSS directly — a class selector, ::ng-deep, or !important?',
-          a: 'No, and this is intentional. Every component renders inside a real browser Shadow DOM boundary. No selector from your app\'s stylesheet — however specific, however many !important flags — can cross into it. This is what stops a global reset like * { color: red; background: aqua; } in a consumer app from bleeding into pui-lib-header or pui-lib-solifi-sidebar. Older advice that suggested :host ::ng-deep .pui-header { ... } no longer works; it was only ever valid under the previous Emulated encapsulation.',
+          q: "Can I override a component's internal CSS directly — a class selector, ::ng-deep, or !important?",
+          a: "No, and this is intentional. Every component renders inside a real browser Shadow DOM boundary. No selector from your app's stylesheet — however specific, however many !important flags — can cross into it. This is what stops a global reset like * { color: red; background: aqua; } in a consumer app from bleeding into pui-lib-header or pui-lib-solifi-sidebar. Older advice that suggested :host ::ng-deep .pui-header { ... } no longer works; it was only ever valid under the previous Emulated encapsulation.",
           code: `/* Your app's global CSS — NONE of this reaches inside a component,
    not even with !important */
 * { color: red !important; background: aqua !important; }
@@ -203,7 +203,7 @@ pui-lib-header { --pui-header-height: 80px; }`,
         },
         {
           q: 'So how do I actually restyle a component then?',
-          a: 'CSS custom properties (--pui-*) are the one thing designed to cross the Shadow DOM boundary. Set them on the component\'s own tag, on any ancestor, or on :root for a global change — the component reads the variable from outside and applies it internally.',
+          a: "CSS custom properties (--pui-*) are the one thing designed to cross the Shadow DOM boundary. Set them on the component's own tag, on any ancestor, or on :root for a global change — the component reads the variable from outside and applies it internally.",
           code: `/* Change one instance only */
 pui-lib-header {
   --pui-header-bg: #112C35;
@@ -243,7 +243,7 @@ pui-lib-header {
       items: [
         {
           q: 'What is customCss and when should I use it instead of a --pui-* variable?',
-          a: 'customCss is an input available on pui-lib-* components. You pass it a raw CSS string, and the component injects it as a <style> tag inside its own shadow root — so it can target any internal class (.pui-ms-trigger, .pui-header, .ssb__item, etc.) with normal CSS, not just the specific properties a --pui-* variable happens to expose. Reach for a --pui-* variable first when one exists (it\'s documented, stable across versions, and usually all you need); reach for customCss when you need to change something no variable covers — layout, borders, spacing, a property combination, anything.\n\nThis does not reopen the original CSS-leak problem. The style tag is inserted by the component itself, from inside its own shadow root — your app\'s unrelated global CSS (e.g. * { color: red } in your global stylesheet) still cannot reach in from outside. customCss only ever affects the specific component instance you explicitly pass it to.',
+          a: "customCss is an input available on pui-lib-* components. You pass it a raw CSS string, and the component injects it as a <style> tag inside its own shadow root — so it can target any internal class (.pui-ms-trigger, .pui-header, .ssb__item, etc.) with normal CSS, not just the specific properties a --pui-* variable happens to expose. Reach for a --pui-* variable first when one exists (it's documented, stable across versions, and usually all you need); reach for customCss when you need to change something no variable covers — layout, borders, spacing, a property combination, anything.\n\nThis does not reopen the original CSS-leak problem. The style tag is inserted by the component itself, from inside its own shadow root — your app's unrelated global CSS (e.g. * { color: red } in your global stylesheet) still cannot reach in from outside. customCss only ever affects the specific component instance you explicitly pass it to.",
           code: `<!-- Without customCss: no way to reach .pui-ms-trigger from outside -->
 <pui-lib-multiselect [options]="options"></pui-lib-multiselect>
 
@@ -256,7 +256,7 @@ pui-lib-header {
         },
         {
           q: 'How do I change a single CSS property with customCss?',
-          a: 'For one quick rule, pass the CSS directly as a plain string attribute — no component property needed. Find the internal class name from the component\'s source or by inspecting it in devtools (open the element\'s shadow root in the Elements panel).',
+          a: "For one quick rule, pass the CSS directly as a plain string attribute — no component property needed. Find the internal class name from the component's source or by inspecting it in devtools (open the element's shadow root in the Elements panel).",
           code: `<pui-lib-menu
   [items]="items"
   customCss=".pui-menu-trigger { height: 48px; }">
@@ -291,7 +291,7 @@ export class YourPageComponent {
         },
         {
           q: 'Can I make customCss respond to component state, like a hover or active class?',
-          a: 'Yes — since it\'s a normal Angular input, bind it to a getter or a computed property and it re-injects whenever the bound value changes, same as any other input.',
+          a: "Yes — since it's a normal Angular input, bind it to a getter or a computed property and it re-injects whenever the bound value changes, same as any other input.",
           code: `// Recompute the CSS string based on app state
 get menuCustomCss(): string {
   return this.isDarkMode
@@ -302,7 +302,7 @@ get menuCustomCss(): string {
         },
         {
           q: 'Which components support customCss right now?',
-          a: 'It is being rolled out across the library one component at a time, starting with Menu and Multi Select. If a component doesn\'t have it yet and you hit a styling wall a --pui-* variable can\'t solve, ask for it to be added — it\'s a one-line change per component (hostDirectives wiring a shared directive), not a rewrite.',
+          a: "It is being rolled out across the library one component at a time, starting with Menu and Multi Select. If a component doesn't have it yet and you hit a styling wall a --pui-* variable can't solve, ask for it to be added — it's a one-line change per component (hostDirectives wiring a shared directive), not a rewrite.",
         },
       ],
     },
@@ -442,7 +442,7 @@ this.toast.info('3 items updated');`,
       items: [
         {
           q: 'Does the library ship TypeScript types?',
-          a: 'Yes. Full TypeScript definitions are included for every component\'s inputs, outputs, models, and service methods. Autocomplete works out of the box in VS Code and JetBrains IDEs.',
+          a: "Yes. Full TypeScript definitions are included for every component's inputs, outputs, models, and service methods. Autocomplete works out of the box in VS Code and JetBrains IDEs.",
         },
         {
           q: 'How do I type the data models like MenuItem or SelectOption?',
@@ -467,11 +467,11 @@ const items: MenuItem[] = [
           a: 'Each component is independently bundled and tree-shaken. If you import only Button and Input, only those two components are included in your final bundle. The full library (all components, styles, and services) is approximately 120 KB gzipped.',
         },
         {
-          q: 'Do the components affect my app\'s rendering performance?',
+          q: "Do the components affect my app's rendering performance?",
           a: 'All components use OnPush change detection — they only re-render when their inputs actually change. Shadow DOM also prevents layout thrashing from style recalculations outside the component.',
         },
         {
-          q: 'Can I lazy-load components so they don\'t block the initial page load?',
+          q: "Can I lazy-load components so they don't block the initial page load?",
           a: 'In Angular, you can lazy-load pages that use the components via the router. The components themselves are loaded only when that route is visited.',
           code: `// Routes — menu-page (and pui-lib-menu) loads only when user visits /menu
 {
@@ -495,7 +495,7 @@ const items: MenuItem[] = [
         },
         {
           q: 'Does it work with server-side rendering (SSR / Angular Universal)?',
-          a: 'Components that rely on browser APIs (Shadow DOM, ResizeObserver) skip those APIs on the server and render a static shell. SSR is safe — no client-only crash. Hydration is handled by Angular\'s built-in mechanism.',
+          a: "Components that rely on browser APIs (Shadow DOM, ResizeObserver) skip those APIs on the server and render a static shell. SSR is safe — no client-only crash. Hydration is handled by Angular's built-in mechanism.",
         },
         {
           q: 'Can I use Platform UI alongside another component library (e.g. Angular Material, PrimeNG)?',
@@ -549,7 +549,6 @@ npm install        # installs React, Vite etc into the demo app's node_modules
 
 # Start the React dev server (keep this running)
 npm run dev        # → http://localhost:5173
-
 
 # ── EVERY TIME YOU CHANGE THE LIBRARY ────────────────────
 # (open a second terminal, stay in platform-ui root)
@@ -636,11 +635,11 @@ npm run build:full    # slow, ~30-60 sec, run manually`,
       items: [
         {
           q: 'I used npm link to test a local build and my consumer app crashed with "NG0203: The ElementRef token injection failed" — why? It worked before.',
-          a: 'It worked before because you were installing the library normally (from npm, or as a plain copy) — that always resolves a single, shared copy of @angular/core. npm link does not preserve that. A linked package is a symlink, and its real path lives inside the library repo\'s own folder — which has its own node_modules with its own @angular/core (needed to build/serve the library repo itself). When your consumer app loads the linked package, its code resolves @angular/core from that repo\'s node_modules instead of your app\'s, so two separate, disconnected copies of Angular end up loaded on the same page. Angular\'s dependency injection relies on shared module-level state inside @angular/core to track "what\'s currently being constructed" — with two copies, the app\'s rendering engine sets that state in one copy while the library\'s code reads it from the other, finds nothing, and throws NG0203. This is not something a library code change can fix — it happens the same way regardless of how the library\'s own components request their dependencies. It is specific to how npm link works, and it reappears every single time you link this library into any consumer app.',
+          a: "It worked before because you were installing the library normally (from npm, or as a plain copy) — that always resolves a single, shared copy of @angular/core. npm link does not preserve that. A linked package is a symlink, and its real path lives inside the library repo's own folder — which has its own node_modules with its own @angular/core (needed to build/serve the library repo itself). When your consumer app loads the linked package, its code resolves @angular/core from that repo's node_modules instead of your app's, so two separate, disconnected copies of Angular end up loaded on the same page. Angular's dependency injection relies on shared module-level state inside @angular/core to track \"what's currently being constructed\" — with two copies, the app's rendering engine sets that state in one copy while the library's code reads it from the other, finds nothing, and throws NG0203. This is not something a library code change can fix — it happens the same way regardless of how the library's own components request their dependencies. It is specific to how npm link works, and it reappears every single time you link this library into any consumer app.",
         },
         {
           q: 'What should I do instead of npm link to test a local build?',
-          a: 'Build the library, pack it into a real npm tarball, then install that tarball in the consumer app exactly like any other dependency. This produces a real, physical copy inside the consumer app\'s node_modules — not a symlink — so there is only ever one copy of @angular/core in play, the same as installing the published package from the npm registry.',
+          a: "Build the library, pack it into a real npm tarball, then install that tarball in the consumer app exactly like any other dependency. This produces a real, physical copy inside the consumer app's node_modules — not a symlink — so there is only ever one copy of @angular/core in play, the same as installing the published package from the npm registry.",
           code: `# ── Library side (from the platform-ui repo root) ───────────────
 npx ng build platform-ui --configuration production
 cd dist/platform-ui
@@ -679,7 +678,7 @@ npm install <path-to-the-new-tgz>
       items: [
         {
           q: 'How do I develop the library and a consumer Angular app side by side, with changes showing up live?',
-          a: 'Symlink the package inside the consumer app\'s node_modules to point at the library\'s dist folder, then run both projects at once: the library in watch mode in one terminal, the consumer app\'s dev server in another. Every library change rebuilds automatically and the consumer app picks it up on its next request — no publish, no reinstall.',
+          a: "Symlink the package inside the consumer app's node_modules to point at the library's dist folder, then run both projects at once: the library in watch mode in one terminal, the consumer app's dev server in another. Every library change rebuilds automatically and the consumer app picks it up on its next request — no publish, no reinstall.",
           code: `# One-time: link the package (from the consumer app's node_modules/@bhairab-patra)
 # Windows example — mklink /D creates a directory symlink
 mklink /D node_modules\\@bhairab-patra\\platform-ui ..\\..\\ANGULR_ARCH\\platform-ui\\dist\\platform-ui
@@ -697,7 +696,7 @@ ng serve`,
         },
         {
           q: 'My consumer app crashes on startup with "NG0203: The ElementRef token injection failed" — what causes this?',
-          a: 'This happens specifically with a symlinked/linked package, never with a normal npm install. Because the symlink\'s real path lives inside the library repo\'s own folder, the bundler resolves @angular/core from the library repo\'s node_modules instead of your app\'s — two separate copies of Angular end up loaded on the same page, and dependency injection breaks for some components. The fix is a single flag in your consumer app\'s angular.json.',
+          a: "This happens specifically with a symlinked/linked package, never with a normal npm install. Because the symlink's real path lives inside the library repo's own folder, the bundler resolves @angular/core from the library repo's node_modules instead of your app's — two separate copies of Angular end up loaded on the same page, and dependency injection breaks for some components. The fix is a single flag in your consumer app's angular.json.",
           code: `// angular.json — your-app → architect → build → options
 {
   "options": {
@@ -734,7 +733,7 @@ ng serve`,
       open: false,
       items: [
         {
-          q: 'My component renders but has no styles — what\'s wrong?',
+          q: "My component renders but has no styles — what's wrong?",
           a: 'You most likely forgot to import the tokens CSS file in your global stylesheet. The components use CSS variables that are defined in tokens.css. Without it, all the variables fall back to empty and the component looks unstyled.',
           code: `/* styles.css — add these two lines */
 @import '@solifi/platform-ui/styles/tokens.css';
@@ -743,7 +742,7 @@ ng serve`,
         },
         {
           q: 'My Angular form shows "No value accessor" error — how do I fix it?',
-          a: 'This means the form component is not imported in your component\'s imports array. Add the specific component class to the imports of the Angular component using it.',
+          a: "This means the form component is not imported in your component's imports array. Add the specific component class to the imports of the Angular component using it.",
           code: `// ❌ Missing import — causes "No value accessor" error
 @Component({ standalone: true, imports: [] })
 
@@ -758,7 +757,7 @@ import { PuiInputComponent } from '@solifi/platform-ui';
         },
         {
           q: 'My CSS variable override is not working inside the component — why?',
-          a: 'You may be trying to override using a class selector that targets the component\'s internal DOM — which Shadow DOM blocks. Set the variable on the component element itself (or any ancestor), not on an internal class.',
+          a: "You may be trying to override using a class selector that targets the component's internal DOM — which Shadow DOM blocks. Set the variable on the component element itself (or any ancestor), not on an internal class.",
           code: `/* ❌ Wrong — .pui-input is inside shadow root, blocked */
 .pui-input { --pui-input-bg: red; }
 
@@ -771,7 +770,7 @@ pui-lib-input { --pui-input-bg: #F5F5F5; }
         },
         {
           q: 'The component works in Angular but not in React — items array is empty?',
-          a: 'In React (and plain HTML), object/array inputs must be set as JavaScript properties, not HTML attributes. HTML attributes are always strings — React\'s JSX does not auto-convert arrays.',
+          a: "In React (and plain HTML), object/array inputs must be set as JavaScript properties, not HTML attributes. HTML attributes are always strings — React's JSX does not auto-convert arrays.",
           code: `// ❌ Wrong — this passes the string "[object Object]"
 <pui-lib-menu items={menuItems} />
 
@@ -789,6 +788,10 @@ useEffect(() => { ref.current.items = menuItems; }, [menuItems]);
     section.open = !section.open;
   }
 
-  trackByTitle(_: number, s: FaqSection): string { return s.title; }
-  trackByQ(_: number, item: FaqItem): string { return item.q; }
+  trackByTitle(_: number, s: FaqSection): string {
+    return s.title;
+  }
+  trackByQ(_: number, item: FaqItem): string {
+    return item.q;
+  }
 }

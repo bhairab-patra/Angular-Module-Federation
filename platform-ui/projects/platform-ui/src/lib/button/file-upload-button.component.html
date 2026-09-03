@@ -11,6 +11,12 @@
     <span>{{ selectedName || placeholder }}</span>
   </div>
 
-  <input #fileInput type="file" [accept]="accept" [multiple]="multiple" style="display:none"
-    (change)="onFileChange($event)">
+  <input
+    #fileInput
+    type="file"
+    [accept]="accept"
+    [multiple]="multiple"
+    style="display: none"
+    (change)="onFileChange($event)"
+  />
 </div>

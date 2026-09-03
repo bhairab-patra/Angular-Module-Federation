@@ -11,4 +11,4 @@ export interface MenuItem {
 }
 
 export type MenuPlacement = 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end';
-export type MenuVariant   = 'default' | 'outline' | 'ghost' | 'primary';
+export type MenuVariant = 'default' | 'outline' | 'ghost' | 'primary';

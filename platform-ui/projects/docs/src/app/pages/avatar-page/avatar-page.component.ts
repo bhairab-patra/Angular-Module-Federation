@@ -13,19 +13,20 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
   styleUrls: ['./avatar-page.component.scss'],
 })
 export class AvatarPageComponent {
-
   lastAction = '';
-  onAction(action: string): void { this.lastAction = action; }
+  onAction(action: string): void {
+    this.lastAction = action;
+  }
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   menuItems = [
     { label: 'Change password', action: 'change-password', iconName: 'edit' },
     { label: 'Account settings', action: 'account-settings', iconName: 'settings' },
     { label: 'Log out', action: 'logout', iconName: 'logout', danger: true, dividerBefore: true },
   ];
-
-  // ── Code snippets ──────────────────────────────────────────────────────
 
   angularCode = `import { PuiAvatarComponent } from '@bhairab-patra/platform-ui';
 
@@ -106,25 +107,91 @@ export function UserMenu() {
   });
 </script>`;
 
-  // ── API table ──────────────────────────────────────────────────────────
-
   api: ApiRow[] = [
-    { input: 'name', type: 'string', default: `''`, description: 'Full name — shown next to the avatar and used to derive initials.' },
+    {
+      input: 'name',
+      type: 'string',
+      default: `''`,
+      description: 'Full name — shown next to the avatar and used to derive initials.',
+    },
     { input: 'email', type: 'string', default: `''`, description: 'Email shown below the name.' },
-    { input: 'avatarUrl', type: 'string', default: `''`, description: 'Photo URL. When set, the avatar renders as a circle; otherwise a rounded-square initials chip.' },
-    { input: 'size', type: `'sm'|'md'|'lg'`, default: `'md'`, description: 'Avatar chip size — sm 32px, md 40px, lg 48px.' },
-    { input: 'collapsed', type: 'boolean | string', default: 'false', description: 'Render only the avatar chip (no name/email card) — for collapsed sidebars. Accepts true / "true".' },
-    { input: 'menuItems', type: 'AvatarMenuItem[] | string', default: '[]', description: '{ label, action, iconName?, danger?, dividerBefore? }[] or JSON string — dropdown items. Card is not clickable when empty.' },
-    { input: 'menuAction', type: 'EventEmitter<string>', default: '—', description: 'Output — emits item.action string when a menu item is clicked.' },
-    { input: 'openChange', type: 'EventEmitter<boolean>', default: '—', description: 'Output — emits true/false whenever the dropdown opens or closes.' },
+    {
+      input: 'avatarUrl',
+      type: 'string',
+      default: `''`,
+      description:
+        'Photo URL. When set, the avatar renders as a circle; otherwise a rounded-square initials chip.',
+    },
+    {
+      input: 'size',
+      type: `'sm'|'md'|'lg'`,
+      default: `'md'`,
+      description: 'Avatar chip size — sm 32px, md 40px, lg 48px.',
+    },
+    {
+      input: 'collapsed',
+      type: 'boolean | string',
+      default: 'false',
+      description:
+        'Render only the avatar chip (no name/email card) — for collapsed sidebars. Accepts true / "true".',
+    },
+    {
+      input: 'menuItems',
+      type: 'AvatarMenuItem[] | string',
+      default: '[]',
+      description:
+        '{ label, action, iconName?, danger?, dividerBefore? }[] or JSON string — dropdown items. Card is not clickable when empty.',
+    },
+    {
+      input: 'menuAction',
+      type: 'EventEmitter<string>',
+      default: '—',
+      description: 'Output — emits item.action string when a menu item is clicked.',
+    },
+    {
+      input: 'openChange',
+      type: 'EventEmitter<boolean>',
+      default: '—',
+      description: 'Output — emits true/false whenever the dropdown opens or closes.',
+    },
   ];
 
   xfwRows = [
-    { name: 'name', angular: 'name="Admin hub"', attr: 'name="Admin hub"', js: 'el.name = "Admin hub"' },
-    { name: 'email', angular: 'email="adminhub@solifi.com"', attr: 'email="adminhub@solifi.com"', js: 'el.email = "adminhub@solifi.com"' },
-    { name: 'avatarUrl', angular: 'avatarUrl="/me.jpg"', attr: 'avatar-url="/me.jpg"', js: 'el.avatarUrl = "/me.jpg"' },
-    { name: 'collapsed', angular: '[collapsed]="true"', attr: 'collapsed="true"', js: 'el.collapsed = true' },
-    { name: 'menuItems', angular: '[menuItems]="items"', attr: '— use JS property', js: 'el.menuItems = [...]' },
-    { name: 'menuAction', angular: '(menuAction)="fn($event)"', attr: '— use addEventListener', js: 'el.addEventListener("menuAction", fn)' },
+    {
+      name: 'name',
+      angular: 'name="Admin hub"',
+      attr: 'name="Admin hub"',
+      js: 'el.name = "Admin hub"',
+    },
+    {
+      name: 'email',
+      angular: 'email="adminhub@solifi.com"',
+      attr: 'email="adminhub@solifi.com"',
+      js: 'el.email = "adminhub@solifi.com"',
+    },
+    {
+      name: 'avatarUrl',
+      angular: 'avatarUrl="/me.jpg"',
+      attr: 'avatar-url="/me.jpg"',
+      js: 'el.avatarUrl = "/me.jpg"',
+    },
+    {
+      name: 'collapsed',
+      angular: '[collapsed]="true"',
+      attr: 'collapsed="true"',
+      js: 'el.collapsed = true',
+    },
+    {
+      name: 'menuItems',
+      angular: '[menuItems]="items"',
+      attr: '— use JS property',
+      js: 'el.menuItems = [...]',
+    },
+    {
+      name: 'menuAction',
+      angular: '(menuAction)="fn($event)"',
+      attr: '— use addEventListener',
+      js: 'el.addEventListener("menuAction", fn)',
+    },
   ];
 }

@@ -1,4 +1,13 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -35,9 +44,7 @@ export class FileUploadButtonComponent {
     const input = event.target as HTMLInputElement;
     const files = input.files;
     if (!files || files.length === 0) return;
-    this.selectedName = files.length === 1
-      ? files[0].name
-      : `${files.length} files selected`;
+    this.selectedName = files.length === 1 ? files[0].name : `${files.length} files selected`;
     this.fileSelected.emit(files);
   }
 }

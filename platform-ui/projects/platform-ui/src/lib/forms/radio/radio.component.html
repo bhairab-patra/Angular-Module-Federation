@@ -1,42 +1,53 @@
+<fieldset
+  class="pui-rg"
+  [class.pui-rg--horizontal]="direction === 'horizontal'"
+  [disabled]="disabled"
+>
+  <legend *ngIf="label" class="pui-rg__legend">
+    {{ label }}<span *ngIf="required" class="pui-field__req">*</span>
+  </legend>
 
-    <fieldset class="pui-rg" [class.pui-rg--horizontal]="direction === 'horizontal'"
-              [disabled]="disabled">
-      <legend *ngIf="label" class="pui-rg__legend">
-        {{ label }}<span *ngIf="required" class="pui-field__req">*</span>
-      </legend>
+  <label
+    *ngFor="let opt of options"
+    class="pui-rb"
+    [class.pui-rb--disabled]="disabled || opt.disabled"
+    [class.pui-rb--checked]="innerValue === opt.value"
+  >
+    <span
+      class="pui-rb__ring"
+      [class.pui-rb__ring--checked]="innerValue === opt.value"
+      [class.pui-rb__ring--disabled]="disabled || opt.disabled"
+      [class.pui-rb__ring--error]="error"
+    >
+      <input
+        type="radio"
+        class="pui-rb__native"
+        [name]="groupName"
+        [value]="opt.value"
+        [disabled]="disabled || opt.disabled || false"
+        [checked]="innerValue === opt.value"
+        (change)="select(opt.value)"
+      />
+      <span *ngIf="innerValue === opt.value" class="pui-rb__dot"></span>
+    </span>
 
-      <label *ngFor="let opt of options"
-             class="pui-rb"
-             [class.pui-rb--disabled]="disabled || opt.disabled"
-             [class.pui-rb--checked]="innerValue === opt.value">
+    <span class="pui-rb__content">
+      <span class="pui-rb__label">{{ opt.label }}</span>
+      <span *ngIf="opt.hint" class="pui-rb__hint">{{ opt.hint }}</span>
+    </span>
+  </label>
 
-        <span class="pui-rb__ring"
-              [class.pui-rb__ring--checked]="innerValue === opt.value"
-              [class.pui-rb__ring--disabled]="disabled || opt.disabled"
-              [class.pui-rb__ring--error]="error">
-          <input type="radio"
-                 class="pui-rb__native"
-                 [name]="groupName"
-                 [value]="opt.value"
-                 [disabled]="disabled || opt.disabled || false"
-                 [checked]="innerValue === opt.value"
-                 (change)="select(opt.value)"/>
-          <span *ngIf="innerValue === opt.value" class="pui-rb__dot"></span>
-        </span>
-
-        <span class="pui-rb__content">
-          <span class="pui-rb__label">{{ opt.label }}</span>
-          <span *ngIf="opt.hint" class="pui-rb__hint">{{ opt.hint }}</span>
-        </span>
-      </label>
-
-      <span *ngIf="hint && !error" class="pui-field__hint" style="margin-top:4px">{{ hint }}</span>
-      <span *ngIf="error" class="pui-field__error" style="margin-top:4px">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-          <circle cx="8" cy="8" r="7" fill="var(--pui-error)"/>
-          <path d="M8 5v3M8 10.5h.01" stroke="var(--pui-white)" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>
-        {{ error }}
-      </span>
-    </fieldset>
-  
+  <span *ngIf="hint && !error" class="pui-field__hint" style="margin-top: 4px">{{ hint }}</span>
+  <span *ngIf="error" class="pui-field__error" style="margin-top: 4px">
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+      <circle cx="8" cy="8" r="7" fill="var(--pui-error)" />
+      <path
+        d="M8 5v3M8 10.5h.01"
+        stroke="var(--pui-white)"
+        stroke-width="1.6"
+        stroke-linecap="round"
+      />
+    </svg>
+    {{ error }}
+  </span>
+</fieldset>

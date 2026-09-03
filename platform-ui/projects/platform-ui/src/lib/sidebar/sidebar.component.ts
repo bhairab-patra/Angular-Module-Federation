@@ -1,6 +1,12 @@
 ﻿import {
-  Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
-  ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf, NgClass, NgStyle } from '@angular/common';
 import { PuiSearchInternalComponent } from '../search/search-internal.component';
@@ -20,21 +26,24 @@ const DEFAULT_ICON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none
   styleUrls: ['./sidebar.component.scss'],
 })
 export class PuiSidebarComponent implements OnChanges {
-
   @Input() activeId = '';
   @Input() brandName = '';
   @Input() logo = '';
 
   @Input() set groups(v: SidebarGroup[] | string) {
-    this._groups = typeof v === 'string' ? (this._parseJson<SidebarGroup[]>(v) ?? []) : (v || []);
+    this._groups = typeof v === 'string' ? (this._parseJson<SidebarGroup[]>(v) ?? []) : v || [];
   }
-  get groups(): SidebarGroup[] { return this._groups; }
+  get groups(): SidebarGroup[] {
+    return this._groups;
+  }
   private _groups: SidebarGroup[] = [];
 
   @Input() set config(v: SidebarConfig | string) {
-    this._config = typeof v === 'string' ? (this._parseJson<SidebarConfig>(v) ?? {}) : (v || {});
+    this._config = typeof v === 'string' ? (this._parseJson<SidebarConfig>(v) ?? {}) : v || {};
   }
-  get config(): SidebarConfig { return this._config; }
+  get config(): SidebarConfig {
+    return this._config;
+  }
   private _config: SidebarConfig = {};
 
   @Input() bgColor = '';
@@ -45,9 +54,11 @@ export class PuiSidebarComponent implements OnChanges {
   @Input() width = 0;
 
   @Input() set theme(v: SidebarTheme | string) {
-    this._theme = typeof v === 'string' ? (this._parseJson<SidebarTheme>(v) ?? {}) : (v || {});
+    this._theme = typeof v === 'string' ? (this._parseJson<SidebarTheme>(v) ?? {}) : v || {};
   }
-  get theme(): SidebarTheme { return this._theme; }
+  get theme(): SidebarTheme {
+    return this._theme;
+  }
   private _theme: SidebarTheme = {};
 
   @Input() userName = '';
@@ -59,25 +70,33 @@ export class PuiSidebarComponent implements OnChanges {
   @Input() set showUser(v: boolean | string) {
     this._showUser = v === true || v === 'true' || (v as any) === '';
   }
-  get showUser() { return this._showUser; }
+  get showUser() {
+    return this._showUser;
+  }
   private _showUser = false;
 
   @Input() set showIcons(v: boolean | string) {
     this._showIcons = v === true || v === 'true' || (v as any) === '';
   }
-  get showIcons() { return this._showIcons; }
+  get showIcons() {
+    return this._showIcons;
+  }
   private _showIcons = false;
 
   @Input() set collapsed(v: boolean | string) {
     this._collapsed = v === true || v === 'true' || (v as any) === '';
   }
-  get collapsed() { return this._collapsed; }
+  get collapsed() {
+    return this._collapsed;
+  }
   private _collapsed = false;
 
   @Input() set showSidebar(v: boolean | string) {
     this._showSidebar = v !== false && v !== 'false';
   }
-  get showSidebar() { return this._showSidebar; }
+  get showSidebar() {
+    return this._showSidebar;
+  }
   private _showSidebar = true;
 
   @Output() collapsedChange = new EventEmitter<boolean>();
@@ -92,7 +111,11 @@ export class PuiSidebarComponent implements OnChanges {
 
   private _parseJson<T>(s: string): T | null {
     if (!s) return null;
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 
   get cfg(): Required<SidebarConfig> {
@@ -107,7 +130,12 @@ export class PuiSidebarComponent implements OnChanges {
 
   get avatarInitials(): string {
     if (this.userInitials) return this.userInitials;
-    return this.userName.split(' ').map(p => p[0] ?? '').join('').toUpperCase().slice(0, 2);
+    return this.userName
+      .split(' ')
+      .map((p) => p[0] ?? '')
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
   }
 
   get cssVars(): Record<string, string> {
@@ -116,7 +144,8 @@ export class PuiSidebarComponent implements OnChanges {
       '--pui-sb-bg': t.bg || this.bgColor || 'var(--pui-solifi-sb-bg)',
       '--pui-sb-text': t.textColor || this.textColor || 'var(--pui-slate-400)',
       '--pui-sb-active-txt': t.activeText || this.activeColor || 'var(--pui-white)',
-      '--pui-sb-active-bg': t.activeBg || (this.activeColor ? this.activeColor + '22' : 'var(--pui-overlay-white-08)'),
+      '--pui-sb-active-bg':
+        t.activeBg || (this.activeColor ? this.activeColor + '22' : 'var(--pui-overlay-white-08)'),
       '--pui-sb-active-brd': t.activeBorder || this.activeColor || 'var(--pui-brand)',
       '--pui-sb-hover-bg': t.hoverBg || this.hoverColor || 'var(--pui-overlay-white-06)',
       '--pui-sb-hover-txt': t.hoverText || 'var(--pui-slate-200)',
@@ -138,12 +167,17 @@ export class PuiSidebarComponent implements OnChanges {
 
   onSearch(q: string): void {
     this.searchQuery = q.trim().toLowerCase();
-    if (!this.searchQuery) { this.displayGroups = this.groups; return; }
+    if (!this.searchQuery) {
+      this.displayGroups = this.groups;
+      return;
+    }
     this.displayGroups = this.groups
-      .map(g => ({ ...g, items: this.filterItems(g.items) }))
-      .filter(g => g.items.length > 0);
-    this.displayGroups.forEach(g =>
-      g.items.forEach(item => { if (item.children?.length) this.openIds.add(item.id); })
+      .map((g) => ({ ...g, items: this.filterItems(g.items) }))
+      .filter((g) => g.items.length > 0);
+    this.displayGroups.forEach((g) =>
+      g.items.forEach((item) => {
+        if (item.children?.length) this.openIds.add(item.id);
+      }),
     );
   }
 
@@ -164,7 +198,9 @@ export class PuiSidebarComponent implements OnChanges {
     return text.replace(new RegExp(`(${safe})`, 'gi'), '<mark>$1</mark>');
   }
 
-  needsEllipsis(label: string): boolean { return label.length > this.cfg.maxLabelLen; }
+  needsEllipsis(label: string): boolean {
+    return label.length > this.cfg.maxLabelLen;
+  }
 
   toggleCollapse(): void {
     this.collapsed = !this.collapsed;
@@ -175,7 +211,11 @@ export class PuiSidebarComponent implements OnChanges {
   clickItem(item: SidebarNavItem): void {
     if (item.disabled) return;
     if (item.children?.length) {
-      if (this.openIds.has(item.id)) { this.openIds.delete(item.id); } else { this.openIds.add(item.id); }
+      if (this.openIds.has(item.id)) {
+        this.openIds.delete(item.id);
+      } else {
+        this.openIds.add(item.id);
+      }
     } else {
       this.itemSelect.emit(item);
     }

@@ -24,11 +24,7 @@
       </span>
       <span class="ssb__brand-name">{{ brandName }}</span>
     </div>
-    <button
-      class="ssb__toggle"
-      (click)="toggle()"
-      [title]="collapsed ? 'Expand' : 'Collapse'"
-    >
+    <button class="ssb__toggle" (click)="toggle()" [title]="collapsed ? 'Expand' : 'Collapse'">
       <svg
         width="24"
         height="24"
@@ -71,13 +67,7 @@
       </div>
 
       <ul class="ssb__list">
-        <li
-          *ngFor="let item of group.items"
-          [class.ssb__li--divider]="item.dividerAfter"
-        >
-          <!-- Collapsed rail: a real pui-lib-icon-button per item — MD size,
-               themed via customCss to match the sidebar's own chip/active
-               colors instead of a plain icon inside a hand-styled button. -->
+        <li *ngFor="let item of group.items" [class.ssb__li--divider]="item.dividerAfter">
           <pui-icon-button-internal
             *ngIf="collapsed && item.iconName"
             class="ssb__item ssb__item--icon-btn"
@@ -116,11 +106,9 @@
               *ngIf="!item.iconName && item.icon"
               [innerHTML]="item.icon"
             ></span>
-            <span
-              class="ssb__abbr"
-              *ngIf="collapsed && !item.iconName && !item.icon"
-              >{{ itemAbbr(item) }}</span
-            >
+            <span class="ssb__abbr" *ngIf="collapsed && !item.iconName && !item.icon">{{
+              itemAbbr(item)
+            }}</span>
 
             <ng-container *ngIf="!collapsed">
               <span class="ssb__label">{{ item.label }}</span>
@@ -149,9 +137,7 @@
             class="ssb__sub"
             *ngIf="item.children?.length && !collapsed"
             [class.ssb__sub--open]="openIds.has(item.id)"
-            [style.maxHeight.px]="
-              openIds.has(item.id) ? item.children!.length * 34 : 0
-            "
+            [style.maxHeight.px]="openIds.has(item.id) ? item.children!.length * 34 : 0"
           >
             <li *ngFor="let child of item.children">
               <button
@@ -203,15 +189,8 @@
       (click)="toggleUserMenu($event)"
     >
       <div class="ssb__avatar">
-        <img
-          *ngIf="userAvatarUrl"
-          [src]="userAvatarUrl"
-          [alt]="userName"
-          class="ssb__avatar-img"
-        />
-        <span *ngIf="!userAvatarUrl" class="ssb__avatar-initials">{{
-          avatarInitials
-        }}</span>
+        <img *ngIf="userAvatarUrl" [src]="userAvatarUrl" [alt]="userName" class="ssb__avatar-img" />
+        <span *ngIf="!userAvatarUrl" class="ssb__avatar-initials">{{ avatarInitials }}</span>
       </div>
       <div class="ssb__user-info" *ngIf="!collapsed">
         <span class="ssb__user-name">{{ userName }}</span>

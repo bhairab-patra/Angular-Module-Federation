@@ -7,9 +7,9 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./code-block.component.scss'],
 })
 export class CodeBlockComponent {
-  @Input() lang   = '';
-  @Input() id     = '';
-  @Input() text   = '';
+  @Input() lang = '';
+  @Input() id = '';
+  @Input() text = '';
   @Input() copied = '';
   @Output() copyClick = new EventEmitter<{ text: string; id: string }>();
 }

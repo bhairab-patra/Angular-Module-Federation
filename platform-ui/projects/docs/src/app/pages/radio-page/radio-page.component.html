@@ -1,78 +1,128 @@
-﻿
-<docs-page
+﻿<docs-page
   title="Radio Group"
   description="A group of radio buttons for single-selection. Supports vertical and horizontal layouts, per-option hints, and disabled states. Works in Angular, React, and plain HTML."
   [hasFramework]="true"
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
     <div class="demo-section">
       <h3 class="demo-section__title">Basic — Vertical</h3>
       <div class="demo-row">
-        <pui-lib-radio-group label="Subscription" [options]="plans"   [(ngModel)]="vPlan"/>
-        <pui-lib-radio-group label="Contact via"  [options]="contact" [(ngModel)]="vContact"/>
+        <pui-lib-radio-group label="Subscription" [options]="plans" [(ngModel)]="vPlan" />
+        <pui-lib-radio-group label="Contact via" [options]="contact" [(ngModel)]="vContact" />
       </div>
-      <p class="demo-desc">Plan: <strong>{{ vPlan || 'none' }}</strong> Â· Contact: <strong>{{ vContact || 'none' }}</strong></p>
+      <p class="demo-desc">
+        Plan: <strong>{{ vPlan || 'none' }}</strong> Â· Contact:
+        <strong>{{ vContact || 'none' }}</strong>
+      </p>
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">Horizontal Layout</h3>
-      <pui-lib-radio-group label="Size" [options]="sizes" [(ngModel)]="vSize" direction="horizontal"/>
-      <p class="demo-desc">Size: <strong>{{ vSize || 'none' }}</strong></p>
+      <pui-lib-radio-group
+        label="Size"
+        [options]="sizes"
+        [(ngModel)]="vSize"
+        direction="horizontal"
+      />
+      <p class="demo-desc">
+        Size: <strong>{{ vSize || 'none' }}</strong>
+      </p>
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">With Hints & Error</h3>
       <div class="demo-row">
-        <pui-lib-radio-group label="Priority" [options]="priority" [(ngModel)]="vPri" hint="Choose urgency level"/>
-        <pui-lib-radio-group label="Region"   [options]="regions"  [(ngModel)]="vReg" error="Selection is required" [required]="requiredFlag"/>
+        <pui-lib-radio-group
+          label="Priority"
+          [options]="priority"
+          [(ngModel)]="vPri"
+          hint="Choose urgency level"
+        />
+        <pui-lib-radio-group
+          label="Region"
+          [options]="regions"
+          [(ngModel)]="vReg"
+          error="Selection is required"
+          [required]="requiredFlag"
+        />
       </div>
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">Disabled</h3>
-      <pui-lib-radio-group label="Locked" [options]="plans" [disabled]="disabledFlag" [(ngModel)]="vPlan"/>
+      <pui-lib-radio-group
+        label="Locked"
+        [options]="plans"
+        [disabled]="disabledFlag"
+        [(ngModel)]="vPlan"
+      />
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-radio-group</code> is a Web Component. Pass the <code>options</code> array via Angular binding (<code>[options]</code>) or JS property assignment in React and HTML — attribute-based array JSON also works.</p>
+    <p class="fw-lead">
+      <code>pui-lib-radio-group</code> is a Web Component. Pass the <code>options</code> array via
+      Angular binding (<code>[options]</code>) or JS property assignment in React and HTML —
+      attribute-based array JSON also works.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-col">
-        <pui-lib-radio-group label="Subscription Plan" [options]="plans" [(ngModel)]="vPlan"/>
-        <pui-lib-radio-group label="Contact Preference" [options]="contact" direction="horizontal"/>
+        <pui-lib-radio-group label="Subscription Plan" [options]="plans" [(ngModel)]="vPlan" />
+        <pui-lib-radio-group
+          label="Contact Preference"
+          [options]="contact"
+          direction="horizontal"
+        />
       </div>
       <div react-preview class="react-prefs-form">
         <h4 class="react-form-title">Notification Preferences</h4>
-        <pui-lib-radio-group label="Alert frequency" [options]="[{label:'Immediately',value:'now'},{label:'Hourly digest',value:'hourly'},{label:'Daily digest',value:'daily'}]"/>
-        <pui-lib-radio-group label="Preferred channel" [options]="contact" direction="horizontal"/>
+        <pui-lib-radio-group
+          label="Alert frequency"
+          [options]="[
+            { label: 'Immediately', value: 'now' },
+            { label: 'Hourly digest', value: 'hourly' },
+            { label: 'Daily digest', value: 'daily' },
+          ]"
+        />
+        <pui-lib-radio-group label="Preferred channel" [options]="contact" direction="horizontal" />
       </div>
     </docs-framework-preview>
 
     <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Input / Event</th>
+            <th>Angular</th>
+            <th>React / HTML attribute</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
-            <td><code class="tag-name">{{ r.name }}</code></td>
-            <td><code class="tag-ng">{{ r.angular }}</code></td>
-            <td><code class="tag-html">{{ r.attr }}</code></td>
-            <td><code class="tag-js">{{ r.js }}</code></td>
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code class="tag-ng">{{ r.angular }}</code>
+            </td>
+            <td>
+              <code class="tag-html">{{ r.attr }}</code>
+            </td>
+            <td>
+              <code class="tag-js">{{ r.js }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-  

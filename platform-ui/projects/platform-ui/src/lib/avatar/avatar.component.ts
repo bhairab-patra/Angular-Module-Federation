@@ -1,6 +1,13 @@
 ﻿import {
-  Component, Input, Output, EventEmitter,
-  HostListener, ElementRef, inject, ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  HostListener,
+  ElementRef,
+  inject,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { IconInternalComponent } from '../icon/icon-internal.component';
@@ -26,13 +33,17 @@ export class PuiAvatarComponent {
   @Input() set collapsed(v: boolean | string) {
     this._collapsed = v === true || v === 'true' || (v as any) === '';
   }
-  get collapsed() { return this._collapsed; }
+  get collapsed() {
+    return this._collapsed;
+  }
   private _collapsed = false;
 
   @Input() set menuItems(v: AvatarMenuItem[] | string) {
     this._menuItems = typeof v === 'string' ? (this._parse<AvatarMenuItem[]>(v) ?? []) : (v ?? []);
   }
-  get menuItems(): AvatarMenuItem[] { return this._menuItems; }
+  get menuItems(): AvatarMenuItem[] {
+    return this._menuItems;
+  }
   private _menuItems: AvatarMenuItem[] = [];
 
   @Output() menuAction = new EventEmitter<string>();
@@ -43,7 +54,13 @@ export class PuiAvatarComponent {
   private el = inject(ElementRef);
 
   get initials(): string {
-    return this.name.split(' ').map(p => p[0] ?? '').filter(Boolean).slice(0, 2).join('').toUpperCase();
+    return this.name
+      .split(' ')
+      .map((p) => p[0] ?? '')
+      .filter(Boolean)
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
   }
 
   toggle(): void {
@@ -71,6 +88,10 @@ export class PuiAvatarComponent {
   }
 
   private _parse<T>(s: string): T | null {
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 }

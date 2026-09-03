@@ -1,16 +1,14 @@
-
-    <div *ngIf="open" class="pui-modal-backdrop" (click)="onBackdropClick($event)">
-      <div class="pui-modal pui-modal--{{size}}" role="dialog" [attr.aria-label]="title">
-        <div class="pui-modal__header">
-          <span class="pui-modal__title">{{ title }}</span>
-          <button class="pui-modal__close" (click)="closed.emit()" aria-label="Close">✕</button>
-        </div>
-        <div class="pui-modal__body">
-          <ng-content></ng-content>
-        </div>
-        <div class="pui-modal__footer">
-          <ng-content select="[footer]"></ng-content>
-        </div>
-      </div>
+<div *ngIf="open" class="pui-modal-backdrop" (click)="onBackdropClick($event)">
+  <div class="pui-modal pui-modal--{{ size }}" role="dialog" [attr.aria-label]="title">
+    <div class="pui-modal__header">
+      <span class="pui-modal__title">{{ title }}</span>
+      <button class="pui-modal__close" (click)="closed.emit()" aria-label="Close">✕</button>
     </div>
-  
+    <div class="pui-modal__body">
+      <ng-content></ng-content>
+    </div>
+    <div class="pui-modal__footer">
+      <ng-content select="[footer]"></ng-content>
+    </div>
+  </div>
+</div>

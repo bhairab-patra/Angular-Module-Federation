@@ -8,4 +8,4 @@ export interface CardData {
 }
 
 export type CardVariant = 'default' | 'outlined' | 'flat' | 'teal' | 'dark';
-export type CardSize    = 'sm' | 'md' | 'lg';
+export type CardSize = 'sm' | 'md' | 'lg';

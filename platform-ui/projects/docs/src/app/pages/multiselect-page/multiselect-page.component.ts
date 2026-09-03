@@ -60,16 +60,46 @@ export class MultiSelectPageComponent {
   roleSelected: (string | number)[] = ['editor'];
 
   xfwRows = [
-    { name: 'options', angular: '[options]="opts"', attr: "options='[…]'", js: 'el.options = [...]' },
-    { name: 'value', angular: '[value]="selected"', attr: "value='[\"a\"]'", js: 'el.value = ["a"]' },
-    { name: 'placeholder', angular: 'placeholder="…"', attr: 'placeholder="…"', js: 'el.placeholder = "…"' },
-    { name: 'searchable', angular: '[searchable]="true"', attr: 'searchable', js: 'el.searchable = true' },
-    { name: 'showSelectAll', angular: '[showSelectAll]="true"', attr: 'show-select-all', js: 'el.showSelectAll = true' },
+    {
+      name: 'options',
+      angular: '[options]="opts"',
+      attr: "options='[…]'",
+      js: 'el.options = [...]',
+    },
+    {
+      name: 'value',
+      angular: '[value]="selected"',
+      attr: 'value=\'["a"]\'',
+      js: 'el.value = ["a"]',
+    },
+    {
+      name: 'placeholder',
+      angular: 'placeholder="…"',
+      attr: 'placeholder="…"',
+      js: 'el.placeholder = "…"',
+    },
+    {
+      name: 'searchable',
+      angular: '[searchable]="true"',
+      attr: 'searchable',
+      js: 'el.searchable = true',
+    },
+    {
+      name: 'showSelectAll',
+      angular: '[showSelectAll]="true"',
+      attr: 'show-select-all',
+      js: 'el.showSelectAll = true',
+    },
     { name: 'maxChips', angular: '[maxChips]="2"', attr: 'max-chips="2"', js: 'el.maxChips = 2' },
     { name: 'disabled', angular: '[disabled]="true"', attr: 'disabled', js: 'el.disabled = true' },
     { name: 'error', angular: 'error="msg"', attr: 'error="msg"', js: 'el.error = "msg"' },
     { name: 'hint', angular: 'hint="msg"', attr: 'hint="msg"', js: 'el.hint = "msg"' },
-    { name: 'valueChange', angular: '(valueChange)="fn($event)"', attr: '—', js: 'el.addEventListener(…)' },
+    {
+      name: 'valueChange',
+      angular: '(valueChange)="fn($event)"',
+      attr: '—',
+      js: 'el.addEventListener(…)',
+    },
   ];
 
   angularCode = `import { PuiMultiSelectComponent, MultiSelectOption } from '@bhairab-patra/platform-ui';
@@ -143,19 +173,90 @@ customElements.whenDefined('pui-lib-multiselect').then(() => {
 </script>`;
 
   api: ApiRow[] = [
-    { input: 'options', type: 'MultiSelectOption[]', default: '[]', description: 'Array of option objects. Each has value, label, and optional group and disabled.' },
-    { input: 'value', type: '(string|number)[]', default: '[]', description: 'Currently selected values. Supports two-way binding via (valueChange), or bind with formControlName / [(ngModel)] — the component implements ControlValueAccessor.' },
-    { input: 'placeholder', type: 'string', default: '"Select options…"', description: 'Placeholder shown when no items are selected.' },
-    { input: 'size', type: `'sm'|'md'|'lg'`, default: `'md'`, description: 'Trigger height — 34px / 44px / 50px, matching Input, Select, Combobox, and Password Input at the same size.' },
-    { input: 'searchable', type: 'boolean', default: 'true', description: 'Shows a search input inside the dropdown.' },
-    { input: 'showSelectAll', type: 'boolean', default: 'true', description: 'Shows Select all / Clear action links above the list.' },
-    { input: 'maxChips', type: 'number', default: '3', description: 'Maximum chips shown before collapsing to a count badge.' },
-    { input: 'disabled', type: 'boolean', default: 'false', description: 'Disables the entire component.' },
-    { input: 'error', type: 'string', default: '""', description: 'Error message — adds red border and displays below the trigger.' },
-    { input: 'hint', type: 'string', default: '""', description: 'Helper text shown below the trigger (hidden when error is set).' },
-    { input: 'valueChange', type: 'EventEmitter', default: '—', description: 'Emits the updated selected-values array on every change.' },
-    { input: 'change', type: 'EventEmitter', default: '—', description: 'Alias for valueChange — useful in React / HTML event listeners.' },
-    { input: 'formControlName / ngModel', type: '—', default: '—', description: 'Implements ControlValueAccessor, so the component works directly with Reactive Forms and template-driven forms — no manual (valueChange) wiring needed.' },
+    {
+      input: 'options',
+      type: 'MultiSelectOption[]',
+      default: '[]',
+      description:
+        'Array of option objects. Each has value, label, and optional group and disabled.',
+    },
+    {
+      input: 'value',
+      type: '(string|number)[]',
+      default: '[]',
+      description:
+        'Currently selected values. Supports two-way binding via (valueChange), or bind with formControlName / [(ngModel)] — the component implements ControlValueAccessor.',
+    },
+    {
+      input: 'placeholder',
+      type: 'string',
+      default: '"Select options…"',
+      description: 'Placeholder shown when no items are selected.',
+    },
+    {
+      input: 'size',
+      type: `'sm'|'md'|'lg'`,
+      default: `'md'`,
+      description:
+        'Trigger height — 34px / 44px / 50px, matching Input, Select, Combobox, and Password Input at the same size.',
+    },
+    {
+      input: 'searchable',
+      type: 'boolean',
+      default: 'true',
+      description: 'Shows a search input inside the dropdown.',
+    },
+    {
+      input: 'showSelectAll',
+      type: 'boolean',
+      default: 'true',
+      description: 'Shows Select all / Clear action links above the list.',
+    },
+    {
+      input: 'maxChips',
+      type: 'number',
+      default: '3',
+      description: 'Maximum chips shown before collapsing to a count badge.',
+    },
+    {
+      input: 'disabled',
+      type: 'boolean',
+      default: 'false',
+      description: 'Disables the entire component.',
+    },
+    {
+      input: 'error',
+      type: 'string',
+      default: '""',
+      description: 'Error message — adds red border and displays below the trigger.',
+    },
+    {
+      input: 'hint',
+      type: 'string',
+      default: '""',
+      description: 'Helper text shown below the trigger (hidden when error is set).',
+    },
+    {
+      input: 'valueChange',
+      type: 'EventEmitter',
+      default: '—',
+      description: 'Emits the updated selected-values array on every change.',
+    },
+    {
+      input: 'change',
+      type: 'EventEmitter',
+      default: '—',
+      description: 'Alias for valueChange — useful in React / HTML event listeners.',
+    },
+    {
+      input: 'formControlName / ngModel',
+      type: '—',
+      default: '—',
+      description:
+        'Implements ControlValueAccessor, so the component works directly with Reactive Forms and template-driven forms — no manual (valueChange) wiring needed.',
+    },
   ];
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 }

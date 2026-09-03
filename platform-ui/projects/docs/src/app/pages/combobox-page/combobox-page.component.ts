@@ -42,8 +42,16 @@ export class ComboboxPageComponent {
   planOptions: ComboboxOption[] = [
     { value: 'free', label: 'Free', description: '1 user Â· 5 projects Â· community support' },
     { value: 'pro', label: 'Pro', description: '5 users Â· unlimited projects Â· email support' },
-    { value: 'team', label: 'Team', description: '20 users Â· unlimited everything Â· priority support' },
-    { value: 'enterprise', label: 'Enterprise', description: 'Unlimited users Â· SLA Â· dedicated CSM' },
+    {
+      value: 'team',
+      label: 'Team',
+      description: '20 users Â· unlimited everything Â· priority support',
+    },
+    {
+      value: 'enterprise',
+      label: 'Enterprise',
+      description: 'Unlimited users Â· SLA Â· dedicated CSM',
+    },
   ];
   selectedPlan: string | number | null = null;
 
@@ -68,13 +76,38 @@ export class ComboboxPageComponent {
   xfwRows = [
     { name: 'options', angular: '[options]="opts"', attr: '—', js: 'el.options = [...]' },
     { name: 'value', angular: '[value]="selected"', attr: 'value="a"', js: 'el.value = "a"' },
-    { name: 'placeholder', angular: 'placeholder="…"', attr: 'placeholder="…"', js: 'el.placeholder = "…"' },
-    { name: 'searchable', angular: '[searchable]="true"', attr: 'searchable', js: 'el.searchable = true' },
-    { name: 'clearable', angular: '[clearable]="true"', attr: 'clearable', js: 'el.clearable = true' },
-    { name: 'allowFreeText', angular: '[allowFreeText]="true"', attr: 'allow-free-text', js: 'el.allowFreeText = true' },
+    {
+      name: 'placeholder',
+      angular: 'placeholder="…"',
+      attr: 'placeholder="…"',
+      js: 'el.placeholder = "…"',
+    },
+    {
+      name: 'searchable',
+      angular: '[searchable]="true"',
+      attr: 'searchable',
+      js: 'el.searchable = true',
+    },
+    {
+      name: 'clearable',
+      angular: '[clearable]="true"',
+      attr: 'clearable',
+      js: 'el.clearable = true',
+    },
+    {
+      name: 'allowFreeText',
+      angular: '[allowFreeText]="true"',
+      attr: 'allow-free-text',
+      js: 'el.allowFreeText = true',
+    },
     { name: 'disabled', angular: '[disabled]="true"', attr: 'disabled', js: 'el.disabled = true' },
     { name: 'error', angular: 'error="msg"', attr: 'error="msg"', js: 'el.error = "msg"' },
-    { name: 'valueChange', angular: '(valueChange)="fn($event)"', attr: '—', js: 'el.addEventListener(…)' },
+    {
+      name: 'valueChange',
+      angular: '(valueChange)="fn($event)"',
+      attr: '—',
+      js: 'el.addEventListener(…)',
+    },
   ];
 
   angularCode = `import { PuiComboboxComponent, ComboboxOption } from '@bhairab-patra/platform-ui';
@@ -143,18 +176,83 @@ customElements.whenDefined('pui-lib-combobox').then(() => {
 </script>`;
 
   api: ApiRow[] = [
-    { input: 'options', type: 'ComboboxOption[]', default: '[]', description: 'Option list. Each has value, label, and optional group, description, and disabled.' },
-    { input: 'value', type: 'string|number|null', default: 'null', description: 'Currently selected value. Supports two-way binding via (valueChange), or bind with formControlName / [(ngModel)] — the component implements ControlValueAccessor.' },
-    { input: 'placeholder', type: 'string', default: '"Select or search…"', description: 'Input placeholder text.' },
-    { input: 'searchable', type: 'boolean', default: 'true', description: 'Enables type-to-filter on the options list.' },
-    { input: 'clearable', type: 'boolean', default: 'true', description: 'Shows an Ã— button to clear the current selection.' },
-    { input: 'allowFreeText', type: 'boolean', default: 'false', description: 'Lets users type a value not present in the options list.' },
-    { input: 'disabled', type: 'boolean', default: 'false', description: 'Disables the entire combobox.' },
-    { input: 'error', type: 'string', default: '""', description: 'Validation error message (red border + text below the input).' },
-    { input: 'hint', type: 'string', default: '""', description: 'Helper text shown below the input (hidden when error is set).' },
-    { input: 'valueChange', type: 'EventEmitter', default: '—', description: 'Emits the selected value (or free-text string) on selection.' },
-    { input: 'change', type: 'EventEmitter', default: '—', description: 'Alias for valueChange — preferred in React / HTML event listeners.' },
-    { input: 'formControlName / ngModel', type: '—', default: '—', description: 'Implements ControlValueAccessor, so the component works directly with Reactive Forms and template-driven forms — no manual (valueChange) wiring needed.' },
+    {
+      input: 'options',
+      type: 'ComboboxOption[]',
+      default: '[]',
+      description:
+        'Option list. Each has value, label, and optional group, description, and disabled.',
+    },
+    {
+      input: 'value',
+      type: 'string|number|null',
+      default: 'null',
+      description:
+        'Currently selected value. Supports two-way binding via (valueChange), or bind with formControlName / [(ngModel)] — the component implements ControlValueAccessor.',
+    },
+    {
+      input: 'placeholder',
+      type: 'string',
+      default: '"Select or search…"',
+      description: 'Input placeholder text.',
+    },
+    {
+      input: 'searchable',
+      type: 'boolean',
+      default: 'true',
+      description: 'Enables type-to-filter on the options list.',
+    },
+    {
+      input: 'clearable',
+      type: 'boolean',
+      default: 'true',
+      description: 'Shows an Ã— button to clear the current selection.',
+    },
+    {
+      input: 'allowFreeText',
+      type: 'boolean',
+      default: 'false',
+      description: 'Lets users type a value not present in the options list.',
+    },
+    {
+      input: 'disabled',
+      type: 'boolean',
+      default: 'false',
+      description: 'Disables the entire combobox.',
+    },
+    {
+      input: 'error',
+      type: 'string',
+      default: '""',
+      description: 'Validation error message (red border + text below the input).',
+    },
+    {
+      input: 'hint',
+      type: 'string',
+      default: '""',
+      description: 'Helper text shown below the input (hidden when error is set).',
+    },
+    {
+      input: 'valueChange',
+      type: 'EventEmitter',
+      default: '—',
+      description: 'Emits the selected value (or free-text string) on selection.',
+    },
+    {
+      input: 'change',
+      type: 'EventEmitter',
+      default: '—',
+      description: 'Alias for valueChange — preferred in React / HTML event listeners.',
+    },
+    {
+      input: 'formControlName / ngModel',
+      type: '—',
+      default: '—',
+      description:
+        'Implements ControlValueAccessor, so the component works directly with Reactive Forms and template-driven forms — no manual (valueChange) wiring needed.',
+    },
   ];
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 }

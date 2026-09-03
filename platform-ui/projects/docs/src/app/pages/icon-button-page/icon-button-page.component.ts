@@ -90,23 +90,83 @@ function RowActions({ onEdit, onDelete }) {
 
   xfwRows = [
     { name: 'icon', angular: 'icon="trash"', attr: 'icon="trash"', js: 'el.icon = "trash"' },
-    { name: 'variant', angular: 'variant="destructive"', attr: 'variant="destructive"', js: 'el.variant = "destructive"' },
+    {
+      name: 'variant',
+      angular: 'variant="destructive"',
+      attr: 'variant="destructive"',
+      js: 'el.variant = "destructive"',
+    },
     { name: 'shape', angular: 'shape="square"', attr: 'shape="square"', js: 'el.shape = "square"' },
     { name: 'size', angular: 'size="sm"', attr: 'size="sm"', js: 'el.size = "sm"' },
-    { name: 'ariaLabel', angular: 'ariaLabel="Delete"', attr: 'aria-label="Delete"', js: 'el.ariaLabel = "Delete"' },
-    { name: 'buttonClick', angular: '(buttonClick)="fn($event)"', attr: '—', js: 'el.addEventListener(…)' },
+    {
+      name: 'ariaLabel',
+      angular: 'ariaLabel="Delete"',
+      attr: 'aria-label="Delete"',
+      js: 'el.ariaLabel = "Delete"',
+    },
+    {
+      name: 'buttonClick',
+      angular: '(buttonClick)="fn($event)"',
+      attr: '—',
+      js: 'el.addEventListener(…)',
+    },
   ];
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   api: ApiRow[] = [
-    { input: 'icon', type: 'string', default: `''`, description: 'Icon registry name (same names as pui-lib-icon) rendered centered inside the button.' },
-    { input: 'variant', type: `ButtonVariant (same as pui-lib-button)`, default: `'primary'`, description: 'Visual style — reuses the exact same variant palette and design tokens as pui-lib-button, so an icon button always matches your regular buttons.' },
-    { input: 'shape', type: `'circle'|'square'`, default: `'circle'`, description: 'Circle for floating/toolbar actions, square for a softer rounded-corner look.' },
-    { input: 'size', type: `'sm'|'md'|'lg'`, default: `'md'`, description: 'Fixed diameter/side length: sm=32px, md=40px, lg=48px.' },
-    { input: 'disabled', type: 'boolean', default: 'false', description: 'Disables interaction and reduces opacity to 40%.' },
-    { input: 'ariaLabel', type: 'string', default: `''`, description: 'Required for accessibility — icon-only buttons have no visible text, so screen readers rely entirely on this.' },
-    { input: 'type', type: `'button'|'submit'|'reset'`, default: `'button'`, description: 'Native HTML button type attribute.' },
-    { input: '(buttonClick)', type: 'EventEmitter<MouseEvent>', default: '—', description: 'Fired on click — suppressed when disabled.' },
+    {
+      input: 'icon',
+      type: 'string',
+      default: `''`,
+      description:
+        'Icon registry name (same names as pui-lib-icon) rendered centered inside the button.',
+    },
+    {
+      input: 'variant',
+      type: `ButtonVariant (same as pui-lib-button)`,
+      default: `'primary'`,
+      description:
+        'Visual style — reuses the exact same variant palette and design tokens as pui-lib-button, so an icon button always matches your regular buttons.',
+    },
+    {
+      input: 'shape',
+      type: `'circle'|'square'`,
+      default: `'circle'`,
+      description: 'Circle for floating/toolbar actions, square for a softer rounded-corner look.',
+    },
+    {
+      input: 'size',
+      type: `'sm'|'md'|'lg'`,
+      default: `'md'`,
+      description: 'Fixed diameter/side length: sm=32px, md=40px, lg=48px.',
+    },
+    {
+      input: 'disabled',
+      type: 'boolean',
+      default: 'false',
+      description: 'Disables interaction and reduces opacity to 40%.',
+    },
+    {
+      input: 'ariaLabel',
+      type: 'string',
+      default: `''`,
+      description:
+        'Required for accessibility — icon-only buttons have no visible text, so screen readers rely entirely on this.',
+    },
+    {
+      input: 'type',
+      type: `'button'|'submit'|'reset'`,
+      default: `'button'`,
+      description: 'Native HTML button type attribute.',
+    },
+    {
+      input: '(buttonClick)',
+      type: 'EventEmitter<MouseEvent>',
+      default: '—',
+      description: 'Fired on click — suppressed when disabled.',
+    },
   ];
 }

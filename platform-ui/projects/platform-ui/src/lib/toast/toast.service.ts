@@ -39,7 +39,7 @@ export class ToastService {
       createdAt: Date.now(),
     };
 
-    this._toasts.update(list => [toast, ...list].slice(0, this._maxToasts));
+    this._toasts.update((list) => [toast, ...list].slice(0, this._maxToasts));
 
     if (toast.duration > 0) {
       setTimeout(() => this.dismiss(id), toast.duration);
@@ -61,7 +61,7 @@ export class ToastService {
   }
 
   dismiss(id: string): void {
-    this._toasts.update(list => list.filter(t => t.id !== id));
+    this._toasts.update((list) => list.filter((t) => t.id !== id));
   }
 
   dismissAll(): void {

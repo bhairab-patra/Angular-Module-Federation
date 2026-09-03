@@ -1,6 +1,11 @@
 ﻿import {
-  Component, Input, Output, EventEmitter, forwardRef,
-  ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  forwardRef,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
@@ -14,11 +19,13 @@ import { PuiCustomCssDirective } from '../../pui-custom-css.directive';
   imports: [NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => PuiTextareaComponent),
-    multi: true,
-  }],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => PuiTextareaComponent),
+      multi: true,
+    },
+  ],
   templateUrl: './textarea.component.html',
   styleUrls: ['./textarea.component.scss'],
 })
@@ -30,30 +37,52 @@ export class PuiTextareaComponent implements ControlValueAccessor {
   @Input() hint = '';
   @Input() resize: 'both' | 'vertical' | 'horizontal' | 'none' = 'vertical';
 
-  @Input() set rows(v: number | string) { this._rows = Number(v) || 4; }
-  get rows() { return this._rows; }
+  @Input() set rows(v: number | string) {
+    this._rows = Number(v) || 4;
+  }
+  get rows() {
+    return this._rows;
+  }
   private _rows = 4;
 
   @Input() set maxLength(v: number | string | null) {
     this._maxLength = v === null || v === '' ? null : Number(v);
   }
-  get maxLength() { return this._maxLength; }
+  get maxLength() {
+    return this._maxLength;
+  }
   private _maxLength: number | null = null;
 
-  @Input() set disabled(v: boolean | string) { this._disabled = v === true || v === 'true' || (v as any) === ''; }
-  get disabled() { return this._disabled; }
+  @Input() set disabled(v: boolean | string) {
+    this._disabled = v === true || v === 'true' || (v as any) === '';
+  }
+  get disabled() {
+    return this._disabled;
+  }
   private _disabled = false;
 
-  @Input() set readonly(v: boolean | string) { this._readonly = v === true || v === 'true' || (v as any) === ''; }
-  get readonly() { return this._readonly; }
+  @Input() set readonly(v: boolean | string) {
+    this._readonly = v === true || v === 'true' || (v as any) === '';
+  }
+  get readonly() {
+    return this._readonly;
+  }
   private _readonly = false;
 
-  @Input() set required(v: boolean | string) { this._required = v === true || v === 'true' || (v as any) === ''; }
-  get required() { return this._required; }
+  @Input() set required(v: boolean | string) {
+    this._required = v === true || v === 'true' || (v as any) === '';
+  }
+  get required() {
+    return this._required;
+  }
   private _required = false;
 
-  @Input() set showCount(v: boolean | string) { this._showCount = v === true || v === 'true' || (v as any) === ''; }
-  get showCount() { return this._showCount; }
+  @Input() set showCount(v: boolean | string) {
+    this._showCount = v === true || v === 'true' || (v as any) === '';
+  }
+  get showCount() {
+    return this._showCount;
+  }
   private _showCount = false;
 
   @Output() valueChange = new EventEmitter<string>();
@@ -63,13 +92,18 @@ export class PuiTextareaComponent implements ControlValueAccessor {
   innerValue = '';
   isFocused = false;
 
-  private onChangeFn: (v: any) => void = () => { };
-  private onTouchedFn: () => void = () => { };
+  private onChangeFn: (v: any) => void = () => {};
+  private onTouchedFn: () => void = () => {};
 
-
-  writeValue(val: any): void { this.innerValue = val ?? ''; }
-  registerOnChange(fn: any): void { this.onChangeFn = fn; }
-  registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
+  writeValue(val: any): void {
+    this.innerValue = val ?? '';
+  }
+  registerOnChange(fn: any): void {
+    this.onChangeFn = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouchedFn = fn;
+  }
 
   onInput(val: string): void {
     this.innerValue = val;

@@ -1,4 +1,4 @@
 export interface PaginationChangeEvent {
-  page:     number;
+  page: number;
   pageSize: number;
 }

@@ -1,44 +1,58 @@
+<div
+  *ngIf="overlay"
+  class="pui-sp-overlay"
+  [style.background]="overlayColor"
+  [style.opacity]="overlayOpacity"
+  [style.z-index]="zIndex"
+></div>
 
-    <div *ngIf="overlay"
-         class="pui-sp-overlay"
-         [style.background]="overlayColor"
-         [style.opacity]="overlayOpacity"
-         [style.z-index]="zIndex">
-    </div>
+<div
+  class="pui-sp-wrap"
+  [class.pui-sp-wrap--overlay]="overlay"
+  [style.z-index]="overlay ? zIndex + 1 : zIndex"
+>
+  <div class="pui-sp-box">
+    <svg
+      *ngIf="type === 'dash'"
+      class="pui-sp-dash"
+      [style.width.px]="px"
+      [style.height.px]="px"
+      [style.animation-duration]="dur"
+      viewBox="0 0 40 40"
+    >
+      <line
+        *ngFor="let l of dashLines; let i = index"
+        class="pui-sp-dash__line"
+        x1="20"
+        [attr.y1]="dashY1"
+        x2="20"
+        [attr.y2]="dashY2"
+        [attr.stroke]="color"
+        stroke-width="3"
+        stroke-linecap="round"
+        [attr.opacity]="lineOpacity(i)"
+        [attr.transform]="'rotate(' + i * 30 + ' 20 20)'"
+      />
+    </svg>
 
-    <div class="pui-sp-wrap"
-         [class.pui-sp-wrap--overlay]="overlay"
-         [style.z-index]="overlay ? zIndex + 1 : zIndex">
+    <svg
+      *ngIf="type === 'dots'"
+      class="pui-sp-dots"
+      [style.width.px]="px"
+      [style.height.px]="px"
+      [style.animation-duration]="dur"
+      viewBox="0 0 40 40"
+    >
+      <circle
+        *ngFor="let d of dotPositions; let i = index"
+        [attr.cx]="d.cx"
+        [attr.cy]="d.cy"
+        [attr.r]="dotR"
+        [attr.fill]="color"
+        [attr.opacity]="dotOpacity(i)"
+      />
+    </svg>
 
-      <div class="pui-sp-box">
-
-        <svg *ngIf="type === 'dash'"
-             class="pui-sp-dash"
-             [style.width.px]="px" [style.height.px]="px"
-             [style.animation-duration]="dur"
-             viewBox="0 0 40 40">
-          <line *ngFor="let l of dashLines; let i = index"
-                class="pui-sp-dash__line"
-                x1="20" [attr.y1]="dashY1" x2="20" [attr.y2]="dashY2"
-                [attr.stroke]="color"
-                stroke-width="3"
-                stroke-linecap="round"
-                [attr.opacity]="lineOpacity(i)"
-                [attr.transform]="'rotate(' + (i * 30) + ' 20 20)'"/>
-        </svg>
-
-        <svg *ngIf="type === 'dots'"
-             class="pui-sp-dots"
-             [style.width.px]="px" [style.height.px]="px"
-             [style.animation-duration]="dur"
-             viewBox="0 0 40 40">
-          <circle *ngFor="let d of dotPositions; let i = index"
-                  [attr.cx]="d.cx" [attr.cy]="d.cy"
-                  [attr.r]="dotR"
-                  [attr.fill]="color"
-                  [attr.opacity]="dotOpacity(i)"/>
-        </svg>
-
-        <span *ngIf="label" class="pui-sp-label" [style.color]="labelColor">{{ label }}</span>
-      </div>
-    </div>
+    <span *ngIf="label" class="pui-sp-label" [style.color]="labelColor">{{ label }}</span>
+  </div>
+</div>

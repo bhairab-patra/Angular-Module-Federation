@@ -16,27 +16,25 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
   styleUrls: ['./label.component.scss'],
 })
 export class LabelComponent {
-  /** Label text. */
   @Input() text = '';
 
-  /** Shows a red asterisk after the text. */
   @Input() set required(v: boolean | string) {
     this._required = v === true || v === 'true' || (v as unknown) === '';
   }
-  get required(): boolean { return this._required; }
+  get required(): boolean {
+    return this._required;
+  }
   private _required = false;
 
-  /** Whether the info icon + tooltip renders at all. Off by default —
-   * only pass true when there's actually a hint worth showing. */
   @Input() set showInfo(v: boolean | string) {
     this._showInfo = v === true || v === 'true' || (v as unknown) === '';
   }
-  get showInfo(): boolean { return this._showInfo; }
+  get showInfo(): boolean {
+    return this._showInfo;
+  }
   private _showInfo = false;
 
-  /** Tooltip text shown on hover of the info icon. Has no effect unless showInfo is true. */
   @Input() info = '';
 
-  /** Tooltip placement relative to the info icon. */
   @Input() infoPosition: TooltipPosition = 'top';
 }

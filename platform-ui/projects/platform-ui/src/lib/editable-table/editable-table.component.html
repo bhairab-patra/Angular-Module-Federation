@@ -2,9 +2,7 @@
   <div class="pui-etbl-inner">
     <div class="pui-etbl-toolbar" *ngIf="heading || _searchable">
       <div class="pui-etbl-toolbar__left">
-        <span *ngIf="heading" class="pui-etbl-toolbar__title">{{
-          heading
-        }}</span>
+        <span *ngIf="heading" class="pui-etbl-toolbar__title">{{ heading }}</span>
       </div>
       <div class="pui-etbl-toolbar__right">
         <ng-content select="[tableActions]"></ng-content>
@@ -33,10 +31,7 @@
 
     <div class="pui-etbl-scroll" [style.maxHeight]="_maxHeight + 'px'">
       <table class="pui-etbl">
-        <thead
-          class="pui-etbl-head"
-          [class.pui-etbl-head--sticky]="_stickyHeader"
-        >
+        <thead class="pui-etbl-head" [class.pui-etbl-head--sticky]="_stickyHeader">
           <tr>
             <th
               *ngFor="let col of _columns"
@@ -60,12 +55,8 @@
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    [class.pui-etbl-sort--active]="
-                      sort.key === col.key && sort.dir === 'asc'
-                    "
-                    [class.pui-etbl-sort--dim]="
-                      !(sort.key === col.key && sort.dir === 'asc')
-                    "
+                    [class.pui-etbl-sort--active]="sort.key === col.key && sort.dir === 'asc'"
+                    [class.pui-etbl-sort--dim]="!(sort.key === col.key && sort.dir === 'asc')"
                   />
                   <path
                     d="M6 14.5L6 9M6 14.5L3.5 12M6 14.5L8.5 12"
@@ -73,28 +64,19 @@
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    [class.pui-etbl-sort--active]="
-                      sort.key === col.key && sort.dir === 'desc'
-                    "
-                    [class.pui-etbl-sort--dim]="
-                      !(sort.key === col.key && sort.dir === 'desc')
-                    "
+                    [class.pui-etbl-sort--active]="sort.key === col.key && sort.dir === 'desc'"
+                    [class.pui-etbl-sort--dim]="!(sort.key === col.key && sort.dir === 'desc')"
                   />
                 </svg>
               </span>
             </th>
-            <th *ngIf="hasRowActions" class="pui-etbl-th pui-etbl-th--actions">
-              Actions
-            </th>
+            <th *ngIf="hasRowActions" class="pui-etbl-th pui-etbl-th--actions">Actions</th>
           </tr>
         </thead>
 
         <tbody class="pui-etbl-body">
           <tr *ngIf="!_loading && _rows.length === 0">
-            <td
-              [colSpan]="_columns.length + (hasRowActions ? 1 : 0)"
-              class="pui-etbl-empty"
-            >
+            <td [colSpan]="_columns.length + (hasRowActions ? 1 : 0)" class="pui-etbl-empty">
               <pui-empty-state-internal
                 icon="inbox"
                 title="No data available"
@@ -104,10 +86,7 @@
           </tr>
 
           <tr *ngIf="!_loading && _rows.length > 0 && displayRows.length === 0">
-            <td
-              [colSpan]="_columns.length + (hasRowActions ? 1 : 0)"
-              class="pui-etbl-empty"
-            >
+            <td [colSpan]="_columns.length + (hasRowActions ? 1 : 0)" class="pui-etbl-empty">
               <pui-empty-state-internal
                 icon="search-off"
                 title="No results"
@@ -130,44 +109,29 @@
               [class.pui-etbl-td--right]="col.align === 'right'"
               [class.pui-etbl-td--center]="col.align === 'center'"
               (mouseenter)="
-                editingIndex !== item.idx &&
-                  showCellTooltip($event, item.row[col.key] ?? '')
+                editingIndex !== item.idx && showCellTooltip($event, item.row[col.key] ?? '')
               "
               (mouseleave)="hideCellTooltip()"
             >
               <ng-container
-                *ngIf="
-                  editingIndex === item.idx && col.editable !== false;
-                  else readCell
-                "
+                *ngIf="editingIndex === item.idx && col.editable !== false; else readCell"
               >
                 <input
                   class="pui-etbl-input"
                   [class.pui-etbl-input--error]="fieldErrors[col.key]"
-                  [type]="
-                    col.type === 'number' || col.type === 'currency'
-                      ? 'number'
-                      : 'text'
-                  "
+                  [type]="col.type === 'number' || col.type === 'currency' ? 'number' : 'text'"
                   [(ngModel)]="draft[col.key]"
                   (ngModelChange)="onFieldChange(col)"
                   [placeholder]="col.label"
                 />
-                <span
-                  *ngIf="fieldErrors[col.key]"
-                  class="pui-etbl-field-error"
-                  >{{ fieldErrors[col.key] }}</span
-                >
+                <span *ngIf="fieldErrors[col.key]" class="pui-etbl-field-error">{{
+                  fieldErrors[col.key]
+                }}</span>
               </ng-container>
 
               <ng-template #readCell>
                 <ng-container *ngIf="col.type === 'badge'; else pills">
-                  <ng-container
-                    *ngIf="
-                      col.badgeMap && col.badgeMap[item.row[col.key]];
-                      let bm
-                    "
-                  >
+                  <ng-container *ngIf="col.badgeMap && col.badgeMap[item.row[col.key]]; let bm">
                     <span
                       class="pui-etbl-badge"
                       [style.backgroundColor]="bm.color + '1a'"
@@ -177,9 +141,7 @@
                       {{ bm.label ?? item.row[col.key] }}
                     </span>
                   </ng-container>
-                  <ng-container
-                    *ngIf="!(col.badgeMap && col.badgeMap[item.row[col.key]])"
-                  >
+                  <ng-container *ngIf="!(col.badgeMap && col.badgeMap[item.row[col.key]])">
                     <span class="pui-etbl-badge pui-etbl-badge--default">{{
                       item.row[col.key]
                     }}</span>
@@ -188,18 +150,14 @@
                 <ng-template #pills>
                   <ng-container *ngIf="col.type === 'pills'; else currency">
                     <span class="pui-etbl-pills">
-                      <span
-                        class="pui-etbl-pill"
-                        *ngFor="let p of item.row[col.key]"
-                        >{{ p }}</span
-                      >
+                      <span class="pui-etbl-pill" *ngFor="let p of item.row[col.key]">{{ p }}</span>
                     </span>
                   </ng-container>
                 </ng-template>
                 <ng-template #currency>
                   <ng-container *ngIf="col.type === 'currency'; else number">
                     <span class="pui-etbl-cell-text pui-etbl-cell--mono">{{
-                      item.row[col.key] | number: "1.2-2"
+                      item.row[col.key] | number: '1.2-2'
                     }}</span>
                   </ng-container>
                 </ng-template>
@@ -213,14 +171,12 @@
                 <ng-template #date>
                   <ng-container *ngIf="col.type === 'date'; else text">
                     <span class="pui-etbl-cell-text">{{
-                      item.row[col.key] | date: "mediumDate"
+                      item.row[col.key] | date: 'mediumDate'
                     }}</span>
                   </ng-container>
                 </ng-template>
                 <ng-template #text>
-                  <span class="pui-etbl-cell-text">{{
-                    item.row[col.key] ?? "—"
-                  }}</span>
+                  <span class="pui-etbl-cell-text">{{ item.row[col.key] ?? '—' }}</span>
                 </ng-template>
               </ng-template>
             </td>
@@ -250,8 +206,7 @@
                     *ngFor="let act of _rowActions"
                     class="pui-etbl-btn pui-etbl-btn--custom"
                     [disabled]="
-                      editingIndex !== null ||
-                      (act.disabled ? act.disabled(item.row) : false)
+                      editingIndex !== null || (act.disabled ? act.disabled(item.row) : false)
                     "
                     (click)="onRowAction(act, item.idx)"
                     [title]="act.label"
@@ -288,10 +243,7 @@
       </table>
     </div>
 
-    <div
-      class="pui-etbl-pagination-row"
-      *ngIf="_pagination && displayRows.length > 0"
-    >
+    <div class="pui-etbl-pagination-row" *ngIf="_pagination && displayRows.length > 0">
       <pui-simple-pagination-internal
         class="pui-etbl-pagination"
         [total]="displayRows.length"
@@ -323,13 +275,7 @@
   <div class="pui-etbl-confirm" *ngIf="_pendingDeleteIndex !== null">
     <div class="pui-etbl-confirm__icon">
       <svg viewBox="0 0 24 24" fill="none" width="28" height="28">
-        <circle
-          cx="12"
-          cy="12"
-          r="10"
-          stroke="var(--pui-error)"
-          stroke-width="1.8"
-        />
+        <circle cx="12" cy="12" r="10" stroke="var(--pui-error)" stroke-width="1.8" />
         <path
           d="M12 8v4M12 16h.01"
           stroke="var(--pui-error)"

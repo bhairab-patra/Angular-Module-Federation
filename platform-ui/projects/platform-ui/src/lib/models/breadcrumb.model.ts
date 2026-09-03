@@ -1,8 +1,8 @@
 export interface BreadcrumbItem {
   label: string;
-  route?:    string;
+  route?: string;
   iconName?: string;
-  icon?:     string;
+  icon?: string;
 }
 
 export type BreadcrumbSeparator = 'chevron' | 'slash';

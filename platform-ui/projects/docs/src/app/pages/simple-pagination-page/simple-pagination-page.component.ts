@@ -48,11 +48,42 @@ export class MyComponent {
 }`;
 
   api: ApiRow[] = [
-    { input: 'total', type: 'number', default: '0', description: 'Total number of records in the dataset.' },
-    { input: 'page', type: 'number', default: '1', description: 'Currently active page (1-indexed). Always set from outside — the component is fully controlled.' },
-    { input: 'pageSize', type: 'number', default: '10', description: 'Number of records per page.' },
-    { input: 'maxVisible', type: 'number', default: '5', description: 'Maximum page links before the middle range collapses with an ellipsis.' },
-    { input: 'disabled', type: 'boolean', default: 'false', description: 'Disables all navigation and dims the links.' },
-    { input: 'pageChange', type: 'EventEmitter<number> (output)', default: '—', description: 'Emits the new page number. Update your [page] binding and reload data.' },
+    {
+      input: 'total',
+      type: 'number',
+      default: '0',
+      description: 'Total number of records in the dataset.',
+    },
+    {
+      input: 'page',
+      type: 'number',
+      default: '1',
+      description:
+        'Currently active page (1-indexed). Always set from outside — the component is fully controlled.',
+    },
+    {
+      input: 'pageSize',
+      type: 'number',
+      default: '10',
+      description: 'Number of records per page.',
+    },
+    {
+      input: 'maxVisible',
+      type: 'number',
+      default: '5',
+      description: 'Maximum page links before the middle range collapses with an ellipsis.',
+    },
+    {
+      input: 'disabled',
+      type: 'boolean',
+      default: 'false',
+      description: 'Disables all navigation and dims the links.',
+    },
+    {
+      input: 'pageChange',
+      type: 'EventEmitter<number> (output)',
+      default: '—',
+      description: 'Emits the new page number. Update your [page] binding and reload data.',
+    },
   ];
 }

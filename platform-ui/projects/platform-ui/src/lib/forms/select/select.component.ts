@@ -1,6 +1,14 @@
 import {
-  Component, Input, Output, EventEmitter, forwardRef,
-  ViewEncapsulation, HostListener, ElementRef, inject, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  forwardRef,
+  ViewEncapsulation,
+  HostListener,
+  ElementRef,
+  inject,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
@@ -14,11 +22,13 @@ import { PuiCustomCssDirective } from '../../pui-custom-css.directive';
   imports: [NgIf, NgFor],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => PuiSelectComponent),
-    multi: true,
-  }],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => PuiSelectComponent),
+      multi: true,
+    },
+  ],
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
@@ -34,22 +44,28 @@ export class PuiSelectComponent implements ControlValueAccessor {
   @Input() searchPlaceholder = 'Search…';
 
   @Input() set options(v: SelectOption[] | string) {
-    this._options = typeof v === 'string' ? (this._parseJson<SelectOption[]>(v) ?? []) : (v || []);
+    this._options = typeof v === 'string' ? (this._parseJson<SelectOption[]>(v) ?? []) : v || [];
     this._applyFilter();
   }
-  get options(): SelectOption[] { return this._options; }
+  get options(): SelectOption[] {
+    return this._options;
+  }
   private _options: SelectOption[] = [];
 
   @Input() set disabled(v: boolean | string) {
     this._disabled = v === true || v === 'true' || (v as unknown) === '';
   }
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   private _disabled = false;
 
   @Input() set required(v: boolean | string) {
     this._required = v === true || v === 'true' || (v as unknown) === '';
   }
-  get required(): boolean { return this._required; }
+  get required(): boolean {
+    return this._required;
+  }
   private _required = false;
 
   @Output() valueChange = new EventEmitter<unknown>();
@@ -61,24 +77,33 @@ export class PuiSelectComponent implements ControlValueAccessor {
   filtered: SelectOption[] = [];
 
   get selectedOption(): SelectOption | undefined {
-    return this._options.find(o => o.value === this.innerValue);
+    return this._options.find((o) => o.value === this.innerValue);
   }
 
   get displayLabel(): string {
     return this.selectedOption?.label ?? '';
   }
 
-  private _onChangeFn: (v: unknown) => void = () => { };
-  private _onTouchedFn: () => void = () => { };
+  private _onChangeFn: (v: unknown) => void = () => {};
+  private _onTouchedFn: () => void = () => {};
 
-  writeValue(val: unknown): void { this.innerValue = val ?? ''; }
-  registerOnChange(fn: (v: unknown) => void): void { this._onChangeFn = fn; }
-  registerOnTouched(fn: () => void): void { this._onTouchedFn = fn; }
+  writeValue(val: unknown): void {
+    this.innerValue = val ?? '';
+  }
+  registerOnChange(fn: (v: unknown) => void): void {
+    this._onChangeFn = fn;
+  }
+  registerOnTouched(fn: () => void): void {
+    this._onTouchedFn = fn;
+  }
 
   toggle(): void {
     if (this._disabled) return;
     this.open = !this.open;
-    if (this.open) { this.searchText = ''; this._applyFilter(); }
+    if (this.open) {
+      this.searchText = '';
+      this._applyFilter();
+    }
   }
 
   close(): void {
@@ -103,7 +128,9 @@ export class PuiSelectComponent implements ControlValueAccessor {
     this._applyFilter();
   }
 
-  trackByValue(_: number, opt: SelectOption): unknown { return opt.value; }
+  trackByValue(_: number, opt: SelectOption): unknown {
+    return opt.value;
+  }
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
@@ -118,11 +145,15 @@ export class PuiSelectComponent implements ControlValueAccessor {
   private _applyFilter(): void {
     const q = this.searchText.toLowerCase().trim();
     this.filtered = q
-      ? this._options.filter(o => o.label.toLowerCase().includes(q))
+      ? this._options.filter((o) => o.label.toLowerCase().includes(q))
       : [...this._options];
   }
 
   private _parseJson<T>(s: string): T | null {
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 }

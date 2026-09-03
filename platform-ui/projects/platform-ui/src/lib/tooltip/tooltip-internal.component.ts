@@ -2,7 +2,6 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/
 import { CommonModule } from '@angular/common';
 import { TooltipComponent } from './tooltip.component';
 
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-tooltip-internal',

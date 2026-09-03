@@ -1,16 +1,16 @@
-﻿
-<docs-page
+﻿<docs-page
   title="Chip"
   description="Interactive inline elements for filters, selections, and input tags — support removable, selectable, and disabled states in six colour variants."
   [hasFramework]="true"
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Variants -->
     <div class="demo-section">
       <h3 class="demo-section__title">Variants</h3>
-      <p class="demo-section__desc">Six variants — brand, secondary, and neutral — each available plain, with a leading icon, or with a close icon.</p>
+      <p class="demo-section__desc">
+        Six variants — brand, secondary, and neutral — each available plain, with a leading icon, or
+        with a close icon.
+      </p>
 
       <div class="chip-table">
         <div class="chip-table__head">
@@ -38,55 +38,75 @@
       </div>
     </div>
 
-    <!-- 2. Removable -->
     <div class="demo-section">
       <h3 class="demo-section__title">Removable</h3>
-      <p class="demo-section__desc">Add a remove (Ã—) button with <code>[removable]="true"</code>. Listen to the <code>(removed)</code> output to update your model.</p>
+      <p class="demo-section__desc">
+        Add a remove (Ã—) button with <code>[removable]="true"</code>. Listen to the
+        <code>(removed)</code> output to update your model.
+      </p>
       <div class="demo-row">
-        <pui-lib-chip *ngFor="let tag of activeTags; trackBy: trackByIndex"
+        <pui-lib-chip
+          *ngFor="let tag of activeTags; trackBy: trackByIndex"
           variant="primary"
           [removable]="true"
-          (removed)="removeTag(tag)">{{ tag }}</pui-lib-chip>
-        <span *ngIf="!activeTags.length" class="demo-empty">All chips removed — refresh to reset.</span>
+          (removed)="removeTag(tag)"
+          >{{ tag }}</pui-lib-chip
+        >
+        <span *ngIf="!activeTags.length" class="demo-empty"
+          >All chips removed — refresh to reset.</span
+        >
       </div>
     </div>
 
-    <!-- 4. Selectable / toggle -->
     <div class="demo-section">
       <h3 class="demo-section__title">Selectable</h3>
-      <p class="demo-section__desc">Bind <code>[selected]</code> to create toggle chips. The ring highlight follows the active state.</p>
+      <p class="demo-section__desc">
+        Bind <code>[selected]</code> to create toggle chips. The ring highlight follows the active
+        state.
+      </p>
       <div class="demo-row">
-        <pui-lib-chip *ngFor="let skill of skills; trackBy: trackByIndex"
+        <pui-lib-chip
+          *ngFor="let skill of skills; trackBy: trackByIndex"
           variant="primary-light"
           [selected]="skill.active"
-          (clicked)="toggleSkill(skill);cdr.markForCheck()">{{ skill.label }}</pui-lib-chip>
+          (clicked)="toggleSkill(skill); cdr.markForCheck()"
+          >{{ skill.label }}</pui-lib-chip
+        >
       </div>
-      <p class="demo-result" *ngIf="selectedSkills.length">Selected: {{ selectedSkills.join(', ') }}</p>
+      <p class="demo-result" *ngIf="selectedSkills.length">
+        Selected: {{ selectedSkills.join(', ') }}
+      </p>
     </div>
 
-    <!-- 5. Disabled & States -->
     <div class="demo-section">
       <h3 class="demo-section__title">Disabled State</h3>
-      <p class="demo-section__desc">Set <code>[disabled]="true"</code> to prevent all interaction including removal.</p>
+      <p class="demo-section__desc">
+        Set <code>[disabled]="true"</code> to prevent all interaction including removal.
+      </p>
       <div class="demo-row">
-        <pui-lib-chip variant="default"        [disabled]="true">Disabled</pui-lib-chip>
-        <pui-lib-chip variant="primary"        [disabled]="true">Disabled</pui-lib-chip>
-        <pui-lib-chip variant="primary-light"  [disabled]="true" [removable]="true">Non-removable</pui-lib-chip>
-        <pui-lib-chip variant="secondary"      [disabled]="true">Disabled</pui-lib-chip>
+        <pui-lib-chip variant="default" [disabled]="true">Disabled</pui-lib-chip>
+        <pui-lib-chip variant="primary" [disabled]="true">Disabled</pui-lib-chip>
+        <pui-lib-chip variant="primary-light" [disabled]="true" [removable]="true"
+          >Non-removable</pui-lib-chip
+        >
+        <pui-lib-chip variant="secondary" [disabled]="true">Disabled</pui-lib-chip>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-chip</code> is a standalone Web Component. Use <code>(clicked)</code> and <code>(removed)</code> for interaction in Angular; listen to <code>clicked</code> and <code>removed</code> custom events in React and HTML.</p>
+    <p class="fw-lead">
+      <code>pui-lib-chip</code> is a standalone Web Component. Use <code>(clicked)</code> and
+      <code>(removed)</code> for interaction in Angular; listen to <code>clicked</code> and
+      <code>removed</code> custom events in React and HTML.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-row">
         <pui-lib-chip variant="primary">Primary</pui-lib-chip>
         <pui-lib-chip variant="primary-light">Primary Light</pui-lib-chip>
@@ -105,19 +125,31 @@
     <h4 class="fw-ref-title">Chip Quick Reference</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><span class="tag-name">{{ r.name }}</span></td>
-            <td><span class="tag-ng">{{ r.angular }}</span></td>
-            <td><span class="tag-html">{{ r.attr }}</span></td>
-            <td><span class="tag-js">{{ r.js }}</span></td>
+            <td>
+              <span class="tag-name">{{ r.name }}</span>
+            </td>
+            <td>
+              <span class="tag-ng">{{ r.angular }}</span>
+            </td>
+            <td>
+              <span class="tag-html">{{ r.attr }}</span>
+            </td>
+            <td>
+              <span class="tag-js">{{ r.js }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-  

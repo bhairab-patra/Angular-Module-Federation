@@ -13,11 +13,8 @@
           ></pui-icon-button-internal>
           <span class="pui-dt-toolbar__title">{{ heading }}</span>
         </div>
-        <span
-          *ngIf="_selectable && selectedRows.size > 0"
-          class="pui-dt-sel-info"
-        >
-          {{ selectedRows.size }} row{{ selectedRows.size === 1 ? "" : "s" }}
+        <span *ngIf="_selectable && selectedRows.size > 0" class="pui-dt-sel-info">
+          {{ selectedRows.size }} row{{ selectedRows.size === 1 ? '' : 's' }}
           selected
         </span>
       </div>
@@ -36,10 +33,7 @@
       </div>
     </div>
 
-    <div
-      class="pui-dt-scroll"
-      [style.maxHeight]="_maxHeight ? _maxHeight + 'px' : null"
-    >
+    <div class="pui-dt-scroll" [style.maxHeight]="_maxHeight ? _maxHeight + 'px' : null">
       <table class="pui-dt">
         <thead class="pui-dt-head" [class.pui-dt-head--sticky]="_stickyHeader">
           <tr>
@@ -74,12 +68,8 @@
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    [class.pui-sort--active]="
-                      sort.key === col.key && sort.dir === 'asc'
-                    "
-                    [class.pui-sort--dim]="
-                      !(sort.key === col.key && sort.dir === 'asc')
-                    "
+                    [class.pui-sort--active]="sort.key === col.key && sort.dir === 'asc'"
+                    [class.pui-sort--dim]="!(sort.key === col.key && sort.dir === 'asc')"
                   />
                   <path
                     d="M6 14.5L6 9M6 14.5L3.5 12M6 14.5L8.5 12"
@@ -87,60 +77,34 @@
                     stroke-width="1.5"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    [class.pui-sort--active]="
-                      sort.key === col.key && sort.dir === 'desc'
-                    "
-                    [class.pui-sort--dim]="
-                      !(sort.key === col.key && sort.dir === 'desc')
-                    "
+                    [class.pui-sort--active]="sort.key === col.key && sort.dir === 'desc'"
+                    [class.pui-sort--dim]="!(sort.key === col.key && sort.dir === 'desc')"
                   />
                 </svg>
               </span>
             </th>
-            <th
-              *ngIf="_actions.length > 0"
-              class="pui-dt-th pui-dt-th--actions"
-            >
-              Actions
-            </th>
+            <th *ngIf="_actions.length > 0" class="pui-dt-th pui-dt-th--actions">Actions</th>
           </tr>
         </thead>
 
         <tbody class="pui-dt-body">
           <ng-container *ngIf="_loading">
-            <tr
-              class="pui-dt-row pui-dt-row--skeleton"
-              *ngFor="let r of skeletonRows"
-            >
+            <tr class="pui-dt-row pui-dt-row--skeleton" *ngFor="let r of skeletonRows">
               <td *ngIf="_selectable" class="pui-dt-td pui-dt-td--sel">
-                <span
-                  class="pui-dt-skeleton__cell pui-dt-skeleton__cell--box"
-                ></span>
+                <span class="pui-dt-skeleton__cell pui-dt-skeleton__cell--box"></span>
               </td>
               <td *ngFor="let c of _columns; let ci = index" class="pui-dt-td">
-                <span
-                  class="pui-dt-skeleton__cell"
-                  [style.width]="skeletonCellWidth(ci)"
-                ></span>
+                <span class="pui-dt-skeleton__cell" [style.width]="skeletonCellWidth(ci)"></span>
               </td>
-              <td
-                *ngIf="_actions.length > 0"
-                class="pui-dt-td pui-dt-td--actions"
-              >
-                <span
-                  class="pui-dt-skeleton__cell pui-dt-skeleton__cell--box"
-                ></span>
+              <td *ngIf="_actions.length > 0" class="pui-dt-td pui-dt-td--actions">
+                <span class="pui-dt-skeleton__cell pui-dt-skeleton__cell--box"></span>
               </td>
             </tr>
           </ng-container>
 
           <tr *ngIf="!_loading && displayRows.length === 0">
             <td
-              [colSpan]="
-                _columns.length +
-                (_selectable ? 1 : 0) +
-                (_actions.length > 0 ? 1 : 0)
-              "
+              [colSpan]="_columns.length + (_selectable ? 1 : 0) + (_actions.length > 0 ? 1 : 0)"
               class="pui-dt-empty"
             >
               <div class="pui-dt-empty__inner">
@@ -154,11 +118,7 @@
                     stroke="var(--pui-neutral-300)"
                     stroke-width="2"
                   />
-                  <path
-                    d="M6 16h36"
-                    stroke="var(--pui-neutral-300)"
-                    stroke-width="2"
-                  />
+                  <path d="M6 16h36" stroke="var(--pui-neutral-300)" stroke-width="2" />
                   <path
                     d="M14 24h4M22 24h12M14 32h8"
                     stroke="var(--pui-neutral-300)"
@@ -170,13 +130,10 @@
                   {{
                     searchTerm
                       ? 'No results for "' + searchTerm + '"'
-                      : emptyTitle || "No data available"
+                      : emptyTitle || 'No data available'
                   }}
                 </p>
-                <p
-                  class="pui-dt-empty__desc"
-                  *ngIf="emptyDescription && !searchTerm"
-                >
+                <p class="pui-dt-empty__desc" *ngIf="emptyDescription && !searchTerm">
                   {{ emptyDescription }}
                 </p>
                 <div class="pui-dt-empty__actions" *ngIf="!searchTerm">
@@ -219,9 +176,7 @@
               (mouseleave)="hideCellTooltip()"
             >
               <ng-container *ngIf="col.type === 'badge'; else pills">
-                <ng-container
-                  *ngIf="col.badgeMap && col.badgeMap[row[col.key]]; let bm"
-                >
+                <ng-container *ngIf="col.badgeMap && col.badgeMap[row[col.key]]; let bm">
                   <span
                     class="pui-dt-badge"
                     [style.backgroundColor]="bm.color + '1a'"
@@ -231,51 +186,38 @@
                     {{ bm.label ?? row[col.key] }}
                   </span>
                 </ng-container>
-                <ng-container
-                  *ngIf="!(col.badgeMap && col.badgeMap[row[col.key]])"
-                >
-                  <span class="pui-dt-badge pui-dt-badge--default">{{
-                    row[col.key]
-                  }}</span>
+                <ng-container *ngIf="!(col.badgeMap && col.badgeMap[row[col.key]])">
+                  <span class="pui-dt-badge pui-dt-badge--default">{{ row[col.key] }}</span>
                 </ng-container>
               </ng-container>
               <ng-template #pills>
                 <ng-container *ngIf="col.type === 'pills'; else currency">
                   <span class="pui-dt-pills">
-                    <span class="pui-dt-pill" *ngFor="let p of row[col.key]">{{
-                      p
-                    }}</span>
+                    <span class="pui-dt-pill" *ngFor="let p of row[col.key]">{{ p }}</span>
                   </span>
                 </ng-container>
               </ng-template>
               <ng-template #currency>
                 <ng-container *ngIf="col.type === 'currency'; else number">
-                  <span class="pui-dt-cell--mono">{{
-                    row[col.key] | number: "1.2-2"
-                  }}</span>
+                  <span class="pui-dt-cell--mono">{{ row[col.key] | number: '1.2-2' }}</span>
                 </ng-container>
               </ng-template>
               <ng-template #number>
                 <ng-container *ngIf="col.type === 'number'; else date">
-                  <span class="pui-dt-cell--mono">{{
-                    row[col.key] | number
-                  }}</span>
+                  <span class="pui-dt-cell--mono">{{ row[col.key] | number }}</span>
                 </ng-container>
               </ng-template>
               <ng-template #date>
                 <ng-container *ngIf="col.type === 'date'; else text">
-                  {{ row[col.key] | date: "mediumDate" }}
+                  {{ row[col.key] | date: 'mediumDate' }}
                 </ng-container>
               </ng-template>
               <ng-template #text>
-                <span class="pui-cell-text">{{ row[col.key] ?? "—" }}</span>
+                <span class="pui-cell-text">{{ row[col.key] ?? '—' }}</span>
               </ng-template>
             </td>
 
-            <td
-              *ngIf="_actions.length > 0"
-              class="pui-dt-td pui-dt-td--actions"
-            >
+            <td *ngIf="_actions.length > 0" class="pui-dt-td pui-dt-td--actions">
               <button
                 class="pui-dt-action-btn"
                 [class.pui-dt-action-btn--open]="openActionRow === i"
@@ -324,11 +266,7 @@
       (click)="onActionClick(act, openActionRowData, $event)"
     >
       <span *ngIf="act.iconName" class="pui-dt-action-icon">
-        <pui-icon-internal
-          [name]="act.iconName"
-          size="sm"
-          color="currentColor"
-        ></pui-icon-internal>
+        <pui-icon-internal [name]="act.iconName" size="sm" color="currentColor"></pui-icon-internal>
       </span>
       <span
         *ngIf="!act.iconName && act.icon"

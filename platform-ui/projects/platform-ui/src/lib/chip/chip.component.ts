@@ -1,9 +1,17 @@
-﻿import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { NgIf } from '@angular/common';
 import { IconInternalComponent } from '../icon/icon-internal.component';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
-export type ChipVariant = 'default' | 'primary' | 'primary-light' | 'primary-outline' | 'secondary' | 'secondary-light';
+export type ChipVariant =
+  'default' | 'primary' | 'primary-light' | 'primary-outline' | 'secondary' | 'secondary-light';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,11 +24,11 @@ export type ChipVariant = 'default' | 'primary' | 'primary-light' | 'primary-out
   styleUrls: ['./chip.component.scss'],
 })
 export class PuiChipComponent {
-  @Input() variant:  ChipVariant = 'default';
-  @Input() selected  = false;
+  @Input() variant: ChipVariant = 'default';
+  @Input() selected = false;
   @Input() removable = false;
-  @Input() disabled  = false;
-  @Input() icon      = '';
+  @Input() disabled = false;
+  @Input() icon = '';
 
   @Output() clicked = new EventEmitter<void>();
   @Output() removed = new EventEmitter<void>();

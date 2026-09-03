@@ -2,21 +2,26 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@
 import { NgIf } from '@angular/common';
 import {
   PuiAppShellComponent,
-  SolifiNavGroup, SolifiNavItem, SolifiUserMenuItem, UserMenuItem,
+  SolifiNavGroup,
+  SolifiNavItem,
+  SolifiUserMenuItem,
+  UserMenuItem,
 } from '@bhairab-patra/platform-ui';
 import { DocPageComponent } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
 const NAV_GROUPS: SolifiNavGroup[] = [
   {
-    id: 'dashboard', label: 'Dashboard',
+    id: 'dashboard',
+    label: 'Dashboard',
     items: [
       { id: 'overview', label: 'Overview', iconName: 'dashboard' },
       { id: 'reports', label: 'Reports', iconName: 'chart' },
     ],
   },
   {
-    id: 'admin', label: 'Admin',
+    id: 'admin',
+    label: 'Admin',
     items: [
       { id: 'users', label: 'Users', iconName: 'users' },
       { id: 'settings', label: 'Settings', iconName: 'settings' },
@@ -54,7 +59,7 @@ export class PrimaryLayoutPageComponent {
 
   get pageTitle(): string {
     for (const group of this.navGroups) {
-      const item = group.items.find(i => i.id === this.activeId);
+      const item = group.items.find((i) => i.id === this.activeId);
       if (item) return item.label;
     }
     return '';
@@ -65,8 +70,8 @@ export class PrimaryLayoutPageComponent {
     this.cdr.markForCheck();
   }
 
-  onUserMenu(_item: SolifiUserMenuItem): void { }
-  onHeaderMenu(_action: string): void { }
+  onUserMenu(_item: SolifiUserMenuItem): void {}
+  onHeaderMenu(_action: string): void {}
 
   activeTab: FileTab = 'ts';
   copied = '';
@@ -80,13 +85,15 @@ export class PrimaryLayoutPageComponent {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
-      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
+      setTimeout(() => {
+        this.copied = '';
+        this.cdr.markForCheck();
+      }, 2000);
     });
   }
 
   files: Record<FileTab, string> = {
-    ts:
-      `import { Component } from '@angular/core';
+    ts: `import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {
   PuiAppShellComponent,
@@ -120,8 +127,6 @@ const HEADER_MENU: UserMenuItem[] = [
   { label: 'Sign Out',   action: 'logout', danger: true },
 ];
 
-
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -134,8 +139,6 @@ export class AppComponent {
   sidebarUserMenu = SIDEBAR_USER_MENU;
   headerMenu      = HEADER_MENU;
   activeId        = 'overview';
-
-
 
   // Derive the page title from whichever nav item is active — keeps
   // [pageTitle] and the sidebar's highlighted item in sync automatically.
@@ -162,8 +165,7 @@ export class AppComponent {
   }
 }`,
 
-    html:
-      `<!--
+    html: `<!--
   Every input is prefixed by which part of the shell it controls:
   sidebarX only ever touches the left nav rail, headerX only ever
   touches the top bar. pageTitle and footerText are shell-level.
@@ -213,8 +215,7 @@ export class AppComponent {
 
 </pui-lib-app-shell>`,
 
-    scss:
-      `:host {
+    scss: `:host {
   display: block;
   height: 100vh;
 }`,

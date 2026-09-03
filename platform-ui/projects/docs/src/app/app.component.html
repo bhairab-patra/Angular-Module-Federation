@@ -1,8 +1,4 @@
-﻿<header
-  class="topbar"
-  *ngIf="!isHome"
-  [class.topbar--collapsed]="sidebarCollapsed"
->
+﻿<header class="topbar" *ngIf="!isHome" [class.topbar--collapsed]="sidebarCollapsed">
   <div class="topbar-left">
     <div class="topbar-version">
       <span class="version-badge">platform-ui 1.1.12</span>
@@ -18,12 +14,7 @@
       <span class="search-icon">
         <svg width="15" height="15" viewBox="0 0 20 20" fill="none">
           <circle cx="9" cy="9" r="6" stroke="#9ca3af" stroke-width="2" />
-          <path
-            d="M14 14l3.5 3.5"
-            stroke="#9ca3af"
-            stroke-width="2"
-            stroke-linecap="round"
-          />
+          <path d="M14 14l3.5 3.5" stroke="#9ca3af" stroke-width="2" stroke-linecap="round" />
         </svg>
       </span>
       <input
@@ -71,12 +62,7 @@
     </div>
   </div>
   <div class="topbar-right">
-    <div
-      class="theme-toggle"
-      role="group"
-      aria-label="Preview theme"
-      *ngIf="!isHome"
-    >
+    <div class="theme-toggle" role="group" aria-label="Preview theme" *ngIf="!isHome">
       <span
         class="theme-toggle__slider"
         [class.theme-toggle__slider--old]="theme === 'old'"
@@ -160,9 +146,6 @@
 </header>
 
 <div class="shell">
-  <!-- Left sidebar — the library's own pui-lib-solifi-sidebar, so the
-           docs site's nav gets the exact same smooth collapse transition,
-           icon-only collapsed rail, and hover tooltip every consumer gets. -->
   <pui-lib-solifi-sidebar
     *ngIf="!isHome"
     class="docs-sidebar"
@@ -179,7 +162,6 @@
   >
   </pui-lib-solifi-sidebar>
 
-  <!-- Page -->
   <main
     class="docs-main"
     [class.docs-main--full]="isHome"
@@ -189,5 +171,4 @@
   </main>
 </div>
 
-<!-- Global toast container -->
 <pui-lib-toast-container></pui-lib-toast-container>

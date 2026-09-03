@@ -94,9 +94,7 @@ export class FormLayoutPageComponent {
   form: FormGroup = this.fb.group({
     fullName: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
-    // Password strength errors come from pui-lib-password-input's own
-    // NG_VALIDATORS (minLength/requireUpper/requireNumber), wired
-    // automatically via formControlName — no need to duplicate it here.
+
     password: ['', Validators.required],
     dob: [null as Date | null],
     gender: ['', Validators.required],
@@ -139,8 +137,10 @@ export class FormLayoutPageComponent {
     if (typeof errors['passwordStrength'] === 'string') return errors['passwordStrength'];
 
     const missing: string[] = [];
-    if (errors['minlength']) missing.push(`at least ${errors['minlength'].requiredLength} characters`);
-    if (errors['maxlength']) missing.push(`at most ${errors['maxlength'].requiredLength} characters`);
+    if (errors['minlength'])
+      missing.push(`at least ${errors['minlength'].requiredLength} characters`);
+    if (errors['maxlength'])
+      missing.push(`at most ${errors['maxlength'].requiredLength} characters`);
     if (missing.length) return `${label} must have ${missing.join(', ')}.`;
 
     return `${label} is invalid.`;
@@ -158,13 +158,15 @@ export class FormLayoutPageComponent {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
-      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
+      setTimeout(() => {
+        this.copied = '';
+        this.cdr.markForCheck();
+      }, 2000);
     });
   }
 
   files: Record<FileTab, string> = {
-    ts:
-      `import { Component, ChangeDetectionStrategy } from '@angular/core';
+    ts: `import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormBuilder,
@@ -311,8 +313,7 @@ export class CustomerDetailsComponent {
   }
 }`,
 
-    html:
-      `<pui-lib-card>
+    html: `<pui-lib-card>
   <div card-header class="form-title">Customer Details</div>
 
   <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -440,8 +441,7 @@ export class CustomerDetailsComponent {
   </form>
 </pui-lib-card>`,
 
-    scss:
-      `.form-title {
+    scss: `.form-title {
   font-size: 18px;
   font-weight: 700;
   color: var(--pui-neutral-900);

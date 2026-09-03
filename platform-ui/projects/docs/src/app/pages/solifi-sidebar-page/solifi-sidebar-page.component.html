@@ -6,9 +6,7 @@
   [hasFramework]="true"
 >
   <ng-container demo>
-    <!-- Controls -->
     <div class="demo-controls">
-      <!-- Icon mode chips -->
       <div class="ctrl-group">
         <button
           class="ctrl-chip"
@@ -32,21 +30,20 @@
           Icons only
         </button>
       </div>
-      <!-- Layout toggles -->
+
       <div class="ctrl-group">
         <button class="ctrl-btn" (click)="onCollapsed(!collapsed)">
-          {{ collapsed ? "Expand" : "Collapse" }} sidebar
+          {{ collapsed ? 'Expand' : 'Collapse' }} sidebar
         </button>
         <button class="ctrl-btn" (click)="toggleUser()">
-          {{ showUser ? "Hide" : "Show" }} user profile
+          {{ showUser ? 'Hide' : 'Show' }} user profile
         </button>
         <button class="ctrl-btn" (click)="toggleBrand()">
-          {{ showBrand ? "Hide" : "Show" }} logo
+          {{ showBrand ? 'Hide' : 'Show' }} logo
         </button>
       </div>
     </div>
 
-    <!-- Live demo shell -->
     <div class="demo-shell">
       <pui-lib-solifi-sidebar
         [brandName]="brandName"
@@ -68,7 +65,6 @@
       >
       </pui-lib-solifi-sidebar>
 
-      <!-- Main content area -->
       <div class="demo-content">
         <div class="demo-topbar">
           <span class="demo-page-title">{{ pageTitle }}</span>
@@ -100,41 +96,32 @@
       </div>
     </div>
 
-    <!-- Code: Angular template -->
     <div class="demo-section">
       <div class="demo-section__title">Angular template</div>
       <pre class="code-block"><code>{{ angularTpl }}</code></pre>
     </div>
 
-    <!-- Code: iconName vs icon vs text-only -->
     <div class="demo-section">
       <div class="demo-section__title">Nav item icon options</div>
       <pre class="code-block"><code>{{ angularCode }}</code></pre>
     </div>
 
-    <!-- Code: React / Web Component -->
     <div class="demo-section">
       <div class="demo-section__title">React / HTML (Web Component)</div>
       <pre class="code-block"><code>{{ reactCode }}</code></pre>
     </div>
 
-    <!-- Code: Grouped (navGroups) vs Flat (navItems) -->
     <div class="demo-section">
-      <div class="demo-section__title">
-        Grouped vs flat navigation — navGroups vs navItems
-      </div>
+      <div class="demo-section__title">Grouped vs flat navigation — navGroups vs navItems</div>
       <p class="fw-lead">
         The <code>groups</code> input accepts two shapes. Pass an array of
-        <code>SolifiNavGroup</code> objects (each with its own
-        <code>id</code>, <code>label</code>, and <code>items</code>) to get a
-        section label above every cluster — that's what "navGroups" means.
-        If you don't want section labels at all, skip the group wrapper and
-        pass a plain <code>SolifiNavItem[]</code> array instead — commonly
-        called "navItems". The sidebar checks whether the first array element
-        has an <code>items</code> key: if it doesn't, the whole array is
-        treated as one flat, ungrouped list and no label is rendered above
-        it. Same <code>[groups]</code> input either way — nothing else in
-        your template changes.
+        <code>SolifiNavGroup</code> objects (each with its own <code>id</code>, <code>label</code>,
+        and <code>items</code>) to get a section label above every cluster — that's what "navGroups"
+        means. If you don't want section labels at all, skip the group wrapper and pass a plain
+        <code>SolifiNavItem[]</code> array instead — commonly called "navItems". The sidebar checks
+        whether the first array element has an <code>items</code> key: if it doesn't, the whole
+        array is treated as one flat, ungrouped list and no label is rendered above it. Same
+        <code>[groups]</code> input either way — nothing else in your template changes.
       </p>
 
       <pui-lib-tabs
@@ -161,10 +148,9 @@
   <ng-container framework>
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
-      Wrap <code>pui-lib-solifi-sidebar</code> next to your content in a flex
-      container. Pass <code>groups</code> as an array, wire
-      <code>(itemSelect)</code> to track active routes, and optionally enable
-      the user profile footer with <code>[showUser]="true"</code>.
+      Wrap <code>pui-lib-solifi-sidebar</code> next to your content in a flex container. Pass
+      <code>groups</code> as an array, wire <code>(itemSelect)</code> to track active routes, and
+      optionally enable the user profile footer with <code>[showUser]="true"</code>.
     </p>
 
     <docs-framework-preview
@@ -172,7 +158,6 @@
       [reactCode]="fwReactCode"
       [htmlCode]="fwHtmlCode"
     >
-      <!-- Angular live preview: real sidebar in mini shell -->
       <div
         preview
         style="
@@ -202,13 +187,7 @@
         >
         </pui-lib-solifi-sidebar>
         <div
-          style="
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #f4f5f7;
-            min-width: 0;
-          "
+          style="flex: 1; display: flex; flex-direction: column; background: #f4f5f7; min-width: 0"
         >
           <div
             style="
@@ -339,9 +318,7 @@
             <td><span class="tag-ng">(userMenuSelect)="fn($event)"</span></td>
             <td><span class="tag-html">—</span></td>
             <td>
-              <span class="tag-js"
-                >el.addEventListener('userMenuSelect', fn)</span
-              >
+              <span class="tag-js">el.addEventListener('userMenuSelect', fn)</span>
             </td>
           </tr>
         </tbody>

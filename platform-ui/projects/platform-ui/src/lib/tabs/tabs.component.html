@@ -1,44 +1,55 @@
-
-<div class="pui-tabs-host"
-     [class.pui-tabs--vertical]="_orientation === 'vertical'"
-     [class.pui-tabs--no-panel]="!panel"
-     [attr.data-variant]="_variant">
-
-  <div class="pui-tabs-strip"
-       role="tablist"
-       [attr.aria-orientation]="_orientation">
-
-    <button *ngFor="let tab of _tabs; let i = index"
-            class="pui-tab-btn"
-            role="tab"
-            [class.pui-tab-btn--active]="tab.id === _active"
-            [class.pui-tab-btn--disabled]="tab.disabled"
-            [class.pui-tab-btn--sm]="_size === 'sm'"
-            [class.pui-tab-btn--lg]="_size === 'lg'"
-            [attr.aria-selected]="tab.id === _active"
-            [attr.aria-disabled]="tab.disabled || null"
-            [disabled]="tab.disabled || null"
-            (click)="select(tab)"
-            (keydown)="onKey($event, i)">
-
-      <pui-icon-internal *ngIf="tab.iconName" class="pui-tab-icon" [name]="tab.iconName" size="sm"></pui-icon-internal>
-      <span *ngIf="tab.icon && !tab.iconName" class="pui-tab-icon" [innerHTML]="safeIcon(tab.icon)"></span>
+<div
+  class="pui-tabs-host"
+  [class.pui-tabs--vertical]="_orientation === 'vertical'"
+  [class.pui-tabs--no-panel]="!panel"
+  [attr.data-variant]="_variant"
+>
+  <div class="pui-tabs-strip" role="tablist" [attr.aria-orientation]="_orientation">
+    <button
+      *ngFor="let tab of _tabs; let i = index"
+      class="pui-tab-btn"
+      role="tab"
+      [class.pui-tab-btn--active]="tab.id === _active"
+      [class.pui-tab-btn--disabled]="tab.disabled"
+      [class.pui-tab-btn--sm]="_size === 'sm'"
+      [class.pui-tab-btn--lg]="_size === 'lg'"
+      [attr.aria-selected]="tab.id === _active"
+      [attr.aria-disabled]="tab.disabled || null"
+      [disabled]="tab.disabled || null"
+      (click)="select(tab)"
+      (keydown)="onKey($event, i)"
+    >
+      <pui-icon-internal
+        *ngIf="tab.iconName"
+        class="pui-tab-icon"
+        [name]="tab.iconName"
+        size="sm"
+      ></pui-icon-internal>
+      <span
+        *ngIf="tab.icon && !tab.iconName"
+        class="pui-tab-icon"
+        [innerHTML]="safeIcon(tab.icon)"
+      ></span>
 
       <span class="pui-tab-label">{{ tab.label }}</span>
 
-      <span *ngIf="tab.badge !== undefined && tab.badge !== null"
-            class="pui-tab-badge"
-            [class.pui-tab-badge--active]="tab.id === _active">
+      <span
+        *ngIf="tab.badge !== undefined && tab.badge !== null"
+        class="pui-tab-badge"
+        [class.pui-tab-badge--active]="tab.id === _active"
+      >
         {{ tab.badge }}
       </span>
 
-      <span *ngIf="_variant === 'line' && tab.id === _active"
-            class="pui-tab-indicator" aria-hidden="true"></span>
+      <span
+        *ngIf="_variant === 'line' && tab.id === _active"
+        class="pui-tab-indicator"
+        aria-hidden="true"
+      ></span>
     </button>
   </div>
 
   <div class="pui-tabs-panel" role="tabpanel">
     <ng-content></ng-content>
   </div>
-
 </div>

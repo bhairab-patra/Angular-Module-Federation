@@ -1,4 +1,11 @@
-﻿import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonVariant, ButtonSize } from '../models/button.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
@@ -30,7 +37,9 @@ export class ButtonComponent {
   @Output() buttonHover = new EventEmitter<MouseEvent>();
   @Output() buttonLeave = new EventEmitter<MouseEvent>();
 
-  get isUploadProgress(): boolean { return this.variant === 'upload-progress'; }
+  get isUploadProgress(): boolean {
+    return this.variant === 'upload-progress';
+  }
 
   get hostClasses(): string {
     return [
@@ -40,12 +49,24 @@ export class ButtonComponent {
       this.fullWidth ? 'pui-btn--full' : '',
       this.loading ? 'pui-btn--loading' : '',
       this.forceState ? `pui-btn--state-${this.forceState}` : '',
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
   }
 
-  onClick(e: MouseEvent): void { if (!this.disabled && !this.loading) this.buttonClick.emit(e); }
-  onFocus(e: FocusEvent): void { this.buttonFocus.emit(e); }
-  onBlur(e: FocusEvent): void { this.buttonBlur.emit(e); }
-  onHover(e: MouseEvent): void { this.buttonHover.emit(e); }
-  onLeave(e: MouseEvent): void { this.buttonLeave.emit(e); }
+  onClick(e: MouseEvent): void {
+    if (!this.disabled && !this.loading) this.buttonClick.emit(e);
+  }
+  onFocus(e: FocusEvent): void {
+    this.buttonFocus.emit(e);
+  }
+  onBlur(e: FocusEvent): void {
+    this.buttonBlur.emit(e);
+  }
+  onHover(e: MouseEvent): void {
+    this.buttonHover.emit(e);
+  }
+  onLeave(e: MouseEvent): void {
+    this.buttonLeave.emit(e);
+  }
 }

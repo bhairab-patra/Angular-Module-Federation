@@ -6,13 +6,11 @@
   [api]="api"
 >
   <ng-container demo>
-    <!-- 1. Trigger modes -->
     <div class="demo-section">
       <h3 class="demo-section__title">Trigger Modes</h3>
       <p class="demo-section__desc">
-        Set <code>triggerMode</code> to <code>click</code> (default) or
-        <code>hover</code>. Content can be anything — here it's a small profile
-        card and a settings form, not a menu list.
+        Set <code>triggerMode</code> to <code>click</code> (default) or <code>hover</code>. Content
+        can be anything — here it's a small profile card and a settings form, not a menu list.
       </p>
       <div class="demo-row">
         <pui-lib-popover
@@ -39,14 +37,13 @@
         >
           <button popoverTrigger class="pop-trigger-btn">Hover me</button>
           <p class="pop-demo-text">
-            Hovering the trigger opens this panel; moving the mouse onto the
-            panel itself keeps it open.
+            Hovering the trigger opens this panel; moving the mouse onto the panel itself keeps it
+            open.
           </p>
         </pui-lib-popover>
       </div>
     </div>
 
-    <!-- 2. Placements -->
     <div class="demo-section">
       <h3 class="demo-section__title">All 8 Placements</h3>
       <p class="demo-section__desc">
@@ -68,23 +65,17 @@
       </div>
     </div>
 
-    <!-- 3. Manual mode -->
     <div class="demo-section">
       <h3 class="demo-section__title">Manual Mode</h3>
       <p class="demo-section__desc">
-        With <code>triggerMode="manual"</code>, the popover ignores its own
-        trigger's click/hover — you decide when it opens and closes from your
-        own component logic.
+        With <code>triggerMode="manual"</code>, the popover ignores its own trigger's click/hover —
+        you decide when it opens and closes from your own component logic.
       </p>
       <div class="demo-row">
         <button class="ctrl-btn" (click)="toggleManual()">
-          {{ manualOpen ? "Close" : "Open" }} from outside
+          {{ manualOpen ? 'Close' : 'Open' }} from outside
         </button>
-        <pui-lib-popover
-          placement="right"
-          triggerMode="manual"
-          [open]="manualOpen"
-        >
+        <pui-lib-popover placement="right" triggerMode="manual" [open]="manualOpen">
           <span popoverTrigger class="pop-trigger-dot"></span>
           <p class="pop-demo-text">
             Opened programmatically — the dot itself does nothing on click.
@@ -97,10 +88,9 @@
   <ng-container framework>
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
-      <code>pui-lib-popover</code> is a Web Component — it works in Angular,
-      React, and plain HTML with no extra wrappers. Project the trigger element
-      with a <code>popoverTrigger</code> attribute; everything else projected
-      becomes the panel body.
+      <code>pui-lib-popover</code> is a Web Component — it works in Angular, React, and plain HTML
+      with no extra wrappers. Project the trigger element with a
+      <code>popoverTrigger</code> attribute; everything else projected becomes the panel body.
     </p>
 
     <docs-framework-preview
@@ -109,11 +99,7 @@
       [htmlCode]="htmlCode"
     >
       <div preview class="demo-col">
-        <pui-lib-popover
-          placement="bottom"
-          [open]="fwOpen"
-          (openChange)="onFwOpenChange($event)"
-        >
+        <pui-lib-popover placement="bottom" [open]="fwOpen" (openChange)="onFwOpenChange($event)">
           <button popoverTrigger class="pop-trigger-btn">Open popover</button>
           <div class="pop-demo-card">
             <div class="pop-demo-card__avatar">RD</div>
@@ -125,11 +111,7 @@
         </pui-lib-popover>
       </div>
       <div react-preview class="demo-col">
-        <pui-lib-popover
-          placement="bottom"
-          [open]="fwOpen"
-          (openChange)="onFwOpenChange($event)"
-        >
+        <pui-lib-popover placement="bottom" [open]="fwOpen" (openChange)="onFwOpenChange($event)">
           <button popoverTrigger class="pop-trigger-btn">Open popover</button>
           <div class="pop-demo-card">
             <div class="pop-demo-card__avatar">RD</div>

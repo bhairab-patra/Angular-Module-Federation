@@ -15,10 +15,18 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
 export class SwitchPageComponent {
   private cdr = inject(ChangeDetectorRef);
 
-  v1 = true; v2 = false; vSm = false; vMd = true; vLg = false;
-  vDyn1 = true; vDyn2 = false; vDyn3 = true;
-  vErr = false; vHint = true;
-  preChecked = true; disabledFlag = true;
+  v1 = true;
+  v2 = false;
+  vSm = false;
+  vMd = true;
+  vLg = false;
+  vDyn1 = true;
+  vDyn2 = false;
+  vDyn3 = true;
+  vErr = false;
+  vHint = true;
+  preChecked = true;
+  disabledFlag = true;
   fw = 'angular';
   copied = '';
 
@@ -26,23 +34,53 @@ export class SwitchPageComponent {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
-      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
+      setTimeout(() => {
+        this.copied = '';
+        this.cdr.markForCheck();
+      }, 2000);
     });
   }
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   xfwRows = [
-    { name: 'label',         angular: 'label="str"',                     attr: 'label="str"',            js: 'el.label = "..."' },
-    { name: 'labelOn',       angular: 'labelOn="On"',                    attr: 'label-on="On"',           js: 'el.labelOn = "On"' },
-    { name: 'labelOff',      angular: 'labelOff="Off"',                  attr: 'label-off="Off"',         js: 'el.labelOff = "Off"' },
-    { name: 'size',          angular: 'size="sm|md|lg"',                 attr: 'size="sm|md|lg"',         js: 'el.size = "md"' },
-    { name: 'checked',       angular: '[checked]="bool" or [(ngModel)]', attr: 'checked="true"',          js: 'el.checked = true' },
-    { name: 'disabled',      angular: '[disabled]="bool"',               attr: '— use JS property',       js: 'el.disabled = true' },
-    { name: 'required',      angular: '[required]="bool"',               attr: 'required="true"',         js: 'el.required = true' },
-    { name: 'error',         angular: '[error]="str"',                   attr: 'error="msg"',             js: 'el.error = "msg"' },
-    { name: 'hint',          angular: '[hint]="str"',                    attr: 'hint="str"',              js: 'el.hint = "..."' },
-    { name: 'checkedChange', angular: '(checkedChange)="fn($event)"',    attr: '— use addEventListener',  js: 'el.addEventListener("checkedChange", fn)' },
+    { name: 'label', angular: 'label="str"', attr: 'label="str"', js: 'el.label = "..."' },
+    { name: 'labelOn', angular: 'labelOn="On"', attr: 'label-on="On"', js: 'el.labelOn = "On"' },
+    {
+      name: 'labelOff',
+      angular: 'labelOff="Off"',
+      attr: 'label-off="Off"',
+      js: 'el.labelOff = "Off"',
+    },
+    { name: 'size', angular: 'size="sm|md|lg"', attr: 'size="sm|md|lg"', js: 'el.size = "md"' },
+    {
+      name: 'checked',
+      angular: '[checked]="bool" or [(ngModel)]',
+      attr: 'checked="true"',
+      js: 'el.checked = true',
+    },
+    {
+      name: 'disabled',
+      angular: '[disabled]="bool"',
+      attr: '— use JS property',
+      js: 'el.disabled = true',
+    },
+    {
+      name: 'required',
+      angular: '[required]="bool"',
+      attr: 'required="true"',
+      js: 'el.required = true',
+    },
+    { name: 'error', angular: '[error]="str"', attr: 'error="msg"', js: 'el.error = "msg"' },
+    { name: 'hint', angular: '[hint]="str"', attr: 'hint="str"', js: 'el.hint = "..."' },
+    {
+      name: 'checkedChange',
+      angular: '(checkedChange)="fn($event)"',
+      attr: '— use addEventListener',
+      js: 'el.addEventListener("checkedChange", fn)',
+    },
   ];
 
   angHtml = `<pui-lib-switch label="Enable notifications" [(ngModel)]="notifications"/>
@@ -116,16 +154,61 @@ export function SettingsToggle() {
 </script>`;
 
   api: ApiRow[] = [
-    { input: 'label',          type: 'string',               default: "''",    description: 'Label text shown next to the switch' },
-    { input: 'labelOn',        type: 'string',               default: "''",    description: 'Label when switch is ON (overrides label)' },
-    { input: 'labelOff',       type: 'string',               default: "''",    description: 'Label when switch is OFF (overrides label)' },
-    { input: 'size',           type: "'sm'|'md'|'lg'",      default: "'md'",  description: 'Visual size variant' },
-    { input: 'checked',        type: 'boolean',              default: 'false', description: 'Whether the switch is on' },
-    { input: 'disabled',       type: 'boolean',              default: 'false', description: 'Disables interaction' },
-    { input: 'required',       type: 'boolean',              default: 'false', description: 'Shows required asterisk' },
-    { input: 'error',          type: 'string',               default: "''",    description: 'Error message shown below the switch' },
-    { input: 'hint',           type: 'string',               default: "''",    description: 'Helper text shown below the switch' },
-    { input: 'checkedChange',  type: 'EventEmitter<boolean>', default: '—',   description: 'Emits the new checked state on toggle' },
-    { input: 'changed',        type: 'EventEmitter<boolean>', default: '—',   description: 'Alias output for change events' },
+    {
+      input: 'label',
+      type: 'string',
+      default: "''",
+      description: 'Label text shown next to the switch',
+    },
+    {
+      input: 'labelOn',
+      type: 'string',
+      default: "''",
+      description: 'Label when switch is ON (overrides label)',
+    },
+    {
+      input: 'labelOff',
+      type: 'string',
+      default: "''",
+      description: 'Label when switch is OFF (overrides label)',
+    },
+    { input: 'size', type: "'sm'|'md'|'lg'", default: "'md'", description: 'Visual size variant' },
+    {
+      input: 'checked',
+      type: 'boolean',
+      default: 'false',
+      description: 'Whether the switch is on',
+    },
+    { input: 'disabled', type: 'boolean', default: 'false', description: 'Disables interaction' },
+    {
+      input: 'required',
+      type: 'boolean',
+      default: 'false',
+      description: 'Shows required asterisk',
+    },
+    {
+      input: 'error',
+      type: 'string',
+      default: "''",
+      description: 'Error message shown below the switch',
+    },
+    {
+      input: 'hint',
+      type: 'string',
+      default: "''",
+      description: 'Helper text shown below the switch',
+    },
+    {
+      input: 'checkedChange',
+      type: 'EventEmitter<boolean>',
+      default: '—',
+      description: 'Emits the new checked state on toggle',
+    },
+    {
+      input: 'changed',
+      type: 'EventEmitter<boolean>',
+      default: '—',
+      description: 'Alias output for change events',
+    },
   ];
 }

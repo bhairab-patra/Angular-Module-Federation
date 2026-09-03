@@ -1,5 +1,10 @@
 ﻿import {
-  Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgIf } from '@angular/common';
 import { ButtonInternalComponent } from '../button/button-internal.component';
@@ -17,7 +22,6 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
   styleUrls: ['./confirm-dialog.component.scss'],
 })
 export class PuiConfirmDialogComponent {
-
   _open = false;
   @Input() set open(v: boolean | string) {
     this._open = v === true || v === 'true' || (v as any) === '';
@@ -35,7 +39,6 @@ export class PuiConfirmDialogComponent {
   @Output() cancelled = new EventEmitter<void>();
   @Output() closed = new EventEmitter<void>();
 
-
   onBackdropClick(e: MouseEvent): void {
     if (this.closeOnBackdrop && e.target === e.currentTarget) {
       this.cancelled.emit();
@@ -43,7 +46,9 @@ export class PuiConfirmDialogComponent {
     }
   }
 
-  onConfirm(): void { this.confirmed.emit(); }
+  onConfirm(): void {
+    this.confirmed.emit();
+  }
 
   onCancel(): void {
     this.cancelled.emit();

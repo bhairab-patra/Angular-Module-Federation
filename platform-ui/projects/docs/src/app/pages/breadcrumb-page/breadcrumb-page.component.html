@@ -1,48 +1,58 @@
-﻿
-<docs-page
+﻿<docs-page
   title="Breadcrumb"
   description="A navigational trail showing the user's location in the page hierarchy — chevron and slash separator styles, theme-aware brand colours."
   [hasFramework]="true"
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Basic -->
     <div class="demo-section">
       <h3 class="demo-section__title">Basic</h3>
-      <p class="demo-section__desc">Pass an array of <code>BreadcrumbItem</code> objects. The last item is the active page — rendered bold with a subtle tint background.</p>
+      <p class="demo-section__desc">
+        Pass an array of <code>BreadcrumbItem</code> objects. The last item is the active page —
+        rendered bold with a subtle tint background.
+      </p>
       <div class="bc-preview">
         <pui-lib-breadcrumb [items]="basic"></pui-lib-breadcrumb>
       </div>
     </div>
 
-    <!-- 2. With icons -->
     <div class="demo-section">
       <h3 class="demo-section__title">Items with Icons</h3>
-      <p class="demo-section__desc">Each <code>BreadcrumbItem</code> accepts an optional <code>icon</code> SVG string — rendered inline before the label using the platform icon size.</p>
+      <p class="demo-section__desc">
+        Each <code>BreadcrumbItem</code> accepts an optional <code>icon</code> SVG string — rendered
+        inline before the label using the platform icon size.
+      </p>
       <div class="bc-preview">
         <pui-lib-breadcrumb [items]="withIcons"></pui-lib-breadcrumb>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-breadcrumb</code> accepts an <code>items</code> array via Angular property binding or as a JS property after element upgrade.</p>
+    <p class="fw-lead">
+      <code>pui-lib-breadcrumb</code> accepts an <code>items</code> array via Angular property
+      binding or as a JS property after element upgrade.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-row">
         <pui-lib-breadcrumb [items]="basic"></pui-lib-breadcrumb>
         <pui-lib-breadcrumb [items]="basic" separator="slash"></pui-lib-breadcrumb>
       </div>
       <div react-preview class="react-page-header">
         <div class="react-page-header__nav">
-          <pui-lib-breadcrumb [items]="[{label:'Home',route:'/'},{label:'Products',route:'/products'},{label:'Details'}]"></pui-lib-breadcrumb>
+          <pui-lib-breadcrumb
+            [items]="[
+              { label: 'Home', route: '/' },
+              { label: 'Products', route: '/products' },
+              { label: 'Details' },
+            ]"
+          ></pui-lib-breadcrumb>
         </div>
         <h3 class="react-page-header__title">Product Details</h3>
         <p class="react-page-header__sub">Manage and update product information</p>
@@ -52,34 +62,55 @@
     <h4 class="fw-ref-title">Quick Reference</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><span class="tag-name">{{ r.name }}</span></td>
-            <td><span class="tag-ng">{{ r.angular }}</span></td>
-            <td><span class="tag-html">{{ r.attr }}</span></td>
-            <td><span class="tag-js">{{ r.js }}</span></td>
+            <td>
+              <span class="tag-name">{{ r.name }}</span>
+            </td>
+            <td>
+              <span class="tag-ng">{{ r.angular }}</span>
+            </td>
+            <td>
+              <span class="tag-html">{{ r.attr }}</span>
+            </td>
+            <td>
+              <span class="tag-js">{{ r.js }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- CSS custom properties reference -->
-    <h4 class="fw-ref-title" style="margin-top:28px">CSS Custom Properties</h4>
+    <h4 class="fw-ref-title" style="margin-top: 28px">CSS Custom Properties</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Token</th><th>Default</th><th>Controls</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Token</th>
+            <th>Default</th>
+            <th>Controls</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let t of cssTokenRows; trackBy: trackByIndex">
-            <td><code class="css-token">{{ t.token }}</code></td>
-            <td><span class="tag-html">{{ t.default }}</span></td>
+            <td>
+              <code class="css-token">{{ t.token }}</code>
+            </td>
+            <td>
+              <span class="tag-html">{{ t.default }}</span>
+            </td>
             <td>{{ t.controls }}</td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-

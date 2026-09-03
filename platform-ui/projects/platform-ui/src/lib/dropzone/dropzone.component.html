@@ -1,20 +1,25 @@
-<div class="pui-dz"
-     [class.pui-dz--dragging]="dragging"
-     [class.pui-dz--disabled]="disabled"
-     (click)="openPicker()"
-     (dragover)="onDragOver($event)"
-     (dragleave)="onDragLeave($event)"
-     (drop)="onDrop($event)"
-     role="button"
-     tabindex="0"
-     [attr.aria-disabled]="disabled || null">
-
-  <input #fileInput type="file" class="pui-dz__input"
-         [attr.accept]="accept || null"
-         [multiple]="multiple"
-         [disabled]="disabled"
-         (click)="$event.stopPropagation()"
-         (change)="onFileInputChange($event)">
+<div
+  class="pui-dz"
+  [class.pui-dz--dragging]="dragging"
+  [class.pui-dz--disabled]="disabled"
+  (click)="openPicker()"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave($event)"
+  (drop)="onDrop($event)"
+  role="button"
+  tabindex="0"
+  [attr.aria-disabled]="disabled || null"
+>
+  <input
+    #fileInput
+    type="file"
+    class="pui-dz__input"
+    [attr.accept]="accept || null"
+    [multiple]="multiple"
+    [disabled]="disabled"
+    (click)="$event.stopPropagation()"
+    (change)="onFileInputChange($event)"
+  />
 
   <div class="pui-dz__icon">
     <pui-icon-internal name="upload" size="lg"></pui-icon-internal>
@@ -24,7 +29,11 @@
 </div>
 
 <ul class="pui-dz__list" *ngIf="showFileList && files.length">
-  <li class="pui-dz__file" *ngFor="let f of files; trackBy: trackById" [class.pui-dz__file--error]="f.status === 'error'">
+  <li
+    class="pui-dz__file"
+    *ngFor="let f of files; trackBy: trackById"
+    [class.pui-dz__file--error]="f.status === 'error'"
+  >
     <span class="pui-dz__file-icon">
       <pui-icon-internal name="file" size="sm"></pui-icon-internal>
     </span>
@@ -32,7 +41,9 @@
       <span class="pui-dz__file-name">{{ f.name }}</span>
       <span class="pui-dz__file-meta">
         <ng-container [ngSwitch]="f.status">
-          <span *ngSwitchCase="'error'" class="pui-dz__file-error">{{ f.errorMessage || 'Upload failed' }}</span>
+          <span *ngSwitchCase="'error'" class="pui-dz__file-error">{{
+            f.errorMessage || 'Upload failed'
+          }}</span>
           <span *ngSwitchCase="'uploading'">Uploading… {{ f.progress ?? 0 }}%</span>
           <span *ngSwitchCase="'done'">{{ formatSize(f.size) }} · Uploaded</span>
           <span *ngSwitchDefault>{{ formatSize(f.size) }}</span>
@@ -42,7 +53,12 @@
         <span class="pui-dz__progress-fill" [style.width.%]="f.progress ?? 0"></span>
       </span>
     </span>
-    <button type="button" class="pui-dz__file-remove" (click)="removeFile(f)" aria-label="Remove file">
+    <button
+      type="button"
+      class="pui-dz__file-remove"
+      (click)="removeFile(f)"
+      aria-label="Remove file"
+    >
       <pui-icon-internal name="close" size="xs"></pui-icon-internal>
     </button>
   </li>

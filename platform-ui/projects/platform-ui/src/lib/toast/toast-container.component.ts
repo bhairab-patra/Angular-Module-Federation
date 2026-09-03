@@ -1,6 +1,4 @@
-﻿import {
-  Component, inject, ViewEncapsulation, ChangeDetectionStrategy
-} from '@angular/core';
+﻿import { Component, inject, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { ToastService } from './toast.service';
 import { Toast, ToastPosition } from '../models/toast.model';
@@ -8,8 +6,12 @@ import { IconInternalComponent } from '../icon/icon-internal.component';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 const POSITIONS: ToastPosition[] = [
-  'top-right', 'top-left', 'top-center',
-  'bottom-right', 'bottom-left', 'bottom-center',
+  'top-right',
+  'top-left',
+  'top-center',
+  'bottom-right',
+  'bottom-left',
+  'bottom-center',
 ];
 
 const TYPE_ICON: Record<string, string> = {
@@ -39,10 +41,12 @@ export class PuiToastContainerComponent {
   private timers = new Map<string, ReturnType<typeof setTimeout>>();
 
   byPosition(pos: ToastPosition): Toast[] {
-    return this.svc.toasts().filter(t => t.position === pos);
+    return this.svc.toasts().filter((t) => t.position === pos);
   }
 
-  trackById(_: number, t: Toast): string { return t.id; }
+  trackById(_: number, t: Toast): string {
+    return t.id;
+  }
 
   dismiss(id: string): void {
     this.exiting.add(id);
@@ -57,6 +61,10 @@ export class PuiToastContainerComponent {
     this.dismiss(t.id);
   }
 
-  pauseTimer(t: Toast): void { this.paused.add(t.id); }
-  resumeTimer(t: Toast): void { this.paused.delete(t.id); }
+  pauseTimer(t: Toast): void {
+    this.paused.add(t.id);
+  }
+  resumeTimer(t: Toast): void {
+    this.paused.delete(t.id);
+  }
 }

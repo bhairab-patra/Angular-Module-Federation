@@ -55,10 +55,7 @@ import { LabelComponent } from '../../platform-ui/src/lib/label/label.component'
 
 (async () => {
   const app = await createApplication({
-    providers: [
-      provideAnimations(),
-      importProvidersFrom(ReactiveFormsModule, FormsModule),
-    ],
+    providers: [provideAnimations(), importProvidersFrom(ReactiveFormsModule, FormsModule)],
   });
 
   const ngZone = app.injector.get(NgZone);

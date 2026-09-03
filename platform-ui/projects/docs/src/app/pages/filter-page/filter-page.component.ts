@@ -6,45 +6,64 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
 
 const LOAN_FILTERS: FilterDef[] = [
   {
-    id: 'status', label: 'Loan Status', type: 'checkbox',
+    id: 'status',
+    label: 'Loan Status',
+    type: 'checkbox',
     options: [
-      { label: 'Active',      value: 'active',      count: 142 },
-      { label: 'Pending',     value: 'pending',     count: 38  },
-      { label: 'Closed',      value: 'closed',      count: 215 },
-      { label: 'Defaulted',   value: 'defaulted',   count: 12  },
+      { label: 'Active', value: 'active', count: 142 },
+      { label: 'Pending', value: 'pending', count: 38 },
+      { label: 'Closed', value: 'closed', count: 215 },
+      { label: 'Defaulted', value: 'defaulted', count: 12 },
     ],
   },
   {
-    id: 'type', label: 'Loan Type', type: 'radio',
+    id: 'type',
+    label: 'Loan Type',
+    type: 'radio',
     options: [
-      { label: 'All types',   value: ''          },
-      { label: 'Personal',    value: 'personal'  },
-      { label: 'Business',    value: 'business'  },
-      { label: 'Mortgage',    value: 'mortgage'  },
+      { label: 'All types', value: '' },
+      { label: 'Personal', value: 'personal' },
+      { label: 'Business', value: 'business' },
+      { label: 'Mortgage', value: 'mortgage' },
     ],
   },
   {
-    id: 'amount', label: 'Loan Amount', type: 'range',
-    min: 0, max: 500000, step: 5000,
+    id: 'amount',
+    label: 'Loan Amount',
+    type: 'range',
+    min: 0,
+    max: 500000,
+    step: 5000,
   },
   {
-    id: 'region', label: 'Region', type: 'select',
+    id: 'region',
+    label: 'Region',
+    type: 'select',
     placeholder: 'Any region',
     options: [
-      { label: 'North America', value: 'na'  },
-      { label: 'Europe',        value: 'eu'  },
-      { label: 'Asia Pacific',  value: 'apac'},
+      { label: 'North America', value: 'na' },
+      { label: 'Europe', value: 'eu' },
+      { label: 'Asia Pacific', value: 'apac' },
     ],
   },
   {
-    id: 'created', label: 'Created Date', type: 'date-range',
+    id: 'created',
+    label: 'Created Date',
+    type: 'date-range',
   },
 ];
 
 @Component({
   selector: 'docs-filter-page',
   standalone: true,
-  imports: [NgFor, NgIf, JsonPipe, PuiFilterPanelComponent, DocPageComponent, FrameworkPreviewComponent],
+  imports: [
+    NgFor,
+    NgIf,
+    JsonPipe,
+    PuiFilterPanelComponent,
+    DocPageComponent,
+    FrameworkPreviewComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.Default,
   templateUrl: './filter-page.component.html',
   styleUrls: ['./filter-page.component.scss'],
@@ -52,31 +71,44 @@ const LOAN_FILTERS: FilterDef[] = [
 export class FilterPageComponent {
   copied = '';
 
-  get angularCode(): string { return `${this.angularTpl}\n\n// component.ts\n${this.angularTs}`; }
+  get angularCode(): string {
+    return `${this.angularTpl}\n\n// component.ts\n${this.angularTs}`;
+  }
 
-  filters        = LOAN_FILTERS;
+  filters = LOAN_FILTERS;
   values: FilterValues = {};
   applied: FilterValues = {};
 
   inlineFilters: FilterDef[] = [
-    { id: 'status', label: 'Status', type: 'radio',
+    {
+      id: 'status',
+      label: 'Status',
+      type: 'radio',
       options: [
-        { label: 'All',     value: ''         },
-        { label: 'Active',  value: 'active'   },
-        { label: 'Pending', value: 'pending'  },
-        { label: 'Closed',  value: 'closed'   },
-      ] },
+        { label: 'All', value: '' },
+        { label: 'Active', value: 'active' },
+        { label: 'Pending', value: 'pending' },
+        { label: 'Closed', value: 'closed' },
+      ],
+    },
     { id: 'search', label: 'Keyword', type: 'text', placeholder: 'Filter by name…' },
   ];
   inlineValues: FilterValues = {};
   inlineApplied: FilterValues = {};
 
-  get hasApplied(): boolean { return Object.keys(this.applied).length > 0; }
+  get hasApplied(): boolean {
+    return Object.keys(this.applied).length > 0;
+  }
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   doCopy(text: string, id: string): void {
-    navigator.clipboard.writeText(text).then(() => { this.copied = id; setTimeout(() => this.copied = '', 2000); });
+    navigator.clipboard.writeText(text).then(() => {
+      this.copied = id;
+      setTimeout(() => (this.copied = ''), 2000);
+    });
   }
 
   angularTpl = `<pui-lib-filter-panel
@@ -205,26 +237,111 @@ export function FilterSidebar({ onApply }) {
 </script>`;
 
   xfwRows = [
-    { name: 'title',        angular: 'title="Filters"',              attr: 'title="Filters"',          js: 'el.title = "Filters"' },
-    { name: 'filters',      angular: '[filters]="defs"',             attr: '— use JS property',         js: 'el.filters = [...]' },
-    { name: 'values',       angular: '[values]="vals"',              attr: '— use JS property',         js: 'el.values = {...}' },
-    { name: 'showActions',  angular: '[showActions]="true"',         attr: 'show-actions="true"',       js: 'el.showActions = true' },
-    { name: 'inline',       angular: '[inline]="false"',             attr: 'inline="false"',            js: 'el.inline = false' },
-    { name: 'valuesChange', angular: '(valuesChange)="fn($event)"',  attr: '— addEventListener',        js: 'el.addEventListener("valuesChange", fn)' },
-    { name: 'applied',      angular: '(applied)="fn($event)"',       attr: '— addEventListener',        js: 'el.addEventListener("applied", fn)' },
-    { name: 'reset',        angular: '(reset)="fn()"',               attr: '— addEventListener',        js: 'el.addEventListener("reset", fn)' },
-    { name: 'cleared',      angular: '(cleared)="fn()"',             attr: '— addEventListener',        js: 'el.addEventListener("cleared", fn)' },
+    {
+      name: 'title',
+      angular: 'title="Filters"',
+      attr: 'title="Filters"',
+      js: 'el.title = "Filters"',
+    },
+    {
+      name: 'filters',
+      angular: '[filters]="defs"',
+      attr: '— use JS property',
+      js: 'el.filters = [...]',
+    },
+    {
+      name: 'values',
+      angular: '[values]="vals"',
+      attr: '— use JS property',
+      js: 'el.values = {...}',
+    },
+    {
+      name: 'showActions',
+      angular: '[showActions]="true"',
+      attr: 'show-actions="true"',
+      js: 'el.showActions = true',
+    },
+    {
+      name: 'inline',
+      angular: '[inline]="false"',
+      attr: 'inline="false"',
+      js: 'el.inline = false',
+    },
+    {
+      name: 'valuesChange',
+      angular: '(valuesChange)="fn($event)"',
+      attr: '— addEventListener',
+      js: 'el.addEventListener("valuesChange", fn)',
+    },
+    {
+      name: 'applied',
+      angular: '(applied)="fn($event)"',
+      attr: '— addEventListener',
+      js: 'el.addEventListener("applied", fn)',
+    },
+    {
+      name: 'reset',
+      angular: '(reset)="fn()"',
+      attr: '— addEventListener',
+      js: 'el.addEventListener("reset", fn)',
+    },
+    {
+      name: 'cleared',
+      angular: '(cleared)="fn()"',
+      attr: '— addEventListener',
+      js: 'el.addEventListener("cleared", fn)',
+    },
   ];
 
   api: ApiRow[] = [
-    { input: 'title',        type: 'string',                   default: "'Filters'", description: 'Panel header title.' },
-    { input: 'filters',      type: 'FilterDef[]|string',       default: '[]',        description: 'Filter definition array — drives the panel structure.' },
-    { input: 'values',       type: 'FilterValues|string',      default: '{}',        description: 'Current filter values object. Use [(values)] for two-way.' },
-    { input: 'showActions',  type: 'boolean|string',           default: 'true',      description: 'Show Reset / Apply buttons at the bottom.' },
-    { input: 'inline',       type: 'boolean|string',           default: 'false',     description: 'Inline mode — no border/radius, fires applied immediately.' },
-    { input: 'valuesChange', type: 'EventEmitter<FilterValues>', default: '—',       description: 'Fires on every internal change.' },
-    { input: 'applied',      type: 'EventEmitter<FilterValues>', default: '—',       description: 'Fires when Apply is clicked (or on every change in inline mode).' },
-    { input: 'reset',        type: 'EventEmitter<void>',       default: '—',         description: 'Fires when Reset is clicked.' },
-    { input: 'cleared',      type: 'EventEmitter<void>',       default: '—',         description: 'Fires when Clear all chips is clicked.' },
+    { input: 'title', type: 'string', default: "'Filters'", description: 'Panel header title.' },
+    {
+      input: 'filters',
+      type: 'FilterDef[]|string',
+      default: '[]',
+      description: 'Filter definition array — drives the panel structure.',
+    },
+    {
+      input: 'values',
+      type: 'FilterValues|string',
+      default: '{}',
+      description: 'Current filter values object. Use [(values)] for two-way.',
+    },
+    {
+      input: 'showActions',
+      type: 'boolean|string',
+      default: 'true',
+      description: 'Show Reset / Apply buttons at the bottom.',
+    },
+    {
+      input: 'inline',
+      type: 'boolean|string',
+      default: 'false',
+      description: 'Inline mode — no border/radius, fires applied immediately.',
+    },
+    {
+      input: 'valuesChange',
+      type: 'EventEmitter<FilterValues>',
+      default: '—',
+      description: 'Fires on every internal change.',
+    },
+    {
+      input: 'applied',
+      type: 'EventEmitter<FilterValues>',
+      default: '—',
+      description: 'Fires when Apply is clicked (or on every change in inline mode).',
+    },
+    {
+      input: 'reset',
+      type: 'EventEmitter<void>',
+      default: '—',
+      description: 'Fires when Reset is clicked.',
+    },
+    {
+      input: 'cleared',
+      type: 'EventEmitter<void>',
+      default: '—',
+      description: 'Fires when Clear all chips is clicked.',
+    },
   ];
 }

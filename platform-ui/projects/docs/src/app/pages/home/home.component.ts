@@ -10,13 +10,19 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent {
   constructor(private router: Router) {}
-  goStart(): void      { this.router.navigate(['/getting-started']); }
-  goComponents(): void { this.router.navigate(['/badge']); }
+  goStart(): void {
+    this.router.navigate(['/getting-started']);
+  }
+  goComponents(): void {
+    this.router.navigate(['/badge']);
+  }
 
   fw: 'html' | 'angular' | 'react' = 'html';
   copied = false;
 
-  setFw(fw: 'html' | 'angular' | 'react'): void { this.fw = fw; }
+  setFw(fw: 'html' | 'angular' | 'react'): void {
+    this.fw = fw;
+  }
 
   private readonly snippets: Record<'html' | 'angular' | 'react', string> = {
     html: `<pui-lib-button variant="primary" size="lg">
@@ -30,12 +36,16 @@ export class HomeComponent {
 </pui-lib-button>`,
   };
 
-  get currentSnippet(): string { return this.snippets[this.fw]; }
+  get currentSnippet(): string {
+    return this.snippets[this.fw];
+  }
 
   copySnippet(): void {
     navigator.clipboard.writeText(this.currentSnippet).then(() => {
       this.copied = true;
-      setTimeout(() => { this.copied = false; }, 2000);
+      setTimeout(() => {
+        this.copied = false;
+      }, 2000);
     });
   }
 }

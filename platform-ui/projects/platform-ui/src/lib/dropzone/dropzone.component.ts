@@ -1,6 +1,12 @@
 ﻿import {
-  Component, Input, Output, EventEmitter, ViewChild, ElementRef,
-  ViewEncapsulation, ChangeDetectionStrategy,
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
 import { IconInternalComponent } from '../icon/icon-internal.component';
@@ -28,23 +34,33 @@ export class PuiDropzoneComponent {
   @Input() set multiple(v: boolean | string) {
     this._multiple = v !== false && v !== 'false';
   }
-  get multiple(): boolean { return this._multiple; }
+  get multiple(): boolean {
+    return this._multiple;
+  }
   private _multiple = true;
 
   @Input() set disabled(v: boolean | string) {
     this._disabled = v === true || v === 'true' || (v as any) === '';
   }
-  get disabled(): boolean { return this._disabled; }
+  get disabled(): boolean {
+    return this._disabled;
+  }
   private _disabled = false;
 
   @Input() set showFileList(v: boolean | string) {
     this._showFileList = v !== false && v !== 'false';
   }
-  get showFileList(): boolean { return this._showFileList; }
+  get showFileList(): boolean {
+    return this._showFileList;
+  }
   private _showFileList = true;
 
-  @Input() set files(v: DropzoneFile[]) { this._files = v || []; }
-  get files(): DropzoneFile[] { return this._files; }
+  @Input() set files(v: DropzoneFile[]) {
+    this._files = v || [];
+  }
+  get files(): DropzoneFile[] {
+    return this._files;
+  }
   private _files: DropzoneFile[] = [];
 
   @Output() filesChange = new EventEmitter<DropzoneFile[]>();
@@ -85,7 +101,7 @@ export class PuiDropzoneComponent {
   }
 
   removeFile(f: DropzoneFile): void {
-    this._files = this._files.filter(x => x.id !== f.id);
+    this._files = this._files.filter((x) => x.id !== f.id);
     this.filesChange.emit(this._files);
     this.fileRemove.emit(f);
   }
@@ -96,7 +112,9 @@ export class PuiDropzoneComponent {
     return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
   }
 
-  trackById(_: number, f: DropzoneFile): string { return f.id; }
+  trackById(_: number, f: DropzoneFile): string {
+    return f.id;
+  }
 
   private _ingest(list: FileList | null): void {
     if (!list || !list.length || this.disabled) return;
@@ -106,7 +124,10 @@ export class PuiDropzoneComponent {
     const rejectedFiles: DropzoneRejection[] = [];
 
     for (const file of incoming) {
-      if (!this._matchesAccept(file)) { rejectedFiles.push({ file, reason: 'type' }); continue; }
+      if (!this._matchesAccept(file)) {
+        rejectedFiles.push({ file, reason: 'type' });
+        continue;
+      }
       if (this.maxSizeMB != null && file.size > this.maxSizeMB * 1024 * 1024) {
         rejectedFiles.push({ file, reason: 'size' });
         continue;
@@ -117,7 +138,7 @@ export class PuiDropzoneComponent {
     if (rejectedFiles.length) this.rejected.emit(rejectedFiles);
     if (!accepted.length) return;
 
-    const added: DropzoneFile[] = accepted.map(file => ({
+    const added: DropzoneFile[] = accepted.map((file) => ({
       id: `dz-${++uid}`,
       file,
       name: file.name,
@@ -132,8 +153,11 @@ export class PuiDropzoneComponent {
 
   private _matchesAccept(file: File): boolean {
     if (!this.accept || this.accept.trim() === '' || this.accept.trim() === '*/*') return true;
-    const patterns = this.accept.split(',').map(p => p.trim()).filter(Boolean);
-    return patterns.some(pattern => {
+    const patterns = this.accept
+      .split(',')
+      .map((p) => p.trim())
+      .filter(Boolean);
+    return patterns.some((pattern) => {
       if (pattern.startsWith('.')) return file.name.toLowerCase().endsWith(pattern.toLowerCase());
       if (pattern.endsWith('/*')) return file.type.startsWith(pattern.slice(0, -1));
       return file.type === pattern;

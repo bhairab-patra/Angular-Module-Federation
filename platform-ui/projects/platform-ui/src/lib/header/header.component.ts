@@ -1,6 +1,15 @@
 ﻿import {
-  Component, Input, Output, EventEmitter,
-  HostListener, ElementRef, ViewEncapsulation, inject, ViewChild, ChangeDetectionStrategy, ChangeDetectorRef
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  HostListener,
+  ElementRef,
+  ViewEncapsulation,
+  inject,
+  ViewChild,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { NavLink, UserMenuItem, HeaderBadge } from '../models/header.model';
@@ -35,34 +44,43 @@ export class HeaderComponent {
   @Input() set showLogo(v: boolean | string) {
     this._showLogo = v !== false && v !== 'false';
   }
-  get showLogo() { return this._showLogo; }
+  get showLogo() {
+    return this._showLogo;
+  }
   private _showLogo = true;
 
   @Input() set showHeading(v: boolean | string) {
     this._showHeading = v !== false && v !== 'false';
   }
-  get showHeading() { return this._showHeading; }
+  get showHeading() {
+    return this._showHeading;
+  }
   private _showHeading = true;
 
   @Input() set showUser(v: boolean | string) {
     this._showUser = v !== false && v !== 'false';
   }
-  get showUser() { return this._showUser; }
+  get showUser() {
+    return this._showUser;
+  }
   private _showUser = true;
 
-  /** 'menu' = name/email + avatar + dropdown (default). 'plain' = round avatar only, no menu. */
   @Input() avatarMode: 'menu' | 'plain' = 'menu';
 
   @Input() set showHamburger(v: boolean | string) {
     this._showHamburger = v === true || v === 'true' || (v as any) === '';
   }
-  get showHamburger() { return this._showHamburger; }
+  get showHamburger() {
+    return this._showHamburger;
+  }
   private _showHamburger = false;
 
   @Input() set hamburgerOpen(v: boolean | string) {
     this._hamburgerOpen = v === true || v === 'true' || (v as any) === '';
   }
-  get hamburgerOpen() { return this._hamburgerOpen; }
+  get hamburgerOpen() {
+    return this._hamburgerOpen;
+  }
   private _hamburgerOpen = false;
 
   @Output() hamburgerToggle = new EventEmitter<void>();
@@ -70,13 +88,17 @@ export class HeaderComponent {
   @Input() set showHelp(v: boolean | string) {
     this._showHelp = v === true || v === 'true' || (v as any) === '';
   }
-  get showHelp() { return this._showHelp; }
+  get showHelp() {
+    return this._showHelp;
+  }
   private _showHelp = false;
 
   @Input() set showSearch(v: boolean | string) {
     this._showSearch = v !== false && v !== 'false';
   }
-  get showSearch() { return this._showSearch; }
+  get showSearch() {
+    return this._showSearch;
+  }
   private _showSearch = true;
 
   @Output() searchClick = new EventEmitter<void>();
@@ -111,21 +133,26 @@ export class HeaderComponent {
   @Input() set badge(v: HeaderBadge | string | null) {
     this._badge = typeof v === 'string' ? this._parseJson<HeaderBadge>(v) : v;
   }
-  get badge(): HeaderBadge | null { return this._badge; }
+  get badge(): HeaderBadge | null {
+    return this._badge;
+  }
   private _badge: HeaderBadge | null = null;
 
   @Input() set navLinks(v: NavLink[] | string) {
     this._navLinks = typeof v === 'string' ? (this._parseJson<NavLink[]>(v) ?? []) : (v ?? []);
   }
-  get navLinks(): NavLink[] { return this._navLinks; }
+  get navLinks(): NavLink[] {
+    return this._navLinks;
+  }
   private _navLinks: NavLink[] = [];
 
   @Input() set menuItems(v: UserMenuItem[] | string) {
-    this._menuItems = typeof v === 'string'
-      ? (this._parseJson<UserMenuItem[]>(v) ?? [])
-      : (v ?? []);
+    this._menuItems =
+      typeof v === 'string' ? (this._parseJson<UserMenuItem[]>(v) ?? []) : (v ?? []);
   }
-  get menuItems(): UserMenuItem[] { return this._menuItems; }
+  get menuItems(): UserMenuItem[] {
+    return this._menuItems;
+  }
   private _menuItems: UserMenuItem[] = [];
 
   @Output() menuAction = new EventEmitter<string>();
@@ -140,11 +167,21 @@ export class HeaderComponent {
 
   private _parseJson<T>(s: string): T | null {
     if (!s) return null;
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 
   get initials(): string {
-    return this.userName.split(' ').map(w => w[0]).filter(Boolean).slice(0, 2).join('').toUpperCase();
+    return this.userName
+      .split(' ')
+      .map((w) => w[0])
+      .filter(Boolean)
+      .slice(0, 2)
+      .join('')
+      .toUpperCase();
   }
 
   get firstName(): string {

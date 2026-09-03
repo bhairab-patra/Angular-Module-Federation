@@ -21,31 +21,63 @@ export class DropzonePageComponent {
   imageFiles: DropzoneFile[] = [];
 
   progressFiles: DropzoneFile[] = [
-    { id: 'p1', file: new File([], 'annual-statement.pdf'), name: 'annual-statement.pdf', size: 2_400_000, status: 'done' },
-    { id: 'p2', file: new File([], 'borrower-agreement.docx'), name: 'borrower-agreement.docx', size: 850_000, status: 'uploading', progress: 62 },
-    { id: 'p3', file: new File([], 'scan-corrupted.png'), name: 'scan-corrupted.png', size: 120_000, status: 'error', errorMessage: 'Upload failed — file too large for server' },
+    {
+      id: 'p1',
+      file: new File([], 'annual-statement.pdf'),
+      name: 'annual-statement.pdf',
+      size: 2_400_000,
+      status: 'done',
+    },
+    {
+      id: 'p2',
+      file: new File([], 'borrower-agreement.docx'),
+      name: 'borrower-agreement.docx',
+      size: 850_000,
+      status: 'uploading',
+      progress: 62,
+    },
+    {
+      id: 'p3',
+      file: new File([], 'scan-corrupted.png'),
+      name: 'scan-corrupted.png',
+      size: 120_000,
+      status: 'error',
+      errorMessage: 'Upload failed — file too large for server',
+    },
   ];
 
   fwFiles: DropzoneFile[] = [];
 
-  onBasicFilesChange(files: DropzoneFile[]): void { this.basicFiles = files; this.cdr.markForCheck(); }
-  onImageFilesChange(files: DropzoneFile[]): void { this.imageFiles = files; this.cdr.markForCheck(); }
-  onFwFilesChange(files: DropzoneFile[]): void { this.fwFiles = files; this.cdr.markForCheck(); }
+  onBasicFilesChange(files: DropzoneFile[]): void {
+    this.basicFiles = files;
+    this.cdr.markForCheck();
+  }
+  onImageFilesChange(files: DropzoneFile[]): void {
+    this.imageFiles = files;
+    this.cdr.markForCheck();
+  }
+  onFwFilesChange(files: DropzoneFile[]): void {
+    this.fwFiles = files;
+    this.cdr.markForCheck();
+  }
 
   onProgressFileRemove(f: DropzoneFile): void {
-    this.progressFiles = this.progressFiles.filter(x => x.id !== f.id);
+    this.progressFiles = this.progressFiles.filter((x) => x.id !== f.id);
     this.cdr.markForCheck();
   }
 
   onRejected(rejections: DropzoneRejection[]): void {
     const r = rejections[0];
-    this.lastRejection = r.reason === 'size'
-      ? `${r.file.name} was rejected — over the size limit`
-      : `${r.file.name} was rejected — unsupported file type`;
+    this.lastRejection =
+      r.reason === 'size'
+        ? `${r.file.name} was rejected — over the size limit`
+        : `${r.file.name} was rejected — unsupported file type`;
     this.cdr.markForCheck();
   }
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   angularCode = `import { PuiDropzoneComponent, DropzoneFile } from '@bhairab-patra/platform-ui';
 
@@ -134,32 +166,137 @@ export function Uploader() {
 </script>`;
 
   xfwRows = [
-    { name: 'label',        angular: 'label="..."',                attr: 'label="..."',        js: 'el.label = "..."' },
-    { name: 'hint',         angular: 'hint="..."',                 attr: 'hint="..."',         js: 'el.hint = "..."' },
-    { name: 'accept',       angular: 'accept=".pdf,.png"',         attr: 'accept=".pdf,.png"', js: 'el.accept = ".pdf,.png"' },
-    { name: 'multiple',     angular: '[multiple]="false"',         attr: 'multiple="false"',   js: 'el.multiple = false' },
-    { name: 'maxSizeMB',    angular: '[maxSizeMB]="10"',            attr: 'max-size-m-b="10"',  js: 'el.maxSizeMB = 10' },
-    { name: 'disabled',     angular: '[disabled]="true"',          attr: 'disabled',           js: 'el.disabled = true' },
-    { name: 'files',        angular: '[files]="files"',            attr: '—',                   js: 'el.files = [...]' },
-    { name: 'showFileList', angular: '[showFileList]="false"',     attr: 'show-file-list="false"', js: 'el.showFileList = false' },
-    { name: 'filesChange',  angular: '(filesChange)="fn($event)"', attr: '—',                   js: `el.addEventListener('filesChange', fn)` },
-    { name: 'filesAdded',   angular: '(filesAdded)="fn($event)"',  attr: '—',                   js: `el.addEventListener('filesAdded', fn)` },
-    { name: 'fileRemove',   angular: '(fileRemove)="fn($event)"',  attr: '—',                   js: `el.addEventListener('fileRemove', fn)` },
-    { name: 'rejected',     angular: '(rejected)="fn($event)"',    attr: '—',                   js: `el.addEventListener('rejected', fn)` },
+    { name: 'label', angular: 'label="..."', attr: 'label="..."', js: 'el.label = "..."' },
+    { name: 'hint', angular: 'hint="..."', attr: 'hint="..."', js: 'el.hint = "..."' },
+    {
+      name: 'accept',
+      angular: 'accept=".pdf,.png"',
+      attr: 'accept=".pdf,.png"',
+      js: 'el.accept = ".pdf,.png"',
+    },
+    {
+      name: 'multiple',
+      angular: '[multiple]="false"',
+      attr: 'multiple="false"',
+      js: 'el.multiple = false',
+    },
+    {
+      name: 'maxSizeMB',
+      angular: '[maxSizeMB]="10"',
+      attr: 'max-size-m-b="10"',
+      js: 'el.maxSizeMB = 10',
+    },
+    { name: 'disabled', angular: '[disabled]="true"', attr: 'disabled', js: 'el.disabled = true' },
+    { name: 'files', angular: '[files]="files"', attr: '—', js: 'el.files = [...]' },
+    {
+      name: 'showFileList',
+      angular: '[showFileList]="false"',
+      attr: 'show-file-list="false"',
+      js: 'el.showFileList = false',
+    },
+    {
+      name: 'filesChange',
+      angular: '(filesChange)="fn($event)"',
+      attr: '—',
+      js: `el.addEventListener('filesChange', fn)`,
+    },
+    {
+      name: 'filesAdded',
+      angular: '(filesAdded)="fn($event)"',
+      attr: '—',
+      js: `el.addEventListener('filesAdded', fn)`,
+    },
+    {
+      name: 'fileRemove',
+      angular: '(fileRemove)="fn($event)"',
+      attr: '—',
+      js: `el.addEventListener('fileRemove', fn)`,
+    },
+    {
+      name: 'rejected',
+      angular: '(rejected)="fn($event)"',
+      attr: '—',
+      js: `el.addEventListener('rejected', fn)`,
+    },
   ];
 
   api: ApiRow[] = [
-    { input: 'label', type: 'string', default: `'Drag & drop files here'`, description: 'Primary instruction text.' },
-    { input: 'hint', type: 'string', default: `'or click to browse'`, description: 'Secondary line under the label.' },
-    { input: 'accept', type: 'string', default: `''`, description: 'Comma-separated file type filter — extensions (.pdf), MIME types (image/png), or wildcards (image/*). Empty accepts anything.' },
-    { input: 'multiple', type: 'boolean | string', default: 'true', description: 'Allow selecting/dropping more than one file at a time.' },
-    { input: 'maxSizeMB', type: 'number | null', default: 'null', description: 'Per-file size limit in megabytes. Oversized files are rejected (see the rejected output), not silently dropped.' },
-    { input: 'disabled', type: 'boolean | string', default: 'false', description: 'Disables click-to-browse and drag-and-drop.' },
-    { input: 'files', type: 'DropzoneFile[]', default: '[]', description: 'Current file list. Two-way in spirit — bind [files] down and listen to (filesChange) to keep your own state in sync (the component doesn\'t upload anything itself; drive status/progress from your own upload logic).' },
-    { input: 'showFileList', type: 'boolean | string', default: 'true', description: 'Show/hide the built-in file list below the drop area — turn off if you render your own list from the files array.' },
-    { input: 'filesChange', type: 'EventEmitter<DropzoneFile[]> (output)', default: '—', description: 'Fires with the full updated file list whenever files are added or removed.' },
-    { input: 'filesAdded', type: 'EventEmitter<DropzoneFile[]> (output)', default: '—', description: 'Fires with just the newly added files — the natural place to kick off uploads.' },
-    { input: 'fileRemove', type: 'EventEmitter<DropzoneFile> (output)', default: '—', description: 'Fires when a file is removed via its list-item remove button.' },
-    { input: 'rejected', type: 'EventEmitter<DropzoneRejection[]> (output)', default: '—', description: 'Fires when dropped/selected files fail the accept or maxSizeMB check — each entry is {file, reason: "type"|"size"}.' },
+    {
+      input: 'label',
+      type: 'string',
+      default: `'Drag & drop files here'`,
+      description: 'Primary instruction text.',
+    },
+    {
+      input: 'hint',
+      type: 'string',
+      default: `'or click to browse'`,
+      description: 'Secondary line under the label.',
+    },
+    {
+      input: 'accept',
+      type: 'string',
+      default: `''`,
+      description:
+        'Comma-separated file type filter — extensions (.pdf), MIME types (image/png), or wildcards (image/*). Empty accepts anything.',
+    },
+    {
+      input: 'multiple',
+      type: 'boolean | string',
+      default: 'true',
+      description: 'Allow selecting/dropping more than one file at a time.',
+    },
+    {
+      input: 'maxSizeMB',
+      type: 'number | null',
+      default: 'null',
+      description:
+        'Per-file size limit in megabytes. Oversized files are rejected (see the rejected output), not silently dropped.',
+    },
+    {
+      input: 'disabled',
+      type: 'boolean | string',
+      default: 'false',
+      description: 'Disables click-to-browse and drag-and-drop.',
+    },
+    {
+      input: 'files',
+      type: 'DropzoneFile[]',
+      default: '[]',
+      description:
+        "Current file list. Two-way in spirit — bind [files] down and listen to (filesChange) to keep your own state in sync (the component doesn't upload anything itself; drive status/progress from your own upload logic).",
+    },
+    {
+      input: 'showFileList',
+      type: 'boolean | string',
+      default: 'true',
+      description:
+        'Show/hide the built-in file list below the drop area — turn off if you render your own list from the files array.',
+    },
+    {
+      input: 'filesChange',
+      type: 'EventEmitter<DropzoneFile[]> (output)',
+      default: '—',
+      description: 'Fires with the full updated file list whenever files are added or removed.',
+    },
+    {
+      input: 'filesAdded',
+      type: 'EventEmitter<DropzoneFile[]> (output)',
+      default: '—',
+      description: 'Fires with just the newly added files — the natural place to kick off uploads.',
+    },
+    {
+      input: 'fileRemove',
+      type: 'EventEmitter<DropzoneFile> (output)',
+      default: '—',
+      description: 'Fires when a file is removed via its list-item remove button.',
+    },
+    {
+      input: 'rejected',
+      type: 'EventEmitter<DropzoneRejection[]> (output)',
+      default: '—',
+      description:
+        'Fires when dropped/selected files fail the accept or maxSizeMB check — each entry is {file, reason: "type"|"size"}.',
+    },
   ];
 }

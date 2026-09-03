@@ -1,15 +1,25 @@
 import {
-  Component, Input, Output, EventEmitter, forwardRef,
-  inject, ChangeDetectorRef,
-  HostListener, ElementRef, ViewEncapsulation,
-  ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  forwardRef,
+  inject,
+  ChangeDetectorRef,
+  HostListener,
+  ElementRef,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export type DatePickerMode = 'single' | 'range';
-export interface DateRange { start: Date | null; end: Date | null; }
+export interface DateRange {
+  start: Date | null;
+  end: Date | null;
+}
 
 export interface DpCell {
   date: Date;
@@ -20,8 +30,20 @@ export interface DpCell {
 }
 
 const DAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December'];
+const MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
 @Component({
   selector: 'pui-lib-datepicker',
@@ -30,11 +52,13 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => PuiDatepickerComponent),
-    multi: true,
-  }],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => PuiDatepickerComponent),
+      multi: true,
+    },
+  ],
   templateUrl: './datepicker.component.html',
   styleUrls: ['./datepicker.component.scss'],
 })
@@ -73,18 +97,30 @@ export class PuiDatepickerComponent implements ControlValueAccessor {
     return this._cells;
   }
 
-  trackByTs(_: number, cell: DpCell): number { return cell.ts; }
-  trackByIdx(i: number): number { return i; }
+  trackByTs(_: number, cell: DpCell): number {
+    return cell.ts;
+  }
+  trackByIdx(i: number): number {
+    return i;
+  }
 
   @Input() set value(v: Date | string | null) {
-    if (!v) { this._value = null; this.cdr.markForCheck(); return; }
+    if (!v) {
+      this._value = null;
+      this.cdr.markForCheck();
+      return;
+    }
     const d = v instanceof Date ? v : new Date(v as string);
     this._value = isNaN(d.getTime()) ? null : d;
     this.cdr.markForCheck();
   }
 
   @Input() set range(v: DateRange | string | null) {
-    if (!v) { this._range = { start: null, end: null }; this.cdr.markForCheck(); return; }
+    if (!v) {
+      this._range = { start: null, end: null };
+      this.cdr.markForCheck();
+      return;
+    }
     const r = typeof v === 'string' ? (this._parse<DateRange>(v) ?? { start: null, end: null }) : v;
     this._range = {
       start: r.start ? new Date(r.start) : null,
@@ -93,7 +129,9 @@ export class PuiDatepickerComponent implements ControlValueAccessor {
     this.cdr.markForCheck();
   }
 
-  @Input() set mode(v: DatePickerMode | string) { this._mode = v === 'range' ? 'range' : 'single'; }
+  @Input() set mode(v: DatePickerMode | string) {
+    this._mode = v === 'range' ? 'range' : 'single';
+  }
   @Input() set min(v: Date | string | null) {
     this._min = v ? new Date(v as string) : null;
     this._cellsCacheKey = '';
@@ -104,36 +142,55 @@ export class PuiDatepickerComponent implements ControlValueAccessor {
     this._cellsCacheKey = '';
     this.cdr.markForCheck();
   }
-  @Input() set disabled(v: boolean | string) { this._disabled = v === true || v === 'true' || (v as unknown) === ''; }
-  @Input() set clearable(v: boolean | string) { this._clearable = v === true || v === 'true' || (v as unknown) === ''; }
-  @Input() set placeholder(v: string) { this._placeholder = v; }
-  @Input() set format(v: string) { this._format = v; }
+  @Input() set disabled(v: boolean | string) {
+    this._disabled = v === true || v === 'true' || (v as unknown) === '';
+  }
+  @Input() set clearable(v: boolean | string) {
+    this._clearable = v === true || v === 'true' || (v as unknown) === '';
+  }
+  @Input() set placeholder(v: string) {
+    this._placeholder = v;
+  }
+  @Input() set format(v: string) {
+    this._format = v;
+  }
 
-  private onChangeFn: (v: Date | DateRange | null) => void = () => { };
-  private onTouchedFn: () => void = () => { };
+  private onChangeFn: (v: Date | DateRange | null) => void = () => {};
+  private onTouchedFn: () => void = () => {};
 
   writeValue(v: Date | DateRange | string | null): void {
     if (this._mode === 'range') {
-      if (!v) { this._range = { start: null, end: null }; }
-      else {
-        const r = typeof v === 'string' ? (this._parse<DateRange>(v) ?? { start: null, end: null }) : v as DateRange;
+      if (!v) {
+        this._range = { start: null, end: null };
+      } else {
+        const r =
+          typeof v === 'string'
+            ? (this._parse<DateRange>(v) ?? { start: null, end: null })
+            : (v as DateRange);
         this._range = {
           start: r.start ? new Date(r.start) : null,
           end: r.end ? new Date(r.end) : null,
         };
       }
     } else {
-      if (!v) { this._value = null; }
-      else {
+      if (!v) {
+        this._value = null;
+      } else {
         const d = v instanceof Date ? v : new Date(v as string);
         this._value = isNaN(d.getTime()) ? null : d;
       }
     }
     this.cdr.markForCheck();
   }
-  registerOnChange(fn: any): void { this.onChangeFn = fn; }
-  registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
-  setDisabledState(d: boolean): void { this._disabled = d; }
+  registerOnChange(fn: any): void {
+    this.onChangeFn = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouchedFn = fn;
+  }
+  setDisabledState(d: boolean): void {
+    this._disabled = d;
+  }
 
   @Output() valueChange = new EventEmitter<Date | null>();
   @Output() rangeChange = new EventEmitter<DateRange>();
@@ -152,15 +209,15 @@ export class PuiDatepickerComponent implements ControlValueAccessor {
     }
   }
 
-  get monthName(): string { return MONTHS[this.viewMonth]; }
+  get monthName(): string {
+    return MONTHS[this.viewMonth];
+  }
 
   get displayValue(): string {
     if (this._mode === 'range') {
       const { start, end } = this._range;
       if (!start) return '';
-      return end
-        ? `${this._fmt(start)} – ${this._fmt(end)}`
-        : this._fmt(start);
+      return end ? `${this._fmt(start)} – ${this._fmt(end)}` : this._fmt(start);
     }
     return this._value ? this._fmt(this._value) : '';
   }
@@ -170,20 +227,27 @@ export class PuiDatepickerComponent implements ControlValueAccessor {
     this.open = !this.open;
     if (this.open) {
       const nav = this._mode === 'single' ? this._value : this._range.start;
-      if (nav) { this.viewYear = nav.getFullYear(); this.viewMonth = nav.getMonth(); }
+      if (nav) {
+        this.viewYear = nav.getFullYear();
+        this.viewMonth = nav.getMonth();
+      }
     }
     this.cdr.markForCheck();
   }
 
   prevMonth(): void {
-    if (this.viewMonth === 0) { this.viewMonth = 11; this.viewYear--; }
-    else this.viewMonth--;
+    if (this.viewMonth === 0) {
+      this.viewMonth = 11;
+      this.viewYear--;
+    } else this.viewMonth--;
     this.cdr.markForCheck();
   }
 
   nextMonth(): void {
-    if (this.viewMonth === 11) { this.viewMonth = 0; this.viewYear++; }
-    else this.viewMonth++;
+    if (this.viewMonth === 11) {
+      this.viewMonth = 0;
+      this.viewYear++;
+    } else this.viewMonth++;
     this.cdr.markForCheck();
   }
 
@@ -282,23 +346,27 @@ export class PuiDatepickerComponent implements ControlValueAccessor {
         disabled: this._isDisabled(d),
       });
     }
-    if (!cells.slice(35).some(c => c.cur)) cells.splice(35);
+    if (!cells.slice(35).some((c) => c.cur)) cells.splice(35);
     return cells;
   }
 
   private _sameDay(a: Date, b: Date): boolean {
-    return a.getFullYear() === b.getFullYear() &&
+    return (
+      a.getFullYear() === b.getFullYear() &&
       a.getMonth() === b.getMonth() &&
-      a.getDate() === b.getDate();
+      a.getDate() === b.getDate()
+    );
   }
 
   private _isDisabled(d: Date): boolean {
     if (this._min) {
-      const min = new Date(this._min); min.setHours(0, 0, 0, 0);
+      const min = new Date(this._min);
+      min.setHours(0, 0, 0, 0);
       if (d < min) return true;
     }
     if (this._max) {
-      const max = new Date(this._max); max.setHours(23, 59, 59, 999);
+      const max = new Date(this._max);
+      max.setHours(23, 59, 59, 999);
       if (d > max) return true;
     }
     return false;
@@ -309,6 +377,10 @@ export class PuiDatepickerComponent implements ControlValueAccessor {
   }
 
   private _parse<T>(s: string): T | null {
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 }

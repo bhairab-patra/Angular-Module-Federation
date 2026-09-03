@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardData, CardVariant, CardSize } from '../models/card.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
@@ -14,7 +21,6 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
 })
 export class CardComponent {
-  
   @Input() data?: CardData;
   @Input() variant: CardVariant = 'default';
   @Input() size: CardSize = 'md';
@@ -36,7 +42,9 @@ export class CardComponent {
       this.fullWidth ? 'pui-card--full' : '',
       this.accent ? 'pui-card--accent' : '',
       this.cardClass,
-    ].filter(Boolean).join(' ');
+    ]
+      .filter(Boolean)
+      .join(' ');
   }
 
   get trendClass(): string {
@@ -45,9 +53,12 @@ export class CardComponent {
 
   get trendIcon(): string {
     switch (this.data?.trend) {
-      case 'up': return '▲';
-      case 'down': return '▼';
-      default: return '—';
+      case 'up':
+        return '▲';
+      case 'down':
+        return '▼';
+      default:
+        return '—';
     }
   }
 

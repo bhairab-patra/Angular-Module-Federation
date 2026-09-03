@@ -1,13 +1,23 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgIf } from '@angular/common';
-import { PuiFormDialogComponent, PuiConfirmDialogComponent, FormDialogField } from '@bhairab-patra/platform-ui';
+import {
+  PuiFormDialogComponent,
+  PuiConfirmDialogComponent,
+  FormDialogField,
+} from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
 
 @Component({
   selector: 'docs-discard-dialog-page',
   standalone: true,
-  imports: [NgIf, PuiFormDialogComponent, PuiConfirmDialogComponent, DocPageComponent, CodeBlockComponent],
+  imports: [
+    NgIf,
+    PuiFormDialogComponent,
+    PuiConfirmDialogComponent,
+    DocPageComponent,
+    CodeBlockComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './discard-dialog-page.component.html',
   styleUrls: ['./discard-dialog-page.component.scss'],
@@ -18,12 +28,15 @@ export class DiscardDialogPageComponent {
   copied = '';
   copy(id: string, text: string): void {
     navigator.clipboard.writeText(text).then(() => {
-      this.copied = id; this.cdr.markForCheck();
-      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
+      this.copied = id;
+      this.cdr.markForCheck();
+      setTimeout(() => {
+        this.copied = '';
+        this.cdr.markForCheck();
+      }, 2000);
     });
   }
 
-  /* ── Demo 1: Built into Form Dialog (confirmDiscard on, the default) ── */
   protectedOpen = false;
   protectedResult = '';
   protectedFields: FormDialogField[] = [
@@ -42,12 +55,9 @@ export class DiscardDialogPageComponent {
     this.cdr.markForCheck();
   }
 
-  /* ── Demo 2: confirmDiscard off — closes immediately, no prompt ── */
   unprotectedOpen = false;
   unprotectedResult = '';
-  unprotectedFields: FormDialogField[] = [
-    { key: 'title', label: 'Note Title', required: true },
-  ];
+  unprotectedFields: FormDialogField[] = [{ key: 'title', label: 'Note Title', required: true }];
   unprotectedData: Record<string, any> = { title: '' };
 
   onUnprotectedSave(): void {
@@ -60,8 +70,6 @@ export class DiscardDialogPageComponent {
     this.cdr.markForCheck();
   }
 
-  /* ── Demo 3: Roll-your-own with pui-lib-confirm-dialog, for any custom
-     form or modal that isn't pui-lib-form-dialog ── */
   customDirty = false;
   customDiscardOpen = false;
   customResult = '';
@@ -92,7 +100,6 @@ export class DiscardDialogPageComponent {
     this.cdr.markForCheck();
   }
 
-  /* ── Code snippets ──────────────────────────── */
   angHtml = `<pui-lib-form-dialog
   [open]="dialogOpen"
   title="Edit Profile"
@@ -187,10 +194,37 @@ export class MyCustomModal {
 </pui-lib-confirm-dialog>`;
 
   api: ApiRow[] = [
-    { input: 'confirmDiscard', type: 'boolean', default: 'true', description: 'Ask "Discard changes?" before closing (Cancel button or backdrop click) while the form has unsaved edits. Set false to close immediately with no confirmation, like before this feature existed.' },
-    { input: 'discardTitle', type: 'string', default: "'Discard changes?'", description: 'Heading text on the discard-confirmation prompt.' },
-    { input: 'discardMessage', type: 'string', default: "'You have unsaved changes that will be lost if you leave.'", description: 'Body text on the discard-confirmation prompt.' },
-    { input: 'discardLabel', type: 'string', default: "'Discard'", description: 'Label for the destructive "yes, discard" button.' },
-    { input: 'keepEditingLabel', type: 'string', default: "'Keep Editing'", description: 'Label for the "no, stay" button — closes the prompt, form stays open with edits intact.' },
+    {
+      input: 'confirmDiscard',
+      type: 'boolean',
+      default: 'true',
+      description:
+        'Ask "Discard changes?" before closing (Cancel button or backdrop click) while the form has unsaved edits. Set false to close immediately with no confirmation, like before this feature existed.',
+    },
+    {
+      input: 'discardTitle',
+      type: 'string',
+      default: "'Discard changes?'",
+      description: 'Heading text on the discard-confirmation prompt.',
+    },
+    {
+      input: 'discardMessage',
+      type: 'string',
+      default: "'You have unsaved changes that will be lost if you leave.'",
+      description: 'Body text on the discard-confirmation prompt.',
+    },
+    {
+      input: 'discardLabel',
+      type: 'string',
+      default: "'Discard'",
+      description: 'Label for the destructive "yes, discard" button.',
+    },
+    {
+      input: 'keepEditingLabel',
+      type: 'string',
+      default: "'Keep Editing'",
+      description:
+        'Label for the "no, stay" button — closes the prompt, form stays open with edits intact.',
+    },
   ];
 }

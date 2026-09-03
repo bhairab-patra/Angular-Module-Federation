@@ -1,6 +1,13 @@
 ﻿import {
-  Component, Input, Output, EventEmitter, ElementRef, AfterViewInit,
-  inject, ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ElementRef,
+  AfterViewInit,
+  inject,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -32,14 +39,18 @@ export class PuiTableComponent implements AfterViewInit {
   _data: any[] = [];
 
   @Input() set columns(v: TableColumn[] | string) {
-    this._columns = typeof v === 'string' ? (this._parse<TableColumn[]>(v) ?? []) : (v || []);
+    this._columns = typeof v === 'string' ? (this._parse<TableColumn[]>(v) ?? []) : v || [];
   }
-  get columns() { return this._columns; }
+  get columns() {
+    return this._columns;
+  }
 
   @Input() set data(v: any[] | string) {
-    this._data = typeof v === 'string' ? (this._parse<any[]>(v) ?? []) : (v || []);
+    this._data = typeof v === 'string' ? (this._parse<any[]>(v) ?? []) : v || [];
   }
-  get data() { return this._data; }
+  get data() {
+    return this._data;
+  }
 
   _sortable = false;
   _searchable = false;
@@ -47,17 +58,28 @@ export class PuiTableComponent implements AfterViewInit {
   _striped = false;
   _loading = false;
 
-  @Input() set sortable(v: boolean | string) { this._sortable = this._bool(v); }
-  @Input() set searchable(v: boolean | string) { this._searchable = this._bool(v); }
-  @Input() set stickyHeader(v: boolean | string) { this._stickyHeader = this._bool(v); }
-  @Input() set striped(v: boolean | string) { this._striped = this._bool(v); }
-  @Input() set loading(v: boolean | string) { this._loading = this._bool(v); }
+  @Input() set sortable(v: boolean | string) {
+    this._sortable = this._bool(v);
+  }
+  @Input() set searchable(v: boolean | string) {
+    this._searchable = this._bool(v);
+  }
+  @Input() set stickyHeader(v: boolean | string) {
+    this._stickyHeader = this._bool(v);
+  }
+  @Input() set striped(v: boolean | string) {
+    this._striped = this._bool(v);
+  }
+  @Input() set loading(v: boolean | string) {
+    this._loading = this._bool(v);
+  }
 
-  /** Optional title shown on the left of the table toolbar (e.g. "Account Summary"). */
   @Input() heading = '';
 
   _maxHeight = 0;
-  @Input() set maxHeight(v: number | string) { this._maxHeight = Number(v) || 0; }
+  @Input() set maxHeight(v: number | string) {
+    this._maxHeight = Number(v) || 0;
+  }
 
   _tooltipPos: 'top' | 'bottom' | 'left' | 'right' = 'right';
   @Input() set tooltipPosition(v: 'top' | 'bottom' | 'left' | 'right') {
@@ -81,21 +103,25 @@ export class PuiTableComponent implements AfterViewInit {
     let rows = [...this._data];
     if (this.searchTerm) {
       const t = this.searchTerm.toLowerCase();
-      rows = rows.filter(r =>
-        this._columns.some(c => String(r[c.key] ?? '').toLowerCase().includes(t))
+      rows = rows.filter((r) =>
+        this._columns.some((c) =>
+          String(r[c.key] ?? '')
+            .toLowerCase()
+            .includes(t),
+        ),
       );
     }
     if (this.sort.key && this.sort.dir) {
       const { key } = this.sort;
       const mul = this.sort.dir === 'asc' ? 1 : -1;
       rows = rows.slice().sort((a, b) => {
-        const av = a[key] ?? ''; const bv = b[key] ?? '';
+        const av = a[key] ?? '';
+        const bv = b[key] ?? '';
         return av < bv ? -mul : av > bv ? mul : 0;
       });
     }
     return rows;
   }
-
 
   ngAfterViewInit(): void {
     this.rowClickEnabled = this.rowClick.observed;
@@ -103,7 +129,10 @@ export class PuiTableComponent implements AfterViewInit {
 
   onSort(key: string): void {
     if (this.sort.key === key) {
-      this.sort = { key, dir: this.sort.dir === 'asc' ? 'desc' : this.sort.dir === 'desc' ? '' : 'asc' };
+      this.sort = {
+        key,
+        dir: this.sort.dir === 'asc' ? 'desc' : this.sort.dir === 'desc' ? '' : 'asc',
+      };
     } else {
       this.sort = { key, dir: 'asc' };
     }
@@ -116,7 +145,9 @@ export class PuiTableComponent implements AfterViewInit {
     this.searchChange.emit(term);
   }
 
-  onRowClick(row: any): void { this.rowClick.emit(row); }
+  onRowClick(row: any): void {
+    this.rowClick.emit(row);
+  }
 
   showCellTooltip(event: MouseEvent, text: string): void {
     if (!text) return;
@@ -125,12 +156,25 @@ export class PuiTableComponent implements AfterViewInit {
     if (!textEl || textEl.scrollWidth <= textEl.clientWidth) return;
     const hostRect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
     const rect = td.getBoundingClientRect();
-    let top = 0, left = 0;
+    let top = 0,
+      left = 0;
     switch (this._tooltipPos) {
-      case 'top': top = rect.top - hostRect.top - 8; left = rect.left - hostRect.left + rect.width / 2; break;
-      case 'bottom': top = rect.bottom - hostRect.top + 8; left = rect.left - hostRect.left + rect.width / 2; break;
-      case 'left': top = rect.top - hostRect.top + rect.height / 2; left = rect.left - hostRect.left - 8; break;
-      case 'right': top = rect.top - hostRect.top + rect.height / 2; left = rect.right - hostRect.left + 8; break;
+      case 'top':
+        top = rect.top - hostRect.top - 8;
+        left = rect.left - hostRect.left + rect.width / 2;
+        break;
+      case 'bottom':
+        top = rect.bottom - hostRect.top + 8;
+        left = rect.left - hostRect.left + rect.width / 2;
+        break;
+      case 'left':
+        top = rect.top - hostRect.top + rect.height / 2;
+        left = rect.left - hostRect.left - 8;
+        break;
+      case 'right':
+        top = rect.top - hostRect.top + rect.height / 2;
+        left = rect.right - hostRect.left + 8;
+        break;
     }
     this.hoveredCellText = text;
     this.cellTooltipCoords = { top, left };
@@ -146,6 +190,10 @@ export class PuiTableComponent implements AfterViewInit {
   }
 
   private _parse<T>(s: string): T | null {
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 }

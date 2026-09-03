@@ -1,7 +1,8 @@
 ﻿import { Component, Input, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
-export type TagVariant = 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'purple' | 'pink';
+export type TagVariant =
+  'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'purple' | 'pink';
 export type TagSize = 'sm' | 'md';
 
 @Component({

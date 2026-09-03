@@ -1,17 +1,17 @@
-﻿
-<docs-page
+﻿<docs-page
   title="Multi Select"
   description="A multi-value dropdown with chips, search, select-all, and keyboard navigation — works in Angular, React, and plain HTML."
   [hasFramework]="true"
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Basic -->
     <div class="demo-section">
       <h3 class="demo-section__title">Basic Multi Select</h3>
-      <p class="demo-section__desc">Choose one or more items from a searchable dropdown. Selected values appear as chips in the trigger.</p>
-      <div style="width:340px">
+      <p class="demo-section__desc">
+        Choose one or more items from a searchable dropdown. Selected values appear as chips in the
+        trigger.
+      </p>
+      <div style="width: 340px">
         <label class="demo-label">Assign Team Members</label>
         <pui-lib-multiselect
           [options]="teamOptions"
@@ -19,150 +19,211 @@
           placeholder="Search team members…"
           [searchable]="true"
           [showSelectAll]="true"
-          (valueChange)="teamSelected = $event; cdr.markForCheck()">
+          (valueChange)="teamSelected = $event; cdr.markForCheck()"
+        >
         </pui-lib-multiselect>
-        <p *ngIf="teamSelected.length" class="demo-result">Selected: {{ teamSelected.join(', ') }}</p>
+        <p *ngIf="teamSelected.length" class="demo-result">
+          Selected: {{ teamSelected.join(', ') }}
+        </p>
       </div>
     </div>
 
-    <!-- 2. Grouped -->
     <div class="demo-section">
       <h3 class="demo-section__title">Grouped Options</h3>
-      <p class="demo-section__desc">Options can be organised into named groups by setting a <code>group</code> field on each option.</p>
-      <div style="width:360px">
+      <p class="demo-section__desc">
+        Options can be organised into named groups by setting a <code>group</code> field on each
+        option.
+      </p>
+      <div style="width: 360px">
         <label class="demo-label">Select Technologies</label>
         <pui-lib-multiselect
           [options]="techOptions"
           [value]="techSelected"
           placeholder="Pick your stack…"
           [showSelectAll]="true"
-          (valueChange)="techSelected = $event; cdr.markForCheck()">
+          (valueChange)="techSelected = $event; cdr.markForCheck()"
+        >
         </pui-lib-multiselect>
-        <p *ngIf="techSelected.length" class="demo-result">{{ techSelected.length }} selected: {{ techSelected.join(', ') }}</p>
+        <p *ngIf="techSelected.length" class="demo-result">
+          {{ techSelected.length }} selected: {{ techSelected.join(', ') }}
+        </p>
       </div>
     </div>
 
-    <!-- 3. Chip limit -->
     <div class="demo-section">
       <h3 class="demo-section__title">Chip Limit &amp; Badge Count</h3>
-      <p class="demo-section__desc">When more items are selected than <code>maxChips</code>, a single count badge replaces individual chips.</p>
-      <div style="display:flex;gap:24px;flex-wrap:wrap">
-        <div style="width:300px">
+      <p class="demo-section__desc">
+        When more items are selected than <code>maxChips</code>, a single count badge replaces
+        individual chips.
+      </p>
+      <div style="display: flex; gap: 24px; flex-wrap: wrap">
+        <div style="width: 300px">
           <label class="demo-label">Max 2 chips (then badge)</label>
           <pui-lib-multiselect
             [options]="skillOptions"
             [value]="skillSelected"
             placeholder="Select skills…"
             [maxChips]="2"
-            (valueChange)="skillSelected = $event; cdr.markForCheck()">
+            (valueChange)="skillSelected = $event; cdr.markForCheck()"
+          >
           </pui-lib-multiselect>
         </div>
-        <div style="width:300px">
+        <div style="width: 300px">
           <label class="demo-label">Always badge (maxChips=1)</label>
           <pui-lib-multiselect
             [options]="skillOptions"
             [value]="skillSelected2"
             placeholder="Select skills…"
             [maxChips]="1"
-            (valueChange)="skillSelected2 = $event; cdr.markForCheck()">
+            (valueChange)="skillSelected2 = $event; cdr.markForCheck()"
+          >
           </pui-lib-multiselect>
         </div>
       </div>
     </div>
 
-    <!-- 4. Disabled -->
     <div class="demo-section">
       <h3 class="demo-section__title">Disabled Options &amp; Disabled State</h3>
-      <p class="demo-section__desc">Individual options can be disabled via their <code>disabled</code> flag. The entire component can be disabled too.</p>
-      <div style="display:flex;gap:24px;flex-wrap:wrap">
-        <div style="width:300px">
+      <p class="demo-section__desc">
+        Individual options can be disabled via their <code>disabled</code> flag. The entire
+        component can be disabled too.
+      </p>
+      <div style="display: flex; gap: 24px; flex-wrap: wrap">
+        <div style="width: 300px">
           <label class="demo-label">Some options disabled</label>
           <pui-lib-multiselect
             [options]="roleOptions"
             [value]="roleSelected"
             placeholder="Select roles…"
-            (valueChange)="roleSelected = $event; cdr.markForCheck()">
+            (valueChange)="roleSelected = $event; cdr.markForCheck()"
+          >
           </pui-lib-multiselect>
         </div>
-        <div style="width:300px">
+        <div style="width: 300px">
           <label class="demo-label">Entire component disabled</label>
           <pui-lib-multiselect
             [options]="teamOptions"
-            [value]="['alice','bob']"
+            [value]="['alice', 'bob']"
             [disabled]="true"
-            placeholder="Select team members…">
+            placeholder="Select team members…"
+          >
           </pui-lib-multiselect>
         </div>
       </div>
     </div>
 
-    <!-- 5. States -->
     <div class="demo-section">
       <h3 class="demo-section__title">Validation States</h3>
-      <p class="demo-section__desc">Pass <code>error</code> for a validation message (red border + text) or <code>hint</code> for helper text.</p>
-      <div style="display:flex;gap:24px;flex-wrap:wrap">
-        <div style="width:300px">
+      <p class="demo-section__desc">
+        Pass <code>error</code> for a validation message (red border + text) or
+        <code>hint</code> for helper text.
+      </p>
+      <div style="display: flex; gap: 24px; flex-wrap: wrap">
+        <div style="width: 300px">
           <label class="demo-label">Error state</label>
           <pui-lib-multiselect
             [options]="skillOptions"
             placeholder="Select at least one skill…"
-            error="Please select at least one skill">
+            error="Please select at least one skill"
+          >
           </pui-lib-multiselect>
         </div>
-        <div style="width:300px">
+        <div style="width: 300px">
           <label class="demo-label">With hint</label>
           <pui-lib-multiselect
             [options]="skillOptions"
             [value]="['angular']"
             placeholder="Select skills…"
-            hint="You can select multiple skills">
+            hint="You can select multiple skills"
+          >
           </pui-lib-multiselect>
         </div>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-multiselect</code> is a standalone Web Component — the same element tag works in Angular, React, and plain HTML. The <code>options</code> and <code>value</code> inputs accept typed arrays (Angular binding) or JSON strings (HTML attribute). It also implements <code>ControlValueAccessor</code>, so in Angular you can bind it with <code>formControlName</code> instead of manual <code>[value]</code>/<code>(valueChange)</code>.</p>
+    <p class="fw-lead">
+      <code>pui-lib-multiselect</code> is a standalone Web Component — the same element tag works in
+      Angular, React, and plain HTML. The <code>options</code> and <code>value</code> inputs accept
+      typed arrays (Angular binding) or JSON strings (HTML attribute). It also implements
+      <code>ControlValueAccessor</code>, so in Angular you can bind it with
+      <code>formControlName</code> instead of manual
+      <code>[value]</code>/<code>(valueChange)</code>.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
-      <div preview class="demo-col" style="max-width:360px">
+      [htmlCode]="htmlCode"
+    >
+      <div preview class="demo-col" style="max-width: 360px">
         <label class="demo-label">Assign Team Members</label>
-        <pui-lib-multiselect [options]="teamOptions" [value]="teamSelected" placeholder="Search team members…" [searchable]="true" [showSelectAll]="true" (valueChange)="teamSelected = $event; cdr.markForCheck()"/>
-        <label class="demo-label" style="margin-top:12px">Tech Stack</label>
-        <pui-lib-multiselect [options]="techOptions" [value]="techSelected" placeholder="Pick your stack…" [showSelectAll]="true" (valueChange)="techSelected = $event; cdr.markForCheck()"/>
+        <pui-lib-multiselect
+          [options]="teamOptions"
+          [value]="teamSelected"
+          placeholder="Search team members…"
+          [searchable]="true"
+          [showSelectAll]="true"
+          (valueChange)="teamSelected = $event; cdr.markForCheck()"
+        />
+        <label class="demo-label" style="margin-top: 12px">Tech Stack</label>
+        <pui-lib-multiselect
+          [options]="techOptions"
+          [value]="techSelected"
+          placeholder="Pick your stack…"
+          [showSelectAll]="true"
+          (valueChange)="techSelected = $event; cdr.markForCheck()"
+        />
       </div>
       <div react-preview class="react-project-form">
         <h4 class="react-form-title">New Project Setup</h4>
         <label class="demo-label">Tech stack</label>
-        <pui-lib-multiselect [options]="techOptions" [value]="['angular','node']" placeholder="Select technologies…" [searchable]="true" [showSelectAll]="true"/>
-        <label class="demo-label" style="margin-top:12px">Team members</label>
-        <pui-lib-multiselect [options]="teamOptions" placeholder="Assign members…" [searchable]="true"/>
+        <pui-lib-multiselect
+          [options]="techOptions"
+          [value]="['angular', 'node']"
+          placeholder="Select technologies…"
+          [searchable]="true"
+          [showSelectAll]="true"
+        />
+        <label class="demo-label" style="margin-top: 12px">Team members</label>
+        <pui-lib-multiselect
+          [options]="teamOptions"
+          placeholder="Assign members…"
+          [searchable]="true"
+        />
       </div>
     </docs-framework-preview>
 
     <h4 class="fw-ref-title">Multi Select Quick Reference</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><span class="tag-name">{{ r.name }}</span></td>
-            <td><span class="tag-ng">{{ r.angular }}</span></td>
-            <td><span class="tag-html">{{ r.attr }}</span></td>
-            <td><span class="tag-js">{{ r.js }}</span></td>
+            <td>
+              <span class="tag-name">{{ r.name }}</span>
+            </td>
+            <td>
+              <span class="tag-ng">{{ r.angular }}</span>
+            </td>
+            <td>
+              <span class="tag-html">{{ r.attr }}</span>
+            </td>
+            <td>
+              <span class="tag-js">{{ r.js }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-  

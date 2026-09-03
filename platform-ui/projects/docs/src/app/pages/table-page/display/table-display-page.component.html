@@ -1,39 +1,44 @@
-﻿<docs-page title="Display Table"
+﻿<docs-page
+  title="Display Table"
   description="pui-lib-table — a lightweight display table with sorting, search (pui-lib-search — the same search component used across pui-lib-editable-table and pui-lib-data-table), sticky header, badge/pill cells, and cell overflow tooltips. No pagination or row selection, and no action menu (see pui-lib-data-table below for that). Header text is 14px, cell text is 13px/black, and header cell padding is var(--pui-space-3) var(--pui-space-3-5) — the same standard shared by all three table components."
-  [hasFramework]="true" [api]="api">
-
+  [hasFramework]="true"
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Minimal plain display -->
     <div class="demo-section">
       <h3 class="demo-section__title">Minimal — Plain Display</h3>
       <p class="demo-section__desc">
-        The simplest usage — just pass <code>[columns]</code> and <code>[data]</code>.
-        No toolbar, no sorting, no extras.
+        The simplest usage — just pass <code>[columns]</code> and <code>[data]</code>. No toolbar,
+        no sorting, no extras.
       </p>
       <pui-lib-table [columns]="simpleCols" [data]="simpleData"></pui-lib-table>
     </div>
 
-    <!-- 2. Sticky header + search + sort -->
     <div class="demo-section">
       <h3 class="demo-section__title">Sticky Header — Search &amp; Sort</h3>
       <p class="demo-section__desc">
         Enable <code>[searchable]</code>, <code>[sortable]</code>, and <code>[stickyHeader]</code>.
         Set <code>[maxHeight]</code> to constrain scroll.
       </p>
-      <pui-lib-table [columns]="empCols" [data]="empRows"
-        [searchable]="t" [sortable]="t" [stickyHeader]="t" [striped]="t" [maxHeight]="320">
+      <pui-lib-table
+        [columns]="empCols"
+        [data]="empRows"
+        [searchable]="t"
+        [sortable]="t"
+        [stickyHeader]="t"
+        [striped]="t"
+        [maxHeight]="320"
+      >
       </pui-lib-table>
     </div>
 
-    <!-- 3. Badge cells + loading state -->
     <div class="demo-section">
       <h3 class="demo-section__title">Badge Cells &amp; Loading State</h3>
       <p class="demo-section__desc">
         Use <code>type: 'badge'</code> with a <code>badgeMap</code> to colour-code status values.
         Toggle the <code>[loading]</code> input to show the shimmer skeleton.
       </p>
-      <div class="demo-row" style="gap:8px; margin-bottom:10px">
+      <div class="demo-row" style="gap: 8px; margin-bottom: 10px">
         <button class="demo-btn" (click)="toggleLoading()">
           {{ isLoading ? 'Stop Loading' : 'Show Loading' }}
         </button>
@@ -42,91 +47,167 @@
       </pui-lib-table>
     </div>
 
-    <!-- 4. Action menu — uses pui-lib-data-table (actions require data-grid) -->
     <div class="demo-section">
       <h3 class="demo-section__title">Action Menu — 3-dot Dropdown per Row</h3>
       <p class="demo-section__desc">
-        Action menus are part of <code>pui-lib-data-table</code>.
-        Pass an <code>[actions]</code> array — each item has a <code>label</code>,
-        an <code>action(row)</code> callback, and an optional <code>disabled(row)</code> predicate.
-        The "Remove Employee" action is disabled for <em>Inactive</em> rows.
+        Action menus are part of <code>pui-lib-data-table</code>. Pass an
+        <code>[actions]</code> array — each item has a <code>label</code>, an
+        <code>action(row)</code> callback, and an optional <code>disabled(row)</code> predicate. The
+        "Remove Employee" action is disabled for <em>Inactive</em> rows.
       </p>
-      <pui-lib-data-table [columns]="empCols" [data]="empRows" [actions]="empActions" [sortable]="t">
+      <pui-lib-data-table
+        [columns]="empCols"
+        [data]="empRows"
+        [actions]="empActions"
+        [sortable]="t"
+      >
       </pui-lib-data-table>
       <p class="demo-desc" *ngIf="lastAction">
         Last action: <strong>{{ lastAction }}</strong>
       </p>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
-      <code>pui-lib-table</code> is a Web Component — works in Angular, React, and plain HTML.
-      The <code>columns</code>, <code>data</code>, and <code>actions</code> arrays must be passed
-      as JS properties from React / HTML; Angular uses property binding directly.
+      <code>pui-lib-table</code> is a Web Component — works in Angular, React, and plain HTML. The
+      <code>columns</code>, <code>data</code>, and <code>actions</code> arrays must be passed as JS
+      properties from React / HTML; Angular uses property binding directly.
     </p>
 
     <div class="fw-tabs">
-      <button class="fw-tab" [class.fw-tab--active]="fw==='angular'" (click)="fw='angular'">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0">
-          <path d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.31H4.936L12 3.405z" fill="#c3002f"/>
+      <button class="fw-tab" [class.fw-tab--active]="fw === 'angular'" (click)="fw = 'angular'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink: 0">
+          <path
+            d="M9.931 12.645h4.138l-2.07-4.908m0-7.737L.68 3.982l1.726 14.771L12 22.256l9.596-3.503L23.32 3.982 11.999.0zm7.064 18.31h-2.638l-1.422-3.503H8.996L7.574 18.31H4.936L12 3.405z"
+            fill="#c3002f"
+          />
         </svg>
         Angular
       </button>
-      <button class="fw-tab" [class.fw-tab--active]="fw==='react'" (click)="fw='react'">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0">
-          <circle cx="12" cy="12" r="2.05" fill="#61dafb"/>
-          <ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25"/>
-          <ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(60 12 12)"/>
-          <ellipse cx="12" cy="12" rx="10.5" ry="3.9" fill="none" stroke="#61dafb" stroke-width="1.25" transform="rotate(120 12 12)"/>
+      <button class="fw-tab" [class.fw-tab--active]="fw === 'react'" (click)="fw = 'react'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink: 0">
+          <circle cx="12" cy="12" r="2.05" fill="#61dafb" />
+          <ellipse
+            cx="12"
+            cy="12"
+            rx="10.5"
+            ry="3.9"
+            fill="none"
+            stroke="#61dafb"
+            stroke-width="1.25"
+          />
+          <ellipse
+            cx="12"
+            cy="12"
+            rx="10.5"
+            ry="3.9"
+            fill="none"
+            stroke="#61dafb"
+            stroke-width="1.25"
+            transform="rotate(60 12 12)"
+          />
+          <ellipse
+            cx="12"
+            cy="12"
+            rx="10.5"
+            ry="3.9"
+            fill="none"
+            stroke="#61dafb"
+            stroke-width="1.25"
+            transform="rotate(120 12 12)"
+          />
         </svg>
         React
       </button>
-      <button class="fw-tab" [class.fw-tab--active]="fw==='html'" (click)="fw='html'">
-        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink:0">
-          <path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z" fill="#e34c26"/>
+      <button class="fw-tab" [class.fw-tab--active]="fw === 'html'" (click)="fw = 'html'">
+        <svg width="16" height="16" viewBox="0 0 24 24" style="flex-shrink: 0">
+          <path
+            d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"
+            fill="#e34c26"
+          />
         </svg>
         Plain HTML
       </button>
     </div>
 
-    <div *ngIf="fw==='angular'" class="fw-panel">
-      <div class="fw-note fw-note--angular">Pass typed <code>[columns]</code>, <code>[data]</code>, and <code>[actions]</code> arrays directly. All boolean flags use property binding.</div>
-      <docs-code-block lang="html"       id="ang-html"  [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <docs-code-block lang="typescript" id="ang-ts"    [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    <div *ngIf="fw === 'angular'" class="fw-panel">
+      <div class="fw-note fw-note--angular">
+        Pass typed <code>[columns]</code>, <code>[data]</code>, and <code>[actions]</code> arrays
+        directly. All boolean flags use property binding.
+      </div>
+      <docs-code-block
+        lang="html"
+        id="ang-html"
+        [text]="angHtml"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
+      <docs-code-block
+        lang="typescript"
+        id="ang-ts"
+        [text]="angTs"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
     </div>
 
-    <div *ngIf="fw==='react'" class="fw-panel">
-      <div class="fw-note fw-note--react">Set <code>columns</code>, <code>data</code>, and <code>actions</code> as JS properties via ref. Listen to events with <code>addEventListener</code>.</div>
-      <docs-code-block lang="tsx" id="react-code" [text]="reactCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    <div *ngIf="fw === 'react'" class="fw-panel">
+      <div class="fw-note fw-note--react">
+        Set <code>columns</code>, <code>data</code>, and <code>actions</code> as JS properties via
+        ref. Listen to events with <code>addEventListener</code>.
+      </div>
+      <docs-code-block
+        lang="tsx"
+        id="react-code"
+        [text]="reactCode"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
     </div>
 
-    <div *ngIf="fw==='html'" class="fw-panel">
-      <div class="fw-note fw-note--html">Load <code>pui-elements.js</code> once. Assign array inputs as JS properties.</div>
-      <docs-code-block lang="html" id="html-code" [text]="htmlCode" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+    <div *ngIf="fw === 'html'" class="fw-panel">
+      <div class="fw-note fw-note--html">
+        Load <code>pui-elements.js</code> once. Assign array inputs as JS properties.
+      </div>
+      <docs-code-block
+        lang="html"
+        id="html-code"
+        [text]="htmlCode"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
     </div>
 
     <h3 class="fw-ref-title">Input / Event Quick Reference</h3>
     <div class="xfw-wrap">
       <table class="xfw-table">
         <thead>
-          <tr><th>Input / Event</th><th>Angular</th><th>HTML attribute</th><th>JS property</th></tr>
+          <tr>
+            <th>Input / Event</th>
+            <th>Angular</th>
+            <th>HTML attribute</th>
+            <th>JS property</th>
+          </tr>
         </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
-            <td><code class="tag-name">{{ r.name }}</code></td>
-            <td><code class="tag-ng">{{ r.angular }}</code></td>
-            <td><code class="tag-html">{{ r.attr }}</code></td>
-            <td><code class="tag-js">{{ r.js }}</code></td>
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code class="tag-ng">{{ r.angular }}</code>
+            </td>
+            <td>
+              <code class="tag-html">{{ r.attr }}</code>
+            </td>
+            <td>
+              <code class="tag-js">{{ r.js }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-

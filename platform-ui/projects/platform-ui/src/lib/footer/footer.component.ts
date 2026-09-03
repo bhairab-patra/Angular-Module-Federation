@@ -1,6 +1,10 @@
 import {
-  Component, Input, Output, EventEmitter,
-  ViewEncapsulation, ChangeDetectionStrategy,
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { IconInternalComponent } from '../icon/icon-internal.component';
@@ -20,34 +24,40 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 export class PuiFooterComponent {
   @Input() variant: FooterVariant = 'simple';
 
-  /** Pins the footer to the bottom of the viewport (position: fixed, full
-   * width) instead of flowing wherever it lands in the page content. Off
-   * by default so the footer behaves like a normal block by default. */
   @Input() set stickyBottom(v: boolean | string) {
     this._stickyBottom = v === true || v === 'true' || (v as any) === '';
   }
-  get stickyBottom(): boolean { return this._stickyBottom; }
+  get stickyBottom(): boolean {
+    return this._stickyBottom;
+  }
   private _stickyBottom = false;
 
   @Input() set noticeSlides(v: FooterNoticeSlide[] | string) {
-    this._noticeSlides = typeof v === 'string' ? (this._parse<FooterNoticeSlide[]>(v) ?? []) : (v || []);
+    this._noticeSlides =
+      typeof v === 'string' ? (this._parse<FooterNoticeSlide[]>(v) ?? []) : v || [];
     if (this._activeSlideIndex >= this._noticeSlides.length) this._activeSlideIndex = 0;
   }
-  get noticeSlides(): FooterNoticeSlide[] { return this._noticeSlides; }
+  get noticeSlides(): FooterNoticeSlide[] {
+    return this._noticeSlides;
+  }
   private _noticeSlides: FooterNoticeSlide[] = [];
 
   @Input() set activeSlideIndex(v: number | string) {
-    this._activeSlideIndex = typeof v === 'string' ? (parseInt(v, 10) || 0) : (v ?? 0);
+    this._activeSlideIndex = typeof v === 'string' ? parseInt(v, 10) || 0 : (v ?? 0);
   }
-  get activeSlideIndex(): number { return this._activeSlideIndex; }
+  get activeSlideIndex(): number {
+    return this._activeSlideIndex;
+  }
   private _activeSlideIndex = 0;
 
   @Input() copyrightText = `Copyright © ${new Date().getFullYear()} Solifi. All Rights Reserved.`;
 
   @Input() set links(v: FooterLink[] | string) {
-    this._links = typeof v === 'string' ? (this._parse<FooterLink[]>(v) ?? []) : (v || []);
+    this._links = typeof v === 'string' ? (this._parse<FooterLink[]>(v) ?? []) : v || [];
   }
-  get links(): FooterLink[] { return this._links; }
+  get links(): FooterLink[] {
+    return this._links;
+  }
   private _links: FooterLink[] = [];
 
   @Input() poweredByText = 'Powered by Solifi™';
@@ -55,7 +65,9 @@ export class PuiFooterComponent {
   @Input() set showPoweredBy(v: boolean | string) {
     this._showPoweredBy = v !== false && v !== 'false';
   }
-  get showPoweredBy(): boolean { return this._showPoweredBy; }
+  get showPoweredBy(): boolean {
+    return this._showPoweredBy;
+  }
   private _showPoweredBy = true;
 
   @Output() activeSlideIndexChange = new EventEmitter<number>();
@@ -68,7 +80,8 @@ export class PuiFooterComponent {
 
   prevSlide(): void {
     if (!this._noticeSlides.length) return;
-    this._activeSlideIndex = (this._activeSlideIndex - 1 + this._noticeSlides.length) % this._noticeSlides.length;
+    this._activeSlideIndex =
+      (this._activeSlideIndex - 1 + this._noticeSlides.length) % this._noticeSlides.length;
     this.activeSlideIndexChange.emit(this._activeSlideIndex);
   }
 
@@ -94,9 +107,15 @@ export class PuiFooterComponent {
     if (this.activeSlide) this.contactClick.emit(this.activeSlide);
   }
 
-  trackSlide(i: number): number { return i; }
+  trackSlide(i: number): number {
+    return i;
+  }
 
   private _parse<T>(s: string): T | null {
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 }

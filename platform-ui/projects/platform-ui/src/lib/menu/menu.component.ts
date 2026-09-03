@@ -1,5 +1,14 @@
 ﻿import {
-  Component, Input, Output, EventEmitter, HostListener, HostBinding, ElementRef, inject, ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  HostListener,
+  HostBinding,
+  ElementRef,
+  inject,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MenuItem, MenuPlacement, MenuVariant } from '../models/menu.model';
@@ -64,10 +73,16 @@ export class MenuComponent {
     return this.activeSubmenuId === item.id;
   }
 
-  trackById(_: number, item: MenuItem): string { return item.id; }
+  trackById(_: number, item: MenuItem): string {
+    return item.id;
+  }
 
-  get placementClass(): string { return `pui-menu--${this.placement}`; }
-  get variantClass(): string { return `pui-menu-trigger--${this.variant}`; }
+  get placementClass(): string {
+    return `pui-menu--${this.placement}`;
+  }
+  get variantClass(): string {
+    return `pui-menu-trigger--${this.variant}`;
+  }
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {
@@ -81,6 +96,9 @@ export class MenuComponent {
   @HostListener('keydown', ['$event'])
   onKeydown(e: KeyboardEvent): void {
     if (!this.open) return;
-    if (e.key === 'Escape') { e.preventDefault(); this.close(); }
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      this.close();
+    }
   }
 }

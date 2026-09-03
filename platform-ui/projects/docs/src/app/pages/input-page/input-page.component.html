@@ -1,16 +1,25 @@
-﻿<docs-page title="Input"
+﻿<docs-page
+  title="Input"
   description="A single-line text field with focus, hover, error, disabled, and readonly states. Works seamlessly in Angular forms, React, and plain HTML as a Web Component."
-  [hasFramework]="true" [api]="api">
-
+  [hasFramework]="true"
+  [api]="api"
+>
   <ng-container demo>
-
     <div class="demo-section">
       <h3 class="demo-section__title">Basic</h3>
       <div class="demo-row">
-        <pui-lib-input label="Full name" placeholder="John Doe" [(ngModel)]="v1" style="flex:1" />
-        <pui-lib-input label="Email" placeholder="you@company.com" type="email" [(ngModel)]="v2" style="flex:1" />
+        <pui-lib-input label="Full name" placeholder="John Doe" [(ngModel)]="v1" style="flex: 1" />
+        <pui-lib-input
+          label="Email"
+          placeholder="you@company.com"
+          type="email"
+          [(ngModel)]="v2"
+          style="flex: 1"
+        />
       </div>
-      <p class="demo-desc">Name: <strong>{{ v1 || '—' }}</strong></p>
+      <p class="demo-desc">
+        Name: <strong>{{ v1 || '—' }}</strong>
+      </p>
     </div>
 
     <div class="demo-section">
@@ -25,38 +34,74 @@
     <div class="demo-section">
       <h3 class="demo-section__title">Password & Clearable</h3>
       <div class="demo-row">
-        <pui-lib-input label="Password" type="password" placeholder="Enter password" [(ngModel)]="vPass"
-          style="flex:1" />
-        <pui-lib-input label="Search" [clearable]="clearable" placeholder="Type to search…" [(ngModel)]="vSearch"
-          style="flex:1" />
+        <pui-lib-input
+          label="Password"
+          type="password"
+          placeholder="Enter password"
+          [(ngModel)]="vPass"
+          style="flex: 1"
+        />
+        <pui-lib-input
+          label="Search"
+          [clearable]="clearable"
+          placeholder="Type to search…"
+          [(ngModel)]="vSearch"
+          style="flex: 1"
+        />
       </div>
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">Character Count</h3>
-      <pui-lib-input label="Bio" placeholder="Tell us about yourself" [(ngModel)]="vBio" [maxLength]="maxLen"
-        [showCount]="showCount" style="width:100%" />
+      <pui-lib-input
+        label="Bio"
+        placeholder="Tell us about yourself"
+        [(ngModel)]="vBio"
+        [maxLength]="maxLen"
+        [showCount]="showCount"
+        style="width: 100%"
+      />
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">Validation States</h3>
       <div class="demo-row">
-        <pui-lib-input label="Disabled" [disabled]="disabledFlag" placeholder="Cannot edit" style="flex:1" />
-        <pui-lib-input label="Read-only" [readonly]="readonlyFlag" placeholder="Read-only value" style="flex:1" />
+        <pui-lib-input
+          label="Disabled"
+          [disabled]="disabledFlag"
+          placeholder="Cannot edit"
+          style="flex: 1"
+        />
+        <pui-lib-input
+          label="Read-only"
+          [readonly]="readonlyFlag"
+          placeholder="Read-only value"
+          style="flex: 1"
+        />
       </div>
-      <div class="demo-row" style="margin-top:12px">
-        <pui-lib-input label="Error" error="Email is not valid" placeholder="bad@" style="flex:1" />
-        <pui-lib-input label="With hint" hint="We'll never share your email" placeholder="Email" style="flex:1" />
+      <div class="demo-row" style="margin-top: 12px">
+        <pui-lib-input
+          label="Error"
+          error="Email is not valid"
+          placeholder="bad@"
+          style="flex: 1"
+        />
+        <pui-lib-input
+          label="With hint"
+          hint="We'll never share your email"
+          placeholder="Email"
+          style="flex: 1"
+        />
       </div>
     </div>
 
     <div class="demo-section">
       <h3 class="demo-section__title">Built-in Validation Rules</h3>
       <p class="demo-desc">
-        Common per-character rules built right into the component — no hand-written regex needed for these.
-        Each one shows its own combined error message after blur (try typing below), and also registers as a
-        real Angular Validator, so <code>formControlName</code> sees the exact same errors in
-        <code>form.get('x').errors</code>.
+        Common per-character rules built right into the component — no hand-written regex needed for
+        these. Each one shows its own combined error message after blur (try typing below), and also
+        registers as a real Angular Validator, so <code>formControlName</code> sees the exact same
+        errors in <code>form.get('x').errors</code>.
       </p>
       <div class="demo-col">
         <pui-lib-input
@@ -65,7 +110,8 @@
           [(ngModel)]="vUsername"
           [minLength]="6"
           [lettersOnly]="true"
-          hint="Letters only, no numbers or spaces, at least 6 characters" />
+          hint="Letters only, no numbers or spaces, at least 6 characters"
+        />
 
         <pui-lib-input
           label="Coupon code"
@@ -73,28 +119,35 @@
           [(ngModel)]="vCoupon"
           [noSpaces]="true"
           textCase="upper"
-          hint="Uppercase letters, no spaces" />
+          hint="Uppercase letters, no spaces"
+        />
 
         <pui-lib-input
           label="Phone number"
           placeholder="e.g. 9876543210"
           [(ngModel)]="vPhone"
           pattern="^[0-9]{10}$"
-          hint="Exactly 10 digits — pattern is the escape hatch for anything the flags above don't cover" />
+          hint="Exactly 10 digits — pattern is the escape hatch for anything the flags above don't cover"
+        />
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-input</code> is a Web Component — works in Angular, React, and plain HTML with no
-      extra config. String inputs work as HTML attributes. Booleans (<code>disabled</code>, <code>readonly</code>,
-      <code>clearable</code>, <code>showCount</code>) accept <code>"true"</code> strings or JS properties.
-      <code>maxLength</code> accepts a number or numeric string.</p>
+    <p class="fw-lead">
+      <code>pui-lib-input</code> is a Web Component — works in Angular, React, and plain HTML with
+      no extra config. String inputs work as HTML attributes. Booleans (<code>disabled</code>,
+      <code>readonly</code>, <code>clearable</code>, <code>showCount</code>) accept
+      <code>"true"</code> strings or JS properties. <code>maxLength</code> accepts a number or
+      numeric string.
+    </p>
 
-    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-col">
         <pui-lib-input label="Full name" placeholder="John Doe" [(ngModel)]="v1" />
         <pui-lib-input label="Email" type="email" placeholder="you@company.com" [(ngModel)]="v2" />
@@ -106,7 +159,11 @@
         <h4 class="react-form-title">Sign In</h4>
         <pui-lib-input label="Email address" type="email" placeholder="you@company.com" />
         <pui-lib-input label="Password" type="password" placeholder="Enter your password" />
-        <pui-lib-input label="Workspace URL" placeholder="your-company" hint="Used to identify your team" />
+        <pui-lib-input
+          label="Workspace URL"
+          placeholder="your-company"
+          hint="Used to identify your team"
+        />
       </div>
     </docs-framework-preview>
 
@@ -123,15 +180,21 @@
         </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
-            <td><code class="tag-name">{{ r.name }}</code></td>
-            <td><code class="tag-ng">{{ r.angular }}</code></td>
-            <td><code class="tag-html">{{ r.attr }}</code></td>
-            <td><code class="tag-js">{{ r.js }}</code></td>
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code class="tag-ng">{{ r.angular }}</code>
+            </td>
+            <td>
+              <code class="tag-html">{{ r.attr }}</code>
+            </td>
+            <td>
+              <code class="tag-js">{{ r.js }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>

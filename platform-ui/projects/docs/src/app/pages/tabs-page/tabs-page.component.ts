@@ -27,63 +27,90 @@ export class TabsPageComponent {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
-      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
+      setTimeout(() => {
+        this.copied = '';
+        this.cdr.markForCheck();
+      }, 2000);
     });
   }
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
-  /* ── Demo data ──────────────────────────────────── */
   basicTabs: TabItem[] = [
-    { id: 'overview',  label: 'Overview'  },
+    { id: 'overview', label: 'Overview' },
     { id: 'analytics', label: 'Analytics' },
-    { id: 'settings',  label: 'Settings'  },
+    { id: 'settings', label: 'Settings' },
   ];
 
   pillTabs: TabItem[] = [
-    { id: 'all',      label: 'All',      badge: 24 },
-    { id: 'active',   label: 'Active',   badge: 18 },
-    { id: 'pending',  label: 'Pending',  badge: 4  },
-    { id: 'archived', label: 'Archived', badge: 2  },
+    { id: 'all', label: 'All', badge: 24 },
+    { id: 'active', label: 'Active', badge: 18 },
+    { id: 'pending', label: 'Pending', badge: 4 },
+    { id: 'archived', label: 'Archived', badge: 2 },
   ];
 
   cardTabs: TabItem[] = [
     { id: 'details', label: 'Details' },
-    { id: 'notes',   label: 'Notes'   },
+    { id: 'notes', label: 'Notes' },
     { id: 'history', label: 'History' },
   ];
 
   vertTabs: TabItem[] = [
-    { id: 'profile',  label: 'Profile'  },
+    { id: 'profile', label: 'Profile' },
     { id: 'security', label: 'Security' },
-    { id: 'billing',  label: 'Billing'  },
-    { id: 'api',      label: 'API'      },
+    { id: 'billing', label: 'Billing' },
+    { id: 'api', label: 'API' },
   ];
 
   richTabs: TabItem[] = [
-    { id: 'inbox',    label: 'Inbox',    badge: 12 },
-    { id: 'sent',     label: 'Sent'              },
-    { id: 'drafts',   label: 'Drafts',   badge: 3  },
+    { id: 'inbox', label: 'Inbox', badge: 12 },
+    { id: 'sent', label: 'Sent' },
+    { id: 'drafts', label: 'Drafts', badge: 3 },
     { id: 'archived', label: 'Archived', disabled: true },
   ];
 
   sizeTabs: TabItem[] = [
     { id: 'a', label: 'Flights' },
-    { id: 'b', label: 'Hotels'  },
-    { id: 'c', label: 'Cars'    },
+    { id: 'b', label: 'Hotels' },
+    { id: 'c', label: 'Cars' },
   ];
 
-  /* ── Quick-ref table ────────────────────────────── */
   xfwRows = [
-    { name: 'tabs',        angular: '[tabs]="tabsArray"',           attr: '— use JS property',      js: 'el.tabs = [{id,label,...}]'   },
-    { name: 'activeTab',   angular: '[activeTab]="\'id\'"',         attr: 'active-tab="id"',         js: 'el.activeTab = "id"'          },
-    { name: 'variant',     angular: 'variant="pill"',               attr: 'variant="pill"',          js: 'el.variant = "pill"'          },
-    { name: 'orientation', angular: 'orientation="vertical"',       attr: 'orientation="vertical"',  js: 'el.orientation = "vertical"'  },
-    { name: 'size',        angular: 'size="sm"',                    attr: 'size="sm"',               js: 'el.size = "sm"'               },
-    { name: 'tabChange',   angular: '(tabChange)="fn($event)"',     attr: '— use addEventListener',  js: 'el.addEventListener("tabChange", fn)' },
+    {
+      name: 'tabs',
+      angular: '[tabs]="tabsArray"',
+      attr: '— use JS property',
+      js: 'el.tabs = [{id,label,...}]',
+    },
+    {
+      name: 'activeTab',
+      angular: '[activeTab]="\'id\'"',
+      attr: 'active-tab="id"',
+      js: 'el.activeTab = "id"',
+    },
+    {
+      name: 'variant',
+      angular: 'variant="pill"',
+      attr: 'variant="pill"',
+      js: 'el.variant = "pill"',
+    },
+    {
+      name: 'orientation',
+      angular: 'orientation="vertical"',
+      attr: 'orientation="vertical"',
+      js: 'el.orientation = "vertical"',
+    },
+    { name: 'size', angular: 'size="sm"', attr: 'size="sm"', js: 'el.size = "sm"' },
+    {
+      name: 'tabChange',
+      angular: '(tabChange)="fn($event)"',
+      attr: '— use addEventListener',
+      js: 'el.addEventListener("tabChange", fn)',
+    },
   ];
 
-  /* ── Code snippets ──────────────────────────────── */
   angularCode = `<pui-lib-tabs
   variant="pill"
   [tabs]="tabs"
@@ -197,13 +224,44 @@ export function MyTabs() {
   });
 </script>`;
 
-  /* ── Component API ──────────────────────────────── */
   api: ApiRow[] = [
-    { input: 'tabs',        type: 'TabItem[]',         default: '[]',          description: 'Array of tab definitions — id (required), label, badge, icon (SVG string), disabled' },
-    { input: 'activeTab',   type: 'string',            default: 'first tab',   description: 'Id of the currently active tab; auto-selects first enabled tab if not set' },
-    { input: 'variant',     type: '"line"|"pill"|"card"', default: '"line"',   description: 'Visual style — line shows underline indicator, pill shows segmented button, card shows folder tabs' },
-    { input: 'orientation', type: '"horizontal"|"vertical"', default: '"horizontal"', description: 'Lays tabs in a row (horizontal) or a column (vertical)' },
-    { input: 'size',        type: '"sm"|"md"|"lg"',    default: '"md"',        description: 'Controls padding and font-size of tab buttons' },
-    { input: 'tabChange',   type: 'EventEmitter<TabItem>', default: '—',       description: 'Emits the full TabItem object when the active tab changes' },
+    {
+      input: 'tabs',
+      type: 'TabItem[]',
+      default: '[]',
+      description:
+        'Array of tab definitions — id (required), label, badge, icon (SVG string), disabled',
+    },
+    {
+      input: 'activeTab',
+      type: 'string',
+      default: 'first tab',
+      description: 'Id of the currently active tab; auto-selects first enabled tab if not set',
+    },
+    {
+      input: 'variant',
+      type: '"line"|"pill"|"card"',
+      default: '"line"',
+      description:
+        'Visual style — line shows underline indicator, pill shows segmented button, card shows folder tabs',
+    },
+    {
+      input: 'orientation',
+      type: '"horizontal"|"vertical"',
+      default: '"horizontal"',
+      description: 'Lays tabs in a row (horizontal) or a column (vertical)',
+    },
+    {
+      input: 'size',
+      type: '"sm"|"md"|"lg"',
+      default: '"md"',
+      description: 'Controls padding and font-size of tab buttons',
+    },
+    {
+      input: 'tabChange',
+      type: 'EventEmitter<TabItem>',
+      default: '—',
+      description: 'Emits the full TabItem object when the active tab changes',
+    },
   ];
 }

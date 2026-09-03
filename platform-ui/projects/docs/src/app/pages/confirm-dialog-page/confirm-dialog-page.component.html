@@ -1,15 +1,14 @@
-<docs-page title="Confirm Dialog"
+<docs-page
+  title="Confirm Dialog"
   description="pui-lib-confirm-dialog — a lightweight confirmation prompt for destructive or irreversible actions. Supports customisable title, message, button labels, and confirm variant."
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Delete confirmation -->
     <div class="demo-section">
       <h3 class="demo-section__title">Delete Confirmation</h3>
       <p class="demo-section__desc">
-        The most common use case — ask the user before a permanent delete.
-        Use <code>confirmVariant="destructive"</code> to style the confirm button in red.
+        The most common use case — ask the user before a permanent delete. Use
+        <code>confirmVariant="destructive"</code> to style the confirm button in red.
       </p>
       <div class="demo-row">
         <button class="demo-btn demo-btn--danger" (click)="deleteOpen = true">Delete Record</button>
@@ -25,15 +24,16 @@
         confirmVariant="destructive"
         (confirmed)="onDeleteConfirm()"
         (cancelled)="onDeleteCancel()"
-        (closed)="deleteOpen = false">
+        (closed)="deleteOpen = false"
+      >
       </pui-lib-confirm-dialog>
     </div>
 
-    <!-- 2. Publish / info -->
     <div class="demo-section">
       <h3 class="demo-section__title">Publish Confirmation</h3>
       <p class="demo-section__desc">
-        Use <code>confirmVariant="primary"</code> for non-destructive actions that still need acknowledgement.
+        Use <code>confirmVariant="primary"</code> for non-destructive actions that still need
+        acknowledgement.
       </p>
       <div class="demo-row">
         <button class="demo-btn" (click)="infoOpen = true">Publish Changes</button>
@@ -49,15 +49,16 @@
         confirmVariant="primary"
         (confirmed)="onInfoConfirm()"
         (cancelled)="onInfoCancel()"
-        (closed)="infoOpen = false">
+        (closed)="infoOpen = false"
+      >
       </pui-lib-confirm-dialog>
     </div>
 
-    <!-- 3. Logout -->
     <div class="demo-section">
       <h3 class="demo-section__title">Session / Logout Confirmation</h3>
       <p class="demo-section__desc">
-        Good for session-ending actions. Use <code>confirmVariant="outline"</code> for a neutral tone.
+        Good for session-ending actions. Use <code>confirmVariant="outline"</code> for a neutral
+        tone.
       </p>
       <div class="demo-row">
         <button class="demo-btn demo-btn--secondary" (click)="logoutOpen = true">Sign Out</button>
@@ -73,18 +74,21 @@
         confirmVariant="primary-outline"
         (confirmed)="onLogoutConfirm()"
         (cancelled)="onLogoutCancel()"
-        (closed)="logoutOpen = false">
+        (closed)="logoutOpen = false"
+      >
       </pui-lib-confirm-dialog>
     </div>
 
-    <!-- 4. Archive / secondary action -->
     <div class="demo-section">
       <h3 class="demo-section__title">Archive Project</h3>
       <p class="demo-section__desc">
-        For reversible but significant actions, <code>confirmVariant="secondary"</code> signals caution without alarm.
+        For reversible but significant actions, <code>confirmVariant="secondary"</code> signals
+        caution without alarm.
       </p>
       <div class="demo-row">
-        <button class="demo-btn demo-btn--secondary" (click)="archiveOpen = true">Archive Project</button>
+        <button class="demo-btn demo-btn--secondary" (click)="archiveOpen = true">
+          Archive Project
+        </button>
       </div>
       <div class="demo-result" *ngIf="archiveResult">{{ archiveResult }}</div>
 
@@ -97,16 +101,27 @@
         confirmVariant="secondary"
         (confirmed)="onArchiveConfirm()"
         (cancelled)="onArchiveCancel()"
-        (closed)="archiveOpen = false">
+        (closed)="archiveOpen = false"
+      >
       </pui-lib-confirm-dialog>
     </div>
 
-    <!-- 5. Code Usage -->
     <div class="demo-section">
       <h3 class="demo-section__title">Usage</h3>
-      <docs-code-block lang="html"       id="cd-html" [text]="angHtml" [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
-      <docs-code-block lang="typescript" id="cd-ts"   [text]="angTs"   [copied]="copied" (copyClick)="copy($event.id, $event.text)"/>
+      <docs-code-block
+        lang="html"
+        id="cd-html"
+        [text]="angHtml"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
+      <docs-code-block
+        lang="typescript"
+        id="cd-ts"
+        [text]="angTs"
+        [copied]="copied"
+        (copyClick)="copy($event.id, $event.text)"
+      />
     </div>
-
   </ng-container>
 </docs-page>

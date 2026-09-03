@@ -3,7 +3,6 @@ import { NgIf, NgFor } from '@angular/common';
 import { IconInternalComponent } from '../icon/icon-internal.component';
 import { PuiFooterComponent } from './footer.component';
 
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-footer-internal',

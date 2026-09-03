@@ -1,7 +1,10 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgIf } from '@angular/common';
 import {
-  PuiDataTableComponent, TableColumn, TableAction, SortState,
+  PuiDataTableComponent,
+  TableColumn,
+  TableAction,
+  SortState,
 } from '@bhairab-patra/platform-ui';
 import { DocPageComponent } from '../../shared/doc-page.component';
 import { CodeBlockComponent } from '../../shared/code-block.component';
@@ -22,7 +25,9 @@ const COLUMNS: TableColumn[] = [
   { key: 'amount', label: 'Amount', type: 'currency', align: 'right', sortable: true },
   { key: 'placedOn', label: 'Placed On', type: 'date', sortable: true },
   {
-    key: 'status', label: 'Status', type: 'badge',
+    key: 'status',
+    label: 'Status',
+    type: 'badge',
     badgeMap: {
       Paid: { label: 'Paid', color: '#12C6A8' },
       Pending: { label: 'Pending', color: '#d97706' },
@@ -33,14 +38,70 @@ const COLUMNS: TableColumn[] = [
 ];
 
 const ORDERS: Order[] = [
-  { id: 'ORD-1001', customer: 'Alice Johnson', items: ['Laptop', 'Mouse'], amount: 1499.99, placedOn: '2026-08-01', status: 'Paid' },
-  { id: 'ORD-1002', customer: 'Bob Smith', items: ['Monitor'], amount: 329.5, placedOn: '2026-08-03', status: 'Pending' },
-  { id: 'ORD-1003', customer: 'Carol White', items: ['Keyboard', 'Headset', 'Webcam'], amount: 214.0, placedOn: '2026-08-05', status: 'Paid' },
-  { id: 'ORD-1004', customer: 'David Lee', items: ['Chair'], amount: 189.0, placedOn: '2026-08-06', status: 'Refunded' },
-  { id: 'ORD-1005', customer: 'Eve Brown', items: ['Desk', 'Lamp'], amount: 540.25, placedOn: '2026-08-09', status: 'Paid' },
-  { id: 'ORD-1006', customer: 'Frank Miller', items: ['Laptop Stand'], amount: 49.99, placedOn: '2026-08-10', status: 'Cancelled' },
-  { id: 'ORD-1007', customer: 'Grace Kim', items: ['Tablet'], amount: 699.0, placedOn: '2026-08-11', status: 'Pending' },
-  { id: 'ORD-1008', customer: 'Henry Ford', items: ['Router'], amount: 89.99, placedOn: '2026-08-12', status: 'Paid' },
+  {
+    id: 'ORD-1001',
+    customer: 'Alice Johnson',
+    items: ['Laptop', 'Mouse'],
+    amount: 1499.99,
+    placedOn: '2026-08-01',
+    status: 'Paid',
+  },
+  {
+    id: 'ORD-1002',
+    customer: 'Bob Smith',
+    items: ['Monitor'],
+    amount: 329.5,
+    placedOn: '2026-08-03',
+    status: 'Pending',
+  },
+  {
+    id: 'ORD-1003',
+    customer: 'Carol White',
+    items: ['Keyboard', 'Headset', 'Webcam'],
+    amount: 214.0,
+    placedOn: '2026-08-05',
+    status: 'Paid',
+  },
+  {
+    id: 'ORD-1004',
+    customer: 'David Lee',
+    items: ['Chair'],
+    amount: 189.0,
+    placedOn: '2026-08-06',
+    status: 'Refunded',
+  },
+  {
+    id: 'ORD-1005',
+    customer: 'Eve Brown',
+    items: ['Desk', 'Lamp'],
+    amount: 540.25,
+    placedOn: '2026-08-09',
+    status: 'Paid',
+  },
+  {
+    id: 'ORD-1006',
+    customer: 'Frank Miller',
+    items: ['Laptop Stand'],
+    amount: 49.99,
+    placedOn: '2026-08-10',
+    status: 'Cancelled',
+  },
+  {
+    id: 'ORD-1007',
+    customer: 'Grace Kim',
+    items: ['Tablet'],
+    amount: 699.0,
+    placedOn: '2026-08-11',
+    status: 'Pending',
+  },
+  {
+    id: 'ORD-1008',
+    customer: 'Henry Ford',
+    items: ['Router'],
+    amount: 89.99,
+    placedOn: '2026-08-12',
+    status: 'Paid',
+  },
 ];
 
 type FileTab = 'ts' | 'html' | 'scss';
@@ -76,12 +137,25 @@ export class TableLayoutPageComponent {
     this.cdr.markForCheck();
   }
 
-  onSort(sort: SortState): void { this.log(`sortChange → ${sort.key} (${sort.dir})`); }
-  onPage(page: number): void { this.page = page; this.log(`pageChange → page ${page}`); }
-  onSearch(term: string): void { this.log(`searchChange → "${term}"`); }
-  onRowClick(row: Order): void { this.log(`rowClick → ${row.id}`); }
-  onSelectionChange(rows: Order[]): void { this.log(`selectionChange → ${rows.length} row(s) selected`); }
-  onActionClick(evt: { action: TableAction; row: Order }): void { this.log(`actionClick → "${evt.action.label}" on ${evt.row.id}`); }
+  onSort(sort: SortState): void {
+    this.log(`sortChange → ${sort.key} (${sort.dir})`);
+  }
+  onPage(page: number): void {
+    this.page = page;
+    this.log(`pageChange → page ${page}`);
+  }
+  onSearch(term: string): void {
+    this.log(`searchChange → "${term}"`);
+  }
+  onRowClick(row: Order): void {
+    this.log(`rowClick → ${row.id}`);
+  }
+  onSelectionChange(rows: Order[]): void {
+    this.log(`selectionChange → ${rows.length} row(s) selected`);
+  }
+  onActionClick(evt: { action: TableAction; row: Order }): void {
+    this.log(`actionClick → "${evt.action.label}" on ${evt.row.id}`);
+  }
 
   activeTab: FileTab = 'ts';
   copied = '';
@@ -95,13 +169,15 @@ export class TableLayoutPageComponent {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
-      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
+      setTimeout(() => {
+        this.copied = '';
+        this.cdr.markForCheck();
+      }, 2000);
     });
   }
 
   files: Record<FileTab, string> = {
-    ts:
-      `import { Component } from '@angular/core';
+    ts: `import { Component } from '@angular/core';
 import {
   PuiDataTableComponent, TableColumn, TableAction, SortState,
 } from '@bhairab-patra/platform-ui';
@@ -169,8 +245,7 @@ export class OrdersTableComponent {
   onActionClick(evt: { action: TableAction; row: Order }) { /* already routed via action.action(row) above — use this only if you need a single combined handler instead */ }
 }`,
 
-    html:
-      `<pui-lib-data-table
+    html: `<pui-lib-data-table
   heading="Orders"
   [columns]="columns"
   [data]="orders"
@@ -196,8 +271,7 @@ export class OrdersTableComponent {
   (actionClick)="onActionClick($event)">
 </pui-lib-data-table>`,
 
-    scss:
-      `:host {
+    scss: `:host {
   display: block;
 }`,
   };

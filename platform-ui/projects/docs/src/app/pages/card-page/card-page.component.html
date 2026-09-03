@@ -1,18 +1,18 @@
-﻿
-<docs-page
+﻿<docs-page
   title="Card"
   description="Flexible surface component — supports stat/metric layouts, slot projection (header Â· body Â· footer), 5 variants, 3 sizes, full-width, accent strip, clickable lift, and a cardClick event."
   [hasFramework]="true"
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Content cards -->
     <div class="demo-section">
       <h3 class="demo-section__title">Content Cards</h3>
-      <p class="demo-section__desc">Use <code>card-header</code> and <code>card-footer</code> attribute selectors to project named slots. The body is un-attributed content.</p>
+      <p class="demo-section__desc">
+        Use <code>card-header</code> and <code>card-footer</code> attribute selectors to project
+        named slots. The body is un-attributed content.
+      </p>
       <div class="card-row">
-        <pui-lib-card variant="default" style="flex:1;min-width:0">
+        <pui-lib-card variant="default" style="flex: 1; min-width: 0">
           <div card-header class="card-custom-header">
             <span class="card-avatar">JD</span>
             <div>
@@ -20,7 +20,11 @@
               <div class="card-meta">Product Designer Â· 2 min ago</div>
             </div>
           </div>
-          <p class="card-body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
+          <p class="card-body-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+            exercitation ullamco.
+          </p>
           <div card-footer class="card-tags">
             <span class="card-tag">Design</span>
             <span class="card-tag">UI</span>
@@ -28,7 +32,7 @@
           </div>
         </pui-lib-card>
 
-        <pui-lib-card variant="teal" style="flex:1;min-width:0">
+        <pui-lib-card variant="teal" style="flex: 1; min-width: 0">
           <div card-header class="card-custom-header">
             <span class="card-avatar">AK</span>
             <div>
@@ -36,53 +40,101 @@
               <div class="card-meta">Engineering Lead Â· 5 min ago</div>
             </div>
           </div>
-          <p class="card-body-text">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.</p>
-    
+          <p class="card-body-text">
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+          </p>
         </pui-lib-card>
       </div>
     </div>
 
-    <!-- 3. Variants -->
     <div class="demo-section">
       <h3 class="demo-section__title">Variants</h3>
-      <p class="demo-section__desc">Five visual styles — choose based on the card's position in the visual hierarchy.</p>
+      <p class="demo-section__desc">
+        Five visual styles — choose based on the card's position in the visual hierarchy.
+      </p>
       <div class="card-row card-row--wrap">
-        <pui-lib-card variant="default"  style="width:180px"><p class="variant-label">Default</p><p class="variant-desc">White + shadow</p></pui-lib-card>
-        <pui-lib-card variant="outlined" style="width:180px"><p class="variant-label">Outlined</p><p class="variant-desc">Border only</p></pui-lib-card>
-        <pui-lib-card variant="flat"     style="width:180px"><p class="variant-label">Flat</p><p class="variant-desc">Gray bg, no border</p></pui-lib-card>
-        <pui-lib-card variant="teal"     style="width:180px"><p class="variant-label">Teal</p><p class="variant-desc">Mint gradient</p></pui-lib-card>
-    
+        <pui-lib-card variant="default" style="width: 180px"
+          ><p class="variant-label">Default</p>
+          <p class="variant-desc">White + shadow</p></pui-lib-card
+        >
+        <pui-lib-card variant="outlined" style="width: 180px"
+          ><p class="variant-label">Outlined</p>
+          <p class="variant-desc">Border only</p></pui-lib-card
+        >
+        <pui-lib-card variant="flat" style="width: 180px"
+          ><p class="variant-label">Flat</p>
+          <p class="variant-desc">Gray bg, no border</p></pui-lib-card
+        >
+        <pui-lib-card variant="teal" style="width: 180px"
+          ><p class="variant-label">Teal</p>
+          <p class="variant-desc">Mint gradient</p></pui-lib-card
+        >
       </div>
     </div>
 
-    <!-- 4. Sizes -->
     <div class="demo-section">
       <h3 class="demo-section__title">Sizes</h3>
-      <p class="demo-section__desc">Three sizes control internal padding: <code>sm</code> 16px, <code>md</code> 24px (default), <code>lg</code> 32px.</p>
+      <p class="demo-section__desc">
+        Three sizes control internal padding: <code>sm</code> 16px, <code>md</code> 24px (default),
+        <code>lg</code> 32px.
+      </p>
       <div class="card-row card-row--wrap">
-        <pui-lib-card size="sm" variant="outlined" style="width:180px"><p class="variant-label">Small</p><p class="variant-desc">padding: 16px</p></pui-lib-card>
-        <pui-lib-card size="md" variant="outlined" style="width:180px"><p class="variant-label">Medium</p><p class="variant-desc">padding: 24px</p></pui-lib-card>
-        <pui-lib-card size="lg" variant="outlined" style="width:180px"><p class="variant-label">Large</p><p class="variant-desc">padding: 32px</p></pui-lib-card>
+        <pui-lib-card size="sm" variant="outlined" style="width: 180px"
+          ><p class="variant-label">Small</p>
+          <p class="variant-desc">padding: 16px</p></pui-lib-card
+        >
+        <pui-lib-card size="md" variant="outlined" style="width: 180px"
+          ><p class="variant-label">Medium</p>
+          <p class="variant-desc">padding: 24px</p></pui-lib-card
+        >
+        <pui-lib-card size="lg" variant="outlined" style="width: 180px"
+          ><p class="variant-label">Large</p>
+          <p class="variant-desc">padding: 32px</p></pui-lib-card
+        >
       </div>
     </div>
 
-    <!-- 5. Balance card layouts -->
     <div class="demo-section">
       <h3 class="demo-section__title">Balance Card Layouts</h3>
-      <p class="demo-section__desc">Four layout patterns for financial stat cards — all use <code>variant="flat"</code> with <code>[clickable]="true"</code>.</p>
+      <p class="demo-section__desc">
+        Four layout patterns for financial stat cards — all use <code>variant="flat"</code> with
+        <code>[clickable]="true"</code>.
+      </p>
       <div class="card-row">
-        <pui-lib-card variant="flat" size="sm" [clickable]="true" cardClass="bal-card" style="flex:1;min-width:0">
+        <pui-lib-card
+          variant="flat"
+          size="sm"
+          [clickable]="true"
+          cardClass="bal-card"
+          style="flex: 1; min-width: 0"
+        >
           <div class="bal-row">
             <div class="bal-info">
               <div class="bal-label">Outstanding Balance</div>
-              <div class="bal-value-inline">$519.00 <span class="bal-sub">paid on 06/10/2022</span></div>
+              <div class="bal-value-inline">
+                $519.00 <span class="bal-sub">paid on 06/10/2022</span>
+              </div>
             </div>
             <div class="bal-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M7 17V9a2 2 0 012-2h8M7 17h10M12 7v10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M7 17V9a2 2 0 012-2h8M7 17h10M12 7v10"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+              </svg>
             </div>
           </div>
         </pui-lib-card>
-        <pui-lib-card variant="flat" size="sm" [clickable]="true" cardClass="bal-card" style="flex:1;min-width:0">
+        <pui-lib-card
+          variant="flat"
+          size="sm"
+          [clickable]="true"
+          cardClass="bal-card"
+          style="flex: 1; min-width: 0"
+        >
           <div class="bal-row">
             <div class="bal-info">
               <div class="bal-label">Outstanding Balance</div>
@@ -90,59 +142,111 @@
               <div class="bal-sub">paid on 06/10/2022</div>
             </div>
             <div class="bal-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 10h18M7 15h1m4 0h1M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M3 10h18M7 15h1m4 0h1M5 6h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2z"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+              </svg>
             </div>
           </div>
         </pui-lib-card>
-        <pui-lib-card variant="flat" size="sm" [clickable]="true" cardClass="bal-card" style="flex:1;min-width:0">
+        <pui-lib-card
+          variant="flat"
+          size="sm"
+          [clickable]="true"
+          cardClass="bal-card"
+          style="flex: 1; min-width: 0"
+        >
           <div class="bal-col">
             <div class="bal-label">Outstanding Balance</div>
             <div class="bal-sub">paid on 06/10/2022</div>
             <div class="bal-value">$519.00</div>
             <div class="bal-icon bal-icon--lg">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4M12 3a9 9 0 100 18A9 9 0 0012 3z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M9 12l2 2 4-4M12 3a9 9 0 100 18A9 9 0 0012 3z"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
             </div>
           </div>
         </pui-lib-card>
-        <pui-lib-card variant="flat" size="sm" [clickable]="true" cardClass="bal-card" style="flex:1;min-width:0">
+        <pui-lib-card
+          variant="flat"
+          size="sm"
+          [clickable]="true"
+          cardClass="bal-card"
+          style="flex: 1; min-width: 0"
+        >
           <div class="bal-col bal-col--icon-top">
             <div class="bal-icon bal-icon--lg">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M14 2v6h6M16 13H8M16 17H8M10 9H8"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linecap="round"
+                />
+              </svg>
             </div>
-            <div class="bal-label" style="margin-top:10px">Outstanding Balance</div>
+            <div class="bal-label" style="margin-top: 10px">Outstanding Balance</div>
             <div class="bal-sub">paid on 06/10/2022</div>
           </div>
         </pui-lib-card>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-card</code> is a flexible surface — project any content via <code>ng-content</code> or use named slots (<code>card-header</code>, <code>card-footer</code>). Pass a <code>[data]</code> object for the automatic stat/metric layout.</p>
+    <p class="fw-lead">
+      <code>pui-lib-card</code> is a flexible surface — project any content via
+      <code>ng-content</code> or use named slots (<code>card-header</code>,
+      <code>card-footer</code>). Pass a <code>[data]</code> object for the automatic stat/metric
+      layout.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-row">
-        <pui-lib-card variant="default" style="width:160px"><p style="margin:0;font-size:13px">Default card</p></pui-lib-card>
-        <pui-lib-card variant="outlined" style="width:160px"><p style="margin:0;font-size:13px">Outlined card</p></pui-lib-card>
-        <pui-lib-card [data]="revenueCard" style="width:200px"></pui-lib-card>
+        <pui-lib-card variant="default" style="width: 160px"
+          ><p style="margin: 0; font-size: 13px">Default card</p></pui-lib-card
+        >
+        <pui-lib-card variant="outlined" style="width: 160px"
+          ><p style="margin: 0; font-size: 13px">Outlined card</p></pui-lib-card
+        >
+        <pui-lib-card [data]="revenueCard" style="width: 200px"></pui-lib-card>
       </div>
       <div react-preview class="react-card-grid">
         <pui-lib-card variant="outlined">
           <div class="react-product-card">
-            <div class="react-product-card__badge"><pui-lib-badge variant="success" size="sm">In Stock</pui-lib-badge></div>
+            <div class="react-product-card__badge">
+              <pui-lib-badge variant="success" size="sm">In Stock</pui-lib-badge>
+            </div>
             <div class="react-product-card__name">Wireless Headphones</div>
             <div class="react-product-card__price">$89.99</div>
           </div>
         </pui-lib-card>
         <pui-lib-card variant="outlined">
           <div class="react-product-card">
-            <div class="react-product-card__badge"><pui-lib-badge variant="warning" size="sm">Low Stock</pui-lib-badge></div>
+            <div class="react-product-card__badge">
+              <pui-lib-badge variant="warning" size="sm">Low Stock</pui-lib-badge>
+            </div>
             <div class="react-product-card__name">Bluetooth Speaker</div>
             <div class="react-product-card__price">$49.99</div>
           </div>
@@ -153,19 +257,31 @@
     <h4 class="fw-ref-title">Card Quick Reference</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><span class="tag-name">{{ r.name }}</span></td>
-            <td><span class="tag-ng">{{ r.angular }}</span></td>
-            <td><span class="tag-html">{{ r.attr }}</span></td>
-            <td><span class="tag-js">{{ r.js }}</span></td>
+            <td>
+              <span class="tag-name">{{ r.name }}</span>
+            </td>
+            <td>
+              <span class="tag-ng">{{ r.angular }}</span>
+            </td>
+            <td>
+              <span class="tag-html">{{ r.attr }}</span>
+            </td>
+            <td>
+              <span class="tag-js">{{ r.js }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-  

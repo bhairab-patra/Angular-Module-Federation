@@ -15,8 +15,14 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
 export class CheckboxPageComponent {
   private cdr = inject(ChangeDetectorRef);
 
-  v1 = false; v2 = true; vErr = false; vHint = false;
-  preChecked = true; indeterminate = true; disabledFlag = true; requiredFlag = true;
+  v1 = false;
+  v2 = true;
+  vErr = false;
+  vHint = false;
+  preChecked = true;
+  indeterminate = true;
+  disabledFlag = true;
+  requiredFlag = true;
   fw = 'angular';
   copied = '';
 
@@ -24,21 +30,51 @@ export class CheckboxPageComponent {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
-      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
+      setTimeout(() => {
+        this.copied = '';
+        this.cdr.markForCheck();
+      }, 2000);
     });
   }
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   xfwRows = [
-    { name: 'label',         angular: 'label="str"',                       attr: 'label="str"',           js: 'el.label = "..."' },
-    { name: 'checked',       angular: '[checked]="bool" or [(ngModel)]',   attr: 'checked="true"',        js: 'el.checked = true' },
-    { name: 'indeterminate', angular: '[indeterminate]="bool"',            attr: 'indeterminate="true"',  js: 'el.indeterminate = true' },
-    { name: 'disabled',      angular: '[disabled]="bool"',                 attr: 'disabled="true"',       js: 'el.disabled = true' },
-    { name: 'required',      angular: '[required]="bool"',                 attr: 'required="true"',       js: 'el.required = true' },
-    { name: 'error',         angular: '[error]="str"',                     attr: 'error="msg"',           js: 'el.error = "msg"' },
-    { name: 'hint',          angular: '[hint]="str"',                      attr: 'hint="str"',            js: 'el.hint = "..."' },
-    { name: 'checkedChange', angular: '(checkedChange)="fn($event)"',      attr: '— use addEventListener', js: 'el.addEventListener("checkedChange", fn)' },
+    { name: 'label', angular: 'label="str"', attr: 'label="str"', js: 'el.label = "..."' },
+    {
+      name: 'checked',
+      angular: '[checked]="bool" or [(ngModel)]',
+      attr: 'checked="true"',
+      js: 'el.checked = true',
+    },
+    {
+      name: 'indeterminate',
+      angular: '[indeterminate]="bool"',
+      attr: 'indeterminate="true"',
+      js: 'el.indeterminate = true',
+    },
+    {
+      name: 'disabled',
+      angular: '[disabled]="bool"',
+      attr: 'disabled="true"',
+      js: 'el.disabled = true',
+    },
+    {
+      name: 'required',
+      angular: '[required]="bool"',
+      attr: 'required="true"',
+      js: 'el.required = true',
+    },
+    { name: 'error', angular: '[error]="str"', attr: 'error="msg"', js: 'el.error = "msg"' },
+    { name: 'hint', angular: '[hint]="str"', attr: 'hint="str"', js: 'el.hint = "..."' },
+    {
+      name: 'checkedChange',
+      angular: '(checkedChange)="fn($event)"',
+      attr: '— use addEventListener',
+      js: 'el.addEventListener("checkedChange", fn)',
+    },
   ];
 
   angHtml = `<pui-lib-checkbox
@@ -108,14 +144,54 @@ export function MyForm() {
 </script>`;
 
   api: ApiRow[] = [
-    { input: 'label',         type: 'string',  default: "''",     description: 'Label text shown next to the checkbox' },
-    { input: 'checked',       type: 'boolean', default: 'false',  description: 'Whether the checkbox is checked' },
-    { input: 'indeterminate', type: 'boolean', default: 'false',  description: 'Indeterminate (partial-select) state' },
-    { input: 'disabled',      type: 'boolean', default: 'false',  description: 'Disables interaction' },
-    { input: 'required',      type: 'boolean', default: 'false',  description: 'Shows required asterisk' },
-    { input: 'error',         type: 'string',  default: "''",     description: 'Error message; hides hint when set' },
-    { input: 'hint',          type: 'string',  default: "''",     description: 'Helper text shown below the checkbox' },
-    { input: 'checkedChange', type: 'EventEmitter<boolean>', default: '—', description: 'Emits the new checked value on change' },
-    { input: 'changed',       type: 'EventEmitter<boolean>', default: '—', description: 'Alias output for change events' },
+    {
+      input: 'label',
+      type: 'string',
+      default: "''",
+      description: 'Label text shown next to the checkbox',
+    },
+    {
+      input: 'checked',
+      type: 'boolean',
+      default: 'false',
+      description: 'Whether the checkbox is checked',
+    },
+    {
+      input: 'indeterminate',
+      type: 'boolean',
+      default: 'false',
+      description: 'Indeterminate (partial-select) state',
+    },
+    { input: 'disabled', type: 'boolean', default: 'false', description: 'Disables interaction' },
+    {
+      input: 'required',
+      type: 'boolean',
+      default: 'false',
+      description: 'Shows required asterisk',
+    },
+    {
+      input: 'error',
+      type: 'string',
+      default: "''",
+      description: 'Error message; hides hint when set',
+    },
+    {
+      input: 'hint',
+      type: 'string',
+      default: "''",
+      description: 'Helper text shown below the checkbox',
+    },
+    {
+      input: 'checkedChange',
+      type: 'EventEmitter<boolean>',
+      default: '—',
+      description: 'Emits the new checked value on change',
+    },
+    {
+      input: 'changed',
+      type: 'EventEmitter<boolean>',
+      default: '—',
+      description: 'Alias output for change events',
+    },
   ];
 }

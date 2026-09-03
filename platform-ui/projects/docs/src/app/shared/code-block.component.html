@@ -1,11 +1,9 @@
-
-    <div class="cw">
-      <div class="ch">
-        <span class="cl">{{ lang }}</span>
-        <button class="cb" (click)="copyClick.emit({ text: text, id: id })">
-          {{ copied === id ? '✓ Copied' : 'Copy' }}
-        </button>
-      </div>
-      <pre><code>{{ text }}</code></pre>
-    </div>
-  
+<div class="cw">
+  <div class="ch">
+    <span class="cl">{{ lang }}</span>
+    <button class="cb" (click)="copyClick.emit({ text: text, id: id })">
+      {{ copied === id ? '✓ Copied' : 'Copy' }}
+    </button>
+  </div>
+  <pre><code>{{ text }}</code></pre>
+</div>

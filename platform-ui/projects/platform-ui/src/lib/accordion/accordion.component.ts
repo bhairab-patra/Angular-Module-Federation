@@ -1,6 +1,10 @@
 ﻿import {
-  Component, Input, Output, EventEmitter,
-  ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -27,7 +31,7 @@ export class PuiAccordionComponent {
   @Output() openIdsChange = new EventEmitter<(string | number)[]>();
   @Output() itemToggle = new EventEmitter<{ id: string | number; open: boolean }>();
 
-  constructor(private _sanitizer: DomSanitizer) { }
+  constructor(private _sanitizer: DomSanitizer) {}
 
   private _trustedHtml = new Map<string, SafeHtml>();
 
@@ -49,7 +53,7 @@ export class PuiAccordionComponent {
 
     const wasOpen = this.isOpen(item.id);
     if (wasOpen) {
-      this.openIds = this.openIds.filter(i => i !== item.id);
+      this.openIds = this.openIds.filter((i) => i !== item.id);
     } else {
       this.openIds = this.allowMultiple ? [...this.openIds, item.id] : [item.id];
     }
@@ -58,5 +62,7 @@ export class PuiAccordionComponent {
     this.itemToggle.emit({ id: item.id, open: !wasOpen });
   }
 
-  trackItem(_: number, item: AccordionItem): string | number { return item.id; }
+  trackItem(_: number, item: AccordionItem): string | number {
+    return item.id;
+  }
 }

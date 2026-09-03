@@ -1,4 +1,10 @@
-﻿import { Component, Input, OnChanges, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+﻿import {
+  Component,
+  Input,
+  OnChanges,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { ICON_REGISTRY } from './icon-registry';
@@ -32,9 +38,11 @@ export class IconComponent implements OnChanges {
   svg: SafeHtml = '';
   px = 20;
 
-  get hostClass(): string { return `pui-icon--${this.size}`; }
+  get hostClass(): string {
+    return `pui-icon--${this.size}`;
+  }
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer) {}
 
   ngOnChanges(): void {
     this.px = SIZE_MAP[this.size] ?? 20;
@@ -43,7 +51,8 @@ export class IconComponent implements OnChanges {
       this.svg = '';
       return;
     }
-    const colored = raw.replace(/stroke="currentColor"/g, `stroke="${this.color}"`)
+    const colored = raw
+      .replace(/stroke="currentColor"/g, `stroke="${this.color}"`)
       .replace(/fill="currentColor"/g, `fill="${this.color}"`);
     this.svg = this.sanitizer.bypassSecurityTrustHtml(colored);
   }

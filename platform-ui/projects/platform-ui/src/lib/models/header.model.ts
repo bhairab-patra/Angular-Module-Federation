@@ -1,18 +1,18 @@
 export interface NavLink {
   label: string;
-  href:  string;
+  href: string;
   active?: boolean;
 }
 
 export interface UserMenuItem {
-  label:   string;
-  icon?:   string;
+  label: string;
+  icon?: string;
   danger?: boolean;
-  action:  string;
+  action: string;
 }
 
 export interface HeaderBadge {
-  text:  string;
+  text: string;
   color: string;
   textColor?: string;
 }

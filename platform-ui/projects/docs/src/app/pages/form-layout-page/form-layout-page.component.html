@@ -6,9 +6,9 @@
     <div class="demo-section">
       <h3 class="demo-section__title">Live Preview</h3>
       <p class="demo-section__desc">
-        Try submitting empty — every required field shows its own inline
-        error via <code>getFieldError()</code>. Fill it in and submit to see
-        the captured value below the form.
+        Try submitting empty — every required field shows its own inline error via
+        <code>getFieldError()</code>. Fill it in and submit to see the captured value below the
+        form.
       </p>
 
       <div class="preview-frame">
@@ -23,7 +23,8 @@
                 formControlName="fullName"
                 [required]="true"
                 [clearable]="true"
-                [error]="getFieldError('fullName', 'Full Name')">
+                [error]="getFieldError('fullName', 'Full Name')"
+              >
               </pui-lib-input>
             </div>
 
@@ -34,7 +35,8 @@
                 placeholder="you@example.com"
                 formControlName="email"
                 [required]="true"
-                [error]="getFieldError('email', 'Email')">
+                [error]="getFieldError('email', 'Email')"
+              >
               </pui-lib-input>
             </div>
 
@@ -44,7 +46,8 @@
                 [required]="true"
                 [showInfo]="true"
                 info="At least 8 characters, one uppercase letter and one number."
-                infoPosition="right">
+                infoPosition="right"
+              >
               </pui-lib-label>
               <pui-lib-password-input
                 placeholder="Enter password"
@@ -55,7 +58,8 @@
                 [requireUpper]="true"
                 [requireNumber]="true"
                 [copyable]="true"
-                [error]="getFieldError('password', 'Password')">
+                [error]="getFieldError('password', 'Password')"
+              >
               </pui-lib-password-input>
             </div>
 
@@ -64,7 +68,8 @@
               <pui-lib-datepicker
                 placeholder="Select date of birth"
                 formControlName="dob"
-                [clearable]="true">
+                [clearable]="true"
+              >
               </pui-lib-datepicker>
             </div>
 
@@ -73,7 +78,8 @@
               <pui-lib-radio-group
                 [options]="genderOptions"
                 formControlName="gender"
-                [error]="getFieldError('gender', 'Gender')">
+                [error]="getFieldError('gender', 'Gender')"
+              >
               </pui-lib-radio-group>
             </div>
 
@@ -83,7 +89,8 @@
                 placeholder="Select country"
                 [options]="countryOptions"
                 formControlName="country"
-                [error]="getFieldError('country', 'Country')">
+                [error]="getFieldError('country', 'Country')"
+              >
               </pui-lib-select>
             </div>
 
@@ -92,12 +99,14 @@
                 text="Areas of Interest"
                 [showInfo]="true"
                 info="You can select more than one option."
-                infoPosition="right">
+                infoPosition="right"
+              >
               </pui-lib-label>
               <pui-lib-multiselect
                 placeholder="Select interests…"
                 [options]="interestOptions"
-                formControlName="interests">
+                formControlName="interests"
+              >
               </pui-lib-multiselect>
             </div>
 
@@ -106,29 +115,43 @@
               <pui-lib-combobox
                 placeholder="Select or type…"
                 [options]="contactMethodOptions"
-                formControlName="contactMethod">
+                formControlName="contactMethod"
+              >
               </pui-lib-combobox>
             </div>
 
             <div class="field">
               <pui-lib-label text="Bio / Notes"></pui-lib-label>
-              <pui-lib-textarea
-                placeholder="Tell us a bit about yourself…"
-                formControlName="bio">
+              <pui-lib-textarea placeholder="Tell us a bit about yourself…" formControlName="bio">
               </pui-lib-textarea>
             </div>
 
-            <pui-lib-switch label="Subscribe to newsletter" formControlName="subscribe"></pui-lib-switch>
+            <pui-lib-switch
+              label="Subscribe to newsletter"
+              formControlName="subscribe"
+            ></pui-lib-switch>
 
             <pui-lib-checkbox
               label="I accept the terms and conditions"
               formControlName="acceptTerms"
-              [error]="getFieldError('acceptTerms', 'Accepting the terms')">
+              [error]="getFieldError('acceptTerms', 'Accepting the terms')"
+            >
             </pui-lib-checkbox>
 
             <div class="form-actions">
-              <pui-lib-button variant="primary" size="md" type="button" label="Submit" (buttonClick)="onSubmit()"></pui-lib-button>
-              <pui-lib-button variant="ghost" type="button" label="Reset" (buttonClick)="onReset()"></pui-lib-button>
+              <pui-lib-button
+                variant="primary"
+                size="md"
+                type="button"
+                label="Submit"
+                (buttonClick)="onSubmit()"
+              ></pui-lib-button>
+              <pui-lib-button
+                variant="ghost"
+                type="button"
+                label="Reset"
+                (buttonClick)="onReset()"
+              ></pui-lib-button>
             </div>
 
             <p class="form-msg form-msg--error" *ngIf="submitted && form.invalid">
@@ -204,15 +227,13 @@
     </div>
 
     <div class="tip">
-      <strong>Validation note:</strong> <code>pui-lib-password-input</code>
-      ships its own built-in validators — pass <code>minLength</code>,
-      <code>requireUpper</code>, <code>requireNumber</code> (and
-      <code>requireSpecial</code>) as inputs and it produces a
-      <code>passwordStrength</code> form-control error automatically, wired
-      through <code>formControlName</code> like any other control. There's no
-      need to write a custom <code>Validators</code> function for password
-      rules — <code>getFieldError()</code> above just reads that error back
-      out.
+      <strong>Validation note:</strong> <code>pui-lib-password-input</code> ships its own built-in
+      validators — pass <code>minLength</code>, <code>requireUpper</code>,
+      <code>requireNumber</code> (and <code>requireSpecial</code>) as inputs and it produces a
+      <code>passwordStrength</code> form-control error automatically, wired through
+      <code>formControlName</code> like any other control. There's no need to write a custom
+      <code>Validators</code> function for password rules — <code>getFieldError()</code> above just
+      reads that error back out.
     </div>
   </ng-container>
 </docs-page>

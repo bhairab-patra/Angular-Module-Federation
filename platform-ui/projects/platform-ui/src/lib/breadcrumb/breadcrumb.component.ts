@@ -26,12 +26,10 @@ export class BreadcrumbComponent {
   @Input() separator: BreadcrumbSeparator = 'chevron';
   @Input() ariaLabel = 'Breadcrumb';
 
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer) {}
 
   get sep(): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(
-      SEPARATORS[this.separator] ?? SEPARATORS.chevron
-    );
+    return this.sanitizer.bypassSecurityTrustHtml(SEPARATORS[this.separator] ?? SEPARATORS.chevron);
   }
 
   safeIcon(icon: string): SafeHtml {

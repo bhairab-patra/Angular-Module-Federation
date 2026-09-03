@@ -3,19 +3,33 @@
   description="Full application layout using PuiSolifiSidebarComponent — dark navy sidebar, flat navigation, user profile popup menu, icon or text-only mode, collapse to 64px rail — plus an optional theme-aware top header (logo, search, avatar). Every input is prefixed by which part of the shell it controls: sidebarX for the left nav rail, headerX for the top bar. Set showHeader to false for a flat layout with no header."
   [code]="angularCode"
   [api]="api"
-  [hasFramework]="true">
-
+  [hasFramework]="true"
+>
   <ng-container demo>
-
-    <!-- Controls -->
     <div class="demo-controls">
       <div class="ctrl-group">
-        <button class="ctrl-chip" [class.active]="demoShowHeader" (click)="demoShowHeader = true">Header: On</button>
-        <button class="ctrl-chip" [class.active]="!demoShowHeader" (click)="demoShowHeader = false">Header: Off (flat)</button>
+        <button class="ctrl-chip" [class.active]="demoShowHeader" (click)="demoShowHeader = true">
+          Header: On
+        </button>
+        <button class="ctrl-chip" [class.active]="!demoShowHeader" (click)="demoShowHeader = false">
+          Header: Off (flat)
+        </button>
       </div>
       <div class="ctrl-group">
-        <button class="ctrl-chip" [class.active]="iconMode==='with-icons'" (click)="setMode('with-icons')">Icon + text</button>
-        <button class="ctrl-chip" [class.active]="iconMode==='no-icons'"   (click)="setMode('no-icons')">Text only</button>
+        <button
+          class="ctrl-chip"
+          [class.active]="iconMode === 'with-icons'"
+          (click)="setMode('with-icons')"
+        >
+          Icon + text
+        </button>
+        <button
+          class="ctrl-chip"
+          [class.active]="iconMode === 'no-icons'"
+          (click)="setMode('no-icons')"
+        >
+          Text only
+        </button>
       </div>
       <div class="ctrl-group">
         <button class="ctrl-btn" (click)="onCollapsed(!collapsed)">
@@ -26,9 +40,7 @@
       <span class="ctrl-tag" *ngIf="lastHeaderQuery">Header search → {{ lastHeaderQuery }}</span>
     </div>
 
-    <!-- Shell frame: real pui-lib-app-shell — sidebar + optional header + content -->
     <div class="shell-frame">
-
       <pui-lib-app-shell
         sidebarBrandName="solifi"
         sidebarLogoUrl="assets/logo.png"
@@ -58,12 +70,17 @@
         (sidebarCollapsedChange)="onCollapsed($event)"
         (sidebarUserMenuSelect)="onUserMenu($event)"
         (headerSearchQuery)="onHeaderSearch($event)"
-        style="display:flex;height:520px;border-radius:12px;overflow:hidden;border:1px solid var(--pui-neutral-200)">
-
-        <!-- Welcome card -->
+        style="
+          display: flex;
+          height: 520px;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1px solid var(--pui-neutral-200);
+        "
+      >
         <div class="welcome-card">
           <div class="welcome-card__text">
-            <h2 class="welcome-card__heading">Welcome to<br>the borrower portal!</h2>
+            <h2 class="welcome-card__heading">Welcome to<br />the borrower portal!</h2>
             <p class="welcome-card__sub">
               Your Account Manager is:
               <a class="welcome-card__link" href="#">Alan Jasenovic</a>
@@ -72,40 +89,32 @@
           </div>
           <div class="welcome-card__img-area" aria-hidden="true"></div>
         </div>
-
       </pui-lib-app-shell>
-
     </div>
 
-    <!-- Code snippet -->
     <div class="demo-section">
       <div class="demo-section__title">Angular usage</div>
       <pre class="code-block"><code>{{ angularCode }}</code></pre>
     </div>
 
-    <!-- Grouped (navGroups) vs Flat (navItems) -->
     <div class="demo-section">
-      <div class="demo-section__title">
-        Grouped vs flat navigation — navGroups vs navItems
-      </div>
+      <div class="demo-section__title">Grouped vs flat navigation — navGroups vs navItems</div>
       <p class="demo-section__desc">
         <code>sidebarGroups</code> accepts two shapes. Pass an array of
-        <code>SolifiNavGroup</code> objects (each with its own
-        <code>id</code>, <code>label</code>, and <code>items</code>) to get a
-        section label above every cluster — that's what "navGroups" means.
-        If you don't want section labels at all, skip the group wrapper and
-        pass a plain <code>SolifiNavItem[]</code> array instead — commonly
-        called "navItems". The shell checks whether the first array element
-        has an <code>items</code> key: if it doesn't, the whole array is
-        treated as one flat, ungrouped list and no label renders above it.
-        Same <code>[sidebarGroups]</code> input either way — nothing else in
-        your template changes.
+        <code>SolifiNavGroup</code> objects (each with its own <code>id</code>, <code>label</code>,
+        and <code>items</code>) to get a section label above every cluster — that's what "navGroups"
+        means. If you don't want section labels at all, skip the group wrapper and pass a plain
+        <code>SolifiNavItem[]</code> array instead — commonly called "navItems". The shell checks
+        whether the first array element has an <code>items</code> key: if it doesn't, the whole
+        array is treated as one flat, ungrouped list and no label renders above it. Same
+        <code>[sidebarGroups]</code> input either way — nothing else in your template changes.
       </p>
 
       <pui-lib-tabs
         [tabs]="shellGroupsFlatTabs"
         [activeTab]="shellGroupsFlatActive"
-        (tabChange)="setShellGroupsFlatTab($event.id)">
+        (tabChange)="setShellGroupsFlatTab($event.id)"
+      >
         <div *ngIf="shellGroupsFlatActive === 'grouped'" class="tab-content-demo">
           <div class="demo-section__title">Live preview — [sidebarGroups]="navGroups"</div>
           <pui-lib-app-shell
@@ -114,7 +123,14 @@
             sidebarBrandName="Solifi"
             [showHeader]="false"
             (sidebarItemSelect)="onShellFlatDemoNav($event)"
-            style="display:flex;height:280px;border-radius:10px;overflow:hidden;border:1px solid var(--pui-neutral-200)">
+            style="
+              display: flex;
+              height: 280px;
+              border-radius: 10px;
+              overflow: hidden;
+              border: 1px solid var(--pui-neutral-200);
+            "
+          >
           </pui-lib-app-shell>
           <div class="demo-section__title">HTML template</div>
           <pre class="code-block"><code>{{ shellGroupedHtml }}</code></pre>
@@ -122,14 +138,23 @@
           <pre class="code-block"><code>{{ shellGroupedTs }}</code></pre>
         </div>
         <div *ngIf="shellGroupsFlatActive === 'flat'" class="tab-content-demo">
-          <div class="demo-section__title">Live preview — [sidebarGroups]="navItems" (no group labels)</div>
+          <div class="demo-section__title">
+            Live preview — [sidebarGroups]="navItems" (no group labels)
+          </div>
           <pui-lib-app-shell
             [sidebarGroups]="navItems"
             [sidebarActiveId]="shellFlatDemoActiveId"
             sidebarBrandName="Solifi"
             [showHeader]="false"
             (sidebarItemSelect)="onShellFlatDemoNav($event)"
-            style="display:flex;height:280px;border-radius:10px;overflow:hidden;border:1px solid var(--pui-neutral-200)">
+            style="
+              display: flex;
+              height: 280px;
+              border-radius: 10px;
+              overflow: hidden;
+              border: 1px solid var(--pui-neutral-200);
+            "
+          >
           </pui-lib-app-shell>
           <div class="demo-section__title">HTML template</div>
           <pre class="code-block"><code>{{ shellFlatHtml }}</code></pre>
@@ -139,35 +164,41 @@
       </pui-lib-tabs>
     </div>
 
-    <!-- Categorized input/output reference -->
     <div class="demo-section">
       <div class="demo-section__title">Understanding Every Input &amp; Output</div>
-      <p class="demo-section__desc">Every <code>pui-lib-app-shell</code> property, grouped by what it controls — <code>sidebarX</code> only ever touches the left nav rail, <code>headerX</code> only ever touches the top bar. Expand a category to read its explanation — nothing is mixed together.</p>
+      <p class="demo-section__desc">
+        Every <code>pui-lib-app-shell</code> property, grouped by what it controls —
+        <code>sidebarX</code> only ever touches the left nav rail, <code>headerX</code> only ever
+        touches the top bar. Expand a category to read its explanation — nothing is mixed together.
+      </p>
       <div class="demo-block">
         <pui-lib-accordion
           [items]="referenceItems"
           [openIds]="referenceOpen"
-          (openIdsChange)="onReferenceOpenChange($event)">
+          (openIdsChange)="onReferenceOpenChange($event)"
+        >
         </pui-lib-accordion>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
       Use <code>pui-lib-app-shell</code> as your application's root layout — it owns the sidebar,
-      collapse behaviour, user profile, and theme. Drop your page content (e.g. <code>&lt;router-outlet /&gt;</code>)
-      directly inside it via <code>ng-content</code> / children. Every input name tells you which part of the
-      shell it affects: <code>sidebarX</code> for the left nav rail, <code>headerX</code> for the top bar —
-      nothing unprefixed except the two shell-level layout props, <code>pageTitle</code> and <code>footerText</code>.
+      collapse behaviour, user profile, and theme. Drop your page content (e.g.
+      <code>&lt;router-outlet /&gt;</code>) directly inside it via <code>ng-content</code> /
+      children. Every input name tells you which part of the shell it affects:
+      <code>sidebarX</code> for the left nav rail, <code>headerX</code> for the top bar — nothing
+      unprefixed except the two shell-level layout props, <code>pageTitle</code> and
+      <code>footerText</code>.
     </p>
 
-    <docs-framework-preview [angularCode]="fwAngularCode" [reactCode]="fwReactCode" [htmlCode]="fwHtmlCode">
-
-      <!-- Angular live preview — real pui-lib-app-shell with complete layout -->
+    <docs-framework-preview
+      [angularCode]="fwAngularCode"
+      [reactCode]="fwReactCode"
+      [htmlCode]="fwHtmlCode"
+    >
       <pui-lib-app-shell
         preview
         sidebarBrandName="solifi"
@@ -195,46 +226,170 @@
         (sidebarCollapsedChange)="onCollapsed($event)"
         (sidebarUserMenuSelect)="onUserMenu($event)"
         (headerSearchQuery)="onHeaderSearch($event)"
-        style="display:flex;height:340px;border-radius:10px;overflow:hidden;border:1px solid var(--pui-border,#e2e8f0)">
-
-        <!-- Consumer's page content -->
-        <div style="display:flex;align-items:center;justify-content:center;height:100%;color:#94a3b8;font-size:13px;flex-direction:column;gap:6px">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" style="opacity:.35"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+        style="
+          display: flex;
+          height: 340px;
+          border-radius: 10px;
+          overflow: hidden;
+          border: 1px solid var(--pui-border, #e2e8f0);
+        "
+      >
+        <div
+          style="
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #94a3b8;
+            font-size: 13px;
+            flex-direction: column;
+            gap: 6px;
+          "
+        >
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.4"
+            style="opacity: 0.35"
+          >
+            <rect x="3" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="3" width="7" height="7" rx="1" />
+            <rect x="14" y="14" width="7" height="7" rx="1" />
+            <rect x="3" y="14" width="7" height="7" rx="1" />
+          </svg>
           <span>{{ activeLabel }}</span>
-          <span *ngIf="lastUserAction" style="font-size:11px;background:rgba(18,198,168,.12);color:#12C6A8;padding:2px 10px;border-radius:20px;font-weight:600">
+          <span
+            *ngIf="lastUserAction"
+            style="
+              font-size: 11px;
+              background: rgba(18, 198, 168, 0.12);
+              color: #12c6a8;
+              padding: 2px 10px;
+              border-radius: 20px;
+              font-weight: 600;
+            "
+          >
             Sidebar user menu → {{ lastUserAction }}
           </span>
         </div>
-
       </pui-lib-app-shell>
-
     </docs-framework-preview>
 
     <h4 class="fw-ref-title">App Shell Quick Reference</h4>
 
-    <p class="fw-lead" style="margin-top:0"><strong>Sidebar</strong> — affects only the left nav rail:</p>
+    <p class="fw-lead" style="margin-top: 0">
+      <strong>Sidebar</strong> — affects only the left nav rail:
+    </p>
     <div class="xfw-wrap">
       <table class="xfw-table">
         <thead>
-          <tr><th>Input / Output</th><th>Angular</th><th>HTML attr</th><th>JS property / event</th></tr>
+          <tr>
+            <th>Input / Output</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property / event</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td><span class="tag-name">sidebarGroups</span></td><td><span class="tag-ng">[sidebarGroups]="navGroups"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.sidebarGroups = [...]</span></td></tr>
-          <tr><td><span class="tag-name">sidebarActiveId</span></td><td><span class="tag-ng">[sidebarActiveId]="activeId"</span></td><td><span class="tag-html">sidebar-active-id="..."</span></td><td><span class="tag-js">el.sidebarActiveId = '...'</span></td></tr>
-          <tr><td><span class="tag-name">sidebarBrandName</span></td><td><span class="tag-ng">sidebarBrandName="..."</span></td><td><span class="tag-html">sidebar-brand-name="..."</span></td><td><span class="tag-js">el.sidebarBrandName = '...'</span></td></tr>
-          <tr><td><span class="tag-name">sidebarLogoUrl</span></td><td><span class="tag-ng">sidebarLogoUrl="..."</span></td><td><span class="tag-html">sidebar-logo-url="..."</span></td><td><span class="tag-js">el.sidebarLogoUrl = '...'</span></td></tr>
-          <tr><td><span class="tag-name">showSidebarBrand</span></td><td><span class="tag-ng">[showSidebarBrand]="false"</span></td><td><span class="tag-html">show-sidebar-brand="false"</span></td><td><span class="tag-js">el.showSidebarBrand = false</span></td></tr>
-          <tr><td><span class="tag-name">sidebarCollapsed</span></td><td><span class="tag-ng">[sidebarCollapsed]="false"</span></td><td><span class="tag-html">sidebar-collapsed</span></td><td><span class="tag-js">el.sidebarCollapsed = true</span></td></tr>
-          <tr><td><span class="tag-name">showSidebar</span></td><td><span class="tag-ng">[showSidebar]="false"</span></td><td><span class="tag-html">show-sidebar="false"</span></td><td><span class="tag-js">el.showSidebar = false</span></td></tr>
-          <tr><td><span class="tag-name">sidebarWidth / sidebarCollapsedWidth</span></td><td><span class="tag-ng">[sidebarWidth]="220"</span></td><td><span class="tag-html">sidebar-width="220"</span></td><td><span class="tag-js">el.sidebarWidth = 220</span></td></tr>
-          <tr><td><span class="tag-name">sidebarTheme</span></td><td><span class="tag-ng">[sidebarTheme]="theme"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.sidebarTheme = SOLIFI_THEME</span></td></tr>
-          <tr><td><span class="tag-name">showSidebarUser</span></td><td><span class="tag-ng">[showSidebarUser]="true"</span></td><td><span class="tag-html">show-sidebar-user</span></td><td><span class="tag-js">el.showSidebarUser = true</span></td></tr>
-          <tr><td><span class="tag-name">sidebarUserName / sidebarUserEmail</span></td><td><span class="tag-ng">sidebarUserName="..."</span></td><td><span class="tag-html">sidebar-user-name="..."</span></td><td><span class="tag-js">el.sidebarUserName = '...'</span></td></tr>
-          <tr><td><span class="tag-name">sidebarUserInitials / sidebarUserAvatarUrl</span></td><td><span class="tag-ng">sidebarUserInitials="..."</span></td><td><span class="tag-html">sidebar-user-initials="..."</span></td><td><span class="tag-js">el.sidebarUserInitials = '...'</span></td></tr>
-          <tr><td><span class="tag-name">sidebarUserMenuItems</span></td><td><span class="tag-ng">[sidebarUserMenuItems]="items"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.sidebarUserMenuItems = [...]</span></td></tr>
-          <tr><td><span class="tag-name">sidebarItemSelect</span></td><td><span class="tag-ng">(sidebarItemSelect)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('sidebarItemSelect', fn)</span></td></tr>
-          <tr><td><span class="tag-name">sidebarCollapsedChange</span></td><td><span class="tag-ng">(sidebarCollapsedChange)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('sidebarCollapsedChange', fn)</span></td></tr>
-          <tr><td><span class="tag-name">sidebarUserMenuSelect</span></td><td><span class="tag-ng">(sidebarUserMenuSelect)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('sidebarUserMenuSelect', fn)</span></td></tr>
+          <tr>
+            <td><span class="tag-name">sidebarGroups</span></td>
+            <td><span class="tag-ng">[sidebarGroups]="navGroups"</span></td>
+            <td><span class="tag-html">—</span></td>
+            <td><span class="tag-js">el.sidebarGroups = [...]</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarActiveId</span></td>
+            <td><span class="tag-ng">[sidebarActiveId]="activeId"</span></td>
+            <td><span class="tag-html">sidebar-active-id="..."</span></td>
+            <td><span class="tag-js">el.sidebarActiveId = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarBrandName</span></td>
+            <td><span class="tag-ng">sidebarBrandName="..."</span></td>
+            <td><span class="tag-html">sidebar-brand-name="..."</span></td>
+            <td><span class="tag-js">el.sidebarBrandName = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarLogoUrl</span></td>
+            <td><span class="tag-ng">sidebarLogoUrl="..."</span></td>
+            <td><span class="tag-html">sidebar-logo-url="..."</span></td>
+            <td><span class="tag-js">el.sidebarLogoUrl = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">showSidebarBrand</span></td>
+            <td><span class="tag-ng">[showSidebarBrand]="false"</span></td>
+            <td><span class="tag-html">show-sidebar-brand="false"</span></td>
+            <td><span class="tag-js">el.showSidebarBrand = false</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarCollapsed</span></td>
+            <td><span class="tag-ng">[sidebarCollapsed]="false"</span></td>
+            <td><span class="tag-html">sidebar-collapsed</span></td>
+            <td><span class="tag-js">el.sidebarCollapsed = true</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">showSidebar</span></td>
+            <td><span class="tag-ng">[showSidebar]="false"</span></td>
+            <td><span class="tag-html">show-sidebar="false"</span></td>
+            <td><span class="tag-js">el.showSidebar = false</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarWidth / sidebarCollapsedWidth</span></td>
+            <td><span class="tag-ng">[sidebarWidth]="220"</span></td>
+            <td><span class="tag-html">sidebar-width="220"</span></td>
+            <td><span class="tag-js">el.sidebarWidth = 220</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarTheme</span></td>
+            <td><span class="tag-ng">[sidebarTheme]="theme"</span></td>
+            <td><span class="tag-html">—</span></td>
+            <td><span class="tag-js">el.sidebarTheme = SOLIFI_THEME</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">showSidebarUser</span></td>
+            <td><span class="tag-ng">[showSidebarUser]="true"</span></td>
+            <td><span class="tag-html">show-sidebar-user</span></td>
+            <td><span class="tag-js">el.showSidebarUser = true</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarUserName / sidebarUserEmail</span></td>
+            <td><span class="tag-ng">sidebarUserName="..."</span></td>
+            <td><span class="tag-html">sidebar-user-name="..."</span></td>
+            <td><span class="tag-js">el.sidebarUserName = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarUserInitials / sidebarUserAvatarUrl</span></td>
+            <td><span class="tag-ng">sidebarUserInitials="..."</span></td>
+            <td><span class="tag-html">sidebar-user-initials="..."</span></td>
+            <td><span class="tag-js">el.sidebarUserInitials = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarUserMenuItems</span></td>
+            <td><span class="tag-ng">[sidebarUserMenuItems]="items"</span></td>
+            <td><span class="tag-html">—</span></td>
+            <td><span class="tag-js">el.sidebarUserMenuItems = [...]</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarItemSelect</span></td>
+            <td><span class="tag-ng">(sidebarItemSelect)="fn($event)"</span></td>
+            <td><span class="tag-html">—</span></td>
+            <td><span class="tag-js">el.addEventListener('sidebarItemSelect', fn)</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarCollapsedChange</span></td>
+            <td><span class="tag-ng">(sidebarCollapsedChange)="fn($event)"</span></td>
+            <td><span class="tag-html">—</span></td>
+            <td><span class="tag-js">el.addEventListener('sidebarCollapsedChange', fn)</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">sidebarUserMenuSelect</span></td>
+            <td><span class="tag-ng">(sidebarUserMenuSelect)="fn($event)"</span></td>
+            <td><span class="tag-html">—</span></td>
+            <td><span class="tag-js">el.addEventListener('sidebarUserMenuSelect', fn)</span></td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -243,40 +398,132 @@
     <div class="xfw-wrap">
       <table class="xfw-table">
         <thead>
-          <tr><th>Input / Output</th><th>Angular</th><th>HTML attr</th><th>JS property / event</th></tr>
+          <tr>
+            <th>Input / Output</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property / event</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td><span class="tag-name">showHeader</span></td><td><span class="tag-ng">[showHeader]="false"</span></td><td><span class="tag-html">show-header="false"</span></td><td><span class="tag-js">el.showHeader = false</span></td></tr>
-          <tr><td><span class="tag-name">headerAppTitle</span></td><td><span class="tag-ng">headerAppTitle="..."</span></td><td><span class="tag-html">header-app-title="..."</span></td><td><span class="tag-js">el.headerAppTitle = '...'</span></td></tr>
-          <tr><td><span class="tag-name">headerAppSubtitle</span></td><td><span class="tag-ng">headerAppSubtitle="..."</span></td><td><span class="tag-html">header-app-subtitle="..."</span></td><td><span class="tag-js">el.headerAppSubtitle = '...'</span></td></tr>
-          <tr><td><span class="tag-name">headerLogoUrl</span></td><td><span class="tag-ng">headerLogoUrl="..."</span></td><td><span class="tag-html">header-logo-url="..."</span></td><td><span class="tag-js">el.headerLogoUrl = '...'</span></td></tr>
-          <tr><td><span class="tag-name">showHeaderLogo / showHeaderHeading</span></td><td><span class="tag-ng">[showHeaderLogo]="false"</span></td><td><span class="tag-html">show-header-logo="false"</span></td><td><span class="tag-js">el.showHeaderLogo = false</span></td></tr>
-          <tr><td><span class="tag-name">showHeaderSearch</span></td><td><span class="tag-ng">[showHeaderSearch]="false"</span></td><td><span class="tag-html">show-header-search="false"</span></td><td><span class="tag-js">el.showHeaderSearch = false</span></td></tr>
-          <tr><td><span class="tag-name">showHeaderUser</span></td><td><span class="tag-ng">[showHeaderUser]="false"</span></td><td><span class="tag-html">show-header-user="false"</span></td><td><span class="tag-js">el.showHeaderUser = false</span></td></tr>
-          <tr><td><span class="tag-name">headerAvatarMode</span></td><td><span class="tag-ng">headerAvatarMode="plain"</span></td><td><span class="tag-html">header-avatar-mode="plain"</span></td><td><span class="tag-js">el.headerAvatarMode = 'plain'</span></td></tr>
-          <tr><td><span class="tag-name">headerUserName / headerUserEmail</span></td><td><span class="tag-ng">headerUserName="..."</span></td><td><span class="tag-html">header-user-name="..."</span></td><td><span class="tag-js">el.headerUserName = '...'</span></td></tr>
-          <tr><td><span class="tag-name">headerMenuItems</span></td><td><span class="tag-ng">[headerMenuItems]="items"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.headerMenuItems = [...]</span></td></tr>
-          <tr><td><span class="tag-name">headerBadge</span></td><td><span class="tag-ng">[headerBadge]="badge"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.headerBadge = {{ '{' }} text, color {{ '}' }}</span></td></tr>
-          <tr><td><span class="tag-name">headerSearchQuery</span></td><td><span class="tag-ng">(headerSearchQuery)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('headerSearchQuery', fn)</span></td></tr>
-          <tr><td><span class="tag-name">headerMenuAction</span></td><td><span class="tag-ng">(headerMenuAction)="fn($event)"</span></td><td><span class="tag-html">—</span></td><td><span class="tag-js">el.addEventListener('headerMenuAction', fn)</span></td></tr>
+          <tr>
+            <td><span class="tag-name">showHeader</span></td>
+            <td><span class="tag-ng">[showHeader]="false"</span></td>
+            <td><span class="tag-html">show-header="false"</span></td>
+            <td><span class="tag-js">el.showHeader = false</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">headerAppTitle</span></td>
+            <td><span class="tag-ng">headerAppTitle="..."</span></td>
+            <td><span class="tag-html">header-app-title="..."</span></td>
+            <td><span class="tag-js">el.headerAppTitle = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">headerAppSubtitle</span></td>
+            <td><span class="tag-ng">headerAppSubtitle="..."</span></td>
+            <td><span class="tag-html">header-app-subtitle="..."</span></td>
+            <td><span class="tag-js">el.headerAppSubtitle = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">headerLogoUrl</span></td>
+            <td><span class="tag-ng">headerLogoUrl="..."</span></td>
+            <td><span class="tag-html">header-logo-url="..."</span></td>
+            <td><span class="tag-js">el.headerLogoUrl = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">showHeaderLogo / showHeaderHeading</span></td>
+            <td><span class="tag-ng">[showHeaderLogo]="false"</span></td>
+            <td><span class="tag-html">show-header-logo="false"</span></td>
+            <td><span class="tag-js">el.showHeaderLogo = false</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">showHeaderSearch</span></td>
+            <td><span class="tag-ng">[showHeaderSearch]="false"</span></td>
+            <td><span class="tag-html">show-header-search="false"</span></td>
+            <td><span class="tag-js">el.showHeaderSearch = false</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">showHeaderUser</span></td>
+            <td><span class="tag-ng">[showHeaderUser]="false"</span></td>
+            <td><span class="tag-html">show-header-user="false"</span></td>
+            <td><span class="tag-js">el.showHeaderUser = false</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">headerAvatarMode</span></td>
+            <td><span class="tag-ng">headerAvatarMode="plain"</span></td>
+            <td><span class="tag-html">header-avatar-mode="plain"</span></td>
+            <td><span class="tag-js">el.headerAvatarMode = 'plain'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">headerUserName / headerUserEmail</span></td>
+            <td><span class="tag-ng">headerUserName="..."</span></td>
+            <td><span class="tag-html">header-user-name="..."</span></td>
+            <td><span class="tag-js">el.headerUserName = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">headerMenuItems</span></td>
+            <td><span class="tag-ng">[headerMenuItems]="items"</span></td>
+            <td><span class="tag-html">—</span></td>
+            <td><span class="tag-js">el.headerMenuItems = [...]</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">headerBadge</span></td>
+            <td><span class="tag-ng">[headerBadge]="badge"</span></td>
+            <td><span class="tag-html">—</span></td>
+            <td>
+              <span class="tag-js">el.headerBadge = {{ '{' }} text, color {{ '}' }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">headerSearchQuery</span></td>
+            <td><span class="tag-ng">(headerSearchQuery)="fn($event)"</span></td>
+            <td><span class="tag-html">—</span></td>
+            <td><span class="tag-js">el.addEventListener('headerSearchQuery', fn)</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">headerMenuAction</span></td>
+            <td><span class="tag-ng">(headerMenuAction)="fn($event)"</span></td>
+            <td><span class="tag-html">—</span></td>
+            <td><span class="tag-js">el.addEventListener('headerMenuAction', fn)</span></td>
+          </tr>
         </tbody>
       </table>
     </div>
 
-    <p class="fw-lead"><strong>Shell</strong> — layout-level, not owned by the sidebar or the header:</p>
+    <p class="fw-lead">
+      <strong>Shell</strong> — layout-level, not owned by the sidebar or the header:
+    </p>
     <div class="xfw-wrap">
       <table class="xfw-table">
         <thead>
-          <tr><th>Input / Output</th><th>Angular</th><th>HTML attr</th><th>JS property / event</th></tr>
+          <tr>
+            <th>Input / Output</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property / event</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><td><span class="tag-name">pageTitle</span></td><td><span class="tag-ng">[pageTitle]="activeLabel"</span></td><td><span class="tag-html">page-title="..."</span></td><td><span class="tag-js">el.pageTitle = '...'</span></td></tr>
-          <tr><td><span class="tag-name">footerText</span></td><td><span class="tag-ng">footerText="Copyright..."</span></td><td><span class="tag-html">footer-text="..."</span></td><td><span class="tag-js">el.footerText = '...'</span></td></tr>
-          <tr><td><span class="tag-name">content</span></td><td><span class="tag-ng">&lt;router-outlet /&gt; inside shell</span></td><td><span class="tag-html">child elements</span></td><td><span class="tag-js">child elements</span></td></tr>
+          <tr>
+            <td><span class="tag-name">pageTitle</span></td>
+            <td><span class="tag-ng">[pageTitle]="activeLabel"</span></td>
+            <td><span class="tag-html">page-title="..."</span></td>
+            <td><span class="tag-js">el.pageTitle = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">footerText</span></td>
+            <td><span class="tag-ng">footerText="Copyright..."</span></td>
+            <td><span class="tag-html">footer-text="..."</span></td>
+            <td><span class="tag-js">el.footerText = '...'</span></td>
+          </tr>
+          <tr>
+            <td><span class="tag-name">content</span></td>
+            <td><span class="tag-ng">&lt;router-outlet /&gt; inside shell</span></td>
+            <td><span class="tag-html">child elements</span></td>
+            <td><span class="tag-js">child elements</span></td>
+          </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>

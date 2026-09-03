@@ -1,6 +1,16 @@
 ﻿import {
-  Component, Input, Output, EventEmitter, OnInit, OnDestroy,
-  HostListener, ElementRef, ViewChild, ViewEncapsulation, inject, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  ElementRef,
+  ViewChild,
+  ViewEncapsulation,
+  inject,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { Subject, Subscription } from 'rxjs';
@@ -31,38 +41,53 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
   @Input() maxRecent = 5;
 
   @Input() set suggestions(v: SearchSuggestion[] | string) {
-    this._suggestions = typeof v === 'string' ? (this._parseJson<SearchSuggestion[]>(v) ?? []) : (v || []);
+    this._suggestions =
+      typeof v === 'string' ? (this._parseJson<SearchSuggestion[]>(v) ?? []) : v || [];
   }
-  get suggestions(): SearchSuggestion[] { return this._suggestions; }
+  get suggestions(): SearchSuggestion[] {
+    return this._suggestions;
+  }
   private _suggestions: SearchSuggestion[] = [];
 
   @Input() set recentSearches(v: string[] | string) {
-    this._recentSearches = typeof v === 'string' ? (this._parseJson<string[]>(v) ?? []) : (v || []);
+    this._recentSearches = typeof v === 'string' ? (this._parseJson<string[]>(v) ?? []) : v || [];
   }
-  get recentSearches(): string[] { return this._recentSearches; }
+  get recentSearches(): string[] {
+    return this._recentSearches;
+  }
   private _recentSearches: string[] = [];
 
   @Input() set clearable(v: boolean | string) {
     this._clearable = v === true || v === 'true' || (v as any) === '';
   }
-  get clearable() { return this._clearable; }
+  get clearable() {
+    return this._clearable;
+  }
   private _clearable = true;
 
   @Input() set disabled(v: boolean | string) {
     this._disabled = v === true || v === 'true' || (v as any) === '';
   }
-  get disabled() { return this._disabled; }
+  get disabled() {
+    return this._disabled;
+  }
   private _disabled = false;
 
   @Input() set loading(v: boolean | string) {
     this._loading = v === true || v === 'true' || (v as any) === '';
   }
-  get loading() { return this._loading; }
+  get loading() {
+    return this._loading;
+  }
   private _loading = false;
 
   private _parseJson<T>(s: string): T | null {
     if (!s) return null;
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 
   @Output() searchChange = new EventEmitter<string>();
@@ -83,22 +108,23 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.recentItems = [...this.recentSearches].slice(0, this.maxRecent);
-    this.sub = this.input$.pipe(
-      debounceTime(this.debounce),
-      distinctUntilChanged(),
-    ).subscribe(val => {
-      if (val.length >= this.minChars || val === '') {
-        this.searchChange.emit(val);
-      }
-    });
+    this.sub = this.input$
+      .pipe(debounceTime(this.debounce), distinctUntilChanged())
+      .subscribe((val) => {
+        if (val.length >= this.minChars || val === '') {
+          this.searchChange.emit(val);
+        }
+      });
   }
 
-  ngOnDestroy(): void { this.sub?.unsubscribe(); }
+  ngOnDestroy(): void {
+    this.sub?.unsubscribe();
+  }
 
   get filteredSuggestions(): SearchSuggestion[] {
     if (!this.value) return [];
     const q = this.value.toLowerCase();
-    return this.suggestions.filter(s => s.label.toLowerCase().includes(q));
+    return this.suggestions.filter((s) => s.label.toLowerCase().includes(q));
   }
 
   get groupedSuggestions(): { category: string; items: SearchSuggestion[] }[] {
@@ -111,7 +137,10 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
     return Array.from(map.entries()).map(([category, items]) => ({ category, items }));
   }
 
-  getSuggestionGlobalIdx(grp: { category: string; items: SearchSuggestion[] }, localIdx: number): number {
+  getSuggestionGlobalIdx(
+    grp: { category: string; items: SearchSuggestion[] },
+    localIdx: number,
+  ): number {
     let offset = 0;
     for (const g of this.groupedSuggestions) {
       if (g === grp) return offset + localIdx;
@@ -138,13 +167,14 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
     this.openDropdown();
   }
 
-  onBlur(): void { this.focused = false; }
+  onBlur(): void {
+    this.focused = false;
+  }
 
   onFocus(): void {
     this.focused = true;
     this.openDropdown();
   }
-
 
   onKeydown(e: KeyboardEvent): void {
     switch (e.key) {
@@ -210,15 +240,16 @@ export class PuiSearchComponent implements OnInit, OnDestroy {
 
   private addToRecent(val: string): void {
     if (!val.trim()) return;
-    this.recentItems = [val, ...this.recentItems.filter(r => r !== val)].slice(0, this.maxRecent);
+    this.recentItems = [val, ...this.recentItems.filter((r) => r !== val)].slice(0, this.maxRecent);
   }
 
   private openDropdown(): void {
-    this.isOpen = (this.value.length > 0 && this.filteredSuggestions.length > 0)
-      || (!this.value && this.recentItems.length > 0);
+    this.isOpen =
+      (this.value.length > 0 && this.filteredSuggestions.length > 0) ||
+      (!this.value && this.recentItems.length > 0);
   }
 
-  private closeDropdown(): void { }
+  private closeDropdown(): void {}
 
   @HostListener('document:click', ['$event'])
   onDocClick(e: MouseEvent): void {

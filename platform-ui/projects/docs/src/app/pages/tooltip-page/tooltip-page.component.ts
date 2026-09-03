@@ -1,12 +1,26 @@
 import { Component } from '@angular/core';
-import { TooltipComponent, ButtonComponent, CardComponent, IconComponent, BadgeComponent } from '@bhairab-patra/platform-ui';
+import {
+  TooltipComponent,
+  ButtonComponent,
+  CardComponent,
+  IconComponent,
+  BadgeComponent,
+} from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-tooltip-page',
   standalone: true,
-  imports: [DocPageComponent, TooltipComponent, ButtonComponent, BadgeComponent, CardComponent, IconComponent, FrameworkPreviewComponent],
+  imports: [
+    DocPageComponent,
+    TooltipComponent,
+    ButtonComponent,
+    BadgeComponent,
+    CardComponent,
+    IconComponent,
+    FrameworkPreviewComponent,
+  ],
   templateUrl: './tooltip-page.component.html',
   styleUrls: ['./tooltip-page.component.scss'],
 })
@@ -167,8 +181,23 @@ export default function UserTable() {
 </pui-lib-tooltip>`;
 
   api: ApiRow[] = [
-    { input: 'text',     type: 'string',                             default: `''`,     description: 'Text shown in the tooltip bubble' },
-    { input: 'position', type: `'top' | 'bottom' | 'left' | 'right'`, default: `'top'`, description: 'Placement relative to the trigger element' },
-    { input: 'variant',  type: `'dark' | 'light' | 'teal'`,         default: `'dark'`, description: 'Visual style — dark bg, white card, or teal brand' },
+    {
+      input: 'text',
+      type: 'string',
+      default: `''`,
+      description: 'Text shown in the tooltip bubble',
+    },
+    {
+      input: 'position',
+      type: `'top' | 'bottom' | 'left' | 'right'`,
+      default: `'top'`,
+      description: 'Placement relative to the trigger element',
+    },
+    {
+      input: 'variant',
+      type: `'dark' | 'light' | 'teal'`,
+      default: `'dark'`,
+      description: 'Visual style — dark bg, white card, or teal brand',
+    },
   ];
 }

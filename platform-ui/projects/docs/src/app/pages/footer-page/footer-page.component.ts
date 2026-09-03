@@ -27,14 +27,21 @@ export class FooterPageComponent {
   contactSlides: FooterNoticeSlide[] = [
     {
       title: 'Our office hours are as follows:',
-      lines: ['Monday – Thursday: 8:00 am – 4:00 pm', 'Friday: 9:00 am – 5:00 pm', 'Saturday: 8:00 am – 12:00 pm'],
+      lines: [
+        'Monday – Thursday: 8:00 am – 4:00 pm',
+        'Friday: 9:00 am – 5:00 pm',
+        'Saturday: 8:00 am – 12:00 pm',
+      ],
       contactPrompt: 'Please contact our office if you have any questions.',
       contactLabel: '1-800-845-8200',
       contactHref: 'tel:+18008458200',
     },
     {
       title: 'Holiday hours:',
-      lines: ['Closed on all federal holidays.', 'Christmas Eve & New Year\'s Eve: 8:00 am – 12:00 pm'],
+      lines: [
+        'Closed on all federal holidays.',
+        "Christmas Eve & New Year's Eve: 8:00 am – 12:00 pm",
+      ],
       contactPrompt: 'Please contact our office if you have any questions.',
       contactLabel: '1-800-845-8200',
       contactHref: 'tel:+18008458200',
@@ -61,10 +68,22 @@ export class FooterPageComponent {
   lastLinkAction = '';
   lastContactAction = '';
 
-  onContactSlideChange(i: number): void { this.contactSlideIndex = i; this.cdr.markForCheck(); }
-  onDisclaimerSlideChange(i: number): void { this.disclaimerSlideIndex = i; this.cdr.markForCheck(); }
-  onLinkClick(link: FooterLink): void { this.lastLinkAction = link.label; this.cdr.markForCheck(); }
-  onContactClick(slide: FooterNoticeSlide): void { this.lastContactAction = slide.contactLabel ?? ''; this.cdr.markForCheck(); }
+  onContactSlideChange(i: number): void {
+    this.contactSlideIndex = i;
+    this.cdr.markForCheck();
+  }
+  onDisclaimerSlideChange(i: number): void {
+    this.disclaimerSlideIndex = i;
+    this.cdr.markForCheck();
+  }
+  onLinkClick(link: FooterLink): void {
+    this.lastLinkAction = link.label;
+    this.cdr.markForCheck();
+  }
+  onContactClick(slide: FooterNoticeSlide): void {
+    this.lastContactAction = slide.contactLabel ?? '';
+    this.cdr.markForCheck();
+  }
 
   angularCode = `import { PuiFooterComponent, FooterLink, FooterNoticeSlide } from '@bhairab-patra/platform-ui';
 
@@ -180,32 +199,144 @@ customElements.whenDefined('pui-lib-footer').then(() => {
 </script>`;
 
   xfwRows = [
-    { name: 'variant', angular: 'variant="contact"', attr: 'variant="contact"', js: 'el.variant = "contact"' },
-    { name: 'noticeSlides', angular: '[noticeSlides]="slides"', attr: '—', js: 'el.noticeSlides = [...]' },
-    { name: 'activeSlideIndex', angular: '[(activeSlideIndex)]="i"', attr: '—', js: 'el.activeSlideIndex = 0' },
-    { name: 'copyrightText', angular: 'copyrightText="..."', attr: 'copyright-text="..."', js: 'el.copyrightText = "..."' },
+    {
+      name: 'variant',
+      angular: 'variant="contact"',
+      attr: 'variant="contact"',
+      js: 'el.variant = "contact"',
+    },
+    {
+      name: 'noticeSlides',
+      angular: '[noticeSlides]="slides"',
+      attr: '—',
+      js: 'el.noticeSlides = [...]',
+    },
+    {
+      name: 'activeSlideIndex',
+      angular: '[(activeSlideIndex)]="i"',
+      attr: '—',
+      js: 'el.activeSlideIndex = 0',
+    },
+    {
+      name: 'copyrightText',
+      angular: 'copyrightText="..."',
+      attr: 'copyright-text="..."',
+      js: 'el.copyrightText = "..."',
+    },
     { name: 'links', angular: '[links]="links"', attr: '—', js: 'el.links = [...]' },
-    { name: 'poweredByText', angular: 'poweredByText="..."', attr: 'powered-by-text="..."', js: 'el.poweredByText = "..."' },
-    { name: 'showPoweredBy', angular: '[showPoweredBy]="false"', attr: 'show-powered-by="false"', js: 'el.showPoweredBy = false' },
-    { name: 'stickyBottom', angular: '[stickyBottom]="true"', attr: 'sticky-bottom', js: 'el.stickyBottom = true' },
-    { name: 'activeSlideIndexChange', angular: '(activeSlideIndexChange)="fn($event)"', attr: '—', js: `el.addEventListener('activeSlideIndexChange', fn)` },
-    { name: 'linkClick', angular: '(linkClick)="fn($event)"', attr: '—', js: `el.addEventListener('linkClick', fn)` },
-    { name: 'contactClick', angular: '(contactClick)="fn($event)"', attr: '—', js: `el.addEventListener('contactClick', fn)` },
+    {
+      name: 'poweredByText',
+      angular: 'poweredByText="..."',
+      attr: 'powered-by-text="..."',
+      js: 'el.poweredByText = "..."',
+    },
+    {
+      name: 'showPoweredBy',
+      angular: '[showPoweredBy]="false"',
+      attr: 'show-powered-by="false"',
+      js: 'el.showPoweredBy = false',
+    },
+    {
+      name: 'stickyBottom',
+      angular: '[stickyBottom]="true"',
+      attr: 'sticky-bottom',
+      js: 'el.stickyBottom = true',
+    },
+    {
+      name: 'activeSlideIndexChange',
+      angular: '(activeSlideIndexChange)="fn($event)"',
+      attr: '—',
+      js: `el.addEventListener('activeSlideIndexChange', fn)`,
+    },
+    {
+      name: 'linkClick',
+      angular: '(linkClick)="fn($event)"',
+      attr: '—',
+      js: `el.addEventListener('linkClick', fn)`,
+    },
+    {
+      name: 'contactClick',
+      angular: '(contactClick)="fn($event)"',
+      attr: '—',
+      js: `el.addEventListener('contactClick', fn)`,
+    },
   ];
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   api: ApiRow[] = [
-    { input: 'variant', type: `'contact'|'disclaimer'|'simple'`, default: `'simple'`, description: 'Layout style. contact=office-hours/address card + call-to-action button. disclaimer=legal notice card with a "read more" link. simple=no notice card, just the bottom row.' },
-    { input: 'noticeSlides', type: 'FooterNoticeSlide[]|string', default: '[]', description: 'Rotating notice-card slides for the contact/disclaimer variants. Pagination dots and prev/next arrows appear automatically when there is more than one slide.' },
-    { input: 'activeSlideIndex', type: 'number|string', default: '0', description: 'Currently visible slide. Use two-way [(activeSlideIndex)] binding.' },
-    { input: 'copyrightText', type: 'string', default: `'Copyright © {year} Solifi. All Rights Reserved.'`, description: 'Copyright line shown on the left of the bottom row.' },
-    { input: 'links', type: 'FooterLink[]|string', default: '[]', description: 'Link list shown on the right of the bottom row (Privacy, Help, Feedback, Contact us, etc).' },
-    { input: 'poweredByText', type: 'string', default: `'Powered by Solifi™'`, description: 'Trailing "powered by" label, shown after the links.' },
-    { input: 'showPoweredBy', type: 'boolean|string', default: 'true', description: 'Show/hide the poweredByText label.' },
-    { input: 'stickyBottom', type: 'boolean|string', default: 'false', description: 'Pins the footer to the bottom of the viewport (position: fixed, full width) instead of flowing wherever it lands in the page. Off by default — turn on when you want an always-visible app footer bar rather than a normal end-of-page block.' },
-    { input: 'activeSlideIndexChange', type: 'EventEmitter<number> (output)', default: '—', description: 'Fires when the active notice slide changes (arrow click, dot click, or programmatic).' },
-    { input: 'linkClick', type: 'EventEmitter<FooterLink> (output)', default: '—', description: 'Fires when a bottom-row link is clicked.' },
-    { input: 'contactClick', type: 'EventEmitter<FooterNoticeSlide> (output)', default: '—', description: 'Fires when the contact variant\'s call-to-action button is clicked.' },
+    {
+      input: 'variant',
+      type: `'contact'|'disclaimer'|'simple'`,
+      default: `'simple'`,
+      description:
+        'Layout style. contact=office-hours/address card + call-to-action button. disclaimer=legal notice card with a "read more" link. simple=no notice card, just the bottom row.',
+    },
+    {
+      input: 'noticeSlides',
+      type: 'FooterNoticeSlide[]|string',
+      default: '[]',
+      description:
+        'Rotating notice-card slides for the contact/disclaimer variants. Pagination dots and prev/next arrows appear automatically when there is more than one slide.',
+    },
+    {
+      input: 'activeSlideIndex',
+      type: 'number|string',
+      default: '0',
+      description: 'Currently visible slide. Use two-way [(activeSlideIndex)] binding.',
+    },
+    {
+      input: 'copyrightText',
+      type: 'string',
+      default: `'Copyright © {year} Solifi. All Rights Reserved.'`,
+      description: 'Copyright line shown on the left of the bottom row.',
+    },
+    {
+      input: 'links',
+      type: 'FooterLink[]|string',
+      default: '[]',
+      description:
+        'Link list shown on the right of the bottom row (Privacy, Help, Feedback, Contact us, etc).',
+    },
+    {
+      input: 'poweredByText',
+      type: 'string',
+      default: `'Powered by Solifi™'`,
+      description: 'Trailing "powered by" label, shown after the links.',
+    },
+    {
+      input: 'showPoweredBy',
+      type: 'boolean|string',
+      default: 'true',
+      description: 'Show/hide the poweredByText label.',
+    },
+    {
+      input: 'stickyBottom',
+      type: 'boolean|string',
+      default: 'false',
+      description:
+        'Pins the footer to the bottom of the viewport (position: fixed, full width) instead of flowing wherever it lands in the page. Off by default — turn on when you want an always-visible app footer bar rather than a normal end-of-page block.',
+    },
+    {
+      input: 'activeSlideIndexChange',
+      type: 'EventEmitter<number> (output)',
+      default: '—',
+      description:
+        'Fires when the active notice slide changes (arrow click, dot click, or programmatic).',
+    },
+    {
+      input: 'linkClick',
+      type: 'EventEmitter<FooterLink> (output)',
+      default: '—',
+      description: 'Fires when a bottom-row link is clicked.',
+    },
+    {
+      input: 'contactClick',
+      type: 'EventEmitter<FooterNoticeSlide> (output)',
+      default: '—',
+      description: "Fires when the contact variant's call-to-action button is clicked.",
+    },
   ];
 }

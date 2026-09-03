@@ -1,4 +1,12 @@
-﻿import { Component, Input, Output, EventEmitter, ViewEncapsulation, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+﻿import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+  HostBinding,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
@@ -47,7 +55,9 @@ export class PuiListComponent {
     return parts.join(';');
   }
 
-  get hostClass(): string { return `pui-list pui-list--${this.variant}`; }
+  get hostClass(): string {
+    return `pui-list pui-list--${this.variant}`;
+  }
 
   select(item: ListItem): void {
     this.selectedId = item.id;

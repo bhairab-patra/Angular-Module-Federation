@@ -1,22 +1,27 @@
 <div *ngIf="_open" class="pui-fd-backdrop" (click)="onBackdropClick($event)">
   <div class="pui-fd pui-fd--{{ size }}" role="dialog" [attr.aria-label]="title">
-
     <div class="pui-fd__header">
       <h2 class="pui-fd__title">{{ title }}</h2>
       <button class="pui-fd__close" (click)="onCancel()" type="button" aria-label="Close dialog">
         <svg viewBox="0 0 20 20" fill="none" width="18" height="18">
-          <path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round"/>
+          <path
+            d="M5 5l10 10M15 5L5 15"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </button>
     </div>
 
     <div class="pui-fd__body">
       <div class="pui-fd__grid">
-        <div *ngFor="let field of _fields"
-             class="pui-fd__field"
-             [class.pui-fd__field--full]="field.span === 'full'">
-
+        <div
+          *ngFor="let field of _fields"
+          class="pui-fd__field"
+          [class.pui-fd__field--full]="field.span === 'full'"
+        >
           <pui-textarea-internal
             *ngIf="field.type === 'textarea'"
             [label]="field.label"
@@ -25,7 +30,9 @@
             [readonly]="field.readonly || false"
             [error]="errors[field.key] || ''"
             [rows]="3"
-            [(ngModel)]="draft[field.key]" size="sm">
+            [(ngModel)]="draft[field.key]"
+            size="sm"
+          >
           </pui-textarea-internal>
 
           <pui-select-internal
@@ -36,7 +43,9 @@
             [required]="field.required || false"
             [disabled]="field.readonly || false"
             [error]="errors[field.key] || ''"
-            [(ngModel)]="draft[field.key]" size="sm">
+            [(ngModel)]="draft[field.key]"
+            size="sm"
+          >
           </pui-select-internal>
 
           <pui-input-internal
@@ -47,9 +56,10 @@
             [required]="field.required || false"
             [readonly]="field.readonly || false"
             [error]="errors[field.key] || ''"
-            [(ngModel)]="draft[field.key]" size="sm">
+            [(ngModel)]="draft[field.key]"
+            size="sm"
+          >
           </pui-input-internal>
-
         </div>
       </div>
     </div>
@@ -59,16 +69,12 @@
         variant="secondary"
         [label]="cancelLabel"
         size="sm"
-        (buttonClick)="onCancel()">
+        (buttonClick)="onCancel()"
+      >
       </pui-button-internal>
-      <pui-button-internal
-        variant="primary"
-        [label]="saveLabel"
-        size="sm"
-        (buttonClick)="onSave()">
+      <pui-button-internal variant="primary" [label]="saveLabel" size="sm" (buttonClick)="onSave()">
       </pui-button-internal>
     </div>
-
   </div>
 
   <pui-confirm-dialog-internal
@@ -80,7 +86,7 @@
     confirmVariant="destructive"
     tone="warning"
     (confirmed)="onConfirmDiscard()"
-    (cancelled)="onKeepEditing()">
+    (cancelled)="onKeepEditing()"
+  >
   </pui-confirm-dialog-internal>
-
 </div>

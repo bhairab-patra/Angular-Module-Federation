@@ -1,5 +1,4 @@
 <div class="pas">
-
   <pui-solifi-sidebar-internal
     [brandName]="sidebarBrandName"
     [logoUrl]="sidebarLogoUrl"
@@ -19,9 +18,9 @@
     [collapsedWidth]="sidebarCollapsedWidth"
     (itemSelect)="sidebarItemSelect.emit($event)"
     (collapsedChange)="onSidebarCollapsedChange($event)"
-    (userMenuSelect)="sidebarUserMenuSelect.emit($event)">
+    (userMenuSelect)="sidebarUserMenuSelect.emit($event)"
+  >
   </pui-solifi-sidebar-internal>
-
 
   <div class="pas__panel">
     <pui-header-internal
@@ -45,7 +44,8 @@
       [menuItems]="headerMenuItems"
       [badge]="headerBadge"
       (searchQuery)="headerSearchQuery.emit($event)"
-      (menuAction)="headerMenuAction.emit($event)">
+      (menuAction)="headerMenuAction.emit($event)"
+    >
     </pui-header-internal>
 
     <div class="pas__titlebar" *ngIf="pageTitle">
@@ -57,7 +57,6 @@
     <main class="pas__content" [style.paddingBottom.px]="footerReservedHeight || null">
       <ng-content></ng-content>
     </main>
-
 
     <footer class="pas__footer" *ngIf="footerText && !showFooter">
       {{ footerText }}
@@ -76,9 +75,8 @@
       [stickyBottom]="footerStickyBottom"
       (activeSlideIndexChange)="onFooterActiveSlideIndexChange($event)"
       (linkClick)="footerLinkClick.emit($event)"
-      (contactClick)="footerContactClick.emit($event)">
+      (contactClick)="footerContactClick.emit($event)"
+    >
     </pui-footer-internal>
-
   </div>
-
 </div>

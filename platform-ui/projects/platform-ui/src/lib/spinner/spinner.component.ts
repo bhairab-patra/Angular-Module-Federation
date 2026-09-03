@@ -4,7 +4,10 @@ import { SpinnerType, SpinnerSize } from '../models/spinner.model';
 import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 const SIZE_MAP: Record<SpinnerSize, number> = {
-  sm: 24, md: 40, lg: 56, xl: 80,
+  sm: 24,
+  md: 40,
+  lg: 56,
+  xl: 80,
 };
 
 @Component({
@@ -24,9 +27,7 @@ export class SpinnerComponent {
   @Input() color = 'var(--pui-form-accent, var(--pui-brand))';
   @Input() speed = 800;
   @Input() overlay = false;
-  /** Same dark scrim token used by pui-lib-modal / pui-lib-confirm-dialog's
-   * backdrop, so a full-page loading overlay looks consistent with the
-   * rest of the library instead of washing the page out to white. */
+
   @Input() overlayColor = 'var(--pui-overlay-black-45)';
   @Input() overlayOpacity: number | string = 1;
   @Input() zIndex = 1000;
@@ -36,8 +37,12 @@ export class SpinnerComponent {
   readonly dashLines = Array(12).fill(0);
   readonly dotPositions = this.buildDotPositions();
 
-  get px(): number { return this.sizePx ?? SIZE_MAP[this.size]; }
-  get dur(): string { return `${this.speed}ms`; }
+  get px(): number {
+    return this.sizePx ?? SIZE_MAP[this.size];
+  }
+  get dur(): string {
+    return `${this.speed}ms`;
+  }
 
   readonly dashY1 = 6;
   readonly dashY2 = 12;

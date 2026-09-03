@@ -1,13 +1,25 @@
 ﻿import { Component, ChangeDetectionStrategy, ChangeDetectorRef, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
-import { SpinnerComponent, SpinnerType, SpinnerSize, ButtonComponent } from '@bhairab-patra/platform-ui';
+import {
+  SpinnerComponent,
+  SpinnerType,
+  SpinnerSize,
+  ButtonComponent,
+} from '@bhairab-patra/platform-ui';
 import { DocPageComponent, ApiRow } from '../../shared/doc-page.component';
 import { FrameworkPreviewComponent } from '../../shared/framework-preview.component';
 
 @Component({
   selector: 'docs-spinner-page',
   standalone: true,
-  imports: [NgFor, NgIf, DocPageComponent, SpinnerComponent, ButtonComponent, FrameworkPreviewComponent],
+  imports: [
+    NgFor,
+    NgIf,
+    DocPageComponent,
+    SpinnerComponent,
+    ButtonComponent,
+    FrameworkPreviewComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './spinner-page.component.html',
   styleUrls: ['./spinner-page.component.scss'],
@@ -101,13 +113,21 @@ function InlineSpinner() {
     { size: 'xl', px: 80 },
   ];
 
-  /** overlayColor defaults to var(--pui-overlay-black-45) — the exact same
-   * scrim token pui-lib-modal / pui-lib-form-dialog use for their backdrop,
-   * so a loading overlay reads as part of the same design language instead
-   * of a plain white wash. */
   overlayDemos = [
-    { type: 'dash' as SpinnerType, color: '#12C6A8', bg: 'var(--pui-overlay-black-45)', opacity: 1, label: 'dash · default (matches modal backdrop)' },
-    { type: 'dots' as SpinnerType, color: '#12C6A8', bg: 'var(--pui-overlay-black-45)', opacity: 1, label: 'dots · default (matches modal backdrop)' },
+    {
+      type: 'dash' as SpinnerType,
+      color: '#12C6A8',
+      bg: 'var(--pui-overlay-black-45)',
+      opacity: 1,
+      label: 'dash · default (matches modal backdrop)',
+    },
+    {
+      type: 'dots' as SpinnerType,
+      color: '#12C6A8',
+      bg: 'var(--pui-overlay-black-45)',
+      opacity: 1,
+      label: 'dots · default (matches modal backdrop)',
+    },
   ];
 
   showOverlay(type: SpinnerType, color: string, bg: string, opacity: number): void {
@@ -117,33 +137,115 @@ function InlineSpinner() {
     this.activeOpacity = opacity;
     this.overlayActive = true;
     this.cdr.markForCheck();
-    setTimeout(() => { this.overlayActive = false; this.cdr.markForCheck(); }, 2500);
+    setTimeout(() => {
+      this.overlayActive = false;
+      this.cdr.markForCheck();
+    }, 2500);
   }
 
   xfwRows = [
     { name: 'type', angular: 'type="dots"', attr: 'type="dots"', js: 'el.type = "dots"' },
     { name: 'size', angular: 'size="lg"', attr: 'size="lg"', js: 'el.size = "lg"' },
     { name: 'sizePx', angular: '[sizePx]="48"', attr: '—', js: 'el.sizePx = 48' },
-    { name: 'color', angular: 'color="#12C6A8"', attr: 'color="#12C6A8"', js: 'el.color = "#12C6A8"' },
+    {
+      name: 'color',
+      angular: 'color="#12C6A8"',
+      attr: 'color="#12C6A8"',
+      js: 'el.color = "#12C6A8"',
+    },
     { name: 'speed', angular: '[speed]="400"', attr: 'speed="400"', js: 'el.speed = 400' },
     { name: 'overlay', angular: '[overlay]="true"', attr: 'overlay', js: 'el.overlay = true' },
-    { name: 'overlayColor', angular: 'overlayColor="#fff"', attr: 'overlay-color="#fff"', js: 'el.overlayColor = "#fff"' },
-    { name: 'overlayOpacity', angular: '[overlayOpacity]="0.75"', attr: 'overlay-opacity="0.75"', js: 'el.overlayOpacity = 0.75' },
-    { name: 'label', angular: 'label="Loading…"', attr: 'label="Loading…"', js: 'el.label = "Loading…"' },
+    {
+      name: 'overlayColor',
+      angular: 'overlayColor="#fff"',
+      attr: 'overlay-color="#fff"',
+      js: 'el.overlayColor = "#fff"',
+    },
+    {
+      name: 'overlayOpacity',
+      angular: '[overlayOpacity]="0.75"',
+      attr: 'overlay-opacity="0.75"',
+      js: 'el.overlayOpacity = 0.75',
+    },
+    {
+      name: 'label',
+      angular: 'label="Loading…"',
+      attr: 'label="Loading…"',
+      js: 'el.label = "Loading…"',
+    },
   ];
 
   api: ApiRow[] = [
-    { input: 'type', type: `'dash'|'dots'`, default: `'dash'`, description: 'dash = radiating lines Â· dots = orbiting dot ring.' },
-    { input: 'size', type: `'sm'|'md'|'lg'|'xl'`, default: `'md'`, description: 'Size preset — sm 24px Â· md 40px Â· lg 56px Â· xl 80px.' },
-    { input: 'sizePx', type: 'number', default: 'null', description: 'Exact pixel size — overrides the size preset.' },
-    { input: 'color', type: 'string', default: `'var(--pui-form-accent, var(--pui-brand))'`, description: 'Spinner colour (any CSS colour value) — defaults to the theme brand accent, so it follows the New/Old theme toggle.' },
-    { input: 'speed', type: 'number', default: '800', description: 'Full-rotation duration in milliseconds.' },
-    { input: 'overlay', type: 'boolean', default: 'false', description: 'Render a fixed full-screen backdrop.' },
-    { input: 'overlayColor', type: 'string', default: `'var(--pui-overlay-black-45)'`, description: 'Overlay background colour — defaults to the same scrim token pui-lib-modal / pui-lib-form-dialog use, so it matches their backdrop.' },
-    { input: 'overlayOpacity', type: 'number', default: '1', description: 'Overlay opacity — 0 (clear) to 1 (solid).' },
-    { input: 'zIndex', type: 'number', default: '1000', description: 'z-index of overlay; spinner renders at zIndex + 1.' },
-    { input: 'label', type: 'string', default: `''`, description: 'Optional text displayed below the spinner.' },
-    { input: 'labelColor', type: 'string', default: `'#6b7280'`, description: 'Label text colour.' },
+    {
+      input: 'type',
+      type: `'dash'|'dots'`,
+      default: `'dash'`,
+      description: 'dash = radiating lines Â· dots = orbiting dot ring.',
+    },
+    {
+      input: 'size',
+      type: `'sm'|'md'|'lg'|'xl'`,
+      default: `'md'`,
+      description: 'Size preset — sm 24px Â· md 40px Â· lg 56px Â· xl 80px.',
+    },
+    {
+      input: 'sizePx',
+      type: 'number',
+      default: 'null',
+      description: 'Exact pixel size — overrides the size preset.',
+    },
+    {
+      input: 'color',
+      type: 'string',
+      default: `'var(--pui-form-accent, var(--pui-brand))'`,
+      description:
+        'Spinner colour (any CSS colour value) — defaults to the theme brand accent, so it follows the New/Old theme toggle.',
+    },
+    {
+      input: 'speed',
+      type: 'number',
+      default: '800',
+      description: 'Full-rotation duration in milliseconds.',
+    },
+    {
+      input: 'overlay',
+      type: 'boolean',
+      default: 'false',
+      description: 'Render a fixed full-screen backdrop.',
+    },
+    {
+      input: 'overlayColor',
+      type: 'string',
+      default: `'var(--pui-overlay-black-45)'`,
+      description:
+        'Overlay background colour — defaults to the same scrim token pui-lib-modal / pui-lib-form-dialog use, so it matches their backdrop.',
+    },
+    {
+      input: 'overlayOpacity',
+      type: 'number',
+      default: '1',
+      description: 'Overlay opacity — 0 (clear) to 1 (solid).',
+    },
+    {
+      input: 'zIndex',
+      type: 'number',
+      default: '1000',
+      description: 'z-index of overlay; spinner renders at zIndex + 1.',
+    },
+    {
+      input: 'label',
+      type: 'string',
+      default: `''`,
+      description: 'Optional text displayed below the spinner.',
+    },
+    {
+      input: 'labelColor',
+      type: 'string',
+      default: `'#6b7280'`,
+      description: 'Label text colour.',
+    },
   ];
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 }

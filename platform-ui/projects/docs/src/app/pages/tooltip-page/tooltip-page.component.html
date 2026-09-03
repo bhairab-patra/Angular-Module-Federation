@@ -1,148 +1,140 @@
+<docs-page
+  title="Tooltip"
+  description="Contextual label shown on hover. Wrap any element with pui-lib-tooltip and set text, position, and variant."
+  [code]="code"
+  [api]="api"
+  [hasFramework]="true"
+>
+  <ng-container demo>
+    <div class="section-divider"><span class="section-tag">Positions</span></div>
+    <div class="position-grid">
+      <div class="position-cell">
+        <pui-lib-tooltip text="Tooltip on top" position="top">
+          <pui-lib-button variant="primary-outline">Top</pui-lib-button>
+        </pui-lib-tooltip>
+      </div>
+      <div class="position-cell">
+        <pui-lib-tooltip text="Tooltip on bottom" position="bottom">
+          <pui-lib-button variant="primary-outline">Bottom</pui-lib-button>
+        </pui-lib-tooltip>
+      </div>
+      <div class="position-cell">
+        <pui-lib-tooltip text="Tooltip on left" position="left">
+          <pui-lib-button variant="primary-outline">Left</pui-lib-button>
+        </pui-lib-tooltip>
+      </div>
+      <div class="position-cell">
+        <pui-lib-tooltip text="Tooltip on right" position="right">
+          <pui-lib-button variant="primary-outline">Right</pui-lib-button>
+        </pui-lib-tooltip>
+      </div>
+    </div>
 
-    <docs-page
-      title="Tooltip"
-      description="Contextual label shown on hover. Wrap any element with pui-lib-tooltip and set text, position, and variant."
-      [code]="code"
-      [api]="api"
-      [hasFramework]="true">
+    <div class="section-divider"><span class="section-tag">Variants</span></div>
+    <div class="variant-row">
+      <div class="variant-cell">
+        <pui-lib-tooltip text="Dark tooltip" position="top" variant="dark">
+          <pui-lib-button variant="primary">Dark</pui-lib-button>
+        </pui-lib-tooltip>
+        <span class="variant-label">dark</span>
+      </div>
+      <div class="variant-cell">
+        <pui-lib-tooltip text="Light tooltip style" position="top" variant="light">
+          <pui-lib-button variant="secondary">Light</pui-lib-button>
+        </pui-lib-tooltip>
+        <span class="variant-label">light</span>
+      </div>
+      <div class="variant-cell">
+        <pui-lib-tooltip text="Teal brand tooltip" position="top" variant="teal">
+          <pui-lib-button variant="primary-light">Teal</pui-lib-button>
+        </pui-lib-tooltip>
+        <span class="variant-label">teal</span>
+      </div>
+    </div>
 
-      <ng-container demo>
-
-        <!-- ── Positions ── -->
-        <div class="section-divider"><span class="section-tag">Positions</span></div>
-        <div class="position-grid">
-          <div class="position-cell">
-            <pui-lib-tooltip text="Tooltip on top" position="top">
-              <pui-lib-button variant="primary-outline">Top</pui-lib-button>
-            </pui-lib-tooltip>
-          </div>
-          <div class="position-cell">
-            <pui-lib-tooltip text="Tooltip on bottom" position="bottom">
-              <pui-lib-button variant="primary-outline">Bottom</pui-lib-button>
-            </pui-lib-tooltip>
-          </div>
-          <div class="position-cell">
-            <pui-lib-tooltip text="Tooltip on left" position="left">
-              <pui-lib-button variant="primary-outline">Left</pui-lib-button>
-            </pui-lib-tooltip>
-          </div>
-          <div class="position-cell">
-            <pui-lib-tooltip text="Tooltip on right" position="right">
-              <pui-lib-button variant="primary-outline">Right</pui-lib-button>
-            </pui-lib-tooltip>
-          </div>
+    <div class="section-divider"><span class="section-tag">On Any Element</span></div>
+    <div class="trigger-row">
+      <pui-lib-card variant="flat" size="sm" style="flex: 1">
+        <div class="trigger-inner">
+          <span class="trigger-label">Icon</span>
+          <pui-lib-tooltip text="Download report" position="top">
+            <div class="icon-trigger">
+              <pui-lib-icon name="download" size="md" color="#0d6e5f"></pui-lib-icon>
+            </div>
+          </pui-lib-tooltip>
         </div>
+      </pui-lib-card>
 
-        <!-- ── Variants ── -->
-        <div class="section-divider"><span class="section-tag">Variants</span></div>
-        <div class="variant-row">
-          <div class="variant-cell">
-            <pui-lib-tooltip text="Dark tooltip" position="top" variant="dark">
-              <pui-lib-button variant="primary">Dark</pui-lib-button>
-            </pui-lib-tooltip>
-            <span class="variant-label">dark</span>
-          </div>
-          <div class="variant-cell">
-            <pui-lib-tooltip text="Light tooltip style" position="top" variant="light">
-              <pui-lib-button variant="secondary">Light</pui-lib-button>
-            </pui-lib-tooltip>
-            <span class="variant-label">light</span>
-          </div>
-          <div class="variant-cell">
-            <pui-lib-tooltip text="Teal brand tooltip" position="top" variant="teal">
-              <pui-lib-button variant="primary-light">Teal</pui-lib-button>
-            </pui-lib-tooltip>
-            <span class="variant-label">teal</span>
-          </div>
+      <pui-lib-card variant="flat" size="sm" style="flex: 1">
+        <div class="trigger-inner">
+          <span class="trigger-label">Badge</span>
+          <pui-lib-tooltip text="3 pending approvals" position="top">
+            <pui-lib-badge variant="warning">Pending</pui-lib-badge>
+          </pui-lib-tooltip>
         </div>
+      </pui-lib-card>
 
-        <!-- ── On different triggers ── -->
-        <div class="section-divider"><span class="section-tag">On Any Element</span></div>
-        <div class="trigger-row">
-
-          <!-- Icon trigger -->
-          <pui-lib-card variant="flat" size="sm" style="flex:1">
-            <div class="trigger-inner">
-              <span class="trigger-label">Icon</span>
-              <pui-lib-tooltip text="Download report" position="top">
-                <div class="icon-trigger">
-                  <pui-lib-icon name="download" size="md" color="#0d6e5f"></pui-lib-icon>
-                </div>
-              </pui-lib-tooltip>
-            </div>
-          </pui-lib-card>
-
-          <!-- Badge trigger -->
-          <pui-lib-card variant="flat" size="sm" style="flex:1">
-            <div class="trigger-inner">
-              <span class="trigger-label">Badge</span>
-              <pui-lib-tooltip text="3 pending approvals" position="top">
-                <pui-lib-badge variant="warning">Pending</pui-lib-badge>
-              </pui-lib-tooltip>
-            </div>
-          </pui-lib-card>
-
-          <!-- Text trigger -->
-          <pui-lib-card variant="flat" size="sm" style="flex:1">
-            <div class="trigger-inner">
-              <span class="trigger-label">Text</span>
-              <pui-lib-tooltip text="john.doe@example.com" position="top">
-                <span class="dotted-text">Hover for email</span>
-              </pui-lib-tooltip>
-            </div>
-          </pui-lib-card>
-
-          <!-- Disabled button -->
-          <pui-lib-card variant="flat" size="sm" style="flex:1">
-            <div class="trigger-inner">
-              <span class="trigger-label">Disabled button</span>
-              <pui-lib-tooltip text="You don't have permission" position="top">
-                <pui-lib-button variant="primary" [disabled]="true">Delete</pui-lib-button>
-              </pui-lib-tooltip>
-            </div>
-          </pui-lib-card>
-
+      <pui-lib-card variant="flat" size="sm" style="flex: 1">
+        <div class="trigger-inner">
+          <span class="trigger-label">Text</span>
+          <pui-lib-tooltip text="john.doe@example.com" position="top">
+            <span class="dotted-text">Hover for email</span>
+          </pui-lib-tooltip>
         </div>
+      </pui-lib-card>
 
-        <!-- ── All positions showcase ── -->
-        <div class="section-divider"><span class="section-tag">Position Showcase</span></div>
-        <pui-lib-card variant="flat" [fullWidth]="true">
-          <div class="showcase">
-            <pui-lib-tooltip text="Top: appears above" position="top" variant="dark">
-              <div class="showcase-dot showcase-dot--top">Top</div>
-            </pui-lib-tooltip>
-            <div class="showcase-middle-row">
-              <pui-lib-tooltip text="Left: appears to the left" position="left" variant="teal">
-                <div class="showcase-dot showcase-dot--left">Left</div>
-              </pui-lib-tooltip>
-              <div class="showcase-center">
-                <pui-lib-icon name="info" size="xl" color="#12C6A8"></pui-lib-icon>
-                <span class="showcase-hint">Hover the labels</span>
-              </div>
-              <pui-lib-tooltip text="Right: appears to the right" position="right" variant="teal">
-                <div class="showcase-dot showcase-dot--right">Right</div>
-              </pui-lib-tooltip>
-            </div>
-            <pui-lib-tooltip text="Bottom: appears below" position="bottom" variant="dark">
-              <div class="showcase-dot showcase-dot--bottom">Bottom</div>
-            </pui-lib-tooltip>
+      <pui-lib-card variant="flat" size="sm" style="flex: 1">
+        <div class="trigger-inner">
+          <span class="trigger-label">Disabled button</span>
+          <pui-lib-tooltip text="You don't have permission" position="top">
+            <pui-lib-button variant="primary" [disabled]="true">Delete</pui-lib-button>
+          </pui-lib-tooltip>
+        </div>
+      </pui-lib-card>
+    </div>
+
+    <div class="section-divider"><span class="section-tag">Position Showcase</span></div>
+    <pui-lib-card variant="flat" [fullWidth]="true">
+      <div class="showcase">
+        <pui-lib-tooltip text="Top: appears above" position="top" variant="dark">
+          <div class="showcase-dot showcase-dot--top">Top</div>
+        </pui-lib-tooltip>
+        <div class="showcase-middle-row">
+          <pui-lib-tooltip text="Left: appears to the left" position="left" variant="teal">
+            <div class="showcase-dot showcase-dot--left">Left</div>
+          </pui-lib-tooltip>
+          <div class="showcase-center">
+            <pui-lib-icon name="info" size="xl" color="#12C6A8"></pui-lib-icon>
+            <span class="showcase-hint">Hover the labels</span>
           </div>
-        </pui-lib-card>
-
-      </ng-container>
+          <pui-lib-tooltip text="Right: appears to the right" position="right" variant="teal">
+            <div class="showcase-dot showcase-dot--right">Right</div>
+          </pui-lib-tooltip>
+        </div>
+        <pui-lib-tooltip text="Bottom: appears below" position="bottom" variant="dark">
+          <div class="showcase-dot showcase-dot--bottom">Bottom</div>
+        </pui-lib-tooltip>
+      </div>
+    </pui-lib-card>
+  </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
-      <code>pui-lib-tooltip</code> wraps any element — pass your trigger as slotted content between the tags.
-      All three attributes (<code>text</code>, <code>position</code>, <code>variant</code>) behave identically in every framework.
+      <code>pui-lib-tooltip</code> wraps any element — pass your trigger as slotted content between
+      the tags. All three attributes (<code>text</code>, <code>position</code>,
+      <code>variant</code>) behave identically in every framework.
     </p>
 
-    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
-
-      <!-- Angular preview: toolbar with contextual action tooltips -->
-      <div preview style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:8px 0">
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode"
+    >
+      <div
+        preview
+        style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; padding: 8px 0"
+      >
         <pui-lib-tooltip text="Save changes (Ctrl+S)" position="top" variant="dark">
           <pui-lib-button variant="primary">Save</pui-lib-button>
         </pui-lib-tooltip>
@@ -157,54 +149,59 @@
         </pui-lib-tooltip>
       </div>
 
-      <!-- React preview: data table with copy-email and status tooltips -->
-      <div react-preview style="width:100%">
-        <table style="border-collapse:collapse;width:100%;font-size:13px">
+      <div react-preview style="width: 100%">
+        <table style="border-collapse: collapse; width: 100%; font-size: 13px">
           <thead>
-            <tr style="background:#f1f5f9">
-              <th style="padding:8px 12px;text-align:left;font-weight:600;color:#475569">Name</th>
-              <th style="padding:8px 12px;text-align:left;font-weight:600;color:#475569">Email</th>
-              <th style="padding:8px 12px;text-align:left;font-weight:600;color:#475569">Status</th>
+            <tr style="background: #f1f5f9">
+              <th style="padding: 8px 12px; text-align: left; font-weight: 600; color: #475569">
+                Name
+              </th>
+              <th style="padding: 8px 12px; text-align: left; font-weight: 600; color: #475569">
+                Email
+              </th>
+              <th style="padding: 8px 12px; text-align: left; font-weight: 600; color: #475569">
+                Status
+              </th>
             </tr>
           </thead>
           <tbody>
-            <tr style="border-bottom:1px solid #e2e8f0">
-              <td style="padding:10px 12px;color:#1e293b">Jane Doe</td>
-              <td style="padding:10px 12px;color:#475569">
+            <tr style="border-bottom: 1px solid #e2e8f0">
+              <td style="padding: 10px 12px; color: #1e293b">Jane Doe</td>
+              <td style="padding: 10px 12px; color: #475569">
                 jane&#64;example.com
                 <pui-lib-tooltip text="Copy email" position="top" variant="teal">
-                  <span style="cursor:pointer;margin-left:4px">📋</span>
+                  <span style="cursor: pointer; margin-left: 4px">📋</span>
                 </pui-lib-tooltip>
               </td>
-              <td style="padding:10px 12px">
+              <td style="padding: 10px 12px">
                 <pui-lib-tooltip text="Account is active" position="left" variant="dark">
                   <pui-lib-badge variant="success">active</pui-lib-badge>
                 </pui-lib-tooltip>
               </td>
             </tr>
-            <tr style="border-bottom:1px solid #e2e8f0">
-              <td style="padding:10px 12px;color:#1e293b">Bob Smith</td>
-              <td style="padding:10px 12px;color:#475569">
+            <tr style="border-bottom: 1px solid #e2e8f0">
+              <td style="padding: 10px 12px; color: #1e293b">Bob Smith</td>
+              <td style="padding: 10px 12px; color: #475569">
                 bob&#64;example.com
                 <pui-lib-tooltip text="Copy email" position="top" variant="teal">
-                  <span style="cursor:pointer;margin-left:4px">📋</span>
+                  <span style="cursor: pointer; margin-left: 4px">📋</span>
                 </pui-lib-tooltip>
               </td>
-              <td style="padding:10px 12px">
+              <td style="padding: 10px 12px">
                 <pui-lib-tooltip text="Awaiting approval" position="left" variant="dark">
                   <pui-lib-badge variant="warning">pending</pui-lib-badge>
                 </pui-lib-tooltip>
               </td>
             </tr>
             <tr>
-              <td style="padding:10px 12px;color:#1e293b">Alice Jones</td>
-              <td style="padding:10px 12px;color:#475569">
+              <td style="padding: 10px 12px; color: #1e293b">Alice Jones</td>
+              <td style="padding: 10px 12px; color: #475569">
                 alice&#64;corp.com
                 <pui-lib-tooltip text="Copy email" position="top" variant="teal">
-                  <span style="cursor:pointer;margin-left:4px">📋</span>
+                  <span style="cursor: pointer; margin-left: 4px">📋</span>
                 </pui-lib-tooltip>
               </td>
-              <td style="padding:10px 12px">
+              <td style="padding: 10px 12px">
                 <pui-lib-tooltip text="Access revoked" position="left" variant="dark">
                   <pui-lib-badge variant="danger">blocked</pui-lib-badge>
                 </pui-lib-tooltip>
@@ -213,7 +210,6 @@
           </tbody>
         </table>
       </div>
-
     </docs-framework-preview>
 
     <h4 class="fw-ref-title">Tooltip Quick Reference</h4>
@@ -249,7 +245,5 @@
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
-    </docs-page>
+</docs-page>

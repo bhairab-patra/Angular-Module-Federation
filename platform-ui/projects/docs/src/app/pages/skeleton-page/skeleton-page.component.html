@@ -1,28 +1,30 @@
-﻿
-<docs-page
+﻿<docs-page
   title="Skeleton Loader"
   description="Animated placeholder shapes that mimic content layout while data is loading — reduces perceived wait time and prevents layout shift."
   [hasFramework]="true"
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Text lines -->
     <div class="demo-section">
       <h3 class="demo-section__title">Text Lines</h3>
-      <p class="demo-section__desc">Use <code>variant="text"</code> with <code>rows</code> to mimic paragraph content. Widths can vary per instance.</p>
-      <div style="width:360px;display:flex;flex-direction:column;gap:10px">
+      <p class="demo-section__desc">
+        Use <code>variant="text"</code> with <code>rows</code> to mimic paragraph content. Widths
+        can vary per instance.
+      </p>
+      <div style="width: 360px; display: flex; flex-direction: column; gap: 10px">
         <pui-lib-skeleton variant="text" width="55%" height="22px"></pui-lib-skeleton>
         <pui-lib-skeleton variant="text" width="100%" height="14px" [rows]="3"></pui-lib-skeleton>
         <pui-lib-skeleton variant="text" width="80%" height="14px"></pui-lib-skeleton>
       </div>
     </div>
 
-    <!-- 2. Circle & Avatar -->
     <div class="demo-section">
       <h3 class="demo-section__title">Circle (Avatar)</h3>
-      <p class="demo-section__desc">Use <code>variant="circle"</code> for avatars, icons, or any round placeholder. The <code>width</code> prop controls the diameter.</p>
-      <div style="display:flex;align-items:center;gap:16px">
+      <p class="demo-section__desc">
+        Use <code>variant="circle"</code> for avatars, icons, or any round placeholder. The
+        <code>width</code> prop controls the diameter.
+      </p>
+      <div style="display: flex; align-items: center; gap: 16px">
         <pui-lib-skeleton variant="circle" width="32px"></pui-lib-skeleton>
         <pui-lib-skeleton variant="circle" width="44px"></pui-lib-skeleton>
         <pui-lib-skeleton variant="circle" width="64px"></pui-lib-skeleton>
@@ -30,59 +32,82 @@
       </div>
     </div>
 
-    <!-- 3. Rect block -->
     <div class="demo-section">
       <h3 class="demo-section__title">Rectangle Block</h3>
-      <p class="demo-section__desc">Use <code>variant="rect"</code> for images, banners, chart areas, or video thumbnails.</p>
-      <div style="display:flex;gap:16px;flex-wrap:wrap">
+      <p class="demo-section__desc">
+        Use <code>variant="rect"</code> for images, banners, chart areas, or video thumbnails.
+      </p>
+      <div style="display: flex; gap: 16px; flex-wrap: wrap">
         <pui-lib-skeleton variant="rect" width="180px" height="120px"></pui-lib-skeleton>
         <pui-lib-skeleton variant="rect" width="180px" height="120px"></pui-lib-skeleton>
         <pui-lib-skeleton variant="rect" width="180px" height="120px"></pui-lib-skeleton>
       </div>
     </div>
 
-    <!-- 4. Card preset -->
     <div class="demo-section">
       <h3 class="demo-section__title">Card Preset</h3>
-      <p class="demo-section__desc">The <code>card</code> variant renders an avatar + three text lines in a bordered card — ideal for list or feed placeholders.</p>
-      <div style="width:360px">
+      <p class="demo-section__desc">
+        The <code>card</code> variant renders an avatar + three text lines in a bordered card —
+        ideal for list or feed placeholders.
+      </p>
+      <div style="width: 360px">
         <pui-lib-skeleton variant="card" [rows]="3"></pui-lib-skeleton>
       </div>
     </div>
 
-    <!-- 5. Animation toggle -->
     <div class="demo-section">
       <h3 class="demo-section__title">Animation Toggle</h3>
-      <p class="demo-section__desc">The shimmer animation is on by default. Set <code>[animated]="false"</code> to render a static grey placeholder.</p>
-      <div style="display:flex;gap:32px;flex-wrap:wrap">
+      <p class="demo-section__desc">
+        The shimmer animation is on by default. Set <code>[animated]="false"</code> to render a
+        static grey placeholder.
+      </p>
+      <div style="display: flex; gap: 32px; flex-wrap: wrap">
         <div>
           <p class="demo-label">Animated (default)</p>
-          <div style="width:240px"><pui-lib-skeleton variant="text" width="100%" height="14px" [rows]="4"></pui-lib-skeleton></div>
+          <div style="width: 240px">
+            <pui-lib-skeleton
+              variant="text"
+              width="100%"
+              height="14px"
+              [rows]="4"
+            ></pui-lib-skeleton>
+          </div>
         </div>
         <div>
           <p class="demo-label">Static</p>
-          <div style="width:240px"><pui-lib-skeleton variant="text" width="100%" height="14px" [rows]="4" [animated]="false"></pui-lib-skeleton></div>
+          <div style="width: 240px">
+            <pui-lib-skeleton
+              variant="text"
+              width="100%"
+              height="14px"
+              [rows]="4"
+              [animated]="false"
+            ></pui-lib-skeleton>
+          </div>
         </div>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-skeleton</code> is a self-contained Web Component. All props are plain attributes — no JS needed for basic usage. For dynamic loading states in Angular, toggle visibility with <code>*ngIf</code> or <code>[hidden]</code>.</p>
+    <p class="fw-lead">
+      <code>pui-lib-skeleton</code> is a self-contained Web Component. All props are plain
+      attributes — no JS needed for basic usage. For dynamic loading states in Angular, toggle
+      visibility with <code>*ngIf</code> or <code>[hidden]</code>.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-row">
-        <div style="display:flex;flex-direction:column;gap:8px;width:240px">
+        <div style="display: flex; flex-direction: column; gap: 8px; width: 240px">
           <pui-lib-skeleton variant="text" width="55%" height="20px"></pui-lib-skeleton>
           <pui-lib-skeleton variant="text" width="100%" height="14px" [rows]="3"></pui-lib-skeleton>
         </div>
-        <pui-lib-skeleton variant="card" style="width:200px"></pui-lib-skeleton>
+        <pui-lib-skeleton variant="card" style="width: 200px"></pui-lib-skeleton>
       </div>
       <div react-preview class="react-loading-card">
         <div class="react-loading-card__header">
@@ -101,19 +126,31 @@
     <h4 class="fw-ref-title">Skeleton Quick Reference</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><span class="tag-name">{{ r.name }}</span></td>
-            <td><span class="tag-ng">{{ r.angular }}</span></td>
-            <td><span class="tag-html">{{ r.attr }}</span></td>
-            <td><span class="tag-js">{{ r.js }}</span></td>
+            <td>
+              <span class="tag-name">{{ r.name }}</span>
+            </td>
+            <td>
+              <span class="tag-ng">{{ r.angular }}</span>
+            </td>
+            <td>
+              <span class="tag-html">{{ r.attr }}</span>
+            </td>
+            <td>
+              <span class="tag-js">{{ r.js }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-  

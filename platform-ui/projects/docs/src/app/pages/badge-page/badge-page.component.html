@@ -1,14 +1,16 @@
-<docs-page title="Badge"
+<docs-page
+  title="Badge"
   description="A compact inline label for status, categories, and counts — six colour variants, two sizes, and zero configuration."
-  [hasFramework]="true" [api]="api">
-
+  [hasFramework]="true"
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Brand variants -->
     <div class="demo-section">
       <h3 class="demo-section__title">Brand Variants</h3>
-      <p class="demo-section__desc">Same brand palette as Button and Chip — theme-aware and driven by shared design
-        tokens, so they follow the New/Old theme toggle.</p>
+      <p class="demo-section__desc">
+        Same brand palette as Button and Chip — theme-aware and driven by shared design tokens, so
+        they follow the New/Old theme toggle.
+      </p>
       <div class="demo-row">
         <pui-lib-badge variant="default">Default</pui-lib-badge>
         <pui-lib-badge variant="primary">Primary</pui-lib-badge>
@@ -19,7 +21,6 @@
       </div>
     </div>
 
-    <!-- 4. All variants reference table -->
     <div class="demo-section">
       <h3 class="demo-section__title">Full Palette</h3>
       <p class="demo-section__desc">Quick visual overview of every variant at both sizes.</p>
@@ -34,23 +35,31 @@
         <tbody>
           <tr *ngFor="let v of variants; trackBy: trackByIndex">
             <td class="demo-table__name">{{ v.id }}</td>
-            <td><pui-lib-badge [variant]="v.id" size="md">{{ v.label }}</pui-lib-badge></td>
-            <td><pui-lib-badge [variant]="v.id" size="sm">{{ v.label }}</pui-lib-badge></td>
+            <td>
+              <pui-lib-badge [variant]="v.id" size="md">{{ v.label }}</pui-lib-badge>
+            </td>
+            <td>
+              <pui-lib-badge [variant]="v.id" size="sm">{{ v.label }}</pui-lib-badge>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-badge</code> uses <code>ng-content</code> — put the label text between the tags.
-      The <code>variant</code> and <code>size</code> attributes behave identically in all frameworks.</p>
+    <p class="fw-lead">
+      <code>pui-lib-badge</code> uses <code>ng-content</code> — put the label text between the tags.
+      The <code>variant</code> and <code>size</code> attributes behave identically in all
+      frameworks.
+    </p>
 
-    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
-      <!-- Angular preview -->
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-row">
         <pui-lib-badge variant="success">Active</pui-lib-badge>
         <pui-lib-badge variant="warning" size="sm">Pending</pui-lib-badge>
@@ -60,7 +69,7 @@
         <pui-lib-badge variant="primary-light">Beta</pui-lib-badge>
         <pui-lib-badge variant="default">Draft</pui-lib-badge>
       </div>
-      <!-- React preview — deployment list matching the DeploymentList component -->
+
       <ul react-preview class="react-deploy-list">
         <li class="react-deploy-row">
           <span class="react-deploy-name">Deploy #47</span>
@@ -94,15 +103,21 @@
         </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><span class="tag-name">{{ r.name }}</span></td>
-            <td><span class="tag-ng">{{ r.angular }}</span></td>
-            <td><span class="tag-html">{{ r.attr }}</span></td>
-            <td><span class="tag-js">{{ r.js }}</span></td>
+            <td>
+              <span class="tag-name">{{ r.name }}</span>
+            </td>
+            <td>
+              <span class="tag-ng">{{ r.angular }}</span>
+            </td>
+            <td>
+              <span class="tag-html">{{ r.attr }}</span>
+            </td>
+            <td>
+              <span class="tag-js">{{ r.js }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>

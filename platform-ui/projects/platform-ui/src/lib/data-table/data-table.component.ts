@@ -1,6 +1,15 @@
 import {
-  Component, Input, Output, EventEmitter, NgZone, ElementRef, AfterViewInit,
-  OnDestroy, inject, ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  NgZone,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy,
+  inject,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf, DecimalPipe, DatePipe } from '@angular/common';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -11,14 +20,22 @@ import { PuiSimplePaginationInternalComponent } from '../simple-pagination/simpl
 import { IconInternalComponent } from '../icon/icon-internal.component';
 import { IconButtonInternalComponent } from '../icon-button/icon-button-internal.component';
 
-
 export { TableColumn, TableAction, SortDir, SortState } from '../models/table.model';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-lib-data-table',
   standalone: true,
-  imports: [NgFor, NgIf, DecimalPipe, DatePipe, PuiSearchInternalComponent, PuiSimplePaginationInternalComponent, IconInternalComponent, IconButtonInternalComponent],
+  imports: [
+    NgFor,
+    NgIf,
+    DecimalPipe,
+    DatePipe,
+    PuiSearchInternalComponent,
+    PuiSimplePaginationInternalComponent,
+    IconInternalComponent,
+    IconButtonInternalComponent,
+  ],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
   templateUrl: './data-table.component.html',
@@ -37,16 +54,20 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   _data: any[] = [];
 
   @Input() set columns(v: TableColumn[] | string) {
-    this._columns = typeof v === 'string' ? (this._parse<TableColumn[]>(v) ?? []) : (v || []);
+    this._columns = typeof v === 'string' ? (this._parse<TableColumn[]>(v) ?? []) : v || [];
   }
-  get columns() { return this._columns; }
+  get columns() {
+    return this._columns;
+  }
 
   @Input() set data(v: any[] | string) {
-    this._data = typeof v === 'string' ? (this._parse<any[]>(v) ?? []) : (v || []);
+    this._data = typeof v === 'string' ? (this._parse<any[]>(v) ?? []) : v || [];
     this.page = 1;
     this.selectedRows.clear();
   }
-  get data() { return this._data; }
+  get data() {
+    return this._data;
+  }
 
   _sortable = false;
   _searchable = false;
@@ -56,36 +77,53 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   _selectable = false;
   _loading = false;
 
-  @Input() set sortable(v: boolean | string) { this._sortable = this._bool(v); }
-  @Input() set searchable(v: boolean | string) { this._searchable = this._bool(v); }
-  @Input() set paginated(v: boolean | string) { this._paginated = this._bool(v); }
-  @Input() set stickyHeader(v: boolean | string) { this._stickyHeader = this._bool(v); }
-  @Input() set striped(v: boolean | string) { this._striped = this._bool(v); }
-  @Input() set selectable(v: boolean | string) { this._selectable = this._bool(v); }
-  @Input() set loading(v: boolean | string) { this._loading = this._bool(v); }
+  @Input() set sortable(v: boolean | string) {
+    this._sortable = this._bool(v);
+  }
+  @Input() set searchable(v: boolean | string) {
+    this._searchable = this._bool(v);
+  }
+  @Input() set paginated(v: boolean | string) {
+    this._paginated = this._bool(v);
+  }
+  @Input() set stickyHeader(v: boolean | string) {
+    this._stickyHeader = this._bool(v);
+  }
+  @Input() set striped(v: boolean | string) {
+    this._striped = this._bool(v);
+  }
+  @Input() set selectable(v: boolean | string) {
+    this._selectable = this._bool(v);
+  }
+  @Input() set loading(v: boolean | string) {
+    this._loading = this._bool(v);
+  }
 
-  /** Optional title shown on the left of the table toolbar (e.g. "Account Summary"). */
   @Input() heading = '';
 
-  /** Optional icon name shown in a square icon-button before the heading.
-   * Omit it and no icon renders — the title looks exactly as before. */
   @Input() headingIcon = '';
 
-  /** Optional overrides for the built-in empty state (shown when there's no active search term). */
   @Input() emptyTitle = '';
   @Input() emptyDescription = '';
 
   _pageSize = 10;
   _maxHeight = 0;
 
-  @Input() set pageSize(v: number | string) { this._pageSize = Number(v) || 10; this.page = 1; }
-  @Input() set maxHeight(v: number | string) { this._maxHeight = Number(v) || 0; }
+  @Input() set pageSize(v: number | string) {
+    this._pageSize = Number(v) || 10;
+    this.page = 1;
+  }
+  @Input() set maxHeight(v: number | string) {
+    this._maxHeight = Number(v) || 0;
+  }
 
   _actions: TableAction[] = [];
   @Input() set actions(v: TableAction[] | string) {
-    this._actions = typeof v === 'string' ? (this._parse<TableAction[]>(v) ?? []) : (v || []);
+    this._actions = typeof v === 'string' ? (this._parse<TableAction[]>(v) ?? []) : v || [];
   }
-  get actions() { return this._actions; }
+  get actions() {
+    return this._actions;
+  }
 
   _tooltipPos: 'top' | 'bottom' | 'left' | 'right' = 'right';
   @Input() set tooltipPosition(v: 'top' | 'bottom' | 'left' | 'right') {
@@ -118,8 +156,6 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   skeletonRows = Array(5).fill(null);
   rowClickEnabled = false;
 
-  /** Varied bar widths per column so skeleton rows read as realistic
-   * content placeholders instead of a uniform grid of equal-width bars. */
   private readonly skeletonWidths = ['70%', '45%', '60%', '80%', '50%'];
   skeletonCellWidth(colIndex: number): string {
     return this.skeletonWidths[colIndex % this.skeletonWidths.length];
@@ -129,15 +165,20 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
     let rows = [...this._data];
     if (this.searchTerm) {
       const t = this.searchTerm.toLowerCase();
-      rows = rows.filter(r =>
-        this._columns.some(c => String(r[c.key] ?? '').toLowerCase().includes(t))
+      rows = rows.filter((r) =>
+        this._columns.some((c) =>
+          String(r[c.key] ?? '')
+            .toLowerCase()
+            .includes(t),
+        ),
       );
     }
     if (this.sort.key && this.sort.dir) {
       const { key } = this.sort;
       const mul = this.sort.dir === 'asc' ? 1 : -1;
       rows = rows.slice().sort((a, b) => {
-        const av = a[key] ?? ''; const bv = b[key] ?? '';
+        const av = a[key] ?? '';
+        const bv = b[key] ?? '';
         return av < bv ? -mul : av > bv ? mul : 0;
       });
     }
@@ -151,30 +192,46 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
     return rows.slice(start, start + this._pageSize);
   }
 
-  get totalPages(): number { return Math.max(1, Math.ceil(this.filteredRows.length / this._pageSize)); }
-  get rangeStart(): number { return this.filteredRows.length === 0 ? 0 : (this.page - 1) * this._pageSize + 1; }
-  get rangeEnd(): number { return Math.min(this.page * this._pageSize, this.filteredRows.length); }
+  get totalPages(): number {
+    return Math.max(1, Math.ceil(this.filteredRows.length / this._pageSize));
+  }
+  get rangeStart(): number {
+    return this.filteredRows.length === 0 ? 0 : (this.page - 1) * this._pageSize + 1;
+  }
+  get rangeEnd(): number {
+    return Math.min(this.page * this._pageSize, this.filteredRows.length);
+  }
 
   get pageNumbers(): number[] {
-    const total = this.totalPages; const cur = this.page; const delta = 2;
+    const total = this.totalPages;
+    const cur = this.page;
+    const delta = 2;
     const pages: number[] = [];
     for (let i = Math.max(1, cur - delta); i <= Math.min(total, cur + delta); i++) pages.push(i);
     return pages;
   }
 
   get allSelected(): boolean {
-    return this.displayRows.length > 0 &&
-      this.displayRows.every((r, i) => this.selectedRows.has(this.getRowId(r, i)));
+    return (
+      this.displayRows.length > 0 &&
+      this.displayRows.every((r, i) => this.selectedRows.has(this.getRowId(r, i)))
+    );
   }
   get someSelected(): boolean {
     return this.displayRows.some((r, i) => this.selectedRows.has(this.getRowId(r, i)));
   }
 
-  ngOnDestroy(): void { this._detachCloseListener(); this._closePageSizeMenu(); }
+  ngOnDestroy(): void {
+    this._detachCloseListener();
+    this._closePageSizeMenu();
+  }
 
   onSort(key: string): void {
     if (this.sort.key === key) {
-      this.sort = { key, dir: this.sort.dir === 'asc' ? 'desc' : this.sort.dir === 'desc' ? '' : 'asc' };
+      this.sort = {
+        key,
+        dir: this.sort.dir === 'asc' ? 'desc' : this.sort.dir === 'desc' ? '' : 'asc',
+      };
     } else {
       this.sort = { key, dir: 'asc' };
     }
@@ -201,7 +258,10 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
 
   togglePageSizeMenu(event: Event): void {
     event.stopPropagation();
-    if (this.pageSizeMenuOpen) { this._closePageSizeMenu(); return; }
+    if (this.pageSizeMenuOpen) {
+      this._closePageSizeMenu();
+      return;
+    }
     this.pageSizeMenuOpen = true;
     this.zone.runOutsideAngular(() => {
       setTimeout(() => {
@@ -225,7 +285,9 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  onRowClick(row: any): void { this.rowClick.emit(row); }
+  onRowClick(row: any): void {
+    this.rowClick.emit(row);
+  }
 
   getRowId(row: any, i: number): string {
     return row['id'] !== null && row['id'] !== undefined ? String(row['id']) : String(i);
@@ -233,28 +295,32 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
 
   toggleRow(row: any, i: number): void {
     const id = this.getRowId(row, i);
-    if (this.selectedRows.has(id)) { this.selectedRows.delete(id); }
-    else { this.selectedRows.add(id); }
+    if (this.selectedRows.has(id)) {
+      this.selectedRows.delete(id);
+    } else {
+      this.selectedRows.add(id);
+    }
     this._emitSelection();
   }
 
   toggleAll(checked: boolean): void {
     this.displayRows.forEach((r, i) => {
       const id = this.getRowId(r, i);
-      if (checked) { this.selectedRows.add(id); } else { this.selectedRows.delete(id); }
+      if (checked) {
+        this.selectedRows.add(id);
+      } else {
+        this.selectedRows.delete(id);
+      }
     });
     this._emitSelection();
   }
 
-  /** Positioned as position: fixed with raw viewport coordinates (not
-   * relative to the host) so the menu can never be clipped by an ancestor's
-   * overflow:hidden / max-height scroll region, and never gets clamped into
-   * the wrong spot (previously: flipping upward near the top of a short
-   * table could compute a negative top that got clamped to 0, pinning the
-   * menu over the table header instead of near the clicked row). */
   toggleActionMenu(rowIndex: number, event: Event): void {
     event.stopPropagation();
-    if (this.openActionRow === rowIndex) { this._closeMenu(); return; }
+    if (this.openActionRow === rowIndex) {
+      this._closeMenu();
+      return;
+    }
     const btn = event.currentTarget as HTMLElement;
     const btnRect = btn.getBoundingClientRect();
     const menuW = 200;
@@ -271,13 +337,12 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
       setTimeout(() => {
         this._closeMenuListener = () => this.zone.run(() => this._closeMenu());
         document.addEventListener('click', this._closeMenuListener, { once: true });
-        // Position is computed once at open time; rather than tracking every
-        // scrollable ancestor to keep it glued to the trigger, just close it
-        // on the first scroll (capture:true so this also fires for the
-        // table's own internal .pui-dt-scroll, not just window/page scroll).
-        // Clicking the trigger again reopens it at the correct new position.
+
         this._closeMenuScrollListener = () => this.zone.run(() => this._closeMenu());
-        window.addEventListener('scroll', this._closeMenuScrollListener, { capture: true, once: true });
+        window.addEventListener('scroll', this._closeMenuScrollListener, {
+          capture: true,
+          once: true,
+        });
       });
     });
   }
@@ -296,25 +361,40 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
     if (!textEl || textEl.scrollWidth <= textEl.clientWidth) return;
     const hostRect = (this.el.nativeElement as HTMLElement).getBoundingClientRect();
     const rect = td.getBoundingClientRect();
-    let top = 0, left = 0;
+    let top = 0,
+      left = 0;
     switch (this._tooltipPos) {
-      case 'top': top = rect.top - hostRect.top - 8; left = rect.left - hostRect.left + rect.width / 2; break;
-      case 'bottom': top = rect.bottom - hostRect.top + 8; left = rect.left - hostRect.left + rect.width / 2; break;
-      case 'left': top = rect.top - hostRect.top + rect.height / 2; left = rect.left - hostRect.left - 8; break;
-      case 'right': top = rect.top - hostRect.top + rect.height / 2; left = rect.right - hostRect.left + 8; break;
+      case 'top':
+        top = rect.top - hostRect.top - 8;
+        left = rect.left - hostRect.left + rect.width / 2;
+        break;
+      case 'bottom':
+        top = rect.bottom - hostRect.top + 8;
+        left = rect.left - hostRect.left + rect.width / 2;
+        break;
+      case 'left':
+        top = rect.top - hostRect.top + rect.height / 2;
+        left = rect.left - hostRect.left - 8;
+        break;
+      case 'right':
+        top = rect.top - hostRect.top + rect.height / 2;
+        left = rect.right - hostRect.left + 8;
+        break;
     }
     this.hoveredCellText = text;
     this.cellTooltipCoords = { top, left };
     this.cellTooltipVisible = true;
   }
 
+  ngAfterViewInit(): void {}
 
-  ngAfterViewInit(): void { }
-
-  hideCellTooltip(): void { this.cellTooltipVisible = false; }
+  hideCellTooltip(): void {
+    this.cellTooltipVisible = false;
+  }
 
   private _closeMenu(): void {
-    this.openActionRow = null; this.openActionRowData = null;
+    this.openActionRow = null;
+    this.openActionRowData = null;
     this._detachCloseListener();
   }
 
@@ -339,6 +419,10 @@ export class PuiDataTableComponent implements AfterViewInit, OnDestroy {
   }
 
   private _parse<T>(s: string): T | null {
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 }

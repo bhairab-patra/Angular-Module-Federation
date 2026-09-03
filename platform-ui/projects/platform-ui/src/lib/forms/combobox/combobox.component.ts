@@ -1,7 +1,15 @@
 import {
-  Component, Input, Output, EventEmitter, forwardRef,
-  inject, ViewChild, ElementRef,
-  HostListener, ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  forwardRef,
+  inject,
+  ViewChild,
+  ElementRef,
+  HostListener,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
@@ -23,11 +31,13 @@ export interface ComboboxOption {
   imports: [NgFor, NgIf],
   encapsulation: ViewEncapsulation.ShadowDom,
   hostDirectives: [{ directive: PuiCustomCssDirective, inputs: ['customCss'] }],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => PuiComboboxComponent),
-    multi: true,
-  }],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => PuiComboboxComponent),
+      multi: true,
+    },
+  ],
   templateUrl: './combobox.component.html',
   styleUrls: ['./combobox.component.scss'],
 })
@@ -52,7 +62,7 @@ export class PuiComboboxComponent implements ControlValueAccessor {
   _size: FormSize = 'md';
 
   @Input() set options(v: ComboboxOption[] | string) {
-    this._options = typeof v === 'string' ? (this._parse<ComboboxOption[]>(v) ?? []) : (v || []);
+    this._options = typeof v === 'string' ? (this._parse<ComboboxOption[]>(v) ?? []) : v || [];
   }
   @Input() set value(v: string | number | null) {
     this._value = v;
@@ -61,8 +71,8 @@ export class PuiComboboxComponent implements ControlValueAccessor {
     this._setInput(lbl);
   }
 
-  private onChangeFn: (v: string | number | null) => void = () => { };
-  private onTouchedFn: () => void = () => { };
+  private onChangeFn: (v: string | number | null) => void = () => {};
+  private onTouchedFn: () => void = () => {};
 
   writeValue(v: string | number | null): void {
     this._value = v;
@@ -70,20 +80,42 @@ export class PuiComboboxComponent implements ControlValueAccessor {
     this.query = lbl;
     this._setInput(lbl);
   }
-  registerOnChange(fn: any): void { this.onChangeFn = fn; }
-  registerOnTouched(fn: any): void { this.onTouchedFn = fn; }
-  setDisabledState(d: boolean): void { this._disabled = d; }
-  @Input() set placeholder(v: string) { this._placeholder = v; }
-  @Input() set size(v: FormSize | string) {
-    this._size = (['sm', 'md', 'lg'].includes(v as FormSize) ? v as FormSize : 'md');
+  registerOnChange(fn: any): void {
+    this.onChangeFn = fn;
   }
-  get size(): FormSize { return this._size; }
-  @Input() set searchable(v: boolean | string) { this._searchable = this._bool(v); }
-  @Input() set clearable(v: boolean | string) { this._clearable = this._bool(v); }
-  @Input() set allowFreeText(v: boolean | string) { this._allowFreeText = this._bool(v); }
-  @Input() set disabled(v: boolean | string) { this._disabled = this._bool(v); }
-  @Input() set error(v: string) { this._error = v; }
-  @Input() set hint(v: string) { this._hint = v; }
+  registerOnTouched(fn: any): void {
+    this.onTouchedFn = fn;
+  }
+  setDisabledState(d: boolean): void {
+    this._disabled = d;
+  }
+  @Input() set placeholder(v: string) {
+    this._placeholder = v;
+  }
+  @Input() set size(v: FormSize | string) {
+    this._size = ['sm', 'md', 'lg'].includes(v as FormSize) ? (v as FormSize) : 'md';
+  }
+  get size(): FormSize {
+    return this._size;
+  }
+  @Input() set searchable(v: boolean | string) {
+    this._searchable = this._bool(v);
+  }
+  @Input() set clearable(v: boolean | string) {
+    this._clearable = this._bool(v);
+  }
+  @Input() set allowFreeText(v: boolean | string) {
+    this._allowFreeText = this._bool(v);
+  }
+  @Input() set disabled(v: boolean | string) {
+    this._disabled = this._bool(v);
+  }
+  @Input() set error(v: string) {
+    this._error = v;
+  }
+  @Input() set hint(v: string) {
+    this._hint = v;
+  }
 
   @Output() valueChange = new EventEmitter<string | number | null>();
   @Output() change = new EventEmitter<string | number | null>();
@@ -107,16 +139,15 @@ export class PuiComboboxComponent implements ControlValueAccessor {
   get filteredOptions(): ComboboxOption[] {
     if (!this.query.trim() || !this._searchable) return this._options;
     const q = this.query.toLowerCase();
-    return this._options.filter(o =>
-      o.label.toLowerCase().includes(q) ||
-      (o.description?.toLowerCase().includes(q))
+    return this._options.filter(
+      (o) => o.label.toLowerCase().includes(q) || o.description?.toLowerCase().includes(q),
     );
   }
 
   get groupedOptions(): { name: string; items: ComboboxOption[] }[] {
     const opts = this.filteredOptions;
     const map = new Map<string, ComboboxOption[]>();
-    opts.forEach(o => {
+    opts.forEach((o) => {
       const g = o.group ?? '';
       if (!map.has(g)) map.set(g, []);
       map.get(g)!.push(o);
@@ -135,7 +166,7 @@ export class PuiComboboxComponent implements ControlValueAccessor {
 
   labelFor(v: string | number | null): string | null {
     if (v === null || v === undefined) return null;
-    return this._options.find(o => o.value === v)?.label ?? null;
+    return this._options.find((o) => o.value === v)?.label ?? null;
   }
 
   onFocus() {
@@ -239,6 +270,10 @@ export class PuiComboboxComponent implements ControlValueAccessor {
   }
 
   private _parse<T>(s: string): T | null {
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 }

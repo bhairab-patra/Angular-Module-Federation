@@ -1,16 +1,16 @@
-﻿
-<docs-page
+﻿<docs-page
   title="Spinner"
   description="Two animation styles — dash (radiating lines) and dots (orbiting dot ring). Theme-aware brand colour, with overlay, size, and z-index support."
   [hasFramework]="true"
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Types -->
     <div class="demo-section">
       <h3 class="demo-section__title">Animation Types</h3>
-      <p class="demo-section__desc">Two SVG animation styles — <code>dash</code> uses radiating lines with a steps(12) rotation, <code>dots</code> uses an orbiting dot ring.</p>
+      <p class="demo-section__desc">
+        Two SVG animation styles — <code>dash</code> uses radiating lines with a steps(12) rotation,
+        <code>dots</code> uses an orbiting dot ring.
+      </p>
       <div class="type-grid">
         <div class="type-card">
           <div class="type-preview"><pui-lib-spinner type="dash" size="lg"></pui-lib-spinner></div>
@@ -25,17 +25,22 @@
       </div>
     </div>
 
-    <!-- 2. Sizes -->
     <div class="demo-section">
       <h3 class="demo-section__title">Sizes</h3>
-      <p class="demo-section__desc">Four preset sizes — <code>sm</code> 24px, <code>md</code> 40px (default), <code>lg</code> 56px, <code>xl</code> 80px. Use <code>[sizePx]</code> for arbitrary pixel sizes.</p>
+      <p class="demo-section__desc">
+        Four preset sizes — <code>sm</code> 24px, <code>md</code> 40px (default),
+        <code>lg</code> 56px, <code>xl</code> 80px. Use <code>[sizePx]</code> for arbitrary pixel
+        sizes.
+      </p>
       <div class="two-col">
         <div class="variant-block">
           <span class="variant-heading">dash</span>
           <div class="size-row">
             <div *ngFor="let s of sizes; trackBy: trackByIndex" class="size-cell">
               <pui-lib-spinner type="dash" [size]="s.size"></pui-lib-spinner>
-              <span class="size-label">{{ s.size }}<small>{{ s.px }}px</small></span>
+              <span class="size-label"
+                >{{ s.size }}<small>{{ s.px }}px</small></span
+              >
             </div>
           </div>
         </div>
@@ -44,39 +49,59 @@
           <div class="size-row">
             <div *ngFor="let s of sizes; trackBy: trackByIndex" class="size-cell">
               <pui-lib-spinner type="dots" [size]="s.size"></pui-lib-spinner>
-              <span class="size-label">{{ s.size }}<small>{{ s.px }}px</small></span>
+              <span class="size-label"
+                >{{ s.size }}<small>{{ s.px }}px</small></span
+              >
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 3. With label -->
     <div class="demo-section">
       <h3 class="demo-section__title">With Label</h3>
-      <p class="demo-section__desc">Optional text displayed below the spinner. Use <code>labelColor</code> to match the spinner colour.</p>
+      <p class="demo-section__desc">
+        Optional text displayed below the spinner. Use <code>labelColor</code> to match the spinner
+        colour.
+      </p>
       <div class="label-row">
         <pui-lib-spinner type="dash" size="md" label="Loading…"></pui-lib-spinner>
         <pui-lib-spinner type="dots" size="md" label="Please wait…"></pui-lib-spinner>
       </div>
     </div>
 
-    <!-- 4. Custom sizePx -->
     <div class="demo-section">
       <h3 class="demo-section__title">Custom Size via [sizePx]</h3>
       <p class="demo-section__desc">Bypass size presets and render at an exact pixel dimension.</p>
       <div class="label-row">
-        <div class="size-cell"><pui-lib-spinner type="dash" [sizePx]="32"></pui-lib-spinner><span class="size-label">32px</span></div>
-        <div class="size-cell"><pui-lib-spinner type="dash" [sizePx]="64"></pui-lib-spinner><span class="size-label">64px</span></div>
-        <div class="size-cell"><pui-lib-spinner type="dots" [sizePx]="32"></pui-lib-spinner><span class="size-label">32px</span></div>
-        <div class="size-cell"><pui-lib-spinner type="dots" [sizePx]="64"></pui-lib-spinner><span class="size-label">64px</span></div>
+        <div class="size-cell">
+          <pui-lib-spinner type="dash" [sizePx]="32"></pui-lib-spinner
+          ><span class="size-label">32px</span>
+        </div>
+        <div class="size-cell">
+          <pui-lib-spinner type="dash" [sizePx]="64"></pui-lib-spinner
+          ><span class="size-label">64px</span>
+        </div>
+        <div class="size-cell">
+          <pui-lib-spinner type="dots" [sizePx]="32"></pui-lib-spinner
+          ><span class="size-label">32px</span>
+        </div>
+        <div class="size-cell">
+          <pui-lib-spinner type="dots" [sizePx]="64"></pui-lib-spinner
+          ><span class="size-label">64px</span>
+        </div>
       </div>
     </div>
 
-    <!-- 5. Full-page overlay -->
     <div class="demo-section">
       <h3 class="demo-section__title">Full-Page Overlay</h3>
-      <p class="demo-section__desc">Set <code>[overlay]="true"</code> to render a fixed full-screen backdrop behind the spinner. <code>overlayColor</code> defaults to <code>var(--pui-overlay-black-45)</code> — the exact same scrim token <code>pui-lib-modal</code> and <code>pui-lib-form-dialog</code> use for their backdrop, so a loading state looks like part of the same design language instead of a plain white wash.</p>
+      <p class="demo-section__desc">
+        Set <code>[overlay]="true"</code> to render a fixed full-screen backdrop behind the spinner.
+        <code>overlayColor</code> defaults to <code>var(--pui-overlay-black-45)</code> — the exact
+        same scrim token <code>pui-lib-modal</code> and <code>pui-lib-form-dialog</code> use for
+        their backdrop, so a loading state looks like part of the same design language instead of a
+        plain white wash.
+      </p>
 
       <div class="overlay-row">
         <div class="ov-card" *ngFor="let d of overlayDemos; trackBy: trackByIndex">
@@ -95,17 +120,22 @@
         </div>
       </div>
 
-      <p class="demo-section__desc">Click to trigger a real full-screen overlay (auto-dismisses after 2.5s):</p>
+      <p class="demo-section__desc">
+        Click to trigger a real full-screen overlay (auto-dismisses after 2.5s):
+      </p>
       <div class="fp-row">
-        <button *ngFor="let d of overlayDemos; trackBy: trackByIndex"
-                class="fp-btn"
-                (click)="showOverlay(d.type, d.color, d.bg, d.opacity)">
+        <button
+          *ngFor="let d of overlayDemos; trackBy: trackByIndex"
+          class="fp-btn"
+          (click)="showOverlay(d.type, d.color, d.bg, d.opacity)"
+        >
           <pui-lib-spinner [type]="d.type" size="sm" [color]="d.color"></pui-lib-spinner>
           {{ d.label }}
         </button>
       </div>
 
-      <pui-lib-spinner *ngIf="overlayActive"
+      <pui-lib-spinner
+        *ngIf="overlayActive"
         [type]="activeType"
         size="xl"
         [overlay]="true"
@@ -113,21 +143,24 @@
         [overlayOpacity]="activeOpacity"
         [color]="activeColor"
         [zIndex]="2000"
-        label="Loading…">
+        label="Loading…"
+      >
       </pui-lib-spinner>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead">Import <code>SpinnerComponent</code> and configure with attributes. For full-page loading states combine <code>[overlay]="true"</code> with <code>*ngIf="isLoading"</code>.</p>
+    <p class="fw-lead">
+      Import <code>SpinnerComponent</code> and configure with attributes. For full-page loading
+      states combine <code>[overlay]="true"</code> with <code>*ngIf="isLoading"</code>.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-row">
         <pui-lib-spinner type="dash" size="md"></pui-lib-spinner>
         <pui-lib-spinner type="dots" size="md"></pui-lib-spinner>
@@ -149,19 +182,31 @@
     <h4 class="fw-ref-title">Spinner Quick Reference</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><span class="tag-name">{{ r.name }}</span></td>
-            <td><span class="tag-ng">{{ r.angular }}</span></td>
-            <td><span class="tag-html">{{ r.attr }}</span></td>
-            <td><span class="tag-js">{{ r.js }}</span></td>
+            <td>
+              <span class="tag-name">{{ r.name }}</span>
+            </td>
+            <td>
+              <span class="tag-ng">{{ r.angular }}</span>
+            </td>
+            <td>
+              <span class="tag-html">{{ r.attr }}</span>
+            </td>
+            <td>
+              <span class="tag-js">{{ r.js }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-  

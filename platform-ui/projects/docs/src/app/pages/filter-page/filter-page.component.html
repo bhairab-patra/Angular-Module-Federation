@@ -1,28 +1,44 @@
-﻿<docs-page title="Advanced Filters"
+﻿<docs-page
+  title="Advanced Filters"
   description="Composable filter panel with checkbox groups, radio buttons, select dropdowns, dual-thumb range sliders, text inputs, and date-range pickers. Active filters display as removable chips. Works in Angular, React, and plain HTML."
-  [hasFramework]="true" [api]="api">
-
+  [hasFramework]="true"
+  [api]="api"
+>
   <ng-container demo>
-
     <div class="demo-label"><span>Sidebar Filter Panel (batch apply)</span></div>
     <div class="demo-split">
       <div class="panel-col">
-        <pui-lib-filter-panel title="Loan Filters" [filters]="filters" [values]="values"
-          (valuesChange)="values = $event" (applied)="applied = $event" (cleared)="values = {}; applied = {}">
+        <pui-lib-filter-panel
+          title="Loan Filters"
+          [filters]="filters"
+          [values]="values"
+          (valuesChange)="values = $event"
+          (applied)="applied = $event"
+          (cleared)="values = {}; applied = {}"
+        >
         </pui-lib-filter-panel>
       </div>
       <div class="result-col">
         <div class="result-label">Applied filters</div>
         <pre class="result-pre">{{ applied | json }}</pre>
-        <p class="result-hint" *ngIf="!hasApplied">Click <strong>Apply filters</strong> to see the values here.</p>
+        <p class="result-hint" *ngIf="!hasApplied">
+          Click <strong>Apply filters</strong> to see the values here.
+        </p>
       </div>
     </div>
 
     <div class="demo-label"><span>Inline Mode (auto-apply on change)</span></div>
     <div class="demo-split">
       <div class="panel-col">
-        <pui-lib-filter-panel title="Quick Filters" [inline]="true" [showActions]="false" [filters]="inlineFilters"
-          [values]="inlineValues" (valuesChange)="inlineValues = $event" (applied)="inlineApplied = $event">
+        <pui-lib-filter-panel
+          title="Quick Filters"
+          [inline]="true"
+          [showActions]="false"
+          [filters]="inlineFilters"
+          [values]="inlineValues"
+          (valuesChange)="inlineValues = $event"
+          (applied)="inlineApplied = $event"
+        >
         </pui-lib-filter-panel>
       </div>
       <div class="result-col">
@@ -30,24 +46,33 @@
         <pre class="result-pre">{{ inlineValues | json }}</pre>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
-      <code>pui-lib-filter-panel</code> is a Web Component. The <code>filters</code> definition array and
-      <code>values</code> object are complex structures — pass them as JS properties or as a JSON string attribute.
-      The component emits <code>valuesChange</code>, <code>applied</code>, <code>reset</code>, and <code>cleared</code>
+      <code>pui-lib-filter-panel</code> is a Web Component. The <code>filters</code> definition
+      array and <code>values</code> object are complex structures — pass them as JS properties or as
+      a JSON string attribute. The component emits <code>valuesChange</code>, <code>applied</code>,
+      <code>reset</code>, and <code>cleared</code>
       CustomEvents.
     </p>
 
-    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
-      <div preview class="demo-split" style="flex-wrap:wrap;gap:16px">
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode"
+    >
+      <div preview class="demo-split" style="flex-wrap: wrap; gap: 16px">
         <div class="panel-col">
-          <pui-lib-filter-panel title="Loan Filters" [filters]="filters" [values]="values"
-            (valuesChange)="values = $event" (applied)="applied = $event" (cleared)="values = {}; applied = {}">
+          <pui-lib-filter-panel
+            title="Loan Filters"
+            [filters]="filters"
+            [values]="values"
+            (valuesChange)="values = $event"
+            (applied)="applied = $event"
+            (cleared)="values = {}; applied = {}"
+          >
           </pui-lib-filter-panel>
         </div>
         <div class="result-col">
@@ -57,8 +82,14 @@
       </div>
       <div react-preview class="react-filter-app">
         <h4 class="react-form-title">Shop by Category</h4>
-        <pui-lib-filter-panel title="Product Filters" [filters]="filters" [values]="values"
-          (valuesChange)="values = $event" (applied)="applied = $event" (cleared)="values = {}">
+        <pui-lib-filter-panel
+          title="Product Filters"
+          [filters]="filters"
+          [values]="values"
+          (valuesChange)="values = $event"
+          (applied)="applied = $event"
+          (cleared)="values = {}"
+        >
         </pui-lib-filter-panel>
       </div>
     </docs-framework-preview>
@@ -76,15 +107,21 @@
         </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
-            <td><code class="tag-name">{{ r.name }}</code></td>
-            <td><code class="tag-ng">{{ r.angular }}</code></td>
-            <td><code class="tag-html">{{ r.attr }}</code></td>
-            <td><code class="tag-js">{{ r.js }}</code></td>
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code class="tag-ng">{{ r.angular }}</code>
+            </td>
+            <td>
+              <code class="tag-html">{{ r.attr }}</code>
+            </td>
+            <td>
+              <code class="tag-js">{{ r.js }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>

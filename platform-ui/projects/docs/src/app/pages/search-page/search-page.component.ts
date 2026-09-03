@@ -13,30 +13,37 @@ import { FrameworkPreviewComponent } from '../../shared/framework-preview.compon
   styleUrls: ['./search-page.component.scss'],
 })
 export class SearchPageComponent {
-  copied    = '';
+  copied = '';
   lastQuery = '';
 
-  get angularCode(): string { return `${this.angularTpl}\n\n// component.ts\n${this.angularTs}`; }
+  get angularCode(): string {
+    return `${this.angularTpl}\n\n// component.ts\n${this.angularTs}`;
+  }
   selected: SearchSuggestion | null = null;
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   doCopy(text: string, id: string): void {
-    navigator.clipboard.writeText(text).then(() => { this.copied = id; setTimeout(() => this.copied = '', 2000); });
+    navigator.clipboard.writeText(text).then(() => {
+      this.copied = id;
+      setTimeout(() => (this.copied = ''), 2000);
+    });
   }
 
   recentSearches = ['Button component', 'Input validation', 'Toast service', 'Modal dialog'];
 
   suggestions: SearchSuggestion[] = [
-    { label: 'Button',           value: 'button',   category: 'Forms'      },
-    { label: 'Input',            value: 'input',    category: 'Forms'      },
-    { label: 'Select',           value: 'select',   category: 'Forms'      },
-    { label: 'Checkbox',         value: 'checkbox', category: 'Forms'      },
-    { label: 'Modal',            value: 'modal',    category: 'Components' },
-    { label: 'Toast',            value: 'toast',    category: 'Utilities'  },
-    { label: 'Advanced Filters', value: 'filters',  category: 'Utilities'  },
-    { label: 'Badge',            value: 'badge',    category: 'Components' },
-    { label: 'Spinner',          value: 'spinner',  category: 'Components' },
+    { label: 'Button', value: 'button', category: 'Forms' },
+    { label: 'Input', value: 'input', category: 'Forms' },
+    { label: 'Select', value: 'select', category: 'Forms' },
+    { label: 'Checkbox', value: 'checkbox', category: 'Forms' },
+    { label: 'Modal', value: 'modal', category: 'Components' },
+    { label: 'Toast', value: 'toast', category: 'Utilities' },
+    { label: 'Advanced Filters', value: 'filters', category: 'Utilities' },
+    { label: 'Badge', value: 'badge', category: 'Components' },
+    { label: 'Spinner', value: 'spinner', category: 'Components' },
   ];
 
   angularTpl = `<pui-lib-search
@@ -135,36 +142,156 @@ export function AppSearch() {
 </script>`;
 
   xfwRows = [
-    { name: 'placeholder',        angular: 'placeholder="…"',          attr: 'placeholder="…"',       js: 'el.placeholder = "…"' },
-    { name: 'size',               angular: 'size="sm"',                 attr: 'size="sm"',             js: 'el.size = "sm"' },
-    { name: 'debounce',           angular: '[debounce]="300"',          attr: 'debounce="300"',        js: 'el.debounce = 300' },
-    { name: 'suggestions',        angular: '[suggestions]="items"',     attr: '— use JS property',     js: 'el.suggestions = [...]' },
-    { name: 'recentSearches',     angular: '[recentSearches]="hist"',   attr: '— use JS property',     js: 'el.recentSearches = [...]' },
-    { name: 'disabled',           angular: '[disabled]="true"',         attr: 'disabled="true"',       js: 'el.disabled = true' },
-    { name: 'loading',            angular: '[loading]="true"',          attr: 'loading="true"',        js: 'el.loading = true' },
-    { name: 'shortcut',           angular: 'shortcut="⌘K"',            attr: 'shortcut="⌘K"',        js: 'el.shortcut = "⌘K"' },
-    { name: 'searchChange',       angular: '(searchChange)="fn($e)"',   attr: '— addEventListener',    js: 'el.addEventListener("searchChange", fn)' },
-    { name: 'suggestionSelected', angular: '(suggestionSelected)="fn"', attr: '— addEventListener',    js: 'el.addEventListener("suggestionSelected", fn)' },
+    {
+      name: 'placeholder',
+      angular: 'placeholder="…"',
+      attr: 'placeholder="…"',
+      js: 'el.placeholder = "…"',
+    },
+    { name: 'size', angular: 'size="sm"', attr: 'size="sm"', js: 'el.size = "sm"' },
+    {
+      name: 'debounce',
+      angular: '[debounce]="300"',
+      attr: 'debounce="300"',
+      js: 'el.debounce = 300',
+    },
+    {
+      name: 'suggestions',
+      angular: '[suggestions]="items"',
+      attr: '— use JS property',
+      js: 'el.suggestions = [...]',
+    },
+    {
+      name: 'recentSearches',
+      angular: '[recentSearches]="hist"',
+      attr: '— use JS property',
+      js: 'el.recentSearches = [...]',
+    },
+    {
+      name: 'disabled',
+      angular: '[disabled]="true"',
+      attr: 'disabled="true"',
+      js: 'el.disabled = true',
+    },
+    {
+      name: 'loading',
+      angular: '[loading]="true"',
+      attr: 'loading="true"',
+      js: 'el.loading = true',
+    },
+    { name: 'shortcut', angular: 'shortcut="⌘K"', attr: 'shortcut="⌘K"', js: 'el.shortcut = "⌘K"' },
+    {
+      name: 'searchChange',
+      angular: '(searchChange)="fn($e)"',
+      attr: '— addEventListener',
+      js: 'el.addEventListener("searchChange", fn)',
+    },
+    {
+      name: 'suggestionSelected',
+      angular: '(suggestionSelected)="fn"',
+      attr: '— addEventListener',
+      js: 'el.addEventListener("suggestionSelected", fn)',
+    },
   ];
 
   api: ApiRow[] = [
-    { input: 'placeholder',         type: 'string',                 default: "'Search…'",  description: 'Placeholder text in the input field.' },
-    { input: 'size',                type: "'sm'|'md'|'lg'",         default: "'md'",       description: 'Input size variant.' },
-    { input: 'value',               type: 'string',                 default: "''",         description: 'Bound search value.' },
-    { input: 'suggestions',         type: 'SearchSuggestion[]|string', default: '[]',      description: 'Suggestion items; accepts JSON string from HTML.' },
-    { input: 'debounce',            type: 'number',                 default: '300',        description: 'Debounce delay (ms) for searchChange.' },
-    { input: 'minChars',            type: 'number',                 default: '1',          description: 'Minimum chars before suggestions appear.' },
-    { input: 'clearable',           type: 'boolean|string',         default: 'true',       description: 'Shows × clear button. Accepts "true"/"false".' },
-    { input: 'disabled',            type: 'boolean|string',         default: 'false',      description: 'Disables the input. Accepts "true".' },
-    { input: 'loading',             type: 'boolean|string',         default: 'false',      description: 'Shows animated spinner. Accepts "true".' },
-    { input: 'shortcut',            type: 'string',                 default: "''",         description: 'Keyboard shortcut badge (e.g. ⌘K).' },
-    { input: 'emptyText',           type: 'string',                 default: "'No results'", description: 'Empty state message.' },
-    { input: 'recentSearches',      type: 'string[]|string',        default: '[]',         description: 'Recent searches shown on focus. Accepts JSON string.' },
-    { input: 'maxRecent',           type: 'number',                 default: '5',          description: 'Maximum recent searches displayed.' },
-    { input: 'searchChange',        type: 'EventEmitter<string>',   default: '—',          description: 'Emits debounced query on input.' },
-    { input: 'valueChange',         type: 'EventEmitter<string>',   default: '—',          description: 'Emits every keystroke.' },
-    { input: 'suggestionSelected',  type: 'EventEmitter<SearchSuggestion>', default: '—',  description: 'Emits the selected suggestion.' },
-    { input: 'cleared',             type: 'EventEmitter<void>',     default: '—',          description: 'Emits when × is clicked.' },
-    { input: 'submitted',           type: 'EventEmitter<string>',   default: '—',          description: 'Emits on Enter key press.' },
+    {
+      input: 'placeholder',
+      type: 'string',
+      default: "'Search…'",
+      description: 'Placeholder text in the input field.',
+    },
+    { input: 'size', type: "'sm'|'md'|'lg'", default: "'md'", description: 'Input size variant.' },
+    { input: 'value', type: 'string', default: "''", description: 'Bound search value.' },
+    {
+      input: 'suggestions',
+      type: 'SearchSuggestion[]|string',
+      default: '[]',
+      description: 'Suggestion items; accepts JSON string from HTML.',
+    },
+    {
+      input: 'debounce',
+      type: 'number',
+      default: '300',
+      description: 'Debounce delay (ms) for searchChange.',
+    },
+    {
+      input: 'minChars',
+      type: 'number',
+      default: '1',
+      description: 'Minimum chars before suggestions appear.',
+    },
+    {
+      input: 'clearable',
+      type: 'boolean|string',
+      default: 'true',
+      description: 'Shows × clear button. Accepts "true"/"false".',
+    },
+    {
+      input: 'disabled',
+      type: 'boolean|string',
+      default: 'false',
+      description: 'Disables the input. Accepts "true".',
+    },
+    {
+      input: 'loading',
+      type: 'boolean|string',
+      default: 'false',
+      description: 'Shows animated spinner. Accepts "true".',
+    },
+    {
+      input: 'shortcut',
+      type: 'string',
+      default: "''",
+      description: 'Keyboard shortcut badge (e.g. ⌘K).',
+    },
+    {
+      input: 'emptyText',
+      type: 'string',
+      default: "'No results'",
+      description: 'Empty state message.',
+    },
+    {
+      input: 'recentSearches',
+      type: 'string[]|string',
+      default: '[]',
+      description: 'Recent searches shown on focus. Accepts JSON string.',
+    },
+    {
+      input: 'maxRecent',
+      type: 'number',
+      default: '5',
+      description: 'Maximum recent searches displayed.',
+    },
+    {
+      input: 'searchChange',
+      type: 'EventEmitter<string>',
+      default: '—',
+      description: 'Emits debounced query on input.',
+    },
+    {
+      input: 'valueChange',
+      type: 'EventEmitter<string>',
+      default: '—',
+      description: 'Emits every keystroke.',
+    },
+    {
+      input: 'suggestionSelected',
+      type: 'EventEmitter<SearchSuggestion>',
+      default: '—',
+      description: 'Emits the selected suggestion.',
+    },
+    {
+      input: 'cleared',
+      type: 'EventEmitter<void>',
+      default: '—',
+      description: 'Emits when × is clicked.',
+    },
+    {
+      input: 'submitted',
+      type: 'EventEmitter<string>',
+      default: '—',
+      description: 'Emits on Enter key press.',
+    },
   ];
 }

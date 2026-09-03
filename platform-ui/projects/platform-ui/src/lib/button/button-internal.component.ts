@@ -2,13 +2,6 @@ import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button.component';
 
-/**
- * Identical to ButtonComponent, under a selector that's never globally
- * registered as a custom element. Used by composites that nest a button
- * internally (form-dialog, confirm-dialog), so the real `pui-lib-button`
- * tag stays free to register as its own standalone Web Component (see
- * elements/src/main.ts).
- */
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'pui-button-internal',

@@ -1,86 +1,142 @@
+<div
+  class="pui-search"
+  [class.pui-search--open]="isOpen"
+  [class.pui-search--sm]="size === 'sm'"
+  [class.pui-search--lg]="size === 'lg'"
+  [class.pui-search--focused]="focused"
+  [class.pui-search--disabled]="disabled"
+>
+  <div class="pui-search__field">
+    <span class="pui-search__icon">
+      <svg
+        *ngIf="!loading"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+      <span *ngIf="loading" class="pui-search__spinner"></span>
+    </span>
 
-    <div class="pui-search" [class.pui-search--open]="isOpen"
-         [class.pui-search--sm]="size==='sm'" [class.pui-search--lg]="size==='lg'"
-         [class.pui-search--focused]="focused" [class.pui-search--disabled]="disabled">
+    <input
+      #inputEl
+      class="pui-search__input"
+      type="search"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [value]="value"
+      autocomplete="off"
+      (input)="onInput($any($event.target).value)"
+      (focus)="onFocus()"
+      (blur)="onBlur()"
+      (keydown)="onKeydown($event)"
+    />
 
-      <div class="pui-search__field">
-        <span class="pui-search__icon">
-          <svg *ngIf="!loading" width="16" height="16" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <span *ngIf="loading" class="pui-search__spinner"></span>
-        </span>
+    <button
+      *ngIf="value && clearable && !disabled"
+      class="pui-search__clear"
+      type="button"
+      tabindex="-1"
+      (mousedown)="clear($event)"
+    >
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
+        <path
+          d="M4 4l8 8M12 4l-8 8"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
 
-        <input #inputEl
-               class="pui-search__input"
-               type="search"
-               [placeholder]="placeholder"
-               [disabled]="disabled"
-               [value]="value"
-               autocomplete="off"
-               (input)="onInput($any($event.target).value)"
-               (focus)="onFocus()"
-               (blur)="onBlur()"
-               (keydown)="onKeydown($event)"/>
+    <span *ngIf="!value && shortcut && !focused" class="pui-search__kbd">{{ shortcut }}</span>
+  </div>
 
-        <button *ngIf="value && clearable && !disabled"
-                class="pui-search__clear" type="button" tabindex="-1"
-                (mousedown)="clear($event)">
-          <svg width="13" height="13" viewBox="0 0 16 16" fill="none">
-            <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-
-        <span *ngIf="!value && shortcut && !focused" class="pui-search__kbd">{{ shortcut }}</span>
+  <div class="pui-search__dropdown" *ngIf="isOpen">
+    <div *ngIf="recentItems.length && !value" class="pui-search__group">
+      <div class="pui-search__group-label">
+        Recent
+        <button class="pui-search__clear-recent" (mousedown)="clearRecent($event)">Clear</button>
       </div>
-
-      <div class="pui-search__dropdown" *ngIf="isOpen">
-
-        <div *ngIf="recentItems.length && !value" class="pui-search__group">
-          <div class="pui-search__group-label">
-            Recent
-            <button class="pui-search__clear-recent" (mousedown)="clearRecent($event)">Clear</button>
-          </div>
-          <button *ngFor="let r of recentItems; let i = index"
-                  class="pui-search__item"
-                  [class.pui-search__item--active]="focusIdx === i"
-                  type="button"
-                  (mousedown)="selectRecent(r)">
-            <svg class="pui-search__item-icon" width="13" height="13" viewBox="0 0 24 24" fill="none"
-                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
-            </svg>
-            <span>{{ r }}</span>
-          </button>
-        </div>
-
-        <ng-container *ngIf="value && filteredSuggestions.length">
-          <ng-container *ngFor="let grp of groupedSuggestions">
-            <div *ngIf="grp.category" class="pui-search__group-label">{{ grp.category }}</div>
-            <button *ngFor="let s of grp.items; let i = index"
-                    class="pui-search__item"
-                    [class.pui-search__item--active]="focusIdx === getSuggestionGlobalIdx(grp, i)"
-                    type="button"
-                    (mousedown)="selectSuggestion(s)">
-              <span *ngIf="s.icon" class="pui-search__item-icon" [innerHTML]="s.icon"></span>
-              <svg *ngIf="!s.icon" class="pui-search__item-icon" width="13" height="13" viewBox="0 0 24 24"
-                   fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-              </svg>
-              <span class="pui-search__item-label" [innerHTML]="highlight(s.label)"></span>
-              <span *ngIf="s.meta" class="pui-search__item-meta">{{ s.meta }}</span>
-            </button>
-          </ng-container>
-        </ng-container>
-
-        <div *ngIf="value && !filteredSuggestions.length && !loading" class="pui-search__empty">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--pui-neutral-300)" stroke-width="1.5"
-               stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <span>{{ emptyText }}</span>
-        </div>
-      </div>
+      <button
+        *ngFor="let r of recentItems; let i = index"
+        class="pui-search__item"
+        [class.pui-search__item--active]="focusIdx === i"
+        type="button"
+        (mousedown)="selectRecent(r)"
+      >
+        <svg
+          class="pui-search__item-icon"
+          width="13"
+          height="13"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <polyline points="1 4 1 10 7 10" />
+          <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
+        </svg>
+        <span>{{ r }}</span>
+      </button>
     </div>
-  
+
+    <ng-container *ngIf="value && filteredSuggestions.length">
+      <ng-container *ngFor="let grp of groupedSuggestions">
+        <div *ngIf="grp.category" class="pui-search__group-label">{{ grp.category }}</div>
+        <button
+          *ngFor="let s of grp.items; let i = index"
+          class="pui-search__item"
+          [class.pui-search__item--active]="focusIdx === getSuggestionGlobalIdx(grp, i)"
+          type="button"
+          (mousedown)="selectSuggestion(s)"
+        >
+          <span *ngIf="s.icon" class="pui-search__item-icon" [innerHTML]="s.icon"></span>
+          <svg
+            *ngIf="!s.icon"
+            class="pui-search__item-icon"
+            width="13"
+            height="13"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+          <span class="pui-search__item-label" [innerHTML]="highlight(s.label)"></span>
+          <span *ngIf="s.meta" class="pui-search__item-meta">{{ s.meta }}</span>
+        </button>
+      </ng-container>
+    </ng-container>
+
+    <div *ngIf="value && !filteredSuggestions.length && !loading" class="pui-search__empty">
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="var(--pui-neutral-300)"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="11" cy="11" r="8" />
+        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+      </svg>
+      <span>{{ emptyText }}</span>
+    </div>
+  </div>
+</div>

@@ -9,34 +9,33 @@ import { NgFor } from '@angular/common';
   styleUrls: ['./typography-page.component.scss'],
 })
 export class TypographyPageComponent {
-
   scale = [
-    { token: 'display',    size: '48px', weight: '800', lh: '1.15', preview: 'Display Heading' },
-    { token: 'heading-1',  size: '36px', weight: '800', lh: '1.2',  preview: 'Page Title' },
-    { token: 'heading-2',  size: '28px', weight: '700', lh: '1.25', preview: 'Section Title' },
-    { token: 'heading-3',  size: '22px', weight: '700', lh: '1.3',  preview: 'Subsection' },
-    { token: 'heading-4',  size: '18px', weight: '600', lh: '1.35', preview: 'Card Title' },
-    { token: 'heading-5',  size: '15px', weight: '600', lh: '1.4',  preview: 'Sub-header' },
-    { token: 'heading-6',  size: '12px', weight: '700', lh: '1.4',  preview: 'LABEL / OVERLINE' },
-    { token: 'body-lg',    size: '16px', weight: '400', lh: '1.7',  preview: 'Large body text' },
-    { token: 'body',       size: '14px', weight: '400', lh: '1.65', preview: 'Default body text' },
-    { token: 'body-sm',    size: '13px', weight: '400', lh: '1.6',  preview: 'Small body text' },
-    { token: 'caption',    size: '11px', weight: '400', lh: '1.5',  preview: 'Caption & helper text' },
-    { token: 'label',      size: '12px', weight: '600', lh: '1.4',  preview: 'Form label' },
-    { token: 'overline',   size: '11px', weight: '700', lh: '1.4',  preview: 'SECTION OVERLINE' },
-    { token: 'code',       size: '13px', weight: '400', lh: '1.6',  preview: 'monospace snippet' },
+    { token: 'display', size: '48px', weight: '800', lh: '1.15', preview: 'Display Heading' },
+    { token: 'heading-1', size: '36px', weight: '800', lh: '1.2', preview: 'Page Title' },
+    { token: 'heading-2', size: '28px', weight: '700', lh: '1.25', preview: 'Section Title' },
+    { token: 'heading-3', size: '22px', weight: '700', lh: '1.3', preview: 'Subsection' },
+    { token: 'heading-4', size: '18px', weight: '600', lh: '1.35', preview: 'Card Title' },
+    { token: 'heading-5', size: '15px', weight: '600', lh: '1.4', preview: 'Sub-header' },
+    { token: 'heading-6', size: '12px', weight: '700', lh: '1.4', preview: 'LABEL / OVERLINE' },
+    { token: 'body-lg', size: '16px', weight: '400', lh: '1.7', preview: 'Large body text' },
+    { token: 'body', size: '14px', weight: '400', lh: '1.65', preview: 'Default body text' },
+    { token: 'body-sm', size: '13px', weight: '400', lh: '1.6', preview: 'Small body text' },
+    { token: 'caption', size: '11px', weight: '400', lh: '1.5', preview: 'Caption & helper text' },
+    { token: 'label', size: '12px', weight: '600', lh: '1.4', preview: 'Form label' },
+    { token: 'overline', size: '11px', weight: '700', lh: '1.4', preview: 'SECTION OVERLINE' },
+    { token: 'code', size: '13px', weight: '400', lh: '1.6', preview: 'monospace snippet' },
   ];
 
   weights = [
-    { name: 'Thin',        value: '100' },
+    { name: 'Thin', value: '100' },
     { name: 'Extra Light', value: '200' },
-    { name: 'Light',       value: '300' },
-    { name: 'Regular',     value: '400' },
-    { name: 'Medium',      value: '500' },
-    { name: 'Semi Bold',   value: '600' },
-    { name: 'Bold',        value: '700' },
-    { name: 'Extra Bold',  value: '800' },
-    { name: 'Black',       value: '900' },
+    { name: 'Light', value: '300' },
+    { name: 'Regular', value: '400' },
+    { name: 'Medium', value: '500' },
+    { name: 'Semi Bold', value: '600' },
+    { name: 'Bold', value: '700' },
+    { name: 'Extra Bold', value: '800' },
+    { name: 'Black', value: '900' },
   ];
 
   cdnSnippet = `<link rel="preconnect" href="https://fonts.googleapis.com">
@@ -113,9 +112,14 @@ $font-weight-extrabold: 800;
       const orig = btn.textContent;
       btn.textContent = 'Copied!';
       btn.style.color = '#12C6A8';
-      setTimeout(() => { btn.textContent = orig; btn.style.color = ''; }, 1800);
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.color = '';
+      }, 1800);
     });
   }
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 }

@@ -26,15 +26,33 @@ export class DatepickerPageComponent {
     navigator.clipboard.writeText(text).then(() => {
       this.copied = id;
       this.cdr.markForCheck();
-      setTimeout(() => { this.copied = ''; this.cdr.markForCheck(); }, 2000);
+      setTimeout(() => {
+        this.copied = '';
+        this.cdr.markForCheck();
+      }, 2000);
     });
   }
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   fmtDate(d: Date | null): string {
     if (!d) return '—';
-    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     return `${months[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
   }
 
@@ -42,21 +60,64 @@ export class DatepickerPageComponent {
     return Math.round(Math.abs(b.getTime() - a.getTime()) / 86400000);
   }
 
-  /* ── Quick-ref table ────────────────────────────── */
   xfwRows = [
-    { name: 'value',       angular: '[value]="dateObj"',              attr: '— use JS property',     js: 'el.value = new Date(...)' },
-    { name: 'mode',        angular: 'mode="range"',                   attr: 'mode="range"',           js: 'el.mode = "range"'        },
-    { name: 'min',         angular: '[min]="minDate"',                attr: 'min="2024-01-01"',       js: 'el.min = new Date(...)'   },
-    { name: 'max',         angular: '[max]="maxDate"',                attr: 'max="2024-12-31"',       js: 'el.max = new Date(...)'   },
-    { name: 'disabled',    angular: '[disabled]="bool"',              attr: 'disabled="true"',        js: 'el.disabled = true'       },
-    { name: 'clearable',   angular: '[clearable]="bool"',             attr: 'clearable="true"',       js: 'el.clearable = true'      },
-    { name: 'placeholder', angular: 'placeholder="Pick date…"',       attr: 'placeholder="Pick…"',    js: 'el.placeholder = "…"'     },
-    { name: 'valueChange', angular: '(valueChange)="fn($event)"',     attr: '— use addEventListener', js: 'el.addEventListener("valueChange", fn)'  },
-    { name: 'rangeChange', angular: '(rangeChange)="fn($event)"',     attr: '— use addEventListener', js: 'el.addEventListener("rangeChange", fn)'  },
-    { name: 'change',      angular: '(change)="fn($event)"',          attr: '— use addEventListener', js: 'el.addEventListener("change", fn)'       },
+    {
+      name: 'value',
+      angular: '[value]="dateObj"',
+      attr: '— use JS property',
+      js: 'el.value = new Date(...)',
+    },
+    { name: 'mode', angular: 'mode="range"', attr: 'mode="range"', js: 'el.mode = "range"' },
+    {
+      name: 'min',
+      angular: '[min]="minDate"',
+      attr: 'min="2024-01-01"',
+      js: 'el.min = new Date(...)',
+    },
+    {
+      name: 'max',
+      angular: '[max]="maxDate"',
+      attr: 'max="2024-12-31"',
+      js: 'el.max = new Date(...)',
+    },
+    {
+      name: 'disabled',
+      angular: '[disabled]="bool"',
+      attr: 'disabled="true"',
+      js: 'el.disabled = true',
+    },
+    {
+      name: 'clearable',
+      angular: '[clearable]="bool"',
+      attr: 'clearable="true"',
+      js: 'el.clearable = true',
+    },
+    {
+      name: 'placeholder',
+      angular: 'placeholder="Pick date…"',
+      attr: 'placeholder="Pick…"',
+      js: 'el.placeholder = "…"',
+    },
+    {
+      name: 'valueChange',
+      angular: '(valueChange)="fn($event)"',
+      attr: '— use addEventListener',
+      js: 'el.addEventListener("valueChange", fn)',
+    },
+    {
+      name: 'rangeChange',
+      angular: '(rangeChange)="fn($event)"',
+      attr: '— use addEventListener',
+      js: 'el.addEventListener("rangeChange", fn)',
+    },
+    {
+      name: 'change',
+      angular: '(change)="fn($event)"',
+      attr: '— use addEventListener',
+      js: 'el.addEventListener("change", fn)',
+    },
   ];
 
-  /* ── Code snippets ──────────────────────────────── */
   angularCode = `<!-- Single date -->
 <pui-lib-datepicker
   [value]="selectedDate"
@@ -205,19 +266,80 @@ export function BookingPicker() {
   });
 </script>`;
 
-  /* ── Component API ──────────────────────────────── */
   api: ApiRow[] = [
-    { input: 'value',       type: 'Date | null',        default: 'null',    description: 'Selected date for single mode — pass a JS Date or ISO string. Supports formControlName / [(ngModel)] — the component implements ControlValueAccessor.' },
-    { input: 'range',       type: 'DateRange',          default: 'start/end: null',  description: 'Selected range for range mode — start: Date, end: Date' },
-    { input: 'mode',        type: '"single"|"range"',   default: '"single"', description: 'Single date or date range selection mode' },
-    { input: 'min',         type: 'Date | null',        default: 'null',    description: 'Minimum selectable date — earlier dates are disabled and grayed' },
-    { input: 'max',         type: 'Date | null',        default: 'null',    description: 'Maximum selectable date — later dates are disabled and grayed' },
-    { input: 'disabled',    type: 'boolean',            default: 'false',   description: 'Disables the entire picker — trigger is dimmed and unclickable' },
-    { input: 'clearable',   type: 'boolean',            default: 'true',    description: 'Shows a × clear button and a Clear action in the calendar footer' },
-    { input: 'placeholder', type: 'string',             default: '"Select date…"', description: 'Placeholder text shown when no date is selected' },
-    { input: 'valueChange', type: 'EventEmitter<Date|null>', default: '—',  description: 'Emits the selected Date on pick, or null on clear (single mode)' },
-    { input: 'rangeChange', type: 'EventEmitter<DateRange>', default: '—',  description: 'Emits { start, end } when both dates are chosen (range mode)' },
-    { input: 'change',      type: 'EventEmitter<Date|DateRange|null>', default: '—', description: 'Unified event emitted on every selection or clear in any mode' },
-    { input: 'formControlName / ngModel', type: '—', default: '—', description: 'Implements ControlValueAccessor, so the component works directly with Reactive Forms and template-driven forms — writes/reads a Date in single mode and a DateRange in range mode.' },
+    {
+      input: 'value',
+      type: 'Date | null',
+      default: 'null',
+      description:
+        'Selected date for single mode — pass a JS Date or ISO string. Supports formControlName / [(ngModel)] — the component implements ControlValueAccessor.',
+    },
+    {
+      input: 'range',
+      type: 'DateRange',
+      default: 'start/end: null',
+      description: 'Selected range for range mode — start: Date, end: Date',
+    },
+    {
+      input: 'mode',
+      type: '"single"|"range"',
+      default: '"single"',
+      description: 'Single date or date range selection mode',
+    },
+    {
+      input: 'min',
+      type: 'Date | null',
+      default: 'null',
+      description: 'Minimum selectable date — earlier dates are disabled and grayed',
+    },
+    {
+      input: 'max',
+      type: 'Date | null',
+      default: 'null',
+      description: 'Maximum selectable date — later dates are disabled and grayed',
+    },
+    {
+      input: 'disabled',
+      type: 'boolean',
+      default: 'false',
+      description: 'Disables the entire picker — trigger is dimmed and unclickable',
+    },
+    {
+      input: 'clearable',
+      type: 'boolean',
+      default: 'true',
+      description: 'Shows a × clear button and a Clear action in the calendar footer',
+    },
+    {
+      input: 'placeholder',
+      type: 'string',
+      default: '"Select date…"',
+      description: 'Placeholder text shown when no date is selected',
+    },
+    {
+      input: 'valueChange',
+      type: 'EventEmitter<Date|null>',
+      default: '—',
+      description: 'Emits the selected Date on pick, or null on clear (single mode)',
+    },
+    {
+      input: 'rangeChange',
+      type: 'EventEmitter<DateRange>',
+      default: '—',
+      description: 'Emits { start, end } when both dates are chosen (range mode)',
+    },
+    {
+      input: 'change',
+      type: 'EventEmitter<Date|DateRange|null>',
+      default: '—',
+      description: 'Unified event emitted on every selection or clear in any mode',
+    },
+    {
+      input: 'formControlName / ngModel',
+      type: '—',
+      default: '—',
+      description:
+        'Implements ControlValueAccessor, so the component works directly with Reactive Forms and template-driven forms — writes/reads a Date in single mode and a DateRange in range mode.',
+    },
   ];
 }

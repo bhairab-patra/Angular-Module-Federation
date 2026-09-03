@@ -1,19 +1,24 @@
 <div class="pui-accordion" [class]="'pui-accordion pui-accordion--' + variant">
-
-  <div *ngFor="let item of items; trackBy: trackItem"
-       class="pui-accordion__item"
-       [class.pui-accordion__item--open]="isOpen(item.id)"
-       [class.pui-accordion__item--disabled]="item.disabled">
-
-    <button type="button"
-            class="pui-accordion__trigger"
-            [attr.aria-expanded]="isOpen(item.id)"
-            [attr.aria-disabled]="item.disabled || null"
-            [disabled]="item.disabled || null"
-            (click)="toggle(item)">
-
+  <div
+    *ngFor="let item of items; trackBy: trackItem"
+    class="pui-accordion__item"
+    [class.pui-accordion__item--open]="isOpen(item.id)"
+    [class.pui-accordion__item--disabled]="item.disabled"
+  >
+    <button
+      type="button"
+      class="pui-accordion__trigger"
+      [attr.aria-expanded]="isOpen(item.id)"
+      [attr.aria-disabled]="item.disabled || null"
+      [disabled]="item.disabled || null"
+      (click)="toggle(item)"
+    >
       <span class="pui-accordion__trigger-label">
-        <span class="pui-accordion__icon-badge" *ngIf="item.icon" [class.pui-accordion__icon-badge--active]="isOpen(item.id)">
+        <span
+          class="pui-accordion__icon-badge"
+          *ngIf="item.icon"
+          [class.pui-accordion__icon-badge--active]="isOpen(item.id)"
+        >
           <pui-icon-internal [name]="item.icon" size="sm"></pui-icon-internal>
         </span>
         <span class="pui-accordion__text">
@@ -22,19 +27,26 @@
         </span>
       </span>
 
-      <span class="pui-accordion__chevron" [class.pui-accordion__chevron--active]="isOpen(item.id)" aria-hidden="true">
+      <span
+        class="pui-accordion__chevron"
+        [class.pui-accordion__chevron--active]="isOpen(item.id)"
+        aria-hidden="true"
+      >
         <pui-icon-internal name="chevron-down" size="sm"></pui-icon-internal>
       </span>
     </button>
 
     <div class="pui-accordion__panel" [class.pui-accordion__panel--open]="isOpen(item.id)">
       <div class="pui-accordion__content">
-        <div class="pui-accordion__content-text" *ngIf="item.contentHtml; else plainContent" [innerHTML]="trustHtml(item.contentHtml)"></div>
+        <div
+          class="pui-accordion__content-text"
+          *ngIf="item.contentHtml; else plainContent"
+          [innerHTML]="trustHtml(item.contentHtml)"
+        ></div>
         <ng-template #plainContent>
           <div class="pui-accordion__content-text">{{ item.content }}</div>
         </ng-template>
       </div>
     </div>
-
   </div>
 </div>

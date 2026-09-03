@@ -52,13 +52,30 @@ function StatusTag({ status }) {
 <pui-lib-tag variant="purple" size="sm">Beta</pui-lib-tag>`;
 
   xfwRows = [
-    { name: 'variant', angular: 'variant="success"', attr: 'variant="success"', js: 'el.variant = "success"' },
-    { name: 'size',    angular: 'size="sm"',         attr: 'size="sm"',         js: 'el.size = "sm"'         },
+    {
+      name: 'variant',
+      angular: 'variant="success"',
+      attr: 'variant="success"',
+      js: 'el.variant = "success"',
+    },
+    { name: 'size', angular: 'size="sm"', attr: 'size="sm"', js: 'el.size = "sm"' },
   ];
 
   api: ApiRow[] = [
-    { input: 'variant', type: `'default'|'primary'|'success'|'warning'|'danger'|'info'|'purple'|'pink'`, default: `'default'`, description: 'Colour variant.' },
-    { input: 'size',    type: `'sm'|'md'`, default: `'md'`, description: 'Tag size. Use sm in dense tables or alongside body text.' },
+    {
+      input: 'variant',
+      type: `'default'|'primary'|'success'|'warning'|'danger'|'info'|'purple'|'pink'`,
+      default: `'default'`,
+      description: 'Colour variant.',
+    },
+    {
+      input: 'size',
+      type: `'sm'|'md'`,
+      default: `'md'`,
+      description: 'Tag size. Use sm in dense tables or alongside body text.',
+    },
   ];
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 }

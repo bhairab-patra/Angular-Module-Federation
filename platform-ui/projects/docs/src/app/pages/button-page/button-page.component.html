@@ -1,16 +1,15 @@
-
 <docs-page
   title="Button"
   description="Fully configurable shared button — 11 variants, 3 sizes, dynamic labels, upload progress, and file upload. Wire any action, label, or state from the parent."
   [hasFramework]="true"
-  [api]="api">
-
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Variant grid -->
     <div class="demo-section">
       <h3 class="demo-section__title">Variants & States</h3>
-      <p class="demo-section__desc">All 11 variants shown at Default, Hover, Focused, and Disabled states.</p>
+      <p class="demo-section__desc">
+        All 11 variants shown at Default, Hover, Focused, and Disabled states.
+      </p>
       <div class="variant-table">
         <div class="vt-head"></div>
         <div class="vt-head">Default</div>
@@ -20,67 +19,125 @@
 
         <div class="vt-label">Primary</div>
         <div class="vt-cell"><pui-lib-button variant="primary">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="primary" forceState="hover">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="primary" forceState="focus">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="primary" [disabled]="true">Button</pui-lib-button></div>
+        <div class="vt-cell">
+          <pui-lib-button variant="primary" forceState="hover">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="primary" forceState="focus">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="primary" [disabled]="true">Button</pui-lib-button>
+        </div>
 
         <div class="vt-label">Primary Light</div>
         <div class="vt-cell"><pui-lib-button variant="primary-light">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="primary-light" forceState="hover">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="primary-light" forceState="focus">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="primary-light" [disabled]="true">Button</pui-lib-button></div>
+        <div class="vt-cell">
+          <pui-lib-button variant="primary-light" forceState="hover">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="primary-light" forceState="focus">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="primary-light" [disabled]="true">Button</pui-lib-button>
+        </div>
 
         <div class="vt-label">Primary Outline</div>
         <div class="vt-cell"><pui-lib-button variant="primary-outline">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="primary-outline" forceState="hover">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="primary-outline" forceState="focus">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="primary-outline" [disabled]="true">Button</pui-lib-button></div>
+        <div class="vt-cell">
+          <pui-lib-button variant="primary-outline" forceState="hover">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="primary-outline" forceState="focus">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="primary-outline" [disabled]="true">Button</pui-lib-button>
+        </div>
 
         <div class="vt-label">Secondary</div>
         <div class="vt-cell"><pui-lib-button variant="secondary">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="secondary" forceState="hover">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="secondary" forceState="focus">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="secondary" [disabled]="true">Button</pui-lib-button></div>
+        <div class="vt-cell">
+          <pui-lib-button variant="secondary" forceState="hover">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="secondary" forceState="focus">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="secondary" [disabled]="true">Button</pui-lib-button>
+        </div>
 
         <div class="vt-label">Secondary Light</div>
         <div class="vt-cell"><pui-lib-button variant="secondary-light">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="secondary-light" forceState="hover">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="secondary-light" forceState="focus">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="secondary-light" [disabled]="true">Button</pui-lib-button></div>
+        <div class="vt-cell">
+          <pui-lib-button variant="secondary-light" forceState="hover">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="secondary-light" forceState="focus">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="secondary-light" [disabled]="true">Button</pui-lib-button>
+        </div>
 
         <div class="vt-label">Tertiary Outline</div>
-        <div class="vt-cell"><pui-lib-button variant="tertiary-outline">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="tertiary-outline" forceState="hover">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="tertiary-outline" forceState="focus">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="tertiary-outline" [disabled]="true">Button</pui-lib-button></div>
+        <div class="vt-cell">
+          <pui-lib-button variant="tertiary-outline">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="tertiary-outline" forceState="hover">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="tertiary-outline" forceState="focus">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="tertiary-outline" [disabled]="true">Button</pui-lib-button>
+        </div>
 
         <div class="vt-label">Text Button</div>
         <div class="vt-cell"><pui-lib-button variant="text">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="text" forceState="hover">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="text" forceState="focus">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="text" [disabled]="true">Button</pui-lib-button></div>
+        <div class="vt-cell">
+          <pui-lib-button variant="text" forceState="hover">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="text" forceState="focus">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="text" [disabled]="true">Button</pui-lib-button>
+        </div>
 
         <div class="vt-label">Destructive</div>
         <div class="vt-cell"><pui-lib-button variant="destructive">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="destructive" forceState="hover">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="destructive" forceState="focus">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="destructive" [disabled]="true">Button</pui-lib-button></div>
+        <div class="vt-cell">
+          <pui-lib-button variant="destructive" forceState="hover">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="destructive" forceState="focus">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="destructive" [disabled]="true">Button</pui-lib-button>
+        </div>
 
         <div class="vt-label">Destructive Light</div>
-        <div class="vt-cell"><pui-lib-button variant="destructive-light">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="destructive-light" forceState="hover">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="destructive-light" forceState="focus">Button</pui-lib-button></div>
-        <div class="vt-cell"><pui-lib-button variant="destructive-light" [disabled]="true">Button</pui-lib-button></div>
-
-
+        <div class="vt-cell">
+          <pui-lib-button variant="destructive-light">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="destructive-light" forceState="hover">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="destructive-light" forceState="focus">Button</pui-lib-button>
+        </div>
+        <div class="vt-cell">
+          <pui-lib-button variant="destructive-light" [disabled]="true">Button</pui-lib-button>
+        </div>
       </div>
     </div>
 
-    <!-- 2. Sizes -->
     <div class="demo-section">
       <h3 class="demo-section__title">Sizes</h3>
-      <p class="demo-section__desc">Three sizes — <code>sm</code>, <code>md</code> (default), and <code>lg</code> — scale padding and font size while keeping the same border radius.</p>
-      <div class="demo-row" style="align-items:center">
+      <p class="demo-section__desc">
+        Three sizes — <code>sm</code>, <code>md</code> (default), and <code>lg</code> — scale
+        padding and font size while keeping the same border radius.
+      </p>
+      <div class="demo-row" style="align-items: center">
         <pui-lib-button variant="primary" size="sm">Small</pui-lib-button>
         <pui-lib-button variant="primary" size="md">Medium</pui-lib-button>
         <pui-lib-button variant="primary" size="lg">Large</pui-lib-button>
@@ -90,68 +147,113 @@
       </div>
     </div>
 
-    <!-- 3. File upload -->
     <div class="demo-section">
       <h3 class="demo-section__title">File Upload</h3>
-      <p class="demo-section__desc"><code>pui-file-button</code> opens a native file picker and emits the <code>FileList</code> via <code>(fileSelected)</code>.</p>
+      <p class="demo-section__desc">
+        <code>pui-file-button</code> opens a native file picker and emits the
+        <code>FileList</code> via <code>(fileSelected)</code>.
+      </p>
       <div class="demo-row">
         <pui-lib-file-button
           label="Choose File"
           fileTypesLabel=".pdf, .png, .doc"
           accept=".pdf,.png,.doc"
-          (fileSelected)="onFileSelected($event)">
+          (fileSelected)="onFileSelected($event)"
+        >
         </pui-lib-file-button>
       </div>
-      <p *ngIf="selectedFile" class="demo-result">Selected: <strong>{{ selectedFile }}</strong></p>
+      <p *ngIf="selectedFile" class="demo-result">
+        Selected: <strong>{{ selectedFile }}</strong>
+      </p>
     </div>
 
-    <!-- 4. Upload progress -->
     <div class="demo-section">
       <h3 class="demo-section__title">Upload Progress</h3>
-      <p class="demo-section__desc">Use <code>variant="upload-progress"</code> with a <code>[progress]</code> value (0–100) to show an inline fill bar.</p>
+      <p class="demo-section__desc">
+        Use <code>variant="upload-progress"</code> with a <code>[progress]</code> value (0–100) to
+        show an inline fill bar.
+      </p>
       <div class="progress-col">
-        <pui-lib-button variant="upload-progress" label="Idle (0%)"        [progress]="0"   [fullWidth]="true"></pui-lib-button>
-        <pui-lib-button variant="upload-progress" label="Uploading (45%)"  [progress]="45"  [fullWidth]="true"></pui-lib-button>
-        <pui-lib-button variant="upload-progress" label="Almost done (80%)" [progress]="80" [fullWidth]="true"></pui-lib-button>
+        <pui-lib-button
+          variant="upload-progress"
+          label="Idle (0%)"
+          [progress]="0"
+          [fullWidth]="true"
+        ></pui-lib-button>
+        <pui-lib-button
+          variant="upload-progress"
+          label="Uploading (45%)"
+          [progress]="45"
+          [fullWidth]="true"
+        ></pui-lib-button>
+        <pui-lib-button
+          variant="upload-progress"
+          label="Almost done (80%)"
+          [progress]="80"
+          [fullWidth]="true"
+        ></pui-lib-button>
       </div>
     </div>
 
-    <!-- 5. Live playground -->
     <div class="demo-section">
       <h3 class="demo-section__title">Live Playground</h3>
       <p class="demo-section__desc">Adjust label, variant, and disabled state in real time.</p>
       <div class="live-demo">
         <div class="live-controls">
-          <label class="ctrl-label">Label
-            <input class="ctrl-input" [value]="demoLabel" (input)="onDemoLabelInput($event)" placeholder="Button label">
+          <label class="ctrl-label"
+            >Label
+            <input
+              class="ctrl-input"
+              [value]="demoLabel"
+              (input)="onDemoLabelInput($event)"
+              placeholder="Button label"
+            />
           </label>
-          <label class="ctrl-label">Variant
+          <label class="ctrl-label"
+            >Variant
             <select class="ctrl-input" (change)="onDemoVariantChange($event)">
-              <option *ngFor="let v of variantOptions; trackBy: trackByIndex" [value]="v" [selected]="v === demoVariant">{{ v }}</option>
+              <option
+                *ngFor="let v of variantOptions; trackBy: trackByIndex"
+                [value]="v"
+                [selected]="v === demoVariant"
+              >
+                {{ v }}
+              </option>
             </select>
           </label>
-          <label class="ctrl-label" style="flex-direction:row;align-items:center;gap:8px">
-            <input type="checkbox" [checked]="demoDisabled" (change)="onDemoDisabledChange($event)">
+          <label class="ctrl-label" style="flex-direction: row; align-items: center; gap: 8px">
+            <input
+              type="checkbox"
+              [checked]="demoDisabled"
+              (change)="onDemoDisabledChange($event)"
+            />
             Disabled
           </label>
         </div>
         <div class="live-preview">
-          <pui-lib-button [variant]="demoVariant" [label]="demoLabel" [disabled]="demoDisabled"></pui-lib-button>
+          <pui-lib-button
+            [variant]="demoVariant"
+            [label]="demoLabel"
+            [disabled]="demoDisabled"
+          ></pui-lib-button>
         </div>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
-    <p class="fw-lead"><code>pui-lib-button</code> supports static text via <code>ng-content</code> or a dynamic <code>[label]</code> input. All click, focus, hover, and blur events are emitted as typed Angular <code>EventEmitter</code>s or DOM custom events.</p>
+    <p class="fw-lead">
+      <code>pui-lib-button</code> supports static text via <code>ng-content</code> or a dynamic
+      <code>[label]</code> input. All click, focus, hover, and blur events are emitted as typed
+      Angular <code>EventEmitter</code>s or DOM custom events.
+    </p>
 
     <docs-framework-preview
       [angularCode]="angularCode"
       [reactCode]="reactCode"
-      [htmlCode]="htmlCode">
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-row">
         <pui-lib-button variant="primary">Primary</pui-lib-button>
         <pui-lib-button variant="secondary">Secondary</pui-lib-button>
@@ -172,19 +274,31 @@
     <h4 class="fw-ref-title">Button Quick Reference</h4>
     <div class="xfw-wrap">
       <table class="xfw-table">
-        <thead><tr><th>Property</th><th>Angular</th><th>HTML attr</th><th>JS property</th></tr></thead>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>Angular</th>
+            <th>HTML attr</th>
+            <th>JS property</th>
+          </tr>
+        </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><span class="tag-name">{{ r.name }}</span></td>
-            <td><span class="tag-ng">{{ r.angular }}</span></td>
-            <td><span class="tag-html">{{ r.attr }}</span></td>
-            <td><span class="tag-js">{{ r.js }}</span></td>
+            <td>
+              <span class="tag-name">{{ r.name }}</span>
+            </td>
+            <td>
+              <span class="tag-ng">{{ r.angular }}</span>
+            </td>
+            <td>
+              <span class="tag-html">{{ r.attr }}</span>
+            </td>
+            <td>
+              <span class="tag-js">{{ r.js }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>
-  

@@ -32,9 +32,14 @@ export class ContextMenuPageComponent {
     { id: 'delete', label: 'Delete', icon: 'trash', danger: true, dividerBefore: true },
   ];
 
-  onSelect(item: MenuItem): void { this.lastAction = item.label; this.cdr.markForCheck(); }
+  onSelect(item: MenuItem): void {
+    this.lastAction = item.label;
+    this.cdr.markForCheck();
+  }
 
-  trackByIndex(_i: number): number { return _i; }
+  trackByIndex(_i: number): number {
+    return _i;
+  }
 
   angularCode = `import { PuiContextMenuComponent, MenuItem } from '@bhairab-patra/platform-ui';
 
@@ -109,15 +114,53 @@ export function FileCard() {
   xfwRows = [
     { name: 'items', angular: '[items]="items"', attr: '—', js: 'el.items = [...]' },
     { name: 'disabled', angular: '[disabled]="true"', attr: 'disabled', js: 'el.disabled = true' },
-    { name: 'menuSelect', angular: '(menuSelect)="fn($event)"', attr: '—', js: `el.addEventListener('menuSelect', fn)` },
-    { name: 'openChange', angular: '(openChange)="fn($event)"', attr: '—', js: `el.addEventListener('openChange', fn)` },
+    {
+      name: 'menuSelect',
+      angular: '(menuSelect)="fn($event)"',
+      attr: '—',
+      js: `el.addEventListener('menuSelect', fn)`,
+    },
+    {
+      name: 'openChange',
+      angular: '(openChange)="fn($event)"',
+      attr: '—',
+      js: `el.addEventListener('openChange', fn)`,
+    },
   ];
 
   api: ApiRow[] = [
-    { input: 'items', type: 'MenuItem[]', default: '[]', description: 'Menu items shown on right-click. Same MenuItem shape as pui-lib-menu: {id, label, icon?, disabled?, danger?, dividerBefore?, shortcut?, children?}. Nested children are not expandable here (context menus stay single-level); pass a flat list.' },
-    { input: 'disabled', type: 'boolean | string', default: 'false', description: 'Disables the right-click menu entirely — the browser\'s native context menu shows instead.' },
-    { input: 'menuSelect', type: 'EventEmitter<MenuItem> (output)', default: '—', description: 'Fires when a (non-disabled) item is clicked.' },
-    { input: 'openChange', type: 'EventEmitter<boolean> (output)', default: '—', description: 'Fires when the menu opens or closes.' },
-    { input: 'content (default slot)', type: 'ng-content', default: '—', description: 'The zone that responds to right-click. Wrap whatever element/area should trigger the menu — a card, a table row, an image, etc.' },
+    {
+      input: 'items',
+      type: 'MenuItem[]',
+      default: '[]',
+      description:
+        'Menu items shown on right-click. Same MenuItem shape as pui-lib-menu: {id, label, icon?, disabled?, danger?, dividerBefore?, shortcut?, children?}. Nested children are not expandable here (context menus stay single-level); pass a flat list.',
+    },
+    {
+      input: 'disabled',
+      type: 'boolean | string',
+      default: 'false',
+      description:
+        "Disables the right-click menu entirely — the browser's native context menu shows instead.",
+    },
+    {
+      input: 'menuSelect',
+      type: 'EventEmitter<MenuItem> (output)',
+      default: '—',
+      description: 'Fires when a (non-disabled) item is clicked.',
+    },
+    {
+      input: 'openChange',
+      type: 'EventEmitter<boolean> (output)',
+      default: '—',
+      description: 'Fires when the menu opens or closes.',
+    },
+    {
+      input: 'content (default slot)',
+      type: 'ng-content',
+      default: '—',
+      description:
+        'The zone that responds to right-click. Wrap whatever element/area should trigger the menu — a card, a table row, an image, etc.',
+    },
   ];
 }

@@ -1,6 +1,12 @@
 ﻿import {
-  Component, Input, Output, EventEmitter, OnChanges, SimpleChanges,
-  ViewEncapsulation, ChangeDetectionStrategy
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { NgIf, NgFor } from '@angular/common';
 import { FilterDef, FilterValues, ActiveFilter } from '../models/filter.model';
@@ -20,32 +26,44 @@ export class PuiFilterPanelComponent implements OnChanges {
   @Input() title = 'Filters';
 
   @Input() set filters(v: FilterDef[] | string) {
-    this._filters = typeof v === 'string' ? (this._parseJson<FilterDef[]>(v) ?? []) : (v || []);
+    this._filters = typeof v === 'string' ? (this._parseJson<FilterDef[]>(v) ?? []) : v || [];
   }
-  get filters(): FilterDef[] { return this._filters; }
+  get filters(): FilterDef[] {
+    return this._filters;
+  }
   private _filters: FilterDef[] = [];
 
   @Input() set values(v: FilterValues | string) {
-    this._values = typeof v === 'string' ? (this._parseJson<FilterValues>(v) ?? {}) : (v || {});
+    this._values = typeof v === 'string' ? (this._parseJson<FilterValues>(v) ?? {}) : v || {};
   }
-  get values(): FilterValues { return this._values; }
+  get values(): FilterValues {
+    return this._values;
+  }
   private _values: FilterValues = {};
 
   @Input() set showActions(v: boolean | string) {
     this._showActions = v !== false && v !== 'false';
   }
-  get showActions() { return this._showActions; }
+  get showActions() {
+    return this._showActions;
+  }
   private _showActions = true;
 
   @Input() set inline(v: boolean | string) {
     this._inline = v === true || v === 'true' || (v as any) === '';
   }
-  get inline() { return this._inline; }
+  get inline() {
+    return this._inline;
+  }
   private _inline = false;
 
   private _parseJson<T>(s: string): T | null {
     if (!s) return null;
-    try { return JSON.parse(s) as T; } catch { return null; }
+    try {
+      return JSON.parse(s) as T;
+    } catch {
+      return null;
+    }
   }
 
   @Output() valuesChange = new EventEmitter<FilterValues>();
@@ -54,7 +72,6 @@ export class PuiFilterPanelComponent implements OnChanges {
   @Output() cleared = new EventEmitter<void>();
 
   collapsed: Record<string, boolean> = {};
-
 
   ngOnChanges(c: SimpleChanges): void {
     if (c['filters']) {
@@ -79,7 +96,7 @@ export class PuiFilterPanelComponent implements OnChanges {
   }
 
   get activeCount(): number {
-    return Object.values(this.values).filter(v => {
+    return Object.values(this.values).filter((v) => {
       if (Array.isArray(v)) return v.length > 0;
       if (v === null || v === undefined || v === '') return false;
       return true;
@@ -92,21 +109,33 @@ export class PuiFilterPanelComponent implements OnChanges {
       const v = this.values[f.id];
       if (!v) continue;
       if (Array.isArray(v) && v.length) {
-        const labels = v.map(val => f.options?.find(o => o.value === val)?.label ?? val);
+        const labels = v.map((val) => f.options?.find((o) => o.value === val)?.label ?? val);
         out.push({ filterId: f.id, filterLabel: f.label, valueLabel: labels.join(', '), value: v });
       } else if (typeof v === 'string' && v) {
-        const label = f.options?.find(o => o.value === v)?.label ?? v;
+        const label = f.options?.find((o) => o.value === v)?.label ?? v;
         out.push({ filterId: f.id, filterLabel: f.label, valueLabel: label, value: v });
       } else if (typeof v === 'object' && v !== null) {
-        const parts = Object.entries(v).filter(([, x]) => x).map(([k, x]) => `${k}: ${x}`);
-        if (parts.length) out.push({ filterId: f.id, filterLabel: f.label, valueLabel: parts.join(', '), value: v });
+        const parts = Object.entries(v)
+          .filter(([, x]) => x)
+          .map(([k, x]) => `${k}: ${x}`);
+        if (parts.length)
+          out.push({
+            filterId: f.id,
+            filterLabel: f.label,
+            valueLabel: parts.join(', '),
+            value: v,
+          });
       }
     }
     return out;
   }
 
-  getRangeMin(f: FilterDef): number { return this.values[f.id]?.min ?? f.min ?? 0; }
-  getRangeMax(f: FilterDef): number { return this.values[f.id]?.max ?? f.max ?? 100; }
+  getRangeMin(f: FilterDef): number {
+    return this.values[f.id]?.min ?? f.min ?? 0;
+  }
+  getRangeMax(f: FilterDef): number {
+    return this.values[f.id]?.max ?? f.max ?? 100;
+  }
   getRangeFillLeft(f: FilterDef): number {
     const span = (f.max ?? 100) - (f.min ?? 0);
     return span ? ((this.getRangeMin(f) - (f.min ?? 0)) / span) * 100 : 0;
@@ -128,7 +157,7 @@ export class PuiFilterPanelComponent implements OnChanges {
 
   onCheckbox(f: FilterDef, val: any, checked: boolean): void {
     const current: any[] = Array.isArray(this.values[f.id]) ? [...this.values[f.id]] : [];
-    const next = checked ? [...current, val] : current.filter(v => v !== val);
+    const next = checked ? [...current, val] : current.filter((v) => v !== val);
     this.emit({ ...this.values, [f.id]: next });
   }
 
@@ -176,7 +205,9 @@ export class PuiFilterPanelComponent implements OnChanges {
     this.cleared.emit();
   }
 
-  apply(): void { this.applied.emit({ ...this.values }); }
+  apply(): void {
+    this.applied.emit({ ...this.values });
+  }
 
   onReset(): void {
     this.values = {};

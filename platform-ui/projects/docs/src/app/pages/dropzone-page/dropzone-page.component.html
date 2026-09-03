@@ -1,26 +1,32 @@
-<docs-page title="Dropzone"
+<docs-page
+  title="Dropzone"
   description="Drag-and-drop file upload with click-to-browse, type/size validation, and a built-in file list — you drive the actual upload and progress, the component handles the interaction chrome. For a plain button-only picker, see the File Upload Button component."
-  [code]="angularCode" [hasFramework]="true" [api]="api">
-
+  [code]="angularCode"
+  [hasFramework]="true"
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Basic -->
     <div class="demo-section">
       <h3 class="demo-section__title">Basic</h3>
-      <p class="demo-section__desc">Drag files onto the area below, or click to browse. Any file type, multiple files allowed.</p>
+      <p class="demo-section__desc">
+        Drag files onto the area below, or click to browse. Any file type, multiple files allowed.
+      </p>
       <div class="demo-block">
         <pui-lib-dropzone
           [files]="basicFiles"
           (filesChange)="onBasicFilesChange($event)"
-          (rejected)="onRejected($event)">
+          (rejected)="onRejected($event)"
+        >
         </pui-lib-dropzone>
       </div>
     </div>
 
-    <!-- 2. Restricted type + size -->
     <div class="demo-section">
       <h3 class="demo-section__title">Restricted Type &amp; Size</h3>
-      <p class="demo-section__desc"><code>accept</code> limits to images; <code>maxSizeMB</code> rejects anything over 2 MB. Try dropping a non-image or a large file to see the rejection event.</p>
+      <p class="demo-section__desc">
+        <code>accept</code> limits to images; <code>maxSizeMB</code> rejects anything over 2 MB. Try
+        dropping a non-image or a large file to see the rejection event.
+      </p>
       <div class="demo-block">
         <pui-lib-dropzone
           label="Drop an image here"
@@ -30,42 +36,53 @@
           [multiple]="false"
           [files]="imageFiles"
           (filesChange)="onImageFilesChange($event)"
-          (rejected)="onRejected($event)">
+          (rejected)="onRejected($event)"
+        >
         </pui-lib-dropzone>
         <p class="demo-state demo-state--error" *ngIf="lastRejection">{{ lastRejection }}</p>
       </div>
     </div>
 
-    <!-- 3. File states -->
     <div class="demo-section">
       <h3 class="demo-section__title">Upload States</h3>
-      <p class="demo-section__desc">The file list reflects whatever <code>status</code>/<code>progress</code> you set on each <code>DropzoneFile</code> as your own upload logic runs — done, uploading (with a progress bar), and error are all shown here at once.</p>
+      <p class="demo-section__desc">
+        The file list reflects whatever <code>status</code>/<code>progress</code> you set on each
+        <code>DropzoneFile</code> as your own upload logic runs — done, uploading (with a progress
+        bar), and error are all shown here at once.
+      </p>
       <div class="demo-block">
-        <pui-lib-dropzone
-          [files]="progressFiles"
-          (fileRemove)="onProgressFileRemove($event)">
+        <pui-lib-dropzone [files]="progressFiles" (fileRemove)="onProgressFileRemove($event)">
         </pui-lib-dropzone>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
       <code>pui-lib-dropzone</code> is a Web Component — it works in Angular, React, and plain HTML
-      with no extra wrappers. <code>files</code> is an array, so set it as a JS property (not an HTML
-      attribute); the component never uploads anything itself — listen for <code>filesAdded</code> and
-      drive your own upload call, updating each file's <code>status</code>/<code>progress</code> as it runs.
+      with no extra wrappers. <code>files</code> is an array, so set it as a JS property (not an
+      HTML attribute); the component never uploads anything itself — listen for
+      <code>filesAdded</code> and drive your own upload call, updating each file's
+      <code>status</code>/<code>progress</code> as it runs.
     </p>
 
-    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-col">
-        <pui-lib-dropzone [files]="fwFiles" (filesChange)="onFwFilesChange($event)"></pui-lib-dropzone>
+        <pui-lib-dropzone
+          [files]="fwFiles"
+          (filesChange)="onFwFilesChange($event)"
+        ></pui-lib-dropzone>
       </div>
       <div react-preview class="demo-col">
-        <pui-lib-dropzone [files]="fwFiles" (filesChange)="onFwFilesChange($event)"></pui-lib-dropzone>
+        <pui-lib-dropzone
+          [files]="fwFiles"
+          (filesChange)="onFwFilesChange($event)"
+        ></pui-lib-dropzone>
       </div>
     </docs-framework-preview>
 
@@ -73,19 +90,30 @@
     <div class="xfw-wrap">
       <table class="xfw-table">
         <thead>
-          <tr><th>Input / Event</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr>
+          <tr>
+            <th>Input / Event</th>
+            <th>Angular</th>
+            <th>React / HTML attribute</th>
+            <th>JS property</th>
+          </tr>
         </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><code class="tag-name">{{ r.name }}</code></td>
-            <td><code class="tag-ng">{{ r.angular }}</code></td>
-            <td><code class="tag-html">{{ r.attr }}</code></td>
-            <td><code class="tag-js">{{ r.js }}</code></td>
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code class="tag-ng">{{ r.angular }}</code>
+            </td>
+            <td>
+              <code class="tag-html">{{ r.attr }}</code>
+            </td>
+            <td>
+              <code class="tag-js">{{ r.js }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>

@@ -1,85 +1,134 @@
+<div
+  class="pui-field"
+  [class.pui-field--error]="displayError"
+  [class.pui-field--disabled]="disabled"
+>
+  <label *ngIf="label" class="pui-field__label">
+    {{ label }}
+    <span *ngIf="required" class="pui-field__req">*</span>
+  </label>
 
-    <div class="pui-field" [class.pui-field--error]="displayError" [class.pui-field--disabled]="disabled">
+  <div
+    class="pui-input-wrap"
+    [class.pui-input-wrap--sm]="size === 'sm'"
+    [class.pui-input-wrap--lg]="size === 'lg'"
+    [class.pui-input-wrap--focus]="isFocused"
+    [class.pui-input-wrap--error]="displayError"
+    [class.pui-input-wrap--disabled]="disabled"
+    [class.pui-input-wrap--readonly]="readonly"
+  >
+    <span
+      *ngIf="prefixIcon"
+      class="pui-input-wrap__icon pui-input-wrap__icon--pre"
+      [innerHTML]="prefixIcon"
+    ></span>
 
-      <label *ngIf="label" class="pui-field__label">
-        {{ label }}
-        <span *ngIf="required" class="pui-field__req">*</span>
-      </label>
+    <input
+      #inputEl
+      class="pui-input"
+      [type]="showPass ? 'text' : type"
+      [placeholder]="placeholder"
+      [disabled]="disabled"
+      [readOnly]="readonly"
+      [value]="innerValue"
+      [attr.maxlength]="maxLength || null"
+      [attr.autocomplete]="autocomplete"
+      (input)="onInput($any($event.target).value)"
+      (blur)="onBlur()"
+      (focus)="onFocus()"
+    />
 
-      <div class="pui-input-wrap"
-           [class.pui-input-wrap--sm]="size === 'sm'"
-           [class.pui-input-wrap--lg]="size === 'lg'"
-           [class.pui-input-wrap--focus]="isFocused"
-           [class.pui-input-wrap--error]="displayError"
-           [class.pui-input-wrap--disabled]="disabled"
-           [class.pui-input-wrap--readonly]="readonly">
+    <span *ngIf="showCount && maxLength" class="pui-input-wrap__count">
+      {{ (innerValue || '').length }}/{{ maxLength }}
+    </span>
 
-        <span *ngIf="prefixIcon" class="pui-input-wrap__icon pui-input-wrap__icon--pre"
-              [innerHTML]="prefixIcon"></span>
+    <button
+      *ngIf="clearable && innerValue && !disabled && !readonly"
+      class="pui-input-wrap__action"
+      type="button"
+      tabindex="-1"
+      (mousedown)="clear($event)"
+    >
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <path
+          d="M4 4l8 8M12 4l-8 8"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+        />
+      </svg>
+    </button>
 
-        <input #inputEl
-               class="pui-input"
-               [type]="showPass ? 'text' : type"
-               [placeholder]="placeholder"
-               [disabled]="disabled"
-               [readOnly]="readonly"
-               [value]="innerValue"
-               [attr.maxlength]="maxLength || null"
-               [attr.autocomplete]="autocomplete"
-               (input)="onInput($any($event.target).value)"
-               (blur)="onBlur()"
-               (focus)="onFocus()"/>
+    <button
+      *ngIf="type === 'password' && !disabled"
+      class="pui-input-wrap__action"
+      type="button"
+      tabindex="-1"
+      (mousedown)="togglePass($event)"
+    >
+      <svg
+        *ngIf="!showPass"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+        <circle cx="12" cy="12" r="3" />
+      </svg>
+      <svg
+        *ngIf="showPass"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path
+          d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"
+        />
+        <line x1="1" y1="1" x2="23" y2="23" />
+      </svg>
+    </button>
 
-        <span *ngIf="showCount && maxLength" class="pui-input-wrap__count">
-          {{ (innerValue || '').length }}/{{ maxLength }}
-        </span>
+    <span
+      *ngIf="suffixIcon && type !== 'password'"
+      class="pui-input-wrap__icon pui-input-wrap__icon--suf"
+      [innerHTML]="suffixIcon"
+    ></span>
 
-        <button *ngIf="clearable && innerValue && !disabled && !readonly"
-                class="pui-input-wrap__action"
-                type="button"
-                tabindex="-1"
-                (mousedown)="clear($event)">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-            <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8"
-                  stroke-linecap="round"/>
-          </svg>
-        </button>
+    <span *ngIf="displayError" class="pui-input-wrap__icon pui-input-wrap__icon--err">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+        <circle cx="12" cy="12" r="10" fill="var(--pui-error)" />
+        <path
+          d="M12 8v4M12 16h.01"
+          stroke="var(--pui-white)"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+    </span>
+  </div>
 
-        <button *ngIf="type === 'password' && !disabled"
-                class="pui-input-wrap__action"
-                type="button"
-                tabindex="-1"
-                (mousedown)="togglePass($event)">
-          <svg *ngIf="!showPass" width="16" height="16" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-            <circle cx="12" cy="12" r="3"/>
-          </svg>
-          <svg *ngIf="showPass" width="16" height="16" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
-            <line x1="1" y1="1" x2="23" y2="23"/>
-          </svg>
-        </button>
+  <span *ngIf="hint && !displayError" class="pui-field__hint">{{ hint }}</span>
 
-        <span *ngIf="suffixIcon && type !== 'password'" class="pui-input-wrap__icon pui-input-wrap__icon--suf"
-              [innerHTML]="suffixIcon"></span>
-
-        <span *ngIf="displayError" class="pui-input-wrap__icon pui-input-wrap__icon--err">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="10" fill="var(--pui-error)"/>
-            <path d="M12 8v4M12 16h.01" stroke="var(--pui-white)" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </span>
-      </div>
-
-      <span *ngIf="hint && !displayError" class="pui-field__hint">{{ hint }}</span>
-
-      <span *ngIf="displayError" class="pui-field__error">
-        <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
-          <circle cx="8" cy="8" r="7" fill="var(--pui-error)"/>
-          <path d="M8 5v3M8 10.5h.01" stroke="var(--pui-white)" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>
-        {{ displayError }}
-      </span>
-    </div>
+  <span *ngIf="displayError" class="pui-field__error">
+    <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+      <circle cx="8" cy="8" r="7" fill="var(--pui-error)" />
+      <path
+        d="M8 5v3M8 10.5h.01"
+        stroke="var(--pui-white)"
+        stroke-width="1.6"
+        stroke-linecap="round"
+      />
+    </svg>
+    {{ displayError }}
+  </span>
+</div>

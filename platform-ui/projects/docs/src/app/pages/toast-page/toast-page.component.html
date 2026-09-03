@@ -1,166 +1,183 @@
+<docs-page
+  title="Toast"
+  description="Lightweight notification service — 4 types, soft &amp; filled fill styles, 6 positions, hover-pause, action buttons, and configurable auto-dismiss. Add &lt;pui-lib-toast-container&gt; once in your app root. In React and plain HTML use the global window.puiToast API exposed by the elements bundle."
+  [hasFramework]="true"
+  [api]="api"
+>
+  <ng-container demo>
+    <div class="demo-label"><span>Style</span></div>
+    <div class="action-row">
+      <button
+        class="action-card"
+        [class.action-card--active]="activeVariant === 'soft'"
+        (click)="setVariant('soft')"
+      >
+        <span>Soft — tinted background</span>
+      </button>
+      <button
+        class="action-card"
+        [class.action-card--active]="activeVariant === 'filled'"
+        (click)="setVariant('filled')"
+      >
+        <span>Filled — solid colour</span>
+      </button>
+    </div>
 
-    <docs-page
-      title="Toast"
-      description="Lightweight notification service — 4 types, soft &amp; filled fill styles, 6 positions, hover-pause, action buttons, and configurable auto-dismiss. Add &lt;pui-lib-toast-container&gt; once in your app root. In React and plain HTML use the global window.puiToast API exposed by the elements bundle."
-      [hasFramework]="true"
-      [api]="api">
+    <div class="demo-label"><span>Toast Types</span></div>
+    <div class="type-grid">
+      <button class="type-btn type-btn--success" (click)="showSuccess()">
+        <span class="type-dot type-dot--success"></span>
+        <span class="type-lbl">Success</span>
+        <code class="type-hint">toast.success()</code>
+      </button>
+      <button class="type-btn type-btn--error" (click)="showError()">
+        <span class="type-dot type-dot--error"></span>
+        <span class="type-lbl">Error</span>
+        <code class="type-hint">toast.error()</code>
+      </button>
+      <button class="type-btn type-btn--warning" (click)="showWarning()">
+        <span class="type-dot type-dot--warning"></span>
+        <span class="type-lbl">Warning</span>
+        <code class="type-hint">toast.warning()</code>
+      </button>
+      <button class="type-btn type-btn--info" (click)="showInfo()">
+        <span class="type-dot type-dot--info"></span>
+        <span class="type-lbl">Info</span>
+        <code class="type-hint">toast.info()</code>
+      </button>
+    </div>
 
-      <!-- ── DEMO ──────────────────────────────────────────────────── -->
-      <ng-container demo>
+    <div class="demo-label"><span>Title &amp; Action Button</span></div>
+    <div class="action-row">
+      <button class="action-card" (click)="showWithTitle()">
+        <span class="action-icon action-icon--green">T</span>
+        <span>With Title</span>
+      </button>
+      <button class="action-card" (click)="showWithAction()">
+        <span class="action-icon action-icon--blue">&#8617;</span>
+        <span>With Undo Action</span>
+      </button>
+      <button class="action-card" (click)="showPersistent()">
+        <span class="action-icon action-icon--gray">&#8734;</span>
+        <span>Persistent (no auto-dismiss)</span>
+      </button>
+    </div>
 
-        <div class="demo-label"><span>Style</span></div>
-        <div class="action-row">
-          <button class="action-card" [class.action-card--active]="activeVariant === 'soft'" (click)="setVariant('soft')">
-            <span>Soft — tinted background</span>
-          </button>
-          <button class="action-card" [class.action-card--active]="activeVariant === 'filled'" (click)="setVariant('filled')">
-            <span>Filled — solid colour</span>
-          </button>
-        </div>
+    <div class="demo-label"><span>Screen Positions — click a corner</span></div>
+    <div class="pos-diagram">
+      <button class="pos-btn pos-btn--tl" (click)="at('top-left')">top-left</button>
+      <button class="pos-btn pos-btn--tc" (click)="at('top-center')">top-center</button>
+      <button class="pos-btn pos-btn--tr" (click)="at('top-right')">top-right</button>
+      <div class="pos-screen">
+        <svg width="44" height="30" viewBox="0 0 44 30" fill="none">
+          <rect x="1" y="1" width="42" height="24" rx="3" stroke="#d1d5db" stroke-width="1.5" />
+          <rect x="15" y="26" width="14" height="2.5" rx="1" fill="#d1d5db" />
+          <rect x="4" y="5" width="16" height="2" rx="1" fill="#e5e7eb" />
+          <rect x="4" y="9" width="26" height="1.5" rx="1" fill="#f3f4f6" />
+          <rect x="4" y="12" width="20" height="1.5" rx="1" fill="#f3f4f6" />
+        </svg>
+        <span class="pos-screen__lbl">Screen</span>
+      </div>
+      <button class="pos-btn pos-btn--bl" (click)="at('bottom-left')">bottom-left</button>
+      <button class="pos-btn pos-btn--bc" (click)="at('bottom-center')">bottom-center</button>
+      <button class="pos-btn pos-btn--br" (click)="at('bottom-right')">bottom-right</button>
+    </div>
 
-        <div class="demo-label"><span>Toast Types</span></div>
+    <div class="demo-label"><span>Duration</span></div>
+    <div class="dur-row">
+      <button class="dur-btn" (click)="dur(1000)"><span class="dur-t">1s</span>Fast</button>
+      <button class="dur-btn" (click)="dur(4000)"><span class="dur-t">4s</span>Default</button>
+      <button class="dur-btn" (click)="dur(10000)"><span class="dur-t">10s</span>Slow</button>
+      <button class="dur-btn dur-btn--dismiss" (click)="toast.dismissAll()">Dismiss all</button>
+    </div>
+  </ng-container>
+
+  <ng-container framework>
+    <h2 class="fw-title">Framework Usage</h2>
+    <p class="fw-lead">
+      Toast is <strong>service-driven</strong>. In Angular inject <code>ToastService</code>. In
+      React and plain HTML the elements bundle exposes <code>window.puiToast</code> — a global API
+      with the same methods. In all cases place <code>&lt;pui-lib-toast-container&gt;</code> once in
+      your app root.
+    </p>
+
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode"
+    >
+      <div preview class="demo-col">
+        <p style="font-size: 13px; color: var(--docs-fg-muted); margin: 0 0 12px">
+          Trigger toasts using <code>ToastService</code> in Angular:
+        </p>
         <div class="type-grid">
           <button class="type-btn type-btn--success" (click)="showSuccess()">
             <span class="type-dot type-dot--success"></span>
             <span class="type-lbl">Success</span>
-            <code class="type-hint">toast.success()</code>
           </button>
           <button class="type-btn type-btn--error" (click)="showError()">
             <span class="type-dot type-dot--error"></span>
             <span class="type-lbl">Error</span>
-            <code class="type-hint">toast.error()</code>
           </button>
           <button class="type-btn type-btn--warning" (click)="showWarning()">
             <span class="type-dot type-dot--warning"></span>
             <span class="type-lbl">Warning</span>
-            <code class="type-hint">toast.warning()</code>
           </button>
           <button class="type-btn type-btn--info" (click)="showInfo()">
             <span class="type-dot type-dot--info"></span>
             <span class="type-lbl">Info</span>
-            <code class="type-hint">toast.info()</code>
           </button>
         </div>
-
-        <div class="demo-label"><span>Title &amp; Action Button</span></div>
-        <div class="action-row">
-          <button class="action-card" (click)="showWithTitle()">
-            <span class="action-icon action-icon--green">T</span>
-            <span>With Title</span>
-          </button>
-          <button class="action-card" (click)="showWithAction()">
-            <span class="action-icon action-icon--blue">&#8617;</span>
-            <span>With Undo Action</span>
-          </button>
-          <button class="action-card" (click)="showPersistent()">
-            <span class="action-icon action-icon--gray">&#8734;</span>
-            <span>Persistent (no auto-dismiss)</span>
-          </button>
-        </div>
-
-        <div class="demo-label"><span>Screen Positions — click a corner</span></div>
-        <div class="pos-diagram">
-          <button class="pos-btn pos-btn--tl"  (click)="at('top-left')">top-left</button>
-          <button class="pos-btn pos-btn--tc"  (click)="at('top-center')">top-center</button>
-          <button class="pos-btn pos-btn--tr"  (click)="at('top-right')">top-right</button>
-          <div class="pos-screen">
-            <svg width="44" height="30" viewBox="0 0 44 30" fill="none">
-              <rect x="1" y="1" width="42" height="24" rx="3" stroke="#d1d5db" stroke-width="1.5"/>
-              <rect x="15" y="26" width="14" height="2.5" rx="1" fill="#d1d5db"/>
-              <rect x="4" y="5"  width="16" height="2" rx="1" fill="#e5e7eb"/>
-              <rect x="4" y="9"  width="26" height="1.5" rx="1" fill="#f3f4f6"/>
-              <rect x="4" y="12" width="20" height="1.5" rx="1" fill="#f3f4f6"/>
-            </svg>
-            <span class="pos-screen__lbl">Screen</span>
-          </div>
-          <button class="pos-btn pos-btn--bl"  (click)="at('bottom-left')">bottom-left</button>
-          <button class="pos-btn pos-btn--bc"  (click)="at('bottom-center')">bottom-center</button>
-          <button class="pos-btn pos-btn--br"  (click)="at('bottom-right')">bottom-right</button>
-        </div>
-
-        <div class="demo-label"><span>Duration</span></div>
-        <div class="dur-row">
-          <button class="dur-btn" (click)="dur(1000)"><span class="dur-t">1s</span>Fast</button>
-          <button class="dur-btn" (click)="dur(4000)"><span class="dur-t">4s</span>Default</button>
-          <button class="dur-btn" (click)="dur(10000)"><span class="dur-t">10s</span>Slow</button>
-          <button class="dur-btn dur-btn--dismiss" (click)="toast.dismissAll()">Dismiss all</button>
-        </div>
-
-      </ng-container>
-
-      <!-- ── FRAMEWORK USAGE ──────────────────────────────────────── -->
-      <ng-container framework>
-
-        <h2 class="fw-title">Framework Usage</h2>
-        <p class="fw-lead">
-          Toast is <strong>service-driven</strong>. In Angular inject <code>ToastService</code>.
-          In React and plain HTML the elements bundle exposes <code>window.puiToast</code> — a global API
-          with the same methods. In all cases place <code>&lt;pui-lib-toast-container&gt;</code> once in your app root.
+      </div>
+      <div react-preview class="demo-col">
+        <p style="font-size: 13px; color: var(--docs-fg-muted); margin: 0 0 12px">
+          Same toasts via <code>window.puiToast</code> in React:
         </p>
-
-        <docs-framework-preview
-          [angularCode]="angularCode"
-          [reactCode]="reactCode"
-          [htmlCode]="htmlCode">
-          <div preview class="demo-col">
-            <p style="font-size:13px;color:var(--docs-fg-muted);margin:0 0 12px">Trigger toasts using <code>ToastService</code> in Angular:</p>
-            <div class="type-grid">
-              <button class="type-btn type-btn--success" (click)="showSuccess()">
-                <span class="type-dot type-dot--success"></span>
-                <span class="type-lbl">Success</span>
-              </button>
-              <button class="type-btn type-btn--error" (click)="showError()">
-                <span class="type-dot type-dot--error"></span>
-                <span class="type-lbl">Error</span>
-              </button>
-              <button class="type-btn type-btn--warning" (click)="showWarning()">
-                <span class="type-dot type-dot--warning"></span>
-                <span class="type-lbl">Warning</span>
-              </button>
-              <button class="type-btn type-btn--info" (click)="showInfo()">
-                <span class="type-dot type-dot--info"></span>
-                <span class="type-lbl">Info</span>
-              </button>
-            </div>
-          </div>
-          <div react-preview class="demo-col">
-            <p style="font-size:13px;color:var(--docs-fg-muted);margin:0 0 12px">Same toasts via <code>window.puiToast</code> in React:</p>
-            <div class="type-grid">
-              <button class="type-btn type-btn--success" (click)="showSuccess()">
-                <span class="type-dot type-dot--success"></span>
-                <span class="type-lbl">Success</span>
-              </button>
-              <button class="type-btn type-btn--error" (click)="showError()">
-                <span class="type-dot type-dot--error"></span>
-                <span class="type-lbl">Error</span>
-              </button>
-              <button class="type-btn type-btn--warning" (click)="showWithAction()">
-                <span class="type-dot type-dot--warning"></span>
-                <span class="type-lbl">With Undo</span>
-              </button>
-              <button class="type-btn type-btn--info" (click)="showPersistent()">
-                <span class="type-dot type-dot--info"></span>
-                <span class="type-lbl">Persistent</span>
-              </button>
-            </div>
-          </div>
-        </docs-framework-preview>
-
-        <h3 class="fw-ref-title">API Comparison — Angular service vs global API</h3>
-        <div class="xfw-wrap">
-          <table class="xfw-table">
-            <thead><tr><th>Operation</th><th>Angular (ToastService)</th><th>React / Plain HTML (window.puiToast)</th></tr></thead>
-            <tbody>
-          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
-                <td><code class="tag-name">{{ r.name }}</code></td>
-                <td><code class="tag-ng">{{ r.angular }}</code></td>
-                <td><code class="tag-html">{{ r.html }}</code></td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="type-grid">
+          <button class="type-btn type-btn--success" (click)="showSuccess()">
+            <span class="type-dot type-dot--success"></span>
+            <span class="type-lbl">Success</span>
+          </button>
+          <button class="type-btn type-btn--error" (click)="showError()">
+            <span class="type-dot type-dot--error"></span>
+            <span class="type-lbl">Error</span>
+          </button>
+          <button class="type-btn type-btn--warning" (click)="showWithAction()">
+            <span class="type-dot type-dot--warning"></span>
+            <span class="type-lbl">With Undo</span>
+          </button>
+          <button class="type-btn type-btn--info" (click)="showPersistent()">
+            <span class="type-dot type-dot--info"></span>
+            <span class="type-lbl">Persistent</span>
+          </button>
         </div>
+      </div>
+    </docs-framework-preview>
 
-      </ng-container>
-
-    </docs-page>
-
+    <h3 class="fw-ref-title">API Comparison — Angular service vs global API</h3>
+    <div class="xfw-wrap">
+      <table class="xfw-table">
+        <thead>
+          <tr>
+            <th>Operation</th>
+            <th>Angular (ToastService)</th>
+            <th>React / Plain HTML (window.puiToast)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of xfwRows; let odd = odd; trackBy: trackByIndex" [class.xfw-odd]="odd">
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code class="tag-ng">{{ r.angular }}</code>
+            </td>
+            <td>
+              <code class="tag-html">{{ r.html }}</code>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-container>
+</docs-page>

@@ -1,50 +1,60 @@
-<docs-page title="Accordion"
+<docs-page
+  title="Accordion"
   description="Expandable content panels for FAQs, settings, and progressively-revealed content. CSS-animated, two visual variants, optional icons, and multi-open mode."
-  [code]="angularCode" [hasFramework]="true" [api]="api">
-
+  [code]="angularCode"
+  [hasFramework]="true"
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Default Variant — with icons -->
     <div class="demo-section">
       <h3 class="demo-section__title">Default Variant — With Icons</h3>
-      <p class="demo-section__desc">Card-style panels separated by a gap. The open row's header tints with the brand-light token and its icon becomes a solid brand chip. Good for FAQ lists and content pages.</p>
+      <p class="demo-section__desc">
+        Card-style panels separated by a gap. The open row's header tints with the brand-light token
+        and its icon becomes a solid brand chip. Good for FAQ lists and content pages.
+      </p>
       <div class="demo-block">
         <pui-lib-accordion
           [items]="faqItems"
           [openIds]="defaultOpen"
-          (openIdsChange)="onOpenChange($event, 'default')">
+          (openIdsChange)="onOpenChange($event, 'default')"
+        >
         </pui-lib-accordion>
       </div>
     </div>
 
-    <!-- 2. Default Variant — without icons -->
     <div class="demo-section">
       <h3 class="demo-section__title">Default Variant — Without Icons</h3>
-      <p class="demo-section__desc">Omit <code>icon</code> on each item and the badge column disappears automatically.</p>
+      <p class="demo-section__desc">
+        Omit <code>icon</code> on each item and the badge column disappears automatically.
+      </p>
       <div class="demo-block">
         <pui-lib-accordion
           [items]="faqItemsNoIcon"
           [openIds]="noIconOpen"
-          (openIdsChange)="onOpenChange($event, 'noIcon')">
+          (openIdsChange)="onOpenChange($event, 'noIcon')"
+        >
         </pui-lib-accordion>
       </div>
     </div>
 
-    <!-- 3. Bordered Variant — with icons + subtitle -->
     <div class="demo-section">
       <h3 class="demo-section__title">Bordered Variant — With Icons</h3>
-      <p class="demo-section__desc">Single outer border with internal dividers. Icon renders as a circular tinted badge. Add a <code>subtitle</code> to show a permanent teaser line under the title. Compact and settings-panel appropriate.</p>
+      <p class="demo-section__desc">
+        Single outer border with internal dividers. Icon renders as a circular tinted badge. Add a
+        <code>subtitle</code> to show a permanent teaser line under the title. Compact and
+        settings-panel appropriate.
+      </p>
       <div class="demo-block">
         <pui-lib-accordion
           [items]="settingsItems"
           variant="bordered"
           [openIds]="borderedOpen"
-          (openIdsChange)="onOpenChange($event, 'bordered')">
+          (openIdsChange)="onOpenChange($event, 'bordered')"
+        >
         </pui-lib-accordion>
       </div>
     </div>
 
-    <!-- 4. Bordered Variant — without icons -->
     <div class="demo-section">
       <h3 class="demo-section__title">Bordered Variant — Without Icons</h3>
       <p class="demo-section__desc">Same flat settings-list layout, no icon badge column.</p>
@@ -53,53 +63,64 @@
           [items]="settingsItemsNoIcon"
           variant="bordered"
           [openIds]="borderedNoIconOpen"
-          (openIdsChange)="onOpenChange($event, 'borderedNoIcon')">
+          (openIdsChange)="onOpenChange($event, 'borderedNoIcon')"
+        >
         </pui-lib-accordion>
       </div>
     </div>
 
-    <!-- 5. Allow Multiple -->
     <div class="demo-section">
       <h3 class="demo-section__title">Multiple Open Simultaneously</h3>
-      <p class="demo-section__desc">By default only one panel can be open. Set <code>[allowMultiple]="true"</code> to allow any number.</p>
+      <p class="demo-section__desc">
+        By default only one panel can be open. Set <code>[allowMultiple]="true"</code> to allow any
+        number.
+      </p>
       <div class="demo-block">
         <pui-lib-accordion
           [items]="multiItems"
           [allowMultiple]="true"
           [openIds]="multiOpen"
-          (openIdsChange)="onOpenChange($event, 'multi')">
+          (openIdsChange)="onOpenChange($event, 'multi')"
+        >
         </pui-lib-accordion>
-        <p class="demo-state">Open: <strong>{{ multiOpen.join(', ') || 'none' }}</strong></p>
+        <p class="demo-state">
+          Open: <strong>{{ multiOpen.join(', ') || 'none' }}</strong>
+        </p>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
       <code>pui-lib-accordion</code> is a Web Component — it works in Angular, React, and plain HTML
       with no extra wrappers. <code>items</code> and <code>openIds</code> are objects/arrays, so set
-      them as JS properties (not HTML attributes); <code>variant</code> and <code>allowMultiple</code>
+      them as JS properties (not HTML attributes); <code>variant</code> and
+      <code>allowMultiple</code>
       work as plain attributes; events are standard DOM CustomEvents.
     </p>
 
-    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
-      <div preview style="max-width:480px">
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode"
+    >
+      <div preview style="max-width: 480px">
         <pui-lib-accordion
           [items]="fwItems"
           variant="bordered"
           [openIds]="fwOpen"
-          (openIdsChange)="onOpenChange($event, 'fw')">
+          (openIdsChange)="onOpenChange($event, 'fw')"
+        >
         </pui-lib-accordion>
       </div>
-      <div react-preview style="max-width:480px">
+      <div react-preview style="max-width: 480px">
         <pui-lib-accordion
           [items]="fwItems"
           variant="bordered"
           [openIds]="fwOpen"
-          (openIdsChange)="onOpenChange($event, 'fw')">
+          (openIdsChange)="onOpenChange($event, 'fw')"
+        >
         </pui-lib-accordion>
       </div>
     </docs-framework-preview>
@@ -117,15 +138,21 @@
         </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><span class="tag-name">{{ r.name }}</span></td>
-            <td><span class="tag-ng">{{ r.angular }}</span></td>
-            <td><span class="tag-html">{{ r.attr }}</span></td>
-            <td><span class="tag-js">{{ r.js }}</span></td>
+            <td>
+              <span class="tag-name">{{ r.name }}</span>
+            </td>
+            <td>
+              <span class="tag-ng">{{ r.angular }}</span>
+            </td>
+            <td>
+              <span class="tag-html">{{ r.attr }}</span>
+            </td>
+            <td>
+              <span class="tag-js">{{ r.js }}</span>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>

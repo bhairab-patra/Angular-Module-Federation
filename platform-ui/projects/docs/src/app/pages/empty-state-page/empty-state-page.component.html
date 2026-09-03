@@ -1,19 +1,24 @@
-<docs-page title="Empty State"
+<docs-page
+  title="Empty State"
   description="A consistent placeholder for empty lists, empty search results, and error states — icon, title, description, and optional action buttons. Theme-aware, works everywhere the same pattern is needed."
-  [code]="angularCode" [hasFramework]="true" [api]="api">
-
+  [code]="angularCode"
+  [hasFramework]="true"
+  [api]="api"
+>
   <ng-container demo>
-
-    <!-- 1. Common scenarios -->
     <div class="demo-section">
       <h3 class="demo-section__title">Common Scenarios</h3>
-      <p class="demo-section__desc">The same component covers "no data yet", "no search results", and error states — just swap the icon, title, and description.</p>
+      <p class="demo-section__desc">
+        The same component covers "no data yet", "no search results", and error states — just swap
+        the icon, title, and description.
+      </p>
       <div class="es-grid">
         <div class="es-card">
           <pui-lib-empty-state
             icon="inbox"
             title="No borrowers yet"
-            description="Add your first borrower to start tracking loans and statements.">
+            description="Add your first borrower to start tracking loans and statements."
+          >
             <button actions class="es-btn es-btn--primary">Add Borrower</button>
           </pui-lib-empty-state>
         </div>
@@ -21,7 +26,8 @@
           <pui-lib-empty-state
             icon="search-off"
             title="No results found"
-            description="Try adjusting your filters or search terms.">
+            description="Try adjusting your filters or search terms."
+          >
             <button actions class="es-btn">Clear Filters</button>
           </pui-lib-empty-state>
         </div>
@@ -29,49 +35,76 @@
           <pui-lib-empty-state
             icon="warning"
             title="Couldn't load statements"
-            description="Something went wrong on our end. Please try again.">
+            description="Something went wrong on our end. Please try again."
+          >
             <button actions class="es-btn es-btn--primary">Retry</button>
           </pui-lib-empty-state>
         </div>
       </div>
     </div>
 
-    <!-- 2. Sizes -->
     <div class="demo-section">
       <h3 class="demo-section__title">Sizes</h3>
-      <p class="demo-section__desc"><code>sm</code> fits inside a card or table body; <code>lg</code> suits a full empty page.</p>
+      <p class="demo-section__desc">
+        <code>sm</code> fits inside a card or table body; <code>lg</code> suits a full empty page.
+      </p>
       <div class="es-grid es-grid--sizes">
         <div class="es-card">
-          <pui-lib-empty-state size="sm" icon="inbox" title="No items" description="Nothing to show here."></pui-lib-empty-state>
+          <pui-lib-empty-state
+            size="sm"
+            icon="inbox"
+            title="No items"
+            description="Nothing to show here."
+          ></pui-lib-empty-state>
         </div>
         <div class="es-card">
-          <pui-lib-empty-state size="md" icon="inbox" title="No items" description="Nothing to show here."></pui-lib-empty-state>
+          <pui-lib-empty-state
+            size="md"
+            icon="inbox"
+            title="No items"
+            description="Nothing to show here."
+          ></pui-lib-empty-state>
         </div>
         <div class="es-card">
-          <pui-lib-empty-state size="lg" icon="inbox" title="No items" description="Nothing to show here."></pui-lib-empty-state>
+          <pui-lib-empty-state
+            size="lg"
+            icon="inbox"
+            title="No items"
+            description="Nothing to show here."
+          ></pui-lib-empty-state>
         </div>
       </div>
     </div>
-
   </ng-container>
 
   <ng-container framework>
-
     <h2 class="fw-title">Framework Usage</h2>
     <p class="fw-lead">
-      <code>pui-lib-empty-state</code> is a Web Component — it works in Angular, React, and plain HTML
-      with no extra wrappers. All inputs are plain strings, so they work as regular HTML attributes
-      in every framework.
+      <code>pui-lib-empty-state</code> is a Web Component — it works in Angular, React, and plain
+      HTML with no extra wrappers. All inputs are plain strings, so they work as regular HTML
+      attributes in every framework.
     </p>
 
-    <docs-framework-preview [angularCode]="angularCode" [reactCode]="reactCode" [htmlCode]="htmlCode">
+    <docs-framework-preview
+      [angularCode]="angularCode"
+      [reactCode]="reactCode"
+      [htmlCode]="htmlCode"
+    >
       <div preview class="demo-col">
-        <pui-lib-empty-state icon="inbox" title="No borrowers yet" description="Add your first borrower to start tracking loans and statements.">
+        <pui-lib-empty-state
+          icon="inbox"
+          title="No borrowers yet"
+          description="Add your first borrower to start tracking loans and statements."
+        >
           <button actions class="es-btn es-btn--primary">Add Borrower</button>
         </pui-lib-empty-state>
       </div>
       <div react-preview class="demo-col">
-        <pui-lib-empty-state icon="inbox" title="No borrowers yet" description="Add your first borrower to start tracking loans and statements.">
+        <pui-lib-empty-state
+          icon="inbox"
+          title="No borrowers yet"
+          description="Add your first borrower to start tracking loans and statements."
+        >
           <button actions class="es-btn es-btn--primary">Add Borrower</button>
         </pui-lib-empty-state>
       </div>
@@ -81,19 +114,30 @@
     <div class="xfw-wrap">
       <table class="xfw-table">
         <thead>
-          <tr><th>Input</th><th>Angular</th><th>React / HTML attribute</th><th>JS property</th></tr>
+          <tr>
+            <th>Input</th>
+            <th>Angular</th>
+            <th>React / HTML attribute</th>
+            <th>JS property</th>
+          </tr>
         </thead>
         <tbody>
           <tr *ngFor="let r of xfwRows; trackBy: trackByIndex">
-            <td><code class="tag-name">{{ r.name }}</code></td>
-            <td><code class="tag-ng">{{ r.angular }}</code></td>
-            <td><code class="tag-html">{{ r.attr }}</code></td>
-            <td><code class="tag-js">{{ r.js }}</code></td>
+            <td>
+              <code class="tag-name">{{ r.name }}</code>
+            </td>
+            <td>
+              <code class="tag-ng">{{ r.angular }}</code>
+            </td>
+            <td>
+              <code class="tag-html">{{ r.attr }}</code>
+            </td>
+            <td>
+              <code class="tag-js">{{ r.js }}</code>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-
   </ng-container>
-
 </docs-page>

@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ButtonVariant, ButtonSize } from '../models/button.model';
 import { IconInternalComponent } from '../icon/icon-internal.component';
 import { IconSize } from '../icon/icon.component';
@@ -6,8 +13,6 @@ import { PuiCustomCssDirective } from '../pui-custom-css.directive';
 
 export type IconButtonShape = 'circle' | 'square';
 
-/** Icon scales up with the button so it always fills a consistent, legible
- * proportion of the button — a hardcoded icon size looked tiny inside lg. */
 const ICON_SIZE_MAP: Record<ButtonSize, IconSize> = {
   sm: 'md',
   md: 'lg',
@@ -31,7 +36,7 @@ export class IconButtonComponent {
   @Input() shape: IconButtonShape = 'circle';
   @Input() disabled = false;
   @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  /** Required for a11y — icon-only buttons have no visible text. */
+
   @Input() ariaLabel = '';
 
   @Output() buttonClick = new EventEmitter<MouseEvent>();
